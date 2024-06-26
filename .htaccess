@@ -1,0 +1,27 @@
+RewriteEngine on
+
+RewriteRule ^store/products/([0-9a-zA-Z-]+)$ store/products.php?purl=$1 [NC,L]
+RewriteRule ^store/category/([0-9a-zA-Z-]+)$ store/category.php?curl=$1 [NC,L]
+RewriteRule ^store/brand/([0-9a-zA-Z-]+)$ store/brand.php?url=$1 [NC,L]
+RewriteRule ^store/account-address/([0-9a-zA-Z]+)$ store/account-address.php?edit=$1 [NC,L]
+RewriteRule ^store/verified/([0-9a-zA-Z]+)$ store/verified.php?vericode=$1 [NC,L]
+RewriteRule ^store/tracker/([0-9a-zA-Z-]+)$ store/tracker.php?ordercode=$1 [NC,L]
+
+
+RewriteRule ^gpmin/orders/([0-9a-zA-Z-]+)$ gpmin/orders.php?txn_id=$1 [NC,L]
+RewriteRule ^gpmin/category/([0-9a-zA-Z-]+)$ gpmin/category.php?edit=$1 [NC,L]
+RewriteRule ^gpmin/contacts/([0-9a-zA-Z-]+)$ gpmin/contacts.php?view=$1 [NC,L]
+RewriteRule ^gpmin/users/([0-9a-zA-Z-]+)$ gpmin/users.php?view=$1 [NC,L]
+
+
+RewriteCond %{REQUEST_FILENAME} !-d
+
+RewriteCond %{REQUEST_FILENAME}\.php -f
+
+RewriteRule ^(.*)$ $1.php
+
+RewriteCond $1 !^(media|gpmin|store|helpers|fonts|dist|controller|connection|robots\.txt)
+
+RewriteRule ^([^\.]+)$ $1.php [NC,L]
+
+#ErrorDocument 404 http://127.0.0.1/garypie/404.php
