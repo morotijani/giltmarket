@@ -124,7 +124,162 @@
 											</div>
 										</div>
 									</div>
-										<div class="col-md col-sm-6"><div class="card border-primary-hover"><div class="card-body p-4"><div class="d-flex align-items-center gap-2"><img src="../../img/crypto/icon/eos.svg" class="w-rem-5 flex-none" alt="..."> <a href="/pages/page-details.html" class="h6 stretched-link">EOS</a></div><div class="text-sm fw-semibold mt-3">7.890,00 EOS</div><div class="d-flex align-items-center gap-2 mt-1 text-xs"><span class="badge badge-xs bg-danger"><i class="bi bi-arrow-up-right"></i> </span><span>-2.2%</span></div></div></div></div><div class="col-md-1 d-none d-md-block"><div class="card h-md-100 d-flex flex-column align-items-center justify-content-center py-4 bg-body-secondary bg-opacity-75 bg-opacity-100-hover"><a href="#cryptoModal" class="stretched-link text-body-secondary" data-bs-toggle="modal"><i class="bi bi-plus-lg"></i></a></div></div></div><div class="card"><div class="card-body pb-0"><div class="d-flex justify-content-between align-items-center"><div><h5>Earnings</h5></div><div class="hstack align-items-center"><a href="#" class="text-muted"><i class="bi bi-arrow-repeat"></i></a></div></div><div class="mx-n4"><div id="chart-users" data-height="270"></div></div></div></div><div class="card"><div class="card-body pb-0"><div class="d-flex justify-content-between align-items-center"><div><h5>Transaction History</h5></div><div class="hstack align-items-center"><a href="#" class="text-muted"><i class="bi bi-arrow-repeat"></i></a></div></div><div class="list-group list-group-flush"><div class="list-group-item d-flex align-items-center justify-content-between gap-6"><div class="d-flex align-items-center gap-3"><div class="icon icon-shape rounded-circle icon-sm flex-none w-rem-10 h-rem-10 text-sm bg-primary bg-opacity-25 text-primary"><i class="bi bi-send-fill"></i></div><div class=""><span class="d-block text-heading text-sm fw-semibold">Bitcoin </span><span class="d-none d-sm-block text-muted text-xs">2 days ago</span></div></div><div class="d-none d-md-block text-sm">0xd029384sd343fd...eq23</div><div class="d-none d-md-block"><span class="badge bg-body-secondary text-warning">Pending</span></div><div class="text-end"><span class="d-block text-heading text-sm fw-bold">+0.2948 BTC </span><span class="d-block text-muted text-xs">+$10,930.90</span></div></div><div class="list-group-item d-flex align-items-center justify-content-between gap-6"><div class="d-flex align-items-center gap-3"><div class="icon icon-shape rounded-circle icon-sm flex-none w-rem-10 h-rem-10 text-sm bg-primary bg-opacity-25 text-primary"><i class="bi bi-send-fill"></i></div><div class=""><span class="d-block text-heading text-sm fw-semibold">Cardano </span><span class="d-none d-sm-block text-muted text-xs">2 days ago</span></div></div><div class="d-none d-md-block text-sm">0xd029384sd343fd...eq23</div><div class="d-none d-md-block"><span class="badge bg-body-secondary text-danger">Canceled</span></div><div class="text-end"><span class="d-block text-heading text-sm fw-bold">+0.2948 BTC </span><span class="d-block text-muted text-xs">+$10,930.90</span></div></div><div class="list-group-item d-flex align-items-center justify-content-between gap-6"><div class="d-flex align-items-center gap-3"><div class="icon icon-shape rounded-circle icon-sm flex-none w-rem-10 h-rem-10 text-sm bg-primary bg-opacity-25 text-primary"><i class="bi bi-send-fill"></i></div><div class=""><span class="d-block text-heading text-sm fw-semibold">Binance </span><span class="d-none d-sm-block text-muted text-xs">2 days ago</span></div></div><div class="d-none d-md-block text-sm">0xd029384sd343fd...eq23</div><div class="d-none d-md-block"><span class="badge bg-body-secondary text-success">Successful</span></div><div class="text-end"><span class="d-block text-heading text-sm fw-bold">+0.2948 BTC </span><span class="d-block text-muted text-xs">+$10,930.90</span></div></div><div class="list-group-item d-flex align-items-center justify-content-between gap-6"><div class="d-flex align-items-center gap-3"><div class="icon icon-shape rounded-circle icon-sm flex-none w-rem-10 h-rem-10 text-sm bg-primary bg-opacity-25 text-primary"><i class="bi bi-send-fill"></i></div><div class=""><span class="d-block text-heading text-sm fw-semibold">Bitcoin </span><span class="d-none d-sm-block text-muted text-xs">2 days ago</span></div></div><div class="d-none d-md-block text-sm">0xd029384sd343fd...eq23</div><div class="d-none d-md-block"><span class="badge bg-body-secondary text-warning">Pending</span></div><div class="text-end"><span class="d-block text-heading text-sm fw-bold">+0.2948 BTC </span><span class="d-block text-muted text-xs">+$10,930.90</span></div></div><div class="list-group-item d-flex align-items-center justify-content-between gap-6"><div class="d-flex align-items-center gap-3"><div class="icon icon-shape rounded-circle icon-sm flex-none w-rem-10 h-rem-10 text-sm bg-primary bg-opacity-25 text-primary"><i class="bi bi-send-fill"></i></div><div class=""><span class="d-block text-heading text-sm fw-semibold">Bitcoin </span><span class="d-none d-sm-block text-muted text-xs">2 days ago</span></div></div><div class="d-none d-md-block text-sm">0xd029384sd343fd...eq23</div><div class="d-none d-md-block"><span class="badge bg-body-secondary text-danger">Canceled</span></div><div class="text-end"><span class="d-block text-heading text-sm fw-bold">+0.2948 BTC </span><span class="d-block text-muted text-xs">+$10,930.90</span></div></div><div class="list-group-item d-flex align-items-center justify-content-between gap-6"><div class="d-flex align-items-center gap-3"><div class="icon icon-shape rounded-circle icon-sm flex-none w-rem-10 h-rem-10 text-sm bg-primary bg-opacity-25 text-primary"><i class="bi bi-send-fill"></i></div><div class=""><span class="d-block text-heading text-sm fw-semibold">Bitcoin </span><span class="d-none d-sm-block text-muted text-xs">2 days ago</span></div></div><div class="d-none d-md-block text-sm">0xd029384sd343fd...eq23</div><div class="d-none d-md-block"><span class="badge bg-body-secondary text-success">Successful</span></div><div class="text-end"><span class="d-block text-heading text-sm fw-bold">+0.2948 BTC </span><span class="d-block text-muted text-xs">+$10,930.90</span></div></div><div class="list-group-item d-flex align-items-center justify-content-between gap-6"><div class="d-flex align-items-center gap-3"><div class="icon icon-shape rounded-circle icon-sm flex-none w-rem-10 h-rem-10 text-sm bg-primary bg-opacity-25 text-primary"><i class="bi bi-send-fill"></i></div><div class=""><span class="d-block text-heading text-sm fw-semibold">Bitcoin </span><span class="d-none d-sm-block text-muted text-xs">2 days ago</span></div></div><div class="d-none d-md-block text-sm">0xd029384sd343fd...eq23</div><div class="d-none d-md-block"><span class="badge bg-body-secondary text-success">Successful</span></div><div class="text-end"><span class="d-block text-heading text-sm fw-bold">+0.2948 BTC </span><span class="d-block text-muted text-xs">+$10,930.90</span></div></div></div></div></div></div></div><div class="col-xxl-4"><div class="offcanvas-xxl m-xxl-0 rounded-sm-4 rounded-xxl-0 offcanvas-end overflow-hidden m-sm-4" tabindex="-1" id="responsiveOffcanvas" aria-labelledby="responsiveOffcanvasLabel"><div class="offcanvas-header rounded-top-4 bg-light"><h5 class="offcanvas-title" id="responsiveOffcanvasLabel">Quick Stats</h5><button type="button" class="btn-close" data-bs-dismiss="offcanvas" data-bs-target="#responsiveOffcanvas" aria-label="Close"></button></div><div class="offcanvas-body d-flex flex-column p-3 p-sm-6 p-xxl-0 gap-3 gap-xxl-6"><div class="vstack gap-6 gap-xxl-6"><div class="card border-0 border-xxl"><div class="card-body d-flex flex-column p-0 p-xxl-6"><div class="d-flex justify-content-between align-items-center mb-3"><div><h5>Balance</h5></div><div><span class="text-heading fw-bold"><i class="bi bi-arrow-up me-2"></i>7.8%</span></div></div><div class="text-2xl fw-bolder text-heading ls-tight">23.863,21 USDT</div><div class="d-flex align-items-center justify-content-between mt-8"><div class=""><div class="d-flex gap-3 align-items-center"><div class="icon icon-sm icon-shape text-sm rounded-circle bg-dark text-success"><i class="bi bi-arrow-down"></i></div><span class="h6 fw-semibold text-muted">Income</span></div><div class="fw-bold text-heading mt-3">$23.863,21 USD</div></div><span class="vr bg-dark bg-opacity-10"></span><div class=""><div class="d-flex gap-3 align-items-center"><div class="icon icon-sm icon-shape text-sm rounded-circle bg-dark text-danger"><i class="bi bi-arrow-up"></i></div><span class="h6 fw-semibold text-muted">Expenses</span></div><div class="fw-bold text-heading mt-3">$5.678,45 USD</div></div></div></div></div><hr class="my-0 d-xxl-none"><div class="card border-0 border-xxl"><div class="card-body p-0 p-xxl-6"><div class="d-flex justify-content-between align-items-center mb-5"><div><h5>Staking rewards</h5></div><div class="hstack align-items-center"><a href="#" class="text-muted"><i class="bi bi-arrow-repeat"></i></a></div></div><div class="vstack gap-1"><div class="d-flex bg-body-secondary gap-3 rounded-3 p-4"><div class="w-rem-8 h-rem-8 flex-none"><img src="../../img/crypto/icon/ada.svg" alt="..."></div><div class="vstack gap-2"><div class="d-flex mb-1"><div class=""><span class="d-block text-heading text-sm fw-semibold">Staked ADA</span> <span class="d-block text-muted text-xs">25% APR</span></div><div class="ms-auto d-block text-heading text-sm fw-semibold">1030 ADA</div></div><div class="progress bg-body-tertiary"><div class="progress-bar bg-primary" role="progressbar" aria-label="Basic example" style="width:70%" aria-valuenow="70" aria-valuemin="0" aria-valuemax="100"></div></div></div></div><div class="d-flex bg-body-secondary gap-3 rounded-3 p-4"><div class="w-rem-8 h-rem-8 flex-none"><img src="../../img/crypto/icon/eth.svg" alt="..."></div><div class="flex-fill vstack gap-2"><div class="d-flex mb-1"><div class=""><span class="d-block text-heading text-sm fw-semibold">Staked ETH</span> <span class="d-block text-muted text-xs">16% APR</span></div><div class="ms-auto fw-bold text-heading text-sm">9.5 ETH</div></div><div class="progress bg-body-tertiary"><div class="progress-bar bg-primary" role="progressbar" aria-label="Basic example" style="width:50%" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div></div></div></div><div class="d-flex bg-body-secondary gap-3 rounded-3 p-4"><div class="w-rem-8 h-rem-8 flex-none"><img src="../../img/crypto/icon/xrp.svg" alt="..."></div><div class="vstack gap-2"><div class="d-flex mb-1"><div class=""><span class="d-block text-heading text-sm fw-semibold">Staked XRP</span> <span class="d-block text-muted text-xs">13% APR</span></div><div class="ms-auto d-block text-heading text-sm fw-semibold">760 XRP</div></div><div class="progress bg-body-tertiary"><div class="progress-bar bg-primary" role="progressbar" aria-label="Basic example" style="width:70%" aria-valuenow="70" aria-valuemin="0" aria-valuemax="100"></div></div></div></div></div></div></div><hr class="my-0 d-xxl-none"><div class="card border-0 border-xxl"><div class="card-body p-0 p-xxl-6"><div class="d-flex justify-content-between align-items-center mb-4"><div><h5>Subscriptions</h5></div><div><span class="text-success fw-bold"><i class="bi bi-arrow-up me-2"></i>7.8%</span></div></div><div class="d-flex flex-nowrap gap-2 scrollable-x"><div class="flex-none"><div class="rounded-3 p-3 p-sm-4 bg-body-secondary"><div class="d-flex align-items-center gap-2"><img src="../../img/social/youtube.svg" class="w-rem-5" alt="..."><h6 class="text-sm fw-semibold">Youtube</h6></div><div class="mt-4 fw-bold text-heading">$10.99</div></div></div><div class="flex-none"><div class="rounded-3 p-3 p-sm-4 bg-body-secondary"><div class="d-flex align-items-center gap-2"><img src="../../img/social/spotify.svg" class="w-rem-5" alt="..."><h6 class="text-sm fw-semibold">Spotify</h6></div><div class="mt-4 fw-bold text-heading">$7.99</div></div></div><div class="flex-none"><div class="rounded-3 p-3 p-sm-4 bg-body-secondary"><div class="d-flex align-items-center gap-2"><img src="../../img/social/github.svg" class="w-rem-5" alt="..."><h6 class="text-sm fw-semibold">GitHub</h6></div><div class="mt-4 fw-bold text-heading">$4.00</div></div></div><div class="flex-none"><div class="rounded-3 p-3 p-sm-4 bg-body-secondary"><div class="d-flex align-items-center gap-2"><img src="../../img/social/slack.svg" class="w-rem-5" alt="..."><h6 class="text-sm fw-semibold">Slack</h6></div><div class="mt-4 fw-bold text-heading">$12.00</div></div></div></div><div class="text-center mt-4"><a href="#" class="link-primary fw-semibold text-sm">Manage subcriptions</a></div></div></div></div></div></div></div></div>
+									<div class="col-md col-sm-6">
+										<div class="card border-primary-hover">
+											<div class="card-body p-4">
+												<div class="d-flex align-items-center gap-2">
+													<img src="../../img/crypto/icon/eos.svg" class="w-rem-5 flex-none" alt="..."> 
+													<a href="/pages/page-details.html" class="h6 stretched-link">Orders</a></div>
+													<div class="text-sm fw-semibold mt-3">7.890,00 EOS</div>
+													<div class="d-flex align-items-center gap-2 mt-1 text-xs">
+														<span class="badge badge-xs bg-danger"><i class="bi bi-arrow-up-right"></i> </span><span>-2.2%</span>
+													</div>
+												</div>
+											</div>
+										</div>
+										<div class="col-md-1 d-none d-md-block">
+											<div class="card h-md-100 d-flex flex-column align-items-center justify-content-center py-4 bg-body-secondary bg-opacity-75 bg-opacity-100-hover">
+												<a href="#cryptoModal" class="stretched-link text-body-secondary" data-bs-toggle="modal"><i class="bi bi-pencil"></i></a>
+											</div>
+										</div>
+									</div>
+									<div class="card">
+										<div class="card-body pb-0">
+											<div class="d-flex justify-content-between align-items-center"><div>
+												<h5>Earnings</h5>
+											</div>
+											<div class="hstack align-items-center">
+												<a href="#" class="text-muted"><i class="bi bi-arrow-repeat"></i></a>
+											</div>
+										</div>
+										<div class="mx-n4">
+											<div id="chart-users" data-height="270"></div>
+										</div>
+									</div>
+								</div>
+								<div class="card">
+									<div class="card-body pb-0">
+										<div class="d-flex justify-content-between align-items-center">
+											<div>
+												<h5>Transaction History</h5>
+											</div>
+											<div class="hstack align-items-center">
+												<a href="#" class="text-muted">
+													<i class="bi bi-arrow-repeat"></i>
+												</a>
+											</div>
+										</div>
+										<div class="list-group list-group-flush">
+											<div class="list-group-item d-flex align-items-center justify-content-between gap-6">
+												<div class="d-flex align-items-center gap-3">
+													<div class="icon icon-shape rounded-circle icon-sm flex-none w-rem-10 h-rem-10 text-sm bg-primary bg-opacity-25 text-primary">
+														<i class="bi bi-send-fill"></i>
+													</div>
+													<div class="">
+														<span class="d-block text-heading text-sm fw-semibold">Bitcoin </span>
+														<span class="d-none d-sm-block text-muted text-xs">2 days ago</span>
+													</div>
+												</div>
+												<div class="d-none d-md-block text-sm">0xd029384sd343fd...eq23</div>
+												<div class="d-none d-md-block">
+													<span class="badge bg-body-secondary text-warning">Pending</span>
+												</div>
+												<div class="text-end">
+													<span class="d-block text-heading text-sm fw-bold">+0.2948 BTC </span>
+													<span class="d-block text-muted text-xs">+$10,930.90</span>
+												</div>
+											</div>
+											<div class="list-group-item d-flex align-items-center justify-content-between gap-6">
+												<div class="d-flex align-items-center gap-3">
+													<div class="icon icon-shape rounded-circle icon-sm flex-none w-rem-10 h-rem-10 text-sm bg-primary bg-opacity-25 text-primary">
+														<i class="bi bi-send-fill"></i>
+													</div>
+													<div class="">
+														<span class="d-block text-heading text-sm fw-semibold">Cardano </span>
+														<span class="d-none d-sm-block text-muted text-xs">2 days ago</span>
+													</div>
+												</div>
+												<div class="d-none d-md-block text-sm">0xd029384sd343fd...eq23</div>
+												<div class="d-none d-md-block">
+													<span class="badge bg-body-secondary text-danger">Canceled</span>
+												</div>
+												<div class="text-end">
+													<span class="d-block text-heading text-sm fw-bold">+0.2948 BTC </span>
+													<span class="d-block text-muted text-xs">+$10,930.90</span>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="col-xxl-4">
+							<div class="offcanvas-xxl m-xxl-0 rounded-sm-4 rounded-xxl-0 offcanvas-end overflow-hidden m-sm-4" tabindex="-1" id="responsiveOffcanvas" aria-labelledby="responsiveOffcanvasLabel">
+								<div class="offcanvas-header rounded-top-4 bg-light">
+									<h5 class="offcanvas-title" id="responsiveOffcanvasLabel">Quick Stats</h5>
+									<button type="button" class="btn-close" data-bs-dismiss="offcanvas" data-bs-target="#responsiveOffcanvas" aria-label="Close"></button>
+								</div>
+								<div class="offcanvas-body d-flex flex-column p-3 p-sm-6 p-xxl-0 gap-3 gap-xxl-6">
+									<div class="vstack gap-6 gap-xxl-6">
+										<div class="card border-0 border-xxl">
+											<div class="card-body d-flex flex-column p-0 p-xxl-6">
+												<div class="d-flex justify-content-between align-items-center mb-3">
+													<div>
+														<h5>Balance</h5>
+													</div>
+													<div>
+														<span class="text-heading fw-bold">
+															<i class="bi bi-arrow-up me-2"></i>7.8%</span>
+														</div>
+													</div>
+													<div class="text-2xl fw-bolder text-heading ls-tight">23.863,21 USDT</div>
+													<div class="d-flex align-items-center justify-content-between mt-8">
+														<div class="">
+															<div class="d-flex gap-3 align-items-center">
+																<div class="icon icon-sm icon-shape text-sm rounded-circle bg-dark text-success">
+																	<i class="bi bi-arrow-down"></i>
+																</div>
+																<span class="h6 fw-semibold text-muted">Income</span>
+															</div>
+															<div class="fw-bold text-heading mt-3">$23.863,21 USD</div>
+														</div>
+														<span class="vr bg-dark bg-opacity-10"></span>
+														<div class="">
+															<div class="d-flex gap-3 align-items-center">
+																<div class="icon icon-sm icon-shape text-sm rounded-circle bg-dark text-danger">
+																	<i class="bi bi-arrow-up"></i>
+																</div>
+																<span class="h6 fw-semibold text-muted">Expenses</span>
+															</div>
+															<div class="fw-bold text-heading mt-3">$5.678,45 USD</div>
+														</div>
+													</div>
+												</div>
+											</div>
+											<hr class="my-0 d-xxl-none">
+											<div class="card border-0 border-xxl">
+												<div class="card-body p-0 p-xxl-6">
+													<div class="d-flex justify-content-between align-items-center mb-5"><div>
+														<h5>Logs</h5>
+													</div>
+													<div class="hstack align-items-center">
+														<a href="#" class="text-muted">
+															<i class="bi bi-arrow-repeat"></i>
+														</a>
+													</div>
+												</div>
+												<div class="vstack gap-1">
+													
+
+												</div>
+											</div>
+										</div>
+										<hr class="my-0 d-xxl-none">
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
 
 
 
