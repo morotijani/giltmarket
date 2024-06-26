@@ -33,7 +33,7 @@
 								<li class="nav-item"><a class="nav-link rounded-pill" href="/pages/page-list.html">Admins</a></li>
 							</ul>
 							<div class="navbar-nav align-items-lg-center justify-content-end gap-2 ms-lg-4 w-lg-64">
-								<a class="nav-item nav-link rounded-pill d-none d-lg-block" href="<?= PROOT; ?>auth/login">Sign in</a> 
+								<a class="nav-item nav-link rounded-pill d-none d-lg-block" href="javascript:;" data-bs-target="#connectWalletModal" data-bs-toggle="modal">Connect</a> 
 								<a href="javascript:;" class="btn btn-sm btn-white border-0 rounded-lg-pill w-100 w-lg-auto mb-4 mb-lg-0" data-bs-target="#depositLiquidityModal" data-bs-toggle="modal">
 									<span class="pe-2"><i class="bi bi-plus-circle"></i> </span><span>Liquidity</span>
 								</a>
@@ -47,6 +47,7 @@
 		<main>
 			<div class="pt-56 pb-10 pt-lg-56 pb-lg-0 mt-n40 position-relative">
 				<div class="container">
+					<?php if (admin_is_logged_in()): ?>
 					<!-- <div class="row align-items-center g-10">
 						<div class="col-lg-8">
 							<h1 class="ls-tight fw-bolder display-3 text-white mb-5">Build Professional Dashboards, Faster than Ever.</h1>
@@ -211,6 +212,52 @@
 										</div>
 									</div>
 								</div>
+
+								<div class="card">
+									<div class="card-body">
+										<div class="d-flex justify-content-between align-items-center mb-5">
+											<div>
+												<h5>Recent transactions</h5>
+											</div>
+											<div class="hstack align-items-center">
+												<a href="#" class="text-muted">
+													<i class="bi bi-arrow-repeat"></i>
+												</a>
+											</div>
+										</div>
+										<div class="vstack gap-6">
+											<div>
+												<div class="d-flex align-items-center gap-3">
+													<div class="icon icon-shape flex-none text-base text-bg-dark rounded-circle">
+														<img src="../../img/crypto/white/btc.svg" class="w-rem-6 h-rem-6" alt="...">
+													</div>
+													<div>
+														<h6 class="progress-text mb-1 d-block">Bitcoin</h6>
+														<p class="text-muted text-xs">Pending - 3 min ago</p>
+													</div>
+													<div class="text-end ms-auto">
+														<span class="h6 text-sm">-1,500 USD</span>
+													</div>
+												</div>
+											</div>
+											<div>
+												<div class="d-flex align-items-center gap-3">
+													<div class="icon icon-shape flex-none text-base text-bg-dark rounded-circle">
+														<img src="../../img/crypto/white/ada.svg" class="w-rem-6 h-rem-6" alt="...">
+													</div>
+													<div>
+														<h6 class="progress-text mb-1 d-block">Cardano</h6>
+														<p class="text-muted text-xs">Canceled - 3 min ago</p>
+													</div>
+													<div class="text-end ms-auto">
+														<span class="h6 text-sm">-1,500 USD</span>
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+
 							</div>
 						</div>
 						<div class="col-xxl-4">
@@ -284,15 +331,20 @@
 
 
 
-
-
-
+					<?php else: ?>
+						<div class="mt-10 d-lg-block">
+							<!-- <img src="/img/marketing/hero-img-1.png"> -->
+							<script src="https://unpkg.com/@dotlottie/player-component@latest/dist/dotlottie-player.mjs" type="module"></script> 
+							<dotlottie-player src="https://lottie.host/4d04debe-13b3-4271-b223-0b0be5e90fb3/KOeuAPsQrt.json" background="transparent" speed="1" style="width: 300px; height: 300px;" loop autoplay></dotlottie-player>
+						</div>
+					<?php endif; ?>
 
 
 				</div>
 			</div>
 		</main>
 
+	<!-- BUY -->
 	<div class="modal fade" id="depositLiquidityModal" tabindex="-1" aria-labelledby="depositLiquidityModalLabel" aria-hidden="true">
 		<div class="modal-dialog modal-dialog-centered">
 			<div class="modal-content overflow-hidden">
@@ -348,6 +400,40 @@
 			</div>
 		</div>
 	</div>
+
+	<!-- LOGIN -->
+	<div class="modal fade" id="connectWalletModal" tabindex="-1" aria-labelledby="connectWalletModalLabel" aria-hidden="true">
+		<div class="modal-dialog modal-dialog-centered">
+			<div class="modal-content overflow-hidden">
+				<div class="modal-header pb-0 border-0">
+					<h1 class="modal-title h4" id="connectWalletModalLabel">Connect your account</h1>
+					<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+				</div>
+				<div class="modal-body undefined">
+					<div class="list-group list-group-flush gap-2">
+						<div class="list-group-item border rounded d-flex gap-3 p-4 bg-body-secondary-hover">
+							<div class="icon flex-none">
+								<img src="../../img/wallets/metamask.png" class="w-rem-8 h-rem-8" alt="...">
+							</div>
+							<div class="d-flex align-items-center flex-fill">
+								<div>
+									<a href="#" class="stretched-link text-heading text-sm fw-bold">MetaMask</a>
+								</div>
+								<div class="ms-auto">
+									<span class="badge badge-md text-bg-primary">Popular</span>
+								</div>
+							</div>
+						</div>
+						<div class="list-group-item border rounded d-flex gap-3 p-4 bg-body-secondary-hover">
+							<div class="icon flex-none"><img src="../../img/wallets/coinbase.webp" class="w-rem-8 h-rem-8" alt="..."></div><div class="d-flex align-items-center flex-fill"><div><a href="#" class="stretched-link text-heading text-sm fw-bold">Coinbase Wallet</a></div></div></div>
+							<div class="list-group-item border rounded d-flex gap-3 p-4 bg-body-secondary-hover"><div class="icon flex-none"><img src="../../img/wallets/walletconnect.png" class="w-rem-8 h-rem-8" alt="..."></div><div class="d-flex align-items-center flex-fill"><div><a href="#" class="stretched-link text-heading text-sm fw-bold">WalletConnect</a></div></div></div>
+					</div>
+					<div class="text-xs text-muted mt-6">By connecting wallet, you agree to Satoshi's <a href="#" class="fw-bold">Terms of Service</a></div>
+				</div>
+			</div>
+		</div>
+	</div>
+
 	<script src="https://cdn.jsdelivr.net/npm/choices.js/public/assets/scripts/choices.min.js"></script>
 	<script src="<?= PROOT; ?>dist/js/main.js"></script>
 </body>
