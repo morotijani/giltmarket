@@ -47,7 +47,7 @@
 		<main>
 			<div class="pt-56 pb-10 pt-lg-56 pb-lg-0 mt-n40 position-relative">
 				<div class="container">
-					<?php if (admin_is_logged_in()): ?>
+					<?php if (!admin_is_logged_in()): ?>
 					<!-- <div class="row align-items-center g-10">
 						<div class="col-lg-8">
 							<h1 class="ls-tight fw-bolder display-3 text-white mb-5">Build Professional Dashboards, Faster than Ever.</h1>
@@ -332,10 +332,10 @@
 
 
 					<?php else: ?>
-						<div class="mt-10 d-lg-block">
+						<div class="mt-10 d-flex justify-content-center">
 							<!-- <img src="/img/marketing/hero-img-1.png"> -->
 							<script src="https://unpkg.com/@dotlottie/player-component@latest/dist/dotlottie-player.mjs" type="module"></script> 
-							<dotlottie-player src="https://lottie.host/4d04debe-13b3-4271-b223-0b0be5e90fb3/KOeuAPsQrt.json" background="transparent" speed="1" style="width: 300px; height: 300px;" loop autoplay></dotlottie-player>
+							<dotlottie-player src="<?= PROOT; ?>dist/media/bg.json" background="transparent" speed="1" style="width: 300px; height: 300px;" loop autoplay></dotlottie-player>
 						</div>
 					<?php endif; ?>
 
@@ -354,13 +354,13 @@
 				</div>
 				<div class="modal-body undefined">
 					<form class="vstack gap-6">
-						<div class="vstack gap-1">
+						<div class="vstack gap-1">buy-error-msg
 							<div class="bg-body-secondary rounded-3 p-4">
 								<div class="d-flex justify-content-between text-xs text-muted">
 									<span class="fw-semibold">Gram</span> <span>Balance: 10,000 ADA</span>
 								</div>
 								<div class="d-flex justify-content-between gap-2 mt-4">
-									<input type="tel" class="form-control form-control-flush text-xl fw-bold flex-fill" placeholder="0.00"> <button class="btn btn-neutral shadow-none rounded-pill flex-none d-flex align-items-center gap-2 py-2 ps-2 pe-4"><img src="<?= PROOT; ?>dist/media/grams.svg" class="w-rem-6 h-rem-6" alt="..."> <span class="text-xs fw-semibold text-heading ms-1">GRM</span></button>
+									<input type="tel" class="form-control form-control-flush text-xl fw-bold flex-fill" placeholder="0.00"id="gram-amount" required> <button class="btn btn-neutral shadow-none rounded-pill flex-none d-flex align-items-center gap-2 py-2 ps-2 pe-4"><img src="<?= PROOT; ?>dist/media/grams.svg" class="w-rem-6 h-rem-6" alt="..."> <span class="text-xs fw-semibold text-heading ms-1">GRM</span></button>
 								</div>
 							</div>
 							<div class="position-relative text-center my-n4 overlap-10">
@@ -373,7 +373,7 @@
 									<span class="fw-semibold">Volume</span> <span>Balance: 0 SUN</span>
 								</div>
 								<div class="d-flex justify-content-between gap-2 mt-4">
-									<input type="tel" class="form-control form-control-flush text-xl fw-bold flex-fill" placeholder="0.00"> <button class="btn btn-neutral shadow-none rounded-pill flex-none d-flex align-items-center gap-2 py-2 ps-2 pe-4"><img src="<?= PROOT; ?>dist/media/volume.png" class="w-rem-6 h-rem-6 rounded-circle" alt="..."> <span class="text-xs fw-semibold text-heading ms-1">VLM</span></button>
+									<input type="tel" class="form-control form-control-flush text-xl fw-bold flex-fill" placeholder="0.00" id="volume-amount" required> <button class="btn btn-neutral shadow-none rounded-pill flex-none d-flex align-items-center gap-2 py-2 ps-2 pe-4"><img src="<?= PROOT; ?>dist/media/volume.png" class="w-rem-6 h-rem-6 rounded-circle" alt="..."> <span class="text-xs fw-semibold text-heading ms-1">VLM</span></button>
 								</div>
 							</div>
 						</div>
@@ -384,17 +384,17 @@
 									<input type="text" readonly class="form-control" placeholder="0.00"> <span class="input-group-text">₵</span>
 								</div>
 								<div class="flex-fill">
-									<input type="radio" title="Density" class="btn-check" name="options" id="option1" checked="checked"> <label class="btn btn-sm btn-neutral w-100" for="option1">0.5 Density</label>
+									<input type="radio" title="Density" class="btn-check" name="options" id="density" checked="checked"> <label class="btn btn-sm btn-neutral w-100" for="option1">0.5 Density</label>
 								</div>
 								<div class="flex-fill">
-									<input type="radio" class="btn-check" title="Pounds" name="options" id="option2" checked="checked"> <label class="btn btn-sm btn-neutral w-100" for="option2">1 Pounds</label>
+									<input type="radio" class="btn-check" title="Pounds" name="options" id="pounds" checked="checked"> <label class="btn btn-sm btn-neutral w-100" for="option2">1 Pounds</label>
 								</div>
 								<div class="flex-fill">
-									<input type="radio" class="btn-check" name="options" title="Karat" id="option3" checked="checked"> <label class="btn btn-sm btn-neutral w-100" for="option3">3 Carat</label>
+									<input type="radio" class="btn-check" name="options" title="Karat" id="carat" checked="checked"> <label class="btn btn-sm btn-neutral w-100" for="option3">3 Carat</label>
 								</div>
 							</div>
 						</div>
-						<button type="button" class="btn btn-primary w-100">Provide liquidity</button>
+						<button type="button" class="btn btn-primary w-100" id="buy-submit">Provide liquidity</button>
 					</form>
 				</div>
 			</div>
@@ -434,7 +434,54 @@
 		</div>
 	</div>
 
+    <script src="<?= PROOT; ?>assets/js/jquery.js"></script>
 	<script src="https://cdn.jsdelivr.net/npm/choices.js/public/assets/scripts/choices.min.js"></script>
 	<script src="<?= PROOT; ?>dist/js/main.js"></script>
+
+
+    <script>
+        $(document).ready(function() {
+
+        	// 
+            $('#gram-amount').on('blur', function(e) {
+                e.preventDefault();
+
+                var gram = $('#gram-amount').val();
+                var volume = $('#volume-amount').val();
+
+                
+
+            })
+
+            // 
+            $('#volume-amount').on('blur', function(e) {
+                e.preventDefault();
+
+                var volume = $('#volume-amount').val();
+                var gram = $('#gram-amount').val();
+                
+            })
+
+            $('#buy-submit').click(function(e) {
+	       		e.preventDefault();
+	       		var gram = $('#gram-amount').val();
+                var volume = $('#volume-amount').val();
+
+	       		if (gram <= 0) {
+		            $('.buy-error-msg').html('* Invalid gram provided.');
+		            $("#send_amount").focus()
+		            return false;
+		        }
+
+		        if (volume <= 0) {
+		            $('.buy-error-msg').html('* Invalid volume provided.');
+		            $("#send_amount").focus()
+		            return false;
+		        }
+
+        	});
+
+        });
+    </script>
 </body>
 </html>
