@@ -378,20 +378,20 @@
 								</div>
 							</div>
 						</div>
-						<div>
+						<div id="calculation-result">
 							<label class="form-label">Total Amount</label>
 							<div class="d-flex flex-wrap gap-1 gap-sm-2">
 								<div class="w-sm-56 input-group input-group-sm input-group-inline">
-									<input type="text" readonly class="form-control" placeholder="0.00"> <span class="input-group-text">₵</span>
+									<input type="text" readonly class="form-control" placeholder="0.00" id="total-amount"> <span class="input-group-text">₵</span>
 								</div>
 								<div class="flex-fill">
-									<input type="radio" title="Density" class="btn-check" name="options" id="density" checked="checked"> <label class="btn btn-sm btn-neutral w-100" for="option1">0.5 Density</label>
+									<input type="radio" title="Density" class="btn-check" name="options" checked="checked"> <label class="btn btn-sm btn-neutral w-100" id="density" for="option1">0.5 Density</label>
 								</div>
 								<div class="flex-fill">
-									<input type="radio" class="btn-check" title="Pounds" name="options" id="pounds" checked="checked"> <label class="btn btn-sm btn-neutral w-100" for="option2">1 Pounds</label>
+									<input type="radio" class="btn-check" title="Pounds" name="options" checked="checked"> <label class="btn btn-sm btn-neutral w-100" id="pounds" for="option2">1 Pounds</label>
 								</div>
 								<div class="flex-fill">
-									<input type="radio" class="btn-check" name="options" title="Karat" id="carat" checked="checked"> <label class="btn btn-sm btn-neutral w-100" for="option3">3 Carat</label>
+									<input type="radio" class="btn-check" name="options" title="Karat" checked="checked"> <label class="btn btn-sm btn-neutral w-100" id="carat" for="option3">3 Carat</label>
 								</div>
 							</div>
 						</div>
@@ -451,7 +451,7 @@
                 var volume = $('#volume-amount').val();
 
                 $.ajax({
-					url : 'auth/calculation.php',
+					url : 'auth/gold.calculation.php',
 					method : 'POST',
 					data : {
 						gram : gram,
@@ -459,7 +459,7 @@
 					},
 					beforeSend : function () {
 						// body...
-						$('#amountHelp').text('calculating rate ...');
+						$('#calculation-result').text('calculating rate ...');
 					},
 					success: function(data) {
 						//$('#amountHelp').text(crypto + ' Fees: ' + data + ' ' + crypto);
@@ -469,8 +469,10 @@
 							$('.toast-body').html(response["message"]);
 				    		$('.toast').toast('show');
 						}
-						$('#amountHelp').text(crypto + ': ' + response["exchange"] + ' ' + crypto);
-						$('#returnInCrypto').val(response["exchange"]);
+						$('#density').text(response["density"]);
+						$('#pounds').text(response["pounds"]);
+						$('#carat').text(response["carat"]);
+						$('#total-amount').val(response["total_amount"]);
 					},
 					error: function() {
 						return false;
