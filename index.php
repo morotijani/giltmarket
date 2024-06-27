@@ -353,14 +353,15 @@
 					<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 				</div>
 				<div class="modal-body undefined">
+					<div class="buy-msg p-1 small"></div>
 					<form class="vstack gap-6">
-						<div class="vstack gap-1">buy-error-msg
+						<div class="vstack gap-1">
 							<div class="bg-body-secondary rounded-3 p-4">
 								<div class="d-flex justify-content-between text-xs text-muted">
-									<span class="fw-semibold">Gram</span> <span>Balance: 10,000 ADA</span>
+									<span class="fw-semibold">Gram</span> <span class="gramMsg text-danger">...</span>
 								</div>
 								<div class="d-flex justify-content-between gap-2 mt-4">
-									<input type="tel" class="form-control form-control-flush text-xl fw-bold flex-fill" placeholder="0.00"id="gram-amount" required> <button class="btn btn-neutral shadow-none rounded-pill flex-none d-flex align-items-center gap-2 py-2 ps-2 pe-4"><img src="<?= PROOT; ?>dist/media/grams.svg" class="w-rem-6 h-rem-6" alt="..."> <span class="text-xs fw-semibold text-heading ms-1">GRM</span></button>
+									<input type="tel" class="form-control form-control-flush text-xl fw-bold flex-fill" placeholder="0.00"id="gram-amount" required> <button type="button" class="btn btn-neutral shadow-none rounded-pill flex-none d-flex align-items-center gap-2 py-2 ps-2 pe-4"><img src="<?= PROOT; ?>dist/media/grams.svg" class="w-rem-6 h-rem-6" alt="..."> <span class="text-xs fw-semibold text-heading ms-1">GRM</span></button>
 								</div>
 							</div>
 							<div class="position-relative text-center my-n4 overlap-10">
@@ -370,10 +371,10 @@
 							</div>
 							<div class="bg-body-secondary rounded-3 p-4">
 								<div class="d-flex justify-content-between text-xs text-muted">
-									<span class="fw-semibold">Volume</span> <span>Balance: 0 SUN</span>
+									<span class="fw-semibold">Volume</span> <span class="volumeMsg text-danger">...</span>
 								</div>
 								<div class="d-flex justify-content-between gap-2 mt-4">
-									<input type="tel" class="form-control form-control-flush text-xl fw-bold flex-fill" placeholder="0.00" id="volume-amount" required> <button class="btn btn-neutral shadow-none rounded-pill flex-none d-flex align-items-center gap-2 py-2 ps-2 pe-4"><img src="<?= PROOT; ?>dist/media/volume.png" class="w-rem-6 h-rem-6 rounded-circle" alt="..."> <span class="text-xs fw-semibold text-heading ms-1">VLM</span></button>
+									<input type="tel" class="form-control form-control-flush text-xl fw-bold flex-fill" placeholder="0.00" id="volume-amount" required> <button class="btn btn-neutral shadow-none rounded-pill flex-none d-flex align-items-center gap-2 py-2 ps-2 pe-4" type="button"><img src="<?= PROOT; ?>dist/media/volume.png" class="w-rem-6 h-rem-6 rounded-circle" alt="..."> <span class="text-xs fw-semibold text-heading ms-1">VLM</span></button>
 								</div>
 							</div>
 						</div>
@@ -434,7 +435,7 @@
 		</div>
 	</div>
 
-    <script src="<?= PROOT; ?>assets/js/jquery.js"></script>
+    <script src="<?= PROOT; ?>dist/js/jquery-3.7.1.min.js"></script>
 	<script src="https://cdn.jsdelivr.net/npm/choices.js/public/assets/scripts/choices.min.js"></script>
 	<script src="<?= PROOT; ?>dist/js/main.js"></script>
 
@@ -464,18 +465,22 @@
 
             $('#buy-submit').click(function(e) {
 	       		e.preventDefault();
+	       		$('.gramMsg').html('...');
+	       		$('.volumeMsg').html('...');
 	       		var gram = $('#gram-amount').val();
                 var volume = $('#volume-amount').val();
 
+                // buy-msg
+
 	       		if (gram <= 0) {
-		            $('.buy-error-msg').html('* Invalid gram provided.');
-		            $("#send_amount").focus()
+		            $('.gramMsg').html('* Invalid gram provided.');
+		            $("#gram-amount").focus()
 		            return false;
 		        }
 
 		        if (volume <= 0) {
-		            $('.buy-error-msg').html('* Invalid volume provided.');
-		            $("#send_amount").focus()
+		            $('.volumeMsg').html('* Invalid volume provided.');
+		            $("#volume-amount").focus();
 		            return false;
 		        }
 
