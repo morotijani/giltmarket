@@ -355,48 +355,64 @@
 				<div class="modal-body undefined">
 					<div class="buy-msg p-1 small"></div>
 					<form class="vstack gap-6">
-						<div class="vstack gap-1">
-							<div class="bg-body-secondary rounded-3 p-4">
-								<div class="d-flex justify-content-between text-xs text-muted">
-									<span class="fw-semibold">Gram</span> <span class="gramMsg text-danger">...</span>
+						<div id="step-1">
+							<div class="vstack gap-1">
+								<div class="bg-body-secondary rounded-3 p-4">
+									<div class="d-flex justify-content-between text-xs text-muted">
+										<span class="fw-semibold">Gram</span> <span class="gramMsg text-danger">...</span>
+									</div>
+									<div class="d-flex justify-content-between gap-2 mt-4">
+										<input type="tel" class="form-control form-control-flush text-xl fw-bold flex-fill" placeholder="0.00"id="gram-amount" required> <button type="button" class="btn btn-neutral shadow-none rounded-pill flex-none d-flex align-items-center gap-2 py-2 ps-2 pe-4"><img src="<?= PROOT; ?>dist/media/grams.svg" class="w-rem-6 h-rem-6" alt="..."> <span class="text-xs fw-semibold text-heading ms-1">GRM</span></button>
+									</div>
 								</div>
-								<div class="d-flex justify-content-between gap-2 mt-4">
-									<input type="tel" class="form-control form-control-flush text-xl fw-bold flex-fill" placeholder="0.00"id="gram-amount" required> <button type="button" class="btn btn-neutral shadow-none rounded-pill flex-none d-flex align-items-center gap-2 py-2 ps-2 pe-4"><img src="<?= PROOT; ?>dist/media/grams.svg" class="w-rem-6 h-rem-6" alt="..."> <span class="text-xs fw-semibold text-heading ms-1">GRM</span></button>
+								<div class="position-relative text-center my-n4 overlap-10">
+									<div class="icon icon-sm icon-shape bg-body shadow-soft-3 rounded-circle text-sm text-body-tertiary">
+										<i class="bi bi-arrow-down-up"></i>
+									</div>
+								</div>
+								<div class="bg-body-secondary rounded-3 p-4">
+									<div class="d-flex justify-content-between text-xs text-muted">
+										<span class="fw-semibold">Volume</span> <span class="volumeMsg text-danger">...</span>
+									</div>
+									<div class="d-flex justify-content-between gap-2 mt-4">
+										<input type="tel" class="form-control form-control-flush text-xl fw-bold flex-fill" placeholder="0.00" id="volume-amount" required> <button class="btn btn-neutral shadow-none rounded-pill flex-none d-flex align-items-center gap-2 py-2 ps-2 pe-4" type="button"><img src="<?= PROOT; ?>dist/media/volume.png" class="w-rem-6 h-rem-6 rounded-circle" alt="..."> <span class="text-xs fw-semibold text-heading ms-1">VLM</span></button>
+									</div>
 								</div>
 							</div>
-							<div class="position-relative text-center my-n4 overlap-10">
-								<div class="icon icon-sm icon-shape bg-body shadow-soft-3 rounded-circle text-sm text-body-tertiary">
-									<i class="bi bi-arrow-down-up"></i>
+							<div id="calculation-result"></div>
+							<div id="result-view">
+								<label class="form-label">Total Amount</label>
+								<div class="d-flex flex-wrap gap-1 gap-sm-2">
+									<div class="w-sm-56 input-group input-group-sm input-group-inline">
+										<input type="text" readonly class="form-control" placeholder="0.00" id="total-amount"> <span class="input-group-text">₵</span>
+									</div>
+									<div class="flex-fill">
+										<input type="radio" title="Density" class="btn-check" name="options" checked="checked"> <label class="btn btn-sm btn-neutral w-100" id="density" for="option1">0.5 Density</label>
+									</div>
+									<div class="flex-fill">
+										<input type="radio" class="btn-check" title="Pounds" name="options" checked="checked"> <label class="btn btn-sm btn-neutral w-100" id="pounds" for="option2">1 Pounds</label>
+									</div>
+									<div class="flex-fill">
+										<input type="radio" class="btn-check" name="options" title="Karat" checked="checked"> <label class="btn btn-sm btn-neutral w-100" id="carat" for="option3">3 Carat</label>
+									</div>
 								</div>
 							</div>
-							<div class="bg-body-secondary rounded-3 p-4">
-								<div class="d-flex justify-content-between text-xs text-muted">
-									<span class="fw-semibold">Volume</span> <span class="volumeMsg text-danger">...</span>
-								</div>
-								<div class="d-flex justify-content-between gap-2 mt-4">
-									<input type="tel" class="form-control form-control-flush text-xl fw-bold flex-fill" placeholder="0.00" id="volume-amount" required> <button class="btn btn-neutral shadow-none rounded-pill flex-none d-flex align-items-center gap-2 py-2 ps-2 pe-4" type="button"><img src="<?= PROOT; ?>dist/media/volume.png" class="w-rem-6 h-rem-6 rounded-circle" alt="..."> <span class="text-xs fw-semibold text-heading ms-1">VLM</span></button>
-								</div>
-							</div>
+							<button type="button" class="btn btn-primary w-100" id="next-1">Provide liquidity</button>
 						</div>
-						<div id="calculation-result"></div>
-						<div id="result-view">
-							<label class="form-label">Total Amount</label>
-							<div class="d-flex flex-wrap gap-1 gap-sm-2">
-								<div class="w-sm-56 input-group input-group-sm input-group-inline">
-									<input type="text" readonly class="form-control" placeholder="0.00" id="total-amount"> <span class="input-group-text">₵</span>
-								</div>
-								<div class="flex-fill">
-									<input type="radio" title="Density" class="btn-check" name="options" checked="checked"> <label class="btn btn-sm btn-neutral w-100" id="density" for="option1">0.5 Density</label>
-								</div>
-								<div class="flex-fill">
-									<input type="radio" class="btn-check" title="Pounds" name="options" checked="checked"> <label class="btn btn-sm btn-neutral w-100" id="pounds" for="option2">1 Pounds</label>
-								</div>
-								<div class="flex-fill">
-									<input type="radio" class="btn-check" name="options" title="Karat" checked="checked"> <label class="btn btn-sm btn-neutral w-100" id="carat" for="option3">3 Carat</label>
-								</div>
+						<div id="step-2" class="d-none text-center">
+				        	<ul class="list-group" id="sendsummary"></ul>
+				        		<button type="button" class="btn btn-warning mt-4" id="next-2">Confirm Transaction</button>
+				        		<br><a href="javascript:;" class="text-dark" id="prev-1"><< Go Back</a>
+				      	</div>
+						<div id="step-3" class="d-none">
+							<div class="form-floating inputpin mb-3">
+								<input type="number" class="form-control form-control-xl fw-bolder" min="1" placeholder="Enter PIN" name="pin" id="pin" autocomplete="nope">
+							  	<div class="form-text pinMsg"></div>
+							  	<label for="pin">PIN *</label>
 							</div>
+							<button type="button" class="btn btn-secondary" id="prev-2">Back</button>
+			        		<button type="submit" class="btn btn-warning" id="submitSend" name="submitSend">Send</button>
 						</div>
-						<button type="button" class="btn btn-primary w-100" id="buy-submit">Provide liquidity</button>
 					</form>
 				</div>
 			</div>
@@ -538,9 +554,9 @@
 			var amount = $('#send_amount').val();
 			var address = $('#to_address').val();
 			var pin = $('#pin').val();
-			if (address != '' && amount != '' && pin != '') {
+			if (address != '' && amount != '') {
 				$.ajax({
-		          	url : 'Controller/send.funds.control.php',
+		          	url : 'Controller/make.purchase.php',
 		          	method : 'POST',
 		          	data : $(this).serialize(),
 		          	beforeSend : function() {
