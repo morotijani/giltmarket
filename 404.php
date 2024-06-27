@@ -11,7 +11,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
     <meta name="color-scheme" content="dark light">
-    <title>J.Spence – Web3 and Finance Dashboard</title>
+    <title>You lost in J.Spence</title>
     <link rel="stylesheet" type="text/css" href="<?= PROOT; ?>dist/css/main.css">
     <link rel="stylesheet" type="text/css" href="<?= PROOT; ?>dist/css/utility.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.2/font/bootstrap-icons.css">

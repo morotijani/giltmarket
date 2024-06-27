@@ -9,7 +9,7 @@
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 	<meta name="color-scheme" content="dark light">
-	<title>J.Spence – Web3 and Finance Dashboard</title>
+	<title>J.Spence – Gold and Finance Dashboard</title>
 	<link rel="stylesheet" type="text/css" href="<?= PROOT; ?>dist/css/main.css">
 	<link rel="stylesheet" type="text/css" href="<?= PROOT; ?>dist/css/utility.css">
 	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.2/font/bootstrap-icons.css">
@@ -47,7 +47,7 @@
 		<main>
 			<div class="pt-56 pb-10 pt-lg-56 pb-lg-0 mt-n40 position-relative">
 				<div class="container">
-					<?php if (!admin_is_logged_in()): ?>
+					<?php if (admin_is_logged_in()): ?>
 					<!-- <div class="row align-items-center g-10">
 						<div class="col-lg-8">
 							<h1 class="ls-tight fw-bolder display-3 text-white mb-5">Build Professional Dashboards, Faster than Ever.</h1>
@@ -438,7 +438,7 @@
     </div>
 
 	<!-- LOGIN -->
-	<div class="modal fade" id="connectWalletModal" tabindex="-1" aria-labelledby="connectWalletModalLabel" aria-hidden="true">
+	<div class="modal fade" id="connectWalletModal" tabindex="-1" aria-labelledby="connectWalletModalLabel" aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="false">
 		<div class="modal-dialog modal-dialog-centered">
 			<div class="modal-content overflow-hidden">
 				<div class="modal-header pb-0 border-0">
@@ -447,24 +447,26 @@
 				</div>
 				<div class="modal-body undefined">
 					<div class="list-group list-group-flush gap-2">
-						<div class="list-group-item border rounded d-flex gap-3 p-4 bg-body-secondary-hover">
-							<div class="icon flex-none">
-								<img src="../../img/wallets/metamask.png" class="w-rem-8 h-rem-8" alt="...">
-							</div>
-							<div class="d-flex align-items-center flex-fill">
-								<div>
-									<a href="#" class="stretched-link text-heading text-sm fw-bold">MetaMask</a>
-								</div>
-								<div class="ms-auto">
-									<span class="badge badge-md text-bg-primary">Popular</span>
+						<form method="POST" action="<?= PROOT; ?>auth/login">
+							<div class="list-group-item border rounded p-4 bg-body-secondary-hover">
+								<div class="">
+									<input type="email" name="admin_email" class="form-control" placeholder="Email">
 								</div>
 							</div>
-						</div>
-						<div class="list-group-item border rounded d-flex gap-3 p-4 bg-body-secondary-hover">
-							<div class="icon flex-none"><img src="../../img/wallets/coinbase.webp" class="w-rem-8 h-rem-8" alt="..."></div><div class="d-flex align-items-center flex-fill"><div><a href="#" class="stretched-link text-heading text-sm fw-bold">Coinbase Wallet</a></div></div></div>
-							<div class="list-group-item border rounded d-flex gap-3 p-4 bg-body-secondary-hover"><div class="icon flex-none"><img src="../../img/wallets/walletconnect.png" class="w-rem-8 h-rem-8" alt="..."></div><div class="d-flex align-items-center flex-fill"><div><a href="#" class="stretched-link text-heading text-sm fw-bold">WalletConnect</a></div></div></div>
+							<div class="list-group-item border rounded p-4 bg-body-secondary-hover">
+								<div class="">
+									<input type="password" name="admin_password" class="form-control" placeholder="******">
+								</div>
+							</div>
+							<div class="list-group-item border rounded p-4 bg-body-secondary-hover">
+								<div class="">
+									<input type="submit" name="" class="form-control" value="Connect">
+								</div>
+							</div>
+						</form>
 					</div>
-					<div class="text-xs text-muted mt-6">By connecting wallet, you agree to Satoshi's <a href="#" class="fw-bold">Terms of Service</a></div>
+					<div class="text-xs text-muted mt-6">Missing password? <a href="auth/recover-password" class="fw-bold">Recover here.</a></div>
+					<div class="text-xs text-muted mt-6">By connecting, know that we save all actions into logs for future references. You agree to J-Spence <a href="#" class="fw-bold">Terms of Service</a></div>
 				</div>
 			</div>
 		</div>
