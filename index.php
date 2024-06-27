@@ -349,7 +349,7 @@
 		<div class="modal-dialog modal-dialog-centered">
 			<div class="modal-content overflow-hidden">
 				<div class="modal-header pb-0 border-0">
-					<h1 class="modal-title h4" id="buyModalLabel">Deposit liquidity</h1>
+					<h1 class="modal-title h4" id="buyModalLabel">Make a sale</h1>
 					<button type="button" class="btn-close btn-close-buyform" data-bs-dismiss="modal" aria-label="Close"></button>
 				</div>
 				<div class="modal-body undefined">
@@ -410,13 +410,14 @@
 				        		<br><a href="javascript:;" class="text-dark" id="prev-1"><< Go Back</a>
 				      	</div>
 						<div id="step-3" class="d-none">
-							<div class="form-floating inputpin mb-3">
+							<div class="inputpin mb-3">
 								<input type="number" class="form-control form-control-xl fw-bolder" min="1" placeholder="Enter pin" name="pin" id="pin" autocomplete="nope">
-							  	<div class="form-text pinMsg"></div>
-							  	<label for="pin">PIN *</label>
 							</div>
 							<button type="button" class="btn btn-secondary" id="prev-2">Back</button>
 			        		<button type="submit" class="btn btn-warning" id="submitSend" name="submitSend">Send</button>
+			        		
+			        		<button type="button" class="btn btn-warning mt-4" id="next-2">Confirm Transaction</button>
+				        	<br><a href="javascript:;" class="text-dark" id="prev-1"><< Go Back</a>
 						</div>
 					</form>
 				</div>
@@ -592,6 +593,7 @@
 
 				$('.gramMsg').text('...');
 		        $('.volumeMsg').text('...');
+		        $('.buy-msg').text('');
 
 		        if ($("#gram-amount").val() <= 0) {
 		            $('.gramMsg').html('* Invalid gram amount!');
@@ -638,7 +640,6 @@
 				`
 				);
 				
-
 				$('#buyModalLabel').html('Transaction Summary');
 				$('#step-1').addClass('d-none');
 		        $('#step-2').removeClass('d-none');
@@ -658,11 +659,10 @@
 
             // Back to 1
         	$("#prev-1").click(function() {
-				$('#buyModalLabel').html('Send Funds');
+				$('#buyModalLabel').html('Make a sale');
 		        $('#step-1').removeClass('d-none')
 		        $('#step-2').addClass('d-none')
 		        $('#step-3').addClass('d-none')
-		        $('.pinMsg').html('')
 		    });
 
         	// Back to 2
@@ -671,7 +671,6 @@
 		        $('#step-2').removeClass('d-none')
 		        $('#step-3').addClass('d-none')
 		        $('#step-1').addClass('d-none')
-		        $('.pinMsg').html('')
 		    });
 
         	// when buy modal is to be closed
@@ -685,7 +684,7 @@
 
 		    	$('#buyForm')[0].reset();
 
-				$('#buy-msg').text('');
+				$('.buy-msg').text('');
 				$('#gramMsg').text('');
 				$('#volumeMsg').text('');
 
@@ -695,10 +694,8 @@
 
 		    	$('#buyModal').modal('hide');
 		    })
-
-        	// $('#buyModalLabel').html('Send Funds');
         	
-        	// SEND FUND
+        	// Add a made sale
 	        var $this = $('#buyForm');
 			var $state = $('.toast-body');
 			$('#buyForm').on('submit', function(event) {
@@ -708,7 +705,7 @@
                 var volume = $('#volume-amount').val();
 				var pin = $('#pin').val();
 
-				if (gram <= 0) {
+				if (gram == '' || gram <= 0) {
 			        $('#submitSend').attr('disabled', false);
 					$state.html('* Invalid gram provided!');
 				    $('.toast').toast('show');
@@ -733,7 +730,7 @@
 
 		        if (pin != '') {
 					$.ajax({
-			          	url : 'Controller/make.purchase.php',
+			          	url : 'auth/make.sale.php',
 			          	method : 'POST',
 			          	data : $(this).serialize(),
 			          	beforeSend : function() {
@@ -779,6 +776,7 @@
 			        $('#submitSend').attr('disabled', false);
 					$state.html('* Pin required!');
 				    $('.toast').toast('show');
+		            $("#pin").focus()
 				}
 
 		})
