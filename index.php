@@ -502,9 +502,9 @@
 							$('.toast-body').html(response["message"]);
 				    		$('.toast').toast('show');
 						//}
-						$('#density').text(response["density"]);
-						$('#pounds').text(response["pounds"]);
-						$('#carat').text(response["carat"]);
+						$('#density').text(response["density"] + ' Density');
+						$('#pounds').text(response["pounds"] + ' Pounds');
+						$('#carat').text(response["carat"] + ' Carat');
 						$('#total-amount').val(response["total_amount"]);
 						$('#calculation-result').html('')
 						$('#calculation-result').addClass('d-none');
