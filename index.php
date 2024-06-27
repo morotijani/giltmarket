@@ -359,10 +359,10 @@
 							<div class="vstack gap-1">
 								<div class="bg-body-secondary rounded-3 p-4">
 									<div class="d-flex justify-content-between text-xs text-muted">
-										<span class="fw-semibold">Gram</span> <span class="gramMsg text-danger">...</span>
+										<span class="fw-semibold">Gram</span> <span class="gramMsg">...</span>
 									</div>
 									<div class="d-flex justify-content-between gap-2 mt-4">
-										<input type="tel" class="form-control form-control-flush text-xl fw-bold flex-fill" placeholder="0.00"id="gram-amount" required> <button type="button" class="btn btn-neutral shadow-none rounded-pill flex-none d-flex align-items-center gap-2 py-2 ps-2 pe-4"><img src="<?= PROOT; ?>dist/media/grams.svg" class="w-rem-6 h-rem-6" alt="..."> <span class="text-xs fw-semibold text-heading ms-1">GRM</span></button>
+										<input type="tel" class="form-control form-control-flush text-xl fw-bold flex-fill" placeholder="0.00"id="gram-amount" autofocus required> <button type="button" class="btn btn-neutral shadow-none rounded-pill flex-none d-flex align-items-center gap-2 py-2 ps-2 pe-4"><img src="<?= PROOT; ?>dist/media/grams.svg" class="w-rem-6 h-rem-6" alt="..."> <span class="text-xs fw-semibold text-heading ms-1">GRM</span></button>
 									</div>
 								</div>
 								<div class="position-relative text-center my-n4 overlap-10">
@@ -372,7 +372,7 @@
 								</div>
 								<div class="bg-body-secondary rounded-3 p-4">
 									<div class="d-flex justify-content-between text-xs text-muted">
-										<span class="fw-semibold">Volume</span> <span class="volumeMsg text-danger">...</span>
+										<span class="fw-semibold">Volume</span> <span class="volumeMsg">...</span>
 									</div>
 									<div class="d-flex justify-content-between gap-2 mt-4">
 										<input type="tel" class="form-control form-control-flush text-xl fw-bold flex-fill" placeholder="0.00" id="volume-amount" required> <button class="btn btn-neutral shadow-none rounded-pill flex-none d-flex align-items-center gap-2 py-2 ps-2 pe-4" type="button"><img src="<?= PROOT; ?>dist/media/volume.png" class="w-rem-6 h-rem-6 rounded-circle" alt="..."> <span class="text-xs fw-semibold text-heading ms-1">VLM</span></button>
@@ -484,46 +484,91 @@
                 var gram = $('#gram-amount').val();
                 var volume = $('#volume-amount').val();
 
-                $.ajax({
-					url : 'auth/gold.calculation.php',
-					method : 'POST',
-					data : {
-						gram : gram,
-						volume : volume,
-					},
-					beforeSend : function () {
-						// body...
-						$('#calculation-result').html('<img class="img-fluid" src="<?= PROOT; ?>dist/media/loading_v2.gif"/>');
-						$('#result-view').addClass('d-none');
-					},
-					success: function(data) {
-						const response = JSON.parse(data);
-						//if (response["message"] != '') {
-							$('.toast-body').html(response["message"]);
-				    		$('.toast').toast('show');
-						//}
-						$('#density').text(response["density"] + ' Density');
-						$('#pounds').text(response["pounds"] + ' Pounds');
-						$('#carat').text(response["carat"] + ' Carat');
-						$('#total-amount').val(response["total_amount"]);
-						$('#calculation-result').html('')
-						$('#calculation-result').addClass('d-none');
-						$('#result-view').removeClass('d-none');
-					},
-					error: function() {
-						return false;
-					}
-				})
+	            if (gram != '' && gram > 0) {
+                 	if (volume != '' && volume > 0) {
+		                $.ajax({
+							url : 'auth/gold.calculation.php',
+							method : 'POST',
+							data : {
+								gram : gram,
+								volume : volume,
+							},
+							beforeSend : function () {
+								// body...
+								$('#calculation-result').html('<img class="img-fluid" src="<?= PROOT; ?>dist/media/loading_v2.gif"/>');
+								$('#result-view').addClass('d-none');
+							},
+							success: function(data) {
+								const response = JSON.parse(data);
+								//if (response["message"] != '') {
+									$('.toast-body').html(response["message"]);
+						    		$('.toast').toast('show');
+								//}
+								$('#density').text(response["density"] + ' Density');
+								$('#pounds').text(response["pounds"] + ' Pounds');
+								$('#carat').text(response["carat"] + ' Carat');
+								$('#total-amount').val(response["total_amount"]);
+								$('#calculation-result').html('')
+								$('#calculation-result').addClass('d-none');
+								$('#result-view').removeClass('d-none');
+							},
+							error: function() {
+								return false;
+							}
+						})
+		            } else {
+		            	$('.volumeMsg').text('typing ...');
+		            	$('.gramMsg').text('');
+		            }
+		        }
 
             })
 
-            // 
+            // Calculation made with volume input
             $('#volume-amount').on('keyup', function(e) {
                 e.preventDefault();
 
-                var volume = $('#volume-amount').val();
                 var gram = $('#gram-amount').val();
-                
+                var volume = $('#volume-amount').val();
+
+                if (volume != '' && volume > 0) {
+	                if (gram != '' && gram > 0) {
+	                	
+		                $.ajax ({
+							url : 'auth/gold.calculation.php',
+							method : 'POST',
+							data : {
+								gram : gram,
+								volume : volume,
+							},
+							beforeSend : function () {
+								// body...
+								$('#calculation-result').html('<img class="img-fluid" src="<?= PROOT; ?>dist/media/loading_v2.gif"/>');
+								$('#result-view').addClass('d-none');
+							},
+							success: function(data) {
+								const response = JSON.parse(data);
+								//if (response["message"] != '') {
+									$('.toast-body').html(response["message"]);
+						    		$('.toast').toast('show');
+								//}
+								$('#density').text(response["density"] + ' Density');
+								$('#pounds').text(response["pounds"] + ' Pounds');
+								$('#carat').text(response["carat"] + ' Carat');
+								$('#total-amount').val(response["total_amount"]);
+								$('#calculation-result').html('')
+								$('#calculation-result').addClass('d-none');
+								$('#result-view').removeClass('d-none');
+							},
+							error: function() {
+								return false;
+							}
+						})
+	                } else {
+	                	$('.gramMsg').text('typing ...');
+		            	$('.volumeMsg').text('');
+	                }
+                }
             })
 
             // $('#buy-submit').click(function(e) {
@@ -579,12 +624,12 @@
         	 $('.btn-close-buyform').click(function(e) {
 		    	e.preventDefault()
 
-				$('#density').text('');
-				$('#pounds').text('');
-				$('#carat').text('');
+				$('#density').text('0.00 Density');
+				$('#pounds').text('0.00 Pounds');
+				$('#carat').text('0.00 Carat');
 				$('#total-amount').val('');
 
-		    	$('#sendForm')[0].reset();
+		    	$('#buyForm')[0].reset();
 
 				$('#buy-msg').text('');
 				$('#gramMsg').text('');
