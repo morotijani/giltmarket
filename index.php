@@ -444,18 +444,43 @@
         $(document).ready(function() {
 
         	// 
-            $('#gram-amount').on('blur', function(e) {
+            $('#gram-amount').on('keyup', function(e) {
                 e.preventDefault();
 
                 var gram = $('#gram-amount').val();
                 var volume = $('#volume-amount').val();
 
-                
+                $.ajax({
+					url : 'auth/calculation.php',
+					method : 'POST',
+					data : {
+						gram : gram,
+						volume : volume,
+					},
+					beforeSend : function () {
+						// body...
+						$('#amountHelp').text('calculating rate ...');
+					},
+					success: function(data) {
+						//$('#amountHelp').text(crypto + ' Fees: ' + data + ' ' + crypto);
+
+						const response = JSON.parse(data);
+						if (response["message"] != '') {
+							$('.toast-body').html(response["message"]);
+				    		$('.toast').toast('show');
+						}
+						$('#amountHelp').text(crypto + ': ' + response["exchange"] + ' ' + crypto);
+						$('#returnInCrypto').val(response["exchange"]);
+					},
+					error: function() {
+						return false;
+					}
+				})
 
             })
 
             // 
-            $('#volume-amount').on('blur', function(e) {
+            $('#volume-amount').on('keyup', function(e) {
                 e.preventDefault();
 
                 var volume = $('#volume-amount').val();
@@ -485,6 +510,20 @@
 		        }
 
         	});
+
+        	// when buy modal is to be closed
+        	 $('.btn-close-sendform').click(function(e) {
+		    	e.preventDefault()
+
+		    	$('#sendModalLabel').html('Send Funds');
+				$('#send_amount').attr("placeholder", "$0.00");
+		    	$('#sendForm')[0].reset();
+				$('#amountHelp').text('');
+		    	$('#step-1').removeClass('d-none');
+		        $('#step-2').addClass('d-none');
+		        $('#step-3').addClass('d-none');
+		    	$('#sendModal').modal('hide');
+		    })
 
         });
     </script>
