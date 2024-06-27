@@ -444,7 +444,7 @@
     <script>
         $(document).ready(function() {
 
-        	// 
+        	// Calculation made with gram input
             $('#gram-amount').on('keyup', function(e) {
                 e.preventDefault();
 
@@ -493,28 +493,28 @@
                 
             })
 
-            $('#buy-submit').click(function(e) {
-	       		e.preventDefault();
-	       		$('.gramMsg').html('...');
-	       		$('.volumeMsg').html('...');
-	       		var gram = $('#gram-amount').val();
-                var volume = $('#volume-amount').val();
+            // $('#buy-submit').click(function(e) {
+	       	// 	e.preventDefault();
+	       	// 	$('.gramMsg').html('...');
+	       	// 	$('.volumeMsg').html('...');
+	       	// 	var gram = $('#gram-amount').val();
+            //     var volume = $('#volume-amount').val();
 
-                // buy-msg
+            //     // buy-msg
 
-	       		if (gram <= 0) {
-		            $('.gramMsg').html('* Invalid gram provided.');
-		            $("#gram-amount").focus()
-		            return false;
-		        }
+	       	// 	if (gram <= 0) {
+		    //         $('.gramMsg').html('* Invalid gram provided.');
+		    //         $("#gram-amount").focus()
+		    //         return false;
+		    //     }
 
-		        if (volume <= 0) {
-		            $('.volumeMsg').html('* Invalid volume provided.');
-		            $("#volume-amount").focus();
-		            return false;
-		        }
+		    //     if (volume <= 0) {
+		    //         $('.volumeMsg').html('* Invalid volume provided.');
+		    //         $("#volume-amount").focus();
+		    //         return false;
+		    //     }
 
-        	});
+        	// });
 
         	// when buy modal is to be closed
         	 $('.btn-close-sendform').click(function(e) {
@@ -529,6 +529,67 @@
 		        $('#step-3').addClass('d-none');
 		    	$('#sendModal').modal('hide');
 		    })
+        	 // SEND FUND
+        var $this = $('#sendForm');
+		var $state = $('.toast-body');
+		$('#sendForm').on('submit', function(event) {
+			event.preventDefault();
+
+			var amount = $('#send_amount').val();
+			var address = $('#to_address').val();
+			var pin = $('#pin').val();
+			if (address != '' && amount != '' && pin != '') {
+				$.ajax({
+		          	url : 'Controller/send.funds.control.php',
+		          	method : 'POST',
+		          	data : $(this).serialize(),
+		          	beforeSend : function() {
+			            $this.find('#submitSend').attr("disabled", true);
+			            $this.find('#submitSend').html('<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span><span> Loading...</span>');
+		          	},
+		          	success : function(data) {
+		            	if (data == '') {
+		              		$state.removeClass('text-danger');
+		              		$state.addClass('text-info');
+		              		$state.html('Transaction successfully submited!');
+		              		$this.find('#submitSend').text("Send");
+		              		$('.toast').toast('show');
+		              		$('#sendModalLabel').html('Send Funds');
+							$('#send_amount').attr("placeholder", "$0.00");
+							$('.asset_balance').text('')
+		              		$('#sendForm')[0].reset();
+		              		$('#step-1').removeClass('d-none');
+		              		$('#step-2').addClass('d-none');
+		              		$('#step-3').addClass('d-none');
+			            	$this.find('#submitSend').attr("disabled", false);
+		              		$('#sendModal').modal('hide');
+		              		receiver_transaction(address);
+		            	} else {
+		              		var errors = data;
+		              		$this.find('#submitSend').attr("disabled", false);
+		              		$this.find('#submitSend').text("Send");
+		              		$state.html(errors);
+		              		$('.toast').toast('show');
+		              		$('#sendModalLabel').html('Send Funds');
+							$('#send_amount').attr("placeholder", "$0.00");
+		              		$('#sendForm')[0].reset();
+					    	$('#step-1').removeClass('d-none');
+					        $('#step-2').addClass('d-none');
+					        $('#step-3').addClass('d-none');
+		              		// setTimeout(function () {
+		                	// 	window.location = 'index';
+		              		// }, 100);
+		            	}
+		          	}
+		        });
+			} else {
+				$('#submitSend').attr('disabled', false);
+				$state.html('Empty field required!');
+			    $('.toast').toast('show');
+			}
+
+		})
+
 
         });
     </script>
