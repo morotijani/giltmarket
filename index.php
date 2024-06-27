@@ -486,6 +486,9 @@
 
 	            if (gram != '' && gram > 0) {
                  	if (volume != '' && volume > 0) {
+                 		$('.volumeMsg').text('');
+		            	$('.gramMsg').text('...');
+
 		                $.ajax({
 							url : 'auth/gold.calculation.php',
 							method : 'POST',
@@ -511,6 +514,9 @@
 								$('#calculation-result').html('')
 								$('#calculation-result').addClass('d-none');
 								$('#result-view').removeClass('d-none');
+
+								$('.gramMsg').text('...');
+				            	$('.volumeMsg').text('...');
 							},
 							error: function() {
 								return false;
@@ -533,7 +539,9 @@
 
                 if (volume != '' && volume > 0) {
 	                if (gram != '' && gram > 0) {
-	                	
+                 		$('.volumeMsg').text('...');
+		            	$('.gramMsg').text('');
+
 		                $.ajax ({
 							url : 'auth/gold.calculation.php',
 							method : 'POST',
@@ -559,6 +567,10 @@
 								$('#calculation-result').html('')
 								$('#calculation-result').addClass('d-none');
 								$('#result-view').removeClass('d-none');
+
+
+			                	$('.gramMsg').text('...');
+				            	$('.volumeMsg').text('...');
 							},
 							error: function() {
 								return false;
@@ -566,7 +578,7 @@
 						})
 	                } else {
 	                	$('.gramMsg').text('typing ...');
-		            	$('.volumeMsg').text('');
+		            	$('.volumeMsg').text('...');
 	                }
                 }
             })
