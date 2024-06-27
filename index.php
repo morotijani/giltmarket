@@ -1,23 +1,11 @@
 <?php 
     require_once ("db_connection/conn.php");
 
+    include ("includes/header.inc.php");
+
 ?>
 
-<!DOCTYPE html>
-<html lang="en" data-theme="light">
-<head>
-	<meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-	<meta name="color-scheme" content="dark light">
-	<title>J.Spence – Gold and Finance Dashboard</title>
-	<link rel="stylesheet" type="text/css" href="<?= PROOT; ?>dist/css/main.css">
-	<link rel="stylesheet" type="text/css" href="<?= PROOT; ?>dist/css/utility.css">
-	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.2/font/bootstrap-icons.css">
-	<link rel="stylesheet" href="https://api.fontshare.com/v2/css?f=satoshi@900,700,500,300,401,400&display=swap">
-	<script defer="defer" data-domain="satoshi.webpixels.io" src="https://plausible.io/js/script.outbound-links.js"></script>
-</head>
-<body class="p-1 p-lg-2 bg-body-tertiary">
-	<div class="overflow-x-hidden rounded-top-4 pt-2 pt-lg-4">
+
 		
 		<header>
 			<div class="w-lg-75 mx-2 mx-lg-auto position-relative z-2 px-lg-3 py-1 shadow-5 rounded-3 rounded-lg-pill bg-dark">
@@ -27,7 +15,7 @@
 						<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
 						<div class="collapse navbar-collapse" id="navbarCollapse">
 							<ul class="navbar-nav gap-2 mx-lg-auto">
-								<li class="nav-item"><a class="nav-link rounded-pill" href="/"aria-current="page">Dashboard</a></li>
+								<li class="nav-item"><a class="nav-link rounded-pill" href="<?= PROOT; ?>"aria-current="page">Dashboard</a></li>
 								<li class="nav-item"><a class="nav-link rounded-pill" href="/pages/page-table-listing.html">Trade</a></li>
 								<li class="nav-item"><a class="nav-link rounded-pill" href="/pages/page-list.html">Admins</a></li>
 								<?php if (admin_is_logged_in()): ?>
@@ -336,8 +324,6 @@
 					</div>
 
 
-
-
 					<?php else: ?>
 						<div class="mt-10 d-flex justify-content-center">
 							<!-- <img src="/img/marketing/hero-img-1.png"> -->
@@ -429,21 +415,6 @@
 		</div>
 	</div>
 
-	<!-- TOAST FOR LIVE MESSAGES -->
-    <div aria-live="polite" aria-atomic="true" class="d-flex justify-content-center align-items-center w-100">
-        <div class="toast position-fixed top-0 start-50 translate-middle-x bg-warning" role="alert" aria-live="assertive" aria-atomic="true" style="top: 15% !important; z-index: 99999;">
-            <div class="toast-header">
-                <img src="<?= PROOT; ?>dist/media/logo-no-bg.png" width="35" height="35" class="rounded me-2" alt="Inqoins Logo">
-                <strong class="me-auto">J-Spence</strong>
-                <small>now</small>
-                <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
-            </div>
-            <div class="toast-body">
-                ...
-            </div>
-        </div>
-    </div>
-
 	<!-- LOGIN -->
 	<div class="modal fade" id="connectWalletModal" tabindex="-1" aria-labelledby="connectWalletModalLabel" aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="false">
 		<div class="modal-dialog modal-dialog-centered">
@@ -479,13 +450,14 @@
 		</div>
 	</div>
 
-    <script src="<?= PROOT; ?>dist/js/jquery-3.7.1.min.js"></script>
-	<script src="https://cdn.jsdelivr.net/npm/choices.js/public/assets/scripts/choices.min.js"></script>
-	<script src="<?= PROOT; ?>dist/js/main.js"></script>
+	<?php include ("includes/footer.inc.php"); ?>
 
 
     <script>
         $(document).ready(function() {
+
+	        // Fade out messages
+	        $("#temporary").fadeOut(5000);
 
         	// Calculation made with gram input
             $('#gram-amount').on('keyup', function(e) {
