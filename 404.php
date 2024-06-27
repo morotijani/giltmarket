@@ -1,6 +1,8 @@
 <?php 
     require_once ("db_connection/conn.php");
 
+    $message = urlencode("i want ..");
+
 ?>
 
 <!DOCTYPE html>
@@ -33,7 +35,7 @@
                                         <a href="documentation" class="h5 text-heading text-primary-hover">Documentation<i class="far fa-arrow-right ms-2"></i></a><p class="text-sm">Everything you need to know is here.</p>
                                     </div>
                                     <div class="">
-                                        <a href="" class="h5 text-heading text-primary-hover">Need any support/help<i class="far fa-arrow-right ms-2"></i></a>
+                                        <a href="https://wa.me/233553477150?text=<?= $message; ?>" class="h5 text-heading text-primary-hover">Need any support/help<i class="far fa-arrow-right ms-2"></i></a>
                                         <p class="text-sm">Get in contact with J.Spence Developer.</p>
                                     </div>
                                 </div>
