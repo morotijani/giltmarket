@@ -581,51 +581,121 @@
 		            	$('.volumeMsg').text('...');
 	                }
                 }
-            })
+            });
 
-            // $('#buy-submit').click(function(e) {
-	       	// 	e.preventDefault();
-	       	// 	$('.gramMsg').html('...');
-	       	// 	$('.volumeMsg').html('...');
-	       	// 	var gram = $('#gram-amount').val();
-            //     var volume = $('#volume-amount').val();
+            // Next to 1
+            $('#next-1').click(function(e) {
+		       	e.preventDefault();
 
-            //     // buy-msg
+		       	var currency = $("#send_currency option:selected").val();
+		       	var crypto = $("#asset option:selected").val();
+				crypto = crypto.split("/");
+				crypto = crypto[1];
 
-	       	// 	if (gram <= 0) {
-		    //         $('.gramMsg').html('* Invalid gram provided.');
-		    //         $("#gram-amount").focus()
-		    //         return false;
-		    //     }
+				$('.assetMsg').html('')
+		        $('.toMsg').html('')
+		        $('.amountMsg').html('')
 
-		    //     if (volume <= 0) {
-		    //         $('.volumeMsg').html('* Invalid volume provided.');
-		    //         $("#volume-amount").focus();
-		    //         return false;
-		    //     }
+		        if ($("#send_amount").val() <= 0) {
+		            $('.amountMsg').html('* Invalid amount.');
+		            $("#send_amount").focus()
+		            return false;
+		        }
 
-        	// });
+		        if ($("#asset").val() == '') {
+		            $('.assetMsg').html('* Asseet needed.');
+		            $("#asset").focus()
+		            return false;
+		        }
 
+		        if ($("#to_address").val() == '') {
+		            $('.toMsg').html('* To address needed.');
+		            $("#to_address").focus()
+		            return false;
+		        }
+
+				if (crypto == 'BTC') {
+					$('#sendsummary').html(
+					`
+						<li class="list-group-item out">
+					  		<small class="text-muted">You’re sending,</small>
+					  		<p id="send-crypto">` + $("#returnInCrypto").val() + ` BTC</p>
+					  	</li>
+					  	<li class="list-group-item out">
+					  		<small class="text-muted">Amount</small>
+					  		<p id="send-amount">` + Number($("#send_amount").val()).toFixed(2) + ` ` + currency + `</p>
+					  	</li>
+					  	<li class="list-group-item out">
+					  		<small class="text-muted">Fees In BTC</small>
+					  		<p id="send-fees">0.00003005 + 5% BTC</p>
+					  	</li>
+					  	<li class="list-group-item out">
+					  		<small class="text-muted">To</small>
+					  		<p id="send-receiving-address">` + $("#to_address").val() + `</p>
+					  	</li>
+					  	<li class="list-group-item out">
+					  		<small class="text-muted">Note</small>
+					  		<p id="send-note">` + $("#note").val() + `</p>
+					  	</li>
+					`
+				);
+
+				} else {
+					$('#sendsummary').html(
+					`
+						<li class="list-group-item out">
+					  		<small class="text-muted">You’re sending,</small>
+					  		<p id="send-amount">` + Number($("#send_amount").val()).toFixed(2) + ` ` + currency + `</p>
+					  	</li>
+					  	<li class="list-group-item out">
+					  		<small class="text-muted">Fees</small>
+					  		<p id="send-fees">1.2 + 5% USD</p>
+					  	</li>
+					  	<li class="list-group-item out">
+					  		<small class="text-muted">To</small>
+					  		<p id="send-receiving-address">` + $("#to_address").val() + `</p>
+					  	</li>
+					  	<li class="list-group-item out">
+					  		<small class="text-muted">Chain</small>
+					  		<p id="send-chain">TRX</p>
+					  	</li>
+					  	<li class="list-group-item out">
+					  		<small class="text-muted">Note</small>
+					  		<p id="send-note">` + $("#note").val() + `</p>
+					  	</li>
+					`
+					);
+				}
+
+				$('#sendModalLabel').html('Transaction Summary');
+				$('#step-1').addClass('d-none');
+		        $('#step-2').removeClass('d-none');
+		        $('#step-3').addClass('d-none');
+		    })
+
+            // Next to 3
             $('#next-2').click(function(e) {
 		       	e.preventDefault();
 
-				$('#sendModalLabel').html('Authentication for transaction.');
+				$('#buyModalLabel').html('Authentication for transaction.');
 		        $('#step-1').addClass('d-none');
 		        $('#step-2').addClass('d-none');
 		        $('#step-3').removeClass('d-none');
 
 		    })
 
+            // Back to 1
         	$("#prev-1").click(function() {
-				$('#sendModalLabel').html('Send Funds');
+				$('#buyModalLabel').html('Send Funds');
 		        $('#step-1').removeClass('d-none')
 		        $('#step-2').addClass('d-none')
 		        $('#step-3').addClass('d-none')
 		        $('.pinMsg').html('')
 		    });
 
+        	// Back to 2
 		    $("#prev-2").click(function() {
-				$('#sendModalLabel').html('Transaction Summary');
+				$('#buyModalLabel').html('Transaction Summary');
 		        $('#step-2').removeClass('d-none')
 		        $('#step-3').addClass('d-none')
 		        $('#step-1').addClass('d-none')
@@ -654,53 +724,77 @@
 		    	$('#buyModal').modal('hide');
 		    })
 
-        	// $('#sendModalLabel').html('Send Funds');
+        	// $('#buyModalLabel').html('Send Funds');
         	
         	// SEND FUND
 	        var $this = $('#buyForm');
 			var $state = $('.toast-body');
 			$('#buyForm').on('submit', function(event) {
-			event.preventDefault();
+				event.preventDefault();
 
-			var amount = $('#send_amount').val();
-			var address = $('#to_address').val();
-			var pin = $('#pin').val();
-			if (address != '' && amount != '') {
-				$.ajax({
-		          	url : 'Controller/make.purchase.php',
-		          	method : 'POST',
-		          	data : $(this).serialize(),
-		          	beforeSend : function() {
-			            $this.find('#submitSend').attr("disabled", true);
-			            $this.find('#submitSend').html('<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span><span> Loading...</span>');
-		          	},
-		          	success : function(data) {
-		            	if (data == '') {
-		              		$state.removeClass('text-danger');
-		              		$state.addClass('text-info');
-		              		$state.html('Transaction successfully submited!');
-		              		$this.find('#submitSend').text("Send");
-		              		$('.toast').toast('show');
-		              		$('#sendModalLabel').html('Send Funds');
-							$('#send_amount').attr("placeholder", "$0.00");
-							$('.asset_balance').text('')
-		              		$('#sendForm')[0].reset();
-		              		$('#step-1').removeClass('d-none');
-		              		$('#step-2').addClass('d-none');
-		              		$('#step-3').addClass('d-none');
-			            	$this.find('#submitSend').attr("disabled", false);
-		              		$('#sendModal').modal('hide');
-		              		receiver_transaction(address);
-		            	} else {
-		              		var errors = data;
-		              		$this.find('#submitSend').attr("disabled", false);
-		              		$this.find('#submitSend').text("Send");
-		              		$state.html(errors);
-		              		$('.toast').toast('show');
-		              		$('#sendModalLabel').html('Send Funds');
-							$('#send_amount').attr("placeholder", "$0.00");
-		              		$('#sendForm')[0].reset();
-					    	$('#step-1').removeClass('d-none');
+				var gram = $('#gram-amount').val();
+                var volume = $('#volume-amount').val();
+				var pin = $('#pin').val();
+
+				if (gram <= 0) {
+			        $('#submitSend').attr('disabled', false);
+					$state.html('* Invalid gram provided!');
+				    $('.toast').toast('show');
+		            
+		            // $('.gramMsg').html('* Invalid gram provided.');
+		            // $("#gram-amount").focus()
+		            
+		            return false;
+		        }
+
+		        if (volume == '' || volume <= 0) {
+			        $('#submitSend').attr('disabled', false);
+					$state.html('* Invalid volume provided!');
+
+				    $('.toast').toast('show');
+		            // $('.volumeMsg').html('* Invalid volume provided.');
+		            // $("#volume-amount").focus();
+		            
+		            return false;
+		        }
+
+
+		        if (pin != '') {
+					$.ajax({
+			          	url : 'Controller/make.purchase.php',
+			          	method : 'POST',
+			          	data : $(this).serialize(),
+			          	beforeSend : function() {
+				            $this.find('#submitSend').attr("disabled", true);
+				            $this.find('#submitSend').html('<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span><span> Loading...</span>');
+			          	},
+			          	success : function(data) {
+			            	if (data == '') {
+			              		$state.removeClass('text-danger');
+			              		$state.addClass('text-info');
+			              		$state.html('Transaction successfully submited!');
+			              		$this.find('#submitSend').text("Send");
+			              		$('.toast').toast('show');
+			              		$('#sendModalLabel').html('Send Funds');
+								$('#send_amount').attr("placeholder", "$0.00");
+								$('.asset_balance').text('')
+			              		$('#sendForm')[0].reset();
+			              		$('#step-1').removeClass('d-none');
+			              		$('#step-2').addClass('d-none');
+			              		$('#step-3').addClass('d-none');
+				            	$this.find('#submitSend').attr("disabled", false);
+			              		$('#sendModal').modal('hide');
+			              		receiver_transaction(address);
+			            	} else {
+			              		var errors = data;
+			              		$this.find('#submitSend').attr("disabled", false);
+			              		$this.find('#submitSend').text("Send");
+			              		$state.html(errors);
+			              		$('.toast').toast('show');
+			              		$('#sendModalLabel').html('Send Funds');
+								$('#send_amount').attr("placeholder", "$0.00");
+			              		$('#sendForm')[0].reset();
+						    	$('#step-1').removeClass('d-none');
 					        $('#step-2').addClass('d-none');
 					        $('#step-3').addClass('d-none');
 		              		// setTimeout(function () {
@@ -709,11 +803,11 @@
 		            	}
 		          	}
 		        });
-			} else {
-				$('#submitSend').attr('disabled', false);
-				$state.html('Empty field required!');
-			    $('.toast').toast('show');
-			}
+				} else {
+			        $('#submitSend').attr('disabled', false);
+					$state.html('* Pin required!');
+				    $('.toast').toast('show');
+				}
 
 		})
 
