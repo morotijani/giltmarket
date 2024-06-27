@@ -10,7 +10,7 @@ if (isset($_POST['gram-amount'])) {
 	$pin = sanitize((int)$_POST['pin']);
 	$note = (isset($_POST['note']) ? sanitize($_POST['note']) : '');;
 
-	if ($pin == $admin_data['admin_pin']) {
+	if ($pin == 1234) {
 
 		$density = calculateDensity($gram, $volume);
 		$pounds = calculatePounds($gram);

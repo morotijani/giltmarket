@@ -375,7 +375,7 @@
 										<span class="fw-semibold">Volume</span> <span class="volumeMsg">...</span>
 									</div>
 									<div class="d-flex justify-content-between gap-2 mt-4">
-										<input type="tel" inputmode="numeric" class="form-control form-control-flush text-xl fw-bold flex-fill" placeholder="0.00" id="volume-amount" id="volume-amount" required autocomplete="nope" data-step="2"> <button class="btn btn-neutral shadow-none rounded-pill flex-none d-flex align-items-center gap-2 py-2 ps-2 pe-4" type="button"><img src="<?= PROOT; ?>dist/media/volume.png" class="w-rem-6 h-rem-6 rounded-circle" alt="..."> <span class="text-xs fw-semibold text-heading ms-1">VLM</span></button>
+										<input type="tel" inputmode="numeric" class="form-control form-control-flush text-xl fw-bold flex-fill" placeholder="0.00" id="volume-amount" name="volume-amount" required autocomplete="nope" data-step="2"> <button class="btn btn-neutral shadow-none rounded-pill flex-none d-flex align-items-center gap-2 py-2 ps-2 pe-4" type="button"><img src="<?= PROOT; ?>dist/media/volume.png" class="w-rem-6 h-rem-6 rounded-circle" alt="..."> <span class="text-xs fw-semibold text-heading ms-1">VLM</span></button>
 									</div>
 								</div>
 							</div>

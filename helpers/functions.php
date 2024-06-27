@@ -45,9 +45,10 @@ function add_to_log($message, $log_admin) {
 		INSERT INTO `jspence_logs`(`log_id`, `log_message`, `log_admin`, `createdAt`) 
 		VALUES (?, ?, ?, ?)
 	";
-	$satement = $conn->prepare($sql);
+	$statement = $conn->prepare($sql);
 	$result = $statement->execute([$log_id, $message, $log_admin, $createdAt]);
 
+	return false;
 	if ($result) {
 		return true;
 	}
