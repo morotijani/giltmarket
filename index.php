@@ -362,7 +362,7 @@
 										<span class="fw-semibold">Gram</span> <span class="gramMsg">...</span>
 									</div>
 									<div class="d-flex justify-content-between gap-2 mt-4">
-										<input type="tel" class="form-control form-control-flush text-xl fw-bold flex-fill" placeholder="0.00"id="gram-amount" autofocus required> <button type="button" class="btn btn-neutral shadow-none rounded-pill flex-none d-flex align-items-center gap-2 py-2 ps-2 pe-4"><img src="<?= PROOT; ?>dist/media/grams.svg" class="w-rem-6 h-rem-6" alt="..."> <span class="text-xs fw-semibold text-heading ms-1">GRM</span></button>
+										<input type="tel" class="form-control form-control-flush text-xl fw-bold flex-fill" placeholder="0.00"id="gram-amount" autofocus required autocomplete="nope"> <button type="button" class="btn btn-neutral shadow-none rounded-pill flex-none d-flex align-items-center gap-2 py-2 ps-2 pe-4"><img src="<?= PROOT; ?>dist/media/grams.svg" class="w-rem-6 h-rem-6" alt="..."> <span class="text-xs fw-semibold text-heading ms-1">GRM</span></button>
 									</div>
 								</div>
 								<div class="position-relative text-center my-n4 overlap-10">
@@ -375,7 +375,7 @@
 										<span class="fw-semibold">Volume</span> <span class="volumeMsg">...</span>
 									</div>
 									<div class="d-flex justify-content-between gap-2 mt-4">
-										<input type="tel" class="form-control form-control-flush text-xl fw-bold flex-fill" placeholder="0.00" id="volume-amount" required> <button class="btn btn-neutral shadow-none rounded-pill flex-none d-flex align-items-center gap-2 py-2 ps-2 pe-4" type="button"><img src="<?= PROOT; ?>dist/media/volume.png" class="w-rem-6 h-rem-6 rounded-circle" alt="..."> <span class="text-xs fw-semibold text-heading ms-1">VLM</span></button>
+										<input type="tel" class="form-control form-control-flush text-xl fw-bold flex-fill" placeholder="0.00" id="volume-amount" required autocomplete="nope"> <button class="btn btn-neutral shadow-none rounded-pill flex-none d-flex align-items-center gap-2 py-2 ps-2 pe-4" type="button"><img src="<?= PROOT; ?>dist/media/volume.png" class="w-rem-6 h-rem-6 rounded-circle" alt="..."> <span class="text-xs fw-semibold text-heading ms-1">VLM</span></button>
 									</div>
 								</div>
 							</div>
@@ -411,7 +411,7 @@
 				      	</div>
 						<div id="step-3" class="d-none">
 							<div class="form-floating inputpin mb-3">
-								<input type="number" class="form-control form-control-xl fw-bolder" min="1" placeholder="Enter PIN" name="pin" id="pin" autocomplete="nope">
+								<input type="number" class="form-control form-control-xl fw-bolder" min="1" placeholder="Enter pin" name="pin" id="pin" autocomplete="nope">
 							  	<div class="form-text pinMsg"></div>
 							  	<label for="pin">PIN *</label>
 							</div>
@@ -590,11 +590,6 @@
             $('#next-1').click(function(e) {
 		       	e.preventDefault();
 
-		       	var currency = $("#send_currency option:selected").val();
-		       	var crypto = $("#asset option:selected").val();
-				crypto = crypto.split("/");
-				crypto = crypto[1];
-
 				$('.gramMsg').text('...');
 		        $('.volumeMsg').text('...');
 
@@ -614,29 +609,37 @@
 				`
 					<li class="list-group-item out">
 				  		<small class="text-muted">Total amount,</small>
-				  		<p id="send-amount">` + Number($("#send_amount").val()).toFixed(2) + ` ` + currency + `</p>
+				  		<p>` + $("#total-amount").val() + ` ₵</p>
 				  	</li>
 				  	<li class="list-group-item out">
-				  		<small class="text-muted">Fees</small>
-				  		<p id="send-fees">1.2 + 5% USD</p>
+				  		<small class="text-muted">Gram</small>
+				  		<p>` + $("#gram-amount").val() + `</p>
 				  	</li>
 				  	<li class="list-group-item out">
-				  		<small class="text-muted">To</small>
-				  		<p id="send-receiving-address">` + $("#to_address").val() + `</p>
+				  		<small class="text-muted">Volume</small>
+				  		<p>` + $("#volume-amount").val() + `</p>
 				  	</li>
 				  	<li class="list-group-item out">
-				  		<small class="text-muted">Chain</small>
-				  		<p id="send-chain">TRX</p>
+				  		<small class="text-muted">Density</small>
+				  		<p>` + $("#density").text() + `</p>
+				  	</li>
+				  	<li class="list-group-item out">
+				  		<small class="text-muted">Pounds</small>
+				  		<p>` + $("#pounds").text() + `</p>
+				  	</li>
+				  	<li class="list-group-item out">
+				  		<small class="text-muted">Carat</small>
+				  		<p id="send-amount">` + $("#carat").text() + `</p>
 				  	</li>
 				  	<li class="list-group-item out">
 				  		<small class="text-muted">Note</small>
-				  		<p id="send-note">` + $("#note").val() + `</p>
+				  		<p>` + $("#note").val() + `</p>
 				  	</li>
 				`
 				);
 				
 
-				$('#sendModalLabel').html('Transaction Summary');
+				$('#buyModalLabel').html('Transaction Summary');
 				$('#step-1').addClass('d-none');
 		        $('#step-2').removeClass('d-none');
 		        $('#step-3').addClass('d-none');
