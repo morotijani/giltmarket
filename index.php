@@ -378,7 +378,8 @@
 								</div>
 							</div>
 						</div>
-						<div id="calculation-result">
+						<div id="calculation-result"></div>
+						<div id="result-view">
 							<label class="form-label">Total Amount</label>
 							<div class="d-flex flex-wrap gap-1 gap-sm-2">
 								<div class="w-sm-56 input-group input-group-sm input-group-inline">
@@ -459,7 +460,8 @@
 					},
 					beforeSend : function () {
 						// body...
-						$('#calculation-result').text('calculating rate ...');
+						$('#calculation-result').html('<img class="img-fluid" src="<?= PROOT; ?>dist/media/loading_v2.gif"/>');
+						$('#result-view').addClass('d-none');
 					},
 					success: function(data) {
 						//$('#amountHelp').text(crypto + ' Fees: ' + data + ' ' + crypto);
@@ -473,6 +475,7 @@
 						$('#pounds').text(response["pounds"]);
 						$('#carat').text(response["carat"]);
 						$('#total-amount').val(response["total_amount"]);
+						$('#result-view').removeClass('d-none');
 					},
 					error: function() {
 						return false;

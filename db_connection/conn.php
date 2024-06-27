@@ -11,7 +11,8 @@
 	date_default_timezone_set("Africa/Accra");
 
 	require_once($_SERVER['DOCUMENT_ROOT'].'/jspence/config.php');
- 	require_once(BASEURL.'helpers/helpers.php');
+ 	require_once(BASEURL . 'helpers/helpers.php');
+ 	require_once(BASEURL . 'helpers/function.php');
 
  ///////////////////////////////////////////////////////////////////////////////////////////
  	// $siteQuery = "
