@@ -399,6 +399,9 @@
 								</div>
 							</div>
 							<br>
+							<div class="mb-3">
+							 	<textarea class="form-control form-control-flush flex-fill" style="overflow: hidden; resize: none;" placeholder="Leave a comment here" id="note" name="note"></textarea>
+							</div>
 							<button type="button" class="btn btn-primary w-100" id="next-1">Continue</button>
 						</div>
 						<div id="step-2" class="d-none text-center">
@@ -592,80 +595,46 @@
 				crypto = crypto.split("/");
 				crypto = crypto[1];
 
-				$('.assetMsg').html('')
-		        $('.toMsg').html('')
-		        $('.amountMsg').html('')
+				$('.gramMsg').text('...');
+		        $('.volumeMsg').text('...');
 
-		        if ($("#send_amount").val() <= 0) {
-		            $('.amountMsg').html('* Invalid amount.');
-		            $("#send_amount").focus()
+		        if ($("#gram-amount").val() <= 0) {
+		            $('.gramMsg').html('* Invalid gram amount!');
+		            $("#gram-amount").focus()
 		            return false;
 		        }
 
-		        if ($("#asset").val() == '') {
-		            $('.assetMsg').html('* Asseet needed.');
-		            $("#asset").focus()
+		        if ($("#volume-amount").val() <= 0) {
+		            $('.volumeMsg').html('* Invalid volume amount!');
+		            $("#volume-amount").focus()
 		            return false;
 		        }
 
-		        if ($("#to_address").val() == '') {
-		            $('.toMsg').html('* To address needed.');
-		            $("#to_address").focus()
-		            return false;
-		        }
-
-				if (crypto == 'BTC') {
-					$('#sendsummary').html(
-					`
-						<li class="list-group-item out">
-					  		<small class="text-muted">You’re sending,</small>
-					  		<p id="send-crypto">` + $("#returnInCrypto").val() + ` BTC</p>
-					  	</li>
-					  	<li class="list-group-item out">
-					  		<small class="text-muted">Amount</small>
-					  		<p id="send-amount">` + Number($("#send_amount").val()).toFixed(2) + ` ` + currency + `</p>
-					  	</li>
-					  	<li class="list-group-item out">
-					  		<small class="text-muted">Fees In BTC</small>
-					  		<p id="send-fees">0.00003005 + 5% BTC</p>
-					  	</li>
-					  	<li class="list-group-item out">
-					  		<small class="text-muted">To</small>
-					  		<p id="send-receiving-address">` + $("#to_address").val() + `</p>
-					  	</li>
-					  	<li class="list-group-item out">
-					  		<small class="text-muted">Note</small>
-					  		<p id="send-note">` + $("#note").val() + `</p>
-					  	</li>
-					`
+				$('#buysummary').html(
+				`
+					<li class="list-group-item out">
+				  		<small class="text-muted">Total amount,</small>
+				  		<p id="send-amount">` + Number($("#send_amount").val()).toFixed(2) + ` ` + currency + `</p>
+				  	</li>
+				  	<li class="list-group-item out">
+				  		<small class="text-muted">Fees</small>
+				  		<p id="send-fees">1.2 + 5% USD</p>
+				  	</li>
+				  	<li class="list-group-item out">
+				  		<small class="text-muted">To</small>
+				  		<p id="send-receiving-address">` + $("#to_address").val() + `</p>
+				  	</li>
+				  	<li class="list-group-item out">
+				  		<small class="text-muted">Chain</small>
+				  		<p id="send-chain">TRX</p>
+				  	</li>
+				  	<li class="list-group-item out">
+				  		<small class="text-muted">Note</small>
+				  		<p id="send-note">` + $("#note").val() + `</p>
+				  	</li>
+				`
 				);
-
-				} else {
-					$('#sendsummary').html(
-					`
-						<li class="list-group-item out">
-					  		<small class="text-muted">You’re sending,</small>
-					  		<p id="send-amount">` + Number($("#send_amount").val()).toFixed(2) + ` ` + currency + `</p>
-					  	</li>
-					  	<li class="list-group-item out">
-					  		<small class="text-muted">Fees</small>
-					  		<p id="send-fees">1.2 + 5% USD</p>
-					  	</li>
-					  	<li class="list-group-item out">
-					  		<small class="text-muted">To</small>
-					  		<p id="send-receiving-address">` + $("#to_address").val() + `</p>
-					  	</li>
-					  	<li class="list-group-item out">
-					  		<small class="text-muted">Chain</small>
-					  		<p id="send-chain">TRX</p>
-					  	</li>
-					  	<li class="list-group-item out">
-					  		<small class="text-muted">Note</small>
-					  		<p id="send-note">` + $("#note").val() + `</p>
-					  	</li>
-					`
-					);
-				}
+				
 
 				$('#sendModalLabel').html('Transaction Summary');
 				$('#step-1').addClass('d-none');
