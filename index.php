@@ -362,7 +362,7 @@
 										<span class="fw-semibold">Gram</span> <span class="gramMsg">...</span>
 									</div>
 									<div class="d-flex justify-content-between gap-2 mt-4">
-										<input type="tel" inputmode="numeric" class="form-control form-control-flush text-xl fw-bold flex-fill" placeholder="0.00"id="gram-amount" autofocus required autocomplete="nope" data-step="2"> <button type="button" class="btn btn-neutral shadow-none rounded-pill flex-none d-flex align-items-center gap-2 py-2 ps-2 pe-4"><img src="<?= PROOT; ?>dist/media/grams.svg" class="w-rem-6 h-rem-6" alt="..."> <span class="text-xs fw-semibold text-heading ms-1">GRM</span></button>
+										<input type="tel" inputmode="numeric" class="form-control form-control-flush text-xl fw-bold flex-fill" placeholder="0.00" id="gram-amount" name="gram-amount" autofocus required autocomplete="nope" data-step="2"> <button type="button" class="btn btn-neutral shadow-none rounded-pill flex-none d-flex align-items-center gap-2 py-2 ps-2 pe-4"><img src="<?= PROOT; ?>dist/media/grams.svg" class="w-rem-6 h-rem-6" alt="..."> <span class="text-xs fw-semibold text-heading ms-1">GRM</span></button>
 									</div>
 								</div>
 								<div class="position-relative text-center my-n4 overlap-10">
@@ -375,7 +375,7 @@
 										<span class="fw-semibold">Volume</span> <span class="volumeMsg">...</span>
 									</div>
 									<div class="d-flex justify-content-between gap-2 mt-4">
-										<input type="tel" inputmode="numeric" class="form-control form-control-flush text-xl fw-bold flex-fill" placeholder="0.00" id="volume-amount" required autocomplete="nope" data-step="2"> <button class="btn btn-neutral shadow-none rounded-pill flex-none d-flex align-items-center gap-2 py-2 ps-2 pe-4" type="button"><img src="<?= PROOT; ?>dist/media/volume.png" class="w-rem-6 h-rem-6 rounded-circle" alt="..."> <span class="text-xs fw-semibold text-heading ms-1">VLM</span></button>
+										<input type="tel" inputmode="numeric" class="form-control form-control-flush text-xl fw-bold flex-fill" placeholder="0.00" id="volume-amount" id="volume-amount" required autocomplete="nope" data-step="2"> <button class="btn btn-neutral shadow-none rounded-pill flex-none d-flex align-items-center gap-2 py-2 ps-2 pe-4" type="button"><img src="<?= PROOT; ?>dist/media/volume.png" class="w-rem-6 h-rem-6 rounded-circle" alt="..."> <span class="text-xs fw-semibold text-heading ms-1">VLM</span></button>
 									</div>
 								</div>
 							</div>
@@ -744,45 +744,43 @@
 			            	if (data == '') {
 			              		$state.removeClass('text-danger');
 			              		$state.addClass('text-info');
-			              		$state.html('Transaction successfully submited!');
-			              		$this.find('#submitSend').text("Send");
+			              		$state.html('Sale successfully made!');
+			              		$this.find('#submitSend').text("Complete Sale");
 			              		$('.toast').toast('show');
-			              		$('#sendModalLabel').html('Send Funds');
-								$('#send_amount').attr("placeholder", "$0.00");
-								$('.asset_balance').text('')
-			              		$('#sendForm')[0].reset();
+			              		$('#buyModalLabel').html('Make a sale');
+								$('.volumeMsg').text('')
+								$('.gramMsg').text('');
+								$('buy-msg').text('');
+			              		$('#buyForm')[0].reset();
 			              		$('#step-1').removeClass('d-none');
 			              		$('#step-2').addClass('d-none');
 			              		$('#step-3').addClass('d-none');
 				            	$this.find('#submitSend').attr("disabled", false);
-			              		$('#sendModal').modal('hide');
-			              		receiver_transaction(address);
+			              		$('#buyModal').modal('hide');
 			            	} else {
 			              		var errors = data;
 			              		$this.find('#submitSend').attr("disabled", false);
-			              		$this.find('#submitSend').text("Send");
+			              		$this.find('#submitSend').text("Complete sale");
 			              		$state.html(errors);
 			              		$('.toast').toast('show');
-			              		$('#sendModalLabel').html('Send Funds');
-								$('#send_amount').attr("placeholder", "$0.00");
-			              		$('#sendForm')[0].reset();
+			              		$('#buyModalLabel').html('Make a sale');
+			              		// $('#buyForm')[0].reset();
 						    	$('#step-1').removeClass('d-none');
-					        $('#step-2').addClass('d-none');
-					        $('#step-3').addClass('d-none');
+					        	$('#step-2').addClass('d-none');
+					        	$('#step-3').addClass('d-none');
 		              		// setTimeout(function () {
 		                	// 	window.location = 'index';
 		              		// }, 100);
-		            	}
-		          	}
-		        });
+		            		}
+		          		}
+		        	});
 				} else {
 			        $('#submitSend').attr('disabled', false);
 					$state.html('* Pin required!');
 				    $('.toast').toast('show');
 		            $("#pin").focus()
 				}
-
-		})
+			})
 
 
         });
