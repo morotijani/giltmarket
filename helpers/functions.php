@@ -3,13 +3,15 @@
 
 // Density calculation
 function calculateDensity($gram, $volume) {
-	$density = ($gram / $volume)
+	$density = ($gram / $volume);
+	
 	return $density;
 }
 
 // Density calculation
 function calculatePounds($gram) {
-	$pounds = ($gram / FIXED_POUNDS_CALCULATION)
+	$pounds = ($gram / FIXED_POUNDS_CALCULATION);
+	
 	return $pounds;
 }
 
@@ -27,5 +29,5 @@ function calculateTotalAmount($gram, $volume, $current_price) {
 	$pounds = calculatePounds($gram);
 
 	$total_amount = (($carat * $current_price) / (FIXED_TOTAL_FIGURE / $pounds));
-	return $carat;
+	return $total_amount;
 }

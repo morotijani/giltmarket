@@ -345,16 +345,16 @@
 		</main>
 
 	<!-- BUY -->
-	<div class="modal fade" id="depositLiquidityModal" tabindex="-1" aria-labelledby="depositLiquidityModalLabel" aria-hidden="true">
+	<div class="modal fade" id="depositLiquidityModal" tabindex="-1" aria-labelledby="depositLiquidityModalLabel" aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="false">
 		<div class="modal-dialog modal-dialog-centered">
 			<div class="modal-content overflow-hidden">
 				<div class="modal-header pb-0 border-0">
 					<h1 class="modal-title h4" id="depositLiquidityModalLabel">Deposit liquidity</h1>
-					<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+					<button type="button" class="btn-close btn-close-buyform" data-bs-dismiss="modal" aria-label="Close"></button>
 				</div>
 				<div class="modal-body undefined">
 					<div class="buy-msg p-1 small"></div>
-					<form class="vstack gap-6">
+					<form class="vstack gap-6" id="buyForm">
 						<div id="step-1">
 							<div class="vstack gap-1">
 								<div class="bg-body-secondary rounded-3 p-4">
@@ -380,6 +380,7 @@
 								</div>
 							</div>
 							<div id="calculation-result"></div>
+							<br>
 							<div id="result-view">
 								<label class="form-label">Total Amount</label>
 								<div class="d-flex flex-wrap gap-1 gap-sm-2">
@@ -397,10 +398,11 @@
 									</div>
 								</div>
 							</div>
-							<button type="button" class="btn btn-primary w-100" id="next-1">Provide liquidity</button>
+							<br>
+							<button type="button" class="btn btn-primary w-100" id="next-1">Continue</button>
 						</div>
 						<div id="step-2" class="d-none text-center">
-				        	<ul class="list-group" id="sendsummary"></ul>
+				        	<ul class="list-group" id="buysummary"></ul>
 				        		<button type="button" class="btn btn-warning mt-4" id="next-2">Confirm Transaction</button>
 				        		<br><a href="javascript:;" class="text-dark" id="prev-1"><< Go Back</a>
 				      	</div>
@@ -533,10 +535,9 @@
         	// });
 
         	// when buy modal is to be closed
-        	 $('.btn-close-sendform').click(function(e) {
+        	 $('.btn-close-buyform').click(function(e) {
 		    	e.preventDefault()
 
-		    	$('#sendModalLabel').html('Send Funds');
 				$('#send_amount').attr("placeholder", "$0.00");
 		    	$('#sendForm')[0].reset();
 				$('#amountHelp').text('');
@@ -545,10 +546,11 @@
 		        $('#step-3').addClass('d-none');
 		    	$('#sendModal').modal('hide');
 		    })
-        	 // SEND FUND
-        var $this = $('#sendForm');
-		var $state = $('.toast-body');
-		$('#sendForm').on('submit', function(event) {
+        	
+        	// SEND FUND
+	        var $this = $('#buyForm');
+			var $state = $('.toast-body');
+			$('#buyForm').on('submit', function(event) {
 			event.preventDefault();
 
 			var amount = $('#send_amount').val();
