@@ -607,31 +607,31 @@
 
 				$('#buysummary').html(
 				`
-					<li class="list-group-item out">
+					<li class="list-group-item" style="padding: 0.1rem 1rem;">
 				  		<small class="text-muted">Total amount,</small>
 				  		<p>` + $("#total-amount").val() + ` ₵</p>
 				  	</li>
-				  	<li class="list-group-item out">
+				  	<li class="list-group-item" style="padding: 0.1rem 1rem;">
 				  		<small class="text-muted">Gram</small>
-				  		<p>` + $("#gram-amount").val() + `</p>
+				  		<p>` + Number($("#gram-amount").val()).toFixed(2) + `</p>
 				  	</li>
-				  	<li class="list-group-item out">
+				  	<li class="list-group-item" style="padding: 0.1rem 1rem;">
 				  		<small class="text-muted">Volume</small>
-				  		<p>` + $("#volume-amount").val() + `</p>
+				  		<p>` + Number($("#volume-amount").val()).toFixed(2) + `</p>
 				  	</li>
-				  	<li class="list-group-item out">
+				  	<li class="list-group-item" style="padding: 0.1rem 1rem;">
 				  		<small class="text-muted">Density</small>
 				  		<p>` + $("#density").text() + `</p>
 				  	</li>
-				  	<li class="list-group-item out">
+				  	<li class="list-group-item" style="padding: 0.1rem 1rem;">
 				  		<small class="text-muted">Pounds</small>
 				  		<p>` + $("#pounds").text() + `</p>
 				  	</li>
-				  	<li class="list-group-item out">
+				  	<li class="list-group-item" style="padding: 0.1rem 1rem;">
 				  		<small class="text-muted">Carat</small>
 				  		<p id="send-amount">` + $("#carat").text() + `</p>
 				  	</li>
-				  	<li class="list-group-item out">
+				  	<li class="list-group-item" style="padding: 0.1rem 1rem;">
 				  		<small class="text-muted">Note</small>
 				  		<p>` + $("#note").val() + `</p>
 				  	</li>
