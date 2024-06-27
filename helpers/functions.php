@@ -4,14 +4,14 @@
 // Density calculation
 function calculateDensity($gram, $volume) {
 	$density = ($gram / $volume);
-	
+
 	return $density;
 }
 
 // Density calculation
 function calculatePounds($gram) {
-	$pounds = ($gram / FIXED_POUNDS_CALCULATION);
-	
+	$pounds = ($gram / FIXED_POUNDS_FIGURE);
+
 	return $pounds;
 }
 

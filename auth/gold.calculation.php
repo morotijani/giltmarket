@@ -1,6 +1,6 @@
 <?php 
 
-require_once ("../../connection/conn.php");
+require_once ("../db_connection/conn.php");
 
 $message = '';
 

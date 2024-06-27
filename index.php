@@ -34,7 +34,7 @@
 							</ul>
 							<div class="navbar-nav align-items-lg-center justify-content-end gap-2 ms-lg-4 w-lg-64">
 								<a class="nav-item nav-link rounded-pill d-none d-lg-block" href="javascript:;" data-bs-target="#connectWalletModal" data-bs-toggle="modal">Connect</a> 
-								<a href="javascript:;" class="btn btn-sm btn-white border-0 rounded-lg-pill w-100 w-lg-auto mb-4 mb-lg-0" data-bs-target="#depositLiquidityModal" data-bs-toggle="modal">
+								<a href="javascript:;" class="btn btn-sm btn-white border-0 rounded-lg-pill w-100 w-lg-auto mb-4 mb-lg-0" data-bs-target="#buyModal" data-bs-toggle="modal">
 									<span class="pe-2"><i class="bi bi-plus-circle"></i> </span><span>Liquidity</span>
 								</a>
 							</div>
@@ -69,7 +69,7 @@
 							</div>
 							<div class="col">
 								<div class="hstack gap-2 justify-content-end">
-									<button type="button" class="btn btn-sm btn-square btn-neutral rounded-circle d-xxl-none" data-bs-toggle="offcanvas" data-bs-target="#responsiveOffcanvas" aria-controls="responsiveOffcanvas"><i class="bi bi-three-dots"></i></button> <button type="button" class="btn btn-sm btn-neutral d-none d-sm-inline-flex" data-bs-target="#depositLiquidityModal" data-bs-toggle="modal"><span class="pe-2"><i class="bi bi-plus-circle"></i> </span><span>Liquidity</span></button> 
+									<button type="button" class="btn btn-sm btn-square btn-neutral rounded-circle d-xxl-none" data-bs-toggle="offcanvas" data-bs-target="#responsiveOffcanvas" aria-controls="responsiveOffcanvas"><i class="bi bi-three-dots"></i></button> <button type="button" class="btn btn-sm btn-neutral d-none d-sm-inline-flex" data-bs-target="#buyModal" data-bs-toggle="modal"><span class="pe-2"><i class="bi bi-plus-circle"></i> </span><span>Liquidity</span></button> 
 									<a href="/pages/page-overview.html" class="btn d-inline-flex btn-sm btn-dark"><span>Trade</span></a>
 								</div>
 							</div>
@@ -345,11 +345,11 @@
 		</main>
 
 	<!-- BUY -->
-	<div class="modal fade" id="depositLiquidityModal" tabindex="-1" aria-labelledby="depositLiquidityModalLabel" aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="false">
+	<div class="modal fade" id="buyModal" tabindex="-1" aria-labelledby="buyModalLabel" aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="false">
 		<div class="modal-dialog modal-dialog-centered">
 			<div class="modal-content overflow-hidden">
 				<div class="modal-header pb-0 border-0">
-					<h1 class="modal-title h4" id="depositLiquidityModalLabel">Deposit liquidity</h1>
+					<h1 class="modal-title h4" id="buyModalLabel">Deposit liquidity</h1>
 					<button type="button" class="btn-close btn-close-buyform" data-bs-dismiss="modal" aria-label="Close"></button>
 				</div>
 				<div class="modal-body undefined">
@@ -379,7 +379,7 @@
 									</div>
 								</div>
 							</div>
-							<div id="calculation-result"></div>
+							<div id="calculation-result" class="d-flex justify-content-center"></div>
 							<br>
 							<div id="result-view">
 								<label class="form-label">Total Amount</label>
@@ -420,6 +420,21 @@
 			</div>
 		</div>
 	</div>
+
+	<!-- TOAST FOR LIVE MESSAGES -->
+    <div aria-live="polite" aria-atomic="true" class="d-flex justify-content-center align-items-center w-100">
+        <div class="toast position-fixed top-0 start-50 translate-middle-x bg-warning" role="alert" aria-live="assertive" aria-atomic="true" style="top: 15% !important; z-index: 99999;">
+            <div class="toast-header">
+                <img src="<?= PROOT; ?>dist/media/logo-no-bg.png" width="35" height="35" class="rounded me-2" alt="Inqoins Logo">
+                <strong class="me-auto">J-Spence</strong>
+                <small>now</small>
+                <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+            </div>
+            <div class="toast-body">
+                ...
+            </div>
+        </div>
+    </div>
 
 	<!-- LOGIN -->
 	<div class="modal fade" id="connectWalletModal" tabindex="-1" aria-labelledby="connectWalletModalLabel" aria-hidden="true">
@@ -482,17 +497,17 @@
 						$('#result-view').addClass('d-none');
 					},
 					success: function(data) {
-						//$('#amountHelp').text(crypto + ' Fees: ' + data + ' ' + crypto);
-
 						const response = JSON.parse(data);
-						if (response["message"] != '') {
+						//if (response["message"] != '') {
 							$('.toast-body').html(response["message"]);
 				    		$('.toast').toast('show');
-						}
+						//}
 						$('#density').text(response["density"]);
 						$('#pounds').text(response["pounds"]);
 						$('#carat').text(response["carat"]);
 						$('#total-amount').val(response["total_amount"]);
+						$('#calculation-result').html('')
+						$('#calculation-result').addClass('d-none');
 						$('#result-view').removeClass('d-none');
 					},
 					error: function() {
@@ -534,18 +549,55 @@
 
         	// });
 
+            $('#next-2').click(function(e) {
+		       	e.preventDefault();
+
+				$('#sendModalLabel').html('Authentication for transaction.');
+		        $('#step-1').addClass('d-none');
+		        $('#step-2').addClass('d-none');
+		        $('#step-3').removeClass('d-none');
+
+		    })
+
+        	$("#prev-1").click(function() {
+				$('#sendModalLabel').html('Send Funds');
+		        $('#step-1').removeClass('d-none')
+		        $('#step-2').addClass('d-none')
+		        $('#step-3').addClass('d-none')
+		        $('.pinMsg').html('')
+		    });
+
+		    $("#prev-2").click(function() {
+				$('#sendModalLabel').html('Transaction Summary');
+		        $('#step-2').removeClass('d-none')
+		        $('#step-3').addClass('d-none')
+		        $('#step-1').addClass('d-none')
+		        $('.pinMsg').html('')
+		    });
+
         	// when buy modal is to be closed
         	 $('.btn-close-buyform').click(function(e) {
 		    	e.preventDefault()
 
-				$('#send_amount').attr("placeholder", "$0.00");
+				$('#density').text('');
+				$('#pounds').text('');
+				$('#carat').text('');
+				$('#total-amount').val('');
+
 		    	$('#sendForm')[0].reset();
-				$('#amountHelp').text('');
+
+				$('#buy-msg').text('');
+				$('#gramMsg').text('');
+				$('#volumeMsg').text('');
+
 		    	$('#step-1').removeClass('d-none');
 		        $('#step-2').addClass('d-none');
 		        $('#step-3').addClass('d-none');
-		    	$('#sendModal').modal('hide');
+
+		    	$('#buyModal').modal('hide');
 		    })
+
+        	// $('#sendModalLabel').html('Send Funds');
         	
         	// SEND FUND
 	        var $this = $('#buyForm');
