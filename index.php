@@ -27,13 +27,19 @@
 						<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
 						<div class="collapse navbar-collapse" id="navbarCollapse">
 							<ul class="navbar-nav gap-2 mx-lg-auto">
-								<li class="nav-item"><a class="nav-link rounded-pill" href="/" aria-current="page">Statistics</a></li>
-								<li class="nav-item"><a class="nav-link rounded-pill" href="/pages/dashboard.html">Dashboard</a></li>
+								<li class="nav-item"><a class="nav-link rounded-pill" href="/"aria-current="page">Dashboard</a></li>
 								<li class="nav-item"><a class="nav-link rounded-pill" href="/pages/page-table-listing.html">Trade</a></li>
 								<li class="nav-item"><a class="nav-link rounded-pill" href="/pages/page-list.html">Admins</a></li>
+								<?php if (admin_is_logged_in()): ?>
+									<li class="nav-item"><a class="nav-link rounded-pill" href="<?= PROOT; ?>auth/logout">Logout</a></li>
+								<?php endif; ?>
 							</ul>
 							<div class="navbar-nav align-items-lg-center justify-content-end gap-2 ms-lg-4 w-lg-64">
-								<a class="nav-item nav-link rounded-pill d-none d-lg-block" href="javascript:;" data-bs-target="#connectWalletModal" data-bs-toggle="modal">Connect</a> 
+								<?php if (admin_is_logged_in()): ?>
+								<a class="nav-item nav-link rounded-pill d-none d-lg-block" href="<?= PROOT; ?>acc/profile">Hello <?= $admin_data['first']; ?>!</a>
+								<?php else: ?>
+								<a class="nav-item nav-link rounded-pill d-none d-lg-block" href="javascript:;" data-bs-target="#connectWalletModal" data-bs-toggle="modal">Connect</a>
+								<?php endif; ?>
 								<a href="javascript:;" class="btn btn-sm btn-white border-0 rounded-lg-pill w-100 w-lg-auto mb-4 mb-lg-0" data-bs-target="#buyModal" data-bs-toggle="modal">
 									<span class="pe-2"><i class="bi bi-plus-circle"></i> </span><span>Liquidity</span>
 								</a>
@@ -47,6 +53,7 @@
 		<main>
 			<div class="pt-56 pb-10 pt-lg-56 pb-lg-0 mt-n40 position-relative">
 				<div class="container">
+					<div><?= $flash; ?></div>
 					<?php if (admin_is_logged_in()): ?>
 					<!-- <div class="row align-items-center g-10">
 						<div class="col-lg-8">
@@ -460,7 +467,7 @@
 							</div>
 							<div class="list-group-item border rounded p-4 bg-body-secondary-hover">
 								<div class="">
-									<input type="submit" name="" class="form-control" value="Connect">
+									<input type="submit" name="submit_form" class="form-control" value="Connect">
 								</div>
 							</div>
 						</form>

@@ -28,7 +28,7 @@ if (isset($_POST['gram-amount'])) {
 		if (isset($result)) {
 			// code...
 			$message = "added new sale with gram of " . $gram . " and volume of " . $volume . " and total amount of " . $total_amount ." ";
-			$log_admin = 1;
+			$log_admin = $admin_data['admin_id'];
 			add_to_log($message, $log_admin);
 
 			echo "";

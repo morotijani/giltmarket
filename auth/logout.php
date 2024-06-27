@@ -2,8 +2,6 @@
 
     require_once ("../db_connection/conn.php");
 
-    unset($_SESSION['ATAdmin']);
+    unset($_SESSION['JSAdmin']);
 
-    header('Location: login');
-
-?>
+    redirect(PROOT . 'index');
