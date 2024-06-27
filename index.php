@@ -362,7 +362,7 @@
 										<span class="fw-semibold">Gram</span> <span class="gramMsg">...</span>
 									</div>
 									<div class="d-flex justify-content-between gap-2 mt-4">
-										<input type="tel" class="form-control form-control-flush text-xl fw-bold flex-fill" placeholder="0.00"id="gram-amount" autofocus required autocomplete="nope"> <button type="button" class="btn btn-neutral shadow-none rounded-pill flex-none d-flex align-items-center gap-2 py-2 ps-2 pe-4"><img src="<?= PROOT; ?>dist/media/grams.svg" class="w-rem-6 h-rem-6" alt="..."> <span class="text-xs fw-semibold text-heading ms-1">GRM</span></button>
+										<input type="tel" inputmode="numeric" class="form-control form-control-flush text-xl fw-bold flex-fill" placeholder="0.00"id="gram-amount" autofocus required autocomplete="nope" data-step="2"> <button type="button" class="btn btn-neutral shadow-none rounded-pill flex-none d-flex align-items-center gap-2 py-2 ps-2 pe-4"><img src="<?= PROOT; ?>dist/media/grams.svg" class="w-rem-6 h-rem-6" alt="..."> <span class="text-xs fw-semibold text-heading ms-1">GRM</span></button>
 									</div>
 								</div>
 								<div class="position-relative text-center my-n4 overlap-10">
@@ -375,7 +375,7 @@
 										<span class="fw-semibold">Volume</span> <span class="volumeMsg">...</span>
 									</div>
 									<div class="d-flex justify-content-between gap-2 mt-4">
-										<input type="tel" class="form-control form-control-flush text-xl fw-bold flex-fill" placeholder="0.00" id="volume-amount" required autocomplete="nope"> <button class="btn btn-neutral shadow-none rounded-pill flex-none d-flex align-items-center gap-2 py-2 ps-2 pe-4" type="button"><img src="<?= PROOT; ?>dist/media/volume.png" class="w-rem-6 h-rem-6 rounded-circle" alt="..."> <span class="text-xs fw-semibold text-heading ms-1">VLM</span></button>
+										<input type="tel" inputmode="numeric" class="form-control form-control-flush text-xl fw-bold flex-fill" placeholder="0.00" id="volume-amount" required autocomplete="nope" data-step="2"> <button class="btn btn-neutral shadow-none rounded-pill flex-none d-flex align-items-center gap-2 py-2 ps-2 pe-4" type="button"><img src="<?= PROOT; ?>dist/media/volume.png" class="w-rem-6 h-rem-6 rounded-circle" alt="..."> <span class="text-xs fw-semibold text-heading ms-1">VLM</span></button>
 									</div>
 								</div>
 							</div>
@@ -388,13 +388,13 @@
 										<input type="text" readonly class="form-control" placeholder="0.00" id="total-amount"> <span class="input-group-text">₵</span>
 									</div>
 									<div class="flex-fill">
-										<input type="radio" title="Density" class="btn-check" name="options" checked="checked"> <label class="btn btn-sm btn-neutral w-100" id="density" for="option1">0.5 Density</label>
+										<input type="radio" title="Density" class="btn-check"> <label class="btn btn-sm btn-neutral w-100" id="density" for="option1">0.0 Density</label>
 									</div>
 									<div class="flex-fill">
-										<input type="radio" class="btn-check" title="Pounds" name="options" checked="checked"> <label class="btn btn-sm btn-neutral w-100" id="pounds" for="option2">1 Pounds</label>
+										<input type="radio" class="btn-check" title="Pounds"> <label class="btn btn-sm btn-neutral w-100" id="pounds" for="option2">0.00 Pounds</label>
 									</div>
 									<div class="flex-fill">
-										<input type="radio" class="btn-check" name="options" title="Karat" checked="checked"> <label class="btn btn-sm btn-neutral w-100" id="carat" for="option3">3 Carat</label>
+										<input type="radio" class="btn-check" title="Carat"> <label class="btn btn-sm btn-neutral w-100" id="carat" for="option3">0.00 Carat</label>
 									</div>
 								</div>
 							</div>
@@ -406,18 +406,15 @@
 						</div>
 						<div id="step-2" class="d-none text-center">
 				        	<ul class="list-group" id="buysummary"></ul>
-				        		<button type="button" class="btn btn-warning mt-4" id="next-2">Confirm Transaction</button>
+				        		<button type="button" class="btn btn-warning mt-4" id="next-2">Confirm Sale</button>
 				        		<br><a href="javascript:;" class="text-dark" id="prev-1"><< Go Back</a>
 				      	</div>
 						<div id="step-3" class="d-none">
 							<div class="inputpin mb-3">
 								<input type="number" class="form-control form-control-xl fw-bolder" min="1" placeholder="Enter pin" name="pin" id="pin" autocomplete="nope">
 							</div>
-							<button type="button" class="btn btn-secondary" id="prev-2">Back</button>
-			        		<button type="submit" class="btn btn-warning" id="submitSend" name="submitSend">Send</button>
-			        		
-			        		<button type="button" class="btn btn-warning mt-4" id="next-2">Confirm Transaction</button>
-				        	<br><a href="javascript:;" class="text-dark" id="prev-1"><< Go Back</a>
+			        		<button type="submit" class="btn btn-warning mt-4" id="submitSend" name="submitSend">Complete Sale</button>
+				        	<br><a href="javascript:;" class="text-dark" id="prev-2"><< Go Back</a>
 						</div>
 					</form>
 				</div>
@@ -485,8 +482,14 @@
             $('#gram-amount').on('keyup', function(e) {
                 e.preventDefault();
 
+                // var step = this.getAttribute('data-step');
+                
                 var gram = $('#gram-amount').val();
                 var volume = $('#volume-amount').val();
+
+      			// if (gram < step) {
+      			// 	console.log('not accept');
+      			// }
 
 	            if (gram != '' && gram > 0) {
                  	if (volume != '' && volume > 0) {
@@ -640,7 +643,7 @@
 				`
 				);
 				
-				$('#buyModalLabel').html('Transaction Summary');
+				$('#buyModalLabel').html('Sale Summary');
 				$('#step-1').addClass('d-none');
 		        $('#step-2').removeClass('d-none');
 		        $('#step-3').addClass('d-none');
@@ -650,7 +653,7 @@
             $('#next-2').click(function(e) {
 		       	e.preventDefault();
 
-				$('#buyModalLabel').html('Authentication for transaction.');
+				$('#buyModalLabel').html('Authentication for sale.');
 		        $('#step-1').addClass('d-none');
 		        $('#step-2').addClass('d-none');
 		        $('#step-3').removeClass('d-none');
@@ -667,7 +670,7 @@
 
         	// Back to 2
 		    $("#prev-2").click(function() {
-				$('#buyModalLabel').html('Transaction Summary');
+				$('#buyModalLabel').html('Sale Summary');
 		        $('#step-2').removeClass('d-none')
 		        $('#step-3').addClass('d-none')
 		        $('#step-1').addClass('d-none')
