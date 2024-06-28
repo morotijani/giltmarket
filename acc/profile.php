@@ -8,24 +8,24 @@
 
     include ("includes/header.inc.php");
     include ("includes/nav.inc.php");
-    include ("includes/left-side-bar.inc.php");
 
 ?>
-
-	<main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
-        <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-            <h1 class="h2">Profile Details</h1>
-            <div class="btn-toolbar mb-2 mb-md-0">
-                <div class="btn-group me-2">
-                    <a href="<?= PROOT; ?>gpmin/index" class="btn btn-sm btn-outline-secondary">Home</a>
-                    <a href="<?= PROOT; ?>gpmin/profile" class="btn btn-sm btn-outline-secondary">Refresh</a>
+    
+    <div class="mb-6 mb-xl-10">
+        <div class="row g-3 align-items-center">
+            <div class="col">
+                <h1 class="ls-tight">Profile details</h1>
+            </div>
+            <div class="col">
+                <div class="hstack gap-2 justify-content-end">
+                    <button type="button" class="btn btn-sm btn-square btn-neutral rounded-circle d-xxl-none" data-bs-toggle="offcanvas" data-bs-target="#responsiveOffcanvas" aria-controls="responsiveOffcanvas"><i class="bi bi-three-dots"></i></button> <button type="button" class="btn btn-sm btn-neutral d-none d-sm-inline-flex" data-bs-target="#buyModal" data-bs-toggle="modal"><span class="pe-2"><i class="bi bi-plus-circle"></i> </span><span>Go back</span></button> 
+                    <a href="/pages/page-overview.html" class="btn d-inline-flex btn-sm btn-dark"><span>Referesh</span></a>
                 </div>
-                <a href="<?= PROOT; ?>gpmin/profile" class="btn btn-sm btn-outline-secondary">
-                    <span data-feather="skip-back"></span>
-                    GO back
-                </a>
             </div>
         </div>
+    </div>
+
+
 
         <div class="row justify-content-center">
 	        <div class="col-md-6">

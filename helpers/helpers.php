@@ -788,31 +788,30 @@ function get_admin_profile() {
 	$output = '';
 
 	$query = "
-		SELECT * FROM garypie_admin 
-		WHERE admin_trash = :admin_trash 
+		SELECT * FROM jspence_admin 
+		WHERE admin_status = ? 
 		LIMIT 1
 	";
 	$statement = $conn->prepare($query);
-	$statement->execute([':admin_trash' => 0]);
-	$result = $statement->fetchAll();
+	$statement->execute([0]);
+	$row = $statement->fetchAll();
 
-	foreach ($result as $row) {
-		if ($row['admin_id'] == $admin_data['admin_id']) {
-			$output = '
-				<h3>Name</h3>
-			    <p class="lead">'.ucwords($row["admin_fullname"]).'</p>
-			    <br>
-			    <h3>Email</h3>
-			    <p class="lead">'.$row["admin_email"].'</p>
-			    <br>
-			    <h3>Joined Date</h3>
-			    <p class="lead">'.pretty_date($row["admin_joined_date"]).'</p>
-			    <br>
-			    <h3>Last Login</h3>
-			    <p class="lead">'.pretty_date($row["admin_last_login"]).'</p>
-			';
-		}
+	if ($row[0]['admin_id'] == $admin_data[0]['admin_id']) {
+		$output = '
+			<h3>Name</h3>
+		    <p class="lead">'.ucwords($row[0]["admin_fullname"]).'</p>
+		    <br>
+		    <h3>Email</h3>
+		    <p class="lead">'.$row[0]["admin_email"].'</p>
+		    <br>
+		    <h3>Joined Date</h3>
+		    <p class="lead">'.pretty_date($row[0]["admin_joined_date"]).'</p>
+		    <br>
+		    <h3>Last Login</h3>
+		    <p class="lead">'.pretty_date($row[0]["admin_last_login"]).'</p>
+		';
 	}
+	
 	return $output;
 }
 
