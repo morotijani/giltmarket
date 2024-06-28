@@ -24,7 +24,7 @@ if (isset($_POST['gram-amount'])) {
 		$sale_id = guidv4();
 		$createdAt = date("Y-m-d H:i:s A");;
 		$sql = "
-			INSERT INTO `jspence_sales`(`sale_id`, `sale_gram`, `sale_volume`, `sale_density`, `sale_pounds`, `sales_carat`, `sale_total_amount`, `sale_customer_name`, `sale_customer_contact`, `sale_comment`, `sale_by`, `createdAt`) 
+			INSERT INTO `jspence_sales`(`sale_id`, `sale_gram`, `sale_volume`, `sale_density`, `sale_pounds`, `sale_carat`, `sale_total_amount`, `sale_customer_name`, `sale_customer_contact`, `sale_comment`, `sale_by`, `createdAt`) 
 			VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
 		";
 		$statement = $conn->prepare($sql);
@@ -34,7 +34,11 @@ if (isset($_POST['gram-amount'])) {
 			$message = "added new sale with gram of " . $gram . " and volume of " . $volume . " and total amount of " . $total_amount ." on id " . $sale_id . "";
 			add_to_log($message, $log_admin);
 
-			echo "";
+			//echo "";
+			$arrayOutput = array('reference' => $sale_id, 'customername' => $customer_name, 'date' => $createdAt, 'gram' => $gram, 'volume' => $volume, 'density' => $density, 'pounds' => $pounds, 'carat' => $carat, 'total_amount' => $total_amount, 'message' => '',);
+			$ouput = json_encode($arrayOutput);
+			
+			echo $ouput;
 		} else {
 			echo 'Something went wrong.';
 		}
@@ -44,3 +48,5 @@ if (isset($_POST['gram-amount'])) {
 	}
 
 }
+
+

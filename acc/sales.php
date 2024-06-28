@@ -7,6 +7,8 @@
         admn_login_redirect();
     }
 
+    //dnd($unique_id = time() . mt_rand() . '12');
+
     include ("../includes/header.inc.php");
     include ("../includes/nav.inc.php");
 

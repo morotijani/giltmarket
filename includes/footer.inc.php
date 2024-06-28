@@ -403,36 +403,51 @@
                             $this.find('#submitSend').html('<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span><span> Loading...</span>');
                         },
                         success : function(data) {
-                            if (data == '') {
-                                $state.removeClass('text-danger');
-                                $state.addClass('text-info');
-                                $state.html('Sale successfully made!');
-                                $this.find('#submitSend').text("Complete Sale");
-                                $('.toast').toast('show');
-                                $('#buyModalLabel').html('Make a sale');
-                                $('.volumeMsg').text('')
-                                $('.gramMsg').text('');
-                                $('buy-msg').text('');
-                                $('#buyForm')[0].reset();
-                                $('#step-1').removeClass('d-none');
-                                $('#step-2').addClass('d-none');
-                                $('#step-3').addClass('d-none');
-                                $this.find('#submitSend').attr("disabled", false);
-                                $('#buyModal').modal('hide');
-                            } else {
+                            try {
+                                const response = JSON.parse(data);
+                                if (response && typeof response === "object") {
+
+                                    $state.removeClass('text-danger');
+                                    $state.addClass('text-info');
+                                    $state.html('Sale successfully made!');
+                                    $this.find('#submitSend').text("Complete Sale");
+                                    $('.toast').toast('show');
+                                    $('#buyModalLabel').html('Make a sale');
+                                    $('.volumeMsg').text('')
+                                    $('.gramMsg').text('');
+                                    $('buy-msg').text('');
+                                    $('#buyForm')[0].reset();
+                                    $('#step-1').removeClass('d-none');
+                                    $('#step-2').addClass('d-none');
+                                    $('#step-3').addClass('d-none');
+                                    $this.find('#submitSend').attr("disabled", false);
+                                    $('#buyModal').modal('hide');
+
+                                    // print receipt
+                                    print_receipt({
+                                        reference: response["reference"], 
+                                        customername: response["customername"], 
+                                        date: response["date"], 
+                                        gram: response["gram"], 
+                                        volume: response["volume"], 
+                                        density: response["density"], 
+                                        pounds: response["pounds"], 
+                                        carat: response["carat"], 
+                                        total_amount: response["total_amount"], 
+                                    });
+                                }
+                            } catch (e) {
                                 var errors = data;
                                 $this.find('#submitSend').attr("disabled", false);
                                 $this.find('#submitSend').text("Complete sale");
                                 $state.html(errors);
                                 $('.toast').toast('show');
                                 $('#buyModalLabel').html('Make a sale');
-                                // $('#buyForm')[0].reset();
                                 $('#step-1').removeClass('d-none');
                                 $('#step-2').addClass('d-none');
                                 $('#step-3').addClass('d-none');
-                            // setTimeout(function () {
-                            //  window.location = 'index';
-                            // }, 100);
+
+                                return false;
                             }
                         }
                     });
@@ -443,6 +458,12 @@
                     $("#pin").val()
                 }
             })
+
+            // open receipt window
+            function print_receipt(obj) {
+                var vars = JSON.stringify(obj);
+                window.open('<?= PROOT; ?>auth/print?data='+vars, 'printpage', 'popup', 'width: 300px; height: 400px;');
+            }
 
 
         });

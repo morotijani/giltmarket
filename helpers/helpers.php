@@ -214,66 +214,6 @@ function goBack() {
 ////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
-function get_header_information() {
-	global $conn;
-	$siteQuery = "
-	    SELECT * FROM garypie_about 
-	    LIMIT 1
-	";
-	$statement = $conn->prepare($siteQuery);
-	$statement->execute();
-	$site_result = $statement->fetchAll();
-
-	foreach ($site_result as $site_row) {
-	    $phone_1 = $site_row["about_phone"];
-	}
-	$actual_link = (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? "https" : "http") . "://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
-	$actual_linkBreakDown = explode('/', $actual_link);
-	$actual_linkLast = end($actual_linkBreakDown);
-
-	$output = '';
-	if ($actual_linkLast != 'signin' && $actual_linkLast != 'signin.php') {
-
-		$output .= '
-		<div class="header-eyebrow bg-dark">
-		<div class="container">
-		<div class="navbar navbar-dark row">
-		<div class="col">
-		<ul class="navbar-nav mr-auto">
-		<li class="nav-item dropdown">
-		<a class="nav-link dropdown-toggle" href="javascript:;" id="curency" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-		USD
-		</a>
-		<ul class="dropdown-menu" aria-labelledby="curency">
-		<li><a class="dropdown-item" href="javascript:;">EUR</a></li>
-		<li><a class="dropdown-item" href="javascript:;">RUB</a></li>
-		</ul>
-		</li>
-		<li class="nav-item dropdown">
-		<a class="nav-link dropdown-toggle" href="#!" id="language" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-		EN
-		</a>
-		<ul class="dropdown-menu" aria-labelledby="language">
-		<li><a class="dropdown-item" href="#!">Deutsch</a></li>
-		<li><a class="dropdown-item" href="#!">Russian</a></li>
-		<li><a class="dropdown-item" href="#!">French</a></li>
-		</ul>
-		</li>
-		</ul>
-		</div>
-		<div class="col text-right">
-		<span class="phone text-white">'.$phone_1.'</span>
-		</div>
-		</div>
-		</div>
-		</div>
-		';
-
-	} else {
-		$output = '';
-	}
-	return $output;
-}
 
 function getTitle() {
 	$actual_link = (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? "https" : "http") . "://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
