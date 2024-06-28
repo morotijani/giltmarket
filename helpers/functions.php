@@ -60,7 +60,9 @@ function fetch_all_sales($status) {
 	$output = '';
 
 	$sql = "
-		SELECT * FROM jspence_sales 
+		SELECT *, jspence_sales.id AS sid FROM jspence_sales 
+		INNER JOIN jspence_admin 
+		ON jspence_admin.admin_id = jspence_sales.sale_by 
 		WHERE sale_status = ? 
 		ORDER BY createdAt DESC
 	";
@@ -76,14 +78,14 @@ function fetch_all_sales($status) {
 			$output .= '
 				<tr>
 	                <td>' . $i . '</td>
-	                <td><span class="d-block text-heading fw-bold">' . $row["sale_by"] . '</span></td>
+	                <td><span class="d-block text-heading fw-bold">' . ucwords($row["admin_fullname"]) . '</span></td>
 	                <td class="text-xs">' . strtoupper($row["sale_customer_name"]) . ' <i class="bi bi-arrow-right mx-2"></i> ' . $row["sale_customer_contact"] . '</td>
 	                <td>' . $row["sale_gram"] . '</td>
 	                <td>' . $row["sale_volume"] . '</td>
 	                <td>' . money($row["sale_total_amount"]) . '</td>
 	                <td>' . pretty_date($row["createdAt"]) . '</td>
 	                <td class="text-end">
-	                    <button type="button" class="btn btn-sm btn-square btn-neutral w-rem-6 h-rem-6" title="More" data-bs-target="#saleModal_' . $row["id"] . '" data-bs-toggle="modal">
+	                    <button type="button" class="btn btn-sm btn-square btn-neutral w-rem-6 h-rem-6" title="More" data-bs-target="#saleModal_' . $row["sid"] . '" data-bs-toggle="modal">
 	                        <i class="bi bi-three-dots"></i>
 	                    </button> <button type="button" title="Print receipt" class="btn btn-sm btn-square btn-neutral w-rem-6 h-rem-6">
 	                        <i class="bi bi-receipt"></i>
@@ -91,46 +93,54 @@ function fetch_all_sales($status) {
 	                </td>
 	            </tr>
 
-	            <div class="modal fade" id="saleModal_' . $row["id"] . '" tabindex="-1" aria-labelledby="saleModalLabel_' . $row["id"] . '" aria-hidden="true">
+	            <div class="modal fade" id="saleModal_' . $row["sid"] . '" tabindex="-1" aria-labelledby="saleModalLabel_' . $row["sid"] . '" aria-hidden="true">
 					<div class="modal-dialog modal-dialog-centered">
 						<div class="modal-content overflow-hidden">
 							<div class="modal-header pb-0 border-0">
-								<h1 class="modal-title h4" id="saleModalLabel_' . $row["id"] . '">Select token</h1>
+								<h1 class="modal-title h4" id="saleModalLabel_' . $row["sid"] . '">' . $row["sale_id"] . ' <br>by ' . ucwords($row["admin_fullname"]) . '</h1>
 								<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 							</div>
-							<div class="modal-body p-0">
+							<div class="modal-body p-0 text-center">
 								<ul class="list-group">
 									<li class="list-group-item" style="padding: 0.1rem 1rem;">
 				                        <small class="text-muted">Total amount,</small>
-				                        <p>` + $("#total-amount").val() + ` ₵</p>
+				                        <p>' . money($row["sale_total_amount"]) . '</p>
 				                    </li>
 				                    <li class="list-group-item" style="padding: 0.1rem 1rem;">
 				                        <small class="text-muted">Gram</small>
-				                        <p>` + Number($("#gram-amount").val()).toFixed(2) + `</p>
+				                        <p>' . $row["sale_gram"] . '</p>
 				                    </li>
 				                    <li class="list-group-item" style="padding: 0.1rem 1rem;">
 				                        <small class="text-muted">Volume</small>
-				                        <p>` + Number($("#volume-amount").val()).toFixed(2) + `</p>
+				                        <p>' . $row["sale_volume"] . '</p>
 				                    </li>
 				                    <li class="list-group-item" style="padding: 0.1rem 1rem;">
 				                        <small class="text-muted">Density</small>
-				                        <p>` + $("#density").text() + `</p>
+				                        <p>' . $row["sale_density"] . '</p>
 				                    </li>
 				                    <li class="list-group-item" style="padding: 0.1rem 1rem;">
 				                        <small class="text-muted">Pounds</small>
-				                        <p>` + $("#pounds").text() + `</p>
+				                        <p>' . $row["sale_pounds"] . '</p>
 				                    </li>
 				                    <li class="list-group-item" style="padding: 0.1rem 1rem;">
 				                        <small class="text-muted">Carat</small>
-				                        <p id="send-amount">` + $("#carat").text() + `</p>
+				                        <p id="send-amount">' . $row["sale_carat"] . '</p>
 				                    </li>
 				                    <li class="list-group-item" style="padding: 0.1rem 1rem;">
 				                        <small class="text-muted">Customer</small>
-				                        <p id="send-amount">Name: ` + $("#customer_name").val() + ` | Contact: ` + $("#customer_contact").val() + `</p>
+				                        <p id="send-amount">Name: ' . ucwords($row["sale_customer_name"]) . ' | Contact: ' . $row["sale_customer_contact"] . '</p>
 				                    </li>
 				                    <li class="list-group-item" style="padding: 0.1rem 1rem;">
 				                        <small class="text-muted">Note</small>
-				                        <p>` + $("#note").val() + `</p>
+				                        <p>' . $row["sale_comment"] . '</p>
+				                    </li>
+				                    <li class="list-group-item" style="padding: 0.1rem 1rem;">
+				                        <small class="text-muted">Date</small>
+				                        <p>' . pretty_date($row["createdAt"]) . '</p>
+				                    </li>
+				                    <li class="list-group-item" style="padding: 0.1rem 1rem;">
+				                        <small class="text-muted">Updated date</small>
+				                        <p>' . (($row["updatedAt"] == NULL) ? '---' : pretty_date($row["updatedAt"])) . '</p>
 				                    </li>
 								</ul>
 								<div class="p-2"></div>
