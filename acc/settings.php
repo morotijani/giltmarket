@@ -1,20 +1,19 @@
 <?php 
 
-    // ADMIN SETTINGS
-
+    // update admin profile details
     require_once ("../db_connection/conn.php");
 
     if (!admin_is_logged_in()) {
         admn_login_redirect();
     }
 
-    include ("includes/header.inc.php");
-    include ("includes/nav.inc.php");
-    include ("includes/left-side-bar.inc.php");
+    include ("../includes/header.inc.php");
+    include ("../includes/nav.inc.php");
+
 
     $errors = '';
-    $admin_fullname = ((isset($_POST['admin_fullname']))?sanitize($_POST['admin_fullname']):$admin_data['admin_fullname']);
-    $admin_email = ((isset($_POST['admin_email']))?sanitize($_POST['admin_email']):$admin_data['admin_email']);
+    $admin_fullname = ((isset($_POST['admin_fullname'])) ? sanitize($_POST['admin_fullname']) : $admin_data[0]['admin_fullname']);
+    $admin_email = ((isset($_POST['admin_email'])) ? sanitize($_POST['admin_email']) : $admin_data[0]['admin_email']);
 
     if ($_POST) {
         if (empty($_POST['admin_email']) && empty($_POST['admin_email'])) {
@@ -28,59 +27,68 @@
         if (!empty($errors)) {
             $errors;
         } else {
-            $data = [
-                ':admin_fullname' => $admin_fullname,
-                ':admin_email' => $admin_email,
-                ':admin_id' => $admin_data['admin_id']
-            ];
+            $data = [$admin_fullname, $admin_email, $admin_data[0]['admin_id']];
             $query = "
-                UPDATE garypie_admin 
-                SET admin_fullname = :admin_fullname, admin_email = :admin_email 
-                WHERE admin_id = :admin_id
+                UPDATE jspence_admin 
+                SET admin_fullname = ?, admin_email = ? 
+                WHERE admin_id = ?
             ";
             $statement = $conn->prepare($query);
             $result = $statement->execute($data);
             if (isset($result)) {
-                $_SESSION['flash_success'] = 'Admin has been <span class="bg-info">Updated</span></div>';
-                echo "<script>window.location = '".PROOT."gpmin/admins';</script>";
+
+                $message = "updated profile details";
+                add_to_log($message, $admin_data[0]['admin_id']);
+
+                $_SESSION['flash_success'] = 'Admin has been updated!';
+                redirect(PROOT . "acc/profile");
+            } else {
+                echo js_alert("Something went wrong!");
+                redirect(PROOT . "acc/profile");
             }
         }
     }
 
 ?>
 
-    <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
-
-        <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-            <h1 class="h2">Edit Admin</h1>
-            <div class="btn-toolbar mb-2 mb-md-0">
-                <div class="btn-group me-2">
-                    <a href="<?= PROOT; ?>gpmin/index" class="btn btn-outline-secondary">Home</a>
-                    <a href="<?= PROOT; ?>gpmin/change_password" class="btn btn-outline-secondary">Change password</a>
+    <div class="mb-6 mb-xl-10">
+        <div class="row g-3 align-items-center">
+            <div class="col">
+                <h1 class="ls-tight">Update profile details</h1>
+            </div>
+            <div class="col">
+                <div class="hstack gap-2 justify-content-end">
+                    <a href="<?= goBack(); ?>" class="btn btn-sm btn-neutral d-none d-sm-inline-flex"><span class="pe-2"><i class="bi bi-plus-circle"></i> </span><span>Go back</span></a> 
+                    <a href="<?= PROOT; ?>acc/change-password" class="btn d-inline-flex btn-sm btn-dark"><span>Change password</span></a>
                 </div>
             </div>
         </div>
-        <span><?= $flash; ?></span>
+    </div>
 
-        <form method="POST" action="settings.php" id="settingsForm">
-            <span class="text-danger lead"><?= $errors; ?></span>
-            <div class="mb-3">
-                <label for="admin_fullname" class="form-label">Full Name</label>
-                <input type="text" class="form-control" name="admin_fullname" id="admin_fullname" value="<?= $admin_fullname; ?>" required>
-                <div class="form-text">change your full name in this field</div>
+    <div class="row justify-content-center">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-body d-flex flex-column">
+                    <form method="POST">
+                        <div class="text-danger"><?= $errors; ?></div>
+                        <div class="mb-3">
+                            <label for="admin_fullname" class="form-label">Full Name</label>
+                            <input type="text" class="form-control" name="admin_fullname" id="admin_fullname" value="<?= $admin_fullname; ?>" required>
+                            <div class="text-sm text-muted">Change your full name in this field</div>
+                        </div>
+                        <div class="mb-3">
+                            <label for="admin_email" class="form-label">Email</label>
+                            <input type="email" class="form-control" name="admin_email" id="admin_email" value="<?= $admin_email; ?>" required>
+                            <div class="text-sm text-muted">Change your email in this field</div>
+                        </div>
+                        <button type="submit" class="btn btn-dark" name="submit_settings" id="submit_settings">Update</button>&nbsp;
+                    </form>
+                </div>
             </div>
-            <div class="mb-3">
-                <label for="admin_email" class="form-label">Email</label>
-                <input type="email" class="form-control" name="admin_email" id="admin_email" value="<?= $admin_email; ?>" required>
-                <div class="form-text">change your email in this field</div>
-            </div>
-            <button type="submit" class="btn btn-warning" name="submit_settings" id="submit_settings">Update</button>&nbsp;
-            <a href="<?= PROOT; ?>gpmin/profile" class="btn btn-secondary">Cancel</a>
-        </form>
-
-    </main>
+        </div>
+    </div>
 
 
 <?php 
-    include ("includes/footer.inc.php");
+    include ("../includes/footer.inc.php");
 ?>

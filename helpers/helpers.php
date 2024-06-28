@@ -199,7 +199,13 @@ function getBrowserAndOs() {
     return $output;
 }
 
-
+function goBack() {
+	$previous = "javascript:history.go(-1)";
+	if (isset($_SERVER['HTTP_REFERER'])) {
+	    $previous = $_SERVER['HTTP_REFERER'];
+	}
+	return $previous;
+}
 
 
 
@@ -798,17 +804,22 @@ function get_admin_profile() {
 
 	if ($row[0]['admin_id'] == $admin_data[0]['admin_id']) {
 		$output = '
-			<h3>Name</h3>
-		    <p class="lead">'.ucwords($row[0]["admin_fullname"]).'</p>
-		    <br>
-		    <h3>Email</h3>
-		    <p class="lead">'.$row[0]["admin_email"].'</p>
-		    <br>
-		    <h3>Joined Date</h3>
-		    <p class="lead">'.pretty_date($row[0]["admin_joined_date"]).'</p>
-		    <br>
-		    <h3>Last Login</h3>
-		    <p class="lead">'.pretty_date($row[0]["admin_last_login"]).'</p>
+			<li class="list-group-item" style="padding: 0.1rem 1rem;">
+		  		<small class="text-muted">Name,</small>
+		  		<p>' . ucwords($row[0]["admin_fullname"]) . '</p>
+		  	</li>
+			<li class="list-group-item" style="padding: 0.1rem 1rem;">
+		  		<small class="text-muted">Email,</small>
+		  		<p>' . $row[0]["admin_email"] . '</p>
+		  	</li>
+			<li class="list-group-item" style="padding: 0.1rem 1rem;">
+		  		<small class="text-muted">Joined Date,</small>
+		  		<p>' . pretty_date($row[0]["admin_joined_date"]) . '</p>
+		  	</li>
+			<li class="list-group-item" style="padding: 0.1rem 1rem;">
+		  		<small class="text-muted">Last Login,</small>
+		  		<p>' . pretty_date($row[0]["admin_last_login"]) . '</p>
+		  	</li>
 		';
 	}
 	

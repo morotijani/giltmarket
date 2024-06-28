@@ -364,8 +364,8 @@
 						</div>
 						<div id="step-2" class="d-none text-center">
 				        	<ul class="list-group" id="buysummary"></ul>
-				        		<button type="button" class="btn btn-warning mt-4" id="next-2">Confirm Sale</button>
-				        		<br><a href="javascript:;" class="text-dark" id="prev-1"><< Go Back</a>
+			        		<button type="button" class="btn btn-warning mt-4" id="next-2">Confirm Sale</button>
+			        		<br><a href="javascript:;" class="text-dark" id="prev-1"><< Go Back</a>
 				      	</div>
 						<div id="step-3" class="d-none">
 							<div class="inputpin mb-3">

@@ -18,8 +18,6 @@
         $count_row = $statement->rowCount();
         $row = $statement->fetchAll();
 
-        //dnd($row);
-
         if ($count_row < 1) {
             $error = 'Unkown admin.';
         } else {
