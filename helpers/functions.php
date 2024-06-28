@@ -1,6 +1,20 @@
 <?php 
 
 
+// get company data
+function company_data() {
+	global $conn;
+
+	$sql = "
+		SELECT * FROM jspence
+	";
+	$statement = $conn->prepare($sql);
+	$statement->execute();
+	$row = $statement->fetchAll();
+
+	return $row;
+}
+
 // Density calculation
 function calculateDensity($gram, $volume) {
 	$density = ($gram / $volume);

@@ -14,8 +14,6 @@
  	require_once(BASEURL . 'helpers/helpers.php');
  	require_once(BASEURL . 'helpers/functions.php');
 
- ///////////////////////////////////////////////////////////////////////////////////////////
-
 
  	// ADMIN LOGIN
  	if (isset($_SESSION['JSAdmin'])) {
