@@ -63,9 +63,9 @@ if (isset($_GET['add'])) {
         if (!empty($errors)) {
             $errors;
         } else {
-            $data = array($admin_id, $admin_fullname, $admin_email, $admin_password, $admin_permissions);
+            $data = array($admin_id, $admin_fullname, $admin_email, password_hash($admin_password, PASSWORD_BCRYPT), $admin_permissions);
             $query = "
-                INSERT INTO `jspence_admin`(`admin_fullname`, `admin_email`, `admin_password`, `admin_permissions`) 
+                INSERT INTO `jspence_admin`(`admin_id`, `admin_fullname`, `admin_email`, `admin_password`, `admin_permissions`) 
                 VALUES (?, ?, ?, ?, ?)
             ";
             $statement = $conn->prepare($query);
@@ -130,7 +130,7 @@ if (isset($_GET['add'])) {
                                 <select class="form-control" name="admin_permissions" id="admin_permissions" required>
                                     <option value=""<?= (($admin_permissions == '')?' selected' : '') ?>></option>
                                     <option value="salesperson"<?= (($admin_permissions == 'salesperson')?' selected' : '') ?>>Sales person</option>
-                                    <option value="admin,salesperson"<?= (($admin_permissions == 'admin,salesperson')?' selected' : '') ?>>Admin,  Sales person</option>
+                                    <option value="admin,salesperson"<?= (($admin_permissions == 'admin,salesperson')?' selected' : '') ?>>Admin,  Salesperson</option>
                                 </select>
                                 <div class="text-sm text-muted">Select type of admin permission in this field</div>
                             </div>
