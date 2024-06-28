@@ -45,11 +45,9 @@
                 <thead>
                     <tr>
                         <th>#</th>
-                        <th scope="col">
-                            <div class="d-flex align-items-center gap-2 ps-1">
-                                <span>Handler</span>
-                            </div>
-                        </th>
+                        <?php if (admin_has_permission()): ?>
+                            <th scope="col">Handler</th>
+                        <?php endif; ?>
                         <th scope="col">Customer</th>
                         <th scope="col">Gram</th>
                         <th scope="col">Volume</th>

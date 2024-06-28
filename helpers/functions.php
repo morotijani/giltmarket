@@ -78,7 +78,7 @@ function fetch_all_sales($status) {
 			$output .= '
 				<tr>
 	                <td>' . $i . '</td>
-	                <td><span class="d-block text-heading fw-bold">' . ucwords($row["admin_fullname"]) . '</span></td>
+	                ' . (admin_has_permission() ? ' <td><span class="d-block text-heading fw-bold">' . ucwords($row["admin_fullname"]) . '</span></td> ' : '') . '
 	                <td class="text-xs">' . strtoupper($row["sale_customer_name"]) . ' <i class="bi bi-arrow-right mx-2"></i> ' . $row["sale_customer_contact"] . '</td>
 	                <td>' . $row["sale_gram"] . '</td>
 	                <td>' . $row["sale_volume"] . '</td>
@@ -97,7 +97,7 @@ function fetch_all_sales($status) {
 					<div class="modal-dialog modal-dialog-centered">
 						<div class="modal-content overflow-hidden">
 							<div class="modal-header pb-0 border-0">
-								<h1 class="modal-title h4" id="saleModalLabel_' . $row["sid"] . '">' . $row["sale_id"] . ' <br>by ' . ucwords($row["admin_fullname"]) . '</h1>
+								<h1 class="modal-title h4" id="saleModalLabel_' . $row["sid"] . '">' . $row["sale_id"] . ' <br>by ' . (admin_has_permission() ? ucwords($row["admin_fullname"]) : 'you' )  . '</h1>
 								<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 							</div>
 							<div class="modal-body p-0 text-center">
