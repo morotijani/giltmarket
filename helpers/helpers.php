@@ -770,17 +770,17 @@ function get_all_admins() {
 					
 		if ($row['admin_id'] != $admin_data[0]['admin_id']) {
 			$output .= '
-				<a href="'.PROOT.'gpmin/admins?delete='.$row["admin_id"].'" class="btn btn-sm btn-light"><span data-feather="trash-2"></span></a>
+				<a href="' . PROOT . 'acc/admins?delete='.$row["admin_id"].'" class="btn btn-sm btn-light"><i class="bi bi-trash3"></i></a>
 			';
 		}
 
 		$output .= '
 				</td>
-				<td>'.ucwords($row["admin_fullname"]).'</td>
-				<td>'.$row["admin_email"].'</td>
-				<td>'.pretty_date($row["admin_joined_date"]).'</td>
-				<td>'.$admin_last_login.'</td>
-				<td>'.$row["admin_permissions"].'</td>
+				<td>' . ucwords($row["admin_fullname"]) . '</td>
+				<td>' . $row["admin_email"] . '</td>
+				<td>' . pretty_date($row["admin_joined_date"]) . '</td>
+				<td>' . $admin_last_login . '</td>
+				<td>' . strtoupper($row["admin_permissions"]) . '</td>
 			</tr>
 		';
 	}

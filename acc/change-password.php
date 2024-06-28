@@ -83,20 +83,20 @@
                         <div class="text-danger"><?= $errors; ?></div>
                         <div class="mb-3">
                             <label for="old_password" class="form-label">Old password</label>
-                            <input type="password" class="form-control form-control-sm" name="old_password" id="old_password" value="<?= $old_password; ?>" required>
+                            <input type="password" class="form-control" name="old_password" id="old_password" value="<?= $old_password; ?>" required>
                             <div class="text-sm text-muted">Enter old password in this field</div>
                         </div>
                         <div class="mb-3">
                             <label for="new_password" class="form-label">New password</label>
-                            <input type="password" class="form-control form-control-sm" name="password" id="password" value="<?= $password; ?>" required>
+                            <input type="password" class="form-control" name="password" id="password" value="<?= $password; ?>" required>
                             <div class="text-sm text-muted">Enter new password in this field</div>
                         </div>
                         <div class="mb-3">
                             <label for="confirm" class="form-label">Confirm new password</label>
-                            <input type="password" class="form-control form-control-sm" name="confirm" id="confirm" value="<?= $confirm; ?>" required>
+                            <input type="password" class="form-control" name="confirm" id="confirm" value="<?= $confirm; ?>" required>
                             <div class="text-sm text-muted">Enter confirm new password in this field</div>
                         </div>
-                        <button type="submit" class="btn btn-sm btn-dark" name="edit_pasword" id="edit_pasword">Edit password</button>
+                        <button type="submit" class="btn btn-dark" name="edit_pasword" id="edit_pasword">Edit password</button>
                     </form>
                 </div>
             </div>

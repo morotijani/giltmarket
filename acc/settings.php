@@ -68,7 +68,7 @@
     <div class="row justify-content-center">
         <div class="col-12">
             <div class="card">
-                <div class="card-body d-flex flex-column">
+                <div class="card-body">
                     <form method="POST">
                         <div class="text-danger"><?= $errors; ?></div>
                         <div class="mb-3">
