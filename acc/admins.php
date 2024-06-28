@@ -71,6 +71,10 @@ if (isset($_GET['add'])) {
             $statement = $conn->prepare($query);
             $result = $statement->execute($data);
             if (isset($result)) {
+
+                $message = "changed password";
+                add_to_log($message, $admin_data[0]['admin_id']);
+
                 $_SESSION['flash_success'] = 'Admin has been Added!';
                 redirect(PROOT . "acc/admins");
             } else {
@@ -129,7 +133,7 @@ if (isset($_GET['add'])) {
                                 <label for="admin_permissions" class="form-label">Permission</label>
                                 <select class="form-control" name="admin_permissions" id="admin_permissions" required>
                                     <option value=""<?= (($admin_permissions == '')?' selected' : '') ?>></option>
-                                    <option value="salesperson"<?= (($admin_permissions == 'salesperson')?' selected' : '') ?>>Sales person</option>
+                                    <option value="salesperson"<?= (($admin_permissions == 'salesperson')?' selected' : '') ?>>Salesperson</option>
                                     <option value="admin,salesperson"<?= (($admin_permissions == 'admin,salesperson')?' selected' : '') ?>>Admin,  Salesperson</option>
                                 </select>
                                 <div class="text-sm text-muted">Select type of admin permission in this field</div>

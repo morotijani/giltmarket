@@ -49,11 +49,17 @@
                 WHERE admin_id = ?
             ';
             $satement = $conn->prepare($query);
-            $result = $satement->execute(
-                array($new_hashed, $admin_id));
+            $result = $satement->execute(array($new_hashed, $admin_id));
             if (isset($result)) {
-                $_SESSION['flash_success'] = 'Password successfully updated!</div>';
+
+                $message = "changed password";
+                add_to_log($message, $admin_id);
+
+                $_SESSION['flash_success'] = 'Password successfully updated!';
                 redirect(PROOT . "acc/profile");
+            } else {
+                echo js_alert('Something went wrong');
+                redirect(PROOT . "acc/change-password");
             }
         }
     }
