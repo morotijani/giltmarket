@@ -15,25 +15,31 @@ if (!admin_has_permission()) {
 include ("../includes/header.inc.php");
 include ("../includes/nav.inc.php");
 
+// delete admin
 if (isset($_GET['delete'])) {
-    $admin_id = (int)$_GET['delete'];
+    $admin_id = sanitize($_GET['delete']);
 
     $query = "
-    UPDATE garypie_admin 
-    SET admin_trash = :admin_trash 
-    WHERE admin_id = :admin_id
+        UPDATE jspence_admin 
+        SET admin_status = ? 
+        WHERE admin_id = ?
     ";
     $statement = $conn->prepare($query);
-    $result = $statement->execute([
-        ':admin_trash' => 1,
-        ':admin_id' => $admin_id
-    ]);
+    $result = $statement->execute([1, $admin_id]);
     if (isset($result)) {
-        $_SESSION['flash_success'] = 'Admin has been <span class="bg-info">Deleted</span></div>';
-        echo "<script>window.location = '".PROOT."gpmin/admins';</script>";
+
+        $message = "delete an admin with id " . $admin_id . "";
+        add_to_log($message, $admin_data[0]['admin_id']);
+
+        $_SESSION['flash_success'] = 'Admin has been deleted!';
+        redirect(PROOT . "acc/admins");
+    } else {
+        echo js_alert("Something went wrong!");
+        redirect(PROOT . "acc/admins");
     }
 }
 
+// add an admin
 if (isset($_GET['add'])) {
     $errors = '';
     $admin_fullname = ((isset($_POST['admin_fullname'])) ? sanitize($_POST['admin_fullname']) : '');
@@ -96,7 +102,7 @@ if (isset($_GET['add'])) {
                 </div>
                 <div class="col">
                     <div class="hstack gap-2 justify-content-end">
-                        <a href="<?= goBack(); ?>" class="btn btn-sm btn-neutral d-none d-sm-inline-flex"><span class="pe-2"><i class="bi bi-plus-circle"></i> </span><span>Go back</span></a> 
+                        <a href="<?= goBack(); ?>" class="btn btn-sm btn-neutral d-none d-sm-inline-flex"><span class="pe-2"><i class="bi bi-arrow-90deg-left"></i> </span><span>Go back</span></a> 
                         <a href="<?= PROOT; ?>acc/admins" class="btn d-inline-flex btn-sm btn-dark"><span>Cancel</span></a>
                     </div>
                 </div>
@@ -154,7 +160,7 @@ if (isset($_GET['add'])) {
                 </div>
                 <div class="col">
                     <div class="hstack gap-2 justify-content-end">
-                        <a href="<?= goBack(); ?>" class="btn btn-sm btn-neutral d-none d-sm-inline-flex"><span class="pe-2"><i class="bi bi-plus-circle"></i> </span><span>Go back</span></a> 
+                        <a href="<?= goBack(); ?>" class="btn btn-sm btn-neutral d-none d-sm-inline-flex"><span class="pe-2"><i class="bi bi-arrow-90deg-left"></i> </span><span>Go back</span></a> 
                         <a href="<?= PROOT; ?>acc/admins?add=1" class="btn d-inline-flex btn-sm btn-dark"><span>Add admin</span></a>
                     </div>
                 </div>

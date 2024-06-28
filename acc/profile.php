@@ -19,7 +19,7 @@
             </div>
             <div class="col">
                 <div class="hstack gap-2 justify-content-end">
-                    <a href="<?= goBack(); ?>" class="btn btn-sm btn-neutral d-none d-sm-inline-flex"><span class="pe-2"><i class="bi bi-plus-circle"></i> </span><span>Go back</span></a> 
+                    <a href="<?= goBack(); ?>" class="btn btn-sm btn-neutral d-none d-sm-inline-flex"><span class="pe-2"><i class="bi bi-arrow-90deg-left"></i> </span><span>Go back</span></a> 
                     <a href="<?= PROOT; ?>acc/settings" class="btn d-inline-flex btn-sm btn-dark"><span>Update</span></a>
                 </div>
             </div>
