@@ -8,7 +8,6 @@
 	$data = $_GET['data'] ?? "";
 	
 	$obj = json_decode($data, true);
-	
 
 ?>
 		<div class="card">
@@ -33,9 +32,21 @@
 								<?= $obj['reference']; ?>
 							</td>
 							<td>
+								NAME OF CUSTOMER
+								<br>
+								<?= ucwords($obj['customername']); ?>
+							</td>
+						</tr>
+						<tr>
+							<td>
 								GRAM
 								<br>
 								<?= $obj['gram']; ?>
+							</td>
+							<td>
+								POUNDS
+								<br>
+								<?= $obj['pounds']; ?>
 							</td>
 						</tr>
 						<tr>
@@ -45,29 +56,6 @@
 								<?= $obj['volume']; ?>
 							</td>
 							<td>
-								
-							</td>
-							<td>
-								AMOUNT
-							</td>
-						</tr>
-						<tr>
-							<td>
-								PREPARED BY
-							</td>
-							<td>
-								NAME OF CUSTOMER
-								<br>
-								<?= ucwords($obj['customername']); ?>
-							</td>
-						</tr>
-						<tr>
-							<td>
-								POUNDS
-								<br>
-								<?= $obj['pounds']; ?>
-							</td>
-							<td>
 								DENSITY
 								<br>
 								<?= $obj['density']; ?>
@@ -75,9 +63,25 @@
 						</tr>
 						<tr>
 							<td>
+								
+							</td>
+							<td>
 								CARAT
 								<br>
 								<?= $obj['carat']; ?>
+							</td>
+						</tr>
+						<tr>
+							<td>
+								PRICE
+							</td>
+							<td>
+								<?= money($obj['current_price']); ?>
+							</td>
+						</tr>
+						<tr>
+							<td>
+								AMOUNT
 							</td>
 							<td>
 								<?= money($obj['total_amount']); ?>
@@ -85,16 +89,21 @@
 						</tr>
 						<tr>
 							<td>
-								kofi
+								PREPARED BY
+								<br>
+								DATE
+							</td>
+							<td>
+								<?= ucwords($obj['by']); ?>
+								<br>
+								<?= $obj['date']; ?>
 							</td>
 						</tr>
 					</tbody>
 				</table>
-				<!-- <div class="list-group list-group-flush gap-2">
-					<div class="list-group-item border rounded d-flex gap-3 p-4 bg-body-secondary-hover"><div class="icon flex-none"><img src="../../img/wallets/metamask.png" class="w-rem-8 h-rem-8" alt="..."></div><div class="d-flex align-items-center flex-fill"><div><a href="#" class="stretched-link text-heading text-sm fw-bold">MetaMask</a></div><div class="ms-auto"><span class="badge badge-md text-bg-primary">Popular</span></div></div></div><div class="list-group-item border rounded d-flex gap-3 p-4 bg-body-secondary-hover"><div class="icon flex-none"><img src="../../img/wallets/coinbase.webp" class="w-rem-8 h-rem-8" alt="..."></div><div class="d-flex align-items-center flex-fill"><div><a href="#" class="stretched-link text-heading text-sm fw-bold">Coinbase Wallet</a></div></div></div><div class="list-group-item border rounded d-flex gap-3 p-4 bg-body-secondary-hover"><div class="icon flex-none"><img src="../../img/wallets/walletconnect.png" class="w-rem-8 h-rem-8" alt="..."></div><div class="d-flex align-items-center flex-fill"><div><a href="#" class="stretched-link text-heading text-sm fw-bold">WalletConnect</a></div></div></div><div class="list-group-item border rounded d-flex gap-3 p-4 bg-body-secondary-hover"><div class="icon flex-none"><img src="../../img/wallets/phantom.png" class="w-rem-8 h-rem-8" alt="..."></div><div class="d-flex align-items-center flex-fill"><div><a href="#" class="stretched-link text-heading text-sm fw-bold">Phantom</a></div><div class="ms-auto"><span class="badge badge-md text-bg-light">Solana</span></div></div></div><div class="list-group-item border rounded d-flex gap-3 p-4 bg-body-secondary-hover"><div class="icon flex-none"><img src="../../img/wallets/core.png" class="w-rem-8 h-rem-8" alt="..."></div><div class="d-flex align-items-center flex-fill"><div><a href="#" class="stretched-link text-heading text-sm fw-bold">Core</a></div><div class="ms-auto"><span class="badge badge-md text-bg-light">Avalanche</span></div></div></div><div class="list-group-item border rounded d-flex gap-3 p-4 bg-body-secondary-hover"><div class="icon flex-none"><img src="../../img/wallets/glow.svg" class="w-rem-8 h-rem-8" alt="..."></div><div class="d-flex align-items-center flex-fill"><div><a href="#" class="stretched-link text-heading text-sm fw-bold">Glow</a></div><div class="ms-auto"><span class="badge badge-md text-bg-light">Solana</span></div></div></div></div> -->
 
-					<div class="text-xs text-muted mt-6">By connecting wallet, you agree to Satoshi's <a href="#" class="fw-bold">Terms of Service</a></div>
-				</div>
+				<div class="text-xs text-muted mt-6"><em>Thank you for your purchase.<a href="#" class="fw-bold"> J-Spence LTD.</a></em></div>
+			</div>
 				<div class="card-footer">
 					bar code;
 				</div>
@@ -102,5 +111,9 @@
 		</div>
 
 	</div>
+
+	<script type="text/javascript">
+		window.print();
+	</script>
 </body>
 </html>

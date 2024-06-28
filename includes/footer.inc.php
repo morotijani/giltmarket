@@ -14,6 +14,9 @@
                     <div class="buy-msg p-1 small"></div>
                     <form class="vstack gap-6" id="buyForm">
                         <div id="step-1">
+                            <div class="mb-3">
+                                <input type="tel" name="current_price" id="current_price" class="form-control" placeholder="Current price" style="border: none;" required autocomplete="off">
+                            </div>
                             <div class="vstack gap-1">
                                 <div class="bg-body-secondary rounded-3 p-4">
                                     <div class="d-flex justify-content-between text-xs text-muted">
@@ -116,6 +119,7 @@
 
                 // var step = this.getAttribute('data-step');
                 
+                var current_price = $('#current_price').val();
                 var gram = $('#gram-amount').val();
                 var volume = $('#volume-amount').val();
 
@@ -123,47 +127,50 @@
                 //  console.log('not accept');
                 // }
 
-                if (gram != '' && gram > 0) {
-                    if (volume != '' && volume > 0) {
-                        $('.volumeMsg').text('');
-                        $('.gramMsg').text('...');
+                if (current_price != '' && current_price > 0) {
+                    if (gram != '' && gram > 0) {
+                        if (volume != '' && volume > 0) {
+                            $('.volumeMsg').text('');
+                            $('.gramMsg').text('...');
 
-                        $.ajax({
-                            url : '<?= PROOT; ?>auth/gold.calculation.php',
-                            method : 'POST',
-                            data : {
-                                gram : gram,
-                                volume : volume,
-                            },
-                            beforeSend : function () {
-                                // body...
-                                $('#calculation-result').html('<img class="img-fluid" src="<?= PROOT; ?>dist/media/loading_v2.gif"/>');
-                                $('#result-view').addClass('d-none');
-                            },
-                            success: function(data) {
-                                const response = JSON.parse(data);
-                                //if (response["message"] != '') {
-                                    $('.toast-body').html(response["message"]);
-                                    $('.toast').toast('show');
-                                //}
-                                $('#density').text(response["density"] + ' Density');
-                                $('#pounds').text(response["pounds"] + ' Pounds');
-                                $('#carat').text(response["carat"] + ' Carat');
-                                $('#total-amount').val(response["total_amount"]);
-                                $('#calculation-result').html('')
-                                $('#calculation-result').addClass('d-none');
-                                $('#result-view').removeClass('d-none');
+                            $.ajax({
+                                url : '<?= PROOT; ?>auth/gold.calculation.php',
+                                method : 'POST',
+                                data : {
+                                    gram : gram,
+                                    volume : volume,
+                                    current_price : current_price,
+                                },
+                                beforeSend : function () {
+                                    // body...
+                                    $('#calculation-result').html('<img class="img-fluid" src="<?= PROOT; ?>dist/media/loading_v2.gif"/>');
+                                    $('#result-view').addClass('d-none');
+                                },
+                                success: function(data) {
+                                    const response = JSON.parse(data);
+                                    //if (response["message"] != '') {
+                                        $('.toast-body').html(response["message"]);
+                                        $('.toast').toast('show');
+                                    //}
+                                    $('#density').text(response["density"] + ' Density');
+                                    $('#pounds').text(response["pounds"] + ' Pounds');
+                                    $('#carat').text(response["carat"] + ' Carat');
+                                    $('#total-amount').val(response["total_amount"]);
+                                    $('#calculation-result').html('')
+                                    $('#calculation-result').addClass('d-none');
+                                    $('#result-view').removeClass('d-none');
 
-                                $('.gramMsg').text('...');
-                                $('.volumeMsg').text('...');
-                            },
-                            error: function() {
-                                return false;
-                            }
-                        })
-                    } else {
-                        $('.volumeMsg').text('typing ...');
-                        $('.gramMsg').text('');
+                                    $('.gramMsg').text('...');
+                                    $('.volumeMsg').text('...');
+                                },
+                                error: function() {
+                                    return false;
+                                }
+                            })
+                        } else {
+                            $('.volumeMsg').text('typing ...');
+                            $('.gramMsg').text('');
+                        }
                     }
                 }
 
@@ -173,51 +180,55 @@
             $('#volume-amount').on('keyup', function(e) {
                 e.preventDefault();
 
+                var current_price = $('#current_price').val();
                 var gram = $('#gram-amount').val();
                 var volume = $('#volume-amount').val();
 
-                if (volume != '' && volume > 0) {
-                    if (gram != '' && gram > 0) {
-                        $('.volumeMsg').text('...');
-                        $('.gramMsg').text('');
+                if (current_price != '' && current_price > 0) {
+                    if (volume != '' && volume > 0) {
+                        if (gram != '' && gram > 0) {
+                            $('.volumeMsg').text('...');
+                            $('.gramMsg').text('');
 
-                        $.ajax ({
-                            url : '<?= PROOT; ?>auth/gold.calculation.php',
-                            method : 'POST',
-                            data : {
-                                gram : gram,
-                                volume : volume,
-                            },
-                            beforeSend : function () {
-                                // body...
-                                $('#calculation-result').html('<img class="img-fluid" src="<?= PROOT; ?>dist/media/loading_v2.gif"/>');
-                                $('#result-view').addClass('d-none');
-                            },
-                            success: function(data) {
-                                const response = JSON.parse(data);
-                                //if (response["message"] != '') {
-                                    $('.toast-body').html(response["message"]);
-                                    $('.toast').toast('show');
-                                //}
-                                $('#density').text(response["density"] + ' Density');
-                                $('#pounds').text(response["pounds"] + ' Pounds');
-                                $('#carat').text(response["carat"] + ' Carat');
-                                $('#total-amount').val(response["total_amount"]);
-                                $('#calculation-result').html('')
-                                $('#calculation-result').addClass('d-none');
-                                $('#result-view').removeClass('d-none');
+                            $.ajax ({
+                                url : '<?= PROOT; ?>auth/gold.calculation.php',
+                                method : 'POST',
+                                data : {
+                                    current_price : current_price,
+                                    gram : gram,
+                                    volume : volume,
+                                },
+                                beforeSend : function () {
+                                    // body...
+                                    $('#calculation-result').html('<img class="img-fluid" src="<?= PROOT; ?>dist/media/loading_v2.gif"/>');
+                                    $('#result-view').addClass('d-none');
+                                },
+                                success: function(data) {
+                                    const response = JSON.parse(data);
+                                    //if (response["message"] != '') {
+                                        $('.toast-body').html(response["message"]);
+                                        $('.toast').toast('show');
+                                    //}
+                                    $('#density').text(response["density"] + ' Density');
+                                    $('#pounds').text(response["pounds"] + ' Pounds');
+                                    $('#carat').text(response["carat"] + ' Carat');
+                                    $('#total-amount').val(response["total_amount"]);
+                                    $('#calculation-result').html('')
+                                    $('#calculation-result').addClass('d-none');
+                                    $('#result-view').removeClass('d-none');
 
 
-                                $('.gramMsg').text('...');
-                                $('.volumeMsg').text('...');
-                            },
-                            error: function() {
-                                return false;
-                            }
-                        })
-                    } else {
-                        $('.gramMsg').text('typing ...');
-                        $('.volumeMsg').text('...');
+                                    $('.gramMsg').text('...');
+                                    $('.volumeMsg').text('...');
+                                },
+                                error: function() {
+                                    return false;
+                                }
+                            })
+                        } else {
+                            $('.gramMsg').text('typing ...');
+                            $('.volumeMsg').text('...');
+                        }
                     }
                 }
             });
@@ -229,6 +240,12 @@
                 $('.gramMsg').text('...');
                 $('.volumeMsg').text('...');
                 $('.buy-msg').text('');
+
+                if ($("#current_price").val() <= 0) {
+                    $('.buy-msg').html('* Invalid current price!');
+                    $("#current_price").focus()
+                    return false;
+                }
 
                 if ($("#gram-amount").val() <= 0) {
                     $('.gramMsg').html('* Invalid gram amount!');
@@ -258,7 +275,11 @@
                 `
                     <li class="list-group-item" style="padding: 0.1rem 1rem;">
                         <small class="text-muted">Total amount,</small>
-                        <p>` + $("#total-amount").val() + ` ₵</p>
+                        <p>₵` + $("#total-amount").val() + `</p>
+                    </li>
+                    <li class="list-group-item" style="padding: 0.1rem 1rem;">
+                        <small class="text-muted">Curent price</small>
+                        <p>₵` + Number($("#current_price").val()).toFixed(2) + `</p>
                     </li>
                     <li class="list-group-item" style="padding: 0.1rem 1rem;">
                         <small class="text-muted">Gram</small>
@@ -352,9 +373,17 @@
             $('#buyForm').on('submit', function(event) {
                 event.preventDefault();
 
+                var current_price = $('#current_price').val();
                 var gram = $('#gram-amount').val();
                 var volume = $('#volume-amount').val();
                 var pin = $('#pin').val();
+
+                if (current_price == '' || current_price <= 0) {
+                    $('#submitSend').attr('disabled', false);
+                    $state.html('* Invalid Curent price provided!');
+                    $('.toast').toast('show');
+                    return false;
+                }
 
                 if (gram == '' || gram <= 0) {
                     $('#submitSend').attr('disabled', false);
@@ -433,7 +462,9 @@
                                         density: response["density"], 
                                         pounds: response["pounds"], 
                                         carat: response["carat"], 
+                                        current_price: response["current_price"], 
                                         total_amount: response["total_amount"], 
+                                        by: response["by"], 
                                     });
                                 }
                             } catch (e) {
@@ -462,8 +493,11 @@
             // open receipt window
             function print_receipt(obj) {
                 var vars = JSON.stringify(obj);
-                window.open('<?= PROOT; ?>auth/print?data='+vars, 'printpage', 'popup', 'width: 300px; height: 400px;');
+                window.open('<?= PROOT; ?>auth/print?data='+vars,'1429893142534','width=' + (parseInt(window.innerWidth) * 0.4) + ',height=' + (parseInt(window.innerHeight) * .6) + ',toolbar=0,menubar=0,location=0,status=0,scrollbars=1,resizable=0,left=0,top=0');
+
+                return false;
             }
+            // window.open('<?= PROOT; ?>auth/print?data=','1429893142534','width=' + (parseInt(window.innerWidth) * 0.4) + ',height=' + (parseInt(window.innerHeight) * .5) + ',toolbar=0,menubar=0,location=0,status=0,scrollbars=1,resizable=0,left=0,top=0');
 
 
         });

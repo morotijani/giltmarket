@@ -7,6 +7,7 @@ $message = '';
 if (isset($_POST['gram'])) {
 	$gram = (isset($_POST['gram']) ? $_POST['gram'] : '');
 	$volume = (isset($_POST['volume']) ? $_POST['volume'] : '');
+	$current_price = (isset($_POST['current_price']) ? $_POST['current_price'] : '');
 
 	// 
 
@@ -22,6 +23,6 @@ if (isset($_POST['gram'])) {
 
 }
 
-$arrayOutput = array('density' => $density, 'message' => $message, 'pounds' => $pounds, 'carat' => $carat, 'total_amount' => $total_amount);
+$arrayOutput = array('density' => $density, 'message' => $message, 'pounds' => $pounds, 'carat' => $carat, 'current_price' => $current_price, 'total_amount' => $total_amount);
 $ouput = json_encode($arrayOutput);
 echo $ouput;
