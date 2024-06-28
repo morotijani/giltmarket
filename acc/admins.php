@@ -1,6 +1,6 @@
 <?php 
 
-    // ADMINS
+// ADMINS
 
 require_once ("../db_connection/conn.php");
 
@@ -12,9 +12,8 @@ if (!admin_has_permission()) {
     admin_permission_redirect('index');
 }
 
-include ("includes/header.inc.php");
-include ("includes/nav.inc.php");
-include ("includes/left-side-bar.inc.php");
+include ("../includes/header.inc.php");
+include ("../includes/nav.inc.php");
 
 if (isset($_GET['delete'])) {
     $admin_id = (int)$_GET['delete'];
@@ -141,20 +140,20 @@ if (isset($_GET['add'])) {
 
     <?php else: ?>
 
-        <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-            <h1 class="h2">Admins</h1>
-            <div class="btn-toolbar mb-2 mb-md-0">
-                <div class="btn-group me-2">
-                    <a href="<?= PROOT; ?>gpmin/admins/index" class="btn btn-sm btn-outline-secondary">Home</a>
-                    <a href="<?= PROOT; ?>gpmin/admins/admins" class="btn btn-sm btn-secondary">Refresh</a>
+        <div class="mb-6 mb-xl-10">
+            <div class="row g-3 align-items-center">
+                <div class="col">
+                    <h1 class="ls-tight">Admins</h1>
                 </div>
-                <a href="<?= PROOT; ?>gpmin/admins?add=1" class="btn btn-sm btn-outline-secondary">
-                    <span data-feather="plus"></span>
-                    Add
-                </a>
+                <div class="col">
+                    <div class="hstack gap-2 justify-content-end">
+                        <a href="<?= goBack(); ?>" class="btn btn-sm btn-neutral d-none d-sm-inline-flex"><span class="pe-2"><i class="bi bi-plus-circle"></i> </span><span>Go back</span></a> 
+                        <a href="<?= PROOT; ?>acc/admins?add=1" class="btn d-inline-flex btn-sm btn-dark"><span>Add admin</span></a>
+                    </div>
+                </div>
             </div>
         </div>
-        <span><?= $flash; ?></span>
+
 
         <table class="table table-success table-striped">
             <thead>
@@ -180,6 +179,6 @@ if (isset($_GET['add'])) {
 
 <?php 
 
-include ("includes/footer.inc.php");
+include ("../includes/footer.inc.php");
 
 ?>

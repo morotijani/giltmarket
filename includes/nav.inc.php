@@ -10,7 +10,9 @@
 							<ul class="navbar-nav gap-2 mx-lg-auto">
 								<li class="nav-item"><a class="nav-link rounded-pill" href="<?= PROOT; ?>"aria-current="page">Dashboard</a></li>
 								<li class="nav-item"><a class="nav-link rounded-pill" href="/pages/page-table-listing.html">Trade</a></li>
-								<li class="nav-item"><a class="nav-link rounded-pill" href="/pages/page-list.html">Admins</a></li>
+								<?php if (admin_has_permission('admin')): ?>
+									<li class="nav-item"><a class="nav-link rounded-pill" href="<?= PROOT; ?>acc/admins">Admins</a></li>
+								<?php endif; ?>
 								<?php if (admin_is_logged_in()): ?>
 									<li class="nav-item"><a class="nav-link rounded-pill" href="<?= PROOT; ?>auth/logout">Logout</a></li>
 								<?php endif; ?>

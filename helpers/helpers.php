@@ -370,7 +370,7 @@ function admin_permission_redirect($url = 'index') {
 
 function admin_has_permission($permission = 'admin') {
 	global $admin_data;
-	$permissions = explode(',', $admin_data['admin_permissions']);
+	$permissions = explode(',', $admin_data[0]['admin_permissions']);
 	if (in_array($permission, $permissions, true)) {
 		return true;
 	}
@@ -749,11 +749,11 @@ function get_all_admins() {
 	$output = '';
 
 	$query = "
-		SELECT * FROM garypie_admin 
-		WHERE admin_trash = :admin_trash
+		SELECT * FROM jspence_admin 
+		WHERE admin_status = ?
 	";
 	$statement = $conn->prepare($query);
-	$statement->execute([':admin_trash' => 0]);
+	$statement->execute([0]);
 	$result = $statement->fetchAll();
 
 	foreach ($result as $row) {
@@ -768,7 +768,7 @@ function get_all_admins() {
 				<td>
 		';
 					
-		if ($row['admin_id'] != $admin_data['admin_id']) {
+		if ($row['admin_id'] != $admin_data[0]['admin_id']) {
 			$output .= '
 				<a href="'.PROOT.'gpmin/admins?delete='.$row["admin_id"].'" class="btn btn-sm btn-light"><span data-feather="trash-2"></span></a>
 			';
