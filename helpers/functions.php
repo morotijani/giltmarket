@@ -62,7 +62,7 @@ function fetch_all_sales($status) {
 	$sql = "
 		SELECT * FROM jspence_sales 
 		WHERE sale_status = ? 
-		ORDER BY createdAt ASC
+		ORDER BY createdAt DESC
 	";
 	$statement = $conn->prepare($sql);
 	$statement->execute([$status]);
@@ -70,37 +70,28 @@ function fetch_all_sales($status) {
 
 	if ($statement->rowCount() > 0) {
 		// code...
+		$i = 1;
 		foreach ($rows as $row) {
 			// code...
 			$output .= '
 				<tr>
-	                <td>
-	                    <div class="d-flex align-items-center gap-3 ps-1">
-	                        <div class="text-base">
-	                            <div class="form-check">
-	                                <input class="form-check-input" type="checkbox">
-	                            </div>
-	                        </div>
-	                        <div class="d-none d-xl-inline-flex icon icon-shape w-rem-8 h-rem-8 rounded-circle text-sm bg-secondary bg-opacity-25 text-secondary">
-	                            <i class="bi bi-file-fill"></i>
-	                        </div>
-	                        <div>
-	                            <span class="d-block text-heading fw-bold">' . $row["sale_by"] . '</span>
-	                        </div>
-	                    </div>
-	                </td>
-	                <td class="text-xs">kofi <i class="bi bi-arrow-right mx-2"></i> ama</td>
+	                <td>' . $i . '</td>
+	                <td><span class="d-block text-heading fw-bold">' . $row["sale_by"] . '</span></td>
+	                <td class="text-xs">' . strtoupper($row["sale_customer_name"]) . ' <i class="bi bi-arrow-right mx-2"></i> ' . $row["sale_customer_contact"] . '</td>
 	                <td>' . $row["sale_gram"] . '</td>
 	                <td>' . $row["sale_volume"] . '</td>
 	                <td>' . money($row["sale_total_amount"]) . '</td>
 	                <td>' . pretty_date($row["createdAt"]) . '</td>
 	                <td class="text-end">
-	                    <button type="button" class="btn btn-sm btn-square btn-neutral w-rem-6 h-rem-6">
+	                    <button type="button" class="btn btn-sm btn-square btn-neutral w-rem-6 h-rem-6" title="More">
 	                        <i class="bi bi-three-dots"></i>
+	                    </button> <button type="button" title="Print receipt" class="btn btn-sm btn-square btn-neutral w-rem-6 h-rem-6">
+	                        <i class="bi bi-receipt"></i>
 	                    </button>
 	                </td>
 	            </tr>
 			';
+			$i++;
 		}
 	} else {
 		$output = '

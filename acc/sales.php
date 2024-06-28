@@ -44,13 +44,9 @@
             <table class="table table-hover table-striped table-sm table-nowrap">
                 <thead>
                     <tr>
+                        <th>#</th>
                         <th scope="col">
                             <div class="d-flex align-items-center gap-2 ps-1">
-                                <div class="text-base">
-                                    <div class="form-check">
-                                        <input class="form-check-input" type="checkbox">
-                                    </div>
-                                </div>
                                 <span>Handler</span>
                             </div>
                         </th>
@@ -58,9 +54,8 @@
                         <th scope="col">Gram</th>
                         <th scope="col">Volume</th>
                         <th scope="col">Amount</th>
-                        <th scope="col" class="d-none d-xl-table-cell">Date</th>
-                        <th scope="col" class="d-none d-xl-table-cell">Status</th>
-                        <th></th>
+                        <th scope="col">Date</th>
+                        <th scope="col"></th>
                     </tr>
                 </thead>
                 <tbody>
