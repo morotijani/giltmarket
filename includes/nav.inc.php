@@ -9,7 +9,7 @@
 						<div class="collapse navbar-collapse" id="navbarCollapse">
 							<ul class="navbar-nav gap-2 mx-lg-auto">
 								<li class="nav-item"><a class="nav-link rounded-pill" href="<?= PROOT; ?>"aria-current="page">Dashboard</a></li>
-								<li class="nav-item"><a class="nav-link rounded-pill" href="<?= PROOT; ?>acc/sales">Sales</a></li>
+								<li class="nav-item"><a class="nav-link rounded-pill" href="<?= PROOT; ?>acc/trades">Trades</a></li>
 								<?php if (admin_is_logged_in() && admin_has_permission('admin')): ?>
 									<li class="nav-item"><a class="nav-link rounded-pill" href="<?= PROOT; ?>acc/admins">Admins</a></li>
 								<?php endif; ?>
@@ -25,7 +25,7 @@
 								<a class="nav-item nav-link rounded-pill d-none d-lg-block" href="javascript:;" data-bs-target="#connectWalletModal" data-bs-toggle="modal">Connect</a>
 								<?php endif; ?>
 								<a href="javascript:;" class="btn btn-sm btn-white border-0 rounded-lg-pill w-100 w-lg-auto mb-4 mb-lg-0" data-bs-target="#buyModal" data-bs-toggle="modal">
-									<span class="pe-2"><i class="bi bi-plus-circle"></i> </span><span>Liquidity</span>
+									<span class="pe-2"><i class="bi bi-plus-circle"></i> </span><span>Trade</span>
 								</a>
 							</div>
 						</div>

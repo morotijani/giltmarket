@@ -23,7 +23,7 @@
                 <button type="button" class="btn btn-sm btn-neutral d-none d-lg-inline-flex">
                     <i class="bi bi-arrow-90deg-right me-2"></i> Export
                 </button> 
-                <button type="button" class="btn btn-sm btn-primary d-none d-sm-inline-flex" data-bs-target="#buyModal" data-bs-toggle="modal"><span class="pe-2"><i class="bi bi-plus-circle"></i> </span><span>New sale</span></button>
+                <button type="button" class="btn btn-sm btn-primary d-none d-sm-inline-flex" data-bs-target="#buyModal" data-bs-toggle="modal"><span class="pe-2"><i class="bi bi-plus-circle"></i> </span><span>Trade</span></button>
             </div>
         </div>
            

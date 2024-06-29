@@ -1,12 +1,22 @@
 <?php 
 	require_once ("../db_connection/conn.php");
-
 	include ("../includes/header.inc.php");
 
-	$crow = company_data();
+	// activate press enter
+	if ($_SERVER['REQUEST_METHOD'] == "POST") {
 
+ 		$WshShell = new COM("WScript.Shell");
+ 		///$obj = $WshShell->Run("cmd /c wscript.exe www/public/file.vbs",0, true); 
+ 		$obj = $WshShell->Run("cmd /c wscript.exe ".BASEURL."/pressenter.vbs",0, true); 
+ 		
+ 		$WshShell = new COM("WScript.Shell");
+ 		///$obj = $WshShell->Run("cmd /c wscript.exe www/public/file.vbs",0, true); 
+ 		$obj = $WshShell->Run("cmd /c wscript.exe ".BASEURL."/pressenter.vbs",0, true); 
+ 	 
+	}
+
+	$crow = company_data();
 	$data = $_GET['data'] ?? "";
-	
 	$obj = json_decode($data, true);
 
 ?>
@@ -112,8 +122,20 @@
 
 	</div>
 
-	<script type="text/javascript">
+	<script>
 		window.print();
+
+		var ajax = new XMLHttpRequest();
+
+		ajax.addEventListener('readystatechange',function() {
+
+			if (ajax.readyState == 4) {
+				//console.log(ajax.responseText);
+			}
+		});
+
+		ajax.open('POST','',true);
+		// ajax.send();
 	</script>
 </body>
 </html>
