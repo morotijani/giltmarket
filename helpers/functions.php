@@ -189,21 +189,27 @@ function fetch_all_sales($status) {
 
 
 // get total amount of orders today
-function total_amount_today($admin) {
+function total_amount_today($admin, $permission) {
 	global $conn;
 	$thisDay = date("d");
 	$yesterDay = $thisDay - 1;
 
 	$output = [];
 
+	$where = '';
+	if ($permission != 'admin,salesperson') {
+		$where = ' sale_by = "'.$admin.'" AND ';
+	}
+
 	$thisDaySql = "
-		SELECT SUM(sale_total_amount) AS total 
+		SELECT SUM(sale_total_amount) AS total
 		FROM `jspence_sales` 
-		WHERE sale_by = ? 
-		AND DAY(createdAt) = '{$thisDay}'
+		WHERE $where
+		DAY(createdAt) = '{$thisDay}'
 	";
+	//dnd($thisDaySql);
 	$statement = $conn->prepare($thisDaySql);
-	$statement->execute([$admin]);
+	$statement->execute();
 	$thisDayrow = $statement->fetchAll();
 
 	$thisDayPercentage = ($thisDayrow[0]['total'] / 100);
@@ -211,11 +217,11 @@ function total_amount_today($admin) {
 	$yesterDaySql = "
 		SELECT SUM(sale_total_amount) AS total 
 		FROM `jspence_sales` 
-		WHERE sale_by = ? 
-		AND DAY(createdAt) = '{$yesterDay}'
+		WHERE $where 
+		DAY(createdAt) = '{$yesterDay}'
 	";
 	$statement = $conn->prepare($yesterDaySql);
-	$statement->execute([$admin]);
+	$statement->execute();
 	$yesterDayrow = $statement->fetchAll();
 
 	$yesterDayPercentage = ($yesterDayrow[0]['total'] / 100);
@@ -243,21 +249,26 @@ function total_amount_today($admin) {
 }
 
 // get total amount of orders in current month
-function total_amount_thismonth($admin) {
+function total_amount_thismonth($admin, $permission) {
 	global $conn;
 	$thisMonth = date("m");
 	$lastMonth = $thisMonth - 1;
 
 	$output = [];
 
+	$where = '';
+	if ($permission != 'admin,salesperson') {
+		$where = ' sale_by = "'.$admin.'" AND ';
+	}
+
 	$thisSql = "
 		SELECT SUM(sale_total_amount) AS total 
 		FROM `jspence_sales` 
-		WHERE sale_by = ? 
-		AND MONTH(createdAt) = '{$thisMonth}'
+		WHERE $where 
+		MONTH(createdAt) = '{$thisMonth}'
 	";
 	$statement = $conn->prepare($thisSql);
-	$statement->execute([$admin]);
+	$statement->execute();
 	$thisRow = $statement->fetchAll();
 
 	$thisPercentage = ($thisRow[0]['total'] / 100);
@@ -265,11 +276,11 @@ function total_amount_thismonth($admin) {
 	$lastSql = "
 		SELECT SUM(sale_total_amount) AS total 
 		FROM `jspence_sales` 
-		WHERE sale_by = ? 
-		AND MONTH(createdAt) = '{$lastMonth}'
+		WHERE $where 
+		MONTH(createdAt) = '{$lastMonth}'
 	";
 	$statement = $conn->prepare($lastSql);
-	$statement->execute([$admin]);
+	$statement->execute();
 	$lastRrow = $statement->fetchAll();
 
 	$lastPercentage = ($lastRrow[0]['total'] / 100);
@@ -297,37 +308,47 @@ function total_amount_thismonth($admin) {
 }
 
 // count total orders
-function count_total_orders($admin) {
+function count_total_orders($admin, $permission) {
 	global $conn;
+
+	$where = '';
+	if ($permission != 'admin,salesperson') {
+		$where = 'WHERE sale_by = "'.$admin.'"';
+	}
 
 	$sql = "
 		SELECT COUNT(sale_id) AS total_number 
 		FROM `jspence_sales` 
-		WHERE sale_by = ? 
+		$where 
 	";
 	$statement = $conn->prepare($sql);
-	$statement->execute([$admin]);
+	$statement->execute();
 	$row = $statement->fetchAll();
 	
 	return $row[0]['total_number'];
 }
 
 // get grand amount of orders
-function grand_total_amount($admin) {
+function grand_total_amount($admin, $permission) {
 	global $conn;
 	$thisYear = date("Y");
 	$lastYear = $thisYear - 1;
 
 	$output = [];
 
+	$where = '';
+	if ($permission != 'admin,salesperson') {
+		$where = ' sale_by = "'.$admin.'" AND ';
+	}
+
 	$thisSql = "
 		SELECT SUM(sale_total_amount) AS total 
 		FROM `jspence_sales` 
-		WHERE sale_by = ? 
-		AND YEAR(createdAt) = '{$thisYear}'
+		WHERE $where 
+		YEAR(createdAt) = '{$thisYear}'
 	";
 	$statement = $conn->prepare($thisSql);
-	$statement->execute([$admin]);
+	$statement->execute();
 	$thisRow = $statement->fetchAll();
 
 	$thisPercentage = ($thisRow[0]['total'] / 100);
@@ -335,11 +356,11 @@ function grand_total_amount($admin) {
 	$lastSql = "
 		SELECT SUM(sale_total_amount) AS total 
 		FROM `jspence_sales` 
-		WHERE sale_by = ? 
-		AND YEAR(createdAt) = '{$lastYear}'
+		WHERE $where 
+		YEAR(createdAt) = '{$lastYear}'
 	";
 	$statement = $conn->prepare($lastSql);
-	$statement->execute([$admin]);
+	$statement->execute([]);
 	$lastRrow = $statement->fetchAll();
 
 	$lastPercentage = ($lastRrow[0]['total'] / 100);
@@ -354,21 +375,17 @@ function grand_total_amount($admin) {
 		$percentage_icon = 'down';
 	}
 
-	// if ($thisRow[0]['total'] > $lastRrow[0]['total']) {
-	// 	$percentage_color = 'success';
-	// 	$percentage_icon_t = 'up-right';
-	// } else {
-	// 	$percentage_color = 'danger';
-	// 	$percentage_icon_t = 'down-left';
-	// }
-
+	$where = '';
+	if ($permission != 'admin,salesperson') {
+		$where = 'WHERE sale_by = "'.$admin.'"';
+	}
 	$grandTotalSql = "
 		SELECT SUM(sale_total_amount) AS total 
 		FROM `jspence_sales` 
-		WHERE sale_by = ?
+		$where
 	";
 	$statement = $conn->prepare($grandTotalSql);
-	$statement->execute([$admin]);
+	$statement->execute();
 	$grandTotalRow = $statement->fetchAll();
 
 	$output = [
@@ -376,27 +393,30 @@ function grand_total_amount($admin) {
 		'this_year' 			=> money($thisRow[0]['total']),
 		'last_year' 			=> money($lastRrow[0]['total']),
 		'percentage' 			=> $percentage,
-		// 'percentage_color' 		=> $percentage_color,
 		'percentage_icon' 		=> $percentage_icon,
-		// 'percentage_icon_t' 	=> $percentage_icon_t,
 	];
 
 	return $output;
 }
 
 // get logs for admins
-function get_logs($admin) {
+function get_logs($admin, $permission) {
 	global $conn;
 	$output = '';
 
+	$where = '';
+	if ($permission != 'admin,salesperson') {
+		$where = ' WHERE log_admin = "'.$admin.'" ';
+	}
+
 	$sql = "
 		SELECT * FROM jspence_logs 
-		WHERE log_admin = ? 
+		$where 
 		ORDER BY createdAt DESC
 		LIMIT 8
 	";
 	$statement = $conn->prepare($sql);
-	$statement->execute([$admin]);
+	$statement->execute();
 	$rows = $statement->fetchAll();
 
 	foreach ($rows as $row) {
@@ -411,19 +431,24 @@ function get_logs($admin) {
 
 
 // get recent trades
-function get_recent_trades($admin) {
+function get_recent_trades($admin, $permission) {
 	global $conn;
 	$output = '';
 
 	$today = date('d');
 
+	$where = '';
+	if ($permission != 'admin,salesperson') {
+		$where = ' sale_by = "'.$admin.'" AND ';
+	}
+
 	$sql = "
 		SELECT * FROM jspence_sales 
-		WHERE sale_by = ? 
-		AND DAY(createdAt) = ?
+		WHERE $where 
+		DAY(createdAt) = ?
 	";
 	$statement = $conn->prepare($sql);
-	$statement->execute([$admin, $today]);
+	$statement->execute([$today]);
 	$rows = $statement->fetchAll();
 	$counts = $statement->rowCount();
 
