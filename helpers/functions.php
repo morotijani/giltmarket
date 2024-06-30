@@ -189,7 +189,7 @@ function fetch_all_sales($status) {
 
 
 // get total amount of orders today
-function total_amount_today($admin, $permission) {
+function total_amount_today($admin) {
 	global $conn;
 	$thisDay = date("d");
 	$yesterDay = $thisDay - 1;
@@ -243,7 +243,7 @@ function total_amount_today($admin, $permission) {
 }
 
 // get total amount of orders in current month
-function total_amount_thismonth($admin, $permission) {
+function total_amount_thismonth($admin) {
 	global $conn;
 	$thisMonth = date("m");
 	$lastMonth = $thisMonth - 1;
@@ -297,7 +297,7 @@ function total_amount_thismonth($admin, $permission) {
 }
 
 // count total orders
-function count_total_orders($admin, $permission) {
+function count_total_orders($admin) {
 	global $conn;
 
 	$sql = "
@@ -313,7 +313,7 @@ function count_total_orders($admin, $permission) {
 }
 
 // get grand amount of orders
-function grand_total_amount($admin, $permission) {
+function grand_total_amount($admin) {
 	global $conn;
 	$thisYear = date("Y");
 	$lastYear = $thisYear - 1;
@@ -385,7 +385,7 @@ function grand_total_amount($admin, $permission) {
 }
 
 // get logs for admins
-function get_logs($admin, $permission) {
+function get_logs($admin) {
 	global $conn;
 	$output = '';
 
@@ -411,7 +411,7 @@ function get_logs($admin, $permission) {
 
 
 // get recent trades
-function get_recent_trades($admin, $permission) {
+function get_recent_trades($admin) {
 	global $conn;
 	$output = '';
 

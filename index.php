@@ -10,20 +10,22 @@
     $thisYrQ = "
         SELECT sale_total_amount, createdAt 
         FROM jspence_sales 
-        WHERE YEAR(createdAt) = '{$thisYr}' 
+        WHERE YEAR(createdAt) = ? 
+        AND sale_by = ?
     ";
     $statement = $conn->prepare($thisYrQ);
-    $statement->execute();
+    $statement->execute([$thisYr, $admin_data[0]['admin_id']]);
     $thisYr_result = $statement->fetchAll();
     
 
     $lastYrQ = "
         SELECT sale_total_amount, createdAt 
         FROM jspence_sales 
-        WHERE YEAR(createdAt) = '{$lastYr}' 
+        WHERE YEAR(createdAt) = ? 
+        AND sale_by = ?
     ";
     $statement = $conn->prepare($lastYrQ);
-    $statement->execute();
+    $statement->execute([$thisYr, $admin_data[0]['admin_id']]);
     $lastYr_result = $statement->fetchAll();
 
     $current = array();
@@ -94,7 +96,7 @@
 												<div class="d-flex align-items-center gap-2">
 													<img src="<?= PROOT; ?>dist/media/today.png" class="w-rem-5 flex-none" alt="..."> <a href="javascript:;" class="h6 stretched-link">Today</a>
 												</div>
-												<?php $t = total_amount_today($admin_data[0]['admin_id'], $admin_data[0]['admin_permissions']); ?>
+												<?php $t = total_amount_today($admin_data[0]['admin_id']); ?>
 												<div class="text-sm fw-semibold mt-3"><?= $t['amount']; ?></div>
 												<div class="d-flex align-items-center gap-2 mt-1 text-xs">
 													<span class="badge badge-xs bg-<?= $t['percentage_color']; ?>"><i class="bi bi-arrow-<?= $t['percentage_icon']; ?>"></i> </span><span><?= $t['percentage']; ?>%</span>
@@ -109,7 +111,7 @@
 													<img src="<?= PROOT; ?>dist/media/thismonth.png" class="w-rem-5 flex-none" alt="..."> 
 													<a href="javascript:;" class="h6 stretched-link">This Month</a>
 												</div>
-												<?php $m = total_amount_thismonth($admin_data[0]['admin_id'], $admin_data[0]['admin_permissions']); ?>
+												<?php $m = total_amount_thismonth($admin_data[0]['admin_id']); ?>
 												<div class="text-sm fw-semibold mt-3"><?= $t['amount']; ?></div>
 												<div class="d-flex align-items-center gap-2 mt-1 text-xs"><span class="badge badge-xs bg-<?= $t['percentage_color']; ?>"><i class="bi bi-arrow-<?= $t['percentage_icon']; ?>"></i> </span><span><?= $t['percentage']; ?>%</span></div>
 											</div>
@@ -121,7 +123,7 @@
 												<div class="d-flex align-items-center gap-2">
 													<img src="<?= PROOT; ?>dist/media/orders.jpg" class="w-rem-5 flex-none" alt="..."> 
 													<a href="<?= PROOT; ?>acc/trades" class="h6 stretched-link">Orders</a></div>
-													<div class="text-sm fw-semibold mt-3"><?= count_total_orders($admin_data[0]['admin_id'], $admin_data[0]['admin_permissions']); ?></div>
+													<div class="text-sm fw-semibold mt-3"><?= count_total_orders($admin_data[0]['admin_id']); ?></div>
 													<div class="d-flex align-items-center gap-2 mt-1 text-xs">
 														<span class="badge badge-xs bg-info"><i class="bi bi-123"></i> </span><span><?= date("l jS \of F " . ' . ' . " A"); ?></span>
 													</div>
@@ -152,13 +154,13 @@
 												<h5>Recent transactions</h5>
 											</div>
 											<div class="hstack align-items-center">
-												<a href="<?= PROOT; ?>acc/trads" class="text-muted">
+												<a href="<?= PROOT; ?>acc/trades" class="text-muted">
 													<i class="bi bi-arrow-repeat"></i>
 												</a>
 											</div>
 										</div>
 										<div class="vstack gap-6">
-											<?= get_recent_trades($admin_data[0]['admin_id'], $admin_data[0]['admin_permissions']); ?>
+											<?= get_recent_trades($admin_data[0]['admin_id']); ?>
 										</div>
 									</div>
 								</div>
@@ -177,7 +179,7 @@
 											<div class="card-body d-flex flex-column p-0 p-xxl-6">
 												<div class="d-flex justify-content-between align-items-center mb-3">
 
-													<?php $g = grand_total_amount($admin_data[0]['admin_id'], $admin_data[0]['admin_permissions']); ?>
+													<?php $g = grand_total_amount($admin_data[0]['admin_id']); ?>
 													<div>
 														<h5>Grand total</h5>
 													</div>
@@ -224,7 +226,7 @@
 												</div>
 												<div class="vstack gap-1">
 													<ul class="list-group">
-													  	<?= get_logs($admin_data[0]['admin_id'], $admin_data[0]['admin_permissions']); ?>
+													  	<?= get_logs($admin_data[0]['admin_id']); ?>
 													</ul>
 												</div>
 											</div>
