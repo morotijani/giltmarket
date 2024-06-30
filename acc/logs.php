@@ -12,7 +12,7 @@
 
     $where = '';
     if ($admin_data[0]['admin_permissions'] != 'admin,salesperson') {
-        $where = ' WHERE jspence_admin.admin_id = "'.$admin_data[0]['admin_id'].'"';
+        $where = ' WHERE jspence_admin.admin_id = "'.$admin_data[0]['admin_id'].'" ';
         // code...
     }
 
@@ -20,7 +20,8 @@
         SELECT * FROM jspence_logs 
         INNER JOIN jspence_admin 
         ON jspence_admin.admin_id = jspence_logs.log_admin
-        $where
+        $where 
+        ORDER BY jspence_logs.createdAt DESC
     ";
     $statement = $conn->prepare($sql);
     $statement->execute();
