@@ -224,16 +224,16 @@ function total_amount_today($admin, $permission) {
 		// going top
 		$percentage = (($thisDayPercentage + $yesterDayPercentage) / 100);
 		$percentage_color = 'success';
-		$percentage_icon = 'top';
+		$percentage_icon = 'up-right';
 	} else {
 		// going down
 		$percentage = (($thisDayPercentage - $yesterDayPercentage) / 100);
 		$percentage_color = 'danger';
-		$percentage_icon = 'down';
+		$percentage_icon = 'down-left';
 	}
 
 	$output = [
-		'today_amount' 		=> money($thisDayrow[0]['total']),
+		'amount' 		=> money($thisDayrow[0]['total']),
 		'percentage' 		=> $percentage,
 		'percentage_color' 	=> $percentage_color,
 		'percentage_icon' 	=> $percentage_icon,
@@ -248,17 +248,52 @@ function total_amount_thismonth($admin, $permission) {
 	$thisMonth = date("d");
 	$lastMonth = $thisMonth - 1;
 
-	$sql = "
+	$output = [];
+
+	$thisSql = "
 		SELECT SUM(sale_total_amount) AS total 
 		FROM `jspence_sales` 
 		WHERE sale_by = ? 
-		AND MONTH(createdAt) = '{$thisDay}'
+		AND MONTH(createdAt) = '{$thisMonth}'
 	";
-	$statement = $conn->prepare($sql);
+	$statement = $conn->prepare($thisSql);
 	$statement->execute([$admin]);
-	$row = $statement->fetchAll();
-	
-	return money($row[0]['total']);
+	$thisRow = $statement->fetchAll();
+
+	$thisPercentage = ($thisRow[0]['total'] / 100);
+
+	$lastSql = "
+		SELECT SUM(sale_total_amount) AS total 
+		FROM `jspence_sales` 
+		WHERE sale_by = ? 
+		AND MONTH(createdAt) = '{$lastMonth}'
+	";
+	$statement = $conn->prepare($lastSql);
+	$statement->execute([$admin]);
+	$lastRrow = $statement->fetchAll();
+
+	$lastPercentage = ($lastRrow[0]['total'] / 100);
+
+	if ($thisPercentage > $lastPercentage) {
+		// going top
+		$percentage = (($thisPercentage + $lastPercentage) / 100);
+		$percentage_color = 'success';
+		$percentage_icon = 'up-right';
+	} else {
+		// going down
+		$percentage = (($thisPercentage - $lastPercentage) / 100);
+		$percentage_color = 'danger';
+		$percentage_icon = 'down-left';
+	}
+
+	$output = [
+		'amount' 			=> money($thisRow[0]['total']),
+		'percentage' 		=> $percentage,
+		'percentage_color' 	=> $percentage_color,
+		'percentage_icon' 	=> $percentage_icon,
+	];
+
+	return $output;
 }
 
 // count total orders

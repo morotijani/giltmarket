@@ -64,15 +64,12 @@
 										<div class="card border-primary-hover">
 											<div class="card-body p-4">
 												<div class="d-flex align-items-center gap-2">
-													<img src="../../img/crypto/icon/btc.svg" class="w-rem-5 flex-none" alt="..."> <a href="/pages/page-details.html" class="h6 stretched-link">Today</a>
+													<img src="<?= PROOT; ?>dist/media/today.png" class="w-rem-5 flex-none" alt="..."> <a href="javascript:;" class="h6 stretched-link">Today</a>
 												</div>
-												<?php 
-													$t = total_amount_today($admin_data[0]['admin_id'], $admin_data[0]['admin_permissions']);
-													dnd($t);
-												?>
-												<div class="text-sm fw-semibold mt-3"><?= '22'; ?></div>
+												<?php $t = total_amount_today($admin_data[0]['admin_id'], $admin_data[0]['admin_permissions']); ?>
+												<div class="text-sm fw-semibold mt-3"><?= $t['amount']; ?></div>
 												<div class="d-flex align-items-center gap-2 mt-1 text-xs">
-													<span class="badge badge-xs bg-success"><i class="bi bi-arrow-up-right"></i> </span><span><?= date("l jS \of F " . ' . ' . " A"); ?></span>
+													<span class="badge badge-xs bg-<?= $t['percentage_color']; ?>"><i class="bi bi-arrow-<?= $t['percentage_icon']; ?>"></i> </span><span><?= $t['percentage']; ?></span>
 												</div>
 											</div>
 										</div>
@@ -81,11 +78,12 @@
 										<div class="card border-primary-hover">
 											<div class="card-body p-4">
 												<div class="d-flex align-items-center gap-2">
-													<img src="../../img/crypto/icon/ada.svg" class="w-rem-5 flex-none" alt="..."> 
-													<a href="/pages/page-details.html" class="h6 stretched-link">This Month</a>
+													<img src="<?= PROOT; ?>dist/media/thismonth.png" class="w-rem-5 flex-none" alt="..."> 
+													<a href="javascript:;" class="h6 stretched-link">This Month</a>
 												</div>
-												<div class="text-sm fw-semibold mt-3"><?= total_amount_thismonth($admin_data[0]['admin_id'], $admin_data[0]['admin_permissions']); ?></div>
-												<div class="d-flex align-items-center gap-2 mt-1 text-xs"><span class="badge badge-xs bg-danger"><i class="bi bi-arrow-up-right"></i> </span><span><?= date("jS \of F"); ?></span></div>
+												<?php $m = total_amount_thismonth($admin_data[0]['admin_id'], $admin_data[0]['admin_permissions']); ?>
+												<div class="text-sm fw-semibold mt-3"><?= $t['amount']; ?></div>
+												<div class="d-flex align-items-center gap-2 mt-1 text-xs"><span class="badge badge-xs bg-<?= $t['percentage_color']; ?>"><i class="bi bi-arrow-<?= $t['percentage_icon']; ?>"></i> </span><span><?= $t['percentage']; ?></span></div>
 											</div>
 										</div>
 									</div>
@@ -93,11 +91,11 @@
 										<div class="card border-primary-hover">
 											<div class="card-body p-4">
 												<div class="d-flex align-items-center gap-2">
-													<img src="../../img/crypto/icon/eos.svg" class="w-rem-5 flex-none" alt="..."> 
-													<a href="/pages/page-details.html" class="h6 stretched-link">Orders</a></div>
+													<img src="<?= PROOT; ?>dist/media/orders.jpg" class="w-rem-5 flex-none" alt="..."> 
+													<a href="<?= PROOT; ?>acc/trades" class="h6 stretched-link">Orders</a></div>
 													<div class="text-sm fw-semibold mt-3"><?= count_total_orders($admin_data[0]['admin_id'], $admin_data[0]['admin_permissions']); ?></div>
 													<div class="d-flex align-items-center gap-2 mt-1 text-xs">
-														<span class="badge badge-xs bg-danger"><i class="bi bi-arrow-up-right"></i> </span><span><?= date("l jS \of F " . ' . ' . " A"); ?></span>
+														<span class="badge badge-xs bg-danger"><i class="bi bi-123"></i> </span><span><?= date("l jS \of F " . ' . ' . " A"); ?></span>
 													</div>
 												</div>
 											</div>
