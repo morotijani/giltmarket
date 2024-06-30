@@ -384,7 +384,7 @@ function grand_total_amount($admin, $permission) {
 	return $output;
 }
 
-// 
+// get logs for admins
 function get_logs($admin, $permission) {
 	global $conn;
 	$output = '';
@@ -402,7 +402,59 @@ function get_logs($admin, $permission) {
 	foreach ($rows as $row) {
 		// code...
 		$output .= '
-			<li class="list-group-item"><em>' . $row["log_message"] . '</em></li>
+			<li class="list-group-item small"><em>' . $row["log_message"] . '</em></li>
+		';
+	}
+
+	return $output;
+}
+
+
+// get recent trades
+function get_recent_trades($admin, $permission) {
+	global $conn;
+	$output = '';
+
+	$today = date('d');
+
+	$sql = "
+		SELECT * FROM jspence_sales 
+		WHERE sale_by = ? 
+		AND DAY(createdAt) = ?
+	";
+	$statement = $conn->prepare($sql);
+	$statement->execute([$admin, $today]);
+	$rows = $statement->fetchAll();
+	$counts = $statement->rowCount();
+
+	if ($counts > 0) {
+		// code...
+		foreach ($rows as $row) {
+			// code...
+			$output .= '
+				<div>
+					<div class="d-flex align-items-center gap-3">
+						<div>
+							<h6 class="progress-text mb-1 d-block">' . $row["sale_id"] . '</h6>
+							<p class="text-muted text-xs">' . pretty_date($row["createdAt"]) . '</p>
+						</div>
+						<div class="text-end ms-auto">
+							<span class="h6 text-sm">' . money($row["sale_total_amount"]) . '</span>
+						</div>
+					</div>
+				</div>
+			';
+		}
+	} else {
+		$output = '
+			<div>
+				<div class="d-flex align-items-center gap-3">
+					<div>
+						<h6 class="progress-text mb-1 d-block">No data found</h6>
+						<p class="text-muted text-xs">Current date time: ' . date("l jS \of F Y h:i:s A") . '</p>
+					</div>
+				</div>
+			</div>
 		';
 	}
 

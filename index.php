@@ -171,101 +171,19 @@
 								</div>
 
 								<div class="card">
-									<div class="card-body pb-0">
-										<div class="d-flex justify-content-between align-items-center">
-											<div>
-												<h5>Transaction History</h5>
-											</div>
-											<div class="hstack align-items-center">
-												<a href="#" class="text-muted">
-													<i class="bi bi-arrow-repeat"></i>
-												</a>
-											</div>
-										</div>
-										<div class="list-group list-group-flush">
-											<div class="list-group-item d-flex align-items-center justify-content-between gap-6">
-												<div class="d-flex align-items-center gap-3">
-													<div class="icon icon-shape rounded-circle icon-sm flex-none w-rem-10 h-rem-10 text-sm bg-primary bg-opacity-25 text-primary">
-														<i class="bi bi-send-fill"></i>
-													</div>
-													<div class="">
-														<span class="d-block text-heading text-sm fw-semibold">Bitcoin </span>
-														<span class="d-none d-sm-block text-muted text-xs">2 days ago</span>
-													</div>
-												</div>
-												<div class="d-none d-md-block text-sm">0xd029384sd343fd...eq23</div>
-												<div class="d-none d-md-block">
-													<span class="badge bg-body-secondary text-warning">Pending</span>
-												</div>
-												<div class="text-end">
-													<span class="d-block text-heading text-sm fw-bold">+0.2948 BTC </span>
-													<span class="d-block text-muted text-xs">+$10,930.90</span>
-												</div>
-											</div>
-											<div class="list-group-item d-flex align-items-center justify-content-between gap-6">
-												<div class="d-flex align-items-center gap-3">
-													<div class="icon icon-shape rounded-circle icon-sm flex-none w-rem-10 h-rem-10 text-sm bg-primary bg-opacity-25 text-primary">
-														<i class="bi bi-send-fill"></i>
-													</div>
-													<div class="">
-														<span class="d-block text-heading text-sm fw-semibold">Cardano </span>
-														<span class="d-none d-sm-block text-muted text-xs">2 days ago</span>
-													</div>
-												</div>
-												<div class="d-none d-md-block text-sm">0xd029384sd343fd...eq23</div>
-												<div class="d-none d-md-block">
-													<span class="badge bg-body-secondary text-danger">Canceled</span>
-												</div>
-												<div class="text-end">
-													<span class="d-block text-heading text-sm fw-bold">+0.2948 BTC </span>
-													<span class="d-block text-muted text-xs">+$10,930.90</span>
-												</div>
-											</div>
-										</div>
-									</div>
-								</div>
-
-								<div class="card">
 									<div class="card-body">
 										<div class="d-flex justify-content-between align-items-center mb-5">
 											<div>
 												<h5>Recent transactions</h5>
 											</div>
 											<div class="hstack align-items-center">
-												<a href="#" class="text-muted">
+												<a href="<?= PROOT; ?>acc/trads" class="text-muted">
 													<i class="bi bi-arrow-repeat"></i>
 												</a>
 											</div>
 										</div>
 										<div class="vstack gap-6">
-											<div>
-												<div class="d-flex align-items-center gap-3">
-													<div class="icon icon-shape flex-none text-base text-bg-dark rounded-circle">
-														<img src="../../img/crypto/white/btc.svg" class="w-rem-6 h-rem-6" alt="...">
-													</div>
-													<div>
-														<h6 class="progress-text mb-1 d-block">Bitcoin</h6>
-														<p class="text-muted text-xs">Pending - 3 min ago</p>
-													</div>
-													<div class="text-end ms-auto">
-														<span class="h6 text-sm">-1,500 USD</span>
-													</div>
-												</div>
-											</div>
-											<div>
-												<div class="d-flex align-items-center gap-3">
-													<div class="icon icon-shape flex-none text-base text-bg-dark rounded-circle">
-														<img src="../../img/crypto/white/ada.svg" class="w-rem-6 h-rem-6" alt="...">
-													</div>
-													<div>
-														<h6 class="progress-text mb-1 d-block">Cardano</h6>
-														<p class="text-muted text-xs">Canceled - 3 min ago</p>
-													</div>
-													<div class="text-end ms-auto">
-														<span class="h6 text-sm">-1,500 USD</span>
-													</div>
-												</div>
-											</div>
+											<?= get_recent_trades($admin_data[0]['admin_id'], $admin_data[0]['admin_permissions']); ?>
 										</div>
 									</div>
 								</div>
