@@ -16,7 +16,7 @@ if (isset($_POST['gram'])) {
 		$density = calculateDensity($gram, $volume);
 		$pounds = calculatePounds($gram);
 		$carat = calculateCarat($gram, $volume);
-		$total_amount = calculateTotalAmount($gram, $volume, $current_price = '12.99');
+		$total_amount = calculateTotalAmount($gram, $volume, $current_price);
 
 		$message = 'Calculations made correctly.';
 	}

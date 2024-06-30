@@ -154,7 +154,7 @@
                                     //}
                                     $('#density').text(response["density"] + ' Density');
                                     $('#pounds').text(response["pounds"] + ' Pounds');
-                                    $('#carat').text(response["carat"] + ' Carat');
+                                    $('#carat').text(response["carat"] + ' Karat');
                                     $('#total-amount').val(response["total_amount"]);
                                     $('#calculation-result').html('')
                                     $('#calculation-result').addClass('d-none');

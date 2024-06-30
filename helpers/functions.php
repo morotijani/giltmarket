@@ -42,7 +42,7 @@ function calculateTotalAmount($gram, $volume, $current_price) {
 	$carat = calculateCarat($gram, $volume);
 	$pounds = calculatePounds($gram);
 
-	$total_amount = (($carat * $current_price) / (FIXED_TOTAL_FIGURE / $pounds));
+	$total_amount = (($carat * $current_price) / (FIXED_TOTAL_FIGURE * $pounds));
 	return round_to_decimal_place(2, $total_amount);
 }
 

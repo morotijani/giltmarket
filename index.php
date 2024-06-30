@@ -84,26 +84,6 @@
 						</div>
 					</div>
 
-					<div class="modal fade" id="cryptoModal" tabindex="-1" aria-labelledby="cryptoModalLabel" aria-hidden="true">
-						<div class="modal-dialog modal-dialog-centered">
-							<div class="modal-content overflow-hidden">
-								<div class="modal-header pb-0 border-0">
-									<h1 class="modal-title h4" id="cryptoModalLabel">Select token</h1>
-									<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-								</div>
-								<div class="modal-body p-0">
-									<div class="px-6 py-5 border-bottom">
-										<input type="text" class="form-control" placeholder="Search token or paste address" aria-label="Search">
-									</div>
-									<div class="p-2"></div>
-									<div class="px-6 py-5 bg-body-secondary d-flex justify-content-center">
-										<button class="btn btn-sm btn-dark"><i class="bi bi-gear me-2"></i>Manage tokens</button>
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
-
 					<div class="row g-3 g-xxl-6">
 						<div class="col-xxl-8">
 							<div class="vstack gap-3 gap-md-6">
@@ -146,11 +126,6 @@
 														<span class="badge badge-xs bg-info"><i class="bi bi-123"></i> </span><span><?= date("l jS \of F " . ' . ' . " A"); ?></span>
 													</div>
 												</div>
-											</div>
-										</div>
-										<div class="col-md-1 d-none d-md-block">
-											<div class="card h-md-100 d-flex flex-column align-items-center justify-content-center py-4 bg-body-secondary bg-opacity-75 bg-opacity-100-hover">
-												<a href="#cryptoModal" class="stretched-link text-body-secondary" data-bs-toggle="modal"><i class="bi bi-pencil"></i></a>
 											</div>
 										</div>
 									</div>
