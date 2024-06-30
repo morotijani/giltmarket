@@ -4,6 +4,54 @@
     include ("includes/header.inc.php");
     include ("includes/nav.inc.php");
 
+    $thisYr = date("Y");
+    $lastYr = $thisYr - 1;
+
+    $thisYrQ = "
+        SELECT sale_total_amount, createdAt 
+        FROM jspence_sales 
+        WHERE YEAR(createdAt) = '{$thisYr}' 
+    ";
+    $statement = $conn->prepare($thisYrQ);
+    $statement->execute();
+    $thisYr_result = $statement->fetchAll();
+    
+
+    $lastYrQ = "
+        SELECT sale_total_amount, createdAt 
+        FROM jspence_sales 
+        WHERE YEAR(createdAt) = '{$lastYr}' 
+    ";
+    $statement = $conn->prepare($lastYrQ);
+    $statement->execute();
+    $lastYr_result = $statement->fetchAll();
+
+    $current = array();
+    $last = array();
+
+    $currentTotal = 0;
+    $lastTotal = 0;
+
+    foreach ($thisYr_result as $thisYr_row) {
+        $month = date("m", strtotime($thisYr_row['createdAt']));
+        if (!array_key_exists((int)$month, $current)) {
+            $current[(int)$month] = $thisYr_row['sale_total_amount'];
+        } else {
+            $current[(int)$month] += $thisYr_row['sale_total_amount'];
+        }
+        $currentTotal += $thisYr_row['sale_total_amount'];
+    }
+
+    foreach ($lastYr_result as $lastYr_row) {
+        $month = date("m", strtotime($lastYr_row['createdAt']));
+        if (!array_key_exists((int)$month, $last)) {
+            $last[(int)$month] = $lastYr_row['sale_total_amount'];
+        } else {
+            $last[(int)$month] += $lastYr_row['sale_total_amount'];
+        }
+        $currentTotal += $lastYr_row['sale_total_amount'];
+    }
+
 ?>
 
 
@@ -106,6 +154,7 @@
 											</div>
 										</div>
 									</div>
+
 									<div class="card">
 										<div class="card-body pb-0">
 											<div class="d-flex justify-content-between align-items-center"><div>
@@ -116,10 +165,11 @@
 											</div>
 										</div>
 										<div class="mx-n4">
-											<div id="chart-users" data-height="270"></div>
+											<canvas class="my-4 w-100" id="myChart" width="900" height="380"></canvas>
 										</div>
 									</div>
 								</div>
+
 								<div class="card">
 									<div class="card-body pb-0">
 										<div class="d-flex justify-content-between align-items-center">
@@ -274,14 +324,15 @@
 														<h5>Logs</h5>
 													</div>
 													<div class="hstack align-items-center">
-														<a href="#" class="text-muted">
-															<i class="bi bi-arrow-repeat"></i>
+														<a href="<?= PROOT; ?>acc/logs" title="view more" class="text-muted">
+															<i class="bi bi-three-dots-vertical"></i>
 														</a>
 													</div>
 												</div>
 												<div class="vstack gap-1">
-													
-
+													<ul class="list-group">
+													  	<?= get_logs($admin_data[0]['admin_id'], $admin_data[0]['admin_permissions']); ?>
+													</ul>
 												</div>
 											</div>
 										</div>
@@ -343,3 +394,79 @@
 
 <?php include ("includes/footer.inc.php"); ?>
 
+
+<script type="text/javascript" src="<?= PROOT; ?>dist/js/Chart.min.js"></script>
+<script type="text/javascript">
+    /* globals Chart:false, feather:false */
+
+	(function () {
+	    'use strict'
+
+	      // Graphs
+	    var ctx = document.getElementById('myChart')
+	      // eslint-disable-next-line no-unused-vars
+	    var myChart = new Chart(ctx, {
+	        type: 'line',
+	        data: {
+	            labels: [
+	                <?php 
+	                    for ($i = 1; $i <= 12; $i++) {
+	                        $dt = dateTime::createFromFormat('!m',$i);
+	                        $m = $dt->format("F");
+	                        echo json_encode($m).',';
+	                    }
+	                ?>
+	            ],
+	            datasets: [{
+	                label: '<?= $thisYr; ?>, Amount ₵',
+	                data: [
+	                    <?php 
+	                        for ($i = 1; $i <= 12; $i++) {
+	                            $mn = (array_key_exists($i, $current)) ? $current[$i] : 0;
+	                            echo json_encode($mn).',';
+	                        }
+	                    ?>
+	                ],
+	                lineTension: 0,
+	                backgroundColor: 'rgba(225, 0.1, 0.3, 0.1)',
+	                borderColor: 'tomato',
+	                borderWidth: 3,
+	                pointBackgroundColor: 'red'
+	            },{
+	                label: '<?= $lastYr; ?>, Amount ₵',
+	                data : [
+	                    <?php 
+	                        for ($i = 1; $i <= 12; $i++) {
+	                            $mn = (array_key_exists($i, $last)) ? $last[$i] : 0;
+	                            echo json_encode($mn).',';
+	                        }
+	                    ?>
+	                ],
+	                backgroundColor: 'rgba(0, 225, 0, 0.1)',
+	                borderColor: 'gold',
+	                pointBackgroundColor: 'brown',
+	                borderWidth: 3
+	            }]
+	        },
+	        options: {
+	            responsive: true,
+	            scales: {
+	                yAxes: [{
+	                    ticks: {
+	                        beginAtZero: false
+	                    }
+	                }]
+	            },
+	            legend: {
+	                display: true,
+	                position: 'top',
+	            },
+	            title: {
+	                display: true,
+	                text: 'Sales By Month - J-Spence LTD.'
+	            }
+	        }
+	    })
+	})()
+
+</script>

@@ -383,3 +383,28 @@ function grand_total_amount($admin, $permission) {
 
 	return $output;
 }
+
+// 
+function get_logs($admin, $permission) {
+	global $conn;
+	$output = '';
+
+	$sql = "
+		SELECT * FROM jspence_logs 
+		WHERE log_admin = ? 
+		ORDER BY createdAt DESC
+		LIMIT 8
+	";
+	$statement = $conn->prepare($sql);
+	$statement->execute([$admin]);
+	$rows = $statement->fetchAll();
+
+	foreach ($rows as $row) {
+		// code...
+		$output .= '
+			<li class="list-group-item"><em>' . $row["log_message"] . '</em></li>
+		';
+	}
+
+	return $output;
+}
