@@ -15,7 +15,7 @@
 								<?php endif; ?>
 								<?php if (admin_is_logged_in()): ?>
 									<li class="nav-item"><a class="nav-link rounded-pill" href="<?= PROOT; ?>acc/logs">Logs</a></li>
-									<li class="nav-item"><a class="nav-link rounded-pill" href="<?= PROOT; ?>documentation.php">Documentation</a></li>
+									<li class="nav-item"><a class="nav-link rounded-pill" href="<?= PROOT; ?>documentation">Documentation</a></li>
 									<li class="nav-item"><a class="nav-link rounded-pill" href="<?= PROOT; ?>auth/logout">Logout</a></li>
 								<?php endif; ?>
 							</ul>

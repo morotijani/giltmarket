@@ -320,7 +320,7 @@
                     return false;
                 }
 
-                if ($("#volume-amount").val() > $("#gram-amount").val()) {
+                if (+$("#volume-amount").val() > +$("#gram-amount").val()) {
                     $('.volumeMsg').html('* Volume can not be  greater than Gram!');
                     $("#volume-amount").focus()
                     return false;
@@ -570,6 +570,7 @@
 
                 setTimeout(function() {
                     RECEIPT_WINDOW.close();
+                    location.reload();
                 }, 3000);
 
                 return false;
