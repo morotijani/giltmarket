@@ -245,7 +245,7 @@ function total_amount_today($admin, $permission) {
 // get total amount of orders in current month
 function total_amount_thismonth($admin, $permission) {
 	global $conn;
-	$thisMonth = date("d");
+	$thisMonth = date("m");
 	$lastMonth = $thisMonth - 1;
 
 	$output = [];
@@ -310,4 +310,76 @@ function count_total_orders($admin, $permission) {
 	$row = $statement->fetchAll();
 	
 	return $row[0]['total_number'];
+}
+
+// get grand amount of orders
+function grand_total_amount($admin, $permission) {
+	global $conn;
+	$thisYear = date("Y");
+	$lastYear = $thisYear - 1;
+
+	$output = [];
+
+	$thisSql = "
+		SELECT SUM(sale_total_amount) AS total 
+		FROM `jspence_sales` 
+		WHERE sale_by = ? 
+		AND YEAR(createdAt) = '{$thisYear}'
+	";
+	$statement = $conn->prepare($thisSql);
+	$statement->execute([$admin]);
+	$thisRow = $statement->fetchAll();
+
+	$thisPercentage = ($thisRow[0]['total'] / 100);
+
+	$lastSql = "
+		SELECT SUM(sale_total_amount) AS total 
+		FROM `jspence_sales` 
+		WHERE sale_by = ? 
+		AND YEAR(createdAt) = '{$lastYear}'
+	";
+	$statement = $conn->prepare($lastSql);
+	$statement->execute([$admin]);
+	$lastRrow = $statement->fetchAll();
+
+	$lastPercentage = ($lastRrow[0]['total'] / 100);
+
+	if ($thisPercentage > $lastPercentage) {
+		// going top
+		$percentage = (($thisPercentage + $lastPercentage) / 100);
+		$percentage_icon = 'up';
+	} else {
+		// going down
+		$percentage = (($thisPercentage - $lastPercentage) / 100);
+		$percentage_icon = 'down';
+	}
+
+	// if ($thisRow[0]['total'] > $lastRrow[0]['total']) {
+	// 	$percentage_color = 'success';
+	// 	$percentage_icon_t = 'up-right';
+	// } else {
+	// 	$percentage_color = 'danger';
+	// 	$percentage_icon_t = 'down-left';
+	// }
+
+	$grandTotalSql = "
+		SELECT SUM(sale_total_amount) AS total 
+		FROM `jspence_sales` 
+		WHERE sale_by = ?
+	";
+	$statement = $conn->prepare($grandTotalSql);
+	$statement->execute([$admin]);
+	$grandTotalRow = $statement->fetchAll();
+
+	$output = [
+		'grand_total' 			=> money($grandTotalRow[0]['total']),
+		'this_year' 			=> money($thisRow[0]['total']),
+		'last_year' 			=> money($lastRrow[0]['total']),
+		'percentage' 			=> $percentage,
+		// 'percentage_color' 		=> $percentage_color,
+		'percentage_icon' 		=> $percentage_icon,
+		// 'percentage_icon_t' 	=> $percentage_icon_t,
+	];
+
+	return $output;
 }

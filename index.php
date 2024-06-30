@@ -69,7 +69,7 @@
 												<?php $t = total_amount_today($admin_data[0]['admin_id'], $admin_data[0]['admin_permissions']); ?>
 												<div class="text-sm fw-semibold mt-3"><?= $t['amount']; ?></div>
 												<div class="d-flex align-items-center gap-2 mt-1 text-xs">
-													<span class="badge badge-xs bg-<?= $t['percentage_color']; ?>"><i class="bi bi-arrow-<?= $t['percentage_icon']; ?>"></i> </span><span><?= $t['percentage']; ?></span>
+													<span class="badge badge-xs bg-<?= $t['percentage_color']; ?>"><i class="bi bi-arrow-<?= $t['percentage_icon']; ?>"></i> </span><span><?= $t['percentage']; ?>%</span>
 												</div>
 											</div>
 										</div>
@@ -83,7 +83,7 @@
 												</div>
 												<?php $m = total_amount_thismonth($admin_data[0]['admin_id'], $admin_data[0]['admin_permissions']); ?>
 												<div class="text-sm fw-semibold mt-3"><?= $t['amount']; ?></div>
-												<div class="d-flex align-items-center gap-2 mt-1 text-xs"><span class="badge badge-xs bg-<?= $t['percentage_color']; ?>"><i class="bi bi-arrow-<?= $t['percentage_icon']; ?>"></i> </span><span><?= $t['percentage']; ?></span></div>
+												<div class="d-flex align-items-center gap-2 mt-1 text-xs"><span class="badge badge-xs bg-<?= $t['percentage_color']; ?>"><i class="bi bi-arrow-<?= $t['percentage_icon']; ?>"></i> </span><span><?= $t['percentage']; ?>%</span></div>
 											</div>
 										</div>
 									</div>
@@ -95,7 +95,7 @@
 													<a href="<?= PROOT; ?>acc/trades" class="h6 stretched-link">Orders</a></div>
 													<div class="text-sm fw-semibold mt-3"><?= count_total_orders($admin_data[0]['admin_id'], $admin_data[0]['admin_permissions']); ?></div>
 													<div class="d-flex align-items-center gap-2 mt-1 text-xs">
-														<span class="badge badge-xs bg-danger"><i class="bi bi-123"></i> </span><span><?= date("l jS \of F " . ' . ' . " A"); ?></span>
+														<span class="badge badge-xs bg-info"><i class="bi bi-123"></i> </span><span><?= date("l jS \of F " . ' . ' . " A"); ?></span>
 													</div>
 												</div>
 											</div>
@@ -233,34 +233,36 @@
 										<div class="card border-0 border-xxl">
 											<div class="card-body d-flex flex-column p-0 p-xxl-6">
 												<div class="d-flex justify-content-between align-items-center mb-3">
+
+													<?php $g = grand_total_amount($admin_data[0]['admin_id'], $admin_data[0]['admin_permissions']); ?>
 													<div>
-														<h5>Balance</h5>
+														<h5>Grand total</h5>
 													</div>
 													<div>
 														<span class="text-heading fw-bold">
-															<i class="bi bi-arrow-up me-2"></i>7.8%</span>
+															<i class="bi bi-arrow-<?= $g['percentage_icon'] ?> me-2"></i><?= $g['percentage'] ?>%</span>
 														</div>
 													</div>
-													<div class="text-2xl fw-bolder text-heading ls-tight">23.863,21 USDT</div>
+													<div class="text-2xl fw-bolder text-heading ls-tight"><?= $g['grand_total']; ?></div>
 													<div class="d-flex align-items-center justify-content-between mt-8">
 														<div class="">
 															<div class="d-flex gap-3 align-items-center">
-																<div class="icon icon-sm icon-shape text-sm rounded-circle bg-dark text-success">
-																	<i class="bi bi-arrow-down"></i>
+																<div class="icon icon-sm icon-shape text-sm rounded-circle bg-dark text-info">
+																	<i class="bi bi-currency-exchange"></i>
 																</div>
-																<span class="h6 fw-semibold text-muted">Income</span>
+																<span class="h6 fw-semibold text-muted">Last year</span>
 															</div>
-															<div class="fw-bold text-heading mt-3">$23.863,21 USD</div>
+															<div class="fw-bold text-heading mt-3"><?= $g['last_year']; ?></div>
 														</div>
 														<span class="vr bg-dark bg-opacity-10"></span>
 														<div class="">
 															<div class="d-flex gap-3 align-items-center">
-																<div class="icon icon-sm icon-shape text-sm rounded-circle bg-dark text-danger">
-																	<i class="bi bi-arrow-up"></i>
+																<div class="icon icon-sm icon-shape text-sm rounded-circle bg-dark text-success">
+																	<i class="bi bi-currency-exchange"></i>
 																</div>
-																<span class="h6 fw-semibold text-muted">Expenses</span>
+																<span class="h6 fw-semibold text-muted">This year</span>
 															</div>
-															<div class="fw-bold text-heading mt-3">$5.678,45 USD</div>
+															<div class="fw-bold text-heading mt-3"><?= $g['this_year']; ?></div>
 														</div>
 													</div>
 												</div>
