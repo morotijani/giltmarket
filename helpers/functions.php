@@ -194,17 +194,52 @@ function total_amount_today($admin, $permission) {
 	$thisDay = date("d");
 	$yesterDay = $thisDay - 1;
 
-	$sql = "
+	$output = [];
+
+	$thisDaySql = "
 		SELECT SUM(sale_total_amount) AS total 
 		FROM `jspence_sales` 
 		WHERE sale_by = ? 
 		AND DAY(createdAt) = '{$thisDay}'
 	";
-	$statement = $conn->prepare($sql);
+	$statement = $conn->prepare($thisDaySql);
 	$statement->execute([$admin]);
-	$row = $statement->fetchAll();
+	$thisDayrow = $statement->fetchAll();
 
-	return money($row[0]['total']);
+	$thisDayPercentage = ($thisDayrow[0]['total'] / 100);
+
+	$yesterDaySql = "
+		SELECT SUM(sale_total_amount) AS total 
+		FROM `jspence_sales` 
+		WHERE sale_by = ? 
+		AND DAY(createdAt) = '{$yesterDay}'
+	";
+	$statement = $conn->prepare($yesterDaySql);
+	$statement->execute([$admin]);
+	$yesterDayrow = $statement->fetchAll();
+
+	$yesterDayPercentage = ($yesterDayrow[0]['total'] / 100);
+
+	if ($thisDayPercentage > $yesterDayPercentage) {
+		// going top
+		$percentage = (($thisDayPercentage + $yesterDayPercentage) / 100);
+		$percentage_color = 'success';
+		$percentage_icon = 'top';
+	} else {
+		// going down
+		$percentage = (($thisDayPercentage - $yesterDayPercentage) / 100);
+		$percentage_color = 'danger';
+		$percentage_icon = 'down';
+	}
+
+	$output = [
+		'today_amount' 		=> money($thisDayrow[0]['total']),
+		'percentage' 		=> $percentage,
+		'percentage_color' 	=> $percentage_color,
+		'percentage_icon' 	=> $percentage_icon,
+	];
+
+	return $output;
 }
 
 // get total amount of orders in current month

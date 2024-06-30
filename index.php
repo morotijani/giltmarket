@@ -66,7 +66,11 @@
 												<div class="d-flex align-items-center gap-2">
 													<img src="../../img/crypto/icon/btc.svg" class="w-rem-5 flex-none" alt="..."> <a href="/pages/page-details.html" class="h6 stretched-link">Today</a>
 												</div>
-												<div class="text-sm fw-semibold mt-3"><?= total_amount_today($admin_data[0]['admin_id'], $admin_data[0]['admin_permissions']); ?></div>
+												<?php 
+													$t = total_amount_today($admin_data[0]['admin_id'], $admin_data[0]['admin_permissions']);
+													dnd($t);
+												?>
+												<div class="text-sm fw-semibold mt-3"><?= '22'; ?></div>
 												<div class="d-flex align-items-center gap-2 mt-1 text-xs">
 													<span class="badge badge-xs bg-success"><i class="bi bi-arrow-up-right"></i> </span><span><?= date("l jS \of F " . ' . ' . " A"); ?></span>
 												</div>
@@ -80,7 +84,7 @@
 													<img src="../../img/crypto/icon/ada.svg" class="w-rem-5 flex-none" alt="..."> 
 													<a href="/pages/page-details.html" class="h6 stretched-link">This Month</a>
 												</div>
-												<div class="text-sm fw-semibold mt-3"><?= total_amount_today($admin_data[0]['admin_id'], $admin_data[0]['admin_permissions']); ?></div>
+												<div class="text-sm fw-semibold mt-3"><?= total_amount_thismonth($admin_data[0]['admin_id'], $admin_data[0]['admin_permissions']); ?></div>
 												<div class="d-flex align-items-center gap-2 mt-1 text-xs"><span class="badge badge-xs bg-danger"><i class="bi bi-arrow-up-right"></i> </span><span><?= date("jS \of F"); ?></span></div>
 											</div>
 										</div>
