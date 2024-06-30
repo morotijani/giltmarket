@@ -29,7 +29,7 @@
     <div class="row justify-content-center">
         <div class="col-12">
             <ul class="list-group">
-                <?= get_admin_profile(); ?>
+                <?= get_admin_profile($admin_data[0]['admin_id']); ?>
             </ul>
         </div>
     </div>

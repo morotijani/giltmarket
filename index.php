@@ -4,54 +4,58 @@
     include ("includes/header.inc.php");
     include ("includes/nav.inc.php");
 
-    $thisYr = date("Y");
-    $lastYr = $thisYr - 1;
-
-    $thisYrQ = "
-        SELECT sale_total_amount, createdAt 
-        FROM jspence_sales 
-        WHERE YEAR(createdAt) = ? 
-        AND sale_by = ?
-    ";
-    $statement = $conn->prepare($thisYrQ);
-    $statement->execute([$thisYr, $admin_data[0]['admin_id']]);
-    $thisYr_result = $statement->fetchAll();
+    if (admin_is_logged_in()) {
+    	// code...
     
+	    $thisYr = date("Y");
+	    $lastYr = $thisYr - 1;
 
-    $lastYrQ = "
-        SELECT sale_total_amount, createdAt 
-        FROM jspence_sales 
-        WHERE YEAR(createdAt) = ? 
-        AND sale_by = ?
-    ";
-    $statement = $conn->prepare($lastYrQ);
-    $statement->execute([$lastYr, $admin_data[0]['admin_id']]);
-    $lastYr_result = $statement->fetchAll();
+	    $thisYrQ = "
+	        SELECT sale_total_amount, createdAt 
+	        FROM jspence_sales 
+	        WHERE YEAR(createdAt) = ? 
+	        AND sale_by = ?
+	    ";
+	    $statement = $conn->prepare($thisYrQ);
+	    $statement->execute([$thisYr, $admin_data[0]['admin_id']]);
+	    $thisYr_result = $statement->fetchAll();
+	    
 
-    $current = array();
-    $last = array();
+	    $lastYrQ = "
+	        SELECT sale_total_amount, createdAt 
+	        FROM jspence_sales 
+	        WHERE YEAR(createdAt) = ? 
+	        AND sale_by = ?
+	    ";
+	    $statement = $conn->prepare($lastYrQ);
+	    $statement->execute([$lastYr, $admin_data[0]['admin_id']]);
+	    $lastYr_result = $statement->fetchAll();
 
-    $currentTotal = 0;
-    $lastTotal = 0;
+	    $current = array();
+	    $last = array();
 
-    foreach ($thisYr_result as $thisYr_row) {
-        $month = date("m", strtotime($thisYr_row['createdAt']));
-        if (!array_key_exists((int)$month, $current)) {
-            $current[(int)$month] = $thisYr_row['sale_total_amount'];
-        } else {
-            $current[(int)$month] += $thisYr_row['sale_total_amount'];
-        }
-        $currentTotal += $thisYr_row['sale_total_amount'];
-    }
+	    $currentTotal = 0;
+	    $lastTotal = 0;
 
-    foreach ($lastYr_result as $lastYr_row) {
-        $month = date("m", strtotime($lastYr_row['createdAt']));
-        if (!array_key_exists((int)$month, $last)) {
-            $last[(int)$month] = $lastYr_row['sale_total_amount'];
-        } else {
-            $last[(int)$month] += $lastYr_row['sale_total_amount'];
-        }
-        $currentTotal += $lastYr_row['sale_total_amount'];
+	    foreach ($thisYr_result as $thisYr_row) {
+	        $month = date("m", strtotime($thisYr_row['createdAt']));
+	        if (!array_key_exists((int)$month, $current)) {
+	            $current[(int)$month] = $thisYr_row['sale_total_amount'];
+	        } else {
+	            $current[(int)$month] += $thisYr_row['sale_total_amount'];
+	        }
+	        $currentTotal += $thisYr_row['sale_total_amount'];
+	    }
+
+	    foreach ($lastYr_result as $lastYr_row) {
+	        $month = date("m", strtotime($lastYr_row['createdAt']));
+	        if (!array_key_exists((int)$month, $last)) {
+	            $last[(int)$month] = $lastYr_row['sale_total_amount'];
+	        } else {
+	            $last[(int)$month] += $lastYr_row['sale_total_amount'];
+	        }
+	        $currentTotal += $lastYr_row['sale_total_amount'];
+	    }
     }
 
 ?>

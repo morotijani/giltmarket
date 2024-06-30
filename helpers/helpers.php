@@ -728,41 +728,39 @@ function get_all_admins() {
 }
 
 // GET ADMIN PROFILE DETAILS
-function get_admin_profile() {
+function get_admin_profile($id) {
 	global $conn;
-	global $admin_data;
 	$output = '';
 
 	$query = "
 		SELECT * FROM jspence_admin 
-		WHERE admin_status = ? 
+		WHERE admin_id = ? 
+		AND admin_status = ? 
 		LIMIT 1
 	";
 	$statement = $conn->prepare($query);
-	$statement->execute([0]);
+	$statement->execute([$id, 0]);
 	$row = $statement->fetchAll();
 
-	if ($row[0]['admin_id'] == $admin_data[0]['admin_id']) {
-		$output = '
-			<li class="list-group-item" style="padding: 0.1rem 1rem;">
-		  		<small class="text-muted">Name,</small>
-		  		<p>' . ucwords($row[0]["admin_fullname"]) . '</p>
-		  	</li>
-			<li class="list-group-item" style="padding: 0.1rem 1rem;">
-		  		<small class="text-muted">Email,</small>
-		  		<p>' . $row[0]["admin_email"] . '</p>
-		  	</li>
-			<li class="list-group-item" style="padding: 0.1rem 1rem;">
-		  		<small class="text-muted">Joined Date,</small>
-		  		<p>' . pretty_date($row[0]["admin_joined_date"]) . '</p>
-		  	</li>
-			<li class="list-group-item" style="padding: 0.1rem 1rem;">
-		  		<small class="text-muted">Last Login,</small>
-		  		<p>' . pretty_date($row[0]["admin_last_login"]) . '</p>
-		  	</li>
-		';
-	}
-	
+	$output = '
+		<li class="list-group-item" style="padding: 0.1rem 1rem;">
+	  		<small class="text-muted">Name,</small>
+	  		<p>' . ucwords($row[0]["admin_fullname"]) . '</p>
+	  	</li>
+		<li class="list-group-item" style="padding: 0.1rem 1rem;">
+	  		<small class="text-muted">Email,</small>
+	  		<p>' . $row[0]["admin_email"] . '</p>
+	  	</li>
+		<li class="list-group-item" style="padding: 0.1rem 1rem;">
+	  		<small class="text-muted">Joined Date,</small>
+	  		<p>' . pretty_date($row[0]["admin_joined_date"]) . '</p>
+	  	</li>
+		<li class="list-group-item" style="padding: 0.1rem 1rem;">
+	  		<small class="text-muted">Last Login,</small>
+	  		<p>' . pretty_date($row[0]["admin_last_login"]) . '</p>
+	  	</li>
+	';
+
 	return $output;
 }
 
