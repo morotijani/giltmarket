@@ -113,6 +113,67 @@
     <script>
         $(document).ready(function() {
 
+            // Calculation made with current price input
+            $('#current_price').on('keyup', function(e) {
+                e.preventDefault();
+
+                // var step = this.getAttribute('data-step');
+                
+                var current_price = $('#current_price').val();
+                var gram = $('#gram-amount').val();
+                var volume = $('#volume-amount').val();
+
+                // if (gram < step) {
+                //  console.log('not accept');
+                // }
+
+                if (current_price != '' && current_price > 0) {
+                    if (gram != '' && gram > 0) {
+                        if (volume != '' && volume > 0) {
+                            $('.buy-msg').text('typing ...');
+
+                            $.ajax({
+                                url : '<?= PROOT; ?>auth/gold.calculation.php',
+                                method : 'POST',
+                                data : {
+                                    gram : gram,
+                                    volume : volume,
+                                    current_price : current_price,
+                                },
+                                beforeSend : function () {
+                                    // body...
+                                    $('#calculation-result').html('<img class="img-fluid" src="<?= PROOT; ?>dist/media/loading_v2.gif"/>');
+                                    $('#result-view').addClass('d-none');
+                                },
+                                success: function(data) {
+                                    const response = JSON.parse(data);
+                                    //if (response["message"] != '') {
+                                        $('.toast-body').html(response["message"]);
+                                        $('.toast').toast('show');
+                                    //}
+                                    $('#density').text(response["density"] + ' Density');
+                                    $('#pounds').text(response["pounds"] + ' Pounds');
+                                    $('#carat').text(response["carat"] + ' Karat');
+                                    $('#total-amount').val(response["total_amount"]);
+                                    $('#calculation-result').html('')
+                                    $('#calculation-result').addClass('d-none');
+                                    $('#result-view').removeClass('d-none');
+
+                                    $('.buy-msg').text('');
+                                },
+                                error: function() {
+                                    return false;
+                                }
+                            })
+                        } else {
+                            $('.buy-msg').text('');
+                        }
+                    }
+                }
+
+            })
+
+
             // Calculation made with gram input
             $('#gram-amount').on('keyup', function(e) {
                 e.preventDefault();
@@ -211,7 +272,7 @@
                                     //}
                                     $('#density').text(response["density"] + ' Density');
                                     $('#pounds').text(response["pounds"] + ' Pounds');
-                                    $('#carat').text(response["carat"] + ' Carat');
+                                    $('#carat').text(response["carat"] + ' Karat');
                                     $('#total-amount').val(response["total_amount"]);
                                     $('#calculation-result').html('')
                                     $('#calculation-result').addClass('d-none');
@@ -309,7 +370,7 @@
                         <p>` + $("#pounds").text() + `</p>
                     </li>
                     <li class="list-group-item" style="padding: 0.1rem 1rem;">
-                        <small class="text-muted">Carat</small>
+                        <small class="text-muted">Karat</small>
                         <p id="send-amount">` + $("#carat").text() + `</p>
                     </li>
                     <li class="list-group-item" style="padding: 0.1rem 1rem;">
@@ -362,7 +423,7 @@
 
                 $('#density').text('0.00 Density');
                 $('#pounds').text('0.00 Pounds');
-                $('#carat').text('0.00 Carat');
+                $('#carat').text('0.00 Karat');
                 $('#total-amount').val('');
 
                 $('#buyForm')[0].reset();

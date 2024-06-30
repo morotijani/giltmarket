@@ -19,7 +19,8 @@ function company_data() {
 function calculateDensity($gram, $volume) {
 	$density = ($gram / $volume);
 
-	return round_to_decimal_place(2, $density);
+	return round_to_decimal_place(2, $density) - 0.01;
+	// return round_to_decimal_place(2, $density);
 }
 
 // Density calculation
@@ -42,7 +43,7 @@ function calculateTotalAmount($gram, $volume, $current_price) {
 	$carat = calculateCarat($gram, $volume);
 	$pounds = calculatePounds($gram);
 
-	$total_amount = (($carat * $current_price) / (FIXED_TOTAL_FIGURE * $pounds));
+	$total_amount = ($carat * $current_price / FIXED_TOTAL_FIGURE * $pounds);
 	return round_to_decimal_place(2, $total_amount);
 }
 
