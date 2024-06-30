@@ -155,7 +155,7 @@
 									<div class="card-body">
 										<div class="d-flex justify-content-between align-items-center mb-5">
 											<div>
-												<h5>Recent transactions</h5>
+												<h5>Recent trades</h5>
 											</div>
 											<div class="hstack align-items-center">
 												<a href="<?= PROOT; ?>acc/trades" class="text-muted">
