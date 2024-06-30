@@ -259,6 +259,17 @@
                     return false;
                 }
 
+                if ($("#volume-amount").val() > $("#gram-amount").val()) {
+                    $('.volumeMsg').html('* Volume can not be  greater than Gram!');
+                    $("#volume-amount").focus()
+                    return false;
+                }
+
+                if ($("#total-amount").val() <= 0) {
+                    $('.buy-msg').text('* There is a problem with the calculation, please check your inputs well!');
+                    return false;
+                }
+
                 if ($("#customer_name").val() == '') {
                     $('.buy-msg').html('* Invalid customer name!');
                     $("#customer_name").focus()

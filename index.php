@@ -29,8 +29,8 @@
 							</div>
 							<div class="col">
 								<div class="hstack gap-2 justify-content-end">
-									<button type="button" class="btn btn-sm btn-square btn-neutral rounded-circle d-xxl-none" data-bs-toggle="offcanvas" data-bs-target="#responsiveOffcanvas" aria-controls="responsiveOffcanvas"><i class="bi bi-three-dots"></i></button> <button type="button" class="btn btn-sm btn-neutral d-none d-sm-inline-flex" data-bs-target="#buyModal" data-bs-toggle="modal"><span class="pe-2"><i class="bi bi-plus-circle"></i> </span><span>Liquidity</span></button> 
-									<a href="/pages/page-overview.html" class="btn d-inline-flex btn-sm btn-dark"><span>Trade</span></a>
+									<button type="button" class="btn btn-sm btn-square btn-neutral rounded-circle d-xxl-none" data-bs-toggle="offcanvas" data-bs-target="#responsiveOffcanvas" aria-controls="responsiveOffcanvas"><i class="bi bi-three-dots"></i></button> <button type="button" class="btn btn-sm btn-neutral d-none d-sm-inline-flex" data-bs-target="#buyModal" data-bs-toggle="modal"><span class="pe-2"><i class="bi bi-plus-circle"></i> </span><span>Trade</span></button> 
+									<a href="<?= PROOT; ?>" class="btn d-inline-flex btn-sm btn-dark"><span>Refresh</span></a>
 								</div>
 							</div>
 						</div>
@@ -66,9 +66,9 @@
 												<div class="d-flex align-items-center gap-2">
 													<img src="../../img/crypto/icon/btc.svg" class="w-rem-5 flex-none" alt="..."> <a href="/pages/page-details.html" class="h6 stretched-link">Today</a>
 												</div>
-												<div class="text-sm fw-semibold mt-3">3.2893 USDT</div>
+												<div class="text-sm fw-semibold mt-3"><?= total_amount_today($admin_data[0]['admin_id']); ?></div>
 												<div class="d-flex align-items-center gap-2 mt-1 text-xs">
-													<span class="badge badge-xs bg-success"><i class="bi bi-arrow-up-right"></i> </span><span>+13.7%</span>
+													<span class="badge badge-xs bg-success"><i class="bi bi-arrow-up-right"></i> </span><span><?= date("l jS \of F " . ' . ' . " A"); ?></span>
 												</div>
 											</div>
 										</div>
@@ -80,8 +80,8 @@
 													<img src="../../img/crypto/icon/ada.svg" class="w-rem-5 flex-none" alt="..."> 
 													<a href="/pages/page-details.html" class="h6 stretched-link">This Month</a>
 												</div>
-												<div class="text-sm fw-semibold mt-3">10.745,49 ADA</div>
-												<div class="d-flex align-items-center gap-2 mt-1 text-xs"><span class="badge badge-xs bg-danger"><i class="bi bi-arrow-up-right"></i> </span><span>-3.2%</span></div>
+												<div class="text-sm fw-semibold mt-3"><?= total_amount_today($admin_data[0]['admin_id']); ?></div>
+												<div class="d-flex align-items-center gap-2 mt-1 text-xs"><span class="badge badge-xs bg-danger"><i class="bi bi-arrow-up-right"></i> </span><span><?= date("jS \of F"); ?></span></div>
 											</div>
 										</div>
 									</div>

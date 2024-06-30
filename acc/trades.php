@@ -15,10 +15,12 @@
 
 
 ?>
-    
+<a href="#" onClick="MyWindow=window.open('http://www.google.com','MyWindow','width=600,height=300'); return false;">Click Here</a>
+<a href="#" onClick="MyWindow=window.open('http://www.google.com','MyWindow','width=600,height=300'); return false;">Click Here</a>
+
     <div class="px-6 px-lg-7 pt-8 border-bottom">
         <div class="d-flex align-items-center">
-            <h1>Sales</h1>
+            <h1>Trades</h1>
             <div class="hstack gap-2 ms-auto">
                 <button type="button" class="btn btn-sm btn-neutral d-none d-lg-inline-flex">
                     <i class="bi bi-arrow-90deg-right me-2"></i> Export
@@ -53,6 +55,7 @@
                         <th scope="col">Customer</th>
                         <th scope="col">Gram</th>
                         <th scope="col">Volume</th>
+                        <th scope="col">Price</th>
                         <th scope="col">Amount</th>
                         <th scope="col">Date</th>
                         <th scope="col"></th>

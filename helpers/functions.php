@@ -74,7 +74,7 @@ function fetch_all_sales($status) {
 	$output = '';
 
 	$sql = "
-		SELECT *, jspence_sales.id AS sid FROM jspence_sales 
+		SELECT *, jspence_sales.id AS sid, jspence_sales.createdAt AS sca, jspence_sales.updatedAt AS sau FROM jspence_sales 
 		INNER JOIN jspence_admin 
 		ON jspence_admin.admin_id = jspence_sales.sale_by 
 		WHERE sale_status = ? 
@@ -88,7 +88,10 @@ function fetch_all_sales($status) {
 		// code...
 		$i = 1;
 		foreach ($rows as $row) {
-			// code...
+			$arrayOutput = array('reference' => $row['sale_id'], 'customername' => $row['sale_customer_name'], 'date' => $row['sca'], 'gram' => $row['sale_gram'], 'volume' => $row['sale_volume'], 'density' => $row['sale_density'], 'pounds' => $row['sale_pounds'], 'carat' => $row['sale_carat'], 'total_amount' => $row['sale_total_amount'], 'current_price' => $row['sale_price'], 'by' => $row['sale_by'], 'message' => '',);
+			
+			$outputData = json_encode($arrayOutput);
+			
 			$output .= '
 				<tr>
 	                <td>' . $i . '</td>
@@ -96,14 +99,15 @@ function fetch_all_sales($status) {
 	                <td class="text-xs">' . strtoupper($row["sale_customer_name"]) . ' <i class="bi bi-arrow-right mx-2"></i> ' . $row["sale_customer_contact"] . '</td>
 	                <td>' . $row["sale_gram"] . '</td>
 	                <td>' . $row["sale_volume"] . '</td>
+	                <td>' . money($row["sale_price"]) . '</td>
 	                <td>' . money($row["sale_total_amount"]) . '</td>
-	                <td>' . pretty_date($row["createdAt"]) . '</td>
+	                <td>' . pretty_date($row["sca"]) . '</td>
 	                <td class="text-end">
 	                    <button type="button" class="btn btn-sm btn-square btn-neutral w-rem-6 h-rem-6" title="More" data-bs-target="#saleModal_' . $row["sid"] . '" data-bs-toggle="modal">
 	                        <i class="bi bi-three-dots"></i>
-	                    </button> <button type="button" title="Print receipt" class="btn btn-sm btn-square btn-neutral w-rem-6 h-rem-6">
+	                    </button> <a href="javascript:;" onClick="MyWindow=window.open('.$outputData.',\'MyWindow\',\'width=600,height=300\'); return false;" title="Print receipt" class="btn btn-sm btn-square btn-neutral w-rem-6 h-rem-6">
 	                        <i class="bi bi-receipt"></i>
-	                    </button>
+	                    </a>
 	                </td>
 	            </tr>
 
@@ -119,6 +123,10 @@ function fetch_all_sales($status) {
 									<li class="list-group-item" style="padding: 0.1rem 1rem;">
 				                        <small class="text-muted">Total amount,</small>
 				                        <p>' . money($row["sale_total_amount"]) . '</p>
+				                    </li>
+				                    <li class="list-group-item" style="padding: 0.1rem 1rem;">
+				                        <small class="text-muted">Price,</small>
+				                        <p>' . money($row["sale_price"]) . '</p>
 				                    </li>
 				                    <li class="list-group-item" style="padding: 0.1rem 1rem;">
 				                        <small class="text-muted">Gram</small>
@@ -150,11 +158,11 @@ function fetch_all_sales($status) {
 				                    </li>
 				                    <li class="list-group-item" style="padding: 0.1rem 1rem;">
 				                        <small class="text-muted">Date</small>
-				                        <p>' . pretty_date($row["createdAt"]) . '</p>
+				                        <p>' . pretty_date($row["sca"]) . '</p>
 				                    </li>
 				                    <li class="list-group-item" style="padding: 0.1rem 1rem;">
 				                        <small class="text-muted">Updated date</small>
-				                        <p>' . (($row["updatedAt"] == NULL) ? '---' : pretty_date($row["updatedAt"])) . '</p>
+				                        <p>' . (($row["updatedAt"] == NULL) ? '---' : pretty_date($row["sua"])) . '</p>
 				                    </li>
 								</ul>
 								<div class="p-2"></div>
@@ -164,8 +172,8 @@ function fetch_all_sales($status) {
 							</div>
 						</div>
 					</div>
-				</div>
-			';
+				</div>';
+
 			$i++;
 		}
 	} else {
@@ -178,3 +186,42 @@ function fetch_all_sales($status) {
 
 	return $output;
 }
+
+
+// count total orders
+function total_amount_today($admin) {
+	global $conn;
+	$thisDay = date("d");
+
+	$sql = "
+		SELECT SUM(sale_total_amount) AS total 
+		FROM `jspence_sales` 
+		WHERE sale_by = ? 
+		AND DAY(createdAt) = '{$thisDay}'
+	";
+	$statement = $conn->prepare($sql);
+	$statement->execute([$admin]);
+	$row = $statement->fetchAll();
+
+	return money($row[0]['total']);
+}
+
+// get total amount of orders today
+function total_amount_thismonth($admin) {
+	global $conn;
+	$thisMonth = date("d");
+
+	$sql = "
+		SELECT SUM(sale_total_amount) AS total 
+		FROM `jspence_sales` 
+		WHERE sale_by = ? 
+		AND MONTH(createdAt) = '{$thisDay}'
+	";
+	$statement = $conn->prepare($sql);
+	$statement->execute([$admin]);
+	$row = $statement->fetchAll();
+	
+	return money($row[0]['total']);
+}
+
+// get total amount of orders in current month
