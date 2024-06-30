@@ -188,10 +188,11 @@ function fetch_all_sales($status) {
 }
 
 
-// count total orders
-function total_amount_today($admin) {
+// get total amount of orders today
+function total_amount_today($admin, $permission) {
 	global $conn;
 	$thisDay = date("d");
+	$yesterDay = $thisDay - 1;
 
 	$sql = "
 		SELECT SUM(sale_total_amount) AS total 
@@ -206,10 +207,11 @@ function total_amount_today($admin) {
 	return money($row[0]['total']);
 }
 
-// get total amount of orders today
-function total_amount_thismonth($admin) {
+// get total amount of orders in current month
+function total_amount_thismonth($admin, $permission) {
 	global $conn;
 	$thisMonth = date("d");
+	$lastMonth = $thisMonth - 1;
 
 	$sql = "
 		SELECT SUM(sale_total_amount) AS total 
@@ -224,4 +226,18 @@ function total_amount_thismonth($admin) {
 	return money($row[0]['total']);
 }
 
-// get total amount of orders in current month
+// count total orders
+function count_total_orders($admin, $permission) {
+	global $conn;
+
+	$sql = "
+		SELECT COUNT(sale_id) AS total_number 
+		FROM `jspence_sales` 
+		WHERE sale_by = ? 
+	";
+	$statement = $conn->prepare($sql);
+	$statement->execute([$admin]);
+	$row = $statement->fetchAll();
+	
+	return $row[0]['total_number'];
+}
