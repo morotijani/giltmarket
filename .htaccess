@@ -2,6 +2,9 @@ RewriteEngine on
 
 RewriteRule ^gpmin/orders/([0-9a-zA-Z-]+)$ gpmin/orders.php?txn_id=$1 [NC,L]
 
+#Export trades data
+RewriteRule ^acc/export/([0-9a-zA-Z_-]+)/([0-9a-zA-Z_-]+)$ acc/export.php?data=$1&type=$2 [NC,L]
+
 
 RewriteCond %{REQUEST_FILENAME} !-d
 
@@ -9,7 +12,7 @@ RewriteCond %{REQUEST_FILENAME}\.php -f
 
 RewriteRule ^(.*)$ $1.php
 
-RewriteCond $1 !^(media|gpmin|store|helpers|fonts|dist|controller|connection|robots\.txt)
+RewriteCond $1 !^(media|acc|helpers|fonts|dist|controller|connection|robots\.txt)
 
 RewriteRule ^([^\.]+)$ $1.php [NC,L]
 
