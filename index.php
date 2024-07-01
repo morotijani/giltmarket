@@ -164,6 +164,48 @@
 											</div>
 										</div>
 										<div class="vstack gap-6">
+											<table class="table table-bordered table-lg">
+												<thead>
+													<tr>
+														<th scope="col"></th>
+						                                <th scope="col"><?= $lastYr; ?></th>
+						                                <th scope="col"><?= $thisYr; ?></th>
+													</tr>
+												</thead>
+												 <tbody>
+						                            <?php for ($i = 1; $i <= 12; $i++):
+						                                $dt = dateTime::createFromFormat('!m',$i);
+						                            ?>
+						                                <tr>
+						                                    <td <?= (date('m') == $i) ? ' class="bg-danger"' : ''; ?>><?= $dt->format("F"); ?></td>
+						                                    <td <?= (date('m') == $i) ? ' class="bg-danger"' : ''; ?>><?= ((array_key_exists($i, $last)) ? money($last[$i]) : money(0)); ?></td>
+						                                    <td <?= (date('m') == $i) ? ' class="bg-danger"' : ''; ?>><?=  ((array_key_exists($i, $current)) ? money($current[$i]) : money(0)); ?></td>
+						                                </tr>
+						                            <?php endfor; ?>
+						                            <tr>
+						                                <td>Total</td>
+						                                <td><?= money($lastTotal); ?></td>
+						                                <td><?= money($currentTotal); ?></td>
+						                            </tr>
+						                        </tbody>
+											</table>
+										</div>
+									</div>
+								</div>
+
+								<div class="card">
+									<div class="card-body">
+										<div class="d-flex justify-content-between align-items-center mb-5">
+											<div>
+												<h5>Recent trades</h5>
+											</div>
+											<div class="hstack align-items-center">
+												<a href="<?= PROOT; ?>acc/trades" class="text-muted">
+													<i class="bi bi-arrow-repeat"></i>
+												</a>
+											</div>
+										</div>
+										<div class="vstack gap-6">
 											<?= get_recent_trades($admin_data[0]['admin_id'], $admin_data[0]['admin_permissions']); ?>
 										</div>
 									</div>
