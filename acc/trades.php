@@ -7,8 +7,6 @@
         admn_login_redirect();
     }
 
-    //dnd($unique_id = time() . mt_rand() . '12');
-
     include ("../includes/header.inc.php");
     include ("../includes/nav.inc.php");
 
@@ -22,9 +20,11 @@
         <div class="d-flex align-items-center">
             <h1>Trades</h1>
             <div class="hstack gap-2 ms-auto">
+                <?php if (admin_has_permission()): ?>
                 <button type="button" class="btn btn-sm btn-neutral d-none d-lg-inline-flex">
                     <i class="bi bi-arrow-90deg-right me-2"></i> Export
                 </button> 
+                <?php endif ?>
                 <button type="button" class="btn btn-sm btn-primary d-none d-sm-inline-flex" data-bs-target="#buyModal" data-bs-toggle="modal"><span class="pe-2"><i class="bi bi-plus-circle"></i> </span><span>Trade</span></button>
             </div>
         </div>
@@ -35,13 +35,7 @@
                 <a href="#" class="nav-link active">All</a>
             </li>
             <li class="nav-item">
-                <a href="#" class="nav-link">Succeeded</a>
-            </li>
-            <li class="nav-item">
-                <a href="#" class="nav-link">Uncaptured</a>
-            </li>
-            <li class="nav-item">
-                <a href="#" class="nav-link">Failed</a>
+                <a href="<?= PROOT; ?>acc/trades.archive" class="nav-link">Archive</a>
             </li>
         </ul>
         <div class="table-responsive">
