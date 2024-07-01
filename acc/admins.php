@@ -78,7 +78,7 @@ if (isset($_GET['add'])) {
             $result = $statement->execute($data);
             if (isset($result)) {
 
-                $message = "changed password";
+                $message = "added new admin ".ucwords($admin_fullname)." as a ".strtoupper($admin_permissions)."";
                 add_to_log($message, $admin_data[0]['admin_id']);
 
                 $_SESSION['flash_success'] = 'Admin has been Added!';
