@@ -10,25 +10,30 @@
 	    $thisYr = date("Y");
 	    $lastYr = $thisYr - 1;
 
+	    $where = '';
+		if ($admin_data[0]['admin_permissions'] != 'admin,salesperson') {
+			$where = ' AND sale_by = "'.$admin_data[0]['admin_id'].'"';
+		}
+
 	    $thisYrQ = "
 	        SELECT sale_total_amount, createdAt 
 	        FROM jspence_sales 
-	        WHERE YEAR(createdAt) = ? 
-	        AND sale_by = ?
+	        WHERE YEAR(createdAt) = '{$thisYr}' 
+	        $where
 	    ";
 	    $statement = $conn->prepare($thisYrQ);
-	    $statement->execute([$thisYr, $admin_data[0]['admin_id']]);
+	    $statement->execute();
 	    $thisYr_result = $statement->fetchAll();
 	    
 
 	    $lastYrQ = "
 	        SELECT sale_total_amount, createdAt 
 	        FROM jspence_sales 
-	        WHERE YEAR(createdAt) = ? 
-	        AND sale_by = ?
+	        WHERE YEAR(createdAt) = '{$lastYr}' 
+	        $where
 	    ";
 	    $statement = $conn->prepare($lastYrQ);
-	    $statement->execute([$lastYr, $admin_data[0]['admin_id']]);
+	    $statement->execute();
 	    $lastYr_result = $statement->fetchAll();
 
 	    $current = array();

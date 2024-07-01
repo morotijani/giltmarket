@@ -17,9 +17,9 @@ function company_data() {
 
 // Density calculation
 function calculateDensity($gram, $volume) {
-	$density = ($gram / $volume);
+	$density = ($gram / $volume) - 0.01;
 
-	return round_to_decimal_place(2, $density) - 0.01;
+	return round_to_decimal_place(2, $density);
 	// return round_to_decimal_place(2, $density);
 }
 
@@ -34,7 +34,7 @@ function calculatePounds($gram) {
 function calculateCarat($gram, $volume) {
 	$density = calculateDensity($gram, $volume);
 
-	$carat = (($density - FIXED_CARAT_FIGURE_1) * (FIXED_CARAT_FIGURE_2 / $density));
+	$carat = (($density - FIXED_CARAT_FIGURE_1) * (FIXED_CARAT_FIGURE_2 / $density) - 0.01);
 	return round_to_decimal_place(2, $carat);
 }
 
@@ -44,7 +44,8 @@ function calculateTotalAmount($gram, $volume, $current_price) {
 	$pounds = calculatePounds($gram);
 
 	$total_amount = ($carat * $current_price / FIXED_TOTAL_FIGURE * $pounds);
-	return round_to_decimal_place(2, $total_amount);
+	return $total_amount;
+	// return round_to_decimal_place(2, $total_amount);
 }
 
 function round_to_decimal_place($decimal_place, $figure) {
@@ -70,15 +71,21 @@ function add_to_log($message, $log_admin) {
 	}
 }
 
-function fetch_all_sales($status) {
+function fetch_all_sales($status, $permission, $admin) {
 	global $conn;
 	$output = '';
+
+	$where = '';
+	if ($permission != 'admin,salesperson') {
+		$where = ' AND sale_by = "'.$admin.'" ';
+	}
 
 	$sql = "
 		SELECT *, jspence_sales.id AS sid, jspence_sales.createdAt AS sca, jspence_sales.updatedAt AS sau FROM jspence_sales 
 		INNER JOIN jspence_admin 
 		ON jspence_admin.admin_id = jspence_sales.sale_by 
 		WHERE sale_status = ? 
+		$where 
 		ORDER BY createdAt DESC
 	";
 	$statement = $conn->prepare($sql);

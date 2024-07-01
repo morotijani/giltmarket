@@ -62,7 +62,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <?= fetch_all_sales(0); ?>
+                    <?= fetch_all_sales(0, $admin_data[0]['admin_permissions'], $admin_data[0]['admin_id']); ?>
                 </tbody>
             </table>
         </div>
