@@ -476,7 +476,7 @@ function get_recent_trades($admin, $permission) {
 			<div>
 				<div class="d-flex align-items-center gap-3">
 					<div>
-						<h6 class="progress-text mb-1 d-block">No data found</h6>
+						<h6 class="progress-text mb-1 d-block">No trades found today!</h6>
 						<p class="text-muted text-xs">Current date time: ' . date("l jS \of F Y h:i:s A") . '</p>
 					</div>
 				</div>

@@ -108,6 +108,7 @@
     <script src="<?= PROOT; ?>dist/js/jquery-3.7.1.min.js"></script>
 	<script src="https://cdn.jsdelivr.net/npm/choices.js/public/assets/scripts/choices.min.js"></script>
 	<script src="<?= PROOT; ?>dist/js/main.js"></script>
+    <script src="<?= PROOT; ?>dist/js/switcher.js"></script>
 
 
     <script>
