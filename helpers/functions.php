@@ -194,30 +194,29 @@ function fetch_all_sales($status, $permission, $admin) {
 							<div class="modal-body p-0 text-center">
 								<ul class="list-group">
 									<li class="list-group-item" style="padding: 0.1rem 1rem;">
-				                        <small class="text-muted">Total amount,</small>
+				                        <small class="text-muted">Profile,</small>
 				                        <p>' . (($row["admin_profile"] != '') ? '<img src="' . PROOT . $row["admin_profile"] . '" class="img-fluid">' : 'No Profile') . '</p>
 				                    </li>
 				                    <li class="list-group-item" style="padding: 0.1rem 1rem;">
-				                        <small class="text-muted">Total amount,</small>
+				                        <small class="text-muted">Full  name,</small>
 				                        <p>' . ucwords($row["admin_fullname"]) . '</p>
 				                    </li>
 				                    <li class="list-group-item" style="padding: 0.1rem 1rem;">
-				                        <small class="text-muted">Price,</small>
+				                        <small class="text-muted">Email,</small>
 				                        <p>' . $row["admin_email"] . '</p>
 				                    </li>
 				                    <li class="list-group-item" style="padding: 0.1rem 1rem;">
-				                        <small class="text-muted">Note</small>
-				                        <p>' . $row["sale_comment"] . '</p>
-				                    </li>
-				                    <li class="list-group-item" style="padding: 0.1rem 1rem;">
-				                        <small class="text-muted">Date</small>
+				                        <small class="text-muted">Date Joined</small>
 				                        <p>' . pretty_date($row["admin_joined_date"]) . '</p>
 				                    </li>
 				                    <li class="list-group-item" style="padding: 0.1rem 1rem;">
 				                        <small class="text-muted">Last Login</small>
 				                        <p>' . (($row["admin_last_login"] == NULL) ? 'NEVER' : pretty_date($row["admin_last_login"])) . '</p>
 				                    </li>
-								</ul>
+								</ul><div class="p-2"></div>
+								<div class="px-6 py-5 bg-body-secondary d-flex justify-content-center">
+								<a class="btn btn-sm btn-neutral" href="' . PROOT . 'acc/admins"><i class="bi bi-people me-2"></i>All admins</a>
+								</div>
 							</div>
 						</div>
 					</div>
