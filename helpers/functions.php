@@ -81,7 +81,7 @@ function fetch_all_sales($status, $permission, $admin) {
 	}
 
 	$sql = "
-		SELECT *, jspence_sales.id AS sid, jspence_sales.createdAt AS sca, jspence_sales.updatedAt AS sau FROM jspence_sales 
+		SELECT *, jspence_sales.id AS sid, jspence_sales.createdAt AS sca, jspence_sales.updatedAt AS sau, jspence_admin.id AS aid FROM jspence_sales 
 		INNER JOIN jspence_admin 
 		ON jspence_admin.admin_id = jspence_sales.sale_by 
 		WHERE sale_status = ? 
@@ -103,7 +103,7 @@ function fetch_all_sales($status, $permission, $admin) {
 			$output .= '
 				<tr>
 	                <td>' . $i . '</td>
-	                ' . (admin_has_permission() ? ' <td><span class="d-block text-heading fw-bold">' . ucwords($row["admin_fullname"]) . '</span></td> ' : '') . '
+	                ' . (admin_has_permission() ? ' <td><a href="javascript:;" data-bs-target="#adminModal_' . $row["aid"] . '" data-bs-toggle="modal"><span class="d-block text-heading fw-bold">' . ucwords($row["admin_fullname"]) . '</span></a></td> ' : '') . '
 	                <td class="text-xs">' . strtoupper($row["sale_customer_name"]) . ' <i class="bi bi-arrow-right mx-2"></i> ' . $row["sale_customer_contact"] . '</td>
 	                <td>' . $row["sale_gram"] . '</td>
 	                <td>' . $row["sale_volume"] . '</td>
@@ -119,6 +119,7 @@ function fetch_all_sales($status, $permission, $admin) {
 	                </td>
 	            </tr>
 
+	            <!-- Trade details -->
 	            <div class="modal fade" id="saleModal_' . $row["sid"] . '" tabindex="-1" aria-labelledby="saleModalLabel_' . $row["sid"] . '" aria-hidden="true">
 					<div class="modal-dialog modal-dialog-centered">
 						<div class="modal-content overflow-hidden">
@@ -180,7 +181,48 @@ function fetch_all_sales($status, $permission, $admin) {
 							</div>
 						</div>
 					</div>
-				</div>';
+				</div>
+
+				<!-- HANDLER DETAILS -->
+				<div class="modal fade" id="adminModal_' . $row["aid"] . '" tabindex="-1" aria-labelledby="adminModalLabel_' . $row["aid"] . '" aria-hidden="true">
+					<div class="modal-dialog modal-dialog-centered">
+						<div class="modal-content overflow-hidden">
+							<div class="modal-header pb-0 border-0">
+								<h1 class="modal-title h4" id="adminModalLabel_' . $row["aid"] . '">Handler details</h1>
+								<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+							</div>
+							<div class="modal-body p-0 text-center">
+								<ul class="list-group">
+									<li class="list-group-item" style="padding: 0.1rem 1rem;">
+				                        <small class="text-muted">Total amount,</small>
+				                        <p>' . (($row["admin_profile"] != '') ? '<img src="' . PROOT . $row["admin_profile"] . '" class="img-fluid">' : 'No Profile') . '</p>
+				                    </li>
+				                    <li class="list-group-item" style="padding: 0.1rem 1rem;">
+				                        <small class="text-muted">Total amount,</small>
+				                        <p>' . ucwords($row["admin_fullname"]) . '</p>
+				                    </li>
+				                    <li class="list-group-item" style="padding: 0.1rem 1rem;">
+				                        <small class="text-muted">Price,</small>
+				                        <p>' . $row["admin_email"] . '</p>
+				                    </li>
+				                    <li class="list-group-item" style="padding: 0.1rem 1rem;">
+				                        <small class="text-muted">Note</small>
+				                        <p>' . $row["sale_comment"] . '</p>
+				                    </li>
+				                    <li class="list-group-item" style="padding: 0.1rem 1rem;">
+				                        <small class="text-muted">Date</small>
+				                        <p>' . pretty_date($row["admin_joined_date"]) . '</p>
+				                    </li>
+				                    <li class="list-group-item" style="padding: 0.1rem 1rem;">
+				                        <small class="text-muted">Last Login</small>
+				                        <p>' . (($row["admin_last_login"] == NULL) ? 'NEVER' : pretty_date($row["admin_last_login"])) . '</p>
+				                    </li>
+								</ul>
+							</div>
+						</div>
+					</div>
+				</div>
+			';
 
 			$i++;
 		}
