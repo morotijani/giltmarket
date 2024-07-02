@@ -18,7 +18,7 @@
 									<li class="nav-item"><a class="nav-link rounded-pill" href="<?= PROOT; ?>documentation">Documentation</a></li>
 									<li class="nav-item"><a class="nav-link rounded-pill" href="<?= PROOT; ?>auth/logout">Logout</a></li>
 								<?php endif; ?>
-								<li class="nav-item"><a class="nav-link rounded-pill" href="https://goldprice.org">Gold Price</a></li>
+								<li class="nav-item"><a class="nav-link rounded-pill" href="https://goldprice.org"><i class="bi bi-sign-turn-slight-right"></i> Gold Price</a></li>
 							</ul>
 							<div class="navbar-nav align-items-lg-center justify-content-end gap-2 ms-lg-4 w-lg-64">
 								<?php if (admin_is_logged_in()): ?>

@@ -75,11 +75,22 @@
                         <div id="step-2" class="d-none text-center">
                             <ul class="list-group" id="buysummary"></ul>
                             <button type="button" class="btn btn-warning mt-4" id="next-2">Confirm Sale</button>
-                            <br><a href="javascript:;" class="text-dark" id="prev-1"><< Go Back</a>
+                            <br>
+                            <a href="javascript:;" class="text-dark" id="prev-1"><< Go Back</a>
                         </div>
                         <div id="step-3" class="d-none">
                             <div class="inputpin mb-3">
-                                <input type="number" class="form-control form-control-xl fw-bolder" min="1" placeholder="Enter pin" name="pin" id="pin" autocomplete="off">
+                                <div>
+                                    <label class="form-label">Enter pin</label>
+                                    <div class="d-flex justify-content-between p-4 bg-body-tertiary rounded">
+                                        <input type="tel" class="form-control form-control-flush text-xl fw-bold w-rem-40" placeholder="0000" name="pin" id="pin" autocomplete="off" inputmode="numeric" data-maxlength="4" oninput="this.value=this.value.slice(0,this.dataset.maxlength)">
+                                        <div class="dropdown">
+                                            <button type="button" class="btn btn-sm btn-neutral rounded-pill shadow-none flex-none d-flex align-items-center gap-2 p-2">
+                                                <img src="<?= PROOT; ?>dist/media/pin.jpg" class="w-rem-6 h-rem-6 rounded-circle" alt="..."> <span>PIN</span>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                             <button type="submit" class="btn btn-warning mt-4" id="submitSend" name="submitSend">Complete Sale</button>
                             <br><a href="javascript:;" class="text-dark" id="prev-2"><< Go Back</a>

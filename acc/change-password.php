@@ -162,7 +162,7 @@
 
 <?php include ("../includes/footer.inc.php"); ?>
 
-<div class="modal fade" id="pinModal" tabindex="-1" aria-labelledby="pinModalLabel" aria-hidden="true">
+<div class="modal fade" id="pinModal" tabindex="-1" aria-labelledby="pinModalLabel" data-bs-backdrop="static" data-bs-keyboard="false" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content overflow-hidden">
             <div class="modal-header pb-0 border-0">
@@ -172,7 +172,7 @@
             <div class="modal-body p-0">
                 <form method="POST" action="<?= PROOT; ?>acc/change-password?pin=1">
                     <div class="px-6 py-5 border-bottom">
-                        <input type="number" inputmode="numeric" data-maxlength="4" oninput="this.value=this.value.slice(0,this.dataset.maxlength)" min="0" class="form-control" name="oldpin" placeholder="Old PIN" required>
+                        <input type="number" inputmode="numeric" data-maxlength="4" oninput="this.value=this.value.slice(0,this.dataset.maxlength)" class="form-control" name="oldpin" placeholder="Old PIN" required>
                         <br>
                         <input type="number" inputmode="numeric" min="0" data-maxlength="4" oninput="this.value=this.value.slice(0,this.dataset.maxlength)" class="form-control" name="newpin" placeholder="New PIN" required>
                         <br>

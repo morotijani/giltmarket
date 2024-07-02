@@ -188,14 +188,16 @@ function fetch_all_sales($status, $permission, $admin) {
 				    <div class="modal-dialog modal-dialog-centered">
 				        <div class="modal-content overflow-hidden">
 				            <div class="modal-header pb-0 border-0">
-				                <h1 class="modal-title h4" id="deleteModalLabel_' . $row["sid"] . '">Delete trade on ID ' . $row["sid"] . '</h1>
+				                <h1 class="modal-title h4" id="deleteModalLabel_' . $row["sid"] . '">Delete trade!</h1>
 				                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 				            </div>
 				            <div class="modal-body p-0">
 			                    <div class="px-6 py-5 border-bottom">
 			                       <p>
-			                       Trade of Volume '.$row["sale_volume"].', Gram ' . $row["sale_gram"] . ', Price ' . money($row["sale_price"]) . ' and Amount ' . money($row["sale_total_amount"]) . ' will be notified to the main admin to complete the deletion.
+			                       Trade of Volume '.$row["sale_volume"].', Gram ' . $row["sale_gram"] . ', Price ' . money($row["sale_price"]) . ' and Amount ' . money($row["sale_total_amount"]) . ' from customer ' . ucwords($row["sale_customer_name"]) . ' will be notified to the main admin to complete the deletion!
 			                       </p>
+			                       <br>
+			                       Trade ID: ' . $row["sale_id"] . '
 			                       <br>
 			                       <p>
 			                       		Are you sure you want to proceed to this action.
@@ -203,7 +205,7 @@ function fetch_all_sales($status, $permission, $admin) {
 			                    </div>
 			                    <div class="px-6 py-5 bg-body-secondary d-flex justify-content-center">
 			                        <a href="" class="btn btn-sm btn-danger"><i class="bi bi-trash me-2"></i>Yes, Confirm delete</a>&nbsp;&nbsp;
-			                        <a href="" class="btn btn-sm btn-dark">No, cancel</a>
+			                        <button type="button" class="btn btn-sm btn-dark"data-bs-dismiss="modal">No, cancel</button>
 			                    </div>
 				            </div>
 				        </div>
@@ -211,7 +213,7 @@ function fetch_all_sales($status, $permission, $admin) {
 				</div>
 
 				<!-- HANDLER DETAILS -->
-				<div class="modal fade" id="adminModal_' . $row["aid"] . '" tabindex="-1" aria-labelledby="adminModalLabel_' . $row["aid"] . '" aria-hidden="true">
+				<div class="modal fade" id="adminModal_' . $row["aid"] . '" tabindex="-1" aria-labelledby="adminModalLabel_' . $row["aid"] . '" data-bs-backdrop="static" data-bs-keyboard="false" aria-hidden="true">
 					<div class="modal-dialog modal-dialog-centered">
 						<div class="modal-content overflow-hidden">
 							<div class="modal-header pb-0 border-0">
@@ -222,7 +224,7 @@ function fetch_all_sales($status, $permission, $admin) {
 								<ul class="list-group">
 									<li class="list-group-item" style="padding: 0.1rem 1rem;">
 				                        <small class="text-muted">Profile,</small>
-				                        <p>' . (($row["admin_profile"] != '') ? '<img src="' . PROOT . $row["admin_profile"] . '" class="img-fluid">' : 'No Profile') . '</p>
+				                        <p>' . (($row["admin_profile"] != '') ? '<div class="avatar"><img src="' . PROOT . $row["admin_profile"] . '" class="img-fluid" /></div>' : 'No Profile') . '</p>
 				                    </li>
 				                    <li class="list-group-item" style="padding: 0.1rem 1rem;">
 				                        <small class="text-muted">Full  name,</small>
