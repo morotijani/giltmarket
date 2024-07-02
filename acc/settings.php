@@ -69,6 +69,34 @@
         <div class="col-12">
             <div class="card">
                 <div class="card-body">
+
+                        <div class="row align-items-center">
+                            <div class="col-md-2">
+                                <label class="form-label">Avatar</label>
+                            </div>
+                            <div class="col-md-8 col-xl-5">
+                                <div class="">
+                                    <div class="d-flex align-items-center">
+                                        <a href="#" class="avatar avatar-lg bg-warning rounded-circle text-white">
+                                            <img src="<?= PROOT; ?>dist/media/avatar.png" style="object-fit: cover; object-position: center; width: 35px; height: 35px" alt="...">
+                                        </a>
+                                        <div class="hstack gap-2 ms-5">
+                                            <label for="file_upload" class="btn btn-sm btn-neutral">
+                                                <span>Upload</span> 
+                                                <input type="file" name="file_upload" id="file_upload" class="visually-hidden">
+                                            </label> 
+                                            <a href="#" class="btn d-inline-flex btn-sm btn-neutral text-danger">
+                                                <span><i class="bi bi-trash"></i> </span>
+                                                <span class="d-none d-sm-block me-2">Remove</span>
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <hr class="my-6">
+
                     <form method="POST">
                         <div class="text-danger"><?= $errors; ?></div>
                         <div class="mb-3">
