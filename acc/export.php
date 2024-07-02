@@ -10,6 +10,14 @@
     use PhpOffice\PhpSpreadsheet\Writer\Xls;
     use PhpOffice\PhpSpreadsheet\Writer\Csv;
 
+    // Dompdf, Mpdf or Tcpdf (as appropriate)
+    // $className = \PhpOffice\PhpSpreadsheet\Writer\Pdf\Dompdf::class;
+    // IOFactory::registerWriter('Pdf', $className);
+
+    $class = \PhpOffice\PhpSpreadsheet\Writer\Pdf\Mpdf::class;
+    \PhpOffice\PhpSpreadsheet\IOFactory::registerWriter('Pdf', $class);
+
+
     if (isset($_GET['data']) && !empty($_GET['type'])) {
         $data = sanitize($_GET['data']);
         $FileExtType = sanitize($_GET['type']);
@@ -67,13 +75,20 @@
             if ($FileExtType == 'xlsx') {
                 $writer = new Xlsx($spreadsheet);
                 $NewFileName = $fileName . '.xlsx';
-
             } elseif($FileExtType == 'xls') {
                 $writer = new Xls($spreadsheet);
                 $NewFileName = $fileName . '.xls';
             } elseif($FileExtType == 'csv') {
                 $writer = new Csv($spreadsheet);
                 $NewFileName = $fileName . '.csv';
+            } elseif($FileExtType == 'pdf') {
+                //$writer = new Csv($spreadsheet);
+
+
+                $writer = \PhpOffice\PhpSpreadsheet\IOFactory::createWriter($spreadsheet, 'Pdf');
+                $writer = new \PhpOffice\PhpSpreadsheet\Writer\Pdf\Dompdf($spreadsheet);
+
+                $NewFileName = $fileName . '.pdf';
             }
 
             $message = "exported ".$FileExtType." trades data";
