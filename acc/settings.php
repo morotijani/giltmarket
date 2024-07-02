@@ -75,7 +75,7 @@
                                 <label class="form-label">Avatar</label>
                             </div>
                             <div class="col-md-8 col-xl-5">
-                                <div class="">
+                                <div class="" id="upload_profile">
                                     <div class="d-flex align-items-center">
                                         <a href="<?= PROOT . $admin_data[0]['admin_profile']; ?>" class="avatar avatar-lg bg-warning rounded-circle text-white">
                                             <img src="<?= PROOT . (($admin_data[0]['admin_profile'] == NULL) ? 'dist/media/avatar.png' : $admin_data[0]['admin_profile']); ?>" style="object-fit: cover; object-position: center; width: 35px; height: 35px" alt="<?=ucwords($admin_data[0]['admin_fullname']); ?>'s profile.">
@@ -85,7 +85,7 @@
                                                 <span>Upload</span> 
                                                 <input type="file" name="file_upload" id="file_upload" class="visually-hidden">
                                             </label> 
-                                            <a href="#" class="btn d-inline-flex btn-sm btn-neutral text-danger">
+                                            <a href="javascript:;" class="btn d-inline-flex btn-sm btn-neutral text-danger change-profile-picture" id="<?= (($admin_data[0]['admin_profile'] == NULL) ? '' : $admin_data[0]['admin_profile']); ?>">
                                                 <span><i class="bi bi-trash"></i> </span>
                                                 <span class="d-none d-sm-block me-2">Remove</span>
                                             </a>
@@ -118,3 +118,63 @@
 
 
 <?php include ("../includes/footer.inc.php"); ?>
+
+<script type="text/javascript">
+    $(document).ready(function() {
+
+        // Upload IMAGE Temporary
+        $(document).on('change','#file_upload', function() {
+
+            var property = document.getElementById("file_upload").files[0];
+            var image_name = property.name;
+
+            var image_extension = image_name.split(".").pop().toLowerCase();
+            if (jQuery.inArray(image_extension, ['jpeg', 'png', 'jpg']) == -1) {
+                alert("The file extension must be .jpg, .png, .jpeg");
+                $('#file_upload').val('');
+                return false;
+            }
+
+            var image_size = property.size;
+            if (image_size > 15000000) {
+                alert('The file size must be under 15MB');
+                return false;
+            } else {
+
+                var form_data = new FormData();
+                form_data.append("file_upload", property);
+                $.ajax({
+                    url: "<?= PROOT; ?>auth/upload.admin.profile.picture.php",
+                    method: "POST",
+                    data: form_data,
+                    contentType: false,
+                    cache: false,
+                    processData: false,
+                    beforeSend: function() {
+                        $("#upload_profile").html("<div class='text-success font-weight-bolder'>Uploading passport picture ...</div>");
+                    },
+                    success: function(data) {
+                        location.reload();
+                    }
+                });
+            }
+        });
+
+        // DELETE TEMPORARY UPLOADED IMAGE
+        $(document).on('click', '.change-profile-picture', function() {
+            var tempuploded_file_id = $(this).attr('id');
+
+            $.ajax ({
+                url : "<?= PROOT; ?>auth/delete.admin.profile.picture.php",
+                method : "POST",
+                data : {
+                    tempuploded_file_id : tempuploded_file_id
+                },
+                success: function(data) {
+                    location.reload();
+                }
+            });
+        });
+    });
+    
+</script>

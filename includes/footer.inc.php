@@ -111,8 +111,11 @@
     <script src="<?= PROOT; ?>dist/js/switcher.js"></script>
 
 
-    <script>
+    <script type="text/javascript">
         $(document).ready(function() {
+
+            // Fade out messages
+            $("#temporary").fadeOut(5000);
 
             // Calculation made with current price input
             $('#current_price').on('keyup', function(e) {
