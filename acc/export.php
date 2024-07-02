@@ -91,7 +91,7 @@
                 $NewFileName = $fileName . '.pdf';
             }
 
-            $message = "exported ".$FileExtType." trades data";
+            $message = "exported " . strtoupper($FileExtType) . " trades data";
             add_to_log($message, $_SESSION['JSAdmin']);
 
             // $writer->save($NewFileName);
