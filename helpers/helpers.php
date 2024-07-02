@@ -711,7 +711,7 @@ function get_all_admins() {
 					
 		if ($row['admin_id'] != $admin_data[0]['admin_id']) {
 			$output .= '
-				<a href="' . PROOT . 'acc/admins?delete='.$row["admin_id"].'" class="btn btn-sm btn-dark"><i class="bi bi-trash3"></i></a>
+				<a href="' . PROOT . 'acc/admins?delete='.$row["admin_id"].'" class="btn btn-sm btn-neutral"><i class="bi bi-trash3"></i></a>
 			';
 		}
 

@@ -51,7 +51,6 @@
             $sheet->setCellValue('K1', 'COMMENT');
             $sheet->setCellValue('L1', 'SALE BY');
             $sheet->setCellValue('M1', 'DATE');
-            $sheet->setCellValue('N1', 'STATUS');
 
             $rowCount = 2;
             foreach ($rows as $row) {
@@ -68,7 +67,6 @@
                 $sheet->setCellValue('K' . $rowCount, $row['sale_comment']);
                 $sheet->setCellValue('L' . $rowCount, ucwords($row['admin_fullname']));
                 $sheet->setCellValue('M' . $rowCount, $row['createdAt']);
-                $sheet->setCellValue('N' . $rowCount, $row['sale_status']);
                 $rowCount++;
             }
 
