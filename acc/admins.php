@@ -171,6 +171,7 @@ if (isset($_GET['add'])) {
             <thead>
                 <tr>
                     <th></th>
+                    <th></th>
                     <th>Name</th>
                     <th>Email</th>
                     <th>Joined Date</th>

@@ -2,6 +2,7 @@
         </div>
     </main>
 
+    <?php if (admin_is_logged_in()): ?>
     <!-- BUY -->
     <div class="modal fade" id="buyModal" tabindex="-1" aria-labelledby="buyModalLabel" aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="false">
         <div class="modal-dialog modal-dialog-centered">
@@ -88,6 +89,7 @@
             </div>
         </div>
     </div>
+    <?php endif; ?>
 
 
 	<!-- TOAST FOR LIVE MESSAGES -->
