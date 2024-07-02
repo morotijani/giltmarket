@@ -154,7 +154,11 @@
                         $("#upload_profile").html("<div class='text-success font-weight-bolder'>Uploading passport picture ...</div>");
                     },
                     success: function(data) {
-                        location.reload();
+                        if (data == '') {
+                            location.reload();
+                        } else {
+                            alert(data);
+                        }
                     }
                 });
             }
