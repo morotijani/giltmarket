@@ -18,9 +18,10 @@
 			$statement = $conn->prepare($sql);
 			$result = $statement->execute(['', $admin_data[0]['admin_id']]);
 			if (isset($result)) {
+				
 				$message = "deleted profile picture";
                 add_to_log($message, $admin_data[0]['admin_id']);
-                
+
 				echo '';
 			}
 		}

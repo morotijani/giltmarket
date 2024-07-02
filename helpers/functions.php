@@ -175,7 +175,7 @@ function fetch_all_sales($status, $permission, $admin) {
 								</ul>
 								<div class="p-2"></div>
 								<div class="px-6 py-5 bg-body-secondary d-flex justify-content-center">
-									<button class="btn btn-sm btn-neutral"><i class="bi bi-pencil me-2"></i>Edit sale</button>&nbsp;<button class="btn btn-sm btn-dark"><i class="bi bi-receipt me-2"></i>Print receipt</button>&nbsp;<button class="btn btn-sm btn-neutral"><i class="bi bi-trash3 me-2"></i>Delete</button>
+									<button class="btn btn-sm btn-dark"><i class="bi bi-receipt me-2"></i>Print receipt</button>&nbsp;<button class="btn btn-sm btn-neutral"><i class="bi bi-trash3 me-2"></i>Delete</button>
 								</div>
 							</div>
 						</div>
