@@ -77,8 +77,8 @@
                             <div class="col-md-8 col-xl-5">
                                 <div class="">
                                     <div class="d-flex align-items-center">
-                                        <a href="#" class="avatar avatar-lg bg-warning rounded-circle text-white">
-                                            <img src="<?= PROOT; ?>dist/media/avatar.png" style="object-fit: cover; object-position: center; width: 35px; height: 35px" alt="...">
+                                        <a href="<?= PROOT . $admin_data[0]['admin_profile']; ?>" class="avatar avatar-lg bg-warning rounded-circle text-white">
+                                            <img src="<?= PROOT . (($admin_data[0]['admin_profile'] == NULL) ? 'dist/media/avatar.png' : $admin_data[0]['admin_profile']); ?>" style="object-fit: cover; object-position: center; width: 35px; height: 35px" alt="<?=ucwords($admin_data[0]['admin_fullname']); ?>'s profile.">
                                         </a>
                                         <div class="hstack gap-2 ms-5">
                                             <label for="file_upload" class="btn btn-sm btn-neutral">
@@ -117,6 +117,4 @@
     </div>
 
 
-<?php 
-    include ("../includes/footer.inc.php");
-?>
+<?php include ("../includes/footer.inc.php"); ?>
