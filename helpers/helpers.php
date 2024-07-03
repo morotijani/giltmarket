@@ -746,6 +746,10 @@ function get_admin_profile($id) {
 
 	$output = '
 		<li class="list-group-item" style="padding: 0.1rem 1rem;">
+	  		<small class="text-muted">Profile,</small>
+	  		<p>' . (($row[0]["admin_profile"] == NULL) ? 'No profle picture' : '<img src="'.PROOT.$row[0]["admin_profile"].'" class="avatar" />' ) . '</p>
+	  	</li>
+		<li class="list-group-item" style="padding: 0.1rem 1rem;">
 	  		<small class="text-muted">Name,</small>
 	  		<p>' . ucwords($row[0]["admin_fullname"]) . '</p>
 	  	</li>

@@ -59,7 +59,7 @@
 
         <ul class="nav nav-tabs nav-tabs-flush gap-8 overflow-x border-0 mt-1">
             <li class="nav-item">
-                <a href="#" class="nav-link active">All data</a>
+                <a href="<?= PROOT; ?>acc/trades" class="nav-link active">All data</a>
             </li>
             <li class="nav-item">
                 <a href="<?= PROOT; ?>acc/trades.archive" class="nav-link">Delete request</a>

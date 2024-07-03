@@ -76,7 +76,7 @@
                             <ul class="list-group" id="buysummary"></ul>
                             <button type="button" class="btn btn-warning mt-4" id="next-2">Confirm Sale</button>
                             <br>
-                            <a href="javascript:;" class="text-dark" id="prev-1"><< Go Back</a>
+                            <a href="javascript:;" class="" id="prev-1"><< Go Back</a>
                         </div>
                         <div id="step-3" class="d-none">
                             <div class="inputpin mb-3">
@@ -93,7 +93,7 @@
                                 </div>
                             </div>
                             <button type="submit" class="btn btn-warning mt-4" id="submitSend" name="submitSend">Complete Sale</button>
-                            <br><a href="javascript:;" class="text-dark" id="prev-2"><< Go Back</a>
+                            <br><a href="javascript:;" class="" id="prev-2"><< Go Back</a>
                         </div>
                     </form>
                 </div>

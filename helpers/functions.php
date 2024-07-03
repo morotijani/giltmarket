@@ -257,7 +257,7 @@ function fetch_all_sales($status, $permission, $admin) {
 	} else {
 		$output = '
 			<tr>
-				<td colspan="8">No data found.</td>
+				<td colspan="9">No data found.</td>
 			</tr>
 		';
 	}
