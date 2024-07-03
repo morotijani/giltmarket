@@ -20,11 +20,11 @@
             // code...
             $sql = "
                 UPDATE jspence_sales 
-                SET sale_status = ? 
+                SET sale_status = ?, sale_delete_request_status = ?
                 WHERE sale_id = ?
             ";
             $statement = $conn->prepare($sql);
-            $result = $statement->execute([1, $id]);
+            $result = $statement->execute([1, 1, $id]);
             if (isset($result)) {
                 // code...
                 
@@ -95,7 +95,7 @@
                 <a href="<?= PROOT; ?>acc/trades" class="nav-link active">All data</a>
             </li>
             <li class="nav-item">
-                <a href="<?= PROOT; ?>acc/trades.delete.requests" class="nav-link">Delete request</a>
+                <a href="<?= PROOT; ?>acc/trades.delete.requests" class="nav-link">Delete request <?= count_new_delete_requests($conn); ?></a>
             </li>
             <li class="nav-item">
                 <a href="<?= PROOT; ?>acc/trades.archive" class="nav-link">Archive</a>

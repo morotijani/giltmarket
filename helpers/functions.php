@@ -570,3 +570,14 @@ function get_recent_trades($admin, $permission) {
 
 	return $output;
 }
+
+
+// 
+function count_new_delete_requests($conn) {
+	 // Get new delete requests
+    $requestNumber = $conn->query("SELECT COUNT(*) as requests FROM jspence_sales WHERE sale_delete_request_status = 1")->fetchAll();
+
+    return '
+    	<span class="badge badge-sm rounded-pill me-n2 bg-danger-subtle text-danger ms-auto">' . $requestNumber[0]['requests'] . '</span>
+    ';
+}

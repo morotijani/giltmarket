@@ -10,6 +10,14 @@
     include ("../includes/header.inc.php");
     include ("../includes/nav.inc.php");
 
+    // request viewed
+    $viewedQ = $conn->query("UPDATE jspence_sales SET sale_delete_request_status = 2")->execute();
+    if ($viewedQ) {
+        // code...    
+        $message = "viewed all new delete request";
+        add_to_log($message, $admin_data[0]['admin_id']);
+    }
+
 
 
 ?>
@@ -57,7 +65,7 @@
                 <a href="<?= PROOT; ?>acc/trades" class="nav-link">All data</a>
             </li>
             <li class="nav-item">
-                <a href="<?= PROOT; ?>acc/trades.delete.requests" class="nav-link active">Delete request</a>
+                <a href="<?= PROOT; ?>acc/trades.delete.requests" class="nav-link active">Delete request <?= count_new_delete_requests($conn); ?></a>
             </li>
             <li class="nav-item">
                 <a href="<?= PROOT; ?>acc/trades.archive" class="nav-link">Archive</a>
