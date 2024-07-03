@@ -96,9 +96,24 @@ function fetch_all_sales($status, $permission, $admin) {
 		// code...
 		$i = 1;
 		foreach ($rows as $row) {
+
 			$arrayOutput = array('reference' => $row['sale_id'], 'customername' => $row['sale_customer_name'], 'date' => $row['sca'], 'gram' => $row['sale_gram'], 'volume' => $row['sale_volume'], 'density' => $row['sale_density'], 'pounds' => $row['sale_pounds'], 'carat' => $row['sale_carat'], 'total_amount' => $row['sale_total_amount'], 'current_price' => $row['sale_price'], 'by' => $row['sale_by'], 'message' => '',);
 			
 			$outputData = json_encode($arrayOutput);
+			
+			$option1 = '&nbsp;<a href="javascript:;" onClick="MyWindow=window.open('.$outputData.',\'MyWindow\',\'width=600,height=300\'); return false;" title="Print receipt" class="btn btn-sm btn-square btn-neutral w-rem-6 h-rem-6">
+	                        <i class="bi bi-receipt"></i>';
+	        $option2 =  '
+				<div class="p-2"></div>
+				<div class="px-6 py-5 bg-body-secondary d-flex justify-content-center">
+					<button class="btn btn-sm btn-dark"><i class="bi bi-receipt me-2"></i>Print receipt</button>&nbsp<a href="#deleteModal_'. $row["sid"] . '" data-bs-toggle="modal" class="btn btn-sm btn-neutral"><i class="bi bi-trash3 me-2"></i>Delete</a>
+				</div>
+	        ';
+			if ($row['sale_status'] == 1) {
+				// code...
+				$option1 = '';
+				$option2 = '';
+			}
 			
 			$output .= '
 				<tr>
@@ -113,8 +128,7 @@ function fetch_all_sales($status, $permission, $admin) {
 	                <td class="text-end">
 	                    <button type="button" class="btn btn-sm btn-square btn-neutral w-rem-6 h-rem-6" title="More" data-bs-target="#saleModal_' . $row["sid"] . '" data-bs-toggle="modal">
 	                        <i class="bi bi-three-dots"></i>
-	                    </button> <a href="javascript:;" onClick="MyWindow=window.open('.$outputData.',\'MyWindow\',\'width=600,height=300\'); return false;" title="Print receipt" class="btn btn-sm btn-square btn-neutral w-rem-6 h-rem-6">
-	                        <i class="bi bi-receipt"></i>
+	                    </button> '.$option1.'
 	                    </a>
 	                </td>
 	            </tr>
@@ -170,10 +184,7 @@ function fetch_all_sales($status, $permission, $admin) {
 				                        <p>' . pretty_date($row["sca"]) . '</p>
 				                    </li>
 								</ul>
-								<div class="p-2"></div>
-								<div class="px-6 py-5 bg-body-secondary d-flex justify-content-center">
-									<button class="btn btn-sm btn-dark"><i class="bi bi-receipt me-2"></i>Print receipt</button>&nbsp;<a href="#deleteModal_'. $row["sid"] . '" data-bs-toggle="modal" class="btn btn-sm btn-neutral"><i class="bi bi-trash3 me-2"></i>Delete</a>
-								</div>
+								' . $option2 . '
 							</div>
 						</div>
 					</div>

@@ -10,48 +10,13 @@
     include ("../includes/header.inc.php");
     include ("../includes/nav.inc.php");
 
-    //
-    if (isset($_GET['delete_request']) && !empty($_GET['delete_request'])) {
-        // code...
-        $id = sanitize($_GET['delete_request']);
-
-        $findSale = $conn->query("SELECT * FROM jspence_sales WHERE sale_id = '".$id."'")->rowCount();
-        if ($findSale > 0) {
-            // code...
-            $sql = "
-                UPDATE jspence_sales 
-                SET sale_status = ? 
-                WHERE sale_id = ?
-            ";
-            $statement = $conn->prepare($sql);
-            $result = $statement->execute([1, $id]);
-            if (isset($result)) {
-                // code...
-                
-                $message = "delete request for trade id: '".$id."'";
-                add_to_log($message, $admin_data[0]['admin_id']);
-
-                $_SESSION['flash_success'] = ' Sale delete request successfully sent!';
-                redirect(PROOT . 'acc/trades');
-            } else {
-                echo js_alert("Something went wrong, please try again!");
-            }
-        } else {
-            $_SESSION['flash_error'] = ' Could not find sale to send a delete request!';
-            redirect(PROOT . 'acc/trades');
-        }
-
-    }
-
 
 
 ?>
-<a href="#" onClick="MyWindow=window.open('http://www.google.com','MyWindow','width=600,height=300'); return false;">Click Here</a>
-<a href="#" onClick="MyWindow=window.open('http://www.google.com','MyWindow','width=600,height=300'); return false;">Click Here</a>
 
     <div class="px-6 px-lg-7 pt-8 border-bottom">
         <div class="d-flex align-items-center">
-            <h1>Trades</h1>
+            <h1 class="text-danger">Delete trade requests</h1>
             <div class="hstack gap-2 ms-auto">
                 <?php if (admin_has_permission()): ?>
                 <div class="dropdown">
@@ -81,9 +46,6 @@
                         </li>
                     </ul>
                 </div>
-
-
-
                 <?php endif ?>
                 <button type="button" class="btn btn-sm btn-primary d-none d-sm-inline-flex" data-bs-target="#buyModal" data-bs-toggle="modal"><span class="pe-2"><i class="bi bi-plus-circle"></i> </span><span>Trade</span></button>
             </div>
@@ -92,10 +54,10 @@
 
         <ul class="nav nav-tabs nav-tabs-flush gap-8 overflow-x border-0 mt-1">
             <li class="nav-item">
-                <a href="<?= PROOT; ?>acc/trades" class="nav-link active">All data</a>
+                <a href="<?= PROOT; ?>acc/trades" class="nav-link">All data</a>
             </li>
             <li class="nav-item">
-                <a href="<?= PROOT; ?>acc/trades.delete.requests" class="nav-link">Delete request</a>
+                <a href="<?= PROOT; ?>acc/trades.delete.requests" class="nav-link active">Delete request</a>
             </li>
             <li class="nav-item">
                 <a href="<?= PROOT; ?>acc/trades.archive" class="nav-link">Archive</a>
@@ -119,7 +81,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <?= fetch_all_sales(0, $admin_data[0]['admin_permissions'], $admin_data[0]['admin_id']); ?>
+                    <?= fetch_all_sales(1, $admin_data[0]['admin_permissions'], $admin_data[0]['admin_id']); ?>
                 </tbody>
             </table>
         </div>
