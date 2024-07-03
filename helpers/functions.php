@@ -81,7 +81,7 @@ function fetch_all_sales($status, $permission, $admin) {
 	}
 
 	$sql = "
-		SELECT *, jspence_sales.id AS sid, jspence_sales.createdAt AS sca, jspence_sales.updatedAt AS sau, jspence_admin.id AS aid FROM jspence_sales 
+		SELECT *, jspence_sales.id AS sid, jspence_sales.createdAt AS sca, jspence_sales.updatedAt AS sua, jspence_admin.id AS aid FROM jspence_sales 
 		INNER JOIN jspence_admin 
 		ON jspence_admin.admin_id = jspence_sales.sale_by 
 		WHERE sale_status = ? 
@@ -169,10 +169,6 @@ function fetch_all_sales($status, $permission, $admin) {
 				                        <small class="text-muted">Date</small>
 				                        <p>' . pretty_date($row["sca"]) . '</p>
 				                    </li>
-				                    <li class="list-group-item" style="padding: 0.1rem 1rem;">
-				                        <small class="text-muted">Updated date</small>
-				                        <p>' . (($row["updatedAt"] == NULL) ? '---' : pretty_date($row["sua"])) . '</p>
-				                    </li>
 								</ul>
 								<div class="p-2"></div>
 								<div class="px-6 py-5 bg-body-secondary d-flex justify-content-center">
@@ -204,7 +200,7 @@ function fetch_all_sales($status, $permission, $admin) {
 			                       </p>
 			                    </div>
 			                    <div class="px-6 py-5 bg-body-secondary d-flex justify-content-center">
-			                        <a href="" class="btn btn-sm btn-danger"><i class="bi bi-trash me-2"></i>Yes, Confirm delete</a>&nbsp;&nbsp;
+			                        <a href="'.PROOT.'acc/trades?delete_request='.$row["sale_id"].'" class="btn btn-sm btn-danger"><i class="bi bi-trash me-2"></i>Yes, Confirm delete</a>&nbsp;&nbsp;
 			                        <button type="button" class="btn btn-sm btn-dark"data-bs-dismiss="modal">No, cancel</button>
 			                    </div>
 				            </div>

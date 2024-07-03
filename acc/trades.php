@@ -10,6 +10,35 @@
     include ("../includes/header.inc.php");
     include ("../includes/nav.inc.php");
 
+    //
+    if (isset($_GET['delete_request']) && !empty($_GET['delete_request'])) {
+        // code...
+        $id = sanitize($_GET['delete_request']);
+
+        $findSale = $conn->query("SELECT * FROM jspence_sales WHERE sale_id = '".$id."'")->rowCount();
+        if ($findSale > 0) {
+            // code...
+            $sql = "
+                UPDATE jspence_sales 
+                SET sale_status = ? 
+                WHERE sale_id = ?
+            ";
+            $statement = $conn->prepare($sql);
+            $result = $statement->execute([1, $id]);
+            if (isset($result)) {
+                // code...
+                $_SESSION['flash_success'] = ' Sale delete request successfully sent!';
+                redirect(PROOT . 'acc/trades');
+            } else {
+                echo js_alert("Something went wrong, please try again!");
+            }
+        } else {
+            $_SESSION['flash_error'] = ' Could not find sale to send a delete request!';
+            redirect(PROOT . 'acc/trades');
+        }
+
+    }
+
 
 
 ?>
