@@ -109,10 +109,17 @@ function fetch_all_sales($status, $permission, $admin) {
 					<button class="btn btn-sm btn-dark"><i class="bi bi-receipt me-2"></i>Print receipt</button>&nbsp<a href="#deleteModal_'. $row["sid"] . '" data-bs-toggle="modal" class="btn btn-sm btn-neutral"><i class="bi bi-trash3 me-2"></i>Delete</a>
 				</div>
 	        ';
+	        $option3 = '';
 			if ($row['sale_status'] == 1) {
 				// code...
 				$option1 = '';
 				$option2 = '';
+				if ($permission == 'admin,salesperson') {
+					// code...
+					$option3 = '
+						<a href="' . PROOT . 'acc/trades.delete.requests?pd=' . $row["sid"] . '" class="btn btn-sm btn-danger mt-2 mb-2"><i class="bi bi-trash3 me-2"></i>Delete</a>
+					';
+				}
 			}
 			
 			$output .= '
@@ -185,6 +192,7 @@ function fetch_all_sales($status, $permission, $admin) {
 				                    </li>
 								</ul>
 								' . $option2 . '
+								' . $option3 . '
 							</div>
 						</div>
 					</div>
