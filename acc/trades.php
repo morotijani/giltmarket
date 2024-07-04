@@ -82,55 +82,42 @@
                     </ul>
                 </div>
 
-
-
                 <?php endif ?>
                 <button type="button" class="btn btn-sm btn-primary d-none d-sm-inline-flex" data-bs-target="#buyModal" data-bs-toggle="modal"><span class="pe-2"><i class="bi bi-plus-circle"></i> </span><span>Trade</span></button>
             </div>
         </div>
            
-
-        <ul class="nav nav-tabs nav-tabs-flush gap-8 overflow-x border-0 mt-1">
-            <li class="nav-item">
-                <a href="<?= PROOT; ?>acc/trades" class="nav-link active">All data</a>
-            </li>
-            <li class="nav-item">
-                <a href="<?= PROOT; ?>acc/trades.delete.requests" class="nav-link">Delete request <?= count_new_delete_requests($conn); ?></a>
-            </li>
-            <?php if (admin_has_permission()): ?>
-                <li class="nav-item">
-                    <a href="<?= PROOT; ?>acc/trades.archive" class="nav-link">Archive</a>
-                </li>
-            <?php endif ?>
-        </ul>
-        <div class="table-responsive">
-            <table class="table table-hover table-striped table-sm table-nowrap">
-                <thead>
-                    <tr>
-                        <th>#</th>
-                        <?php if (admin_has_permission()): ?>
-                            <th scope="col">Handler</th>
-                        <?php endif; ?>
-                        <th scope="col">Customer</th>
-                        <th scope="col">Gram</th>
-                        <th scope="col">Volume</th>
-                        <th scope="col">Price</th>
-                        <th scope="col">Amount</th>
-                        <th scope="col">Date</th>
-                        <th scope="col"></th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <?= fetch_all_sales(0, $admin_data[0]['admin_permissions'], $admin_data[0]['admin_id']); ?>
-                </tbody>
-            </table>
-        </div>
-        <div class="py-4 px-6"><div class="row align-items-center justify-content-between"><div class="col-md-6 d-none d-md-block"><span class="text-muted text-sm">Showing 10 items out of 250 results found</span></div><div class="col-md-auto"><nav aria-label="Page navigation example"><ul class="pagination pagination-spaced gap-1"><li class="page-item"><a class="page-link" href="#"><i class="bi bi-chevron-left"></i></a></li><li class="page-item"><a class="page-link" href="#">1</a></li><li class="page-item"><a class="page-link" href="#">2</a></li><li class="page-item"><a class="page-link" href="#">3</a></li><li class="page-item"><a class="page-link" href="#">4</a></li><li class="page-item"><a class="page-link" href="#">5</a></li><li class="page-item"><a class="page-link" href="#"><i class="bi bi-chevron-right"></i></a></li></ul></nav></div>
-
-
-
-        </div>
-    </div>
-
+        <div id="load-content"></div>
 
 <?php include ("../includes/footer.inc.php"); ?>
+
+
+<script>
+    
+    // SEARCH AND PAGINATION FOR LIST
+    function load_data(page, query = '') {
+        $.ajax({
+            url : "<?= PROOT; ?>auth/trade.lists.php",
+            method : "POST",
+            data : {
+                page : page, 
+                query : query
+            },
+            success : function(data) {
+                $("#load-content").html(data);
+            }
+        });
+    }
+
+    load_data(1);
+    $('#search').keyup(function() {
+        var query = $('#search').val();
+        load_data(1, query);
+    });
+
+    $(document).on('click', '.page-link-go', function() {
+        var page = $(this).data('page_number');
+        var query = $('#search').val();
+        load_data(page, query);
+    });
+</script>

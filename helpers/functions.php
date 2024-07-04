@@ -18,23 +18,22 @@ function company_data() {
 // Density calculation
 function calculateDensity($gram, $volume) {
 	$density = ($gram / $volume);
-	$density = ($density - 0.01);
-	return round_to_decimal_place(2, $density);
+	return truncate($density, 2);
 }
 
 // Density calculation
 function calculatePounds($gram) {
 	$pounds = ($gram / FIXED_POUNDS_FIGURE);
-	$pounds = ($pounds - 0.01);
-	return round_to_decimal_place(2, $pounds);
+	return truncate($pounds, 2);
 }
 
 // Carat calculation
 function calculateCarat($gram, $volume) {
 	$density = calculateDensity($gram, $volume);
-
-	$carat = (($density - FIXED_CARAT_FIGURE_1) * (FIXED_CARAT_FIGURE_2 / $density));
-	return round_to_decimal_place(2, $carat);
+	$a = $density - 10.51;
+	$b = $a * 52.838;
+	$c = $b / $density;
+	return truncate($c, 2);
 }
 
 // Total amount calculation
@@ -43,12 +42,14 @@ function calculateTotalAmount($gram, $volume, $current_price) {
 	$pounds = calculatePounds($gram);
 
 	$total_amount = ($carat * $current_price / FIXED_TOTAL_FIGURE * $pounds);
-	// return $total_amount;
-	return round_to_decimal_place(2, $total_amount);
+	return (int)$total_amount;
 }
 
-function round_to_decimal_place($decimal_place, $figure) {
-	return number_format((float)$figure, $decimal_place, '.', '');
+function truncate($val, $f = "0") {
+    if(($p = strpos($val, '.')) !== false) {
+        $val = floatval(substr($val, 0, $p + 1 + $f));
+    }
+    return $val;
 }
 
 // add to logs
