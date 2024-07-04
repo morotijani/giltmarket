@@ -17,16 +17,15 @@ function company_data() {
 
 // Density calculation
 function calculateDensity($gram, $volume) {
-	$density = ($gram / $volume) - 0.01;
-
+	$density = ($gram / $volume);
+	$density = ($density - 0.01);
 	return round_to_decimal_place(2, $density);
-	// return round_to_decimal_place(2, $density);
 }
 
 // Density calculation
 function calculatePounds($gram) {
 	$pounds = ($gram / FIXED_POUNDS_FIGURE);
-
+	$pounds = ($pounds - 0.01);
 	return round_to_decimal_place(2, $pounds);
 }
 
@@ -34,7 +33,7 @@ function calculatePounds($gram) {
 function calculateCarat($gram, $volume) {
 	$density = calculateDensity($gram, $volume);
 
-	$carat = (($density - FIXED_CARAT_FIGURE_1) * (FIXED_CARAT_FIGURE_2 / $density) - 0.01);
+	$carat = (($density - FIXED_CARAT_FIGURE_1) * (FIXED_CARAT_FIGURE_2 / $density));
 	return round_to_decimal_place(2, $carat);
 }
 
@@ -44,8 +43,8 @@ function calculateTotalAmount($gram, $volume, $current_price) {
 	$pounds = calculatePounds($gram);
 
 	$total_amount = ($carat * $current_price / FIXED_TOTAL_FIGURE * $pounds);
-	return $total_amount;
-	// return round_to_decimal_place(2, $total_amount);
+	// return $total_amount;
+	return round_to_decimal_place(2, $total_amount);
 }
 
 function round_to_decimal_place($decimal_place, $figure) {
