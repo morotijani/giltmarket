@@ -120,6 +120,10 @@ function fetch_all_sales($status, $permission, $admin) {
 						<a href="' . PROOT . 'acc/trades.delete.requests?pd=' . $row["sale_id"] . '" class="btn btn-sm btn-danger mt-2 mb-2"><i class="bi bi-trash3 me-2"></i>Delete</a>
 					';
 				}
+			} else if ($row['sale_status'] == 2) {
+				$option1 = '';
+				$option2 = '';
+				$option3 = '';
 			}
 			
 			$output .= '
