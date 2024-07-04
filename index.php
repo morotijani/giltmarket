@@ -19,6 +19,7 @@
 	        SELECT sale_total_amount, createdAt 
 	        FROM jspence_sales 
 	        WHERE YEAR(createdAt) = '{$thisYr}' 
+	        AND sale_status = 0 
 	        $where
 	    ";
 	    $statement = $conn->prepare($thisYrQ);
@@ -30,6 +31,7 @@
 	        SELECT sale_total_amount, createdAt 
 	        FROM jspence_sales 
 	        WHERE YEAR(createdAt) = '{$lastYr}' 
+	        AND sale_status = 0 
 	        $where
 	    ";
 	    $statement = $conn->prepare($lastYrQ);

@@ -302,9 +302,9 @@ function total_amount_today($admin, $permission) {
 		SELECT SUM(sale_total_amount) AS total
 		FROM `jspence_sales` 
 		WHERE $where
-		DAY(createdAt) = '{$thisDay}'
+		DAY(createdAt) = '{$thisDay}' 
+	    AND sale_status = 0 
 	";
-	//dnd($thisDaySql);
 	$statement = $conn->prepare($thisDaySql);
 	$statement->execute();
 	$thisDayrow = $statement->fetchAll();
@@ -315,7 +315,8 @@ function total_amount_today($admin, $permission) {
 		SELECT SUM(sale_total_amount) AS total 
 		FROM `jspence_sales` 
 		WHERE $where 
-		DAY(createdAt) = '{$yesterDay}'
+		DAY(createdAt) = '{$yesterDay}' 
+	    AND sale_status = 0 
 	";
 	$statement = $conn->prepare($yesterDaySql);
 	$statement->execute();
@@ -362,7 +363,8 @@ function total_amount_thismonth($admin, $permission) {
 		SELECT SUM(sale_total_amount) AS total 
 		FROM `jspence_sales` 
 		WHERE $where 
-		MONTH(createdAt) = '{$thisMonth}'
+		MONTH(createdAt) = '{$thisMonth}' 
+	    AND sale_status = 0 
 	";
 	$statement = $conn->prepare($thisSql);
 	$statement->execute();
@@ -374,7 +376,8 @@ function total_amount_thismonth($admin, $permission) {
 		SELECT SUM(sale_total_amount) AS total 
 		FROM `jspence_sales` 
 		WHERE $where 
-		MONTH(createdAt) = '{$lastMonth}'
+		MONTH(createdAt) = '{$lastMonth}' 
+	    AND sale_status = 0 
 	";
 	$statement = $conn->prepare($lastSql);
 	$statement->execute();
@@ -410,12 +413,13 @@ function count_total_orders($admin, $permission) {
 
 	$where = '';
 	if ($permission != 'admin,salesperson') {
-		$where = 'WHERE sale_by = "'.$admin.'"';
+		$where = ' AND sale_by = "'.$admin.'"';
 	}
 
 	$sql = "
 		SELECT COUNT(sale_id) AS total_number 
 		FROM `jspence_sales` 
+		WHERE sale_status = 0 
 		$where 
 	";
 	$statement = $conn->prepare($sql);
@@ -442,7 +446,8 @@ function grand_total_amount($admin, $permission) {
 		SELECT SUM(sale_total_amount) AS total 
 		FROM `jspence_sales` 
 		WHERE $where 
-		YEAR(createdAt) = '{$thisYear}'
+		YEAR(createdAt) = '{$thisYear}' 
+	    AND sale_status = 0 
 	";
 	$statement = $conn->prepare($thisSql);
 	$statement->execute();
@@ -454,7 +459,8 @@ function grand_total_amount($admin, $permission) {
 		SELECT SUM(sale_total_amount) AS total 
 		FROM `jspence_sales` 
 		WHERE $where 
-		YEAR(createdAt) = '{$lastYear}'
+		YEAR(createdAt) = '{$lastYear}' 
+	    AND sale_status = 0 
 	";
 	$statement = $conn->prepare($lastSql);
 	$statement->execute([]);
@@ -474,11 +480,12 @@ function grand_total_amount($admin, $permission) {
 
 	$where = '';
 	if ($permission != 'admin,salesperson') {
-		$where = 'WHERE sale_by = "'.$admin.'"';
+		$where = ' AND sale_by = "'.$admin.'"';
 	}
 	$grandTotalSql = "
 		SELECT SUM(sale_total_amount) AS total 
 		FROM `jspence_sales` 
+		WHERE sale_status = 0 
 		$where
 	";
 	$statement = $conn->prepare($grandTotalSql);
@@ -542,7 +549,8 @@ function get_recent_trades($admin, $permission) {
 	$sql = "
 		SELECT * FROM jspence_sales 
 		WHERE $where 
-		DAY(createdAt) = ?
+		DAY(createdAt) = ? 
+	    AND sale_status = 0 
 	";
 	$statement = $conn->prepare($sql);
 	$statement->execute([$today]);
