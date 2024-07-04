@@ -596,7 +596,12 @@ function count_new_delete_requests($conn) {
 	 // Get new delete requests
     $requestNumber = $conn->query("SELECT COUNT(*) as requests FROM jspence_sales WHERE sale_delete_request_status = 1")->fetchAll();
 
-    return '
-    	<span class="badge badge-sm rounded-pill me-n2 bg-danger-subtle text-danger ms-auto">' . $requestNumber[0]['requests'] . '</span>
-    ';
+    if (admin_has_permission()) {
+    	// code...
+	    return '
+	    	<span class="badge badge-sm rounded-pill me-n2 bg-danger-subtle text-danger ms-auto">' . $requestNumber[0]['requests'] . '</span>
+	    ';
+    } else {
+    	return '';
+    }
 }
