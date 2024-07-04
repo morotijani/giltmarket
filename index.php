@@ -318,7 +318,7 @@
 						<form method="POST" action="<?= PROOT; ?>auth/login">
 							<div class="list-group-item border rounded p-4 bg-body-secondary-hover">
 								<div class="">
-									<input type="email" name="admin_email" class="form-control" placeholder="Email">
+									<input type="email" autocomplete="off" name="admin_email" class="form-control" placeholder="Email">
 								</div>
 							</div>
 							<div class="list-group-item border rounded p-4 bg-body-secondary-hover">
