@@ -11,11 +11,45 @@
     include ("../includes/nav.inc.php");
 
     // request viewed
-    $viewedQ = $conn->query("UPDATE jspence_sales SET sale_delete_request_status = 2")->execute();
+    $viewedQ = $conn->query("UPDATE jspence_sales SET sale_delete_request_status = 2 WHERE sale_status = 1")->execute();
     if ($viewedQ) {
         // code...    
         $message = "viewed all new delete request";
         add_to_log($message, $admin_data[0]['admin_id']);
+    }
+
+    // delete sale
+    if (isset($_GET['pd']) && !empty($_GET['pd'])) {
+        $id = sanitize($_GET['pd']);
+
+        $check = $conn->query("SELECT * FROM jspence_sales WHERE sale_id = '".$id."' AND sale_status = 1")->rowCount();
+        if ($check > 0) {
+            // code...
+            $query = "
+                UPDATE jspence_sales 
+                SET sale_status = ?, sale_delete_request_status = ?
+                WHERE sale_id = ?
+            ";
+            $statement = $conn->prepare($query);
+            $result = $statement->execute([2, 0, $id]);
+            if (isset($result)) {
+                $message = "deleted sale from sale requests";
+                add_to_log($message, $admin_data[0]['admin_id']);
+
+                $_SESSION['flash_success'] = "Sale deleted successfully!";
+                redirect(PROOT . 'acc/trades.delete.requests');
+            } else {
+                $message = "tried to delete a sale from sale requests but 'Something went wrong.'";
+                add_to_log($message, $admin_data[0]['admin_id']);
+                echo js_alert("Something went wrong, please try again!");
+            }
+        } else {
+            $message = "tried to delete a sale from sale requests but 'Could not find trade to delete.'";
+            add_to_log($message, $admin_data[0]['admin_id']);
+
+            $_SESSION['flash_error'] = "Could not find trade to delete!";
+            redirect(PROOT . 'acc/trades.delete.requests');
+        }
     }
 
 

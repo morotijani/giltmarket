@@ -117,7 +117,7 @@ function fetch_all_sales($status, $permission, $admin) {
 				if ($permission == 'admin,salesperson') {
 					// code...
 					$option3 = '
-						<a href="' . PROOT . 'acc/trades.delete.requests?pd=' . $row["sid"] . '" class="btn btn-sm btn-danger mt-2 mb-2"><i class="bi bi-trash3 me-2"></i>Delete</a>
+						<a href="' . PROOT . 'acc/trades.delete.requests?pd=' . $row["sale_id"] . '" class="btn btn-sm btn-danger mt-2 mb-2"><i class="bi bi-trash3 me-2"></i>Delete</a>
 					';
 				}
 			}
