@@ -123,7 +123,7 @@
 													<a href="javascript:;" class="h6 stretched-link">This Month</a>
 												</div>
 												<?php $m = total_amount_thismonth($admin_data[0]['admin_id'], $admin_data[0]['admin_permissions']); ?>
-												<div class="text-sm fw-semibold mt-3"><?= $t['amount']; ?></div>
+												<div class="text-sm fw-semibold mt-3"><?= $m['amount']; ?></div>
 												<div class="d-flex align-items-center gap-2 mt-1 text-xs"><span class="badge badge-xs bg-<?= $t['percentage_color']; ?>"><i class="bi bi-arrow-<?= $t['percentage_icon']; ?>"></i> </span><span><?= $t['percentage']; ?>%</span></div>
 											</div>
 										</div>
