@@ -7,18 +7,13 @@
         admn_login_redirect();
     }
 
+    // check for permissions
+    if (!admin_has_permission()) {
+        admin_permission_redirect('index');
+    }
+
     include ("../includes/header.inc.php");
     include ("../includes/nav.inc.php");
-
-    // request viewed
-    if ($admin_data[0]['admin_permissions'] == 'admin,salesperson') {
-        $viewedQ = $conn->query("UPDATE jspence_sales SET sale_delete_request_status = 2 WHERE sale_status = 1")->execute();
-        if ($viewedQ) {
-            // code...    
-            $message = "viewed all new delete request";
-            add_to_log($message, $admin_data[0]['admin_id']);
-        }
-    }
 
     // delete sale
     if (isset($_GET['pd']) && !empty($_GET['pd'])) {
@@ -63,7 +58,7 @@
             <h1 class="text-warning">Archived trades</h1>
             <div class="hstack gap-2 ms-auto">
                 <?php if (admin_has_permission()): ?>
-                <div class="dropdown">
+               <!--  <div class="dropdown">
                     <button class="btn btn-sm btn-neutral flex-none d-flex align-items-center gap-2 py-1 px-2" data-bs-toggle="dropdown" aria-expanded="false">
                         <img src="<?= PROOT; ?>dist/media/export.png" class="w-rem-5 h-rem-5 rounded-circle" alt="..."> <span>Export</span> <i class="bi bi-chevron-down text-xs me-1"></i>
                     </button>
@@ -89,7 +84,7 @@
                             </a>
                         </li>
                     </ul>
-                </div>
+                </div> -->
                 <?php endif ?>
                 <button type="button" class="btn btn-sm btn-primary d-none d-sm-inline-flex" data-bs-target="#buyModal" data-bs-toggle="modal"><span class="pe-2"><i class="bi bi-plus-circle"></i> </span><span>Trade</span></button>
             </div>
@@ -103,9 +98,11 @@
             <li class="nav-item">
                 <a href="<?= PROOT; ?>acc/trades.delete.requests" class="nav-link">Delete request</a>
             </li>
-            <li class="nav-item">
-                <a href="<?= PROOT; ?>acc/trades.archive" class="nav-link active">Archive</a>
-            </li>
+            <?php if (admin_has_permission()): ?>
+                <li class="nav-item">
+                    <a href="<?= PROOT; ?>acc/trades.archive" class="nav-link active">Archive</a>
+                </li>
+            <?php endif ?>
         </ul>
         <div class="table-responsive">
             <table class="table table-hover table-striped table-sm table-nowrap">

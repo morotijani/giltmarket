@@ -63,7 +63,7 @@
             <h1 class="text-danger">Delete trade requests</h1>
             <div class="hstack gap-2 ms-auto">
                 <?php if (admin_has_permission()): ?>
-                <div class="dropdown">
+                <!-- <div class="dropdown">
                     <button class="btn btn-sm btn-neutral flex-none d-flex align-items-center gap-2 py-1 px-2" data-bs-toggle="dropdown" aria-expanded="false">
                         <img src="<?= PROOT; ?>dist/media/export.png" class="w-rem-5 h-rem-5 rounded-circle" alt="..."> <span>Export</span> <i class="bi bi-chevron-down text-xs me-1"></i>
                     </button>
@@ -89,7 +89,7 @@
                             </a>
                         </li>
                     </ul>
-                </div>
+                </div> -->
                 <?php endif ?>
                 <button type="button" class="btn btn-sm btn-primary d-none d-sm-inline-flex" data-bs-target="#buyModal" data-bs-toggle="modal"><span class="pe-2"><i class="bi bi-plus-circle"></i> </span><span>Trade</span></button>
             </div>
@@ -103,9 +103,11 @@
             <li class="nav-item">
                 <a href="<?= PROOT; ?>acc/trades.delete.requests" class="nav-link active">Delete request <?= count_new_delete_requests($conn); ?></a>
             </li>
-            <li class="nav-item">
-                <a href="<?= PROOT; ?>acc/trades.archive" class="nav-link">Archive</a>
-            </li>
+            <?php if (admin_has_permission()): ?>
+                <li class="nav-item">
+                    <a href="<?= PROOT; ?>acc/trades.archive" class="nav-link">Archive</a>
+                </li>
+            <?php endif ?>
         </ul>
         <div class="table-responsive">
             <table class="table table-hover table-striped table-sm table-nowrap">

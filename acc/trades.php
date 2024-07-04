@@ -97,9 +97,11 @@
             <li class="nav-item">
                 <a href="<?= PROOT; ?>acc/trades.delete.requests" class="nav-link">Delete request <?= count_new_delete_requests($conn); ?></a>
             </li>
-            <li class="nav-item">
-                <a href="<?= PROOT; ?>acc/trades.archive" class="nav-link">Archive</a>
-            </li>
+            <?php if (admin_has_permission()): ?>
+                <li class="nav-item">
+                    <a href="<?= PROOT; ?>acc/trades.archive" class="nav-link">Archive</a>
+                </li>
+            <?php endif ?>
         </ul>
         <div class="table-responsive">
             <table class="table table-hover table-striped table-sm table-nowrap">
