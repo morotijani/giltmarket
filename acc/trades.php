@@ -91,7 +91,7 @@
                 <div class="d-flex gap-2">
                     <div class="input-group input-group-sm input-group-inline w-100 w-md-50">
                         <span class="input-group-text"><i class="bi bi-search me-2"></i> </span>
-                        <input type="search" class="form-control ps-0" placeholder="Search all assets" aria-label="Search">
+                        <input type="search" class="form-control ps-0" placeholder="Search all trades" aria-label="Search" id="search">
                     </div>
                 </div>
             </div>

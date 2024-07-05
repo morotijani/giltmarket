@@ -38,8 +38,7 @@ if ($search_query != '') {
 		AND (sale_id LIKE "%'.$find_query.'%" 
 		OR sale_customer_name LIKE "%'.$find_query.'%" 
 		OR sale_customer_contact LIKE "%'.$find_query.'%" 
-		OR admin_fullname LIKE "%'.$find_query.'%" 
-		OR sca LIKE "%'.$find_query.'%") 
+		OR admin_fullname LIKE "%'.$find_query.'%") 
 	';
 } else {
 	$query .= 'ORDER BY createdAt DESC ';
