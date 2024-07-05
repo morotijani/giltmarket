@@ -15,6 +15,13 @@ function company_data() {
 	return $row;
 }
 
+function truncate($val, $f = "0") {
+    if(($p = strpos($val, '.')) !== false) {
+        $val = floatval(substr($val, 0, $p + 1 + $f));
+    }
+    return $val;
+}
+
 // Density calculation
 function calculateDensity($gram, $volume) {
 	$density = ($gram / $volume);
@@ -45,12 +52,6 @@ function calculateTotalAmount($gram, $volume, $current_price) {
 	return (int)$total_amount;
 }
 
-function truncate($val, $f = "0") {
-    if(($p = strpos($val, '.')) !== false) {
-        $val = floatval(substr($val, 0, $p + 1 + $f));
-    }
-    return $val;
-}
 
 // add to logs
 function add_to_log($message, $log_admin) {

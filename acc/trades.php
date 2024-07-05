@@ -86,7 +86,16 @@
                 <button type="button" class="btn btn-sm btn-primary d-none d-sm-inline-flex" data-bs-target="#buyModal" data-bs-toggle="modal"><span class="pe-2"><i class="bi bi-plus-circle"></i> </span><span>Trade</span></button>
             </div>
         </div>
-           
+       <div class="row align-items-center g-6 mt-0 mb-6">
+            <div class="col-sm-6">
+                <div class="d-flex gap-2">
+                    <div class="input-group input-group-sm input-group-inline w-100 w-md-50">
+                        <span class="input-group-text"><i class="bi bi-search me-2"></i> </span>
+                        <input type="search" class="form-control ps-0" placeholder="Search all assets" aria-label="Search">
+                    </div>
+                </div>
+            </div>
+        </div>
         <div id="load-content"></div>
 
 <?php include ("../includes/footer.inc.php"); ?>

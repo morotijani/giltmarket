@@ -47,7 +47,7 @@ if ($search_query != '') {
 
 $filter_query = $query . 'LIMIT ' . $start . ', ' . $limit . '';
 
-$total_data = $conn->query("SELECT * FROM jspence_sales WHERE sale_status = 0")->rowCount();
+$total_data = $conn->query("SELECT * FROM jspence_sales INNER JOIN jspence_admin ON jspence_admin.admin_id = jspence_sales.sale_by WHERE sale_status = 0 $where")->rowCount();
 
 $statement = $conn->prepare($filter_query);
 $statement->execute();
