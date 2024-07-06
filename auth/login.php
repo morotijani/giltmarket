@@ -27,7 +27,8 @@
         }
 
         if (!empty($error)) {
-            echo $error;
+            $_SESSION['flash_error'] = $error;
+            redirect(PROOT);
         } else {
             $admin_id = $row[0]['admin_id'];
             adminLogin($admin_id);
