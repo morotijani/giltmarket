@@ -18,13 +18,13 @@
 									<li class="nav-item"><a class="nav-link rounded-pill" href="<?= PROOT; ?>documentation">Documentation</a></li>
 									<li class="nav-item"><a class="nav-link rounded-pill" href="<?= PROOT; ?>auth/logout">Logout</a></li>
 								<?php endif; ?>
-								<li class="nav-item"><a class="nav-link rounded-pill" href="https://goldprice.org"><i class="bi bi-sign-turn-slight-right"></i> Gold Price</a></li>
+								<li class="nav-item"><a class="nav-link rounded-pill" href="https://goldprice.org" target="_blank"><i class="bi bi-sign-turn-slight-right"></i> Gold Price</a></li>
 							</ul>
 							<div class="navbar-nav align-items-lg-center justify-content-end gap-2 ms-lg-4 w-lg-64">
 								<?php if (admin_is_logged_in()): ?>
 								<a class="nav-item nav-link rounded-pill d-none d-lg-block" href="<?= PROOT; ?>acc/profile">Hello <?= $admin_data['first']; ?>!</a>
 								<?php else: ?>
-								<a class="nav-item nav-link rounded-pill d-none d-lg-block" href="javascript:;" data-bs-target="#connectWalletModal" data-bs-toggle="modal">Connect</a>
+								<a class="nav-item nav-link rounded-pill" href="javascript:;" data-bs-target="#connectWalletModal" data-bs-toggle="modal">Connect</a>
 								<?php endif; ?>
 								<?php if (admin_is_logged_in()): ?>
 									<a href="javascript:;" class="btn btn-sm btn-white border-0 rounded-lg-pill w-100 w-lg-auto mb-4 mb-lg-0" data-bs-target="#buyModal" data-bs-toggle="modal">
