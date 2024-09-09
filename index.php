@@ -5,7 +5,43 @@
     include ("includes/nav.inc.php");
 
     if (admin_is_logged_in()) {
-    	// code...
+
+		if (is_capital_given()) {
+			echo 'capita give';
+		} else {
+			echo 'no given';
+		}
+    	
+		// insert daily capital given
+		if (isset($_POST['today_given'])) {
+			if (!empty($_POST['today_given']) || $_POST['today_given'] != '') {
+
+				$given = sanitize($_POST['today_given']);
+				$today_date = sanitize($_POST['today_date']);
+
+				$today = date("Y-m-d");
+				$daily_id = guidv4();
+
+				if ($today_date == $today) {
+					$sql = "
+						INSERT INTO jspence_daily (daily_id, daily_capital, daily_date) 
+						VALUES (?, ?, ?)
+					";
+					$statement = $conn->prepare($sql);
+					$result = $statement->execute([$daily_id, $given, $today]);
+					if ($result) {
+						$message = "today capital entered of an amount of " . money($given);
+						add_to_log($message, $admin_id);
+		
+						$_SESSION['flash_success'] = 'Today capital saved successfully!';
+						redirect(PROOT);
+					} else {
+						echo js_alert('Something went wrong, please refresh and try agin!');
+						redirect(PROOT);
+					}
+				}
+			}
+		}
     
 	    $thisYr = date("Y");
 	    $lastYr = $thisYr - 1;
@@ -83,15 +119,17 @@
 
 
 
+
 					<div class="mb-6 mb-xl-10">
 						<div class="row g-3 align-items-center">
 							<div class="col">
-								<h1 class="ls-tight">Dashboard</h1>
+								<h1 class="ls-tight"><?= _capital(); ?></h1>
+								<p class="text-sm text-muted">Amount given today to trade. <br><?= date("Y-m-d"); ?></p>
 							</div>
 							<div class="col">
 								<div class="hstack gap-2 justify-content-end">
 									<button type="button" class="btn btn-sm btn-square btn-neutral rounded-circle d-xxl-none" data-bs-toggle="offcanvas" data-bs-target="#responsiveOffcanvas" aria-controls="responsiveOffcanvas"><i class="bi bi-three-dots"></i></button> <button type="button" class="btn btn-sm btn-neutral d-none d-sm-inline-flex" data-bs-target="#buyModal" data-bs-toggle="modal"><span class="pe-2"><i class="bi bi-plus-circle"></i> </span><span>Trade</span></button> 
-									<a href="<?= PROOT; ?>" class="btn d-inline-flex btn-sm btn-dark"><span>Refresh</span></a>
+									<button data-bs-toggle="modal" data-bs-target="#modalCapital" type="button" class="btn d-inline-flex btn-sm btn-dark"><span>Today Capital</span></button>
 								</div>
 							</div>
 						</div>
@@ -290,6 +328,39 @@
 							</div>
 						</div>
 					</div>
+					
+					<!-- Seeting for todays capital -->
+					<div class="modal fade" id="modalCapital" tabindex="-1" aria-labelledby="modalCapital" aria-hidden="true">
+						<div class="modal-dialog modal-dialog-centered">
+							<div class="modal-content shadow-3">
+								<div class="modal-header justify-content-start">
+									<div class="icon icon-shape rounded-3 bg-primary-subtle text-primary text-lg me-4">
+										<i class="bi bi-microsoft-teams"></i>
+									</div>
+									<div>
+										<h5 class="mb-1">Today's Capital</h5>
+										<small class="d-block text-xs text-muted">You are to give todays capital before you can start trade.</small>
+									</div>
+								</div>
+								<form action="" method="POST" id="capitalForm">
+									<div class="modal-body">
+										<div class="mb-3">
+											<label class="form-label">Today's Date</label> 
+											<input class="form-control" name="today_date" id="today_date" type="date" value="<?php echo date('Y-m-d'); ?>">
+										</div>
+										<div class="">
+											<label class="form-label">Amount given</label> 
+											<input class="form-control" placeholder="0.00" name="today_given" id="today_given" type="number" min="0.00" step="0.01">
+										</div>
+									</div>
+									<div class="modal-footer">
+										<button type="button" class="btn btn-sm btn-neutral" data-bs-dismiss="modal">Close</button> 
+										<button type="submit" id="submitCapital" class="btn btn-sm btn-primary">Save</button>
+									</div>
+								</form>
+							</div>
+						</div>
+					</div>
 
 
 					<?php else: ?>
@@ -412,5 +483,8 @@
 	        }
 	    })
 	})()
+</script>
+<script>
+		$('#today_date').val(new Date().toDateInputValue());
 
 </script>

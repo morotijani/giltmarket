@@ -15,6 +15,41 @@ function company_data() {
 	return $row;
 }
 
+// check if capital is given today
+function is_capital_given() {
+	global $conn;
+	$today = date('Y-m-d');
+	$sql = "
+		SELECT *
+		FROM jspence_daily 
+		WHERE daily_date = ?
+	";
+	$statement = $conn->prepare($sql);
+	$statement->execute([$today]);
+	$count_row = $statement->rowCount();
+
+	if ($count_row > 0) {
+		return true;
+	}
+	return false;
+}
+
+// Amount given to trade
+function _capital() {
+	global $conn;
+	$today = date('Y-m-d');
+	$sql = "
+		SELECT SUM(daily_capital) AS capital 
+		FROM jspence_daily 
+		WHERE daily_date = ?
+	";
+	$statement = $conn->prepare($sql);
+	$statement->execute([$today]);
+	$row = $statement->fetchAll();
+
+	return money((($row[0]['capital'] != NULL || $row[0]['capital'] != '') ? $row[0]['capital'] : 0));
+}
+
 function truncate($val, $f = "0") {
     if(($p = strpos($val, '.')) !== false) {
         $val = floatval(substr($val, 0, $p + 1 + $f));
