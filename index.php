@@ -5,12 +5,6 @@
     include ("includes/nav.inc.php");
 
     if (admin_is_logged_in()) {
-
-		if (is_capital_given()) {
-			echo 'capita give';
-		} else {
-			echo 'no given';
-		}
     	
 		// insert daily capital given
 		if (isset($_POST['today_given'])) {
@@ -23,12 +17,23 @@
 				$daily_id = guidv4();
 
 				if ($today_date == $today) {
+					$data = [$daily_id, $given, $today];
 					$sql = "
 						INSERT INTO jspence_daily (daily_id, daily_capital, daily_date) 
 						VALUES (?, ?, ?)
 					";
+					if (is_capital_given()) {
+						$sql = "
+							UPDATE jspence_daily 
+							SET daily_capital = ?  
+							WHERE daily_date = ?
+						";
+						// remove the first element and only remove one element
+						$data = array_splice($data, 1, 2);
+					}
+					//dnd($data);
 					$statement = $conn->prepare($sql);
-					$result = $statement->execute([$daily_id, $given, $today]);
+					$result = $statement->execute($data);
 					if ($result) {
 						$message = "today capital entered of an amount of " . money($given);
 						add_to_log($message, $admin_id);
@@ -123,7 +128,7 @@
 					<div class="mb-6 mb-xl-10">
 						<div class="row g-3 align-items-center">
 							<div class="col">
-								<h1 class="ls-tight"><?= _capital(); ?></h1>
+								<h1 class="ls-tight"><?= money(_capital()); ?></h1>
 								<p class="text-sm text-muted">Amount given today to trade. <br><?= date("Y-m-d"); ?></p>
 							</div>
 							<div class="col">
@@ -335,7 +340,7 @@
 							<div class="modal-content shadow-3">
 								<div class="modal-header justify-content-start">
 									<div class="icon icon-shape rounded-3 bg-primary-subtle text-primary text-lg me-4">
-										<i class="bi bi-microsoft-teams"></i>
+										<i class="bi bi-currency-exchange"></i>
 									</div>
 									<div>
 										<h5 class="mb-1">Today's Capital</h5>
@@ -350,7 +355,7 @@
 										</div>
 										<div class="">
 											<label class="form-label">Amount given</label> 
-											<input class="form-control" placeholder="0.00" name="today_given" id="today_given" type="number" min="0.00" step="0.01">
+											<input class="form-control" placeholder="0.00" name="today_given" id="today_given" type="number" min="0.00" step="0.01" value="<?= (is_capital_given() ? _capital() : '' ); ?>">
 										</div>
 									</div>
 									<div class="modal-footer">

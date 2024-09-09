@@ -81,6 +81,7 @@
                         <div id="step-3" class="d-none">
                             <div class="inputpin mb-3">
                                 <div>
+                                    <?php if (is_capital_given()): ?>
                                     <label class="form-label">Enter pin</label>
                                     <div class="d-flex justify-content-between p-4 bg-body-tertiary rounded">
                                         <input type="tel" class="form-control form-control-flush text-xl fw-bold w-rem-40" placeholder="0000" name="pin" id="pin" autocomplete="off" inputmode="numeric" data-maxlength="4" oninput="this.value=this.value.slice(0,this.dataset.maxlength)">
@@ -90,9 +91,16 @@
                                             </button>
                                         </div>
                                     </div>
+                                    <?php else: ?>
+                                        <p class="h4">
+                                            Please you are to provide today's capital given before you can complete a trade.
+                                        </p>
+                                    <?php endif; ?>
                                 </div>
                             </div>
+                            <?php if (is_capital_given()): ?>
                             <button type="submit" class="btn btn-warning mt-4" id="submitSend" name="submitSend">Complete Sale</button>
+                            <?php endif; ?>
                             <br><a href="javascript:;" class="" id="prev-2"><< Go Back</a>
                         </div>
                     </form>

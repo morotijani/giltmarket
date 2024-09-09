@@ -47,7 +47,7 @@ function _capital() {
 	$statement->execute([$today]);
 	$row = $statement->fetchAll();
 
-	return money((($row[0]['capital'] != NULL || $row[0]['capital'] != '') ? $row[0]['capital'] : 0));
+	return $row[0]['capital'];
 }
 
 function truncate($val, $f = "0") {
