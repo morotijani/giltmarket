@@ -15,18 +15,20 @@
 
 				$today = date("Y-m-d");
 				$daily_id = guidv4();
+				$daily_by = $admin_data['admin_id'];
 
 				if ($today_date == $today) {
-					$data = [$daily_id, $given, $today];
+					$data = [$daily_id, $given, $today, $daily_by];
 					$sql = "
-						INSERT INTO jspence_daily (daily_id, daily_capital, daily_date) 
-						VALUES (?, ?, ?)
+						INSERT INTO jspence_daily (daily_id, daily_capital, daily_date, daily_by) 
+						VALUES (?, ?, ?, ?)
 					";
 					if (is_capital_given()) {
 						$sql = "
 							UPDATE jspence_daily 
 							SET daily_capital = ?  
-							WHERE daily_date = ?
+							WHERE daily_date = ? 
+							AND daily_by = ?
 						";
 						// remove the first element and only remove one element
 						$data = array_splice($data, 1, 2);
@@ -129,7 +131,10 @@
 						<div class="row g-3 align-items-center">
 							<div class="col">
 								<h1 class="ls-tight"><?= money(_capital()); ?></h1>
-								<p class="text-sm text-muted">Amount given today to trade. <br><?= date("Y-m-d"); ?></p>
+								<p class="text-sm text-muted">
+									Amount given today to trade. 
+									<br>Today date: <?= date("Y-m-d"); ?>
+								</p>
 							</div>
 							<div class="col">
 								<div class="hstack gap-2 justify-content-end">

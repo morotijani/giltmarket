@@ -15,7 +15,11 @@ function pretty_date($date){
 
 // Display money in a readable way
 function money($number) {
-	return '₵' . number_format($number, 2);
+	$output = '0.00';
+	if ($number != NULL || $number != '') 
+		$output = number_format($number, 2);
+
+	return '₵' . $output;
 }
 
 // Check For Incorrect Input Of Data
