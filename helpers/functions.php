@@ -338,7 +338,7 @@ function total_amount_today($admin, $permission) {
 	}
 
 	$output = [
-		'amount' 		=> money($thisDayrow[0]['total']),
+		'amount' 			=> money((($thisDayrow[0]['total'] != NULL || $thisDayrow[0]['total'] != '') ? $thisDayrow[0]['total'] : 0)),
 		'percentage' 		=> $percentage,
 		'percentage_color' 	=> $percentage_color,
 		'percentage_icon' 	=> $percentage_icon,
@@ -399,7 +399,7 @@ function total_amount_thismonth($admin, $permission) {
 	}
 
 	$output = [
-		'amount' 			=> money($thisRow[0]['total']),
+		'amount' 			=> money((($thisRow[0]['total'] != NULL || $thisRow[0]['total'] != '') ? $thisRow[0]['total'] : 0)),
 		'percentage' 		=> $percentage,
 		'percentage_color' 	=> $percentage_color,
 		'percentage_icon' 	=> $percentage_icon,
@@ -494,9 +494,9 @@ function grand_total_amount($admin, $permission) {
 	$grandTotalRow = $statement->fetchAll();
 
 	$output = [
-		'grand_total' 			=> money($grandTotalRow[0]['total']),
-		'this_year' 			=> money($thisRow[0]['total']),
-		'last_year' 			=> money($lastRrow[0]['total']),
+		'grand_total' 			=> money((($grandTotalRow[0]['total'] != NULL || $grandTotalRow[0]['total'] != '') ? $grandTotalRow[0]['total'] : 0)),
+		'this_year' 			=> money((($thisRow[0]['total'] != NULL || $thisRow[0]['total'] != '') ? $thisRow[0]['total'] : 0)),
+		'last_year' 			=> money((($lastRrow[0]['total'] != NULL || $lastRrow[0]['total'] != '') ? $lastRrow[0]['total'] : 0)),
 		'percentage' 			=> $percentage,
 		'percentage_icon' 		=> $percentage_icon,
 	];
