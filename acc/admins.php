@@ -142,7 +142,8 @@ if (isset($_GET['add'])) {
                                 <select class="form-control" name="admin_permissions" id="admin_permissions" required>
                                     <option value=""<?= (($admin_permissions == '')?' selected' : '') ?>></option>
                                     <option value="salesperson"<?= (($admin_permissions == 'salesperson')?' selected' : '') ?>>Salesperson</option>
-                                    <option value="admin,salesperson"<?= (($admin_permissions == 'admin,salesperson')?' selected' : '') ?>>Admin,  Salesperson</option>
+                                    <option value="supervisor"<?= (($admin_permissions == 'supervisor')?' selected' : '') ?>>Supervisor</option>
+                                    <option value="admin,supervisor,salesperson"<?= (($admin_permissions == 'admin,supervisor,salesperson')?' selected' : '') ?>>Admin,  Supervisor, Salesperson</option>
                                 </select>
                                 <div class="text-sm text-muted">Select type of admin permission in this field</div>
                             </div>
