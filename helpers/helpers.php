@@ -222,7 +222,7 @@ function adminLogin($admin_id) {
 	$_SESSION['JSAdmin'] = $admin_id;
 	global $conn;
 
-	$data = array(date("Y-m-d H:i:s A"), $admin_id);
+	$data = array(date("Y-m-d H:i:s"), $admin_id);
 	$query = "
 		UPDATE jspence_admin 
 		SET admin_last_login = ? 

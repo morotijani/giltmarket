@@ -1,5 +1,4 @@
 <?php 
-
     require_once ("../db_connection/conn.php");
 
     $error = '';
@@ -33,6 +32,5 @@
             $admin_id = $row[0]['admin_id'];
             adminLogin($admin_id);
         }
-
         
     }

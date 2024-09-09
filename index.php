@@ -317,18 +317,14 @@
 					<div class="list-group list-group-flush gap-2">
 						<form method="POST" action="<?= PROOT; ?>auth/login">
 							<div class="list-group-item border rounded p-4 bg-body-secondary-hover">
-								<div class="">
-									<input type="email" autocomplete="off" name="admin_email" class="form-control" placeholder="Email">
+								<div class="mb-2">
+									<input type="email" autocomplete="off" name="admin_email" class="form-control form-control-lg" placeholder="Email">
 								</div>
-							</div>
-							<div class="list-group-item border rounded p-4 bg-body-secondary-hover">
-								<div class="">
-									<input type="password" name="admin_password" class="form-control" placeholder="******">
+								<div class="mb-2">
+									<input type="password" name="admin_password" class="form-control form-control-lg" placeholder="******">
 								</div>
-							</div>
-							<div class="list-group-item border rounded p-4 bg-body-secondary-hover">
 								<div class="">
-									<input type="submit" name="submit_form" class="form-control" value="Connect">
+									<input type="submit" name="submit_form" class="form-control form-control-lg" value="Connect">
 								</div>
 							</div>
 						</form>
