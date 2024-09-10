@@ -130,9 +130,9 @@
 					<div class="mb-6 mb-xl-10">
 						<div class="row g-3 align-items-center">
 							<div class="col">
-								<h1 class="ls-tight">Balance: <?= money(_capital()['today_balance']); ?></h1>
+								<h1 class="ls-tight">Balance: <span style="font-family: Roboto Mono, monospace;"><?= money(_capital()['today_balance']); ?></h1></span>
 								<p class="text-sm text-muted">
-									Amount given today to trade: <?= money(_capital()['today_capital']); ?> 
+									Amount given today to trade: <span style="font-family: Roboto Mono, monospace;"><?= money(_capital()['today_capital']); ?></span> 
 									<br>Today date: <?= date("Y-m-d"); ?>
 								</p>
 							</div>
@@ -151,7 +151,7 @@
 								<div class="row g-3">
 									<div class="col-md col-sm-6">
 										<div class="card border-primary-hover">
-											<div class="card-body p-4">
+											<div class="card-body p-4" style="font-family: Roboto Mono, monospace;">
 												<div class="d-flex align-items-center gap-2">
 													<img src="<?= PROOT; ?>dist/media/today.png" class="w-rem-5 flex-none" alt="..."> <a href="javascript:;" class="h6 stretched-link">Today</a>
 												</div>
@@ -165,7 +165,7 @@
 									</div>
 									<div class="col-md col-sm-6">
 										<div class="card border-primary-hover">
-											<div class="card-body p-4">
+											<div class="card-body p-4" style="font-family: Roboto Mono, monospace;">
 												<div class="d-flex align-items-center gap-2">
 													<img src="<?= PROOT; ?>dist/media/thismonth.png" class="w-rem-5 flex-none" alt="..."> 
 													<a href="javascript:;" class="h6 stretched-link">This Month</a>
@@ -178,7 +178,7 @@
 									</div>
 									<div class="col-md col-sm-6">
 										<div class="card border-primary-hover">
-											<div class="card-body p-4">
+											<div class="card-body p-4" style="font-family: Roboto Mono, monospace;">
 												<div class="d-flex align-items-center gap-2">
 													<img src="<?= PROOT; ?>dist/media/orders.jpg" class="w-rem-5 flex-none" alt="..."> 
 													<a href="<?= PROOT; ?>acc/trades" class="h6 stretched-link">Orders</a></div>
@@ -197,7 +197,7 @@
 												<h5>Earnings</h5>
 											</div>
 											<div class="hstack align-items-center">
-												<a href="#" class="text-muted"><i class="bi bi-arrow-repeat"></i></a>
+												<a href="javascript:;" class="text-muted"><i class="bi bi-arrow-repeat"></i></a>
 											</div>
 										</div>
 										<div class="mx-n4">
@@ -223,8 +223,8 @@
 												<thead>
 													<tr>
 														<th scope="col"></th>
-						                                <th scope="col"><?= $lastYr; ?></th>
-						                                <th scope="col"><?= $thisYr; ?></th>
+						                                <th scope="col" style="font-family: Roboto Mono, monospace;"><?= $lastYr; ?></th>
+						                                <th scope="col" style="font-family: Roboto Mono, monospace;"><?= $thisYr; ?></th>
 													</tr>
 												</thead>
 												 <tbody>
@@ -233,14 +233,14 @@
 						                            ?>
 						                                <tr>
 						                                    <td <?= (date('m') == $i) ? ' class="bg-danger"' : ''; ?>><?= $dt->format("F"); ?></td>
-						                                    <td <?= (date('m') == $i) ? ' class="bg-danger"' : ''; ?>><?= ((array_key_exists($i, $last)) ? money($last[$i]) : money(0)); ?></td>
-						                                    <td <?= (date('m') == $i) ? ' class="bg-danger"' : ''; ?>><?=  ((array_key_exists($i, $current)) ? money($current[$i]) : money(0)); ?></td>
+						                                    <td <?= (date('m') == $i) ? ' class="bg-danger"' : ''; ?> style="font-family: Roboto Mono, monospace;"><?= ((array_key_exists($i, $last)) ? money($last[$i]) : money(0)); ?></td>
+						                                    <td <?= (date('m') == $i) ? ' class="bg-danger"' : ''; ?> style="font-family: Roboto Mono, monospace;"><?=  ((array_key_exists($i, $current)) ? money($current[$i]) : money(0)); ?></td>
 						                                </tr>
 						                            <?php endfor; ?>
 						                            <tr>
 						                                <td>Total</td>
-						                                <td><?= money($lastTotal); ?></td>
-						                                <td><?= money($currentTotal); ?></td>
+						                                <td style="font-family: Roboto Mono, monospace;"><?= money($lastTotal); ?></td>
+						                                <td style="font-family: Roboto Mono, monospace;"><?= money($currentTotal); ?></td>
 						                            </tr>
 						                        </tbody>
 											</table>
@@ -277,7 +277,7 @@
 								<div class="offcanvas-body d-flex flex-column p-3 p-sm-6 p-xxl-0 gap-3 gap-xxl-6">
 									<div class="vstack gap-6 gap-xxl-6">
 										<div class="card border-0 border-xxl">
-											<div class="card-body d-flex flex-column p-0 p-xxl-6">
+											<div class="card-body d-flex flex-column p-0 p-xxl-6" style="font-family: Roboto Mono, monospace;">
 												<div class="d-flex justify-content-between align-items-center mb-3">
 
 													<?php $g = grand_total_amount($admin_data[0]['admin_id'], $admin_data[0]['admin_permissions']); ?>

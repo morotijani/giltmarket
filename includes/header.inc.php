@@ -8,8 +8,13 @@
 	<link rel="shortcut icon" href="<?= PROOT; ?>dist/media/logo-no-bg.png" type="image/x-icon" />
 	<link rel="stylesheet" type="text/css" href="<?= PROOT; ?>dist/css/main.css">
 	<link rel="stylesheet" type="text/css" href="<?= PROOT; ?>dist/css/utility.css">
+
 	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.2/font/bootstrap-icons.css">
 	<link rel="stylesheet" href="https://api.fontshare.com/v2/css?f=satoshi@900,700,500,300,401,400&display=swap">
+
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:ital,wght@0,100..700;1,100..700&display=swap" rel="stylesheet">
 </head>
 <body class="p-1 p-lg-2 bg-body-tertiary">
 	<div class="overflow-x-hidden rounded-top-4 pt-2 pt-lg-4">

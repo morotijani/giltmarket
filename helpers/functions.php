@@ -628,7 +628,7 @@ function get_recent_trades($admin, $permission) {
 							<p class="text-muted text-xs">' . pretty_date($row["createdAt"]) . '</p>
 						</div>
 						<div class="text-end ms-auto">
-							<span class="h6 text-sm">' . money($row["sale_total_amount"]) . '</span>
+							<span class="h6 text-sm" style="font-family: Roboto Mono, monospace;">' . money($row["sale_total_amount"]) . '</span>
 						</div>
 					</div>
 				</div>
