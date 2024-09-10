@@ -105,7 +105,7 @@ function update_today_capital_given_balance($type, $today_total_balance, $today,
 	$statement = $conn->prepare($updateQ);
 	$result = $statement->execute([$today_total_balance, $today]);
 	
-	$message = $type . " made, balance remaining is: " . money($today_total_balance) . " and " . $today . " capital was:  " . _capital()['today_capital'];
+	$message = $type . " made, balance remaining is: " . money($today_total_balance) . " and " . $today . " capital was:  " . money(_capital()['today_capital']);
 	add_to_log($message, $log_admin);
 }
 

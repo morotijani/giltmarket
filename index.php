@@ -23,14 +23,17 @@
 						INSERT INTO jspence_daily (daily_id, daily_capital, daily_date, daily_by) 
 						VALUES (?, ?, ?, ?)
 					";
-					$message = "today " . $today . " capital entered of an amount of " . money($given) . (is_capital_given() ? ', added amount ' . money($g) : '');
+					$message = "today " . $today . " capital entered of an amount of " . money($given);
+
 					if (is_capital_given()) {
 						$g = (float)($given - _capital()['today_capital']);
-						$b = (float)($g + _capital()['today_balance']);
+						$b = ((admin_has_permission('salesperson') && _capital()['today_balance'] == '0.00') ? '0.00' : (float)($g + _capital()['today_balance']));
 
 						if (admin_has_permission('supervisor')) {
-							$b = ((_capital()['today_balance'] == '0.00') ? '0.00' : _capital()['today_balance']);
+							$b = _capital()['today_balance'];
 						}
+
+						// dnd($b);
 
 						$sql = "
 							UPDATE jspence_daily 
