@@ -15,7 +15,7 @@
 
 				$today = date("Y-m-d");
 				$daily_id = guidv4();
-				$daily_by = $admin_data['admin_id'];
+				$daily_by = $admin_data[0]['admin_id'];
 
 				if ($today_date == $today) {
 					$data = [$daily_id, $given, $today, $daily_by];
@@ -33,7 +33,7 @@
 						// remove the first element and only remove one element
 						$data = array_splice($data, 1, 2);
 					}
-					//dnd($data);
+					// dnd($data);
 					$statement = $conn->prepare($sql);
 					$result = $statement->execute($data);
 					if ($result) {
@@ -130,9 +130,9 @@
 					<div class="mb-6 mb-xl-10">
 						<div class="row g-3 align-items-center">
 							<div class="col">
-								<h1 class="ls-tight"><?= money(_capital()); ?></h1>
+								<h1 class="ls-tight">Balance: <?= money(_capital()['today_balance']); ?></h1>
 								<p class="text-sm text-muted">
-									Amount given today to trade. 
+									Amount given today to trade: <?= money(_capital()['today_capital']); ?> 
 									<br>Today date: <?= date("Y-m-d"); ?>
 								</p>
 							</div>

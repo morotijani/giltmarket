@@ -8,7 +8,7 @@
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content overflow-hidden">
                 <div class="modal-header pb-0 border-0">
-                    <h1 class="modal-title h4" id="buyModalLabel">Make a sale</h1>
+                    <h1 class="modal-title h4" id="buyModalLabel"><?= admin_has_permission('supervisor') ? 'Sell' : 'Buy'; ?> trade</h1>
                     <button type="button" class="btn-close btn-close-buyform" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body undefined">

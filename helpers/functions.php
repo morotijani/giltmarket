@@ -39,7 +39,7 @@ function _capital() {
 	global $conn;
 	$today = date('Y-m-d');
 	$sql = "
-		SELECT SUM(daily_capital) AS capital 
+		SELECT daily_capital, daily_balance
 		FROM jspence_daily 
 		WHERE daily_date = ?
 	";
@@ -47,7 +47,30 @@ function _capital() {
 	$statement->execute([$today]);
 	$row = $statement->fetchAll();
 
-	return $row[0]['capital'];
+	$balance = $row[0]['daily_balance'];
+	if ($balance == '0.00') 
+		$balance = $row[0]['daily_capital'];
+	
+	return [
+		'today_capital' => $row[0]['daily_capital'],
+		'today_balance' => $balance
+	];
+}
+
+// get today capital given balance
+function update_today_capital_given_balance($type, $today_total_balance, $today) {
+	global $conn;
+
+	$updateQ = "
+		UPDATE jspence_daily 
+		SET daily_balance = ? 
+		WHERE daily_date = ?
+	";
+	$statement = $conn->prepare($updateQ);
+	$result = $statement->execute([$today_total_balance, $today]);
+	
+	$message = $type . " made, balance remaining is: " . money($today_total_balance) . " and " . $today . " capital was:  " . _capital();
+	add_to_log($message, $log_admin);
 }
 
 function truncate($val, $f = "0") {
