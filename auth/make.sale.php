@@ -37,17 +37,17 @@ if (isset($_POST['gram-amount'])) {
 			$today = date("Y-m-d");
 			$q = "
 				SELECT 
-					SUM(jspence_sales.sale_amount) AS ttsa, 
+					SUM(jspence_sales.sale_total_amount) AS ttsa, 
 					CAST(jspence_sales.createdAt AS date) AS sd 
 				FROM `jspence_sales` 
-				WHERE sd = ?
+				WHERE CAST(jspence_sales.createdAt AS date) = ?
 			";
 			$statement = $conn->prepare($q);
 			$statement->execute([$today]);
 			$r = $statement->fetchAll();
 
-			$today_total_balance = (_capital() - $r[0]['ttsa']);
-			update_today_capital_given_balance($today_total_balance, $today);
+			$today_total_balance = (_capital()['today_capital'] - $r[0]['ttsa']);
+			update_today_capital_given_balance('in-trade', $today_total_balance, $today, $log_admin);
 
 			$message = "added new sale with gram of " . $gram . " and volume of " . $volume . " and total amount of " . money($total_amount) ." and price of " . money($current_price) . " on id " . $sale_id . "";
 			add_to_log($message, $log_admin);

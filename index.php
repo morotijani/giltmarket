@@ -360,7 +360,7 @@
 										</div>
 										<div class="">
 											<label class="form-label">Amount given</label> 
-											<input class="form-control" placeholder="0.00" name="today_given" id="today_given" type="number" min="0.00" step="0.01" value="<?= (is_capital_given() ? _capital() : '' ); ?>">
+											<input class="form-control" placeholder="0.00" name="today_given" id="today_given" type="number" min="0.00" step="0.01" value="<?= (is_capital_given() ? _capital()['today_capital'] : '' ); ?>">
 										</div>
 									</div>
 									<div class="modal-footer">
