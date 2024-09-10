@@ -23,7 +23,7 @@
 							</ul>
 							<div class="navbar-nav align-items-lg-center justify-content-end gap-2 ms-lg-4 w-lg-64">
 								<?php if (admin_is_logged_in()): ?>
-								<a class="nav-item nav-link rounded-pill d-none d-lg-block" href="<?= PROOT; ?>acc/profile">Hello <?= $admin_data['first']; ?>!</a>
+								<a class="nav-item nav-link rounded-pill d-none d-lg-block" href="<?= PROOT; ?>acc/profile">Hello <?= $admin_data['first'] ." (". _admin_position($admin_data[0]['admin_id']); ?>)!</a>
 								<?php else: ?>
 								<a class="nav-item nav-link rounded-pill" href="javascript:;" data-bs-target="#connectWalletModal" data-bs-toggle="modal">Connect</a>
 								<?php endif; ?>

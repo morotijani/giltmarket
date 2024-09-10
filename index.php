@@ -23,9 +23,14 @@
 						INSERT INTO jspence_daily (daily_id, daily_capital, daily_date, daily_by) 
 						VALUES (?, ?, ?, ?)
 					";
+					$message = "today " . $today . " capital entered of an amount of " . money($given) . (is_capital_given() ? ', added amount ' . money($g) : '');
 					if (is_capital_given()) {
 						$g = (float)($given - _capital()['today_capital']);
 						$b = (float)($g + _capital()['today_balance']);
+
+						if (admin_has_permission('supervisor')) {
+							$b = ((_capital()['today_balance'] == '0.00') ? '0.00' : _capital()['today_balance']);
+						}
 
 						$sql = "
 							UPDATE jspence_daily 
@@ -36,12 +41,13 @@
 						";
 						// remove the first element and only remove one element
 						$data = array_splice($data, 1, 3);
+						$message = "today " . $today . " capital updated of an amount of " . money($given) . ', added amount ' . money($g);
 					}
 					// dnd($data);
 					$statement = $conn->prepare($sql);
 					$result = $statement->execute($data);
 					if ($result) {
-						$message = "today capital " . (is_capital_given() ? 'updated' : 'entered') . " of an amount of " . money($given) . (is_capital_given() ? ' , added amount ' . money($g) . '' : '');
+						
 						add_to_log($message, $admin_id);
 		
 						$_SESSION['flash_success'] = 'Today capital saved successfully!';
@@ -128,14 +134,11 @@
 					</div> -->
 
 
-
-
-
 					<div class="mb-6 mb-xl-10">
 						<div class="row g-3 align-items-center">
 							<div class="col">
 								<h1 class="ls-tight"><?= ((admin_has_permission('supervisor')) ? 'Gained' : 'Balance'); ?>: <span style="font-family: Roboto Mono, monospace;">
-									<?= money(((_capital()['today_balance'] == '0.00' && admin_has_permission('supervisor')) ? _capital()['today_capital']: _capital()['today_balance'])); ?>
+									<?= money(((_capital()['today_balance'] == '0.00' && admin_has_permission('supervisor')) ? _capital()['today_balance']: _capital()['today_balance'])); ?>
 								</h1></span>
 								<p class="text-sm text-muted">
 									Amount given today to trade: <span style="font-family: Roboto Mono, monospace;"><?= money(_capital()['today_capital']); ?></span> 

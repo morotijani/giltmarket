@@ -42,14 +42,15 @@ if (isset($_POST['gram-amount'])) {
 					CAST(jspence_sales.createdAt AS date) AS sd 
 				FROM `jspence_sales` 
 				WHERE CAST(jspence_sales.createdAt AS date) = ? 
-				AND jspence_sales.sale_type = ?
+				AND jspence_sales.sale_type = ? 
+				AND jspence_sales.sale_by = ?
 			";
 			$statement = $conn->prepare($q);
-			$statement->execute([$today, $t]);
+			$statement->execute([$today, $t, $admin_data[0]['admin_id']]);
 			$r = $statement->fetchAll();
-
+			
 			$trade_status = 'out-trade';
-			$today_total_balance = (_capital()['today_capital'] - $r[0]['ttsa']);
+			$today_total_balance = (float)(_capital()['today_capital'] - $r[0]['ttsa']);
 			if (admin_has_permission('supervisor')) {
 				$trade_status = 'in-trade';
 				$today_total_balance = $r[0]['ttsa'];

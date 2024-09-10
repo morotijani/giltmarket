@@ -15,6 +15,31 @@ function company_data() {
 	return $row;
 }
 
+// get admin position
+function _admin_position($admin) {
+	global $conn;
+
+	$sql = "
+		SELECT admin_permissions FROM jspence_admin 
+		WHERE admin_id = ?
+	";
+	$statement = $conn->prepare($sql);
+	$statement->execute([$admin]);
+	$rows = $statement->fetchAll();
+	$permission = $rows[0]['admin_permissions'];
+
+	$output = 'admin';
+	if ($permission == 'admin,salesperson,supervisor') {
+		$output = 'admin';
+	} else if ($permission == 'supervisor') {
+		$output = 'supervisor';
+	} else if ($permission == 'salesperson') {
+		$output = 'salespersonnel';
+	}
+
+	return $output;
+}
+
 // check if capital is given today
 function is_capital_given() {
 	global $conn;
