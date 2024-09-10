@@ -24,9 +24,9 @@
 						VALUES (?, ?, ?, ?)
 					";
 					if (is_capital_given()) {
-						$b = (float)($given - _capital()['today_capital']);
-						$b = (float)($b + _capital()['today_balance']);
-						
+						$g = (float)($given - _capital()['today_capital']);
+						$b = (float)($g + _capital()['today_balance']);
+
 						$sql = "
 							UPDATE jspence_daily 
 							SET daily_capital = ?, 
@@ -41,7 +41,7 @@
 					$statement = $conn->prepare($sql);
 					$result = $statement->execute($data);
 					if ($result) {
-						$message = "today capital entered of an amount of " . money($given);
+						$message = "today capital " . (is_capital_given() ? 'updated' : 'entered') . " of an amount of " . money($given) . (is_capital_given() ? ' , added amount ' . money($g) . '' : '');
 						add_to_log($message, $admin_id);
 		
 						$_SESSION['flash_success'] = 'Today capital saved successfully!';
@@ -134,8 +134,8 @@
 					<div class="mb-6 mb-xl-10">
 						<div class="row g-3 align-items-center">
 							<div class="col">
-								<h1 class="ls-tight">Balance: <span style="font-family: Roboto Mono, monospace;">
-									<?= money(((_capital()['today_balance'] == '0.00') ? _capital()['today_capital']: _capital()['today_balance'])); ?>
+								<h1 class="ls-tight"><?= ((admin_has_permission('supervisor')) ? 'Gained' : 'Balance'); ?>: <span style="font-family: Roboto Mono, monospace;">
+									<?= money(((_capital()['today_balance'] == '0.00' && admin_has_permission('supervisor')) ? _capital()['today_capital']: _capital()['today_balance'])); ?>
 								</h1></span>
 								<p class="text-sm text-muted">
 									Amount given today to trade: <span style="font-family: Roboto Mono, monospace;"><?= money(_capital()['today_capital']); ?></span> 

@@ -40,14 +40,21 @@ if (isset($_POST['gram-amount'])) {
 					SUM(jspence_sales.sale_total_amount) AS ttsa, 
 					CAST(jspence_sales.createdAt AS date) AS sd 
 				FROM `jspence_sales` 
-				WHERE CAST(jspence_sales.createdAt AS date) = ?
+				WHERE CAST(jspence_sales.createdAt AS date) = ? 
+				AND sale_type = " . (admin_has_permission('supervisor') ? 'out' : 'in') . "
 			";
 			$statement = $conn->prepare($q);
 			$statement->execute([$today]);
 			$r = $statement->fetchAll();
 
+			$trade_status = 'in-trade';
 			$today_total_balance = (_capital()['today_capital'] - $r[0]['ttsa']);
-			update_today_capital_given_balance('in-trade', $today_total_balance, $today, $log_admin);
+			if (admin_has_permission('supervisor')) {
+				$trade_status = 'out-trade';
+				$today_total_balance = $r[0]['ttsa'];
+			}
+
+			update_today_capital_given_balance($trade_status, $today_total_balance, $today, $log_admin);
 
 			$message = "added new sale with gram of " . $gram . " and volume of " . $volume . " and total amount of " . money($total_amount) ." and price of " . money($current_price) . " on id " . $sale_id . "";
 			add_to_log($message, $log_admin);

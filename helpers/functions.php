@@ -18,14 +18,17 @@ function company_data() {
 // check if capital is given today
 function is_capital_given() {
 	global $conn;
+	global $admin_data;
+
 	$today = date('Y-m-d');
 	$sql = "
 		SELECT *
 		FROM jspence_daily 
-		WHERE daily_date = ?
+		WHERE daily_date = ? 
+		AND daily_by = ?
 	";
 	$statement = $conn->prepare($sql);
-	$statement->execute([$today]);
+	$statement->execute([$today, $admin_data[0]['admin_id']]);
 	$count_row = $statement->rowCount();
 
 	if ($count_row > 0) {
@@ -37,20 +40,32 @@ function is_capital_given() {
 // Amount given to trade
 function _capital() {
 	global $conn;
+	global $admin_data;
+
 	$today = date('Y-m-d');
+
 	$sql = "
 		SELECT daily_capital, daily_balance
 		FROM jspence_daily 
-		WHERE daily_date = ?
+		WHERE daily_date = ? 
+		AND daily_by = ?
 	";
 	$statement = $conn->prepare($sql);
-	$statement->execute([$today]);
+	$statement->execute([$today, $admin_data[0]['admin_id']]);
 	$row = $statement->fetchAll();
-	
-	return [
-		'today_capital' => $row[0]['daily_capital'],
-		'today_balance' => $row[0]['daily_balance']
+
+	$output = [
+		'today_capital' => 0,
+		'today_balance' => 0
 	];
+
+	if ($statement->rowCount() > 0) {
+		$output = [
+			'today_capital' => $row[0]['daily_capital'],
+			'today_balance' => $row[0]['daily_balance']
+		];
+	}
+	return $output;
 }
 
 // get today capital given balance
