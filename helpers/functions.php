@@ -46,14 +46,10 @@ function _capital() {
 	$statement = $conn->prepare($sql);
 	$statement->execute([$today]);
 	$row = $statement->fetchAll();
-
-	$balance = $row[0]['daily_balance'];
-	if ($balance == '0.00') 
-		$balance = $row[0]['daily_capital'];
 	
 	return [
 		'today_capital' => $row[0]['daily_capital'],
-		'today_balance' => $balance
+		'today_balance' => $row[0]['daily_balance']
 	];
 }
 
