@@ -35,22 +35,23 @@ if (isset($_POST['gram-amount'])) {
 			// code...
 
 			$today = date("Y-m-d");
+			$t = (admin_has_permission('supervisor') ? 'in' : 'out');
 			$q = "
 				SELECT 
 					SUM(jspence_sales.sale_total_amount) AS ttsa, 
 					CAST(jspence_sales.createdAt AS date) AS sd 
 				FROM `jspence_sales` 
 				WHERE CAST(jspence_sales.createdAt AS date) = ? 
-				AND sale_type = " . (admin_has_permission('supervisor') ? 'out' : 'in') . "
+				AND jspence_sales.sale_type = ?
 			";
 			$statement = $conn->prepare($q);
-			$statement->execute([$today]);
+			$statement->execute([$today, $t]);
 			$r = $statement->fetchAll();
 
-			$trade_status = 'in-trade';
+			$trade_status = 'out-trade';
 			$today_total_balance = (_capital()['today_capital'] - $r[0]['ttsa']);
 			if (admin_has_permission('supervisor')) {
-				$trade_status = 'out-trade';
+				$trade_status = 'in-trade';
 				$today_total_balance = $r[0]['ttsa'];
 			}
 
