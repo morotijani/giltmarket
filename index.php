@@ -141,7 +141,7 @@
 						<div class="row g-3 align-items-center">
 							<div class="col">
 								<h1 class="ls-tight"><?= ((admin_has_permission('supervisor')) ? 'Gained' : 'Balance'); ?>: <span style="font-family: Roboto Mono, monospace;">
-									<?= money(((_capital()['today_balance'] == '0.00' && admin_has_permission('supervisor')) ? _capital()['today_balance']: _capital()['today_balance'])); ?>
+									<?= money(_capital()['today_balance']); ?>
 								</h1></span>
 								<p class="text-sm text-muted">
 									Amount given today to trade: <span style="font-family: Roboto Mono, monospace;"><?= money(_capital()['today_capital']); ?></span> 

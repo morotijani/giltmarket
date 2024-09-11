@@ -79,15 +79,26 @@ function _capital() {
 	$statement->execute([$today, $admin_data[0]['admin_id']]);
 	$row = $statement->fetchAll();
 
+	$balance = 0;
 	$output = [
 		'today_capital' => 0,
-		'today_balance' => 0
+		'today_balance' => $balance
 	];
 
 	if ($statement->rowCount() > 0) {
+		$balance = $row[0]['daily_balance'];
+
+		if (admin_has_permission('supervisor')) {
+			$balance = '0.00';
+		} else if (admin_has_permission('supervisor') && _capital()['today_balance'] == '0.00') {
+			$balance = _capital()['today_balance'];
+		} else {
+			$balance = _capital()['today_capital'];
+		}
+		
 		$output = [
 			'today_capital' => $row[0]['daily_capital'],
-			'today_balance' => $row[0]['daily_balance']
+			'today_balance' => $balance
 		];
 	}
 	return $output;
@@ -100,10 +111,11 @@ function update_today_capital_given_balance($type, $today_total_balance, $today,
 	$updateQ = "
 		UPDATE jspence_daily 
 		SET daily_balance = ? 
-		WHERE daily_date = ?
+		WHERE daily_date = ? 
+		AND daily_by = ?
 	";
 	$statement = $conn->prepare($updateQ);
-	$result = $statement->execute([$today_total_balance, $today]);
+	$result = $statement->execute([$today_total_balance, $today, $log_admin]);
 	
 	$message = $type . " made, balance remaining is: " . money($today_total_balance) . " and " . $today . " capital was:  " . money(_capital()['today_capital']);
 	add_to_log($message, $log_admin);
