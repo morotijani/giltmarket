@@ -15,8 +15,16 @@ if (isset($_POST['gram'])) {
 	$carat = calculateCarat($gram, $volume);
 	$total_amount = calculateTotalAmount($gram, $volume, $current_price);
 
+	$today_balance = _capital()['today_balance'];
+
 	if ($total_amount > 0): 
-		if ($total_amount <= _capital()['today_balance']) {
+		if (admin_has_permission('supervisor')) {
+			if (_capital()['today_balance'] == '0.00') {
+				$today_balance = _capital()['today_capital'];
+			}
+		}
+
+		if ($total_amount <= $today_balance) {
 			$message = 'Calculations made correctly.';
 			$continue = 'yes';
 		} else {

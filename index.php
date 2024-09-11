@@ -35,7 +35,7 @@
 							$b = _capital()['today_balance'];
 						}
 
-						dnd($b);
+						// dnd($b);
 
 						$sql = "
 							UPDATE jspence_daily 
