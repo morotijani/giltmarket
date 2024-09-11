@@ -4,6 +4,8 @@
     include ("includes/header.inc.php");
     include ("includes/nav.inc.php");
 
+	// echo is_capital_exhausted($conn, $admin_data[0]['admin_id']);die;
+
     if (admin_is_logged_in()) {
     	
 		// insert daily capital given
@@ -32,8 +34,6 @@
 						if (admin_has_permission('supervisor')) {
 							$b = _capital()['today_balance'];
 						}
-
-						// dnd($b);
 
 						$sql = "
 							UPDATE jspence_daily 
@@ -505,8 +505,4 @@
 	        }
 	    })
 	})()
-</script>
-<script>
-		$('#today_date').val(new Date().toDateInputValue());
-
 </script>

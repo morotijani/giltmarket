@@ -77,7 +77,8 @@ function _capital() {
 	";
 	$statement = $conn->prepare($sql);
 	$statement->execute([$today, $admin_data[0]['admin_id']]);
-	$row = $statement->fetchAll();
+	$rows = $statement->fetchAll();
+	$row = $rows[0];
 
 	$balance = 0;
 	$output = [
@@ -86,22 +87,47 @@ function _capital() {
 	];
 
 	if ($statement->rowCount() > 0) {
-		$balance = $row[0]['daily_balance'];
+		$balance = $row['daily_balance'];
 
 		if (admin_has_permission('supervisor')) {
 			$balance = '0.00';
-		} else if (admin_has_permission('supervisor') && _capital()['today_balance'] == '0.00') {
-			$balance = _capital()['today_balance'];
-		} else {
-			$balance = _capital()['today_capital'];
+		} else if (admin_has_permission('supervisor') && $row['daily_balance'] == '0.00') {
+			$balance = $row['daily_balance'];
+		} else if (admin_has_permission('salesperson')) {
+			$balance = (($row['daily_capital'] == '0.00') ? $row['daily_capital'] : $row['daily_balance']);
 		}
 		
 		$output = [
-			'today_capital' => $row[0]['daily_capital'],
+			'today_capital' => $row['daily_capital'],
 			'today_balance' => $balance
 		];
 	}
 	return $output;
+}
+
+function is_capital_exhausted($conn, $admin) {
+	$today = date("Y-m-d");
+	$t = (admin_has_permission('supervisor') ? 'in' : 'out');
+	$q = "
+		SELECT 
+			SUM(jspence_sales.sale_total_amount) AS ttsa, 
+			CAST(jspence_sales.createdAt AS date) AS sd 
+		FROM `jspence_sales` 
+		WHERE CAST(jspence_sales.createdAt AS date) = ? 
+		AND jspence_sales.sale_type = ? 
+		AND jspence_sales.sale_by = ?
+	";
+	$statement = $conn->prepare($q);
+	$statement->execute([$today, $t, $admin]);
+	$r = $statement->fetchAll();
+	
+	$today_total_balance = (float)(_capital()['today_capital'] - $r[0]['ttsa']);
+	if (admin_has_permission('supervisor')) {
+		$today_total_balance = $r[0]['ttsa'];
+		// return ($today_total_balance >= _capital()['today_capital']) ? true : false;
+		return true;
+	}
+	return (($today_total_balance < _capital()['today_capital']) ? true : false);
 }
 
 // get today capital given balance
@@ -115,7 +141,7 @@ function update_today_capital_given_balance($type, $today_total_balance, $today,
 		AND daily_by = ?
 	";
 	$statement = $conn->prepare($updateQ);
-	$result = $statement->execute([$today_total_balance, $today, $log_admin]);
+	$statement->execute([$today_total_balance, $today, $log_admin]);
 	
 	$message = $type . " made, balance remaining is: " . money($today_total_balance) . " and " . $today . " capital was:  " . money(_capital()['today_capital']);
 	add_to_log($message, $log_admin);

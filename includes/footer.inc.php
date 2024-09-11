@@ -82,18 +82,24 @@
                             <div class="inputpin mb-3">
                                 <div>
                                     <?php if (is_capital_given()): ?>
-                                    <label class="form-label">Enter pin</label>
-                                    <div class="d-flex justify-content-between p-4 bg-body-tertiary rounded">
-                                        <input type="tel" class="form-control form-control-flush text-xl fw-bold w-rem-40" placeholder="0000" name="pin" id="pin" autocomplete="off" inputmode="numeric" data-maxlength="4" oninput="this.value=this.value.slice(0,this.dataset.maxlength)">
-                                        <div class="dropdown">
-                                            <button type="button" class="btn btn-sm btn-neutral rounded-pill shadow-none flex-none d-flex align-items-center gap-2 p-2">
-                                                <img src="<?= PROOT; ?>dist/media/pin.jpg" class="w-rem-6 h-rem-6 rounded-circle" alt="..."> <span>PIN</span>
-                                            </button>
+                                        <?php if (is_capital_exhausted($conn, $admin_data[0]['admin_id'])): ?>
+                                        <label class="form-label">Enter pin</label>
+                                        <div class="d-flex justify-content-between p-4 bg-body-tertiary rounded">
+                                            <input type="tel" class="form-control form-control-flush text-xl fw-bold w-rem-40" placeholder="0000" name="pin" id="pin" autocomplete="off" inputmode="numeric" data-maxlength="4" oninput="this.value=this.value.slice(0,this.dataset.maxlength)">
+                                            <div class="dropdown">
+                                                <button type="button" class="btn btn-sm btn-neutral rounded-pill shadow-none flex-none d-flex align-items-center gap-2 p-2">
+                                                    <img src="<?= PROOT; ?>dist/media/pin.jpg" class="w-rem-6 h-rem-6 rounded-circle" alt="..."> <span>PIN</span>
+                                                </button>
+                                            </div>
                                         </div>
-                                    </div>
+                                        <?php else: ?>
+                                            <p class="h4">
+                                                Trade ended: the capital given for today's trade has been exhausted!
+                                            </p>
+                                        <?php endif; ?>
                                     <?php else: ?>
                                         <p class="h4">
-                                            Please you are to provide today's capital given before you can complete a trade.
+                                            Please you are to provide today's capital given before you can complete a trade!
                                         </p>
                                     <?php endif; ?>
                                 </div>
@@ -141,16 +147,10 @@
             // Calculation made with current price input
             $('#current_price').on('keyup', function(e) {
                 e.preventDefault();
-
-                // var step = this.getAttribute('data-step');
                 
                 var current_price = $('#current_price').val();
                 var gram = $('#gram-amount').val();
                 var volume = $('#volume-amount').val();
-
-                // if (gram < step) {
-                //  console.log('not accept');
-                // }
 
                 if (current_price != '' && current_price > 0) {
                     if (gram != '' && gram > 0) {
@@ -180,6 +180,13 @@
                                     $('#pounds').text(response["pounds"] + ' Pounds');
                                     $('#carat').text(response["carat"] + ' Karat');
                                     $('#total-amount').val(response["total_amount"]);
+
+                                    if (response['continue'] == 'no') {
+                                        $('#next-1').attr('disabled', true);
+                                    } else if (response['continue'] == 'yes') {
+                                        $('#next-1').attr('disabled', false);
+                                    }
+
                                     $('#calculation-result').html('')
                                     $('#calculation-result').addClass('d-none');
                                     $('#result-view').removeClass('d-none');
@@ -242,6 +249,13 @@
                                     $('#pounds').text(response["pounds"] + ' Pounds');
                                     $('#carat').text(response["carat"] + ' Karat');
                                     $('#total-amount').val(response["total_amount"]);
+
+                                    if (response['continue'] == 'no') {
+                                        $('#next-1').attr('disabled', true);
+                                    } else if (response['continue'] == 'yes') {
+                                        $('#next-1').attr('disabled', false);
+                                    }
+
                                     $('#calculation-result').html('')
                                     $('#calculation-result').addClass('d-none');
                                     $('#result-view').removeClass('d-none');
@@ -299,6 +313,13 @@
                                     $('#pounds').text(response["pounds"] + ' Pounds');
                                     $('#carat').text(response["carat"] + ' Karat');
                                     $('#total-amount').val(response["total_amount"]);
+
+                                    if (response['continue'] == 'no') {
+                                        $('#next-1').attr('disabled', true);
+                                    } else if (response['continue'] == 'yes') {
+                                        $('#next-1').attr('disabled', false);
+                                    }
+
                                     $('#calculation-result').html('')
                                     $('#calculation-result').addClass('d-none');
                                     $('#result-view').removeClass('d-none');
@@ -443,7 +464,7 @@
             });
 
             // when buy modal is to be closed
-             $('.btn-close-buyform').click(function(e) {
+            $('.btn-close-buyform').click(function(e) {
                 e.preventDefault()
 
                 $('#density').text('0.00 Density');
@@ -517,7 +538,6 @@
                     $('.toast').toast('show');
                     return false;
                 }
-
 
                 if (pin != '') {
                     $.ajax({

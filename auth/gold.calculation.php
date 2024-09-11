@@ -3,26 +3,38 @@
 require_once ("../db_connection/conn.php");
 
 $message = '';
+$continue = 'no';
 
 if (isset($_POST['gram'])) {
 	$gram = (isset($_POST['gram']) ? $_POST['gram'] : '');
 	$volume = (isset($_POST['volume']) ? $_POST['volume'] : '');
 	$current_price = (isset($_POST['current_price']) ? $_POST['current_price'] : '');
 
-	// 
+	$density = calculateDensity($gram, $volume);
+	$pounds = calculatePounds($gram);
+	$carat = calculateCarat($gram, $volume);
+	$total_amount = calculateTotalAmount($gram, $volume, $current_price);
 
-	if (empty($message)) {
-
-		$density = calculateDensity($gram, $volume);
-		$pounds = calculatePounds($gram);
-		$carat = calculateCarat($gram, $volume);
-		$total_amount = calculateTotalAmount($gram, $volume, $current_price);
-
-		$message = 'Calculations made correctly.';
-	}
-
+	if ($total_amount > 0): 
+		if ($total_amount <= _capital()['today_balance']) {
+			$message = 'Calculations made correctly.';
+			$continue = 'yes';
+		} else {
+			$message = "Today's remaining balance cannot complete this trade!";
+		}
+	else: 
+		$message = "There was a problem with the calculations";
+	endif;
 }
 
-$arrayOutput = array('density' => $density, 'message' => $message, 'pounds' => $pounds, 'carat' => $carat, 'current_price' => $current_price, 'total_amount' => $total_amount);
+$arrayOutput = array(
+	'density' => $density, 
+	'message' => $message, 
+	'pounds' => $pounds, 
+	'carat' => $carat, 
+	'current_price' => $current_price, 
+	'total_amount' => $total_amount,
+	'continue' => $continue
+);
 $ouput = json_encode($arrayOutput);
 echo $ouput;

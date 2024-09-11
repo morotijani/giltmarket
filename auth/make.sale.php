@@ -23,56 +23,61 @@ if (isset($_POST['gram-amount'])) {
 		$carat = calculateCarat($gram, $volume);
 		$total_amount = calculateTotalAmount($gram, $volume, $current_price);
 
-		$sale_id = guidv4();
-		$createdAt = date("Y-m-d H:i:s");;
-		$sql = "
-			INSERT INTO `jspence_sales`(`sale_id`, `sale_gram`, `sale_volume`, `sale_density`, `sale_pounds`, `sale_carat`, `sale_price`, `sale_total_amount`, `sale_customer_name`, `sale_customer_contact`, `sale_comment`, `sale_type`, `sale_by`, `createdAt`) 
-			VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
-		";
-		$statement = $conn->prepare($sql);
-		$result = $statement->execute([$sale_id, $gram, $volume, $density, $pounds, $carat, $current_price, $total_amount, $customer_name, $customer_contact, $note, $sale_type, $log_admin, $createdAt]);
-		if (isset($result)) {
-			// code...
+		if ($total_amount > 0) {
+			if ($total_amount <= _capital()['today_balance']) {
 
-			$today = date("Y-m-d");
-			$t = (admin_has_permission('supervisor') ? 'in' : 'out');
-			$q = "
-				SELECT 
-					SUM(jspence_sales.sale_total_amount) AS ttsa, 
-					CAST(jspence_sales.createdAt AS date) AS sd 
-				FROM `jspence_sales` 
-				WHERE CAST(jspence_sales.createdAt AS date) = ? 
-				AND jspence_sales.sale_type = ? 
-				AND jspence_sales.sale_by = ?
-			";
-			$statement = $conn->prepare($q);
-			$statement->execute([$today, $t, $admin_data[0]['admin_id']]);
-			$r = $statement->fetchAll();
-			
-			$trade_status = 'out-trade';
-			$today_total_balance = (float)(_capital()['today_capital'] - $r[0]['ttsa']);
-			if (admin_has_permission('supervisor')) {
-				$trade_status = 'in-trade';
-				$today_total_balance = $r[0]['ttsa'];
+				$sale_id = guidv4();
+				$createdAt = date("Y-m-d H:i:s");;
+				$sql = "
+					INSERT INTO `jspence_sales`(`sale_id`, `sale_gram`, `sale_volume`, `sale_density`, `sale_pounds`, `sale_carat`, `sale_price`, `sale_total_amount`, `sale_customer_name`, `sale_customer_contact`, `sale_comment`, `sale_type`, `sale_by`, `createdAt`) 
+					VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+				";
+				$statement = $conn->prepare($sql);
+				$result = $statement->execute([$sale_id, $gram, $volume, $density, $pounds, $carat, $current_price, $total_amount, $customer_name, $customer_contact, $note, $sale_type, $log_admin, $createdAt]);
+				if (isset($result)) {
+					// code...
+
+					$today = date("Y-m-d");
+					$t = (admin_has_permission('supervisor') ? 'in' : 'out');
+					$q = "
+						SELECT 
+							SUM(jspence_sales.sale_total_amount) AS ttsa, 
+							CAST(jspence_sales.createdAt AS date) AS sd 
+						FROM `jspence_sales` 
+						WHERE CAST(jspence_sales.createdAt AS date) = ? 
+						AND jspence_sales.sale_type = ? 
+						AND jspence_sales.sale_by = ?
+					";
+					$statement = $conn->prepare($q);
+					$statement->execute([$today, $t, $admin_data[0]['admin_id']]);
+					$r = $statement->fetchAll();
+					
+					$trade_status = 'out-trade';
+					$today_total_balance = (float)(_capital()['today_capital'] - $r[0]['ttsa']);
+					if (admin_has_permission('supervisor')) {
+						$trade_status = 'in-trade';
+						$today_total_balance = $r[0]['ttsa'];
+					}
+
+					update_today_capital_given_balance($trade_status, $today_total_balance, $today, $log_admin);
+
+					$message = "added new sale with gram of " . $gram . " and volume of " . $volume . " and total amount of " . money($total_amount) ." and price of " . money($current_price) . " on id " . $sale_id . "";
+					add_to_log($message, $log_admin);
+
+					$arrayOutput = array('reference' => $sale_id, 'customername' => $customer_name, 'date' => $createdAt, 'gram' => $gram, 'volume' => $volume, 'density' => $density, 'pounds' => $pounds, 'carat' => $carat, 'total_amount' => $total_amount, 'current_price' => $current_price, 'by' => $log_admin, 'message' => '',);
+					$ouput = json_encode($arrayOutput);
+					
+					echo $ouput;
+				} else {
+					echo 'Something went wrong.';
+				}
+			} else {
+				echo "Today's remaining balance cannot complete this trade!";
 			}
-
-			update_today_capital_given_balance($trade_status, $today_total_balance, $today, $log_admin);
-
-			$message = "added new sale with gram of " . $gram . " and volume of " . $volume . " and total amount of " . money($total_amount) ." and price of " . money($current_price) . " on id " . $sale_id . "";
-			add_to_log($message, $log_admin);
-
-			$arrayOutput = array('reference' => $sale_id, 'customername' => $customer_name, 'date' => $createdAt, 'gram' => $gram, 'volume' => $volume, 'density' => $density, 'pounds' => $pounds, 'carat' => $carat, 'total_amount' => $total_amount, 'current_price' => $current_price, 'by' => $log_admin, 'message' => '',);
-			$ouput = json_encode($arrayOutput);
-			
-			echo $ouput;
 		} else {
-			echo 'Something went wrong.';
+			echo "There was a problem with the calculations";
 		}
-
 	} else {
 		echo "Your PIN is invalid!";
 	}
-
 }
-
-
