@@ -105,7 +105,9 @@
                                 </div>
                             </div>
                             <?php if (is_capital_given()): ?>
-                            <button type="submit" class="btn btn-warning mt-4" id="submitSend" name="submitSend">Complete Sale</button>
+                                <?php if (is_capital_exhausted($conn, $admin_data[0]['admin_id'])): ?>
+                                    <button type="submit" class="btn btn-warning mt-4" id="submitSend" name="submitSend">Complete Sale</button>
+                                <?php endif; ?>
                             <?php endif; ?>
                             <br><a href="javascript:;" class="" id="prev-2"><< Go Back</a>
                         </div>

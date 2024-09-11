@@ -35,6 +35,8 @@
 							$b = _capital()['today_balance'];
 						}
 
+						dnd($b);
+
 						$sql = "
 							UPDATE jspence_daily 
 							SET daily_capital = ?, 
@@ -140,7 +142,8 @@
 					<div class="mb-6 mb-xl-10">
 						<div class="row g-3 align-items-center">
 							<div class="col">
-								<h1 class="ls-tight"><?= ((admin_has_permission('supervisor')) ? 'Gained' : 'Balance'); ?>: <span style="font-family: Roboto Mono, monospace;">
+								<h1 class="ls-tight">
+									<?= ((admin_has_permission('supervisor')) ? 'Gained' : 'Balance'); ?>: <span style="font-family: Roboto Mono, monospace;">
 									<?= money(_capital()['today_balance']); ?>
 								</h1></span>
 								<p class="text-sm text-muted">

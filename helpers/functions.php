@@ -78,7 +78,6 @@ function _capital() {
 	$statement = $conn->prepare($sql);
 	$statement->execute([$today, $admin_data[0]['admin_id']]);
 	$rows = $statement->fetchAll();
-	$row = $rows[0];
 
 	$balance = 0;
 	$output = [
@@ -86,7 +85,8 @@ function _capital() {
 		'today_balance' => $balance
 	];
 
-	if ($statement->rowCount() > 0) {
+	if ($statement->rowCount() > 0): 
+		$row = $rows[0];
 		$balance = $row['daily_balance'];
 
 		if (admin_has_permission('supervisor')) {
@@ -94,17 +94,19 @@ function _capital() {
 		} else if (admin_has_permission('supervisor') && $row['daily_balance'] == '0.00') {
 			$balance = $row['daily_balance'];
 		} else if (admin_has_permission('salesperson')) {
-			$balance = (($row['daily_capital'] == '0.00') ? $row['daily_capital'] : $row['daily_balance']);
+			$balance = (($row['daily_balance'] == '0.00') ? $row['daily_capital'] : $row['daily_balance']);
 		}
 		
 		$output = [
 			'today_capital' => $row['daily_capital'],
 			'today_balance' => $balance
 		];
-	}
+	endif;
+
 	return $output;
 }
 
+// check if balance is exhausted or not
 function is_capital_exhausted($conn, $admin) {
 	$today = date("Y-m-d");
 	$t = (admin_has_permission('supervisor') ? 'in' : 'out');
@@ -121,15 +123,23 @@ function is_capital_exhausted($conn, $admin) {
 	$statement->execute([$today, $t, $admin]);
 	$r = $statement->fetchAll();
 	
+	$return = false;
 	$today_total_balance = (float)(_capital()['today_capital'] - $r[0]['ttsa']);
 	if (admin_has_permission('supervisor')) {
 		$today_total_balance = $r[0]['ttsa'];
 		// return ($today_total_balance >= _capital()['today_capital']) ? true : false;
-		return true;
+		$return = true;
 	}
-	return (($today_total_balance < _capital()['today_capital']) ? true : false);
+	
+	if ($today_total_balance == 0) {
+		$return = false;
+	} else if (($today_total_balance > 0) && $today_total_balance < _capital()['today_capital']) {
+		$return = true;
+	} 
+	
+	return $return;
 }
-
+ 
 // get today capital given balance
 function update_today_capital_given_balance($type, $today_total_balance, $today, $log_admin) {
 	global $conn;
