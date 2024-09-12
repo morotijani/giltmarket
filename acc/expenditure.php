@@ -37,7 +37,6 @@
             <div class="col">
                 <div class="hstack gap-2 justify-content-end">
                     <a href="<?= goBack(); ?>" class="btn btn-sm btn-neutral d-sm-inline-flex"><span class="pe-2"><i class="bi bi-arrow-90deg-left"></i> </span><span>Go back</span></a>
-                    <button class="btn btn-sm btn-neutral d-sm-inline-flex" data-bs-toggle="offcanvas" data-bs-target="#offcanvasCreate"><span class="pe-2"><i class="bi bi-plus"></i> </span><span>Add</span></button>
                 </div>
             </div>
         </div>
@@ -71,10 +70,10 @@
                             </div>
                         </div>
                     </div>
-                    <hr class="my-4">
+                    <div class="my-4"></div>
                     <div class="d-flex flex-wrap gap-2 align-items-center justify-content-between">
-                        <a href="#" class="text-muted text-danger-hover text-sm fw-semibold">Cancel plan</a> 
-                        <a href="#" class="btn btn-sm btn-neutral">Change plan</a>
+                        <a href="<?= PROOT; ?>" class="text-muted text-danger-hover text-sm fw-semibold">Go dashboard</a> 
+                        <a href="#" class="btn btn-sm btn-neutral">Add expenditure</a>
                     </div>
                 </div>
             </div>
@@ -84,7 +83,7 @@
 
     <div class="d-flex align-items-end justify-content-between mt-10 mb-4">
         <div>
-            <h4 class="fw-semibold mb-1">Invoices</h4>
+            <h4 class="fw-semibold mb-1">List (<?= $count_row; ?>)</h4>
             <p class="text-sm text-muted">By filling your data you get a much better experience using our website.</p>
         </div>
         <div class="d-none d-md-flex gap-2">
@@ -95,36 +94,35 @@
         <table class="table table-nowrap table-flush">
             <thead>
                 <tr>
-                    <th scope="col">
-                        <div class="d-flex align-items-center gap-2 ps-1">
-                            <div class="text-base"><div class="form-check">
-                                <input class="form-check-input" type="checkbox"></div>
-                            </div>
-                            <span>Invoice</span>
-                        </div>
-                    </th>
-                    <th scope="col">Client</th>
-                    <th scope="col">Value</th>
-                    <th scope="col">Taxes</th>
-                    <th scope="col">Status</th>
+                    <th scope="col">Invoice</span></th>
+                    <th scope="col">What for</th>
+                    <th scope="col">Date</th>
+                    <th scope="col">Time</th>
                     <th></th>
                 </tr>
             </thead>
             <tbody>
                 <tr>
-                    <td>
+                    <td class="p-1">
                         <div class="d-flex align-items-center gap-3 ps-1">
-                            <div class="text-base">
-                                <div class="form-check">
-                                    <input class="form-check-input" type="checkbox">
-                                </div>
-                            </div>
                             <div class="icon icon-shape w-rem-10 h-rem-10 rounded-circle text-sm bg-primary bg-opacity-25 text-tertiary">
                                 <i class="bi bi-file-fill"></i>
                             </div>
                             <div>
                                 <span class="d-block text-heading fw-bold">Invoice ABC 00021</span> 
-                                <span class="text-xs text-muted">10/01/2021</span></div></div></td><td><a class="text-current" href="#">Dribbble</a></td><td>$1.274,89</td><td>$323,00</td><td><span class="badge bg-body-secondary text-xs text-success">Success</span></td><td class="text-end"><div class="dropdown"><a class="text-muted" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="bi bi-three-dots-vertical"></i></a><div class="dropdown-menu dropdown-menu-end"><a href="#!" class="dropdown-item">Action </a><a href="#!" class="dropdown-item">Another action </a><a href="#!" class="dropdown-item">Something else here</a></div></div></td>
+                                <span class="text-xs text-muted">by 10/01/2021</span>
+                            </div>
+                        </div>
+                    </td>
+                    <td>
+                        <a class="text-current" href="#">Dribbble</a>
+                    </td>
+                    <td>$1.274,89</td>
+                    <td>$323,00</td>
+                    <td class="text-end">
+                        <a href="<?= PROOT; ?>acc/expenditure?edit=<?= '1'; ?>" class="badge bg-body-secondary text-xs text-success">Edit </a>
+                        <a href="<?= PROOT; ?>acc/expenditure?delete=<?= '1'; ?>" class="badge bg-body-secondary text-xs text-danger">Delete </a>
+                    </td>
                 </tr>
             </tbody>
         </table>
