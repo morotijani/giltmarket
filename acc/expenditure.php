@@ -11,17 +11,16 @@
     include ("../includes/nav.inc.php");
 
     $where = '';
-    if ($admin_data[0]['admin_permissions'] != 'admin,salesperson') {
+    if ($admin_data[0]['admin_permissions'] != 'admin,salesperson,supervisor') {
         $where = ' WHERE jspence_admin.admin_id = "'.$admin_data[0]['admin_id'].'" ';
-        // code...
     }
 
     $sql = "
-        SELECT * FROM jspence_logs 
+        SELECT * FROM jspence_expenditures 
         INNER JOIN jspence_admin 
-        ON jspence_admin.admin_id = jspence_logs.log_admin
+        ON jspence_admin.admin_id = jspence_expenditures.expenditure_by
         $where 
-        ORDER BY jspence_logs.createdAt DESC
+        ORDER BY jspence_expenditures.createdAt DESC
     ";
     $statement = $conn->prepare($sql);
     $statement->execute();
@@ -37,47 +36,98 @@
             </div>
             <div class="col">
                 <div class="hstack gap-2 justify-content-end">
+                    <a href="<?= goBack(); ?>" class="btn btn-sm btn-neutral d-sm-inline-flex"><span class="pe-2"><i class="bi bi-arrow-90deg-left"></i> </span><span>Go back</span></a>
                     <button class="btn btn-sm btn-neutral d-sm-inline-flex" data-bs-toggle="offcanvas" data-bs-target="#offcanvasCreate"><span class="pe-2"><i class="bi bi-plus"></i> </span><span>Add</span></button>
                 </div>
             </div>
         </div>
     </div>
 
-    <div class="row justify-content-center">
-        <div class="col-12">
+    <div class="row row-cols-md-1 g-6">
+        <div class="col">
             <div class="card">
-                <div class="card-body pb-0">
-                    <div class="d-flex justify-content-between align-items-center">
-                        <div>
-                            <h5>Logs (<?= $count_row; ?>)</h5>
+                <div class="card-body py-4">
+                    <div class="d-flex flex-wrap align-items-center justify-content-between mb-5">
+                        <div class="flex-1">
+                            <h6 class="h5 text-limit fw-semibold mb-1">Creat an Expenditure</h6>
+                            <p class="text-sm text-muted d-none d-sm-block">Fill in the below fields to make an expenditure</p>
                         </div>
-                        <div class="hstack align-items-center">
-                            <a href="<?= PROOT; ?>acc/logs" class="text-muted">
-                                <i class="bi bi-arrow-repeat"></i>
-                            </a>
+                        <div class="ms-sm-auto">
+                            <div class="d-flex align-items-center mt-5 mb-3 lh-none text-heading d-block display-5 ls-tight mb-0">
+                                <span class="fw-semibold text-2xl align-self-start mt-1 me-1"></span> <span><?= (is_capital_given() ? money(_capital()['today_capital']) : '' ); ?></span> <span class="d-inline-block fw-normal text-muted text-lg mt-sm-3 ms-1">/ <?= date('Y-m-d'); ?></span>
+                            </div>
                         </div>
                     </div>
-                    <div class="list-group list-group-flush">
-                        <?php foreach ($rows as $row): ?>
-                            
-                        <div class="list-group-item d-flex align-items-center justify-content-between gap-6">
-                            <div class="d-flex align-items-center gap-3">
-                                <div class="">
-                                    <span class="text-heading text-xs fw-semibold"><em><?= ucwords($row['admin_fullname']); ?> </em></span>
-                                    <span class="text-muted text-xs"><em><?= $row['log_message']; ?></em></span>
+
+                    <div class="border rounded">
+                        <div>
+                            <div class="textarea-autosize">
+                                <textarea class="form-control border-0 shadow-none p-4" rows="3" placeholder="Enter description" oninput="this.parentNode.dataset.replicatedValue = this.value"></textarea>
+                            </div>
+                            <div class="d-flex align-items-center px-6 py-3 border-top">
+                                <div class="flex-fill align-items-center">
+                                    <input class="form-control form-control-flush text-lg fw-bold" name="today_given" id="today_given" type="number" min="0.00" step="0.01" value="" placeholder="0.00">
                                 </div>
                             </div>
-                            <div class="text-xs"><em><?= pretty_date($row['createdAt']); ?></em></div>
                         </div>
-                        <?php endforeach; ?>
+                    </div>
+                    <hr class="my-4">
+                    <div class="d-flex flex-wrap gap-2 align-items-center justify-content-between">
+                        <a href="#" class="text-muted text-danger-hover text-sm fw-semibold">Cancel plan</a> 
+                        <a href="#" class="btn btn-sm btn-neutral">Change plan</a>
                     </div>
                 </div>
             </div>
         </div>
     </div>
 
-<?php 
 
-    include ("../includes/footer.inc.php");
+    <div class="d-flex align-items-end justify-content-between mt-10 mb-4">
+        <div>
+            <h4 class="fw-semibold mb-1">Invoices</h4>
+            <p class="text-sm text-muted">By filling your data you get a much better experience using our website.</p>
+        </div>
+        <div class="d-none d-md-flex gap-2">
+            <button type="button" class="btn btn-sm btn-dark"><i class="bi bi-download me-2"></i>Export all</button>
+        </div>
+    </div>
+    <div class="table-responsive">
+        <table class="table table-nowrap table-flush">
+            <thead>
+                <tr>
+                    <th scope="col">
+                        <div class="d-flex align-items-center gap-2 ps-1">
+                            <div class="text-base"><div class="form-check">
+                                <input class="form-check-input" type="checkbox"></div>
+                            </div>
+                            <span>Invoice</span>
+                        </div>
+                    </th>
+                    <th scope="col">Client</th>
+                    <th scope="col">Value</th>
+                    <th scope="col">Taxes</th>
+                    <th scope="col">Status</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>
+                        <div class="d-flex align-items-center gap-3 ps-1">
+                            <div class="text-base">
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox">
+                                </div>
+                            </div>
+                            <div class="icon icon-shape w-rem-10 h-rem-10 rounded-circle text-sm bg-primary bg-opacity-25 text-tertiary">
+                                <i class="bi bi-file-fill"></i>
+                            </div>
+                            <div>
+                                <span class="d-block text-heading fw-bold">Invoice ABC 00021</span> 
+                                <span class="text-xs text-muted">10/01/2021</span></div></div></td><td><a class="text-current" href="#">Dribbble</a></td><td>$1.274,89</td><td>$323,00</td><td><span class="badge bg-body-secondary text-xs text-success">Success</span></td><td class="text-end"><div class="dropdown"><a class="text-muted" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="bi bi-three-dots-vertical"></i></a><div class="dropdown-menu dropdown-menu-end"><a href="#!" class="dropdown-item">Action </a><a href="#!" class="dropdown-item">Another action </a><a href="#!" class="dropdown-item">Something else here</a></div></div></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
 
-?>
+<?php include ("../includes/footer.inc.php"); ?>

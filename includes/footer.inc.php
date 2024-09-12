@@ -119,7 +119,7 @@
 
 
 
-    <div class="offcanvas offcanvas-end w-100 w-lg-50 rounded-start-3" data-bs-scroll="true" data-bs-backdrop="true" tabindex="-1" id="offcanvasCreate" aria-labelledby="offcanvasCreateLabel" style="height: fit-content;">
+    <div class="offcanvas offcanvas-end w-100 w-lg-50 rounded-start-3" data-bs-scroll="true" data-bs-backdrop="true" tabindex="-1" id="offcanvasCreate" aria-labelledby="offcanvasCreateLabel">
         <div class="offcanvas-header border-bottom py-5 bg-surface-secondary">
             <h5 class="offcanvas-title" id="offcanvasCreateLabel">Create an expenditure</h5>
             <button type="button" class="btn-close text-reset text-xs" data-bs-dismiss="offcanvas" aria-label="Close"></button>
