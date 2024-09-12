@@ -35,57 +35,54 @@
         $by = $admin_data[0]['admin_id'];
         $createdAt = date("Y-m-d H:i:s");
 
-        if ($for_amount > 0) {
+        if (is_capital_given()) {
+            if ($for_amount > 0) {
 
-			$today_balance = _capital()['today_balance'];
-			if (admin_has_permission('supervisor')) {
-				if (_capital()['today_balance'] == 0) {
-					$today_balance = _capital()['today_capital'];
-				}
-			}
+                $today_balance = _capital()['today_balance'];
+                if (admin_has_permission('supervisor')) {
+                    if (_capital()['today_balance'] == 0) {
+                        $today_balance = _capital()['today_capital'];
+                    }
+                }
 
-			if ($for_amount <= $today_balance) {
-                $data = [$e_id, _capital()['today_capital_id'], $what_for, $for_amount, $by, $createdAt];
-                $sql = "
-                    INSERT INTO jspence_expenditures (expenditure_id, expenditure_capital_id, expenditure_what_for, expenditure_amount, expenditure_by, createdAt) 
-                    VALUES (?, ?, ?, ?, ?, ?)
-                ";
-                $statement = $conn->prepare($sql);
-                $result = $statement->execute($data);
-                if (isset($result)) {
-
-                    if (is_capital_given()) {
+                if ($for_amount <= $today_balance) {
+                    $data = [$e_id, _capital()['today_capital_id'], $what_for, $for_amount, $by, $createdAt];
+                    $sql = "
+                        INSERT INTO jspence_expenditures (expenditure_id, expenditure_capital_id, expenditure_what_for, expenditure_amount, expenditure_by, createdAt) 
+                        VALUES (?, ?, ?, ?, ?, ?)
+                    ";
+                    $statement = $conn->prepare($sql);
+                    $result = $statement->execute($data);
+                    if (isset($result)) {
+                        
                         $today = date("Y-m-d");
-						$g = (float)($given - _capital()['today_capital']);
-						$b = ((admin_has_permission('salesperson') && _capital()['today_balance'] == '0.00') ? '0.00' : (float)($g + _capital()['today_balance']));
+                        $balance = (float)($for_amount + _capital()['today_balance']);
 
-						if (admin_has_permission('supervisor')) {
-							$b = _capital()['today_balance'];
-						}
-
-						$sql = "
-							UPDATE jspence_daily 
-							SET daily_balance = ?
-							WHERE daily_date = ? 
-							AND daily_by = ?
-						";
+                        $sql = "
+                            UPDATE jspence_daily 
+                            SET daily_balance = ?
+                            WHERE daily_date = ? 
+                            AND daily_by = ?
+                        ";
                         $data = [$balance, $today, $by];
-					}
-					$statement = $conn->prepare($sql);
-					$statement->execute($data);
+                        $statement = $conn->prepare($sql);
+                        $statement->execute($data);
 
-
-                    $message = "added new expenditure: " . $what_for . " and amount of: " . money($for_amount) . "";
-                    add_to_log($message, $by);
-    
-                    $_SESSION['flash_success'] = 'Expenditure has been added!';
-                    redirect(PROOT . "acc/expenditure");
-                } else {
-                    echo js_alert("Something went wrong!");
-                    redirect(PROOT . "acc/expenditure");
+                        $message = "added new expenditure: " . $what_for . " and amount of: " . money($for_amount);
+                        add_to_log($message, $by);
+        
+                        $_SESSION['flash_success'] = 'Expenditure has been added!';
+                        redirect(PROOT . "acc/expenditure");
+                    } else {
+                        echo js_alert("Something went wrong!");
+                        redirect(PROOT . "acc/expenditure");
+                    }
                 }
             }
         }
+    } else {
+        $_SESSION['flash_success'] = 'Today\'s capital has not been given so, you can not create an expenditure!';
+        redirect(PROOT . "acc/expenditure");
     }
 
 ?>
