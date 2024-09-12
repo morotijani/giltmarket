@@ -116,6 +116,54 @@
             </div>
         </div>
     </div>
+
+
+
+    <div class="offcanvas offcanvas-end w-100 w-lg-50 rounded-start-3" data-bs-scroll="true" data-bs-backdrop="true" tabindex="-1" id="offcanvasCreate" aria-labelledby="offcanvasCreateLabel" style="height: fit-content;">
+        <div class="offcanvas-header border-bottom py-5 bg-surface-secondary">
+            <h5 class="offcanvas-title" id="offcanvasCreateLabel">Create an expenditure</h5>
+            <button type="button" class="btn-close text-reset text-xs" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+        </div>
+        <div class="offcanvas-body">
+            <div class="vstack gap-8">
+                <div class="d-flex flex-wrap align-items-center justify-content-between mb-5">
+                    <div class="flex-1">
+                        <h6 class="h5 text-limit fw-semibold mb-1">Fill the below form</h6>
+                        <p class="text-sm text-muted d-none d-sm-block">Complete the fields by providing expenditure amount and what for</p>
+                    </div>
+                    <div class="ms-sm-auto">
+                        <div class="d-flex align-items-center mt-5 mb-3 lh-none text-heading d-block display-5 ls-tight mb-0">
+                            <span class="fw-semibold text-2xl align-self-start mt-1 me-1"></span> <span><?= (is_capital_given() ? money(_capital()['today_capital']) : '' ); ?></span> <span class="d-inline-block fw-normal text-muted text-lg mt-sm-3 ms-1">/ <?= date('Y-m-d'); ?></span>
+                        </div>
+                    </div>
+                </div>
+                <form action="" method="POST" id="expenditureForm">
+                    <div class="border rounded">
+                        <div>
+                            <div class="textarea-autosize">
+                                <textarea class="form-control border-0 shadow-none p-4" rows="3" name="what_for placeholder="Enter what for" oninput="this.parentNode.dataset.replicatedValue = this.value"></textarea>
+                            </div>
+                            <div class="d-flex align-items-center px-6 py-3 border-top">
+                                <div class="flex-fill align-items-center">
+                                    <input class="form-control form-control-flush text-lg fw-bold" name="amount" id="amount" type="number" min="0.00" step="0.01" value="" placeholder="0.00">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="offcanvas-footer d-flex gap-2 justify-content-end py-4 px-6">
+                            <button type="button" class="btn btn-sm btn-neutral" data-bs-dismiss="offcanvas">Close</button> 
+                            <button type="button" id="submitExpenditure" class="btn btn-sm btn-primary">Save</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+
+
+
     <?php endif; ?>
 
 
