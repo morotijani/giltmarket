@@ -35,8 +35,6 @@
 							$b = _capital()['today_balance'];
 						}
 
-						// dnd($b);
-
 						$sql = "
 							UPDATE jspence_daily 
 							SET daily_capital = ?, 
@@ -48,7 +46,6 @@
 						$data = array_splice($data, 1, 3);
 						$message = "today " . $today . " capital updated of an amount of " . money($given) . ', added amount ' . money($g);
 					}
-					// dnd($data);
 					$statement = $conn->prepare($sql);
 					$result = $statement->execute($data);
 					if ($result) {

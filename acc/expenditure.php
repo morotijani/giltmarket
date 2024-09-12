@@ -54,6 +54,27 @@
                 $result = $statement->execute($data);
                 if (isset($result)) {
 
+                    if (is_capital_given()) {
+                        $today = date("Y-m-d");
+						$g = (float)($given - _capital()['today_capital']);
+						$b = ((admin_has_permission('salesperson') && _capital()['today_balance'] == '0.00') ? '0.00' : (float)($g + _capital()['today_balance']));
+
+						if (admin_has_permission('supervisor')) {
+							$b = _capital()['today_balance'];
+						}
+
+						$sql = "
+							UPDATE jspence_daily 
+							SET daily_balance = ?
+							WHERE daily_date = ? 
+							AND daily_by = ?
+						";
+                        $data = [$balance, $today, $by];
+					}
+					$statement = $conn->prepare($sql);
+					$statement->execute($data);
+
+
                     $message = "added new expenditure: " . $what_for . " and amount of: " . money($for_amount) . "";
                     add_to_log($message, $by);
     
