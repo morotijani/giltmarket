@@ -1,6 +1,6 @@
 <?php 
 
-    // view admin profile details
+    // expenditure
     require_once ("../db_connection/conn.php");
 
     if (!admin_is_logged_in()) {
@@ -26,6 +26,29 @@
     $statement->execute();
     $count_row = $statement->rowCount();
     $rows = $statement->fetchAll();
+
+    $for_amount = ((isset($_POST['for_amount']) && !empty($_POST['for_amount'])) ? sanitize($_POST['for_amount']) : '');
+    $what_for = ((isset($_POST['what_for']) && !empty($_POST['what_for'])) ? sanitize($_POST['what_for']) : '');
+
+    if ($_POST) {
+        $e_id = guidv4();
+        $by = $admin_data[0]['admin_id'];
+        $createdAt = date("Y-m-d H:i:s");
+        $data = [$e_id, _capital()['today_capital_id'], $what_for, $for_amount, $by, $createdAt];
+        $sql = "
+            INSERT INTO jspence_expenditures (expenditure_id, expenditure_capital_id, expenditure_what_for, expenditure_amount, expenditure_by, createdAt) 
+            VALUES (?, ?, ?, ?, ?, ?)
+        ";
+        dnd($data);
+        $statement = $conn->prepare($sql);
+        $result = $statement->execute($data);
+
+        if (isset($result)) {
+
+        } else {
+
+        }
+    }
 
 ?>
     
@@ -57,24 +80,25 @@
                             </div>
                         </div>
                     </div>
-
-                    <div class="border rounded">
-                        <div>
-                            <div class="textarea-autosize">
-                                <textarea class="form-control border-0 shadow-none p-4" rows="3" placeholder="Enter description" oninput="this.parentNode.dataset.replicatedValue = this.value"></textarea>
-                            </div>
-                            <div class="d-flex align-items-center px-6 py-3 border-top">
-                                <div class="flex-fill align-items-center">
-                                    <input class="form-control form-control-flush text-lg fw-bold" name="today_given" id="today_given" type="number" min="0.00" step="0.01" value="" placeholder="0.00">
+                    <form method="POST" id="expenditureForm">
+                        <div class="border rounded">
+                            <div>
+                                <div class="textarea-autosize">
+                                    <textarea class="form-control border-0 shadow-none p-4" rows="3" name="what_for" id="what_for" placeholder="Enter description" oninput="this.parentNode.dataset.replicatedValue = this.value"><?= $what_for; ?></textarea>
+                                </div>
+                                <div class="d-flex align-items-center px-6 py-3 border-top">
+                                    <div class="flex-fill align-items-center">
+                                        <input class="form-control form-control-flush text-lg fw-bold" name="for_amount" id="for_amount" type="number" min="0.00" step="0.01" value="<?= $for_amount; ?>" placeholder="0.00">
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="my-4"></div>
-                    <div class="d-flex flex-wrap gap-2 align-items-center justify-content-between">
-                        <a href="<?= PROOT; ?>" class="text-muted text-danger-hover text-sm fw-semibold">Go dashboard</a> 
-                        <a href="#" class="btn btn-sm btn-neutral">Add expenditure</a>
-                    </div>
+                        <div class="my-4"></div>
+                        <div class="d-flex flex-wrap gap-2 align-items-center justify-content-between">
+                            <a href="<?= PROOT; ?>" class="text-muted text-danger-hover text-sm fw-semibold">Go dashboard</a> 
+                            <button id="submitExpenditure" class="btn btn-sm btn-neutral">Add expenditure</button>
+                        </div>
+                    </form>
                 </div>
             </div>
         </div>
@@ -129,3 +153,10 @@
     </div>
 
 <?php include ("../includes/footer.inc.php"); ?>
+<script>
+    $(document).ready(function() {
+        $('#submitExpenditure').on('click', function() {
+
+        });
+    });
+</script>
