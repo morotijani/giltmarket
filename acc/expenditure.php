@@ -77,6 +77,9 @@
                         echo js_alert("Something went wrong!");
                         redirect(PROOT . "acc/expenditure");
                     }
+                } else {
+                    $_SESSION['flash_success'] = 'Today\'s remaining balance cannot complete this expenditure!';
+                    redirect(PROOT . "acc/expenditure");
                 }
             }
         }
@@ -100,6 +103,7 @@
         </div>
     </div>
 
+    <?php if (is_capital_given()): ?>
     <div class="row row-cols-md-1 g-6">
         <div class="col">
             <div class="card">
@@ -138,7 +142,7 @@
             </div>
         </div>
     </div>
-
+    <?php endif; ?>
 
     <div class="d-flex align-items-end justify-content-between mt-10 mb-4">
         <div>
