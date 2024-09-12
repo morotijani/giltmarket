@@ -19,7 +19,7 @@ if (isset($_POST['gram'])) {
 
 	if ($total_amount > 0): 
 		if (admin_has_permission('supervisor')) {
-			if (_capital()['today_balance'] == '0.00') {
+			if (_capital()['today_balance'] == 0) {
 				$today_balance = _capital()['today_capital'];
 			}
 		}

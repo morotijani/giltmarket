@@ -24,7 +24,15 @@ if (isset($_POST['gram-amount'])) {
 		$total_amount = calculateTotalAmount($gram, $volume, $current_price);
 
 		if ($total_amount > 0) {
-			if ($total_amount <= _capital()['today_balance']) {
+
+			$today_balance = _capital()['today_balance'];
+			if (admin_has_permission('supervisor')) {
+				if (_capital()['today_balance'] == 0) {
+					$today_balance = _capital()['today_capital'];
+				}
+			}
+
+			if ($total_amount <= $today_balance) {
 
 				$sale_id = guidv4();
 				$createdAt = date("Y-m-d H:i:s");;
@@ -53,10 +61,12 @@ if (isset($_POST['gram-amount'])) {
 					$r = $statement->fetchAll();
 					
 					$trade_status = 'out-trade';
-					$today_total_balance = (float)(_capital()['today_capital'] - $r[0]['ttsa']);
-					if (admin_has_permission('supervisor')) {
-						$trade_status = 'in-trade';
-						$today_total_balance = $r[0]['ttsa'];
+					if ($r[0]['ttsa'] > 0) {
+						$today_total_balance = (float)(_capital()['today_capital'] - $r[0]['ttsa']);
+						if (admin_has_permission('supervisor')) {
+							$trade_status = 'in-trade';
+							$today_total_balance = $r[0]['ttsa'];
+						}
 					}
 
 					update_today_capital_given_balance($trade_status, $today_total_balance, $today, $log_admin);

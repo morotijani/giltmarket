@@ -73,7 +73,8 @@ function _capital() {
 		SELECT daily_capital, daily_balance
 		FROM jspence_daily 
 		WHERE daily_date = ? 
-		AND daily_by = ?
+		AND daily_by = ? 
+		LIMIT 1
 	";
 	$statement = $conn->prepare($sql);
 	$statement->execute([$today, $admin_data[0]['admin_id']]);
@@ -89,9 +90,10 @@ function _capital() {
 		$row = $rows[0];
 		$balance = $row['daily_balance'];
 
-		if (admin_has_permission('supervisor')) {
-			$balance = '0.00';
-		} else if (admin_has_permission('supervisor') && $row['daily_balance'] == '0.00') {
+		// if (admin_has_permission('supervisor')) {
+		// 	$balance = '0.00';
+		// } else 
+		if (admin_has_permission('supervisor') && $row['daily_balance'] == '0.00') {
 			$balance = $row['daily_balance'];
 		} else if (admin_has_permission('salesperson')) {
 			$balance = (($row['daily_balance'] == '0.00') ? $row['daily_capital'] : $row['daily_balance']);
@@ -123,21 +125,23 @@ function is_capital_exhausted($conn, $admin) {
 	$statement->execute([$today, $t, $admin]);
 	$r = $statement->fetchAll();
 	
-	$return = false;
-	$today_total_balance = (float)(_capital()['today_capital'] - $r[0]['ttsa']);
-	if (admin_has_permission('supervisor')) {
-		$today_total_balance = $r[0]['ttsa'];
-		// return ($today_total_balance >= _capital()['today_capital']) ? true : false;
-		$return = true;
+	$return = true;
+	if ($r[0]['ttsa'] > 0) {
+		$today_total_balance = (float)(_capital()['today_capital'] - $r[0]['ttsa']);
+		if (admin_has_permission('supervisor')) {
+			$today_total_balance = $r[0]['ttsa'];
+			// return ($today_total_balance >= _capital()['today_capital']) ? true : false;
+			$return = true;
+		}
+		
+		if ($today_total_balance == 0) {
+			$return = false;
+		} else if (($today_total_balance > 0) && $today_total_balance < _capital()['today_capital']) {
+			$return = true;
+		} 
 	}
 	
-	if ($today_total_balance == 0) {
-		$return = false;
-	} else if (($today_total_balance > 0) && $today_total_balance < _capital()['today_capital']) {
-		$return = true;
-	} 
-	
-	return $return;
+	return $return;	
 }
  
 // get today capital given balance
