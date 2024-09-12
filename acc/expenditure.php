@@ -34,19 +34,36 @@
         $e_id = guidv4();
         $by = $admin_data[0]['admin_id'];
         $createdAt = date("Y-m-d H:i:s");
-        $data = [$e_id, _capital()['today_capital_id'], $what_for, $for_amount, $by, $createdAt];
-        $sql = "
-            INSERT INTO jspence_expenditures (expenditure_id, expenditure_capital_id, expenditure_what_for, expenditure_amount, expenditure_by, createdAt) 
-            VALUES (?, ?, ?, ?, ?, ?)
-        ";
-        dnd($data);
-        $statement = $conn->prepare($sql);
-        $result = $statement->execute($data);
 
-        if (isset($result)) {
+        if ($for_amount > 0) {
 
-        } else {
+			$today_balance = _capital()['today_balance'];
+			if (admin_has_permission('supervisor')) {
+				if (_capital()['today_balance'] == 0) {
+					$today_balance = _capital()['today_capital'];
+				}
+			}
 
+			if ($for_amount <= $today_balance) {
+                $data = [$e_id, _capital()['today_capital_id'], $what_for, $for_amount, $by, $createdAt];
+                $sql = "
+                    INSERT INTO jspence_expenditures (expenditure_id, expenditure_capital_id, expenditure_what_for, expenditure_amount, expenditure_by, createdAt) 
+                    VALUES (?, ?, ?, ?, ?, ?)
+                ";
+                $statement = $conn->prepare($sql);
+                $result = $statement->execute($data);
+                if (isset($result)) {
+
+                    $message = "added new expenditure: " . $what_for . " and amount of: " . money($for_amount) . "";
+                    add_to_log($message, $by);
+    
+                    $_SESSION['flash_success'] = 'Expenditure has been added!';
+                    redirect(PROOT . "acc/expenditure");
+                } else {
+                    echo js_alert("Something went wrong!");
+                    redirect(PROOT . "acc/expenditure");
+                }
+            }
         }
     }
 
@@ -76,7 +93,7 @@
                         </div>
                         <div class="ms-sm-auto">
                             <div class="d-flex align-items-center mt-5 mb-3 lh-none text-heading d-block display-5 ls-tight mb-0">
-                                <span class="fw-semibold text-2xl align-self-start mt-1 me-1"></span> <span><?= (is_capital_given() ? money(_capital()['today_capital']) : '' ); ?></span> <span class="d-inline-block fw-normal text-muted text-lg mt-sm-3 ms-1">/ <?= date('Y-m-d'); ?></span>
+                                <span class="fw-semibold text-2xl align-self-start mt-1 me-1"></span> <span><?= (is_capital_given() ? money(_capital()['today_balance']) : '' ); ?></span> <span class="d-inline-block fw-normal text-muted text-lg mt-sm-3 ms-1">/ <?= (is_capital_given() ? money(_capital()['today_capital']) : '' ); ?></span>
                             </div>
                         </div>
                     </div>
@@ -153,10 +170,14 @@
     </div>
 
 <?php include ("../includes/footer.inc.php"); ?>
+
 <script>
     $(document).ready(function() {
         $('#submitExpenditure').on('click', function() {
-
+            if (confirm("By clicking on ok, this expenditure will be recorded!")) {
+                expenditureForm.submit()
+            }
+            return false
         });
     });
 </script>

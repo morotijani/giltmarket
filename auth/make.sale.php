@@ -33,7 +33,6 @@ if (isset($_POST['gram-amount'])) {
 			}
 
 			if ($total_amount <= $today_balance) {
-
 				$sale_id = guidv4();
 				$createdAt = date("Y-m-d H:i:s");
 				$sql = "

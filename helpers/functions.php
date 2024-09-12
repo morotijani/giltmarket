@@ -70,7 +70,7 @@ function _capital() {
 	$today = date('Y-m-d');
 
 	$sql = "
-		SELECT expenditure_id, daily_capital, daily_balance
+		SELECT daily_id, daily_capital, daily_balance
 		FROM jspence_daily 
 		WHERE daily_date = ? 
 		AND daily_by = ? 
@@ -103,7 +103,7 @@ function _capital() {
 		$output = [
 			'today_capital' => $row['daily_capital'],
 			'today_balance' => $balance,
-			'today_capital_id' => $row['expenditure_id']
+			'today_capital_id' => $row['daily_id']
 		];
 	endif;
 
