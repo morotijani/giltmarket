@@ -7,6 +7,10 @@
         admn_login_redirect();
     }
 
+    if (admin[0]['admin_permissions'] == 'supervisor') {
+        redirect(PROOT . 'index');
+    }
+
     include ("../includes/header.inc.php");
     include ("../includes/nav.inc.php");
 
@@ -39,11 +43,11 @@
             if ($for_amount > 0) {
 
                 $today_balance = _capital()['today_balance'];
-                if (admin_has_permission('supervisor')) {
-                    if (_capital()['today_balance'] == 0) {
-                        $today_balance = _capital()['today_capital'];
-                    }
-                }
+                // if (admin_has_permission('supervisor')) {
+                //     if (_capital()['today_balance'] == 0) {
+                //         $today_balance = _capital()['today_capital'];
+                //     }
+                // }
 
                 if ($for_amount <= $today_balance) {
                     $data = [$e_id, _capital()['today_capital_id'], $what_for, $for_amount, $by, $createdAt];
@@ -56,17 +60,20 @@
                     if (isset($result)) {
                         
                         $today = date("Y-m-d");
-                        $balance = (float)($for_amount + _capital()['today_balance']);
+                        $balance = (float)(_capital()['today_balance'] - $for_amount);
 
-                        $sql = "
+                        // if (admin_has_permission('supervisor')) {
+                        //     $balance = (float)(_capital()['today_capital'] + $for_amount);
+                        // }
+
+                        $query = "
                             UPDATE jspence_daily 
                             SET daily_balance = ?
                             WHERE daily_date = ? 
                             AND daily_by = ?
                         ";
-                        $data = [$balance, $today, $by];
-                        $statement = $conn->prepare($sql);
-                        $statement->execute($data);
+                        $statement = $conn->prepare($query);
+                        $statement->execute([$balance, $today, $by]);
 
                         $message = "added new expenditure: " . $what_for . " and amount of: " . money($for_amount);
                         add_to_log($message, $by);
@@ -78,14 +85,14 @@
                         redirect(PROOT . "acc/expenditure");
                     }
                 } else {
-                    $_SESSION['flash_success'] = 'Today\'s remaining balance cannot complete this expenditure!';
+                    $_SESSION['flash_error'] = 'Today\'s remaining balance cannot complete this expenditure!';
                     redirect(PROOT . "acc/expenditure");
                 }
             }
+        } else {
+            $_SESSION['flash_error'] = 'Today\'s capital has not been given so, you can not create an expenditure!';
+            redirect(PROOT . "acc/expenditure");
         }
-    } else {
-        $_SESSION['flash_success'] = 'Today\'s capital has not been given so, you can not create an expenditure!';
-        redirect(PROOT . "acc/expenditure");
     }
 
 ?>
