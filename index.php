@@ -213,7 +213,7 @@
 												<h5>Earnings</h5>
 											</div>
 											<div class="hstack align-items-center">
-												<a href="javascript:;" class="text-muted"><i class="bi bi-arrow-repeat"></i></a>
+												<a href="<?= PROOT; ?>acc/analytics" class="text-muted"><i class="bi bi-arrow-repeat"></i></a>
 											</div>
 										</div>
 										<div class="mx-n4">

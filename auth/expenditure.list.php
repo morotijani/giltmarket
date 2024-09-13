@@ -94,7 +94,7 @@ if ($total_data > 0) {
                 <td class="p-1">
                     <div class="d-flex align-items-center gap-3 ps-1">
                         <div class="icon icon-shape w-rem-10 h-rem-10 rounded-circle text-sm bg-primary bg-opacity-25 text-tertiary">
-                            <i class="bi bi-file-fill"></i>
+                            <i class="bi bi-send-fill"></i>
                         </div>
                         <div>
                             <span class="d-block text-heading fw-bold">'. $row["expenditure_id"] .'</span>
@@ -137,7 +137,7 @@ if ($total_data > 0) {
             </div>
 
             <!-- HANDLER DETAILS -->
-            <div class="modal fade" id="adminModal_' . $row["aid"] . '" tabindex="-1" aria-labelledby="adminModalLabel_' . $row["aid"] . '" data-bs-backdrop="static" data-bs-keyboard="false" aria-hidden="true">
+            <div class="modal fade" id="adminModal_' . $row["aid"] . '" tabindex="-1" aria-labelledby="adminModalLabel_' . $row["aid"] . '" data-bs-backdrop="static" data-bs-keyboard="false" aria-hidden="true" style="backdrop-filter: blur(5px);">>
                 <div class="modal-dialog modal-dialog-centered">
                     <div class="modal-content overflow-hidden">
                         <div class="modal-header pb-0 border-0">

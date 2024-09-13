@@ -73,6 +73,7 @@ $output = '
             <thead class="table-light">
                 <tr>
                    <th>#</th>
+				   <td></th>
                     ' .  ((admin_has_permission()) ? '<th scope="col">Handler</th>' : '') . '
                     <th scope="col">Customer</th>
                     <th scope="col">Gram</th>
@@ -121,8 +122,13 @@ if ($total_data > 0) {
 		$output .= '	
 				<tr>
 	                <td>' . $i . '</td>
+					<td>
+						<div class="icon icon-shape rounded-circle icon-sm flex-none w-rem-10 h-rem-10 text-sm bg-'.(($row["sale_type"] == 'out') ? 'danger' : 'success').' bg-opacity-25 text-'.(($row["sale_type"] == 'out') ? 'danger' : 'success').'"><i class="bi bi-'.(($row["sale_type"] == 'out') ? 'arrow-up-right-circle-fill' : 'arrow-down-left-circle-fill').'"></i></div>
+					</td>
 	                ' . (admin_has_permission() ? ' <td><a href="javascript:;" data-bs-target="#adminModal_' . $row["aid"] . '" data-bs-toggle="modal"><span class="d-block text-heading fw-bold">' . ucwords($row["admin_fullname"]) . '</span></a></td> ' : '') . '
-	                <td class="text-xs">' . strtoupper($row["sale_customer_name"]) . ' <i class="bi bi-arrow-right mx-2"></i> ' . $row["sale_customer_contact"] . '</td>
+	                <td class="text-xs">
+						' . strtoupper($row["sale_customer_name"]) . ' <i class="bi bi-arrow-right mx-2"></i> ' . $row["sale_customer_contact"] . '
+					</td>
 	                <td>' . $row["sale_gram"] . '</td>
 	                <td>' . $row["sale_volume"] . '</td>
 	                <td>' . money($row["sale_price"]) . '</td>
