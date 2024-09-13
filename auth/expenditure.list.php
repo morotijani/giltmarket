@@ -31,10 +31,9 @@ $search_query = ((isset($_POST['query'])) ? sanitize($_POST['query']) : '');
 $find_query = str_replace(' ', '%', $search_query);
 if ($search_query != '') {
 	$query .= '
-		AND (sale_id LIKE "%'.$find_query.'%" 
+		AND (expenditure_id LIKE "%'.$find_query.'%" 
 		OR expenditure_amount LIKE "%'.$find_query.'%" 
 		OR expenditure_what_for LIKE "%'.$find_query.'%" 
-		OR expenditure_id LIKE "%'.$find_query.'%" 
 		OR jspence_expenditures.createdAt = "%'.$find_query.'%" 
 		OR admin_fullname LIKE "%'.$find_query.'%") 
 	';
@@ -95,25 +94,27 @@ if ($total_data > 0) {
 		// $outputData = json_encode($arrayOutput);
 
 		$output .= '
-            <td>' . $i . '</td>
-            <td class="p-1">
-                <div class="d-flex align-items-center gap-3 ps-1">
-                    <div class="icon icon-shape w-rem-10 h-rem-10 rounded-circle text-sm bg-primary bg-opacity-25 text-tertiary">
-                        <i class="bi bi-file-fill"></i>
+            <tr>
+                <td>' . $i . '</td>
+                <td class="p-1">
+                    <div class="d-flex align-items-center gap-3 ps-1">
+                        <div class="icon icon-shape w-rem-10 h-rem-10 rounded-circle text-sm bg-primary bg-opacity-25 text-tertiary">
+                            <i class="bi bi-file-fill"></i>
+                        </div>
+                        <div>
+                            <span class="d-block text-heading fw-bold">'. $row["expenditure_id"] .'</span>
+                                ' . (admin_has_permission() ? ' <span class="text-xs text-muted">by <a href="javascript:;" data-bs-target="#adminModal_' . $row["aid"] . '" data-bs-toggle="modal">' . ucwords($row["admin_fullname"]) . '</a></span> ' : '') . '
+                        </div>
                     </div>
-                    <div>
-                        <span class="d-block text-heading fw-bold">'. $row["expenditure_id"] .'</span>
-                            ' . (admin_has_permission() ? ' <span class="text-xs text-muted">by <a href="javascript:;" data-bs-target="#adminModal_' . $row["aid"] . '" data-bs-toggle="modal">' . ucwords($row["admin_fullname"]) . '</a></span> ' : '') . '
-                    </div>
-                </div>
-            </td>
-            <td>'. $row["expenditure_what_for"] .'</a></td>
-            <td>'. money($row["expenditure_amount"]) .'</td>
-            <td>'. pretty_date($row["eca"]) .'</td>
-            <td class="text-end">
-                <a href="'. PROOT .'acc/expenditure?edit=' . $row["expenditure_id"] .'" class="badge bg-body-secondary text-xs text-success">Edit </a>
-                <a href="javascript:;" data-bs-target="#deleteModal_' . $row["eid"] . '" data-bs-toggle="modal" class="badge bg-body-secondary text-xs text-danger">Delete </a>
-            </td>
+                </td>
+                <td>'. $row["expenditure_what_for"] .'</a></td>
+                <td>'. money($row["expenditure_amount"]) .'</td>
+                <td>'. pretty_date($row["eca"]) .'</td>
+                <td class="text-end">
+                    <a href="'. PROOT .'acc/expenditure?edit=' . $row["expenditure_id"] .'" class="badge bg-body-secondary text-xs text-success">Edit </a>
+                    <a href="javascript:;" data-bs-target="#deleteModal_' . $row["eid"] . '" data-bs-toggle="modal" class="badge bg-body-secondary text-xs text-danger">Delete </a>
+                </td>
+            </tr>
 
             <!-- DELETE TRADE -->
             <div class="modal fade" id="deleteModal_' . $row["eid"] . '" tabindex="-1" aria-labelledby="deleteModalLabel_' . $row["eid"] . '" data-bs-backdrop="static" data-bs-keyboard="false" aria-hidden="true">
