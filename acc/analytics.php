@@ -85,13 +85,12 @@
                 </div>
                 <div class="col">
                     <div class="hstack gap-2 justify-content-end">
-                        <div class="d-flex scrollable-x justify-content-between gap-1 p-1 align-items-center bg-body-secondary rounded text-xs fw-semibold">
-                            <a href="#" class="px-3 py-1 text-muted bg-white-hover bg-opacity-70-hover rounded">1H </a>
-                            <a href="#" class="px-3 py-1 text-muted bg-white rounded shadow-1">1D </a>
-                            <a href="#" class="px-3 py-1 text-muted bg-white-hover bg-opacity-50-hover rounded">1W </a>
-                            <a href="#" class="px-3 py-1 text-muted bg-white-hover bg-opacity-50-hover rounded">1M </a>
-                            <a href="#" class="d-none d-sm-inline-block px-3 py-1 text-muted bg-white-hover bg-opacity-50-hover rounded">1Y</a>
-                        </div>
+                        <input type="date" id="dater" class="px-3 py-1 text-muted rounded text-xs fw-semibold">
+                        <a href="<?= PROOT . 'acc/analytics' ?>" class="btn btn-sm btn-neutral d-sm-inline-flex"><span class="pe-2"><i class="bi bi-arrow-clockwise"></i> </span><span>Reset</span></a>
+                            <!-- <div class="input-group input-group-inline datepicker">
+                                <span class="input-group-text pe-2"><i class="bi bi-calendar"></i> </span>
+                                <input type="text" class="form-control" placeholder="Select date" data-input="data-input">
+                            </div> -->
                     </div>
                 </div>
             </div>
@@ -247,6 +246,32 @@
             }
             return false
         });
+
+        var dater = null;
+        
+        $('#dater').on('change', function() {
+            dater = this.value;
+            analytics(dater)
+        });
+
+        function analytics(dater) {
+            $.ajax({
+                method: "POST",
+                url: "<?= PROOT; ?>auth/analytics.info.php",
+                data: {dater:dater},
+                beforeSend: function() {
+
+                },
+                success: function(data) {
+                    console.log(data);
+                },
+                error: function() {
+
+                }
+            })
+        }
+        analytics(dater);
+
     });
     
     // SEARCH AND PAGINATION FOR LIST
