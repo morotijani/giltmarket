@@ -374,11 +374,12 @@
                     $("#volume-amount").focus()
                     return false;
                 }
-
+                <?php if (admin_has_permission('salesperson')): ?>
                 if ($("#total-amount").val() <= 0) {
                     $('.buy-msg').text('* There is a problem with the calculation, please check your inputs well!');
                     return false;
                 }
+                <?php endif; ?>
 
                 if ($("#customer_name").val() == '') {
                     $('.buy-msg').html('* Invalid customer name!');

@@ -16,23 +16,38 @@ if (isset($_POST['gram'])) {
 	$total_amount = calculateTotalAmount($gram, $volume, $current_price);
 
 	$today_balance = _capital()['today_balance'];
+	$message = 'Calculations made correctly.';
 
-	if ($total_amount > 0): 
-		if (admin_has_permission('supervisor')) {
-			if (_capital()['today_balance'] == 0) {
-				$today_balance = _capital()['today_capital'];
+	if (admin_has_permission('salesperson')) {
+		if ($total_amount > 0): 
+			if ($total_amount <= $today_balance) {
+				$continue = 'yes';
+			} else {
+				$message = "Today's remaining balance cannot complete this trade!";
 			}
-		}
+		else: 
+			$message = "There was a problem with the calculations";
+		endif;
+	} else {
+		$continue = 'yes';
+	}
 
-		if ($total_amount <= $today_balance) {
-			$message = 'Calculations made correctly.';
-			$continue = 'yes';
-		} else {
-			$message = "Today's remaining balance cannot complete this trade!";
-		}
-	else: 
-		$message = "There was a problem with the calculations";
-	endif;
+	// if ($total_amount > 0): 
+	// 	if (admin_has_permission('supervisor')) {
+	// 		if (_capital()['today_balance'] == 0) {
+	// 			$today_balance = _capital()['today_capital'];
+	// 		}
+	// 	}
+
+	// 	if ($total_amount <= $today_balance) {
+	// 		$message = 'Calculations made correctly.';
+	// 		$continue = 'yes';
+	// 	} else {
+	// 		$message = "Today's remaining balance cannot complete this trade!";
+	// 	}
+	// else: 
+	// 	$message = "There was a problem with the calculations";
+	// endif;
 }
 
 $arrayOutput = array(

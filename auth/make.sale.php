@@ -2,7 +2,7 @@
 
 require_once ("../db_connection/conn.php");
 
-
+$output = '';
 if (isset($_POST['gram-amount'])) {
 	
 	$log_admin = $admin_data[0]['admin_id'];
@@ -23,18 +23,28 @@ if (isset($_POST['gram-amount'])) {
 		$carat = calculateCarat($gram, $volume);
 		$total_amount = calculateTotalAmount($gram, $volume, $current_price);
 
-		if ($total_amount > 0) {
+		// if ($total_amount > 0) {
 
 			$today_balance = _capital()['today_balance'];
-			if (admin_has_permission('supervisor')) {
-				if (_capital()['today_balance'] == 0) {
-					$today_balance = _capital()['today_capital'];
+			// if (admin_has_permission('supervisor')) {
+			// 	if (_capital()['today_balance'] == 0) {
+			// 		$today_balance = _capital()['today_capital'];
+			// 	}
+			// }
+			$sale_id = guidv4();
+			$createdAt = date("Y-m-d H:i:s");
+
+			if (admin_has_permission('salesperson')) {
+				if ($total_amount < 0) {
+					$output = "There was a problem with the calculations";
+				}
+
+				if ($total_amount > $today_balance) {
+					$output = "Today's remaining balance cannot complete this trade!";
 				}
 			}
 
-			if ($total_amount <= $today_balance) {
-				$sale_id = guidv4();
-				$createdAt = date("Y-m-d H:i:s");
+			if (empty($output) || $output == '') {
 				$sql = "
 					INSERT INTO `jspence_sales`(`sale_id`, `sale_gram`, `sale_volume`, `sale_density`, `sale_pounds`, `sale_carat`, `sale_price`, `sale_total_amount`, `sale_customer_name`, `sale_customer_contact`, `sale_comment`, `sale_type`, `sale_by`, `createdAt`) 
 					VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
@@ -60,13 +70,17 @@ if (isset($_POST['gram-amount'])) {
 					$r = $statement->fetchAll();
 					
 					$trade_status = 'out-trade';
-					if ($r[0]['ttsa'] > 0) {
-						$today_total_balance = (float)(_capital()['today_capital'] - $r[0]['ttsa']);
-						if (admin_has_permission('supervisor')) {
-							$trade_status = 'in-trade';
-							$today_total_balance = $r[0]['ttsa'];
+					if (admin_has_permission('salesperson')) {
+						if ($r[0]['ttsa'] > 0) {
+							$today_total_balance = (float)(_capital()['today_capital'] - $r[0]['ttsa']);
 						}
 					}
+
+					if (admin_has_permission('supervisor')) {
+						$trade_status = 'in-trade';
+						$today_total_balance = $r[0]['ttsa'];
+					}
+					// dnd($today_total_balance);
 
 					update_today_capital_given_balance($trade_status, $today_total_balance, $today, $log_admin);
 
@@ -78,15 +92,15 @@ if (isset($_POST['gram-amount'])) {
 					
 					echo $ouput;
 				} else {
-					echo 'Something went wrong.';
+					$output = 'Something went wrong.';
 				}
-			} else {
-				echo "Today's remaining balance cannot complete this trade!";
 			}
-		} else {
-			echo "There was a problem with the calculations";
-		}
+		// } else {
+		// 	echo "There was a problem with the calculations";
+		// }
 	} else {
-		echo "Your PIN is invalid!";
+		$output = "Your PIN is invalid!";
 	}
 }
+
+echo $output;
