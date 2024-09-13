@@ -163,6 +163,20 @@ function update_today_capital_given_balance($type, $today_total_balance, $today,
 	add_to_log($message, $log_admin);
 }
 
+function _gained_calculation($balance, $capital) {
+
+	if ($balance < 0) {
+		$balance = abs($balance);
+	}
+	$output = (float)($capital - $balance);
+	// if ($balance < $capital) {
+	// 	$output = 0;
+	// }
+
+	
+	return money($output);
+}
+
 function truncate($val, $f = "0") {
     if(($p = strpos($val, '.')) !== false) {
         $val = floatval(substr($val, 0, $p + 1 + $f));

@@ -140,10 +140,14 @@
 						<div class="row g-3 align-items-center">
 							<div class="col">
 								<h1 class="ls-tight">
-									<?= ((admin_has_permission('supervisor')) ? 'Sold' : 'Balance'); ?>: <span style="font-family: Roboto Mono, monospace;">
-									<?= money(_capital()['today_balance']); ?>
-								</h1></span>
+									<?= ((admin_has_permission('supervisor')) ? 'Sold' : 'Balance'); ?>: 
+									<span style="font-family: Roboto Mono, monospace;"><?= money(_capital()['today_balance']); ?></span>
+								</h1>
 								<p class="text-sm text-muted">
+									<?php if (admin_has_permission('supervisor')) :?>
+									Gained: <span class="text-success" style="font-family: Roboto Mono, monospace;"><?= _gained_calculation(_capital()['today_balance'], _capital()['today_capital']); ?></span>
+									<br>
+									<?php endif; ?>
 									Amount given today to trade: <span style="font-family: Roboto Mono, monospace;"><?= money(_capital()['today_capital']); ?></span> 
 									<br>Today date: <?= date("Y-m-d"); ?>
 								</p>
@@ -202,7 +206,7 @@
 											</div>
 										</div>
 									</div>
-
+									<?php if (admin_has_permission('admin')): ?>
 									<div class="card">
 										<div class="card-body pb-0">
 											<div class="d-flex justify-content-between align-items-center"><div>
@@ -217,7 +221,7 @@
 										</div>
 									</div>
 								</div>
-
+								
 								<div class="card">
 									<div class="card-body">
 										<div class="d-flex justify-content-between align-items-center mb-5">
@@ -259,6 +263,7 @@
 										</div>
 									</div>
 								</div>
+								<?php endif; ?>
 
 								<div class="card">
 									<div class="card-body">
