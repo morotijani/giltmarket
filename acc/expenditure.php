@@ -117,7 +117,7 @@
                 <div class="card-body py-4">
                     <div class="d-flex flex-wrap align-items-center justify-content-between mb-5">
                         <div class="flex-1">
-                            <h6 class="h5 text-limit fw-semibold mb-1">Creat an Expenditure</h6>
+                            <h6 class="h5 text-limit fw-semibold mb-1">Create an Expenditure</h6>
                             <p class="text-sm text-muted d-none d-sm-block">Fill in the below fields to make an expenditure</p>
                         </div>
                         <div class="ms-sm-auto">
@@ -142,7 +142,50 @@
                         <div class="my-4"></div>
                         <div class="d-flex flex-wrap gap-2 align-items-center justify-content-between">
                             <a href="<?= PROOT; ?>" class="text-muted text-danger-hover text-sm fw-semibold">Go dashboard</a> 
-                            <button id="submitExpenditure" class="btn btn-sm btn-neutral">Add expenditure</button>
+                            <button type="button" data-bs-target="#expenditureModal" data-bs-toggle="modal" class="btn btn-sm btn-neutral">Add expenditure</button>
+                        </div>
+
+                        <div class="modal fade" id="expenditureModal" tabindex="-1" aria-labelledby="expenditureModalLabel" data-bs-backdrop="static" data-bs-keyboard="false" aria-hidden="true">
+                            <div class="modal-dialog modal-dialog-centered">
+                                <div class="modal-content overflow-hidden">
+                                    <div class="modal-header pb-0 border-0">
+                                        <h1 class="modal-title h4" id="expenditureModalLabel">Verify expenditure!</h1>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <div class="inputpin mb-3">
+                                            <div>
+                                                <?php if (is_capital_given()): ?>
+                                                    <?php if (is_capital_exhausted($conn, $admin_data[0]['admin_id'])): ?>
+                                                    <label class="form-label">Enter pin</label>
+                                                    <div class="d-flex justify-content-between p-4 bg-body-tertiary rounded">
+                                                        <input type="tel" class="form-control form-control-flush text-xl fw-bold w-rem-40" placeholder="0000" name="pin" id="pin" autocomplete="off" inputmode="numeric" data-maxlength="4" oninput="this.value=this.value.slice(0,this.dataset.maxlength)">
+                                                        <div class="dropdown">
+                                                            <button type="button" class="btn btn-sm btn-neutral rounded-pill shadow-none flex-none d-flex align-items-center gap-2 p-2">
+                                                                <img src="<?= PROOT; ?>dist/media/pin.jpg" class="w-rem-6 h-rem-6 rounded-circle" alt="..."> <span>PIN</span>
+                                                            </button>
+                                                        </div>
+                                                    </div>
+                                                    <?php else: ?>
+                                                        <p class="h4">
+                                                            Trade ended: the capital given for today's trade has been exhausted!
+                                                        </p>
+                                                    <?php endif; ?>
+                                                <?php else: ?>
+                                                    <p class="h4">
+                                                        Please you are to provide today's capital given before you can complete a trade!
+                                                    </p>
+                                                <?php endif; ?>
+                                            </div>
+                                        </div>
+                                        <?php if (is_capital_given()): ?>
+                                            <?php if (is_capital_exhausted($conn, $admin_data[0]['admin_id'])): ?>
+                                                <button type="button" id="submitExpenditure" class="btn btn-warning mt-4">Submit</button>
+                                            <?php endif; ?>
+                                        <?php endif; ?>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </form>
                 </div>
@@ -162,7 +205,6 @@
         </div>
     </div>
     <div id="load-content"></div>
-
 
 <?php include ("../includes/footer.inc.php"); ?>
 

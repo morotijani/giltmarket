@@ -120,12 +120,14 @@ if ($total_data > 0) {
                 <div class="modal-dialog modal-dialog-centered">
                     <div class="modal-content overflow-hidden">
                         <div class="modal-header pb-0 border-0">
-                            <h1 class="modal-title h4" id="deleteModalLabel_' . $row["eid"] . '">Delete trade!</h1>
+                            <h1 class="modal-title h4" id="deleteModalLabel_' . $row["eid"] . '">Delete expenditure!</h1>
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
                         <div class="modal-body p-0">
                             <div class="px-6 py-5 border-bottom">
                                 <p>
+                                    <i>'.$row["expenditure_what_for"].', with an amount of '.money($row["expenditure_amount"]).'</i> 
+                                    <br><br>
                                     Are you sure you want to proceed to this action.
                                 </p>
                             </div>
