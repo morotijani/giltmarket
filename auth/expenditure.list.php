@@ -112,7 +112,7 @@ if ($total_data > 0) {
             <td>'. pretty_date($row["eca"]) .'</td>
             <td class="text-end">
                 <a href="'. PROOT .'acc/expenditure?edit=' . $row["expenditure_id"] .'" class="badge bg-body-secondary text-xs text-success">Edit </a>
-                <a href="javascript:;" class="badge bg-body-secondary text-xs text-danger">Delete </a>
+                <a href="javascript:;" data-bs-target="#deleteModal_' . $row["eid"] . '" data-bs-toggle="modal" class="badge bg-body-secondary text-xs text-danger">Delete </a>
             </td>
 
             <!-- DELETE TRADE -->

@@ -164,54 +164,6 @@
     <div id="load-content"></div>
 
 
-
-    <div class="d-flex align-items-end justify-content-between mt-10 mb-4">
-        <div>
-            <h4 class="fw-semibold mb-1">List (<?= $count_row; ?>)</h4>
-            <p class="text-sm text-muted">By filling your data you get a much better experience using our website.</p>
-        </div>
-        <div class="d-none d-md-flex gap-2">
-            <button type="button" class="btn btn-sm btn-dark"><i class="bi bi-download me-2"></i>Export all</button>
-        </div>
-    </div>
-    <div class="table-responsive">
-        <table class="table table-nowrap table-flush">
-            <thead>
-                <tr>
-                    <th scope="col">Invoice</span></th>
-                    <th scope="col">What for</th>
-                    <th scope="col">Date</th>
-                    <th scope="col">Time</th>
-                    <th></th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td class="p-1">
-                        <div class="d-flex align-items-center gap-3 ps-1">
-                            <div class="icon icon-shape w-rem-10 h-rem-10 rounded-circle text-sm bg-primary bg-opacity-25 text-tertiary">
-                                <i class="bi bi-file-fill"></i>
-                            </div>
-                            <div>
-                                <span class="d-block text-heading fw-bold">Invoice ABC 00021</span> 
-                                <span class="text-xs text-muted">by 10/01/2021</span>
-                            </div>
-                        </div>
-                    </td>
-                    <td>
-                        <a class="text-current" href="#">Dribbble</a>
-                    </td>
-                    <td>$1.274,89</td>
-                    <td>$323,00</td>
-                    <td class="text-end">
-                        <a href="<?= PROOT; ?>acc/expenditure?edit=<?= '1'; ?>" class="badge bg-body-secondary text-xs text-success">Edit </a>
-                        <a href="<?= PROOT; ?>acc/expenditure?delete=<?= '1'; ?>" class="badge bg-body-secondary text-xs text-danger">Delete </a>
-                    </td>
-                </tr>
-            </tbody>
-        </table>
-    </div>
-
 <?php include ("../includes/footer.inc.php"); ?>
 
 <script>
@@ -223,9 +175,6 @@
             return false
         });
     });
-</script>
-
-<script>
     
     // SEARCH AND PAGINATION FOR LIST
     function load_data(page, query = '') {
