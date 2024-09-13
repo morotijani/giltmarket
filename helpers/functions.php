@@ -660,6 +660,57 @@ function grand_total_amount($admin, $permission) {
 	return $output;
 }
 
+//
+function analytics_left() {
+	global $conn;
+
+	$sql = "
+		SELECT SUM(daily_capital) AS capital, SUM(daily_balance) AS balance 
+		FROM jspence_daily 
+		WHERE status = ?
+	";
+	$statement = $conn->prepare($sql);
+	$result = $statement->execute([0]);
+	$rows = $statement->fetchAll();
+	$row = $rows[0];
+
+	$ins = $conn->query("SELECT SUM(sale_total_amount) AS ins_amt FROM jspence_sales WHERE sale_type = 'in' AND sale_status = 0")->fetchAll();
+	$outs = $conn->query("SELECT SUM(sale_total_amount) AS outs_amt FROM jspence_sales WHERE sale_type = 'out' AND sale_status = 0")->fetchAll();
+	$expense = $conn->query("SELECT SUM(expenditure_amount) AS exp_amt FROM jspence_expenditures WHERE status = 0")->fetchAll();
+	$count_trades = $conn->query("SELECT * FROM jspence_sales WHERE sale_status = 0")->rowCount();
+
+	$gained_or_loss = 0;
+	$in = (($ins[0]['ins_amt']) ? $ins[0]['ins_amt'] : 0);
+	$out = (($outs[0]['outs_amt']) ? $outs[0]['outs_amt'] : 0);
+	$expenses = (($expense[0]['exp_amt']) ? $expense[0]['exp_amt'] : 0);
+
+	$output = [
+		'capital' => 0,
+		'balance' => 0,
+		'gained_or_loss' => 0,
+		'in' => $in,
+		'out' => $out,
+		'trades' => $count_trades,
+		'expenses' => $expenses
+	];
+	if ($statement->rowCount() > 0) {
+		$gained_or_loss = (float)($row['balance'] - $expenses);
+		$gained_or_loss = (float)($row['capital'] - $gained_or_loss);
+	}
+
+	$output = [
+		'capital' => $row['capital'],
+		'balance' => $row['balance'],
+		'gained_or_loss' => $gained_or_loss,
+		'in' => $in,
+		'out' => $out,
+		'trades' => $count_trades,
+		'expenses' => $expenses
+	];
+
+	return $output;
+}
+
 // get logs for admins
 function get_logs($admin, $permission) {
 	global $conn;

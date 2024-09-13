@@ -4,8 +4,6 @@
     include ("includes/header.inc.php");
     include ("includes/nav.inc.php");
 
-	// echo is_capital_exhausted($conn, $admin_data[0]['admin_id']);die;
-
     if (admin_is_logged_in()) {
     	
 		// insert daily capital given
@@ -435,7 +433,6 @@
 	</div>
 
 <?php include ("includes/footer.inc.php"); ?>
-
 
 <script type="text/javascript" src="<?= PROOT; ?>dist/js/Chart.min.js"></script>
 <script type="text/javascript">
