@@ -151,6 +151,20 @@
     </div>
     <?php endif; ?>
 
+    <div class="row align-items-center g-6 mt-0 mb-6">
+        <div class="col-sm-6">
+            <div class="d-flex gap-2">
+                <div class="input-group input-group-sm input-group-inline w-100 w-md-50">
+                    <span class="input-group-text"><i class="bi bi-search me-2"></i> </span>
+                    <input type="search" class="form-control ps-0" placeholder="Search all trades" aria-label="Search" id="search">
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="load-content"></div>
+
+
+
     <div class="d-flex align-items-end justify-content-between mt-10 mb-4">
         <div>
             <h4 class="fw-semibold mb-1">List (<?= $count_row; ?>)</h4>
@@ -216,7 +230,7 @@
     // SEARCH AND PAGINATION FOR LIST
     function load_data(page, query = '') {
         $.ajax({
-            url : "<?= PROOT; ?>auth/trade.lists.php",
+            url : "<?= PROOT; ?>auth/expenditure.list.php",
             method : "POST",
             data : {
                 page : page, 
