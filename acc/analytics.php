@@ -98,146 +98,138 @@
         </div>
 
         <div class="vstack gap-3 gap-xl-6">
-            <div class="row row-cols-xl-4 g-3 g-xl-6">
-                <div class="col-xxl-8">
+            <div class="row g-3">
+                <div class="col">
                     <div class="card">
-                        <div class="card-body d-flex flex-column">
-                            <div class="d-flex justify-content-between align-items-center mb-3">
-                            <div>
-                                <h5>Profit<!-- Balance --></h5>
-                            </div>
-                            <div>
-                                <span class="text-heading fw-bold"><i class="bi bi-arrow-up me-2"></i>7.8%</span></div>
-                            </div>
-                            <div class="text-2xl fw-bolder text-heading ls-tight"><?= money($al['gained_or_loss']); ?> GHS</div>
-                            <div class="d-flex align-items-center justify-content-between mt-8">
-                            <div class="">
-                                <div class="d-flex gap-3 align-items-center">
-                                <div class="icon icon-sm icon-shape text-sm rounded-circle bg-dark text-success"><i class="bi bi-arrow-down"></i></div><span class="h6 fw-semibold text-muted">Incoming</span>
-                                </div>
-                                <div class="fw-bold text-heading mt-3"><?= money($al['in']); ?>  GHS</div>
-                            </div><span class="vr bg-dark bg-opacity-10"></span>
-                            <div class="">
-                                <div class="d-flex gap-3 align-items-center">
-                                <div class="icon icon-sm icon-shape text-sm rounded-circle bg-dark text-danger"><i class="bi bi-arrow-up"></i></div><span class="h6 fw-semibold text-muted">Outgoing</span>
-                                </div>
-                                <div class="fw-bold text-heading mt-3"><?= money($al['out']); ?> GHS</div>
-                            </div>
-                            </div>
+                        <div class="p-4">
+                            <h6 class="text-limit text-muted mb-3">Total Capital</h6>
+                            <span class="text-sm text-muted text-opacity-90 fw-semibold">GHS</span> <span class="d-block h3 ls-tight fw-bold"><?= money($al['capital']); ?></span>
+                            <p class="mt-1">
+                                <span class="text-success text-xs"><i class="fas fa-arrow-up me-1"></i>20% </span>
+                                <span class="text-muted text-xs text-opacity-75">vs last week</span>
+                            </p>
                         </div>
                     </div>
-
-                    <div class="card">
-                        <div class="card-body pb-0">
-                            <div class="d-flex justify-content-between align-items-center">
-                                <div>
-                                    <h5>Earnings</h5>
-                                </div>
-                                <div class="hstack align-items-center">
-                                    <a href="<?= PROOT; ?>acc/analytics" class="text-muted"><i class="bi bi-arrow-repeat"></i></a>
-                                </div>
-                            </div>
-                            <div class="mx-n4">
-                                <canvas class="my-4 w-100" id="myChart" width="900" height="380"></canvas>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="card">
-                        <div class="card-body">
-                            <div class="d-flex justify-content-between align-items-center mb-5">
-                                <div>
-                                    <h5>Accumulated trades by months and years</h5>
-                                </div>
-                                <div class="hstack align-items-center">
-                                    <a href="<?= PROOT; ?>acc/trades" class="text-muted">
-                                        <i class="bi bi-arrow-repeat"></i>
-                                    </a>
-                                </div>
-                            </div>
-                            <div class="vstack gap-6">
-                                <table class="table table-bordered table-lg">
-                                    <thead>
-                                        <tr>
-                                            <th scope="col"></th>
-                                            <th scope="col" style="font-family: Roboto Mono, monospace;"><?= $lastYr; ?></th>
-                                            <th scope="col" style="font-family: Roboto Mono, monospace;"><?= $thisYr; ?></th>
-                                        </tr>
-                                    </thead>
-                                        <tbody>
-                                        <?php for ($i = 1; $i <= 12; $i++):
-                                            $dt = dateTime::createFromFormat('!m',$i);
-                                        ?>
-                                            <tr>
-                                                <td <?= (date('m') == $i) ? ' class="bg-danger"' : ''; ?>><?= $dt->format("F"); ?></td>
-                                                <td <?= (date('m') == $i) ? ' class="bg-danger"' : ''; ?> style="font-family: Roboto Mono, monospace;"><?= ((array_key_exists($i, $last)) ? money($last[$i]) : money(0)); ?></td>
-                                                <td <?= (date('m') == $i) ? ' class="bg-danger"' : ''; ?> style="font-family: Roboto Mono, monospace;"><?=  ((array_key_exists($i, $current)) ? money($current[$i]) : money(0)); ?></td>
-                                            </tr>
-                                        <?php endfor; ?>
-                                        <tr>
-                                            <td>Total</td>
-                                            <td style="font-family: Roboto Mono, monospace;"><?= money($lastTotal); ?></td>
-                                            <td style="font-family: Roboto Mono, monospace;"><?= money($currentTotal); ?></td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-                    </div>
-                    
                 </div>
-                <div class="col-xxl-4">
-                    <div class="row g-3">
-                        <div class="col">
-                            <div class="card">
-                                <div class="p-4">
-                                    <h6 class="text-limit text-muted mb-3">Total Capital</h6>
-                                    <span class="text-sm text-muted text-opacity-90 fw-semibold">GHS</span> <span class="d-block h3 ls-tight fw-bold"><?= money($al['capital']); ?></span>
-                                    <p class="mt-1">
-                                        <span class="text-success text-xs"><i class="fas fa-arrow-up me-1"></i>20% </span>
-                                        <span class="text-muted text-xs text-opacity-75">vs last week</span>
-                                    </p>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col">
-                            <div class="card">
-                                <div class="p-4">
-                                    <h6 class="text-limit text-muted mb-3">Total Balance</h6>
-                                    <span class="text-sm text-muted text-opacity-90 fw-semibold">GHS</span> <span class="d-block h3 ls-tight fw-bold"><?= money($al['balance']); ?></span>
-                                    <p class="mt-1">
-                                        <span class="text-success text-xs"><i class="fas fa-arrow-up me-1"></i>20% </span>
-                                        <span class="text-muted text-xs text-opacity-75">vs last week</span>
-                                    </p>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col">
-                            <div class="card">
-                                <div class="p-4">
-                                    <h6 class="text-limit text-muted mb-3">Expenses</h6>
-                                    <span class="text-sm text-muted text-opacity-90 fw-semibold">GHS</span> <span class="d-block h3 ls-tight fw-bold"><?= money($al['expenses']); ?></span>
-                                    <p class="mt-1">
-                                        <span class="text-success text-xs"><i class="fas fa-arrow-up me-1"></i>20% </span>
-                                        <span class="text-muted text-xs text-opacity-75">vs last week</span>
-                                    </p>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col">
-                            <div class="card">
-                                <div class="p-4">
-                                    <h6 class="text-limit text-muted mb-3">Total trades</h6>
-                                    <span class="text-sm text-muted text-opacity-90 fw-semibold">#</span> <span class="d-block h3 ls-tight fw-bold"><?= $al['trades']; ?></span>
-                                    <p class="mt-1">
-                                        <span class="text-success text-xs"><i class="fas fa-arrow-up me-1"></i>20% </span>
-                                        <span class="text-muted text-xs text-opacity-75">vs last week</span>
-                                    </p>
-                                </div>
-                            </div>
+                <div class="col">
+                    <div class="card">
+                        <div class="p-4">
+                            <h6 class="text-limit text-muted mb-3">Total Balance</h6>
+                            <span class="text-sm text-muted text-opacity-90 fw-semibold">GHS</span> <span class="d-block h3 ls-tight fw-bold"><?= money($al['balance']); ?></span>
+                            <p class="mt-1">
+                                <span class="text-success text-xs"><i class="fas fa-arrow-up me-1"></i>20% </span>
+                                <span class="text-muted text-xs text-opacity-75">vs last week</span>
+                            </p>
                         </div>
                     </div>
+                </div>
+                <div class="col">
+                    <div class="card">
+                        <div class="p-4">
+                            <h6 class="text-limit text-muted mb-3">Expenses</h6>
+                            <span class="text-sm text-muted text-opacity-90 fw-semibold">GHS</span> <span class="d-block h3 ls-tight fw-bold"><?= money($al['expenses']); ?></span>
+                            <p class="mt-1">
+                                <span class="text-success text-xs"><i class="fas fa-arrow-up me-1"></i>20% </span>
+                                <span class="text-muted text-xs text-opacity-75">vs last week</span>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="card">
+                        <div class="p-4">
+                            <h6 class="text-limit text-muted mb-3">Total trades</h6>
+                            <span class="text-sm text-muted text-opacity-90 fw-semibold">#</span> <span class="d-block h3 ls-tight fw-bold"><?= $al['trades']; ?></span>
+                            <p class="mt-1">
+                                <span class="text-success text-xs"><i class="fas fa-arrow-up me-1"></i>20% </span>
+                                <span class="text-muted text-xs text-opacity-75">vs last week</span>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="card">
+                <div class="card-body d-flex flex-column">
+                    <div class="d-flex justify-content-between align-items-center mb-3">
+                    <div>
+                        <h5>Profit<!-- Balance --></h5>
+                    </div>
+                    <div>
+                        <span class="text-heading fw-bold"><i class="bi bi-arrow-up me-2"></i>7.8%</span></div>
+                    </div>
+                    <div class="text-2xl fw-bolder text-heading ls-tight"><?= money($al['gained_or_loss']); ?> GHS</div>
+                    <div class="d-flex align-items-center justify-content-between mt-8">
+                    <div class="">
+                        <div class="d-flex gap-3 align-items-center">
+                        <div class="icon icon-sm icon-shape text-sm rounded-circle bg-dark text-success"><i class="bi bi-arrow-down"></i></div><span class="h6 fw-semibold text-muted">Incoming</span>
+                        </div>
+                        <div class="fw-bold text-heading mt-3"><?= money($al['in']); ?>  GHS</div>
+                    </div><span class="vr bg-dark bg-opacity-10"></span>
+                    <div class="">
+                        <div class="d-flex gap-3 align-items-center">
+                        <div class="icon icon-sm icon-shape text-sm rounded-circle bg-dark text-danger"><i class="bi bi-arrow-up"></i></div><span class="h6 fw-semibold text-muted">Outgoing</span>
+                        </div>
+                        <div class="fw-bold text-heading mt-3"><?= money($al['out']); ?> GHS</div>
+                    </div>
+                    </div>
+                </div>
+            </div>
 
+            <div class="card">
+                <div class="card-body pb-0">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <div>
+                            <h5>Earnings</h5>
+                        </div>
+                        <div class="hstack align-items-center">
+                            <a href="<?= PROOT; ?>acc/analytics" class="text-muted"><i class="bi bi-arrow-repeat"></i></a>
+                        </div>
+                    </div>
+                    <div class="mx-n4">
+                        <canvas class="my-4 w-100" id="myChart" width="900" height="380"></canvas>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-body">
+                    <div class="d-flex justify-content-between align-items-center mb-5">
+                        <div>
+                            <h5>Accumulated trades by months and years</h5>
+                        </div>
+                        <div class="hstack align-items-center">
+                            <a href="<?= PROOT; ?>acc/trades" class="text-muted">
+                                <i class="bi bi-arrow-repeat"></i>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="vstack gap-6">
+                        <table class="table table-bordered table-lg">
+                            <thead>
+                                <tr>
+                                    <th scope="col"></th>
+                                    <th scope="col" style="font-family: Roboto Mono, monospace;"><?= $lastYr; ?></th>
+                                    <th scope="col" style="font-family: Roboto Mono, monospace;"><?= $thisYr; ?></th>
+                                </tr>
+                            </thead>
+                                <tbody>
+                                <?php for ($i = 1; $i <= 12; $i++):
+                                    $dt = dateTime::createFromFormat('!m',$i);
+                                ?>
+                                    <tr>
+                                        <td <?= (date('m') == $i) ? ' class="bg-danger"' : ''; ?>><?= $dt->format("F"); ?></td>
+                                        <td <?= (date('m') == $i) ? ' class="bg-danger"' : ''; ?> style="font-family: Roboto Mono, monospace;"><?= ((array_key_exists($i, $last)) ? money($last[$i]) : money(0)); ?></td>
+                                        <td <?= (date('m') == $i) ? ' class="bg-danger"' : ''; ?> style="font-family: Roboto Mono, monospace;"><?=  ((array_key_exists($i, $current)) ? money($current[$i]) : money(0)); ?></td>
+                                    </tr>
+                                <?php endfor; ?>
+                                <tr>
+                                    <td>Total</td>
+                                    <td style="font-family: Roboto Mono, monospace;"><?= money($lastTotal); ?></td>
+                                    <td style="font-family: Roboto Mono, monospace;"><?= money($currentTotal); ?></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
             </div>
         </div>

@@ -694,8 +694,8 @@ function analytics_left() {
 		'expenses' => $expenses
 	];
 	if ($statement->rowCount() > 0) {
-		$gained_or_loss = (float)($row['balance'] - $expenses);
-		$gained_or_loss = (float)($row['capital'] - $gained_or_loss);
+		$a = (float)($row['balance'] + $expenses);
+		$gained_or_loss = (float)($row['capital'] - $a);
 	}
 
 	$output = [
