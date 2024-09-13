@@ -88,11 +88,6 @@ $output = '
 if ($total_data > 0) {
 	$i = 1;
 	foreach ($result as $row) {
-
-		// $arrayOutput = array('reference' => $row['sale_id'], 'customername' => $row['sale_customer_name'], 'date' => $row['sca'], 'gram' => $row['sale_gram'], 'volume' => $row['sale_volume'], 'density' => $row['sale_density'], 'pounds' => $row['sale_pounds'], 'carat' => $row['sale_carat'], 'total_amount' => $row['sale_total_amount'], 'current_price' => $row['sale_price'], 'by' => $row['sale_by'], 'message' => '',);
-		
-		// $outputData = json_encode($arrayOutput);
-
 		$output .= '
             <tr>
                 <td>' . $i . '</td>

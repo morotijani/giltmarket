@@ -14,29 +14,34 @@
     include ("../includes/header.inc.php");
     include ("../includes/nav.inc.php");
 
-    $where = '';
-    if ($admin_data[0]['admin_permissions'] != 'admin,salesperson,supervisor') {
-        $where = ' WHERE jspence_admin.admin_id = "'.$admin_data[0]['admin_id'].'" ';
-    }
-
-    $sql = "
-        SELECT * FROM jspence_expenditures 
-        INNER JOIN jspence_admin 
-        ON jspence_admin.admin_id = jspence_expenditures.expenditure_by
-        $where 
-        ORDER BY jspence_expenditures.createdAt DESC
-    ";
-    $statement = $conn->prepare($sql);
-    $statement->execute();
-    $count_row = $statement->rowCount();
-    $rows = $statement->fetchAll();
-
     $for_amount = ((isset($_POST['for_amount']) && !empty($_POST['for_amount'])) ? sanitize($_POST['for_amount']) : '');
     $what_for = ((isset($_POST['what_for']) && !empty($_POST['what_for'])) ? sanitize($_POST['what_for']) : '');
 
+    if (isset($_GET['edit']) && !empty($_GET['edit'])) {
+        $id = sanitize($_GET['edit']);
+
+        $sql = "
+            SELECT * FROM jspence_expenditures 
+            WHERE expenditure_id = ? 
+            AND expenditure_by = ?
+            LIMIT 1 
+        ";
+        $statement = $conn->prepare($sql);
+        $statement->execute([$id, $admin_data[0]['admin_id']]);
+        $_row = $statement->fetchAll();
+
+        if ($statement->rowCount()) {
+            $for_amount = ((isset($_POST['for_amount']) && !empty($_POST['for_amount'])) ? sanitize($_POST['for_amount']) : $_row[0]['expenditure_amount']);
+            $what_for = ((isset($_POST['what_for']) && !empty($_POST['what_for'])) ? sanitize($_POST['what_for']) : $_row[0]['expenditure_what_for']);
+        } else {
+            $_SESSION['flash_error'] = 'Cannot find expenditure!';
+            redirect(PROOT . "acc/expenditure");
+        }
+    }
+
+    $by = $admin_data[0]['admin_id'];
     if ($_POST) {
         $e_id = guidv4();
-        $by = $admin_data[0]['admin_id'];
         $createdAt = date("Y-m-d H:i:s");
 
         if ((!empty($for_amount) || $for_amount != '') && (!empty($what_for) || $what_for != '')) {
@@ -48,16 +53,37 @@
                         $today_balance = _capital()['today_balance'];
                         if ($for_amount <= $today_balance) {
                             $data = [$e_id, _capital()['today_capital_id'], $what_for, $for_amount, $by, $createdAt];
+
                             $sql = "
                                 INSERT INTO jspence_expenditures (expenditure_id, expenditure_capital_id, expenditure_what_for, expenditure_amount, expenditure_by, createdAt) 
                                 VALUES (?, ?, ?, ?, ?, ?)
                             ";
+                            if (isset($_GET['edit']) && !empty($_GET['edit'])) {
+                                $data = [$what_for, $for_amount, $id];
+                                $sql = "
+                                    UPDATE jspence_expenditures 
+                                    SET expenditure_what_for = ?, expenditure_amount = ?
+                                    WHERE expenditure_id = ?
+                                ";
+                            }
+
                             $statement = $conn->prepare($sql);
                             $result = $statement->execute($data);
                             if (isset($result)) {
                                 
                                 $today = date("Y-m-d");
                                 $balance = (float)(_capital()['today_balance'] - $for_amount);
+                                if (isset($_GET['edit']) && !empty($_GET['edit'])) {
+                                    if ($for_amount < $_row[0]['expenditure_amount']) {
+                                        $balance = (float)($_row[0]['expenditure_amount'] - $for_amount);
+                                        $balance = (float)(_capital()['today_balance'] + $balance);
+                                    } elseif ($for_amount > $_row[0]['expenditure_amount']) {
+                                        $balance = (float)($for_amount - $_row[0]['expenditure_amount']);
+                                        $balance = (float)(_capital()['today_balance'] - $balance);
+                                    } else {
+                                        $balance = _capital()['today_balance'];
+                                    }
+                                }
 
                                 $query = "
                                     UPDATE jspence_daily 
@@ -71,7 +97,7 @@
                                 $message = "added new expenditure: " . $what_for . " and amount of: " . money($for_amount);
                                 add_to_log($message, $by);
                 
-                                $_SESSION['flash_success'] = 'Expenditure has been recorded!';
+                                $_SESSION['flash_success'] = 'Expenditure has been saved!';
                                 redirect(PROOT . "acc/expenditure");
                             } else {
                                 echo js_alert("Something went wrong!");
@@ -94,6 +120,55 @@
             $_SESSION['flash_error'] = 'Empty fields are required!';
             redirect(PROOT . "acc/expenditure");
         }
+    }
+
+    if (isset($_GET['delete']) && !empty($_GET['delete'])) {
+        $id = sanitize($_GET['delete']);
+
+        $sql = "
+            SELECT * FROM jspence_expenditures 
+            WHERE expenditure_id = ? 
+            AND expenditure_by = ?
+            LIMIT 1 
+        ";
+        $statement = $conn->prepare($sql);
+        $statement->execute([$id, $admin_data[0]['admin_id']]);
+        $_row = $statement->fetchAll();
+
+        if ($statement->rowCount()) {
+            $updateQuery = "
+                UPDATE jspence_expenditures 
+                SET status = ? 
+                WHERE expenditure_id = ?
+            ";
+            $statement = $conn->prepare($updateQuery);
+            $result = $statement->execute([1, $id]);
+
+            if (isset($result)) {
+                $for_amount = $_row[0]['expenditure_amount'];
+                $today = date("Y-m-d");
+                $balance = (float)(_capital()['today_balance'] + $for_amount);
+
+                $query = "
+                    UPDATE jspence_daily 
+                    SET daily_balance = ?
+                    WHERE daily_date = ? 
+                    AND daily_by = ?
+                ";
+                $statement = $conn->prepare($query);
+                $statement->execute([$balance, $today, $by]);
+
+                $message = "added new expenditure: " . $what_for . " and amount of: " . money($for_amount);
+                add_to_log($message, $by);
+
+                $_SESSION['flash_success'] = 'Expenditure has been deleted!';
+                redirect(PROOT . "acc/expenditure");
+            }
+        } else {
+            $_SESSION['flash_error'] = 'Cannot find expenditure!';
+            redirect(PROOT . "acc/expenditure");
+        }
+
     }
 
 ?>
@@ -194,7 +269,6 @@
         </div>
     </div>
     <?php endif; ?>
-
     <div class="row align-items-center g-6 mt-0 mb-6">
         <div class="col-sm-6">
             <div class="d-flex gap-2">
