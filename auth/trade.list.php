@@ -15,11 +15,6 @@ if ($_POST['page'] > 1) {
 	$start = 0;
 }
 
-// $query = "
-// 	SELECT * FROM thylies_scholarship 
-// 	WHERE trash = 0 
-// ";
-
 $where = '';
 if (!admin_has_permission()) {
 	$where = ' AND sale_by = "'.$admin_data[0]["admin_id"].'" ';

@@ -100,13 +100,12 @@
 
 <?php include ("../includes/footer.inc.php"); ?>
 
-
 <script>
     
     // SEARCH AND PAGINATION FOR LIST
     function load_data(page, query = '') {
         $.ajax({
-            url : "<?= PROOT; ?>auth/trade.lists.php",
+            url : "<?= PROOT; ?>auth/trade.list.php",
             method : "POST",
             data : {
                 page : page, 

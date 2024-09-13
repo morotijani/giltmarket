@@ -145,7 +145,7 @@
 								</h1>
 								<p class="text-sm text-muted">
 									<?php if (admin_has_permission('supervisor')) :?>
-									Gained: <span class="text-success" style="font-family: Roboto Mono, monospace;"><?= _gained_calculation(_capital()['today_balance'], _capital()['today_capital']); ?></span>
+									Gained / Balance: <span class="text-success" style="font-family: Roboto Mono, monospace;"><?= _gained_calculation(_capital()['today_balance'], _capital()['today_capital']); ?></span>
 									<br>
 									<?php endif; ?>
 									Amount given today to trade: <span style="font-family: Roboto Mono, monospace;"><?= money(_capital()['today_capital']); ?></span> 
