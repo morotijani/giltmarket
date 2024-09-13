@@ -137,7 +137,7 @@ if ($total_data > 0) {
 	            </tr>
 
 	            <!-- Trade details -->
-	            <div class="modal fade" id="saleModal_' . $row["sid"] . '" tabindex="-1" aria-labelledby="saleModalLabel_' . $row["sid"] . '" aria-hidden="true">
+	            <div class="modal fade" id="saleModal_' . $row["sid"] . '" tabindex="-1" aria-labelledby="saleModalLabel_' . $row["sid"] . '" aria-hidden="true" style="backdrop-filter: blur(5px);">
 					<div class="modal-dialog modal-dialog-centered">
 						<div class="modal-content overflow-hidden">
 							<div class="modal-header pb-0 border-0">
@@ -195,7 +195,7 @@ if ($total_data > 0) {
 				</div>
 
 				<!-- DELETE TRADE -->
-				<div class="modal fade" id="deleteModal_' . $row["sid"] . '" tabindex="-1" aria-labelledby="deleteModalLabel_' . $row["sid"] . '" data-bs-backdrop="static" data-bs-keyboard="false" aria-hidden="true">
+				<div class="modal fade" id="deleteModal_' . $row["sid"] . '" tabindex="-1" aria-labelledby="deleteModalLabel_' . $row["sid"] . '" data-bs-backdrop="static" data-bs-keyboard="false" aria-hidden="true" style="backdrop-filter: blur(5px);">
 				    <div class="modal-dialog modal-dialog-centered">
 				        <div class="modal-content overflow-hidden">
 				            <div class="modal-header pb-0 border-0">
@@ -224,7 +224,7 @@ if ($total_data > 0) {
 				</div>
 
 				<!-- HANDLER DETAILS -->
-				<div class="modal fade" id="adminModal_' . $row["aid"] . '" tabindex="-1" aria-labelledby="adminModalLabel_' . $row["aid"] . '" data-bs-backdrop="static" data-bs-keyboard="false" aria-hidden="true">
+				<div class="modal fade" id="adminModal_' . $row["aid"] . '" tabindex="-1" aria-labelledby="adminModalLabel_' . $row["aid"] . '" data-bs-backdrop="static" data-bs-keyboard="false" aria-hidden="true" style="backdrop-filter: blur(5px);">
 					<div class="modal-dialog modal-dialog-centered">
 						<div class="modal-content overflow-hidden">
 							<div class="modal-header pb-0 border-0">

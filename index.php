@@ -357,7 +357,7 @@
 					</div>
 					
 					<!-- Seeting for todays capital -->
-					<div class="modal fade" id="modalCapital" tabindex="-1" aria-labelledby="modalCapital" aria-hidden="true">
+					<div class="modal fade" id="modalCapital" tabindex="-1" aria-labelledby="modalCapital" aria-hidden="true" style="backdrop-filter: blur(5px);">
 						<div class="modal-dialog modal-dialog-centered">
 							<div class="modal-content shadow-3">
 								<div class="modal-header justify-content-start">
@@ -404,7 +404,7 @@
 
 
 	<!-- LOGIN -->
-	<div class="modal fade" id="connectWalletModal" tabindex="-1" aria-labelledby="connectWalletModalLabel" aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="false">
+	<div class="modal fade" id="connectWalletModal" tabindex="-1" aria-labelledby="connectWalletModalLabel" aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="false" style="backdrop-filter: blur(5px);">
 		<div class="modal-dialog modal-dialog-centered">
 			<div class="modal-content overflow-hidden">
 				<div class="modal-header pb-0 border-0">
