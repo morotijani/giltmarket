@@ -6,14 +6,19 @@ require_once ("../db_connection/conn.php");
 
 if (isset($_POST['dater'])) {
     $dater = sanitize($_POST['dater']);
+    $action = (isset($_POST['action']) ? $_POST['action'] : '');
 
     $andDaily = '';
     $andExpenditure = '';
     $and = '';
-    if ($dater != null) {
+    if ($action == 'with_date' && $dater != null) {
         $and = ' AND CAST(jspence_sales.createdAt AS date) = "'.$dater.'"';
         $andDaily = ' AND daily_date = "'.$dater.'"';
         $andExpenditure = ' AND CAST(jspence_expenditures.createdAt AS date) = "'.$dater.'"';
+    } else if ($action == 'with_month') {
+        $and = ' AND MONTH(jspence_sales.createdAt) = "'.$dater.'"';
+        $andDaily = ' AND MONTH(daily_date) = "'.$dater.'"';
+        $andExpenditure = ' AND MONTH(jspence_expenditures.createdAt) = "'.$dater.'"';
     }
 
     $supervisorQuery = "

@@ -85,7 +85,24 @@
                 </div>
                 <div class="col">
                     <div class="hstack gap-2 justify-content-end">
-                        <input type="date" id="dater" class="px-3 py-1 text-muted rounded text-xs fw-semibold">
+                        <div class="d-flex scrollable-x justify-content-between gap-1 p-1 align-items-center bg-body-secondary rounded text-xs fw-semibold">
+                            <input type="date" id="dater" class="px-3 py-1 text-muted">
+                            <select id='use-month' class="px-3 py-1 text-muted">
+                                <option value=''>Select Month</option>
+                                <option value="1">January</option>
+                                <option value='2'>February</option>
+                                <option value='3'>March</option>
+                                <option value='4'>April</option>
+                                <option value='5'>May</option>
+                                <option value='6'>June</option>
+                                <option value='7'>July</option>
+                                <option value='8'>August</option>
+                                <option value='9'>September</option>
+                                <option value='10'>October</option>
+                                <option value='11'>November</option>
+                                <option value='12'>December</option>
+                            </select>
+                        </div>
                         <a href="<?= PROOT . 'acc/analytics' ?>" class="btn btn-sm btn-neutral d-sm-inline-flex"><span class="pe-2"><i class="bi bi-arrow-clockwise"></i> </span><span>Reset</span></a>
                             <!-- <div class="input-group input-group-inline datepicker">
                                 <span class="input-group-text pe-2"><i class="bi bi-calendar"></i> </span>
@@ -102,6 +119,7 @@
                     <div class="card">
                         <div class="p-4">
                             <h6 class="text-limit text-muted mb-3">Supervisor</h6>
+                            <span class="text-muted text-opacity-60 text-opacity-100-hover" tabindex="0" data-bs-toggle="popover" data-bs-trigger="hover focus" data-bs-placement="right" data-bs-html="true" data-bs-content="The total capital given out to supervisors and Balance remaining, which can be determined as profit or loss." role="button"><i class="bi bi-info-circle"></i></span>
                             <span class="text-sm text-muted text-opacity-90 fw-semibold">GHS</span> <span class="d-block h3 ls-tight fw-bold" id="sup-capital">0.00</span>
                             <p class="mt-1">
                                 <span class="text-success text-xs"><i class="fas fa-arrow-up me-1"></i>Balance </span>
@@ -114,6 +132,7 @@
                     <div class="card">
                         <div class="p-4">
                             <h6 class="text-limit text-muted mb-3">Salespersonnel</h6>
+                            <span class="text-muted text-opacity-60 text-opacity-100-hover" tabindex="0" data-bs-toggle="popover" data-bs-trigger="hover focus" data-bs-placement="right" data-bs-html="true" data-bs-content="The total capital given out to salespersonnels and Balance remaining." role="button"><i class="bi bi-info-circle"></i></span>
                             <span class="text-sm text-muted text-opacity-90 fw-semibold">GHS</span> <span class="d-block h3 ls-tight fw-bold" id="sal-capital">0.00</span>
                             <p class="mt-1">
                                 <span class="text-success text-xs"><i class="fas fa-arrow-up me-1"></i>Balance </span>
@@ -126,6 +145,7 @@
                     <div class="card">
                         <div class="p-4">
                             <h6 class="text-limit text-muted mb-3">Expenses</h6>
+                            <span class="text-muted text-opacity-60 text-opacity-100-hover" tabindex="0" data-bs-toggle="popover" data-bs-trigger="hover focus" data-bs-placement="right" data-bs-html="true" data-bs-content="The total expenses made." role="button"><i class="bi bi-info-circle"></i></span>
                             <span class="text-sm text-muted text-opacity-90 fw-semibold">GHS</span> <span class="d-block h3 ls-tight fw-bold" id="expenses">0.00</span>
                             <p class="mt-1">
                                 <span class="text-success text-xs"><i class="fas fa-arrow-up me-1"></i>20% </span>
@@ -138,6 +158,7 @@
                     <div class="card">
                         <div class="p-4">
                             <h6 class="text-limit text-muted mb-3">Total trades</h6>
+                            <span class="text-muted text-opacity-60 text-opacity-100-hover" tabindex="0" data-bs-toggle="popover" data-bs-trigger="hover focus" data-bs-placement="right" data-bs-html="true" data-bs-content="The total number of trade(s) made." role="button"><i class="bi bi-info-circle"></i></span>
                             <span class="text-sm text-muted text-opacity-90 fw-semibold">#</span> <span class="d-block h3 ls-tight fw-bold" id="total-trades">0.00</span>
                             <p class="mt-1">
                                 <span class="text-success text-xs"><i class="fas fa-arrow-up me-1"></i>20% </span>
@@ -151,7 +172,7 @@
                 <div class="card-body d-flex flex-column">
                     <div class="d-flex justify-content-between align-items-center mb-3">
                     <div>
-                        <h5>Profit<!-- Balance --></h5>
+                        <h5>Earnings<!-- Balance --></h5>
                     </div>
                     <div>
                         <span class="text-heading fw-bold"><i class="bi bi-arrow-up me-2"></i>7.8%</span></div>
@@ -160,13 +181,13 @@
                     <div class="d-flex align-items-center justify-content-between mt-8">
                     <div class="">
                         <div class="d-flex gap-3 align-items-center">
-                        <div class="icon icon-sm icon-shape text-sm rounded-circle bg-dark text-success"><i class="bi bi-arrow-down"></i></div><span class="h6 fw-semibold text-muted">Incoming</span>
+                        <div class="icon icon-sm icon-shape text-sm rounded-circle bg-dark text-success"><i class="bi bi-arrow-down"></i></div><span class="h6 fw-semibold text-muted">Incoming</span> <span class="text-muted text-opacity-60 text-opacity-100-hover" tabindex="0" data-bs-toggle="popover" data-bs-trigger="hover focus" data-bs-placement="right" data-bs-html="true" data-bs-content="The total amount of trades comming in done by supervisors" role="button"><i class="bi bi-info-circle"></i></span>
                         </div>
                         <div class="fw-bold text-heading mt-3" id="incoming">0.00 GHS</div>
                     </div><span class="vr bg-dark bg-opacity-10"></span>
                     <div class="">
                         <div class="d-flex gap-3 align-items-center">
-                        <div class="icon icon-sm icon-shape text-sm rounded-circle bg-dark text-danger"><i class="bi bi-arrow-up"></i></div><span class="h6 fw-semibold text-muted">Outgoing</span>
+                        <div class="icon icon-sm icon-shape text-sm rounded-circle bg-dark text-danger"><i class="bi bi-arrow-up"></i></div><span class="h6 fw-semibold text-muted">Outgoing</span> <span class="text-muted text-opacity-60 text-opacity-100-hover" tabindex="0" data-bs-toggle="popover" data-bs-trigger="hover focus" data-bs-placement="right" data-bs-html="true" data-bs-content="The total amount of trades going out done by salespersonnels" role="button"><i class="bi bi-info-circle"></i></span>
                         </div>
                         <div class="fw-bold text-heading mt-3" id="outgoing">0.00 GHS</div>
                     </div>
@@ -248,18 +269,29 @@
         });
 
         var dater = null;
+        var action = '';
         
         $('#dater').on('change', function() {
             dater = this.value;
-            analytics(dater)
+            action = 'with_date'
+            $('#use-month').val("");
+            analytics(dater, action)
         });
 
-        function analytics(dater) {
+        $('#use-month').change(function(){
+            dater = $(this).val();
+            action = "with_month"
+            $('#dater').val("");
+            analytics(dater, action)
+        });
+
+        function analytics(dater, action) {
             $.ajax({
                 method: "POST",
                 url: "<?= PROOT; ?>auth/analytics.info.php",
                 data: {
-                    dater : dater
+                    dater : dater,
+                    action : action
                 },
                 beforeSend: function() {
                     $('#sup-capital').text('loading ...');
