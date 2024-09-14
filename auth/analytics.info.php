@@ -52,11 +52,11 @@ if (isset($_POST['dater'])) {
     $out = (($outs[0]['outs_amt']) ? $outs[0]['outs_amt'] : 0);
     $expenses = (($expense[0]['exp_amt']) ? $expense[0]['exp_amt'] : 0);
 
-    $total_sales_capital = $sales['capital'] ?? 0;
-    $total_sales_balance = $sales['balance'] ?? 0;
+    $total_sales_capital = $sales[0]['capital'] ?? 0;
+    $total_sales_balance = $sales[0]['balance'] ?? 0;
 
-    $total_supervisor_capital = $sales['capital'] ?? 0;
-    $total_supervisor_balance = $sales['balance'] ?? 0;
+    $total_supervisor_capital = $sup_row['capital'] ?? 0;
+    $total_supervisor_balance = $sup_row['balance'] ?? 0;
 
     $out = (float)($out + $expenses);
 

@@ -101,11 +101,11 @@
                 <div class="col">
                     <div class="card">
                         <div class="p-4">
-                            <h6 class="text-limit text-muted mb-3">Total Capital</h6>
-                            <span class="text-sm text-muted text-opacity-90 fw-semibold">GHS</span> <span class="d-block h3 ls-tight fw-bold" id="total-capital">0.00</span>
+                            <h6 class="text-limit text-muted mb-3">Supervisor</h6>
+                            <span class="text-sm text-muted text-opacity-90 fw-semibold">GHS</span> <span class="d-block h3 ls-tight fw-bold" id="sup-capital">0.00</span>
                             <p class="mt-1">
-                                <span class="text-success text-xs"><i class="fas fa-arrow-up me-1"></i>20% </span>
-                                <span class="text-muted text-xs text-opacity-75">vs last week</span>
+                                <span class="text-success text-xs"><i class="fas fa-arrow-up me-1"></i>Balance </span>
+                                <span class="text-muted text-xs text-opacity-75" id="sup-balance">0.00</span>
                             </p>
                         </div>
                     </div>
@@ -113,11 +113,11 @@
                 <div class="col">
                     <div class="card">
                         <div class="p-4">
-                            <h6 class="text-limit text-muted mb-3">Total Balance</h6>
-                            <span class="text-sm text-muted text-opacity-90 fw-semibold">GHS</span> <span class="d-block h3 ls-tight fw-bold" id="total-balance">0.00</span>
+                            <h6 class="text-limit text-muted mb-3">Salespersonnel</h6>
+                            <span class="text-sm text-muted text-opacity-90 fw-semibold">GHS</span> <span class="d-block h3 ls-tight fw-bold" id="sal-capital">0.00</span>
                             <p class="mt-1">
-                                <span class="text-success text-xs"><i class="fas fa-arrow-up me-1"></i>20% </span>
-                                <span class="text-muted text-xs text-opacity-75">vs last week</span>
+                                <span class="text-success text-xs"><i class="fas fa-arrow-up me-1"></i>Balance </span>
+                                <span class="text-muted text-xs text-opacity-75" id="sal-balance">0.00</span>
                             </p>
                         </div>
                     </div>
@@ -262,8 +262,10 @@
                     dater : dater
                 },
                 beforeSend: function() {
-                    $('#total-capital').text('loading ...');
-                    $('#total-balance').text('loading ...');
+                    $('#sup-capital').text('loading ...');
+                    $('#sup-balance').text('loading ...');
+                    $('#sal-capital').text('loading ...');
+                    $('#sal-balance').text('loading ...');
                     $('#expenses').text('loading ...');
                     $('#total-trades').text('loading ...');
                     $('#profit-loss').text('loading ...');
@@ -273,8 +275,10 @@
                 success: function(data) {
                     const response = JSON.parse(data);
 
-                    $('#total-capital').text(response["capital"]);
-                    $('#total-balance').text(response["balance"]);
+                    $('#sup-capital').text(response["supervisor_capital"]);
+                    $('#sup-balance').text(response["supervisor_balance"]);
+                    $('#sal-capital').text(response["sales_capital"]);
+                    $('#sal-balance').text(response["sales_balance"]);
                     $('#expenses').text(response["expenses"]);
                     $('#total-trades').text(response["trades"]);
                     $('#profit-loss').text(response["gained_or_loss"]);
