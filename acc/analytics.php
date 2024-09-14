@@ -292,37 +292,12 @@
                 }
             })
         }
+        //
         analytics(dater);
 
     });
-    
-    // SEARCH AND PAGINATION FOR LIST
-    function load_data(page, query = '') {
-        $.ajax({
-            url : "<?= PROOT; ?>auth/expenditure.list.php",
-            method : "POST",
-            data : {
-                page : page, 
-                query : query
-            },
-            success : function(data) {
-                $("#load-content").html(data);
-            }
-        });
-    }
-
-    load_data(1);
-    $('#search').keyup(function() {
-        var query = $('#search').val();
-        load_data(1, query);
-    });
-
-    $(document).on('click', '.page-link-go', function() {
-        var page = $(this).data('page_number');
-        var query = $('#search').val();
-        load_data(page, query);
-    });
 </script>
+
 <script type="text/javascript">
     /* globals Chart:false, feather:false */
 
