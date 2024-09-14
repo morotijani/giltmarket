@@ -7,7 +7,7 @@
         admn_login_redirect();
     }
 
-    if ($admin_data[0]['admin_permissions'] == 'supervisor') {
+    if (!admin_has_permission()) {
         redirect(PROOT . 'index');
     }
 

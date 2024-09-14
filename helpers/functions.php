@@ -228,12 +228,12 @@ function add_to_log($message, $log_admin) {
 	}
 }
 
-function fetch_all_sales($status, $permission, $admin) {
+function fetch_all_sales($status, $admin) {
 	global $conn;
 	$output = '';
 
 	$where = '';
-	if ($permission != 'admin,salesperson') {
+	if (!admin_has_permission()) {
 		$where = ' AND sale_by = "'.$admin.'" ';
 	}
 
@@ -443,7 +443,7 @@ function fetch_all_sales($status, $permission, $admin) {
 
 
 // get total amount of orders today
-function total_amount_today($admin, $permission) {
+function total_amount_today($admin) {
 	global $conn;
 	$thisDay = date("d");
 	$yesterDay = $thisDay - 1;
@@ -451,7 +451,7 @@ function total_amount_today($admin, $permission) {
 	$output = [];
 
 	$where = '';
-	if ($permission != 'admin,salesperson') {
+	if (!admin_has_permission()) {
 		$where = ' sale_by = "'.$admin.'" AND ';
 	}
 
@@ -504,7 +504,7 @@ function total_amount_today($admin, $permission) {
 }
 
 // get total amount of orders in current month
-function total_amount_thismonth($admin, $permission) {
+function total_amount_thismonth($admin) {
 	global $conn;
 	$thisMonth = date("m");
 	$lastMonth = $thisMonth - 1;
@@ -512,7 +512,7 @@ function total_amount_thismonth($admin, $permission) {
 	$output = [];
 
 	$where = '';
-	if ($permission != 'admin,salesperson') {
+	if (!admin_has_permission()) {
 		$where = ' sale_by = "'.$admin.'" AND ';
 	}
 
@@ -565,11 +565,11 @@ function total_amount_thismonth($admin, $permission) {
 }
 
 // count total orders
-function count_total_orders($admin, $permission) {
+function count_total_orders($admin) {
 	global $conn;
 
 	$where = '';
-	if ($permission != 'admin,salesperson') {
+	if (!admin_has_permission()) {
 		$where = ' AND sale_by = "'.$admin.'"';
 	}
 
@@ -587,7 +587,7 @@ function count_total_orders($admin, $permission) {
 }
 
 // get grand amount of orders
-function grand_total_amount($admin, $permission) {
+function grand_total_amount($admin) {
 	global $conn;
 	$thisYear = date("Y");
 	$lastYear = $thisYear - 1;
@@ -595,7 +595,7 @@ function grand_total_amount($admin, $permission) {
 	$output = [];
 
 	$where = '';
-	if ($permission != 'admin,salesperson') {
+	if (!admin_has_permission()) {
 		$where = ' sale_by = "'.$admin.'" AND ';
 	}
 
@@ -636,7 +636,7 @@ function grand_total_amount($admin, $permission) {
 	}
 
 	$where = '';
-	if ($permission != 'admin,salesperson') {
+	if (!admin_has_permission()) {
 		$where = ' AND sale_by = "'.$admin.'"';
 	}
 	$grandTotalSql = "
@@ -660,64 +660,13 @@ function grand_total_amount($admin, $permission) {
 	return $output;
 }
 
-//
-function analytics_left() {
-	global $conn;
-
-	$sql = "
-		SELECT SUM(daily_capital) AS capital, SUM(daily_balance) AS balance 
-		FROM jspence_daily 
-		WHERE status = ?
-	";
-	$statement = $conn->prepare($sql);
-	$result = $statement->execute([0]);
-	$rows = $statement->fetchAll();
-	$row = $rows[0];
-
-	$ins = $conn->query("SELECT SUM(sale_total_amount) AS ins_amt FROM jspence_sales WHERE sale_type = 'in' AND sale_status = 0")->fetchAll();
-	$outs = $conn->query("SELECT SUM(sale_total_amount) AS outs_amt FROM jspence_sales WHERE sale_type = 'out' AND sale_status = 0")->fetchAll();
-	$expense = $conn->query("SELECT SUM(expenditure_amount) AS exp_amt FROM jspence_expenditures WHERE status = 0")->fetchAll();
-	$count_trades = $conn->query("SELECT * FROM jspence_sales WHERE sale_status = 0")->rowCount();
-
-	$gained_or_loss = 0;
-	$in = (($ins[0]['ins_amt']) ? $ins[0]['ins_amt'] : 0);
-	$out = (($outs[0]['outs_amt']) ? $outs[0]['outs_amt'] : 0);
-	$expenses = (($expense[0]['exp_amt']) ? $expense[0]['exp_amt'] : 0);
-
-	$output = [
-		'capital' => 0,
-		'balance' => 0,
-		'gained_or_loss' => 0,
-		'in' => $in,
-		'out' => $out,
-		'trades' => $count_trades,
-		'expenses' => $expenses
-	];
-	if ($statement->rowCount() > 0) {
-		$a = (float)($row['balance'] + $expenses);
-		$gained_or_loss = (float)($row['capital'] - $a);
-	}
-
-	$output = [
-		'capital' => $row['capital'],
-		'balance' => $row['balance'],
-		'gained_or_loss' => $gained_or_loss,
-		'in' => $in,
-		'out' => $out,
-		'trades' => $count_trades,
-		'expenses' => $expenses
-	];
-
-	return $output;
-}
-
 // get logs for admins
-function get_logs($admin, $permission) {
+function get_logs($admin) {
 	global $conn;
 	$output = '';
 
 	$where = '';
-	if ($permission != 'admin,salesperson') {
+	if (!admin_has_permission()) {
 		$where = ' WHERE log_admin = "'.$admin.'" ';
 	}
 
@@ -743,14 +692,14 @@ function get_logs($admin, $permission) {
 
 
 // get recent trades
-function get_recent_trades($admin, $permission) {
+function get_recent_trades($admin) {
 	global $conn;
 	$output = '';
 
 	$today = date('d');
 
 	$where = '';
-	if ($permission != 'admin,salesperson') {
+	if (!admin_has_permission()) {
 		$where = ' sale_by = "'.$admin.'" AND ';
 	}
 

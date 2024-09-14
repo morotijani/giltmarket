@@ -60,11 +60,12 @@
 			}
 		}
     
+		// statisticall calculations
 	    $thisYr = date("Y");
 	    $lastYr = $thisYr - 1;
 
 	    $where = '';
-		if ($admin_data[0]['admin_permissions'] != 'admin,salesperson') {
+		if (!admin_has_permission()) {
 			$where = ' AND sale_by = "'.$admin_data[0]['admin_id'].'"';
 		}
 
@@ -169,7 +170,7 @@
 												<div class="d-flex align-items-center gap-2">
 													<img src="<?= PROOT; ?>dist/media/today.png" class="w-rem-5 flex-none" alt="..."> <a href="javascript:;" class="h6 stretched-link">Today</a>
 												</div>
-												<?php $t = total_amount_today($admin_data[0]['admin_id'], $admin_data[0]['admin_permissions']); ?>
+												<?php $t = total_amount_today($admin_data[0]['admin_id']); ?>
 												<div class="text-sm fw-semibold mt-3"><?= $t['amount']; ?></div>
 												<div class="d-flex align-items-center gap-2 mt-1 text-xs">
 													<span class="badge badge-xs bg-<?= $t['percentage_color']; ?>"><i class="bi bi-arrow-<?= $t['percentage_icon']; ?>"></i> </span><span><?= $t['percentage']; ?>%</span>
@@ -184,7 +185,7 @@
 													<img src="<?= PROOT; ?>dist/media/thismonth.png" class="w-rem-5 flex-none" alt="..."> 
 													<a href="javascript:;" class="h6 stretched-link">This Month</a>
 												</div>
-												<?php $m = total_amount_thismonth($admin_data[0]['admin_id'], $admin_data[0]['admin_permissions']); ?>
+												<?php $m = total_amount_thismonth($admin_data[0]['admin_id']); ?>
 												<div class="text-sm fw-semibold mt-3"><?= $m['amount']; ?></div>
 												<div class="d-flex align-items-center gap-2 mt-1 text-xs"><span class="badge badge-xs bg-<?= $t['percentage_color']; ?>"><i class="bi bi-arrow-<?= $t['percentage_icon']; ?>"></i> </span><span><?= $t['percentage']; ?>%</span></div>
 											</div>
@@ -196,7 +197,7 @@
 												<div class="d-flex align-items-center gap-2">
 													<img src="<?= PROOT; ?>dist/media/orders.jpg" class="w-rem-5 flex-none" alt="..."> 
 													<a href="<?= PROOT; ?>acc/trades" class="h6 stretched-link">Orders</a></div>
-													<div class="text-sm fw-semibold mt-3"><?= count_total_orders($admin_data[0]['admin_id'], $admin_data[0]['admin_permissions']); ?></div>
+													<div class="text-sm fw-semibold mt-3"><?= count_total_orders($admin_data[0]['admin_id']); ?></div>
 													<div class="d-flex align-items-center gap-2 mt-1 text-xs">
 														<span class="badge badge-xs bg-info"><i class="bi bi-123"></i> </span><span><?= date("l jS \of F " . ' . ' . " A"); ?></span>
 													</div>
@@ -204,7 +205,7 @@
 											</div>
 										</div>
 									</div>
-									<?php if (admin_has_permission('admin')): ?>
+									<?php if (admin_has_permission()): ?>
 									<div class="card">
 										<div class="card-body pb-0">
 											<div class="d-flex justify-content-between align-items-center"><div>
@@ -276,7 +277,7 @@
 											</div>
 										</div>
 										<div class="vstack gap-6">
-											<?= get_recent_trades($admin_data[0]['admin_id'], $admin_data[0]['admin_permissions']); ?>
+											<?= get_recent_trades($admin_data[0]['admin_id']); ?>
 										</div>
 									</div>
 								</div>
@@ -295,7 +296,7 @@
 											<div class="card-body d-flex flex-column p-0 p-xxl-6" style="font-family: Roboto Mono, monospace;">
 												<div class="d-flex justify-content-between align-items-center mb-3">
 
-													<?php $g = grand_total_amount($admin_data[0]['admin_id'], $admin_data[0]['admin_permissions']); ?>
+													<?php $g = grand_total_amount($admin_data[0]['admin_id']); ?>
 													<div>
 														<h5>Grand total</h5>
 													</div>
@@ -342,7 +343,7 @@
 												</div>
 												<div class="vstack gap-1">
 													<ul class="list-group">
-													  	<?= get_logs($admin_data[0]['admin_id'], $admin_data[0]['admin_permissions']); ?>
+													  	<?= get_logs($admin_data[0]['admin_id']); ?>
 													</ul>
 												</div>
 											</div>
@@ -355,6 +356,7 @@
 					</div>
 					
 					<!-- Seeting for todays capital -->
+					 <?php if (!admin_has_permission()): ?>
 					<div class="modal fade" id="modalCapital" tabindex="-1" aria-labelledby="modalCapital" aria-hidden="true" style="backdrop-filter: blur(5px);">
 						<div class="modal-dialog modal-dialog-centered">
 							<div class="modal-content shadow-3">
@@ -386,6 +388,7 @@
 							</div>
 						</div>
 					</div>
+					<?php endif; ?>
 
 
 					<?php else: ?>

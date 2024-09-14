@@ -30,9 +30,15 @@
 								<a class="nav-item nav-link rounded-pill" href="javascript:;" data-bs-target="#connectWalletModal" data-bs-toggle="modal">Connect</a>
 								<?php endif; ?>
 								<?php if (admin_is_logged_in()): ?>
-									<a href="javascript:;" class="btn btn-sm btn-white border-0 rounded-lg-pill w-100 w-lg-auto mb-4 mb-lg-0" data-bs-target="#buyModal" data-bs-toggle="modal">
-										<span class="pe-2"><i class="bi bi-plus-circle"></i> </span><span>Trade</span>
-									</a>
+									<?php if (admin_has_permission()): ?>
+										<a href="acc/analytics" class="btn btn-sm btn-white border-0 rounded-lg-pill w-100 w-lg-auto mb-4 mb-lg-0">
+											<span class="pe-2"><i class="bi bi-graph-up"></i> </span><span>Analytics</span>
+										</a>
+									<?php else: ?>
+										<a href="javascript:;" class="btn btn-sm btn-white border-0 rounded-lg-pill w-100 w-lg-auto mb-4 mb-lg-0" data-bs-target="#buyModal" data-bs-toggle="modal">
+											<span class="pe-2"><i class="bi bi-plus-circle"></i> </span><span>Trade</span>
+										</a>
+									<?php endif; ?>
 								<?php endif; ?>
 							</div>
 						</div>
