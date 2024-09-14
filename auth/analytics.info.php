@@ -16,16 +16,31 @@ if (isset($_POST['dater'])) {
         $andExpenditure = ' AND CAST(jspence_expenditures.createdAt AS date) = "'.$dater.'"';
     }
 
-    $sql = "
+    $supervisorQuery = "
         SELECT SUM(daily_capital) AS capital, SUM(daily_balance) AS balance 
         FROM jspence_daily 
-        WHERE status = ? 
+        INNER JOIN jspence_admin 
+        ON jspence_admin.admin_id = jspence_daily.daily_by
+        WHERE jspence_daily.status = ? 
+        AND jspence_admin.admin_permissions = ?
         $andDaily
     ";
-    $statement = $conn->prepare($sql);
-    $result = $statement->execute([0]);
-    $rows = $statement->fetchAll();
-    $row = $rows[0];
+    $statement = $conn->prepare($supervisorQuery);
+    $result = $statement->execute([0, 'supervisor']);
+    $sup_rows = $statement->fetchAll();
+    $sup_row = $sup_rows[0];
+
+    $sales = $conn->query(
+        "SELECT SUM(daily_capital) AS capital, SUM(daily_balance) AS balance 
+        FROM jspence_daily 
+        INNER JOIN jspence_admin 
+        ON jspence_admin.admin_id = jspence_daily.daily_by
+        WHERE jspence_daily.status = 0 
+        AND jspence_admin.admin_permissions = 'salesperson'
+        $andDaily
+        "
+    )->fetchAll();
+
 
     $ins = $conn->query("SELECT SUM(sale_total_amount) AS ins_amt, CAST(jspence_sales.createdAt AS date) AS in_d FROM jspence_sales WHERE sale_type = 'in' AND sale_status = 0 $and")->fetchAll();
     $outs = $conn->query("SELECT SUM(sale_total_amount) AS outs_amt, CAST(jspence_sales.createdAt AS date) AS out_d FROM jspence_sales WHERE sale_type = 'out' AND sale_status = 0 $and")->fetchAll();
@@ -37,23 +52,35 @@ if (isset($_POST['dater'])) {
     $out = (($outs[0]['outs_amt']) ? $outs[0]['outs_amt'] : 0);
     $expenses = (($expense[0]['exp_amt']) ? $expense[0]['exp_amt'] : 0);
 
+    $total_sales_capital = $sales['capital'] ?? 0;
+    $total_sales_balance = $sales['balance'] ?? 0;
+
+    $total_supervisor_capital = $sales['capital'] ?? 0;
+    $total_supervisor_balance = $sales['balance'] ?? 0;
+
+    $out = (float)($out + $expenses);
+
     $arrayOutput = [
-        'capital' => 0,
-        'balance' => 0,
+        'supervisor_capital' => $total_supervisor_capital,
+        'supervisor_balance' => $total_supervisor_balance,
+        'sales_capital' => $total_sales_capital,
+        'sales_balance' => $total_sales_balance,
         'gained_or_loss' => 0,
         'in' => $in,
         'out' => $out,
         'trades' => $count_trades,
         'expenses' => $expenses
     ];
+
     if ($statement->rowCount() > 0) {
-        $a = (float)($row['balance'] + $expenses);
-        $gained_or_loss = (float)($row['capital'] - $a);
+        $gained_or_loss = (float)($sup_row['capital'] - $sup_row['balance']);
     }
 
     $arrayOutput = [
-        'capital' => money($row['capital']),
-        'balance' => money($row['balance']),
+        'supervisor_capital' => money($total_supervisor_capital),
+        'supervisor_balance' => money($total_supervisor_balance),
+        'sales_capital' => money($total_sales_capital),
+        'sales_balance' => money($total_sales_balance),
         'gained_or_loss' => money($gained_or_loss),
         'in' => money($in),
         'out' => money($out),

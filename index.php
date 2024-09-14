@@ -133,7 +133,7 @@
 						</div>
 					</div> -->
 
-
+					<?php if (!admin_has_permission()): ?>
 					<div class="mb-6 mb-xl-10">
 						<div class="row g-3 align-items-center">
 							<div class="col">
@@ -158,7 +158,7 @@
 							</div>
 						</div>
 					</div>
-
+					<?php endif; ?>
 					<div class="row g-3 g-xxl-6">
 						<div class="col-xxl-8">
 							<div class="vstack gap-3 gap-md-6">

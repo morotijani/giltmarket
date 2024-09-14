@@ -17,62 +17,62 @@
     $al = analytics_left();
 
     $thisYr = date("Y");
-	    $lastYr = $thisYr - 1;
+	$lastYr = $thisYr - 1;
 
-	    $where = '';
-		if ($admin_data[0]['admin_permissions'] != 'admin,salesperson') {
-			$where = ' AND sale_by = "'.$admin_data[0]['admin_id'].'"';
-		}
+    $thisYrQ = "
+        SELECT SUM(daily_capital) AS dc, SUM(daily_balance) AS db, jspence_daily.daily_date
+        FROM `jspence_daily` 
+        INNER JOIN jspence_admin
+        ON admin_id = jspence_daily.daily_by
+        WHERE jspence_admin.admin_permissions = ?
+        AND YEAR(jspence_daily.daily_date) = ? 
+        AND jspence_daily.status = ? 
+    ";
+    $statement = $conn->prepare($thisYrQ);
+    $statement->execute(['supervisor', $thisYr, 0]);
+    $thisYr_result = $statement->fetchAll();
+    
 
-	    $thisYrQ = "
-	        SELECT sale_total_amount, createdAt 
-	        FROM jspence_sales 
-	        WHERE YEAR(createdAt) = '{$thisYr}' 
-	        AND sale_status = 0 
-	        $where
-	    ";
-	    $statement = $conn->prepare($thisYrQ);
-	    $statement->execute();
-	    $thisYr_result = $statement->fetchAll();
-	    
+    $lastYrQ = "
+        SELECT SUM(daily_capital) AS dc, SUM(daily_balance) AS db, jspence_daily.daily_date
+        FROM `jspence_daily` 
+        INNER JOIN jspence_admin
+        ON admin_id = jspence_daily.daily_by
+        WHERE jspence_admin.admin_permissions = ?
+        AND YEAR(jspence_daily.daily_date) = ? 
+        AND jspence_daily.status = ? 
+    ";
+    $statement = $conn->prepare($lastYrQ);
+    $statement->execute(['supervisor', $lastYr, 0]);
+    $lastYr_result = $statement->fetchAll();
 
-	    $lastYrQ = "
-	        SELECT sale_total_amount, createdAt 
-	        FROM jspence_sales 
-	        WHERE YEAR(createdAt) = '{$lastYr}' 
-	        AND sale_status = 0 
-	        $where
-	    ";
-	    $statement = $conn->prepare($lastYrQ);
-	    $statement->execute();
-	    $lastYr_result = $statement->fetchAll();
+    $current = array();
+    $last = array();
 
-	    $current = array();
-	    $last = array();
+    $currentTotal = 0;
+    $lastTotal = 0;
 
-	    $currentTotal = 0;
-	    $lastTotal = 0;
+    foreach ($thisYr_result as $thisYr_row) {
+        $this_year_profit_amount = (float)($thisYr_row['dc'] - $thisYr_row['db']); 
+        $month = date("m", strtotime($thisYr_row['daily_date'] ?? ""));
+        if (!array_key_exists((int)$month, $current)) {
+            $current[(int)$month] = $this_year_profit_amount;
+        } else {
+            $current[(int)$month] += $this_year_profit_amount;
+        }
+        $currentTotal += $this_year_profit_amount;
+    }
 
-	    foreach ($thisYr_result as $thisYr_row) {
-	        $month = date("m", strtotime($thisYr_row['createdAt']));
-	        if (!array_key_exists((int)$month, $current)) {
-	            $current[(int)$month] = $thisYr_row['sale_total_amount'];
-	        } else {
-	            $current[(int)$month] += $thisYr_row['sale_total_amount'];
-	        }
-	        $currentTotal += $thisYr_row['sale_total_amount'];
-	    }
-
-	    foreach ($lastYr_result as $lastYr_row) {
-	        $month = date("m", strtotime($lastYr_row['createdAt']));
-	        if (!array_key_exists((int)$month, $last)) {
-	            $last[(int)$month] = $lastYr_row['sale_total_amount'];
-	        } else {
-	            $last[(int)$month] += $lastYr_row['sale_total_amount'];
-	        }
-	        $currentTotal += $lastYr_row['sale_total_amount'];
-	    }
-    //dnd($b['balance']);
+    foreach ($lastYr_result as $lastYr_row) {
+        $last_year_profit_amount = (float)($lastYr_row['dc'] - $lastYr_row['db']); 
+        $month = date("m", strtotime($lastYr_row['daily_date'] ?? ""));
+        if (!array_key_exists((int)$month, $last)) {
+            $last[(int)$month] = $last_year_profit_amount;
+        } else {
+            $last[(int)$month] += $last_year_profit_amount;
+        }
+        $currentTotal += $last_year_profit_amount;
+    }
 
 ?>
 
@@ -102,7 +102,7 @@
                     <div class="card">
                         <div class="p-4">
                             <h6 class="text-limit text-muted mb-3">Total Capital</h6>
-                            <span class="text-sm text-muted text-opacity-90 fw-semibold">GHS</span> <span class="d-block h3 ls-tight fw-bold" id="total-capital"><?= money($al['capital']); ?></span>
+                            <span class="text-sm text-muted text-opacity-90 fw-semibold">GHS</span> <span class="d-block h3 ls-tight fw-bold" id="total-capital">0.00</span>
                             <p class="mt-1">
                                 <span class="text-success text-xs"><i class="fas fa-arrow-up me-1"></i>20% </span>
                                 <span class="text-muted text-xs text-opacity-75">vs last week</span>
@@ -114,7 +114,7 @@
                     <div class="card">
                         <div class="p-4">
                             <h6 class="text-limit text-muted mb-3">Total Balance</h6>
-                            <span class="text-sm text-muted text-opacity-90 fw-semibold">GHS</span> <span class="d-block h3 ls-tight fw-bold" id="total-balance"><?= money($al['balance']); ?></span>
+                            <span class="text-sm text-muted text-opacity-90 fw-semibold">GHS</span> <span class="d-block h3 ls-tight fw-bold" id="total-balance">0.00</span>
                             <p class="mt-1">
                                 <span class="text-success text-xs"><i class="fas fa-arrow-up me-1"></i>20% </span>
                                 <span class="text-muted text-xs text-opacity-75">vs last week</span>
@@ -126,7 +126,7 @@
                     <div class="card">
                         <div class="p-4">
                             <h6 class="text-limit text-muted mb-3">Expenses</h6>
-                            <span class="text-sm text-muted text-opacity-90 fw-semibold">GHS</span> <span class="d-block h3 ls-tight fw-bold" id="expenses"><?= money($al['expenses']); ?></span>
+                            <span class="text-sm text-muted text-opacity-90 fw-semibold">GHS</span> <span class="d-block h3 ls-tight fw-bold" id="expenses">0.00</span>
                             <p class="mt-1">
                                 <span class="text-success text-xs"><i class="fas fa-arrow-up me-1"></i>20% </span>
                                 <span class="text-muted text-xs text-opacity-75">vs last week</span>
@@ -138,7 +138,7 @@
                     <div class="card">
                         <div class="p-4">
                             <h6 class="text-limit text-muted mb-3">Total trades</h6>
-                            <span class="text-sm text-muted text-opacity-90 fw-semibold">#</span> <span class="d-block h3 ls-tight fw-bold" id="total-trades"><?= $al['trades']; ?></span>
+                            <span class="text-sm text-muted text-opacity-90 fw-semibold">#</span> <span class="d-block h3 ls-tight fw-bold" id="total-trades">0.00</span>
                             <p class="mt-1">
                                 <span class="text-success text-xs"><i class="fas fa-arrow-up me-1"></i>20% </span>
                                 <span class="text-muted text-xs text-opacity-75">vs last week</span>
@@ -156,19 +156,19 @@
                     <div>
                         <span class="text-heading fw-bold"><i class="bi bi-arrow-up me-2"></i>7.8%</span></div>
                     </div>
-                    <div class="text-2xl fw-bolder text-heading ls-tight" id="profit-loss"><?= money($al['gained_or_loss']); ?> GHS</div>
+                    <div class="text-2xl fw-bolder text-heading ls-tight" id="profit-loss">0.00 GHS</div>
                     <div class="d-flex align-items-center justify-content-between mt-8">
                     <div class="">
                         <div class="d-flex gap-3 align-items-center">
                         <div class="icon icon-sm icon-shape text-sm rounded-circle bg-dark text-success"><i class="bi bi-arrow-down"></i></div><span class="h6 fw-semibold text-muted">Incoming</span>
                         </div>
-                        <div class="fw-bold text-heading mt-3" id="incoming"><?= money($al['in']); ?>  GHS</div>
+                        <div class="fw-bold text-heading mt-3" id="incoming">0.00 GHS</div>
                     </div><span class="vr bg-dark bg-opacity-10"></span>
                     <div class="">
                         <div class="d-flex gap-3 align-items-center">
                         <div class="icon icon-sm icon-shape text-sm rounded-circle bg-dark text-danger"><i class="bi bi-arrow-up"></i></div><span class="h6 fw-semibold text-muted">Outgoing</span>
                         </div>
-                        <div class="fw-bold text-heading mt-3" id="outgoing"><?= money($al['out']); ?> GHS</div>
+                        <div class="fw-bold text-heading mt-3" id="outgoing">0.00 GHS</div>
                     </div>
                     </div>
                 </div>
@@ -194,7 +194,7 @@
                 <div class="card-body">
                     <div class="d-flex justify-content-between align-items-center mb-5">
                         <div>
-                            <h5>Accumulated trades by months and years</h5>
+                            <h5>Accumulated profits by months and years</h5>
                         </div>
                         <div class="hstack align-items-center">
                             <a href="<?= PROOT; ?>acc/trades" class="text-muted">
