@@ -102,7 +102,7 @@
                     <div class="card">
                         <div class="p-4">
                             <h6 class="text-limit text-muted mb-3">Total Capital</h6>
-                            <span class="text-sm text-muted text-opacity-90 fw-semibold">GHS</span> <span class="d-block h3 ls-tight fw-bold"><?= money($al['capital']); ?></span>
+                            <span class="text-sm text-muted text-opacity-90 fw-semibold">GHS</span> <span class="d-block h3 ls-tight fw-bold" id="total-capital"><?= money($al['capital']); ?></span>
                             <p class="mt-1">
                                 <span class="text-success text-xs"><i class="fas fa-arrow-up me-1"></i>20% </span>
                                 <span class="text-muted text-xs text-opacity-75">vs last week</span>
@@ -114,7 +114,7 @@
                     <div class="card">
                         <div class="p-4">
                             <h6 class="text-limit text-muted mb-3">Total Balance</h6>
-                            <span class="text-sm text-muted text-opacity-90 fw-semibold">GHS</span> <span class="d-block h3 ls-tight fw-bold"><?= money($al['balance']); ?></span>
+                            <span class="text-sm text-muted text-opacity-90 fw-semibold">GHS</span> <span class="d-block h3 ls-tight fw-bold" id="total-balance"><?= money($al['balance']); ?></span>
                             <p class="mt-1">
                                 <span class="text-success text-xs"><i class="fas fa-arrow-up me-1"></i>20% </span>
                                 <span class="text-muted text-xs text-opacity-75">vs last week</span>
@@ -126,7 +126,7 @@
                     <div class="card">
                         <div class="p-4">
                             <h6 class="text-limit text-muted mb-3">Expenses</h6>
-                            <span class="text-sm text-muted text-opacity-90 fw-semibold">GHS</span> <span class="d-block h3 ls-tight fw-bold"><?= money($al['expenses']); ?></span>
+                            <span class="text-sm text-muted text-opacity-90 fw-semibold">GHS</span> <span class="d-block h3 ls-tight fw-bold" id="expenses"><?= money($al['expenses']); ?></span>
                             <p class="mt-1">
                                 <span class="text-success text-xs"><i class="fas fa-arrow-up me-1"></i>20% </span>
                                 <span class="text-muted text-xs text-opacity-75">vs last week</span>
@@ -138,7 +138,7 @@
                     <div class="card">
                         <div class="p-4">
                             <h6 class="text-limit text-muted mb-3">Total trades</h6>
-                            <span class="text-sm text-muted text-opacity-90 fw-semibold">#</span> <span class="d-block h3 ls-tight fw-bold"><?= $al['trades']; ?></span>
+                            <span class="text-sm text-muted text-opacity-90 fw-semibold">#</span> <span class="d-block h3 ls-tight fw-bold" id="total-trades"><?= $al['trades']; ?></span>
                             <p class="mt-1">
                                 <span class="text-success text-xs"><i class="fas fa-arrow-up me-1"></i>20% </span>
                                 <span class="text-muted text-xs text-opacity-75">vs last week</span>
@@ -156,19 +156,19 @@
                     <div>
                         <span class="text-heading fw-bold"><i class="bi bi-arrow-up me-2"></i>7.8%</span></div>
                     </div>
-                    <div class="text-2xl fw-bolder text-heading ls-tight"><?= money($al['gained_or_loss']); ?> GHS</div>
+                    <div class="text-2xl fw-bolder text-heading ls-tight" id="profit-loss"><?= money($al['gained_or_loss']); ?> GHS</div>
                     <div class="d-flex align-items-center justify-content-between mt-8">
                     <div class="">
                         <div class="d-flex gap-3 align-items-center">
                         <div class="icon icon-sm icon-shape text-sm rounded-circle bg-dark text-success"><i class="bi bi-arrow-down"></i></div><span class="h6 fw-semibold text-muted">Incoming</span>
                         </div>
-                        <div class="fw-bold text-heading mt-3"><?= money($al['in']); ?>  GHS</div>
+                        <div class="fw-bold text-heading mt-3" id="incoming"><?= money($al['in']); ?>  GHS</div>
                     </div><span class="vr bg-dark bg-opacity-10"></span>
                     <div class="">
                         <div class="d-flex gap-3 align-items-center">
                         <div class="icon icon-sm icon-shape text-sm rounded-circle bg-dark text-danger"><i class="bi bi-arrow-up"></i></div><span class="h6 fw-semibold text-muted">Outgoing</span>
                         </div>
-                        <div class="fw-bold text-heading mt-3"><?= money($al['out']); ?> GHS</div>
+                        <div class="fw-bold text-heading mt-3" id="outgoing"><?= money($al['out']); ?> GHS</div>
                     </div>
                     </div>
                 </div>
@@ -258,11 +258,29 @@
             $.ajax({
                 method: "POST",
                 url: "<?= PROOT; ?>auth/analytics.info.php",
-                data: {dater:dater},
+                data: {
+                    dater : dater
+                },
                 beforeSend: function() {
-
+                    $('#total-capital').text('loading ...');
+                    $('#total-balance').text('loading ...');
+                    $('#expenses').text('loading ...');
+                    $('#total-trades').text('loading ...');
+                    $('#profit-loss').text('loading ...');
+                    $('#incoming').text('loading ...');
+                    $('#outgoing').text('loading ...');
                 },
                 success: function(data) {
+                    const response = JSON.parse(data);
+
+                    $('#total-capital').text(response["capital"]);
+                    $('#total-balance').text(response["balance"]);
+                    $('#expenses').text(response["expenses"]);
+                    $('#total-trades').text(response["trades"]);
+                    $('#profit-loss').text(response["gained_or_loss"]);
+                    $('#incoming').text(response["in"]);
+                    $('#outgoing').text(response["out"]);
+
                     console.log(data);
                 },
                 error: function() {

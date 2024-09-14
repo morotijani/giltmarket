@@ -10,7 +10,7 @@ if (isset($_POST['dater'])) {
     $andDaily = '';
     $andExpenditure = '';
     $and = '';
-    if ($date != null) {
+    if ($dater != null) {
         $and = ' AND CAST(jspence_sales.createdAt AS date) = "'.$dater.'"';
         $andDaily = ' AND daily_date = "'.$dater.'"';
         $andExpenditure = ' AND CAST(jspence_expenditures.createdAt AS date) = "'.$dater.'"';
@@ -37,7 +37,7 @@ if (isset($_POST['dater'])) {
     $out = (($outs[0]['outs_amt']) ? $outs[0]['outs_amt'] : 0);
     $expenses = (($expense[0]['exp_amt']) ? $expense[0]['exp_amt'] : 0);
 
-    $output = [
+    $arrayOutput = [
         'capital' => 0,
         'balance' => 0,
         'gained_or_loss' => 0,
@@ -51,14 +51,16 @@ if (isset($_POST['dater'])) {
         $gained_or_loss = (float)($row['capital'] - $a);
     }
 
-    $output = [
-        'capital' => $row['capital'],
-        'balance' => $row['balance'],
-        'gained_or_loss' => $gained_or_loss,
-        'in' => $in,
-        'out' => $out,
+    $arrayOutput = [
+        'capital' => money($row['capital']),
+        'balance' => money($row['balance']),
+        'gained_or_loss' => money($gained_or_loss),
+        'in' => money($in),
+        'out' => money($out),
         'trades' => $count_trades,
-        'expenses' => $expenses
+        'expenses' => money($expenses)
     ];
 
+    $ouput = json_encode($arrayOutput);
+    echo $ouput;
 }
