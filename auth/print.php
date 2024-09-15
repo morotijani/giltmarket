@@ -115,7 +115,7 @@
 				<div class="text-xs text-muted mt-6"><em>Thank you for your purchase.<a href="#" class="fw-bold"> J-Spence LTD.</a></em></div>
 			</div>
 				<div class="card-footer">
-					bar code;
+					<!-- bar code; -->
 				</div>
 			</div>
 		</div>

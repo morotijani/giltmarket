@@ -36,16 +36,16 @@
             $result = $statement->execute([2, 0, $id]);
             if (isset($result)) {
                 // update sale capital balance
-                $r = $conn->query("SELECT *, CAST(createdAt AS date) AS s_date FROM jspence_sales WHERE sale_id = '" . $id . "' AND sale_status = 1")->fetchAll();
+                $r = $conn->query("SELECT * FROM jspence_sales WHERE sale_id = '" . $id . "' AND sale_status = 2")->fetchAll();
                 $saleAmt = $r[0]['sale_total_amount'];
 
                 $updateQuery = "
                     UPDATE jspence_daily 
-                    SET daily_balance = daily_balance + ?
-                    WHERE daily_date = ?
+                    SET daily_balance = daily_balance + ? 
+                    WHERE daily_id = ?
                 ";
                 $statement = $conn->prepare($updateQuery);
-                $statement->execute([$saleAmt, $r[0]['s_date']]);
+                $statement->execute([$saleAmt, $r[0]['sale_daily']]);
 
                 $message = "deleted sale from sale requests";
                 add_to_log($message, $admin_data[0]['admin_id']);

@@ -159,6 +159,7 @@
                     if (gram != '' && gram > 0) {
                         if (volume != '' && volume > 0) {
                             $('.buy-msg').text('typing ...');
+                            $('#next-1').attr('disabled', false);
 
                             $.ajax({
                                 url : '<?= PROOT; ?>auth/gold.calculation.php',
@@ -171,6 +172,7 @@
                                 beforeSend : function () {
                                     // body...
                                     $('#calculation-result').html('<img class="img-fluid" src="<?= PROOT; ?>dist/media/loading_v2.gif"/>');
+                                    $('#next-1').attr('disabled', true);
                                     $('#result-view').addClass('d-none');
                                 },
                                 success: function(data) {
@@ -228,6 +230,7 @@
                         if (volume != '' && volume > 0) {
                             $('.volumeMsg').text('');
                             $('.gramMsg').text('...');
+                            $('#next-1').attr('disabled', false);
 
                             $.ajax({
                                 url : '<?= PROOT; ?>auth/gold.calculation.php',
@@ -240,6 +243,7 @@
                                 beforeSend : function () {
                                     // body...
                                     $('#calculation-result').html('<img class="img-fluid" src="<?= PROOT; ?>dist/media/loading_v2.gif"/>');
+                                    $('#next-1').attr('disabled', true);
                                     $('#result-view').addClass('d-none');
                                 },
                                 success: function(data) {
@@ -292,6 +296,7 @@
                         if (gram != '' && gram > 0) {
                             $('.volumeMsg').text('...');
                             $('.gramMsg').text('');
+                            $('#next-1').attr('disabled', false);
 
                             $.ajax ({
                                 url : '<?= PROOT; ?>auth/gold.calculation.php',
@@ -304,6 +309,7 @@
                                 beforeSend : function () {
                                     // body...
                                     $('#calculation-result').html('<img class="img-fluid" src="<?= PROOT; ?>dist/media/loading_v2.gif"/>');
+                                    $('#next-1').attr('disabled', true);
                                     $('#result-view').addClass('d-none');
                                 },
                                 success: function(data) {

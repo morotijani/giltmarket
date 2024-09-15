@@ -25,9 +25,7 @@
             ";
             $statement = $conn->prepare($sql);
             $result = $statement->execute([1, 1, $id]);
-            if (isset($result)) {
-                // code...
-                
+            if (isset($result)) {                
                 $message = "delete request for trade id: '".$id."'";
                 add_to_log($message, $admin_data[0]['admin_id']);
 
