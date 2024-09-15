@@ -176,10 +176,10 @@
                 <div class="card-body d-flex flex-column">
                     <div class="d-flex justify-content-between align-items-center mb-3">
                     <div>
-                        <h5>Earnings<!-- Balance --></h5>
+                        <h5>Earnings</h5>
                     </div>
                     <div>
-                        <span class="text-heading fw-bold"><i class="bi bi-arrow-up me-2"></i>7.8%</span></div>
+                        <span class="text-heading fw-bold"><i class="bi me-2" id="e-arrow"></i><!-- 7.8% --></span></div>
                     </div>
                     <div class="text-2xl fw-bolder text-heading ls-tight" id="profit-loss">0.00 GHS</div>
                     <div class="d-flex align-items-center justify-content-between mt-8">
@@ -318,6 +318,11 @@
                     $('#expenses').text(response["expenses"]);
                     $('#total-trades').text(response["trades"]);
                     $('#profit-loss').text(response["gained_or_loss"]);
+                    if (response["arrow"] > 0) {
+                        $("#e-arrow").addClass("bi-arrow-up");
+                    } else {
+                        $("#e-arrow").addClass("bi-arrow-down");
+                    }
                     $('#incoming').text(response["in"]);
                     $('#outgoing').text(response["out"]);
 

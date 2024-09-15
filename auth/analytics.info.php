@@ -93,7 +93,8 @@ if (isset($_POST['dater'])) {
         'in' => money($in),
         'out' => money($out),
         'trades' => $count_trades,
-        'expenses' => money($expenses)
+        'expenses' => money($expenses),
+        'arrow' => $gained_or_loss
     ];
 
     $ouput = json_encode($arrayOutput);
