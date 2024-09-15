@@ -91,9 +91,6 @@ function _capital() {
 		$row = $rows[0];
 		$balance = $row['daily_balance'];
 
-		// if (admin_has_permission('supervisor')) {
-		// 	$balance = '0.00';
-		// } else 
 		if (admin_has_permission('supervisor') && $row['daily_balance'] == '0.00') {
 			$balance = $row['daily_balance'];
 		} else if (admin_has_permission('salesperson')) {

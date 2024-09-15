@@ -6,6 +6,7 @@ $output = '';
 if (isset($_POST['gram-amount'])) {
 	
 	$log_admin = $admin_data[0]['admin_id'];
+	$sale_daily =  _capital()['today_capital_id'];
 	
 	$gram = (isset($_POST['gram-amount']) ? sanitize($_POST['gram-amount']) : '');
 	$volume = (isset($_POST['volume-amount']) ? sanitize($_POST['volume-amount']) : '');
@@ -39,11 +40,11 @@ if (isset($_POST['gram-amount'])) {
 
 		if (empty($output) || $output == '') {
 			$sql = "
-				INSERT INTO `jspence_sales`(`sale_id`, `sale_gram`, `sale_volume`, `sale_density`, `sale_pounds`, `sale_carat`, `sale_price`, `sale_total_amount`, `sale_customer_name`, `sale_customer_contact`, `sale_comment`, `sale_type`, `sale_by`, `createdAt`) 
-				VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+				INSERT INTO `jspence_sales`(`sale_id`, `sale_gram`, `sale_volume`, `sale_density`, `sale_pounds`, `sale_carat`, `sale_price`, `sale_total_amount`, `sale_customer_name`, `sale_customer_contact`, `sale_comment`, `sale_type`, `sale_by`, `sale_daily`, `createdAt`) 
+				VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
 			";
 			$statement = $conn->prepare($sql);
-			$result = $statement->execute([$sale_id, $gram, $volume, $density, $pounds, $carat, $current_price, $total_amount, $customer_name, $customer_contact, $note, $sale_type, $log_admin, $createdAt]);
+			$result = $statement->execute([$sale_id, $gram, $volume, $density, $pounds, $carat, $current_price, $total_amount, $customer_name, $customer_contact, $note, $sale_type, $log_admin, $sale_daily, $createdAt]);
 			if (isset($result)) {
 				$today = date("Y-m-d");
 				$t = (admin_has_permission('supervisor') ? 'in' : 'out');
