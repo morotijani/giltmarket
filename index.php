@@ -209,7 +209,7 @@
 									<div class="card">
 										<div class="card-body pb-0">
 											<div class="d-flex justify-content-between align-items-center"><div>
-												<h5>Earnings</h5>
+												<h5>Trades</h5>
 											</div>
 											<div class="hstack align-items-center">
 												<a href="<?= PROOT; ?>acc/analytics" class="text-muted"><i class="bi bi-arrow-repeat"></i></a>

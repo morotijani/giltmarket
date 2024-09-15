@@ -11,9 +11,8 @@
     include ("../includes/nav.inc.php");
 
     $where = '';
-    if ($admin_data[0]['admin_permissions'] != 'admin,salesperson') {
+    if (!admin_has_permission()) {
         $where = ' WHERE jspence_admin.admin_id = "'.$admin_data[0]['admin_id'].'" ';
-        // code...
     }
 
     $sql = "

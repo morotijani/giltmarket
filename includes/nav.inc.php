@@ -1,7 +1,7 @@
 
 		
 		<header>
-			<div class="w-lg-75 mx-2 mx-lg-auto position-relative z-2 px-lg-3 py-1 shadow-5 rounded-3 rounded-lg-pill bg-dark">
+			<div class="w-lg-80 mx-2 mx-lg-auto position-relative z-2 px-lg-3 py-1 shadow-5 rounded-3 rounded-lg-pill bg-dark">
 				<nav class="navbar navbar-expand-lg navbar-dark p-0" id="navbar">
 					<div class="container px-sm-0">
 						<a class="navbar-brand d-inline-block w-lg-64" href="#"><img src="<?= PROOT; ?>dist/media/logo-no-bg.png" class="h-rem-10" alt="..."> </a>
@@ -31,7 +31,7 @@
 								<?php endif; ?>
 								<?php if (admin_is_logged_in()): ?>
 									<?php if (admin_has_permission()): ?>
-										<a href="acc/analytics" class="btn btn-sm btn-white border-0 rounded-lg-pill w-100 w-lg-auto mb-4 mb-lg-0">
+										<a href="<?= PROOT; ?>acc/analytics" class="btn btn-sm btn-white border-0 rounded-lg-pill w-100 w-lg-auto mb-4 mb-lg-0">
 											<span class="pe-2"><i class="bi bi-graph-up"></i> </span><span>Analytics</span>
 										</a>
 									<?php else: ?>

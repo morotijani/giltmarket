@@ -167,7 +167,12 @@ function _gained_calculation($balance, $capital) {
 	if ($balance < 0) {
 		$balance = abs($balance);
 	}
+
 	$output = (float)($capital - $balance);
+	if ($balance > $capital) {
+		$output = (float)($balance - $capital);
+	}
+	
 	return money($output);
 }
 

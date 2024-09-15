@@ -14,8 +14,6 @@
     include ("../includes/header.inc.php");
     include ("../includes/nav.inc.php");
 
-    $al = analytics_left();
-
     $thisYr = date("Y");
 	$lastYr = $thisYr - 1;
 
@@ -53,7 +51,10 @@
     $lastTotal = 0;
 
     foreach ($thisYr_result as $thisYr_row) {
-        $this_year_profit_amount = (float)($thisYr_row['dc'] - $thisYr_row['db']); 
+        $this_year_profit_amount = (float)($thisYr_row['dc'] - $thisYr_row['db']);
+        if ($thisYr_row['db'] > $thisYr_row['dc']) {
+            $this_year_profit_amount = (float)($thisYr_row['db'] - $thisYr_row['dc']);
+        }
         $month = date("m", strtotime($thisYr_row['daily_date'] ?? ""));
         if (!array_key_exists((int)$month, $current)) {
             $current[(int)$month] = $this_year_profit_amount;
@@ -64,7 +65,10 @@
     }
 
     foreach ($lastYr_result as $lastYr_row) {
-        $last_year_profit_amount = (float)($lastYr_row['dc'] - $lastYr_row['db']); 
+        $last_year_profit_amount = (float)($lastYr_row['dc'] - $lastYr_row['db']);
+        if ($lastYr_row['db'] > $lastYr_row['dc']) {
+            $last_year_profit_amount = (float)($lastYr_row['db'] - $lastYr_row['dc']);
+        }
         $month = date("m", strtotime($lastYr_row['daily_date'] ?? ""));
         if (!array_key_exists((int)$month, $last)) {
             $last[(int)$month] = $last_year_profit_amount;
