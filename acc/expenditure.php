@@ -186,6 +186,7 @@
         </div>
     </div>
 
+    <?php if (!admin_has_permission()): ?>
     <?php if (is_capital_given()): ?>
     <div class="row row-cols-md-1 g-6">
         <div class="col">
@@ -268,6 +269,7 @@
             </div>
         </div>
     </div>
+    <?php endif; ?>
     <?php endif; ?>
     <div class="row align-items-center g-6 mt-0 mb-6">
         <div class="col-sm-6">

@@ -4,7 +4,6 @@
 
 require_once ("../db_connection/conn.php");
 
-
 $limit = 10;
 $page = 1;
 
@@ -20,7 +19,7 @@ if (!admin_has_permission()) {
 	$where = ' AND expenditure_by = "'.$admin_data[0]["admin_id"].'" ';
 }
 $query = "
-	SELECT *, jspence_expenditures.id AS eid, jspence_expenditures.createdAt AS eca, jspence_expenditures.updatedAt AS sua, jspence_admin.id AS aid 
+	SELECT *, jspence_expenditures.id AS eid, jspence_expenditures.createdAt AS eca, jspence_expenditures.updatedAt AS sua, jspence_admin.id AS aid, CAST(jspence_expenditures.createdAt  AS date) AS edate 
     FROM jspence_expenditures 
 	INNER JOIN jspence_admin 
 	ON jspence_admin.admin_id = jspence_expenditures.expenditure_by 
@@ -50,44 +49,44 @@ $statement->execute();
 $result = $statement->fetchAll();
 $count_filter = $statement->rowCount();
 
-$archive = '';
-if (admin_has_permission()) {
-	$archive = '
-		<li class="nav-item">
-    		<a href="<?= PROOT; ?>acc/trades.archive" class="nav-link">Archive</a>
-		</li>
-	';
-}
-
 $output = ' 
 	<ul class="nav nav-tabs nav-tabs-flush gap-8 overflow-x border-0 mt-1">
             <li class="nav-item">
-                <a href="<?= PROOT; ?>acc/trades" class="nav-link active">All data (' . $total_data . ')</a>
+                <a href="' . PROOT . 'acc/expenditure" class="nav-link active">All data (' . $total_data . ')</a>
             </li>
-            <li class="nav-item">
-                <a href="'.PROOT.'acc/trades.delete.requests" class="nav-link">Delete request ' . count_new_delete_requests($conn) . '</a>
-            </li>
-           ' . $archive . '
+            <!-- <li class="nav-item">
+                <a href="acc/expenditure.archive" class="nav-link">Archive</a>
+            </li> -->
         </ul>
 
-    <div class="table-responsive">
-        <table class="table table-hover table-striped table-nowrap">
-            <thead class="table-light">
-                <tr>
-                    <th>#</th>
-                    <th scope="col">Reference</span></th>
-                    <th scope="col">What for</th>
-                    <th scope="col">Amount</th>
-                    <th scope="col">Date</th>
-                    <th></th>
-                </tr>
-            </thead>
-            <tbody>
+        <div class="table-responsive">
+            <table class="table table-hover table-striped table-nowrap">
+                <thead class="table-light">
+                    <tr>
+                        <th>#</th>
+                        <th scope="col">Reference</span></th>
+                        <th scope="col">What for</th>
+                        <th scope="col">Amount</th>
+                        <th scope="col">Date</th>
+                        ' . (!admin_has_permission() ? '<th></th>' : '') . '
+                    </tr>
+                </thead>
+                <tbody>
 ';
 
 if ($total_data > 0) {
 	$i = 1;
 	foreach ($result as $row) {
+        $option = '';
+        if (!admin_has_permission() && $row["edate"] == date("Y-m-d")) {
+           $option = '
+                <td class="text-end">
+                    <a href="'. PROOT .'acc/expenditure?edit=' . $row["expenditure_id"] . '" class="badge bg-body-secondary text-xs text-success">Edit </a>
+                    <a href="javascript:;" data-bs-target="#deleteModal_' . $row["eid"] . '" data-bs-toggle="modal" class="badge bg-body-secondary text-xs text-danger">Delete </a>
+                </td>
+           '; 
+        }
+
 		$output .= '
             <tr>
                 <td>' . $i . '</td>
@@ -105,10 +104,7 @@ if ($total_data > 0) {
                 <td>'. $row["expenditure_what_for"] .'</a></td>
                 <td>'. money($row["expenditure_amount"]) .'</td>
                 <td>'. pretty_date($row["eca"]) .'</td>
-                <td class="text-end">
-                    <a href="'. PROOT .'acc/expenditure?edit=' . $row["expenditure_id"] .'" class="badge bg-body-secondary text-xs text-success">Edit </a>
-                    <a href="javascript:;" data-bs-target="#deleteModal_' . $row["eid"] . '" data-bs-toggle="modal" class="badge bg-body-secondary text-xs text-danger">Delete </a>
-                </td>
+                ' . $option . '
             </tr>
 
             <!-- DELETE TRADE -->

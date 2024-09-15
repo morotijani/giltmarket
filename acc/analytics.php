@@ -126,7 +126,7 @@
                             <span class="text-muted text-opacity-60 text-opacity-100-hover" tabindex="0" data-bs-toggle="popover" data-bs-trigger="hover focus" data-bs-placement="right" data-bs-html="true" data-bs-content="The total capital given out to supervisors and Balance remaining, which can be determined as profit or loss." role="button"><i class="bi bi-info-circle"></i></span>
                             <span class="text-sm text-muted text-opacity-90 fw-semibold">GHS</span> <span class="d-block h3 ls-tight fw-bold" id="sup-capital">0.00</span>
                             <p class="mt-1">
-                                <span class="text-success text-xs"><i class="fas fa-arrow-up me-1"></i>Balance </span>
+                                <span class="text-success text-xs"><i class="fas fa-arrow-up me-1"></i>Balance: </span>
                                 <span class="text-muted text-xs text-opacity-75" id="sup-balance">0.00</span>
                             </p>
                         </div>
@@ -139,7 +139,7 @@
                             <span class="text-muted text-opacity-60 text-opacity-100-hover" tabindex="0" data-bs-toggle="popover" data-bs-trigger="hover focus" data-bs-placement="right" data-bs-html="true" data-bs-content="The total capital given out to salespersonnels and Balance remaining." role="button"><i class="bi bi-info-circle"></i></span>
                             <span class="text-sm text-muted text-opacity-90 fw-semibold">GHS</span> <span class="d-block h3 ls-tight fw-bold" id="sal-capital">0.00</span>
                             <p class="mt-1">
-                                <span class="text-success text-xs"><i class="fas fa-arrow-up me-1"></i>Balance </span>
+                                <span class="text-success text-xs"><i class="fas fa-arrow-up me-1"></i>Balance: </span>
                                 <span class="text-muted text-xs text-opacity-75" id="sal-balance">0.00</span>
                             </p>
                         </div>
@@ -152,8 +152,8 @@
                             <span class="text-muted text-opacity-60 text-opacity-100-hover" tabindex="0" data-bs-toggle="popover" data-bs-trigger="hover focus" data-bs-placement="right" data-bs-html="true" data-bs-content="The total expenses made." role="button"><i class="bi bi-info-circle"></i></span>
                             <span class="text-sm text-muted text-opacity-90 fw-semibold">GHS</span> <span class="d-block h3 ls-tight fw-bold" id="expenses">0.00</span>
                             <p class="mt-1">
-                                <span class="text-success text-xs"><i class="fas fa-arrow-up me-1"></i>20% </span>
-                                <span class="text-muted text-xs text-opacity-75">vs last week</span>
+                                <span class="text-success text-xs"><i class="fas fa-arrow-up me-1"></i><!-- 20% --></span>
+                                <span class="text-muted text-xs text-opacity-75"><!-- vs last week --></span>
                             </p>
                         </div>
                     </div>
@@ -165,8 +165,8 @@
                             <span class="text-muted text-opacity-60 text-opacity-100-hover" tabindex="0" data-bs-toggle="popover" data-bs-trigger="hover focus" data-bs-placement="right" data-bs-html="true" data-bs-content="The total number of trade(s) made." role="button"><i class="bi bi-info-circle"></i></span>
                             <span class="text-sm text-muted text-opacity-90 fw-semibold">#</span> <span class="d-block h3 ls-tight fw-bold" id="total-trades">0.00</span>
                             <p class="mt-1">
-                                <span class="text-success text-xs"><i class="fas fa-arrow-up me-1"></i>20% </span>
-                                <span class="text-muted text-xs text-opacity-75">vs last week</span>
+                                <span class="text-success text-xs"><i class="fas fa-arrow-up me-1"></i><!-- 20% --></span>
+                                <span class="text-muted text-xs text-opacity-75"><!-- vs last week--></span>
                             </p>
                         </div>
                     </div>

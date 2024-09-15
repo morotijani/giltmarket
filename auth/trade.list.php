@@ -52,7 +52,7 @@ $archive = '';
 if (admin_has_permission()) {
 	$archive = '
 		<li class="nav-item">
-    		<a href="<?= PROOT; ?>acc/trades.archive" class="nav-link">Archive</a>
+    		<a href="' . PROOT . 'acc/trades.archive" class="nav-link">Archive</a>
 		</li>
 	';
 }
@@ -60,10 +60,10 @@ if (admin_has_permission()) {
 $output = ' 
 	<ul class="nav nav-tabs nav-tabs-flush gap-8 overflow-x border-0 mt-1">
             <li class="nav-item">
-                <a href="<?= PROOT; ?>acc/trades" class="nav-link active">All data (' . $total_data . ')</a>
+                <a href="' . PROOT . 'acc/trades" class="nav-link active">All data (' . $total_data . ')</a>
             </li>
             <li class="nav-item">
-                <a href="'.PROOT.'acc/trades.delete.requests" class="nav-link">Delete request ' . count_new_delete_requests($conn) . '</a>
+                <a href="' . PROOT . 'acc/trades.delete.requests" class="nav-link">Delete request ' . count_new_delete_requests($conn) . '</a>
             </li>
            ' . $archive . '
         </ul>
