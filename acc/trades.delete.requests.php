@@ -11,7 +11,7 @@
     include ("../includes/nav.inc.php");
 
     // request viewed
-    if ($admin_data[0]['admin_permissions'] == 'admin,salesperson') {
+    if (admin_has_permission()) {
         $viewedQ = $conn->query("UPDATE jspence_sales SET sale_delete_request_status = 2 WHERE sale_status = 1")->execute();
         if ($viewedQ) {
             // code...    

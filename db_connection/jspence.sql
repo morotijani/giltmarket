@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Sep 15, 2024 at 01:04 PM
+-- Generation Time: Sep 16, 2024 at 01:35 AM
 -- Server version: 10.4.28-MariaDB
 -- PHP Version: 8.2.4
 
@@ -66,8 +66,8 @@ CREATE TABLE `jspence_admin` (
 --
 
 INSERT INTO `jspence_admin` (`id`, `admin_id`, `admin_fullname`, `admin_email`, `admin_password`, `admin_pin`, `admin_profile`, `admin_joined_date`, `admin_last_login`, `admin_permissions`, `admin_status`) VALUES
-(1, '234234234', 'alhaji priest babson', 'admin@jspence.com', '$2y$10$dHoeddyBK4Z23jqePowDO.JPAeXDugtyZN6.Zwc8hy.033Z1/5vbq', 1234, 'dist/media/admin-profiles/961e39eea7a28892e44874f9d34eaa28.jpg', '2020-02-21 21:01:31', '2024-09-14 20:35:36', 'admin,salesperson,supervisor', 0),
-(11, '16acd24f-0ad7-42d9-a565-a8863f4a8fa2', 'tijani moro', 'tijani@jspence.com', '$2y$10$6VM4wWjd3Ts2snR4KDRS9On2bRxzXJ0V/TXplZHs0ZL93y.G/RqWu', 1234, NULL, '2024-06-28 05:48:12', '2024-09-14 23:19:52', 'salesperson', 1),
+(1, '234234234', 'alhaji priest babson', 'admin@jspence.com', '$2y$10$dHoeddyBK4Z23jqePowDO.JPAeXDugtyZN6.Zwc8hy.033Z1/5vbq', 1234, 'dist/media/admin-profiles/961e39eea7a28892e44874f9d34eaa28.jpg', '2020-02-21 21:01:31', '2024-09-15 22:58:17', 'admin,salesperson,supervisor', 0),
+(11, '16acd24f-0ad7-42d9-a565-a8863f4a8fa2', 'tijani moro', 'tijani@jspence.com', '$2y$10$6VM4wWjd3Ts2snR4KDRS9On2bRxzXJ0V/TXplZHs0ZL93y.G/RqWu', 1234, NULL, '2024-06-28 05:48:12', '2024-09-15 22:49:51', 'salesperson', 1),
 (12, 'e01de4bc-10e7-47cc-b2df-c2e1bdd8997f', 'inuwa mohammed umar', 'inuwa@jspence.com', '$2y$10$7mg6BRD9UXqQL8wxUiCkQe5IqceroHPGvq8wMgiiTCpFEOYsUdcNq', 2222, NULL, '2024-06-28 05:49:20', '2024-07-05 06:28:04', 'salesperson', 0),
 (13, '404d51db-6533-4586-b8d5-17c27c2f0607', 'henry asamoah', 'henry@email.com', '$2y$10$.pYicI6NOTj8Rd8S878EB.Hn6uoxCQXkix7uJgXlvxx1eR8iV1dLq', 1234, NULL, '2024-07-01 14:21:26', '2024-09-10 15:12:58', 'salesperson', 0),
 (14, '59e29767-cc32-4b2b-9abf-8422e2e45dcd', 'Adiza husein', 'adiza@email.com', '$2y$10$cC84GJNvi4Tq/6gm.r.ft.G9YEZ267sz3JQ/B/b.Nl5Cz6Fa64z9S', 1234, NULL, '2024-07-01 22:33:16', NULL, 'admin,salesperson,supervisor', 0),
@@ -146,6 +146,7 @@ CREATE TABLE `jspence_sales` (
   `sale_comment` text NOT NULL,
   `sale_type` enum('in','out') DEFAULT NULL,
   `sale_by` varchar(300) DEFAULT NULL,
+  `sale_daily` varchar(300) DEFAULT NULL,
   `createdAt` timestamp NOT NULL DEFAULT current_timestamp(),
   `updatedAt` datetime DEFAULT NULL ON UPDATE current_timestamp(),
   `sale_status` tinyint(4) NOT NULL DEFAULT 0,

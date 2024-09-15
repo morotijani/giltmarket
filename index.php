@@ -396,11 +396,11 @@
 					<div class="d-flex justify-content-center">
 						<div class="col-md-6 p-12 p-xl-7">
 							<div class="d-lg-flex flex-column w-full h-full p-16 bg-surface-secondary rounded-5">
-								<a class="d-block" href="<?= PROOT; ?>">
+								<!-- <a class="d-block" href="<?= PROOT; ?>">
 									<div class="w-md-auto  text-dark">
 										<img class="img-fluid rounded" style="widht: 64px; height: 64px;" src="<?= PROOT; ?>dist/media/logo.jpeg">
 									</div>
-								</a>
+								</a> -->
 
 								<!-- Title -->
 								<div class="mt-10 mt-xl-16">
