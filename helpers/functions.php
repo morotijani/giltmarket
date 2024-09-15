@@ -121,10 +121,11 @@ function is_capital_exhausted($conn, $admin) {
 		FROM `jspence_sales` 
 		WHERE CAST(jspence_sales.createdAt AS date) = ? 
 		AND jspence_sales.sale_type = ? 
-		AND jspence_sales.sale_by = ?
+		AND jspence_sales.sale_by = ? 
+		AND jspence_sales.sale_status = ?
 	";
 	$statement = $conn->prepare($q);
-	$statement->execute([$today, $t, $admin]);
+	$statement->execute([$today, $t, $admin, 0]);
 	$r = $statement->fetchAll();
 	
 	$return = true;
@@ -172,7 +173,7 @@ function _gained_calculation($balance, $capital) {
 	if ($balance > $capital) {
 		$output = (float)($balance - $capital);
 	}
-	
+
 	return money($output);
 }
 
@@ -243,7 +244,8 @@ function fetch_all_sales($status, $admin) {
 	}
 
 	$sql = "
-		SELECT *, jspence_sales.id AS sid, jspence_sales.createdAt AS sca, jspence_sales.updatedAt AS sua, jspence_admin.id AS aid FROM jspence_sales 
+		SELECT *, jspence_sales.id AS sid, jspence_sales.createdAt AS sca, jspence_sales.updatedAt AS sua, jspence_admin.id AS aid 
+		FROM jspence_sales 
 		INNER JOIN jspence_admin 
 		ON jspence_admin.admin_id = jspence_sales.sale_by 
 		WHERE sale_status = ? 

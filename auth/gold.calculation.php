@@ -31,23 +31,6 @@ if (isset($_POST['gram'])) {
 	} else {
 		$continue = 'yes';
 	}
-
-	// if ($total_amount > 0): 
-	// 	if (admin_has_permission('supervisor')) {
-	// 		if (_capital()['today_balance'] == 0) {
-	// 			$today_balance = _capital()['today_capital'];
-	// 		}
-	// 	}
-
-	// 	if ($total_amount <= $today_balance) {
-	// 		$message = 'Calculations made correctly.';
-	// 		$continue = 'yes';
-	// 	} else {
-	// 		$message = "Today's remaining balance cannot complete this trade!";
-	// 	}
-	// else: 
-	// 	$message = "There was a problem with the calculations";
-	// endif;
 }
 
 $arrayOutput = array(

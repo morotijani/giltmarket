@@ -81,9 +81,9 @@
                         </li>
                     </ul>
                 </div>
-
+                <?php else: ?>
+                    <button type="button" class="btn btn-sm btn-primary d-none d-sm-inline-flex" data-bs-target="#buyModal" data-bs-toggle="modal"><span class="pe-2"><i class="bi bi-plus-circle"></i> </span><span>Trade</span></button>
                 <?php endif ?>
-                <button type="button" class="btn btn-sm btn-primary d-none d-sm-inline-flex" data-bs-target="#buyModal" data-bs-toggle="modal"><span class="pe-2"><i class="bi bi-plus-circle"></i> </span><span>Trade</span></button>
             </div>
         </div>
        <div class="row align-items-center g-6 mt-0 mb-6">

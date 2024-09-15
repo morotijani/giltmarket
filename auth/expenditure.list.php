@@ -19,7 +19,7 @@ if (!admin_has_permission()) {
 	$where = ' AND expenditure_by = "'.$admin_data[0]["admin_id"].'" ';
 }
 $query = "
-	SELECT *, jspence_expenditures.id AS eid, jspence_expenditures.createdAt AS eca, jspence_expenditures.updatedAt AS sua, jspence_admin.id AS aid, CAST(jspence_expenditures.createdAt  AS date) AS edate 
+	SELECT *, jspence_expenditures.id AS eid, jspence_expenditures.createdAt AS eca, jspence_expenditures.updatedAt AS sua, jspence_admin.id AS aid, CAST(jspence_expenditures.createdAt AS date) AS edate 
     FROM jspence_expenditures 
 	INNER JOIN jspence_admin 
 	ON jspence_admin.admin_id = jspence_expenditures.expenditure_by 

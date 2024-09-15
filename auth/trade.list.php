@@ -20,7 +20,7 @@ if (!admin_has_permission()) {
 	$where = ' AND sale_by = "'.$admin_data[0]["admin_id"].'" ';
 }
 $query = "
-	SELECT *, jspence_sales.id AS sid, jspence_sales.createdAt AS sca, jspence_sales.updatedAt AS sua, jspence_admin.id AS aid FROM jspence_sales 
+	SELECT *, jspence_sales.id AS sid, jspence_sales.createdAt AS sca, jspence_sales.updatedAt AS sua, jspence_admin.id AS aid, CAST(jspence_sales.createdAt AS date) AS sdate  FROM jspence_sales 
 	INNER JOIN jspence_admin 
 	ON jspence_admin.admin_id = jspence_sales.sale_by 
 	WHERE sale_status = 0 
@@ -100,16 +100,15 @@ if ($total_data > 0) {
         $option2 =  '
 			<div class="p-2"></div>
 			<div class="px-6 py-5 bg-body-secondary d-flex justify-content-center">
-				<!-- <button class="btn btn-sm btn-dark"><i class="bi bi-receipt me-2"></i>Print receipt</button>&nbsp --><a href="#deleteModal_'. $row["sid"] . '" data-bs-toggle="modal" class="btn btn-sm btn-neutral"><i class="bi bi-trash3 me-2"></i>Delete</a>
+				<!-- <button class="btn btn-sm btn-dark"><i class="bi bi-receipt me-2"></i>Print receipt</button>&nbsp -->
+				' . (($row["sdate"] == date("Y-m-d")) ? '<a href="#deleteModal_'. $row["sid"] . '" data-bs-toggle="modal" class="btn btn-sm btn-neutral"><i class="bi bi-trash3 me-2"></i>Delete</a>' : '') . '
 			</div>
         ';
         $option3 = '';
 		if ($row['sale_status'] == 1) {
-			// code...
 			$option1 = '';
 			$option2 = '';
-			if ($permission == 'admin,salesperson') {
-				// code...
+			if (admin_has_permission() && $row["sdate"] == date("Y-m-d")) {
 				$option3 = '
 					<a href="' . PROOT . 'acc/trades.delete.requests?pd=' . $row["sale_id"] . '" class="btn btn-sm btn-danger mt-2 mb-2"><i class="bi bi-trash3 me-2"></i>Delete</a>
 				';
