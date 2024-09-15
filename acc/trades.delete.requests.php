@@ -90,8 +90,9 @@
                         </li>
                     </ul>
                 </div> -->
-                <?php endif ?>
-                <button type="button" class="btn btn-sm btn-primary d-none d-sm-inline-flex" data-bs-target="#buyModal" data-bs-toggle="modal"><span class="pe-2"><i class="bi bi-plus-circle"></i> </span><span>Trade</span></button>
+                <?php else: ?>
+                    <button type="button" class="btn btn-sm btn-primary d-none d-sm-inline-flex" data-bs-target="#buyModal" data-bs-toggle="modal"><span class="pe-2"><i class="bi bi-plus-circle"></i> </span><span>Trade</span></button>
+                <?php endif; ?>
             </div>
         </div>
            
@@ -127,7 +128,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <?= fetch_all_sales(1, $admin_data[0]['admin_permissions'], $admin_data[0]['admin_id']); ?>
+                    <?= fetch_all_sales(1, $admin_data[0]['admin_id']); ?>
                 </tbody>
             </table>
         </div>

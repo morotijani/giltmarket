@@ -278,7 +278,7 @@ function fetch_all_sales($status, $admin) {
 				// code...
 				$option1 = '';
 				$option2 = '';
-				if ($permission == 'admin,salesperson') {
+				if (admin_has_permission()) {
 					// code...
 					$option3 = '
 						<a href="' . PROOT . 'acc/trades.delete.requests?pd=' . $row["sale_id"] . '" class="btn btn-sm btn-danger mt-2 mb-2"><i class="bi bi-trash3 me-2"></i>Delete</a>
