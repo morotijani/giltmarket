@@ -162,15 +162,10 @@ function update_today_capital_given_balance($type, $today_total_balance, $today,
 }
 
 function _gained_calculation($balance, $capital) {
-	if ($balance < 0) {
-		$balance = abs($balance);
+	$output = (float)($balance - $capital);
+	if ($balance == '0.00') {
+		$output = $balance;
 	}
-
-	$output = (float)($capital - $balance);
-	if ($balance > $capital) {
-		$output = (float)($balance - $capital);
-	}
-
 	return money($output);
 }
 
@@ -317,31 +312,31 @@ function fetch_all_sales($status, $admin) {
 								<ul class="list-group">
 									<li class="list-group-item" style="padding: 0.1rem 1rem;">
 				                        <small class="text-muted">Total amount,</small>
-				                        <p>' . money($row["sale_total_amount"]) . '</p>
+				                        <p style="font-family: Roboto Mono, monospace;">' . money($row["sale_total_amount"]) . '</p>
 				                    </li>
 				                    <li class="list-group-item" style="padding: 0.1rem 1rem;">
 				                        <small class="text-muted">Price,</small>
-				                        <p>' . money($row["sale_price"]) . '</p>
+				                        <p style="font-family: Roboto Mono, monospace;">' . money($row["sale_price"]) . '</p>
 				                    </li>
 				                    <li class="list-group-item" style="padding: 0.1rem 1rem;">
 				                        <small class="text-muted">Gram</small>
-				                        <p>' . $row["sale_gram"] . '</p>
+				                        <p style="font-family: Roboto Mono, monospace;">' . $row["sale_gram"] . '</p>
 				                    </li>
 				                    <li class="list-group-item" style="padding: 0.1rem 1rem;">
 				                        <small class="text-muted">Volume</small>
-				                        <p>' . $row["sale_volume"] . '</p>
+				                        <p style="font-family: Roboto Mono, monospace;">' . $row["sale_volume"] . '</p>
 				                    </li>
 				                    <li class="list-group-item" style="padding: 0.1rem 1rem;">
 				                        <small class="text-muted">Density</small>
-				                        <p>' . $row["sale_density"] . '</p>
+				                        <p style="font-family: Roboto Mono, monospace;">' . $row["sale_density"] . '</p>
 				                    </li>
 				                    <li class="list-group-item" style="padding: 0.1rem 1rem;">
 				                        <small class="text-muted">Pounds</small>
-				                        <p>' . $row["sale_pounds"] . '</p>
+				                        <p style="font-family: Roboto Mono, monospace;">' . $row["sale_pounds"] . '</p>
 				                    </li>
 				                    <li class="list-group-item" style="padding: 0.1rem 1rem;">
 				                        <small class="text-muted">Carat</small>
-				                        <p id="send-amount">' . $row["sale_carat"] . '</p>
+				                        <p id="send-amount" style="font-family: Roboto Mono, monospace;">' . $row["sale_carat"] . '</p>
 				                    </li>
 				                    <li class="list-group-item" style="padding: 0.1rem 1rem;">
 				                        <small class="text-muted">Customer</small>

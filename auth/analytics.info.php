@@ -78,9 +78,9 @@ if (isset($_POST['dater'])) {
     ];
 
     if ($statement->rowCount() > 0) {
-        $gained_or_loss = (float)($sup_row['capital'] - $sup_row['balance']);
-        if ($sup_row['balance'] > $sup_row['capital']) {
-            $gained_or_loss = (float)($sup_row['balance'] - $sup_row['capital']);
+        $gained_or_loss = (float)($sup_row['balance'] - $sup_row['capital']);
+        if ($sup_row['balance'] == '0.00') {
+            $gained_or_loss = 0;
         }
     }
 

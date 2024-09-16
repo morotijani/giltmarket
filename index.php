@@ -122,62 +122,53 @@
 ?>
 
 
-					<?php if (admin_is_logged_in()): ?>
-					<!-- <div class="row align-items-center g-10">
-						<div class="col-lg-8">
-							<h1 class="ls-tight fw-bolder display-3 text-white mb-5">Build Professional Dashboards, Faster than Ever.</h1>
-							<p class="w-xl-75 lead text-white">With our intuitive tools and expertly designed components, you'll have the power to create professional dashboards quicker than ever.</p>
-						</div>
-						<div class="col-lg-4 align-self-end">
-							<div class="hstack gap-3 justify-content-lg-end"><a href="https://themes.getbootstrap.com/product/satoshi-defi-and-crypto-exchange-theme/" class="btn btn-lg btn-white rounded-pill bg-dark-hover border-0 shadow-none px-lg-8" target="_blank">Purchase now </a><a href="/pages/dashboard.html" class="btn btn-lg btn-dark rounded-pill border-0 shadow-none px-lg-8">Explore more</a>
-							</div>
-						</div>
-					</div> -->
+		<?php if (admin_is_logged_in()): ?>
 
-					<?php if (!admin_has_permission()): ?>
-					<div class="mb-6 mb-xl-10">
-						<div class="row g-3 align-items-center">
-							<div class="col">
-								<h1 class="ls-tight">
-									<?= ((admin_has_permission('supervisor')) ? 'Sold' : 'Balance'); ?>: 
-									<span style="font-family: Roboto Mono, monospace;"><?= money(_capital()['today_balance']); ?></span>
-								</h1>
-								<p class="text-sm text-muted">
-									<?php if (admin_has_permission('supervisor')) :?>
-									Gained / Balance: <span class="text-success" style="font-family: Roboto Mono, monospace;"><?= _gained_calculation(_capital()['today_balance'], _capital()['today_capital']); ?></span>
-									<br>
-									<?php endif; ?>
-									Amount given today to trade: <span style="font-family: Roboto Mono, monospace;"><?= money(_capital()['today_capital']); ?></span> 
-									<br>Today date: <?= date("Y-m-d"); ?>
-								</p>
-							</div>
-							<div class="col">
-								<div class="hstack gap-2 justify-content-end">
-									<button type="button" class="btn btn-sm btn-square btn-neutral rounded-circle d-xxl-none" data-bs-toggle="offcanvas" data-bs-target="#responsiveOffcanvas" aria-controls="responsiveOffcanvas"><i class="bi bi-three-dots"></i></button> <button type="button" class="btn btn-sm btn-neutral d-none d-sm-inline-flex" data-bs-target="#buyModal" data-bs-toggle="modal"><span class="pe-2"><i class="bi bi-plus-circle"></i> </span><span>Trade</span></button> 
-									<button data-bs-toggle="modal" data-bs-target="#modalCapital" type="button" class="btn d-inline-flex btn-sm btn-dark"><span>Today Capital</span></button>
-								</div>
+			<?php if (!admin_has_permission()): ?>
+				<div class="mb-6 mb-xl-10">
+					<div class="row g-3 align-items-center">
+						<div class="col">
+							<h1 class="ls-tight">
+								<?= ((admin_has_permission('supervisor')) ? 'Sold' : 'Balance'); ?>: 
+								<span style="font-family: Roboto Mono, monospace;"><?= money(_capital()['today_balance']); ?></span>
+							</h1>
+							<p class="text-sm text-muted">
+								<?php if (admin_has_permission('supervisor')) :?>
+								Gained: <span class="text-success" style="font-family: Roboto Mono, monospace;"><?= _gained_calculation(_capital()['today_balance'], _capital()['today_capital']); ?></span>
+								<br>
+								<?php endif; ?>
+								Amount given today to trade: <span style="font-family: Roboto Mono, monospace;"><?= money(_capital()['today_capital']); ?></span> 
+								<br>Today date: <?= date("Y-m-d"); ?>
+							</p>
+						</div>
+						<div class="col">
+							<div class="hstack gap-2 justify-content-end">
+								<button type="button" class="btn btn-sm btn-square btn-neutral rounded-circle d-xxl-none" data-bs-toggle="offcanvas" data-bs-target="#responsiveOffcanvas" aria-controls="responsiveOffcanvas"><i class="bi bi-three-dots"></i></button> <button type="button" class="btn btn-sm btn-neutral d-none d-sm-inline-flex" data-bs-target="#buyModal" data-bs-toggle="modal"><span class="pe-2"><i class="bi bi-plus-circle"></i> </span><span>Trade</span></button> 
+								<button data-bs-toggle="modal" data-bs-target="#modalCapital" type="button" class="btn d-inline-flex btn-sm btn-dark"><span>Today Capital</span></button>
 							</div>
 						</div>
 					</div>
-					<?php endif; ?>
-					<div class="row g-3 g-xxl-6">
-						<div class="col-xxl-8">
-							<div class="vstack gap-3 gap-md-6">
-								<div class="row g-3">
-									<div class="col-md col-sm-6">
-										<div class="card border-primary-hover">
-											<div class="card-body p-4" style="font-family: Roboto Mono, monospace;">
-												<div class="d-flex align-items-center gap-2">
-													<img src="<?= PROOT; ?>dist/media/today.png" class="w-rem-5 flex-none" alt="..."> <a href="javascript:;" class="h6 stretched-link">Today</a>
-												</div>
-												<?php $t = total_amount_today($admin_data[0]['admin_id']); ?>
-												<div class="text-sm fw-semibold mt-3"><?= $t['amount']; ?></div>
-												<div class="d-flex align-items-center gap-2 mt-1 text-xs">
-													<span class="badge badge-xs bg-<?= $t['percentage_color']; ?>"><i class="bi bi-arrow-<?= $t['percentage_icon']; ?>"></i> </span><span><?= $t['percentage']; ?>%</span>
-												</div>
-											</div>
+				</div>
+			<?php endif; ?>
+
+			<div class="row g-3 g-xxl-6">
+				<div class="col-xxl-8">
+					<div class="vstack gap-3 gap-md-6">
+						<div class="row g-3">
+							<div class="col-md col-sm-6">
+								<div class="card border-primary-hover">
+									<div class="card-body p-4" style="font-family: Roboto Mono, monospace;">
+										<div class="d-flex align-items-center gap-2">
+											<img src="<?= PROOT; ?>dist/media/today.png" class="w-rem-5 flex-none" alt="..."> <a href="javascript:;" class="h6 stretched-link">Today</a>
+										</div>
+										<?php $t = total_amount_today($admin_data[0]['admin_id']); ?>
+										<div class="text-sm fw-semibold mt-3"><?= $t['amount']; ?></div>
+										<div class="d-flex align-items-center gap-2 mt-1 text-xs">
+											<span class="badge badge-xs bg-<?= $t['percentage_color']; ?>"><i class="bi bi-arrow-<?= $t['percentage_icon']; ?>"></i> </span><span><?= $t['percentage']; ?>%</span>
 										</div>
 									</div>
+								</div>
+							</div>
 									<div class="col-md col-sm-6">
 										<div class="card border-primary-hover">
 											<div class="card-body p-4" style="font-family: Roboto Mono, monospace;">
