@@ -44,6 +44,14 @@
                     SET daily_balance = daily_balance + ? 
                     WHERE daily_id = ?
                 ";
+                if ($r[0]['sale_type'] == 'in') {
+                    $updateQuery = "
+                        UPDATE jspence_daily 
+                        SET daily_balance = daily_balance - ? 
+                        WHERE daily_id = ?
+                    ";
+                }
+                
                 $statement = $conn->prepare($updateQuery);
                 $statement->execute([$saleAmt, $r[0]['sale_daily']]);
 
