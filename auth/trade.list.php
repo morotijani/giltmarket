@@ -128,11 +128,11 @@ if ($total_data > 0) {
 	                <td class="text-xs">
 						' . strtoupper($row["sale_customer_name"]) . ' <i class="bi bi-arrow-right mx-2"></i> ' . $row["sale_customer_contact"] . '
 					</td>
-	                <td>' . $row["sale_gram"] . '</td>
-	                <td>' . $row["sale_volume"] . '</td>
-	                <td>' . money($row["sale_price"]) . '</td>
-	                <td>' . money($row["sale_total_amount"]) . '</td>
-	                <td>' . pretty_date($row["sca"]) . '</td>
+	                <td style="font-family: Roboto Mono, monospace;">' . $row["sale_gram"] . '</td>
+	                <td style="font-family: Roboto Mono, monospace;">' . $row["sale_volume"] . '</td>
+	                <td style="font-family: Roboto Mono, monospace;">' . money($row["sale_price"]) . '</td>
+	                <td style="font-family: Roboto Mono, monospace;">' . money($row["sale_total_amount"]) . '</td>
+	                <td style="font-family: Roboto Mono, monospace;">' . pretty_date($row["sca"]) . '</td>
 	                <td class="text-end">
 	                    <button type="button" class="btn btn-sm btn-square btn-neutral w-rem-6 h-rem-6" title="More" data-bs-target="#saleModal_' . $row["sid"] . '" data-bs-toggle="modal">
 	                        <i class="bi bi-three-dots"></i>
@@ -153,31 +153,31 @@ if ($total_data > 0) {
 								<ul class="list-group">
 									<li class="list-group-item" style="padding: 0.1rem 1rem;">
 				                        <small class="text-muted">Total amount,</small>
-				                        <p>' . money($row["sale_total_amount"]) . '</p>
+				                        <p style="font-family: Roboto Mono, monospace;">' . money($row["sale_total_amount"]) . '</p>
 				                    </li>
 				                    <li class="list-group-item" style="padding: 0.1rem 1rem;">
 				                        <small class="text-muted">Price,</small>
-				                        <p>' . money($row["sale_price"]) . '</p>
+				                        <p style="font-family: Roboto Mono, monospace;">' . money($row["sale_price"]) . '</p>
 				                    </li>
 				                    <li class="list-group-item" style="padding: 0.1rem 1rem;">
 				                        <small class="text-muted">Gram</small>
-				                        <p>' . $row["sale_gram"] . '</p>
+				                        <p style="font-family: Roboto Mono, monospace;">' . $row["sale_gram"] . '</p>
 				                    </li>
 				                    <li class="list-group-item" style="padding: 0.1rem 1rem;">
 				                        <small class="text-muted">Volume</small>
-				                        <p>' . $row["sale_volume"] . '</p>
+				                        <p style="font-family: Roboto Mono, monospace;">' . $row["sale_volume"] . '</p>
 				                    </li>
 				                    <li class="list-group-item" style="padding: 0.1rem 1rem;">
 				                        <small class="text-muted">Density</small>
-				                        <p>' . $row["sale_density"] . '</p>
+				                        <p style="font-family: Roboto Mono, monospace;">' . $row["sale_density"] . '</p>
 				                    </li>
 				                    <li class="list-group-item" style="padding: 0.1rem 1rem;">
 				                        <small class="text-muted">Pounds</small>
-				                        <p>' . $row["sale_pounds"] . '</p>
+				                        <p style="font-family: Roboto Mono, monospace;">' . $row["sale_pounds"] . '</p>
 				                    </li>
 				                    <li class="list-group-item" style="padding: 0.1rem 1rem;">
 				                        <small class="text-muted">Carat</small>
-				                        <p id="send-amount">' . $row["sale_carat"] . '</p>
+				                        <p id="send-amount" style="font-family: Roboto Mono, monospace;">' . $row["sale_carat"] . '</p>
 				                    </li>
 				                    <li class="list-group-item" style="padding: 0.1rem 1rem;">
 				                        <small class="text-muted">Customer</small>

@@ -102,7 +102,7 @@ if ($total_data > 0) {
                     </div>
                 </td>
                 <td>'. $row["expenditure_what_for"] .'</a></td>
-                <td>'. money($row["expenditure_amount"]) .'</td>
+                <td style="font-family: Roboto Mono, monospace;">'. money($row["expenditure_amount"]) .'</td>
                 <td>'. pretty_date($row["eca"]) .'</td>
                 ' . $option . '
             </tr>
@@ -118,7 +118,7 @@ if ($total_data > 0) {
                         <div class="modal-body p-0">
                             <div class="px-6 py-5 border-bottom">
                                 <p>
-                                    <i>'.$row["expenditure_what_for"].', with an amount of '.money($row["expenditure_amount"]).'</i> 
+                                    <i>'.$row["expenditure_what_for"].', with an amount of <span style="font-family: Roboto Mono, monospace;">'.money($row["expenditure_amount"]).'</span></i> 
                                     <br><br>
                                     Are you sure you want to proceed to this action.
                                 </p>

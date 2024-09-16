@@ -29,7 +29,7 @@ function _admin_position($admin) {
 	$permission = $rows[0]['admin_permissions'];
 
 	$output = 'admin';
-	if ($permission == 'admin,salesperson,supervisor') {
+	if (admin_has_permission()) {
 		$output = 'admin';
 	} else if ($permission == 'supervisor') {
 		$output = 'supervisor';
@@ -292,10 +292,10 @@ function fetch_all_sales($status, $admin) {
 	                <td>' . $i . '</td>
 	                ' . (admin_has_permission() ? ' <td><a href="javascript:;" data-bs-target="#adminModal_' . $row["aid"] . '" data-bs-toggle="modal"><span class="d-block text-heading fw-bold">' . ucwords($row["admin_fullname"]) . '</span></a></td> ' : '') . '
 	                <td class="text-xs">' . strtoupper($row["sale_customer_name"]) . ' <i class="bi bi-arrow-right mx-2"></i> ' . $row["sale_customer_contact"] . '</td>
-	                <td>' . $row["sale_gram"] . '</td>
-	                <td>' . $row["sale_volume"] . '</td>
-	                <td>' . money($row["sale_price"]) . '</td>
-	                <td>' . money($row["sale_total_amount"]) . '</td>
+	                <td style="font-family: Roboto Mono, monospace;">' . $row["sale_gram"] . '</td>
+	                <td style="font-family: Roboto Mono, monospace;">' . $row["sale_volume"] . '</td>
+	                <td style="font-family: Roboto Mono, monospace;">' . money($row["sale_price"]) . '</td>
+	                <td style="font-family: Roboto Mono, monospace;">' . money($row["sale_total_amount"]) . '</td>
 	                <td>' . pretty_date($row["sca"]) . '</td>
 	                <td class="text-end">
 	                    <button type="button" class="btn btn-sm btn-square btn-neutral w-rem-6 h-rem-6" title="More" data-bs-target="#saleModal_' . $row["sid"] . '" data-bs-toggle="modal">
