@@ -1,8 +1,5 @@
 <?php
-
-	ini_set('display_errors', '1');
-	ini_set('display_startup_errors', '1');
-	error_reporting(E_ALL);
+	require ('./bootstrap.php');
 
 	// Connection To Database
 	$driver = $_ENV['DB_DRIVER'];
@@ -17,12 +14,9 @@
 	session_start();
 	date_default_timezone_set("Africa/Accra");
 
-	$dotenv = Dotenv\Dotenv::createImmutable(__DIR__);
-	$dotenv->load();
-
-	require_once($_SERVER['DOCUMENT_ROOT'].'/jspence/config.php');
- 	require_once(BASEURL . 'helpers/helpers.php');
- 	require_once(BASEURL . 'helpers/functions.php');
+	require_once ($_SERVER['DOCUMENT_ROOT'] . '/jspence/config.php');
+    require_once (BASEURL . 'helpers/helpers.php');
+    require_once (BASEURL . 'helpers/functions.php');
 
 
  	// ADMIN LOGIN

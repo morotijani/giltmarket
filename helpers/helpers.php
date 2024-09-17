@@ -1,5 +1,4 @@
 <?php 
-require BASEURL . 'vendor/autoload.php';
 
 function dnd($data) {
 	echo "<pre>";
