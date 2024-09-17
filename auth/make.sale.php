@@ -23,7 +23,7 @@ if (isset($_POST['gram-amount'])) {
 		$total_amount = calculateTotalAmount($gram, $volume, $current_price);
 
 		$sale_id = guidv4();
-		$createdAt = date("Y-m-d H:i:s A");;
+		$createdAt = date("Y-m-d H:i:s");;
 		$sql = "
 			INSERT INTO `jspence_sales`(`sale_id`, `sale_gram`, `sale_volume`, `sale_density`, `sale_pounds`, `sale_carat`, `sale_price`, `sale_total_amount`, `sale_customer_name`, `sale_customer_contact`, `sale_comment`, `sale_by`, `createdAt`) 
 			VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)

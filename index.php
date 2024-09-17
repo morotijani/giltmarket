@@ -296,7 +296,7 @@
 						<div class="mt-10 d-flex justify-content-center">
 							<!-- <img src="/img/marketing/hero-img-1.png"> -->
 							<script src="https://unpkg.com/@dotlottie/player-component@latest/dist/dotlottie-player.mjs" type="module"></script> 
-							<dotlottie-player src="<?= PROOT; ?>dist/media/bg.json" background="transparent" speed="1" style="width: 300px; height: 300px;" loop autoplay></dotlottie-player>
+							<dotlottie-player src="https://lottie.host/4d04debe-13b3-4271-b223-0b0be5e90fb3/KOeuAPsQrt.json" background="transparent" speed="1" style="width: 300px; height: 300px;" loop autoplay></dotlottie-player>
 						</div>
 					<?php endif; ?>
 

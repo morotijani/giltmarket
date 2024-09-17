@@ -58,7 +58,7 @@ function add_to_log($message, $log_admin) {
 	global $conn;
 
 	$log_id = guidv4();
-	$createdAt = date("Y-m-d H:i:s A");
+	$createdAt = date("Y-m-d H:i:s");
 	$sql = "
 		INSERT INTO `jspence_logs`(`log_id`, `log_message`, `log_admin`, `createdAt`) 
 		VALUES (?, ?, ?, ?)

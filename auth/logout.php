@@ -1,5 +1,4 @@
 <?php 
-
     require_once ("../db_connection/conn.php");
 
     $message = "logged out from system";
