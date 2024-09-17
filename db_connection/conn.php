@@ -5,14 +5,20 @@
 	error_reporting(E_ALL);
 
 	// Connection To Database
-	$servername = 'localhost';
-	$username = 'root';
-	$password = '';
-	$conn = new PDO("mysql:host=$servername;dbname=jspence", $username, $password);
+	$driver = $_ENV['DB_DRIVER'];
+	$hostname = $_ENV['DB_HOST'];
+	$port = $_ENV['DB_PORT'];
+	$database = $_ENV['DB_DATABASE'];
+	$username = $_ENV['DB_USERNAME'];
+	$password = $_ENV['DB_PASSWORD'];
+
+	$conn = new PDO($driver . ":host=$hostname;charset=utf8mb4;dbname=$database", $username, $password);
 
 	session_start();
-
 	date_default_timezone_set("Africa/Accra");
+
+	$dotenv = Dotenv\Dotenv::createImmutable(__DIR__);
+	$dotenv->load();
 
 	require_once($_SERVER['DOCUMENT_ROOT'].'/jspence/config.php');
  	require_once(BASEURL . 'helpers/helpers.php');
