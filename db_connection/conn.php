@@ -1,5 +1,6 @@
 <?php
-	require ('./bootstrap.php');
+
+	require ($_SERVER['DOCUMENT_ROOT'] . '/jspence/bootstrap.php');
 
 	// Connection To Database
 	$driver = $_ENV['DB_DRIVER'];
