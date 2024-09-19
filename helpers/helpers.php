@@ -263,7 +263,7 @@ function admin_permission_redirect($url = 'index') {
 
 function admin_has_permission($permission = 'admin') {
 	global $admin_data;
-	$permissions = explode(',', $admin_data[0]['admin_permissions']);
+	$permissions = explode(',', $admin_data['admin_permissions']);
 	if (in_array($permission, $permissions, true)) {
 		return true;
 	}

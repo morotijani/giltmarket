@@ -1,7 +1,4 @@
 <?php
-	ini_set('display_errors', '1');
-    ini_set('display_startup_errors', '1');
-    error_reporting(E_ALL);
 
 	require ($_SERVER['DOCUMENT_ROOT'] . '/jspence/bootstrap.php');
 
@@ -34,11 +31,12 @@
  		";
  		$statement = $conn->prepare($sql);
  		$statement->execute([$admin_id]);
- 		$admin_data = $statement->fetchAll();
+ 		$admin_dt = $statement->fetchAll();
+		$admin_data = $admin_dt[0];
 
-		$fn = explode(' ', $admin_data[0]['admin_fullname']);
+		$fn = explode(' ', $admin_data['admin_fullname']);
 		$admin_data['first'] = ucwords($fn[0]);
-			$admin_data['last'] = '';
+		$admin_data['last'] = '';
 		if (count($fn) > 1) {
 			$admin_data['last'] = ucwords($fn[1]);
 		}

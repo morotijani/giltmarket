@@ -69,7 +69,7 @@
 
 	$where = '';
 	if (!admin_has_permission()) {
-		$where = ' AND sale_by = "'.$admin_data[0]['admin_id'].'"';
+		$where = ' AND sale_by = "'.$admin_data['admin_id'].'"';
 	}
 
 	$thisYrQ = "
@@ -123,114 +123,116 @@
 
 ?>
 
- <!-- Content -->
- <div class="container-lg">
+ 	<!-- Content -->
+ 	<div class="container-lg">
         <!-- Page content -->
         <div class="row align-items-center">
-          <div class="col-12 col-md-auto order-md-1 d-flex align-items-center justify-content-center mb-4 mb-md-0">
-            <div class="avatar text-info me-2">
-              <i class="fs-4" data-duoicon="world"></i>
-            </div>
-            San Francisco, CA –&nbsp;<time datetime="20:00">8:00 PM</time>
-          </div>
-          <div class="col-12 col-md order-md-0 text-center text-md-start">
-			<?= $flash; ?>
-            <h1>Hello, John</h1>
-            <p class="fs-lg text-body-secondary mb-0">Here's a summary of your account activity for this week.</p>
-          </div>
-        </div>
+          	<div class="col-12 col-md-auto order-md-1 d-flex align-items-center justify-content-center mb-4 mb-md-0">
+            	<div class="avatar text-info me-2">
+              		<i class="fs-4" data-duoicon="world"></i>
+            	</div>
+				Ghana, GH –&nbsp;<time datetime="20:00">8:00 PM</time>
+			</div>
+			<div class="col-12 col-md order-md-0 text-center text-md-start">
+				<?= $flash; ?>
+				<h1>Hello, <?= $admin_data['first']; ?></h1>
+				<p class="fs-lg text-body-secondary mb-0">Here's a summary of your account activity for this week.</p>
+			</div>
+		</div>
 
         <!-- Divider -->
         <hr class="my-8" />
 
 		  <!-- Stats -->
-		  <div class="row mb-8">
-          <div class="col-12 col-md-6 col-xxl-3 mb-4 mb-xxl-0">
-            <div class="card bg-body-tertiary border-transparent">
-              <div class="card-body">
-                <div class="row align-items-center">
-                  <div class="col">
-                    <!-- Heading -->
-                    <h4 class="fs-base fw-normal text-body-secondary mb-1">Earned</h4>
+		<div class="row mb-8">
+        	<div class="col-12 col-md-6 col-xxl-3 mb-4 mb-xxl-0">
+            	<div class="card bg-body-tertiary border-transparent">
+              		<div class="card-body">
+                		<div class="row align-items-center">
+							<div class="col">
+								<!-- Heading -->
+								<h4 class="fs-base fw-normal text-body-secondary mb-1">Earned</h4>
 
-                    <!-- Text -->
-                    <div class="fs-5 fw-semibold">$1,250</div>
-                  </div>
-                  <div class="col-auto">
-                    <!-- Avatar -->
-                    <div class="avatar avatar-lg bg-body text-primary">
-                      <i class="fs-4" data-duoicon="credit-card"></i>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="col-12 col-md-6 col-xxl-3 mb-4 mb-xxl-0">
-            <div class="card bg-body-tertiary border-transparent">
-              <div class="card-body">
-                <div class="row align-items-center">
-                  <div class="col">
-                    <!-- Heading -->
-                    <h4 class="fs-base fw-normal text-body-secondary mb-1">Hours logged</h4>
+								<!-- Text -->
+								<div class="fs-5 fw-semibold">$1,250</div>
+							</div>
+							<div class="col-auto">
+								<!-- Avatar -->
+								<div class="avatar avatar-lg bg-body text-primary">
+								<i class="fs-4" data-duoicon="credit-card"></i>
+								</div>
+							</div>
+							</div>
+						</div>
+            		</div>
+          		</div>
+          		<div class="col-12 col-md-6 col-xxl-3 mb-4 mb-xxl-0">
+					<div class="card bg-body-tertiary border-transparent">
+						<div class="card-body">
+							<div class="row align-items-center">
+							<div class="col">
+								<!-- Heading -->
+								<h4 class="fs-base fw-normal text-body-secondary mb-1">Hours logged</h4>
 
-                    <!-- Text -->
-                    <div class="fs-5 fw-semibold">35.5 hrs</div>
-                  </div>
-                  <div class="col-auto">
-                    <!-- Avatar -->
-                    <div class="avatar avatar-lg bg-body text-primary">
-                      <i class="fs-4" data-duoicon="clock"></i>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="col-12 col-md-6 col-xxl-3 mb-4 mb-md-0">
-            <div class="card bg-body-tertiary border-transparent">
-              <div class="card-body">
-                <div class="row align-items-center">
-                  <div class="col">
-                    <!-- Heading -->
-                    <h4 class="fs-base fw-normal text-body-secondary mb-1">Tasks pending</h4>
+								<!-- Text -->
+								<div class="fs-5 fw-semibold">35.5 hrs</div>
+							</div>
+							<div class="col-auto">
+								<!-- Avatar -->
+								<div class="avatar avatar-lg bg-body text-primary">
+								<i class="fs-4" data-duoicon="clock"></i>
+								</div>
+							</div>
+							</div>
+						</div>
+					</div>
+          		</div>
+				<div class="col-12 col-md-6 col-xxl-3 mb-4 mb-md-0">
+					<div class="card bg-body-tertiary border-transparent">
+						<div class="card-body">
+							<div class="row align-items-center">
+							<div class="col">
+								<!-- Heading -->
+								<h4 class="fs-base fw-normal text-body-secondary mb-1">Tasks pending</h4>
 
-                    <!-- Text -->
-                    <div class="fs-5 fw-semibold">19</div>
-                  </div>
-                  <div class="col-auto">
-                    <!-- Avatar -->
-                    <div class="avatar avatar-lg bg-body text-primary">
-                      <i class="fs-4" data-duoicon="bell"></i>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="col-12 col-md-6 col-xxl-3">
-            <div class="card bg-body-tertiary border-transparent">
-              <div class="card-body">
-                <div class="row align-items-center">
-                  <div class="col">
-                    <!-- Heading -->
-                    <h4 class="fs-base fw-normal text-body-secondary mb-1">Projects</h4>
+								<!-- Text -->
+								<div class="fs-5 fw-semibold">19</div>
+							</div>
+							<div class="col-auto">
+								<!-- Avatar -->
+								<div class="avatar avatar-lg bg-body text-primary">
+								<i class="fs-4" data-duoicon="bell"></i>
+								</div>
+							</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="col-12 col-md-6 col-xxl-3">
+					<div class="card bg-body-tertiary border-transparent">
+						<div class="card-body">
+							<div class="row align-items-center">
+								<div class="col">
+									<!-- Heading -->
+									<h4 class="fs-base fw-normal text-body-secondary mb-1">Projects</h4>
 
-                    <!-- Text -->
-                    <div class="fs-5 fw-semibold">12</div>
-                  </div>
-                  <div class="col-auto">
-                    <!-- Avatar -->
-                    <div class="avatar avatar-lg bg-body text-primary">
-                      <i class="fs-4" data-duoicon="clipboard"></i>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
+									<!-- Text -->
+									<div class="fs-5 fw-semibold">12</div>
+								</div>
+								<div class="col-auto">
+									<!-- Avatar -->
+									<div class="avatar avatar-lg bg-body text-primary">
+										<i class="fs-4" data-duoicon="clipboard"></i>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
 
+
+			
         <div class="row">
           <div class="col-12 col-xxl-8">
             <!-- Performance -->
