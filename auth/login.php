@@ -1,7 +1,6 @@
 <?php 
 
     require_once ("../db_connection/conn.php");
-    // session_destroy();
 
     if (admin_is_logged_in()) {
         redirect(PROOT . "index");
