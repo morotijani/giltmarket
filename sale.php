@@ -136,7 +136,7 @@
 			<div class="col-12 col-md order-md-0 text-center text-md-start">
 				<?= $flash; ?>
 				<h1>Hello, <?= $admin_data['first']; ?></h1>
-				<p class="fs-lg text-body-secondary mb-0">Here's a summary of your account activity for this week.</p>
+				<p class="fs-lg text-body-secondary mb-0">Here's a summary of your account activity for this today.</p>
 			</div>
 		</div>
 

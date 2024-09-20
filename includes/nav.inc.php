@@ -87,13 +87,13 @@
                             aria-expanded="false"
                             aria-controls="customers"
                             >
-                            <span class="material-symbols-outlined me-3">group</span> Customers
+                            <span class="material-symbols-outlined me-3">group</span> Admins
                             </a>
                             <div class="collapse " id="customers">
                             <nav class="nav nav-pills">
-                                <a class="nav-link " href="./customers.html">Customers</a>
-                                <a class="nav-link " href="./customer.html">Customer details</a>
-                                <a class="nav-link " href="./customer-new.html">New customer</a>
+                                <a class="nav-link " href="./customers.html">Admins</a>
+                                <a class="nav-link " href="./customer.html">Admin details</a>
+                                <a class="nav-link " href="./customer-new.html">New admin</a>
                             </nav>
                             </div>
                         </div>
@@ -146,12 +146,12 @@
                             aria-expanded="false"
                             aria-controls="orders"
                             >
-                            <span class="material-symbols-outlined me-3">shopping_cart</span> Orders
+                            <span class="material-symbols-outlined me-3">shopping_cart</span> Trades
                             </a>
                             <div class="collapse " id="orders">
                             <nav class="nav nav-pills">
-                                    <a class="nav-link " href="./orders.html">Orders</a>
-                                    <a class="nav-link " href="./invoice.html">Invoice</a>
+                                    <a class="nav-link " href="./orders.html">Sales</a>
+                                    <a class="nav-link " href="./invoice.html">Expenditures</a>
                                     <a class="nav-link " href="./pricing.html">Pricing</a>
                                 </nav>
                             </div>
@@ -166,14 +166,11 @@
                             aria-expanded="false"
                             aria-controls="authentication"
                             >
-                            <span class="material-symbols-outlined me-3">login</span> Authentication
+                            <span class="material-symbols-outlined me-3">login</span> Logs
                             </a>
                             <div class="collapse" id="authentication">
                                 <nav class="nav nav-pills">
-                                    <a class="nav-link" href="./sign-in.html">Sign in</a>
-                                    <a class="nav-link" href="./sign-up.html">Sign up</a>
-                                    <a class="nav-link" href="./password-reset.html">Password reset</a>
-                                    <a class="nav-link" href="./error.html">Error</a>
+                                    <a class="nav-link" href="./sign-in.html">Logs</a>
                                 </nav>
                             </div>
                         </div>
@@ -184,22 +181,22 @@
                 
                         <!-- Nav -->
                         <nav class="navbar-nav mb-xl-7">
-                        <div class="nav-item">
-                            <a class="nav-link " href="./docs/getting-started.html">
-                            <span class="material-symbols-outlined me-3">sticky_note_2</span> Getting started
-                            </a>
-                        </div>
-                        <div class="nav-item">
-                            <a class="nav-link " href="./docs/components.html">
-                            <span class="material-symbols-outlined me-3">deployed_code</span> Components
-                            </a>
-                        </div>
-                        <div class="nav-item">
-                            <a class="nav-link " href="./docs/changelog.html">
-                            <span class="material-symbols-outlined me-3">list_alt</span> Changelog
-                            <span class="badge text-bg-primary ms-auto">1.0.0</span>
-                            </a>
-                        </div>
+                            <div class="nav-item">
+                                <a class="nav-link " href="./docs/getting-started.html">
+                                    <span class="material-symbols-outlined me-3">sticky_note_2</span> Getting started
+                                    <span class="badge text-bg-primary ms-auto">v1.0.0</span>
+                                </a>
+                            </div>
+                            <div class="nav-item">
+                                <a class="nav-link " href="./docs/components.html">
+                                    <span class="material-symbols-outlined me-3">deployed_code</span> Account
+                                </a>
+                            </div>
+                            <div class="nav-item">
+                                <a class="nav-link " href="./docs/changelog.html">
+                                    <span class="material-symbols-outlined me-3">list_alt</span> Logout
+                                </a>
+                            </div>
                         </nav>
                 
                         <!-- Divider -->
@@ -211,7 +208,7 @@
                             <a class="nav-link" href="#"> <span class="material-symbols-outlined me-3">contrast</span> Dark mode </a>
                         </div>
                         <div class="nav-item">
-                            <a class="nav-link" href="#"> <span class="material-symbols-outlined me-3">local_mall</span> Go to product page </a>
+                            <a class="nav-link" href="#"> <span class="material-symbols-outlined me-3">local_mall</span> Trade </a>
                         </div>
                         <div class="nav-item">
                             <a class="nav-link" href="#"> <span class="material-symbols-outlined me-3">alternate_email</span> Contact us </a>
@@ -225,7 +222,7 @@
                             <h6>Need help?</h6>
                 
                             <!-- Text -->
-                            <p class="text-body-secondary mb-0">Feel free to reach out to us should you have any questions or suggestions.</p>
+                            <p class="text-body-secondary mb-0">Feel free to reach out to us, should you have any questions or suggestions.</p>
                         </div>
                         </div>
                     </div>
