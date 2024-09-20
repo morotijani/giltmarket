@@ -6,13 +6,14 @@
                     <div class="col">
                         <!-- Search -->
                         <div class="input-group" style="max-width: 400px">
-                        <input class="form-control" id="topnavSearchInput" type="search" placeholder="Search" aria-label="Search" aria-describedby="navbarSearch" />
-                        <span class="input-group-text" id="navbarSearch">
-                            <kbd class="badge bg-body-secondary text-black">⌘</kbd>
-                            <kbd class="badge bg-body-secondary text-black ms-1">K</kbd>
-                        </span>
+                            <input class="form-control" id="topnavSearchInput" type="search" placeholder="Search" aria-label="Search" aria-describedby="navbarSearch" />
+                            <span class="input-group-text" id="navbarSearch">
+                                <kbd class="badge bg-body-secondary text-black">⌘</kbd>
+                                <kbd class="badge bg-body-secondary text-black ms-1">K</kbd>
+                            </span>
                         </div>
                     </div>
+
                     <div class="col-auto">
                         <!-- User -->
                         <div class="dropdown my-n2">
@@ -38,3 +39,4 @@
 
         <!-- Main -->
         <main class="main px-lg-6">
+            <?= $flash; ?>

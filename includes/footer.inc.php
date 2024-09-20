@@ -1,6 +1,119 @@
     <!-- FOOTER -->
-    
+
     </main>
+
+    <div class="modal fade" id="buyModal" tabindex="-1" aria-labelledby="buyModalLabel" aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="false" style="backdrop-filter: blur(5px);">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content overflow-hidden">
+                <div class="modal-header pb-0 border-0">
+                    <h1 class="modal-title h4" id="buyModalLabel"><?= admin_has_permission('supervisor') ? 'Sell' : 'Buy'; ?> trade</h1>
+                    <button type="button" class="btn-close btn-close-buyform" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body undefined">
+                    <div class="buy-msg p-1 small"></div>
+                    <form class="vstack gap-6" id="buyForm">
+                        <div id="step-1">
+                            <div class="mb-3">
+                                <input type="tel" name="current_price" id="current_price" class="form-control" placeholder="Current price" style="border: none;" required autocomplete="off">
+                            </div>
+                            <div class="vstack gap-1">
+                                <div class="bg-body-light rounded-3 p-4" style="background-color: rgb(247 247 248);">
+                                    <div class="d-flex justify-content-between text-xs text-muted">
+                                        <span class="fw-semibold">Gram</span> <span class="gramMsg">...</span>
+                                    </div>
+                                    <div class="d-flex justify-content-between gap-2 mt-4">
+                                        <input type="tel" inputmode="numeric" class="form-control form-control-flush text-xl fw-bold flex-fill" placeholder="0.00" id="gram-amount" name="gram-amount" autofocus required autocomplete="off" data-step="2"> <button type="button" class="btn btn-neutral shadow-none rounded-pill flex-none d-flex align-items-center gap-2 py-2 ps-2 pe-4"><img src="<?= PROOT; ?>assets/media/grams.svg" class="w-rem-6 h-rem-6" alt="..." style="height: 1.5rem !important;width: 1.5rem !important;"> <span class="text-xs fw-semibold text-heading ms-1">GRM</span></button>
+                                    </div>
+                                </div>
+                                <div class="position-relative text-center my-n4 overlap-10">
+                                    <div class="icon icon-sm icon-shape bg-body shadow-soft-3 rounded-circle text-sm text-body-tertiary">
+                                        <i class="bi bi-arrow-down-up"></i>
+                                    </div>
+                                </div>
+                                <div class="bg-body-light rounded-3 p-4" style="background-color: rgb(247 247 248);">
+                                    <div class="d-flex justify-content-between text-xs text-muted">
+                                        <span class="fw-semibold">Volume</span> <span class="volumeMsg">...</span>
+                                    </div>
+                                    <div class="d-flex justify-content-between gap-2 mt-4">
+                                        <input type="tel" inputmode="numeric" class="form-control form-control-flush text-xl fw-bold flex-fill" placeholder="0.00" id="volume-amount" name="volume-amount" required autocomplete="off" data-step="2"> <button class="btn btn-neutral shadow-none rounded-pill flex-none d-flex align-items-center gap-2 py-2 ps-2 pe-4" type="button"><img src="<?= PROOT; ?>assets/media/volume.png" class="w-rem-6 h-rem-6 rounded-circle" alt="..." style="height: 1.5rem !important;width: 1.5rem !important;"> <span class="text-xs fw-semibold text-heading ms-1">VLM</span></button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div id="calculation-result" class="d-flex justify-content-center"></div>
+                            <br>
+                            <div id="result-view">
+                                <label class="form-label">Total Amount</label>
+                                <div class="d-flex flex-wrap gap-1 gap-sm-2">
+                                    <div class="w-sm-56 input-group input-group-sm input-group-inline">
+                                        <input type="text" readonly class="form-control" placeholder="0.00" id="total-amount"> <span class="input-group-text">₵</span>
+                                    </div>
+                                    <div class="flex-fill">
+                                        <input type="radio" title="Density" class="btn-check"> <label class="btn btn-sm btn-neutral w-100" id="density" for="option1">0.0 Density</label>
+                                    </div>
+                                    <div class="flex-fill">
+                                        <input type="radio" class="btn-check" title="Pounds"> <label class="btn btn-sm btn-neutral w-100" id="pounds" for="option2">0.00 Pounds</label>
+                                    </div>
+                                    <div class="flex-fill">
+                                        <input type="radio" class="btn-check" title="Carat"> <label class="btn btn-sm btn-neutral w-100" id="carat" for="option3">0.00 Carat</label>
+                                    </div>
+                                </div>
+                            </div>
+                            <br>
+                            <div class="mb-3">
+                                <input type="text" name="customer_name" id="customer_name" class="form-control" placeholder="Customer name" style="border: none;" required autocomplete="off">
+                            </div>
+                            <div class="mb-3">
+                                <input type="text" name="customer_contact" id="customer_contact" class="form-control" placeholder="Customer contact" style="border: none;" required autocomplete="off">
+                            </div>
+                            <div class="mb-3">
+                                <textarea class="form-control form-control-flush flex-fill" style="overflow: hidden; resize: none;" placeholder="Leave a comment here" id="note" name="note"></textarea>
+                            </div>
+                            <button type="button" class="btn btn-primary w-100" id="next-1">Continue</button>
+                        </div>
+                        <div id="step-2" class="d-none text-center">
+                            <ul class="list-group" id="buysummary"></ul>
+                            <button type="button" class="btn btn-warning mt-4" id="next-2">Confirm Sale</button>
+                            <br>
+                            <a href="javascript:;" class="" id="prev-1"><< Go Back</a>
+                        </div>
+                        <div id="step-3" class="d-none">
+                            <div class="inputpin mb-3">
+                                <div>
+                                    <?php if (is_capital_given()): ?>
+                                        <?php if (is_capital_exhausted($conn, $admin_data[0]['admin_id'])): ?>
+                                        <label class="form-label">Enter pin</label>
+                                        <div class="d-flex justify-content-between p-4 bg-body-tertiary rounded">
+                                            <input type="tel" class="form-control form-control-flush text-xl fw-bold w-rem-40" placeholder="0000" name="pin" id="pin" autocomplete="off" inputmode="numeric" data-maxlength="4" oninput="this.value=this.value.slice(0,this.dataset.maxlength)">
+                                            <div class="dropdown">
+                                                <button type="button" class="btn btn-sm btn-neutral rounded-pill shadow-none flex-none d-flex align-items-center gap-2 p-2">
+                                                    <img src="<?= PROOT; ?>dist/media/pin.jpg" class="w-rem-6 h-rem-6 rounded-circle" alt="..."> <span>PIN</span>
+                                                </button>
+                                            </div>
+                                        </div>
+                                        <?php else: ?>
+                                            <p class="h4">
+                                                Trade ended: the capital given for today's trade has been exhausted!
+                                            </p>
+                                        <?php endif; ?>
+                                    <?php else: ?>
+                                        <p class="h4">
+                                            Please you are to provide today's capital given before you can complete a trade!
+                                        </p>
+                                    <?php endif; ?>
+                                </div>
+                            </div>
+                            <?php if (is_capital_given()): ?>
+                                <?php if (is_capital_exhausted($conn, $admin_data[0]['admin_id'])): ?>
+                                    <button type="submit" class="btn btn-warning mt-4" id="submitSend" name="submitSend">Complete Sale</button>
+                                <?php endif; ?>
+                            <?php endif; ?>
+                            <br><a href="javascript:;" class="" id="prev-2"><< Go Back</a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <!-- JAVASCRIPT -->
     <!-- Map JS -->

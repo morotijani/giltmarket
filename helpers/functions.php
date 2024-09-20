@@ -77,7 +77,7 @@ function _capital() {
 		LIMIT 1
 	";
 	$statement = $conn->prepare($sql);
-	$statement->execute([$today, $admin_data[0]['admin_id']]);
+	$statement->execute([$today, $admin_data['admin_id']]);
 	$rows = $statement->fetchAll();
 
 	$balance = 0;
@@ -585,6 +585,30 @@ function count_total_orders($admin) {
 	return $row[0]['total_number'];
 }
 
+// count total orders
+function count_today_orders($admin) {
+	global $conn;
+	$today = date("Y-m-d");
+
+	$where = '';
+	if (!admin_has_permission()) {
+		$where = ' AND sale_by = "'.$admin.'"';
+	}
+
+	$sql = "
+		SELECT COUNT(sale_id) AS total_number 
+		FROM `jspence_sales` 
+		WHERE sale_status = ? 
+		AND CAST(jspence_sales.createdAt AS date) = ?
+		$where 
+	";
+	$statement = $conn->prepare($sql);
+	$statement->execute([0, $today]);
+	$row = $statement->fetchAll();
+	
+	return $row[0]['total_number'];
+}
+
 // get grand amount of orders
 function grand_total_amount($admin) {
 	global $conn;
@@ -718,29 +742,40 @@ function get_recent_trades($admin) {
 		foreach ($rows as $row) {
 			// code...
 			$output .= '
-				<div>
-					<div class="d-flex align-items-center gap-3">
-						<div>
-							<h6 class="progress-text mb-1 d-block">' . $row["sale_id"] . '</h6>
-							<p class="text-muted text-xs">' . pretty_date($row["createdAt"]) . '</p>
+				<tr>
+					<td>
+						<div class="d-flex align-items-center">
+							<div class="avatar text-primary">
+							<i class="fs-4" data-duoicon="book-3"></i>
+							</div>
+							<div class="ms-4">
+							<div>' . $row["sale_id"] . '</div>
+							<div class="fs-sm text-body-secondary">Created on J' . pretty_date($row["createdAt"]) . '</div>
+							</div>
 						</div>
-						<div class="text-end ms-auto">
-							<span class="h6 text-sm" style="font-family: Roboto Mono, monospace;">' . money($row["sale_total_amount"]) . '</span>
-						</div>
-					</div>
-				</div>
+					</td>
+					<td>
+						<span class="badge bg-secondary-subtle text-secondary">expenditure/trade</span>
+					</td>
+					<td>
+						' . money($row["sale_total_amount"]) . '
+					</td>
+					<td>
+						' . ucwords($row["sale_customer_name"]) . '
+					</td>
+				</tr>
 			';
 		}
 	} else {
 		$output = '
-			<div>
-				<div class="d-flex align-items-center gap-3">
-					<div>
+			<tr>
+				<td colspan="4">
+					<div class="alert alert-warning">
 						<h6 class="progress-text mb-1 d-block">No trades found today!</h6>
 						<p class="text-muted text-xs">Current date time: ' . date("l jS \of F Y h:i:s A") . '</p>
 					</div>
-				</div>
-			</div>
+				</td>
+			</tr>
 		';
 	}
 
