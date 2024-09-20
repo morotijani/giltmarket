@@ -4,30 +4,49 @@
 
     <div class="modal fade" id="buyModal" tabindex="-1" aria-labelledby="buyModalLabel" aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="false" style="backdrop-filter: blur(5px);">
         <div class="modal-dialog modal-dialog-centered">
-            <div class="modal-content overflow-hidden">
+            <div class="modal-content overflow-hidden" style="background: #d0b3728f;">
                 <div class="modal-header pb-0 border-0">
                     <h1 class="modal-title h4" id="buyModalLabel"><?= admin_has_permission('supervisor') ? 'Sell' : 'Buy'; ?> trade</h1>
                     <button type="button" class="btn-close btn-close-buyform" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body undefined">
                     <div class="buy-msg p-1 small"></div>
+                    <style>
+                        #buyForm input, #buyForm textarea {
+                            box-shadow: none;
+                            border-color: none;
+                            background-color: transparent;
+                        }
+
+                        #buyForm .icon-shape {
+                            vertical-align: middle;
+                            text-align: center;
+                            width: 2rem;
+                            height: 2rem;
+                            border-radius: .375rem;
+                            justify-content: center;
+                            align-items: center;
+                            display: inline-flex;
+                        }
+                    </style>
                     <form class="vstack gap-6" id="buyForm">
                         <div id="step-1">
                             <div class="mb-3">
                                 <input type="tel" name="current_price" id="current_price" class="form-control" placeholder="Current price" style="border: none;" required autocomplete="off">
                             </div>
-                            <div class="vstack gap-1">
+                            <div class="vstack" style="gap: .25rem !important;">
                                 <div class="bg-body-light rounded-3 p-4" style="background-color: rgb(247 247 248);">
                                     <div class="d-flex justify-content-between text-xs text-muted">
                                         <span class="fw-semibold">Gram</span> <span class="gramMsg">...</span>
                                     </div>
                                     <div class="d-flex justify-content-between gap-2 mt-4">
-                                        <input type="tel" inputmode="numeric" class="form-control form-control-flush text-xl fw-bold flex-fill" placeholder="0.00" id="gram-amount" name="gram-amount" autofocus required autocomplete="off" data-step="2"> <button type="button" class="btn btn-neutral shadow-none rounded-pill flex-none d-flex align-items-center gap-2 py-2 ps-2 pe-4"><img src="<?= PROOT; ?>assets/media/grams.svg" class="w-rem-6 h-rem-6" alt="..." style="height: 1.5rem !important;width: 1.5rem !important;"> <span class="text-xs fw-semibold text-heading ms-1">GRM</span></button>
+                                        <input type="tel" inputmode="numeric" class="form-control form-control-flush text-xl flex-fill" placeholder="0.00" id="gram-amount" name="gram-amount" autofocus required autocomplete="off" data-step="2"> <button type="button" class="btn btn-neutral shadow-none rounded-pill flex-none d-flex align-items-center gap-2 py-2 ps-2 pe-4"><img src="<?= PROOT; ?>assets/media/grams.svg" class="w-rem-6 h-rem-6" alt="..." style="height: 1.5rem !important;width: 1.5rem !important;"> <span class="text-xs fw-semibold text-heading ms-1">GRM</span></button>
                                     </div>
                                 </div>
-                                <div class="position-relative text-center my-n4 overlap-10">
-                                    <div class="icon icon-sm icon-shape bg-body shadow-soft-3 rounded-circle text-sm text-body-tertiary">
-                                        <i class="bi bi-arrow-down-up"></i>
+                                <div class="position-relative text-center my-n4 overlap-10" style="margin-top: -1rem !important; margin-bottom: -1rem !important;">
+                                    <div class="icon icon-sm icon-shape bg-body shadow-soft-3 rounded-circle text-sm text-body-tertiary" style="box-shadow: 0 9px 9px -1px rgba(10,22,70,.04)!important">
+                                        <!-- <i class="bi bi-arrow-down-up"></i> -->
+                                        <span class="material-symbols-outlined">swap_vert</span>
                                     </div>
                                 </div>
                                 <div class="bg-body-light rounded-3 p-4" style="background-color: rgb(247 247 248);">
@@ -35,7 +54,7 @@
                                         <span class="fw-semibold">Volume</span> <span class="volumeMsg">...</span>
                                     </div>
                                     <div class="d-flex justify-content-between gap-2 mt-4">
-                                        <input type="tel" inputmode="numeric" class="form-control form-control-flush text-xl fw-bold flex-fill" placeholder="0.00" id="volume-amount" name="volume-amount" required autocomplete="off" data-step="2"> <button class="btn btn-neutral shadow-none rounded-pill flex-none d-flex align-items-center gap-2 py-2 ps-2 pe-4" type="button"><img src="<?= PROOT; ?>assets/media/volume.png" class="w-rem-6 h-rem-6 rounded-circle" alt="..." style="height: 1.5rem !important;width: 1.5rem !important;"> <span class="text-xs fw-semibold text-heading ms-1">VLM</span></button>
+                                        <input type="tel" inputmode="numeric" class="form-control form-control-flush text-xl flex-fill" placeholder="0.00" id="volume-amount" name="volume-amount" required autocomplete="off" data-step="2"> <button class="btn btn-neutral shadow-none rounded-pill flex-none d-flex align-items-center gap-2 py-2 ps-2 pe-4" type="button"><img src="<?= PROOT; ?>assets/media/volume.png" class="w-rem-6 h-rem-6 rounded-circle" alt="..." style="height: 1.5rem !important;width: 1.5rem !important;"> <span class="text-xs fw-semibold text-heading ms-1">VLM</span></button>
                                     </div>
                                 </div>
                             </div>
@@ -68,7 +87,7 @@
                             <div class="mb-3">
                                 <textarea class="form-control form-control-flush flex-fill" style="overflow: hidden; resize: none;" placeholder="Leave a comment here" id="note" name="note"></textarea>
                             </div>
-                            <button type="button" class="btn btn-primary w-100" id="next-1">Continue</button>
+                            <button type="button" class="btn btn-warning w-100" id="next-1">Continue</button>
                         </div>
                         <div id="step-2" class="d-none text-center">
                             <ul class="list-group" id="buysummary"></ul>

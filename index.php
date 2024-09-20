@@ -139,6 +139,12 @@
 				<p class="fs-lg text-body-secondary mb-0">Here's a summary of your account activity for this day.</p>
 			</div>
 		</div>
+		<!-- <span class="d-flex align-items-center mt-4" style="cursor: pointer">
+			<div class="avatar text-success me-2">
+				<i class="fs-4" data-duoicon="bank"></i>
+			</div>
+			Trade –&nbsp;<time datetime="20:00">0.00</time>
+		</span> -->
 
         <!-- Divider -->
         <hr class="my-8" />
