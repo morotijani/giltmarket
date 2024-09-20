@@ -335,29 +335,63 @@ function get_admin_profile($id) {
 	";
 	$statement = $conn->prepare($query);
 	$statement->execute([$id, 0]);
-	$row = $statement->fetchAll();
+	$rows = $statement->fetchAll();
+	$row = $rows[0];
 
 	$output = '
-		<li class="list-group-item" style="padding: 0.1rem 1rem;">
-	  		<small class="text-muted">Profile,</small>
-	  		<p>' . (($row[0]["admin_profile"] == NULL) ? 'No profle picture' : '<img src="'.PROOT.$row[0]["admin_profile"].'" class="avatar" />' ) . '</p>
-	  	</li>
-		<li class="list-group-item" style="padding: 0.1rem 1rem;">
-	  		<small class="text-muted">Name,</small>
-	  		<p>' . ucwords($row[0]["admin_fullname"]) . '</p>
-	  	</li>
-		<li class="list-group-item" style="padding: 0.1rem 1rem;">
-	  		<small class="text-muted">Email,</small>
-	  		<p>' . $row[0]["admin_email"] . '</p>
-	  	</li>
-		<li class="list-group-item" style="padding: 0.1rem 1rem;">
-	  		<small class="text-muted">Joined Date,</small>
-	  		<p>' . pretty_date($row[0]["admin_joined_date"]) . '</p>
-	  	</li>
-		<li class="list-group-item" style="padding: 0.1rem 1rem;">
-	  		<small class="text-muted">Last Login,</small>
-	  		<p>' . pretty_date($row[0]["admin_last_login"]) . '</p>
-	  	</li>
+		<div class="row align-items-center">
+			<div class="col-auto">
+				<div class="avatar avatar-xl">
+					<img class="avatar-img" src="' . PROOT .  (($row["admin_profile"] == NULL) ? 'assets/media/avatar.png' : $row["admin_profile"]) . '" alt="..." />
+				</div>
+			</div>
+			<div class="col">
+				<h2 class="fs-5 mb-0"> ' . ucwords($row["admin_fullname"]) . ' </h2>
+				<div class="text-body-secondary"> ' . ucwords($row['admin_permissions']) . ' </div>
+			</div>
+		</div>
+		<hr />
+		<div class="mb-4">
+			<div class="form-label">Bio</div>
+			<div>
+				Hi! I\'m Michael Johnson, a software engineer from San Francisco, California. I\'m passionate about technology, design, and startups. I\'m
+					currently working at Quantum Dynamics as a front-end developer.
+			</div>
+		</div>
+		<div class="mb-4">
+			<div class="form-label">Email</div>
+			<a href="mailto:michael.johnson@company.com" class="text-body"> ' . $row["admin_email"] . ' </a>
+		</div>
+		<div class="mb-4">
+			<div class="form-label">Phone</div>
+			<a href="tel:+1234567890" class="text-body"> ' . $row["admin_phone"] . ' </a>
+		</div>
+
+		<div class="card border-transparent">
+			<div class="card-body py-0">
+				<ul class="list-group list-group-flush">
+					<li class="list-group-item px-0">
+						<div class="row align-items-center">
+						<div class="col-auto">
+							<span class="material-symbols-outlined text-body-tertiary">credit_card</span>
+						</div>
+						<div class="col">Joined at <small class="text-body-secondary ms-1">(' . pretty_date($row["admin_joined_date"]) . ')</small></div>
+						<div class="col-auto">
+							<span class="badge bg-success-subtle text-success">Primary</span>
+						</div>
+						</div>
+					</li>
+					<li class="list-group-item px-0">
+						<div class="row align-items-center">
+						<div class="col-auto">
+							<span class="material-symbols-outlined text-body-tertiary">credit_card</span>
+						</div>
+						<div class="col">Last login <small class="text-body-secondary ms-1">(' . pretty_date($row["admin_last_login"]) . ')</small></div>
+						</div>
+					</li>
+				</ul>
+			</div>
+		</div>
 	';
 
 	return $output;
