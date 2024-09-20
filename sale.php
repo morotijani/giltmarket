@@ -151,7 +151,7 @@
                 		<div class="row align-items-center">
 							<div class="col">
 								<!-- Heading -->
-								<h4 class="fs-base fw-normal text-body-secondary mb-1">Earned</h4>
+								<h4 class="fs-base fw-normal text-body-secondary mb-1">Capital</h4>
 
 								<!-- Text -->
 								<div class="fs-5 fw-semibold">$1,250</div>
@@ -172,7 +172,7 @@
 							<div class="row align-items-center">
 							<div class="col">
 								<!-- Heading -->
-								<h4 class="fs-base fw-normal text-body-secondary mb-1">Hours logged</h4>
+								<h4 class="fs-base fw-normal text-body-secondary mb-1">Balance</h4>
 
 								<!-- Text -->
 								<div class="fs-5 fw-semibold">35.5 hrs</div>
@@ -193,7 +193,7 @@
 							<div class="row align-items-center">
 							<div class="col">
 								<!-- Heading -->
-								<h4 class="fs-base fw-normal text-body-secondary mb-1">Tasks pending</h4>
+								<h4 class="fs-base fw-normal text-body-secondary mb-1">Number of requests</h4>
 
 								<!-- Text -->
 								<div class="fs-5 fw-semibold">19</div>
@@ -214,7 +214,7 @@
 							<div class="row align-items-center">
 								<div class="col">
 									<!-- Heading -->
-									<h4 class="fs-base fw-normal text-body-secondary mb-1">Projects</h4>
+									<h4 class="fs-base fw-normal text-body-secondary mb-1">Trades</h4>
 
 									<!-- Text -->
 									<div class="fs-5 fw-semibold">12</div>
@@ -236,7 +236,7 @@
         <div class="row">
           <div class="col-12 col-xxl-8">
             <!-- Performance -->
-            <div class="card mb-6">
+            <!-- <div class="card mb-6">
               <div class="card-header">
                 <div class="row align-items-center">
                   <div class="col">
@@ -256,14 +256,14 @@
                   <canvas class="chart-canvas" id="performanceChart"></canvas>
                 </div>
               </div>
-            </div>
+            </div> -->
 
             <!-- Projects -->
             <div class="card mb-6 mb-xxl-0">
               <div class="card-header">
                 <div class="row align-items-center">
                   <div class="col">
-                    <h3 class="fs-6 mb-0">Active projects</h3>
+                    <h3 class="fs-6 mb-0">Trades</h3>
                   </div>
                   <div class="col-auto my-n3 me-n3">
                     <a class="btn btn-link" href="#!">
@@ -320,40 +320,6 @@
                       <tr>
                         <td>
                           <div class="d-flex align-items-center">
-                            <div class="avatar">
-                              <img class="avatar-img" src="./assets/img/projects/project-2.png" alt="..." />
-                            </div>
-                            <div class="ms-4">
-                              <div>Design landing page</div>
-                              <div class="fs-sm text-body-secondary">Created on Mar 05, 2024</div>
-                            </div>
-                          </div>
-                        </td>
-                        <td>
-                          <span class="badge bg-danger-subtle text-danger">Cancelled</span>
-                        </td>
-                        <td>
-                          <div class="d-flex align-items-center text-nowrap">
-                            <div class="avatar avatar-xs me-2">
-                              <img class="avatar-img" src="./assets/img/photos/photo-1.jpg" alt="..." />
-                            </div>
-                            Emily Thompson
-                          </div>
-                        </td>
-                        <td>
-                          <div class="avatar-group">
-                            <div class="avatar avatar-xs">
-                              <img class="avatar-img" src="./assets/img/photos/photo-4.jpg" alt="..." />
-                            </div>
-                            <div class="avatar avatar-xs">
-                              <img class="avatar-img" src="./assets/img/photos/photo-5.jpg" alt="..." />
-                            </div>
-                          </div>
-                        </td>
-                      </tr>
-                      <tr>
-                        <td>
-                          <div class="d-flex align-items-center">
                             <div class="avatar text-primary">
                               <i class="fs-4" data-duoicon="book-3"></i>
                             </div>
@@ -388,83 +354,6 @@
                           </div>
                         </td>
                       </tr>
-                      <tr>
-                        <td>
-                          <div class="d-flex align-items-center">
-                            <div class="avatar">
-                              <img class="avatar-img" src="./assets/img/projects/project-3.png" alt="..." />
-                            </div>
-                            <div class="ms-4">
-                              <div>Update Touche</div>
-                              <div class="fs-sm text-body-secondary">Updated on Apr 14, 2024</div>
-                            </div>
-                          </div>
-                        </td>
-                        <td>
-                          <span class="badge bg-success-subtle text-success">Ready to Ship</span>
-                        </td>
-                        <td>
-                          <div class="d-flex align-items-center text-nowrap">
-                            <div class="avatar avatar-xs me-2">
-                              <img class="avatar-img" src="./assets/img/photos/photo-5.jpg" alt="..." />
-                            </div>
-                            Jessica Miller
-                          </div>
-                        </td>
-                        <td>
-                          <div class="avatar-group">
-                            <div class="avatar avatar-xs">
-                              <img class="avatar-img" src="./assets/img/photos/photo-3.jpg" alt="..." />
-                            </div>
-                            <div class="avatar avatar-xs">
-                              <img class="avatar-img" src="./assets/img/photos/photo-4.jpg" alt="..." />
-                            </div>
-                            <div class="avatar avatar-xs">
-                              <img class="avatar-img" src="./assets/img/photos/photo-5.jpg" alt="..." />
-                            </div>
-                            <div class="avatar avatar-xs">
-                              <img class="avatar-img" src="./assets/img/photos/photo-6.jpg" alt="..." />
-                            </div>
-                          </div>
-                        </td>
-                      </tr>
-                      <tr>
-                        <td>
-                          <div class="d-flex align-items-center">
-                            <div class="avatar text-primary">
-                              <i class="fs-4" data-duoicon="box"></i>
-                            </div>
-                            <div class="ms-4">
-                              <div>Add Transactions</div>
-                              <div class="fs-sm text-body-secondary">Created on Apr 25, 2024</div>
-                            </div>
-                          </div>
-                        </td>
-                        <td>
-                          <span class="badge bg-light text-body-secondary">Backlog</span>
-                        </td>
-                        <td>
-                          <div class="d-flex align-items-center text-nowrap">
-                            <div class="avatar avatar-xs me-2">
-                              <img class="avatar-img" src="./assets/img/photos/photo-4.jpg" alt="..." />
-                            </div>
-                            Olivia Davis
-                          </div>
-                        </td>
-                        <td>
-                          <div class="avatar-group">
-                            <div class="avatar avatar-xs">
-                              <img class="avatar-img" src="./assets/img/photos/photo-3.jpg" alt="..." />
-                            </div>
-                            <div class="avatar avatar-xs">
-                              <img class="avatar-img" src="./assets/img/photos/photo-6.jpg" alt="..." />
-                            </div>
-                            <div class="avatar avatar-xs">
-                              <img class="avatar-img" src="./assets/img/photos/photo-1.jpg" alt="..." />
-                            </div>
-                          </div>
-                        </td>
-                      </tr>
                     </tbody>
                   </table>
                 </div>
@@ -475,7 +364,7 @@
             <!-- Goals -->
             <div class="card mb-6">
               <div class="card-header">
-                <h3 class="fs-6 mb-0">Goals</h3>
+                <h3 class="fs-6 mb-0">Pushes</h3>
               </div>
               <div class="card-body py-3">
                 <div class="list-group list-group-flush">
