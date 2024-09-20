@@ -3,7 +3,8 @@
 
     include ("includes/header.inc.php");
     include ("includes/aside.inc.php");
-    include ("includes/nav.inc.php");
+    include ("includes/left.nav.inc.php");
+    include ("includes/top.nav.inc.php");
 
     if (!admin_is_logged_in()) {
 		admn_login_redirect();
@@ -158,7 +159,7 @@
 							</div>
 							<div class="col-auto">
 								<!-- Avatar -->
-								<div class="avatar avatar-lg bg-body text-primary">
+								<div class="avatar avatar-lg bg-body text-warning">
 								<i class="fs-4" data-duoicon="credit-card"></i>
 								</div>
 							</div>
@@ -179,7 +180,7 @@
 							</div>
 							<div class="col-auto">
 								<!-- Avatar -->
-								<div class="avatar avatar-lg bg-body text-primary">
+								<div class="avatar avatar-lg bg-body text-warning">
 								<i class="fs-4" data-duoicon="clock"></i>
 								</div>
 							</div>
@@ -200,7 +201,7 @@
 							</div>
 							<div class="col-auto">
 								<!-- Avatar -->
-								<div class="avatar avatar-lg bg-body text-primary">
+								<div class="avatar avatar-lg bg-body text-warning">
 								<i class="fs-4" data-duoicon="bell"></i>
 								</div>
 							</div>
@@ -221,7 +222,7 @@
 								</div>
 								<div class="col-auto">
 									<!-- Avatar -->
-									<div class="avatar avatar-lg bg-body text-primary">
+									<div class="avatar avatar-lg bg-body text-warning">
 										<i class="fs-4" data-duoicon="clipboard"></i>
 									</div>
 								</div>
@@ -280,78 +281,23 @@
                       <tr>
                         <td>
                           <div class="d-flex align-items-center">
-                            <div class="avatar">
-                              <img class="avatar-img" src="./assets/img/projects/project-1.png" alt="..." />
-                            </div>
-                            <div class="ms-4">
-                              <div>Filters AI</div>
-                              <div class="fs-sm text-body-secondary">Updated on Apr 10, 2024</div>
-                            </div>
-                          </div>
-                        </td>
-                        <td>
-                          <span class="badge bg-success-subtle text-success">Ready to Ship</span>
-                        </td>
-                        <td>
-                          <div class="d-flex align-items-center text-nowrap">
-                            <div class="avatar avatar-xs me-2">
-                              <img class="avatar-img" src="./assets/img/photos/photo-2.jpg" alt="..." />
-                            </div>
-                            Michael Johnson
-                          </div>
-                        </td>
-                        <td>
-                          <div class="avatar-group">
-                            <div class="avatar avatar-xs">
-                              <img class="avatar-img" src="./assets/img/photos/photo-2.jpg" alt="..." />
-                            </div>
-                            <div class="avatar avatar-xs">
-                              <img class="avatar-img" src="./assets/img/photos/photo-3.jpg" alt="..." />
-                            </div>
-                            <div class="avatar avatar-xs">
-                              <img class="avatar-img" src="./assets/img/photos/photo-4.jpg" alt="..." />
-                            </div>
-                            <div class="avatar avatar-xs">
-                              <img class="avatar-img" src="./assets/img/photos/photo-5.jpg" alt="..." />
-                            </div>
-                          </div>
-                        </td>
-                      </tr>
-                      <tr>
-                        <td>
-                          <div class="d-flex align-items-center">
                             <div class="avatar text-primary">
                               <i class="fs-4" data-duoicon="book-3"></i>
                             </div>
                             <div class="ms-4">
-                              <div>Update documentation</div>
+                              <div>ID</div>
                               <div class="fs-sm text-body-secondary">Created on Jan 22, 2024</div>
                             </div>
                           </div>
                         </td>
                         <td>
-                          <span class="badge bg-secondary-subtle text-secondary">In Testing</span>
+                          <span class="badge bg-secondary-subtle text-secondary">expenditure/trade</span>
                         </td>
                         <td>
-                          <div class="d-flex align-items-center text-nowrap">
-                            <div class="avatar avatar-xs me-2">
-                              <img class="avatar-img" src="./assets/img/photos/photo-2.jpg" alt="..." />
-                            </div>
-                            Michael Johnson
-                          </div>
+                            amount
                         </td>
                         <td>
-                          <div class="avatar-group">
-                            <div class="avatar avatar-xs">
-                              <img class="avatar-img" src="./assets/img/photos/photo-1.jpg" alt="..." />
-                            </div>
-                            <div class="avatar avatar-xs">
-                              <img class="avatar-img" src="./assets/img/photos/photo-3.jpg" alt="..." />
-                            </div>
-                            <div class="avatar avatar-xs">
-                              <img class="avatar-img" src="./assets/img/photos/photo-6.jpg" alt="..." />
-                            </div>
-                          </div>
+                            current price
                         </td>
                       </tr>
                     </tbody>

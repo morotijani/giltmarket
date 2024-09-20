@@ -37,7 +37,7 @@ function _admin_position($admin) {
 		$output = 'salespersonnel';
 	}
 
-	return $output;
+	return ucwords($output);
 }
 
 // check if capital is given today

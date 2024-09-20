@@ -1,4 +1,4 @@
-<!-- Sidenav (lg) -->
+    <!-- Sidenav (lg) -->
     <aside class="aside">
         <nav class="navbar navbar-expand-xl navbar-vertical">
             <div class="container-fluid">
@@ -72,9 +72,49 @@
                             <span class="material-symbols-outlined me-3">space_dashboard</span> Dashboards
                             </a>
                             <div class="collapse show" id="dashboards">
+                                <nav class="nav nav-pills">
+                                    <a class="nav-link active" href="<?= PROOT; ?>index"><?= _admin_position($admin_data['admin_id']); ?></a>
+                                    <a class="nav-link" href="<?= PROOT; ?>analytics">Analytics</a>
+                                </nav>
+                            </div>
+                        </div>
+                        <div class="nav-item">
+                            <a
+                            class="nav-link "
+                            href="#"
+                            data-bs-toggle="collapse"
+                            data-bs-target="#orders"
+                            rol="button"
+                            aria-expanded="false"
+                            aria-controls="orders"
+                            >
+                            <span class="material-symbols-outlined me-3">storefront</span> Trades
+                            </a>
+                            <div class="collapse " id="orders">
                             <nav class="nav nav-pills">
-                                <a class="nav-link active" href="./index.html">Default</a>
-                            </nav>
+                                    <a class="nav-link " href="<?= PROOT; ?>account/trades">Sales</a>
+                                    <a class="nav-link " href="<?= PROOT; ?>account/expenditure">Expenditures</a>
+                                    <a class="nav-link " href="javascript:;">New trade</a>
+                                </nav>
+                            </div>
+                        </div>
+                        <div class="nav-item">
+                            <a
+                            class="nav-link "
+                            href="#"
+                            data-bs-toggle="collapse"
+                            data-bs-target="#projects"
+                            rol="button"
+                            aria-expanded="false"
+                            aria-controls="projects"
+                            >
+                                <span class="material-symbols-outlined me-3">payments</span> Expenditure
+                            </a>
+                            <div class="collapse " id="projects">
+                                <nav class="nav nav-pills">
+                                    <a class="nav-link " href="<?= PROOT; ?>account/expenditure">Expenditures</a>
+                                    <a class="nav-link " href="<?= PROOT; ?>account/expenditure?add=1">New expenditure</a>
+                                </nav>
                             </div>
                         </div>
                         <div class="nav-item">
@@ -91,30 +131,10 @@
                             </a>
                             <div class="collapse " id="customers">
                             <nav class="nav nav-pills">
-                                <a class="nav-link " href="./customers.html">Admins</a>
+                                <a class="nav-link " href="<?= PROOT; ?>account/admins">Admins</a>
                                 <a class="nav-link " href="./customer.html">Admin details</a>
-                                <a class="nav-link " href="./customer-new.html">New admin</a>
+                                <a class="nav-link " href="<?= PROOT; ?>account/admins?add=1">New admin</a>
                             </nav>
-                            </div>
-                        </div>
-                        <div class="nav-item">
-                            <a
-                            class="nav-link "
-                            href="#"
-                            data-bs-toggle="collapse"
-                            data-bs-target="#projects"
-                            rol="button"
-                            aria-expanded="false"
-                            aria-controls="projects"
-                            >
-                                <span class="material-symbols-outlined me-3">list_alt</span> Projects
-                            </a>
-                            <div class="collapse " id="projects">
-                                <nav class="nav nav-pills">
-                                    <a class="nav-link " href="./projects.html">Projects</a>
-                                    <a class="nav-link " href="./project.html">Project overview</a>
-                                    <a class="nav-link " href="./project-new.html">New project</a>
-                                </nav>
                             </div>
                         </div>
                         <div class="nav-item">
@@ -131,28 +151,8 @@
                             </a>
                             <div class="collapse " id="account">
                                 <nav class="nav nav-pills">
-                                    <a class="nav-link " href="./account.html">Account overview</a>
-                                    <a class="nav-link " href="./account-settings.html">Account settings</a>
-                                </nav>
-                            </div>
-                        </div>
-                        <div class="nav-item">
-                            <a
-                            class="nav-link "
-                            href="#"
-                            data-bs-toggle="collapse"
-                            data-bs-target="#orders"
-                            rol="button"
-                            aria-expanded="false"
-                            aria-controls="orders"
-                            >
-                            <span class="material-symbols-outlined me-3">shopping_cart</span> Trades
-                            </a>
-                            <div class="collapse " id="orders">
-                            <nav class="nav nav-pills">
-                                    <a class="nav-link " href="./orders.html">Sales</a>
-                                    <a class="nav-link " href="./invoice.html">Expenditures</a>
-                                    <a class="nav-link " href="./pricing.html">Pricing</a>
+                                    <a class="nav-link " href="<?= PROOT; ?>account/profile">Account overview</a>
+                                    <a class="nav-link " href="<?= PROOT; ?>account/settings">Account settings</a>
                                 </nav>
                             </div>
                         </div>
@@ -166,11 +166,11 @@
                             aria-expanded="false"
                             aria-controls="authentication"
                             >
-                            <span class="material-symbols-outlined me-3">login</span> Logs
+                            <span class="material-symbols-outlined me-3">list_alt</span> Logs
                             </a>
                             <div class="collapse" id="authentication">
                                 <nav class="nav nav-pills">
-                                    <a class="nav-link" href="./sign-in.html">Logs</a>
+                                    <a class="nav-link" href="<?= PROOT; ?>account/logs">Logs</a>
                                 </nav>
                             </div>
                         </div>
@@ -182,19 +182,19 @@
                         <!-- Nav -->
                         <nav class="navbar-nav mb-xl-7">
                             <div class="nav-item">
-                                <a class="nav-link " href="./docs/getting-started.html">
+                                <a class="nav-link " href="javascript:;">
                                     <span class="material-symbols-outlined me-3">sticky_note_2</span> Getting started
                                     <span class="badge text-bg-primary ms-auto">v1.0.0</span>
                                 </a>
                             </div>
                             <div class="nav-item">
-                                <a class="nav-link " href="./docs/components.html">
+                                <a class="nav-link " href="<?= PROOT; ?>account/profile">
                                     <span class="material-symbols-outlined me-3">deployed_code</span> Account
                                 </a>
                             </div>
                             <div class="nav-item">
-                                <a class="nav-link " href="./docs/changelog.html">
-                                    <span class="material-symbols-outlined me-3">list_alt</span> Logout
+                                <a class="nav-link " href="<?= PROOT; ?>auth/logout">
+                                    <span class="material-symbols-outlined me-3">login</span> Logout
                                 </a>
                             </div>
                         </nav>
@@ -229,44 +229,4 @@
                 </div>
             </nav>
         </aside>
-
-        <!-- Topnav -->
-        <nav class="navbar d-none d-xl-flex px-xl-6">
-            <div class="container flex-column align-items-stretch">
-                <div class="row">
-                    <div class="col">
-                        <!-- Search -->
-                        <div class="input-group" style="max-width: 400px">
-                        <input class="form-control" id="topnavSearchInput" type="search" placeholder="Search" aria-label="Search" aria-describedby="navbarSearch" />
-                        <span class="input-group-text" id="navbarSearch">
-                            <kbd class="badge bg-body-secondary text-black">⌘</kbd>
-                            <kbd class="badge bg-body-secondary text-black ms-1">K</kbd>
-                        </span>
-                        </div>
-                    </div>
-                    <div class="col-auto">
-                        <!-- User -->
-                        <div class="dropdown my-n2">
-                            <a class="btn btn-link d-inline-flex align-items-center dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                <span class="avatar avatar-sm avatar-status avatar-status-success me-3">
-                                    <img class="avatar-img" src="<?= PROOT . (($admin_data["admin_profile"] != '') ? $admin_data["admin_profile"] : 'assets/media/avatar.png'); ?>" alt="..." />
-                                </span>
-                                <?= ucwords($admin_data['admin_fullname']); ?>
-                            </a>
-                            <ul class="dropdown-menu dropdown-menu-end">
-                                <li><a class="dropdown-item" href="<?= PROOT; ?>account/profile">Account</a></li>
-                                <li><a class="dropdown-item" href="<?= PROOT; ?>account/change-password">Change password</a></li>
-                                <li>
-                                <hr class="dropdown-divider" />
-                                </li>
-                                <li><a class="dropdown-item" href="<?= PROOT; ?>auth/logout">Sign out</a></li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </nav>
-
-        <!-- Main -->
-        <main class="main px-lg-6">
                     

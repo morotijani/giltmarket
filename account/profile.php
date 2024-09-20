@@ -9,7 +9,8 @@
 
     include ("../includes/header.inc.php");
     include ("../includes/aside.inc.php");
-    include ("../includes/nav.inc.php");
+    include ("../includes/left.nav.inc.php");
+    include ("../includes/top.nav.inc.php");
 
 ?>
 
@@ -53,10 +54,10 @@
             <div class="col-12 col-lg-3">
                 <!-- Nav -->
                 <nav class="nav nav-pills position-sticky flex-column mb-8" id="accountNav" style="top: 2rem">
-                    <a class="nav-link" href="#general">General</a>
-                    <a class="nav-link" href="#billing">Update account</a>
-                    <a class="nav-link" href="#security">Change password</a>
-                    <a class="nav-link text-danger" href="#">Logout</a>
+                    <a class="nav-link" href="javascript:;">General</a>
+                    <a class="nav-link" href="<?= PROOT; ?>account/settings">Update account</a>
+                    <a class="nav-link" href="<?= PROOT; ?>account/change-password">Change password</a>
+                    <a class="nav-link text-danger" href="<?= PROOT; ?>auth/logout">Logout</a>
                 </nav>
             </div>
             <div class="col-12 col-lg-9" data-bs-spy="scroll" data-bs-target="#accountNav" data-bs-smooth-scroll="true" tabindex="0">
