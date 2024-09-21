@@ -445,7 +445,6 @@ function fetch_all_sales($status, $admin) {
 function total_amount_today($admin) {
 	global $conn;
 	$thisDay = date("d");
-	$output = [];
 
 	$where = '';
 	if (!admin_has_permission()) {
@@ -463,7 +462,6 @@ function total_amount_today($admin) {
 	$statement->execute();
 	$thisDayrow = $statement->fetchAll();
 
-
 	return money($thisDayrow[0]['total']);
 }
 
@@ -471,7 +469,6 @@ function total_amount_today($admin) {
 function total_amount_thismonth($admin) {
 	global $conn;
 	$thisMonth = date("m");
-	$output = [];
 
 	$where = '';
 	if (!admin_has_permission()) {

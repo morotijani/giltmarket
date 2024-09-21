@@ -135,6 +135,7 @@
     </div>
 
     <!-- JAVASCRIPT -->
+    <script src="<?= PROOT; ?>assets/js/jquery-3.7.1.min.js"></script>
     <!-- Map JS -->
     <script src='https://api.mapbox.com/mapbox-gl-js/v0.53.0/mapbox-gl.js'></script>
     
@@ -143,13 +144,34 @@
     
     <!-- Theme JS -->
     <script src="<?= PROOT; ?>assets/js/theme.bundle.js"></script>
-    <script src="<?= PROOT; ?>dist/js/switcher.js"></script>
+    <script src="<?= PROOT; ?>assets/js/switcher.js"></script>
 
     <script type="text/javascript">
         $(document).ready(function() {
 
             // Fade out messages
             $("#temporary").fadeOut(5000);
+
+            function updateTime() {
+                var currentTime = new Date()
+                var hours = currentTime.getHours()
+                var seconds = currentTime.getSeconds();
+                var minutes = currentTime.getMinutes()
+                if (minutes < 10){
+                    minutes = "0" + minutes
+                }
+                if (seconds < 10){
+                    seconds = "0" + seconds
+                }
+                var t_str = hours + ":" + minutes + " " + seconds + " ";
+                if(hours > 11){
+                    t_str += "PM";
+                } else {
+                    t_str += "AM";
+                }
+                document.getElementById('time_span').innerHTML = t_str;
+            }
+            setInterval(updateTime, 1000);
 
             // Calculation made with current price input
             $('#current_price').on('keyup', function(e) {

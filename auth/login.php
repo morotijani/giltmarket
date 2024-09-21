@@ -108,6 +108,8 @@
     <!-- JAVASCRIPT -->
     <!-- Map JS -->
     <script src='https://api.mapbox.com/mapbox-gl-js/v0.53.0/mapbox-gl.js'></script>
+    <script src="<?= PROOT; ?>assets/js/switcher.js"></script>
+
     
     <!-- Vendor JS -->
     <script src="<?= PROOT; ?>assets/js/vendor.bundle.js"></script>

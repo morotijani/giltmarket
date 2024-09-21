@@ -7,4 +7,4 @@
 
     unset($_SESSION['JSAdmin']);
 
-    redirect(PROOT . 'index');
+    redirect(PROOT . 'auth/login');

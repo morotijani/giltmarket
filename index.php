@@ -9,6 +9,7 @@
     if (!admin_is_logged_in()) {
 		admn_login_redirect();
 	}
+	$today = date("F j, Y, g:i a"); 
 
 	// insert daily capital given
 	if (isset($_POST['today_given'])) {
@@ -132,7 +133,7 @@
             	<div class="avatar text-warning me-2">
               		<i class="fs-4" data-duoicon="world"></i>
             	</div>
-				Ghana, GH –&nbsp;<time datetime="20:00">8:00 PM</time>
+				Ghana, GH –&nbsp;<time datetime="20:00" id="time_span"></time>
 			</div>
 			<div class="col-12 col-md order-md-0 text-center text-md-start">
 				<h1>Hello, <?= $admin_data['first']; ?></h1>
@@ -164,7 +165,7 @@
 							</div>
 							<div class="col-auto">
 								<!-- Avatar -->
-								<div class="avatar avatar-lg bg-body text-warning" data-bs-target="#buyModal" data-bs-toggle="modal" style="cursor: pointer;">
+								<div class="avatar avatar-lg bg-body text-warning" data-bs-target="<?= ((admin_has_permission()) ? '' : '#buyModal'); ?>" data-bs-toggle="modal" style="cursor: pointer;">
 									<i class="fs-4" data-duoicon="credit-card"></i>
 								</div>
 							</div>
@@ -179,7 +180,7 @@
 							<div class="col">
 								<!-- Heading -->
 								<?php if (admin_has_permission()) : ?>
-									<h4 class="fs-base fw-normal text-body-secondary mb-1"> This Month () </h4>
+									<h4 class="fs-base fw-normal text-body-secondary mb-1"> <?= date("F"); ?> </h4>
 								<?php else: ?>
 									<h4 class="fs-base fw-normal text-body-secondary mb-1"><?= ((admin_has_permission('supervisor')) ? 'Sold' : 'Balance'); ?></h4>
 								<?php endif; ?>
@@ -413,6 +414,10 @@
 <?php include ("includes/footer.inc.php"); ?>
 
 <script type="text/javascript" src="<?= PROOT; ?>assets/js/Chart.min.js"></script>
+<script>
+	// updateTime()
+
+</script>
 <script type="text/javascript">
     /* globals Chart:false, feather:false */
 
