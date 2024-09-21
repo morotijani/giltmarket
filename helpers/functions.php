@@ -733,15 +733,20 @@ function count_new_delete_requests($conn) {
 
 //
 function get_salepersons_for_push_capital($conn) {
-	$row = $conn->query("SELECT * FROM jspence_admin WHERE admin_permissions = 'saleperson' AND admin_status = 0")->fetchAll();
-
-	return '
-		{
-			"value": "Emily Thompson",
-			"label": "Emily Thompson",
-			"customProperties": {
-				"avatarSrc": "./assets/img/photos/photo-1.jpg"
+	$rows = $conn->query("SELECT * FROM jspence_admin WHERE admin_permissions = 'salesperson' AND admin_status = 0")->fetchAll();
+	$output = '';
+	foreach ($rows as $row) {
+		$output .= '
+			{
+				"value": "' . $row["admin_id"] . '",
+				"label": "' . ucwords($row["admin_fullname"]) . '",
+				"customProperties": {
+					"avatarSrc": "' . PROOT . (($row['admin_profile'] != null) ? $row['admin_profile'] : 'assets/media/avatar.png') . '"
+				}
 			}
-		}
-	';
+		' . ',';
+	}
+
+	$output = rtrim($output, ',');
+	return $output;
 }

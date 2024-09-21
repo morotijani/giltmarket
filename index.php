@@ -463,7 +463,7 @@
 										"avatarSrc": "<?= PROOT; ?>assets/media/avatar.png"
 									}
 								},
-								<?= ; ?>
+								<?= get_salepersons_for_push_capital($conn); ?>
 							]}'
 						></select>
 				  		</div>
@@ -497,23 +497,6 @@
 
 			if (select_for == 'saleperson') {
 				$('#sf').removeClass('d-none');
-				
-				$.aja({
-					method : "POST",
-					url : "<?= PROOT; ?>auth/get.salepersons.php",
-					data : {
-						select_for : select_for
-					},
-					beforeSend : function() {
-
-					},
-					success : function(data) {
-
-					},
-					error : function () {
-
-					}
-				})
 			} else {
 				$('#sf').addClass('d-none');
 			}
