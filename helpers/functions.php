@@ -84,21 +84,24 @@ function find_capital_given_to($to, $today) {
 }
 
 // Amount given to trade
-function _capital() {
+function _capital($admin) {
 	global $conn;
 	global $admin_data;
 
 	$today = date('Y-m-d');
 
 	$sql = "
-		SELECT daily_id, daily_capital, daily_balance
+		SELECT daily_id, daily_capital, daily_balance, jspence_admin.admin_permissions
 		FROM jspence_daily 
+		INNER JOIN jspence_admin 
+		ON (jspence_admin.admin_id = jspence_daily.daily_by OR jspence_admin.admin_id = jspence_daily.daily_to)
 		WHERE daily_date = ? 
-		AND daily_by = ? 
+		-- AND daily_by = ? 
+		AND admin_id = ?
 		LIMIT 1
 	";
 	$statement = $conn->prepare($sql);
-	$statement->execute([$today, $admin_data['admin_id']]);
+	$statement->execute([$today, $admin]);
 	$rows = $statement->fetchAll();
 
 	$balance = null;
@@ -112,9 +115,9 @@ function _capital() {
 		$row = $rows[0];
 		$balance = $row['daily_balance'];
 
-		if (admin_has_permission('supervisor') && $row['daily_balance'] == null) {
+		if ($row["admin_permissions"] == 'supervisor' && $row['daily_balance'] == null) {
 			$balance = $row['daily_balance'];
-		} else if (admin_has_permission('salesperson')) {
+		} else if ($row["admin_permissions"] == 'salesperson') {
 			$balance = (($row['daily_balance'] == null) ? $row['daily_capital'] : $row['daily_balance']);
 		}
 		

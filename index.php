@@ -35,19 +35,17 @@
 				}
 
 				// get today capital
-				$c = _capital()['today_capital'];
-
-				$daily_data = [$daily_id, $given, $today, $daily_by, $daily_to];
+				$c = _capital($daily_to)['today_capital'];
 
 				// check if capital has been given
 				if ($findCapital) {
 
 					$g = $given;
 					$c = (float)($g + $c);
-					$bal = ((admin_has_permission('salesperson') && _capital()['today_balance'] == null) ? null : (float)($g + _capital()['today_balance']));
+					$bal = ((admin_has_permission('salesperson') && _capital($daily_by)['today_balance'] == null) ? null : (float)($g + _capital($daily_by)['today_balance']));
 
 					if (admin_has_permission('supervisor')) {
-						$bal = _capital()['today_balance'];
+						$bal = _capital($daily_by)['today_balance'];
 					}
 					// update daily capital and balance
 					$dailyQ = "
@@ -58,6 +56,8 @@
 					$daily_data = [$c, $bal, $today, $daily_by, $daily_to];
 					$message = "on this day " . $today . " capital updated of an amount of " . money($c) . ', added amount ' . money($g);
 				} else {
+					$daily_data = [$daily_id, $given, $today, $daily_by, $daily_to];
+					
 					// insert into daily
 					$dailyQ = "
 						INSERT INTO jspence_daily (daily_id, daily_capital, daily_date, daily_by, daily_to) 
@@ -238,7 +238,7 @@
 								<h4 class="fs-base fw-normal text-body-secondary mb-1"><?= ((admin_has_permission()) ? 'Today' : 'Capital'); ?></h4>
 
 								<!-- Text -->
-								<div class="fs-5 fw-semibold"><?= ((admin_has_permission()) ? total_amount_today($admin_data['admin_id']) : money(_capital()['today_capital'])); ?></div>
+								<div class="fs-5 fw-semibold"><?= ((admin_has_permission()) ? total_amount_today($admin_data['admin_id']) : money(_capital($admin_data["admin_id"])['today_capital'])); ?></div>
 							</div>
 							<div class="col-auto">
 								<!-- Avatar -->
@@ -263,7 +263,7 @@
 								<?php endif; ?>
 
 								<!-- Text -->
-								<div class="fs-5 fw-semibold"><?= ((admin_has_permission()) ? total_amount_thismonth($admin_data['admin_id']) : money(_capital()['today_balance'])); ?></div>
+								<div class="fs-5 fw-semibold"><?= ((admin_has_permission()) ? total_amount_thismonth($admin_data['admin_id']) : money(_capital($admin_data["admin_id"])['today_balance'])); ?></div>
 							</div>
 							<div class="col-auto">
 								<!-- Avatar -->
@@ -299,7 +299,7 @@
 										<h4 class="fs-base fw-normal text-body-secondary mb-1">Earned</h4>
 
 										<!-- Text -->
-										<div class="fs-5 fw-semibold"><?= _gained_calculation(_capital()['today_balance'], _capital()['today_capital']); ?></div>
+										<div class="fs-5 fw-semibold"><?= _gained_calculation(_capital($admin_data["admin_id"])['today_balance'], _capital($admin_data["admin_id"])['today_capital']); ?></div>
 									</div>
 									<div class="col-auto">
 										<!-- Avatar -->
