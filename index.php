@@ -441,24 +441,24 @@
 						</div>
 						<div class="mb-4">
 							<div class="form-check mb-2">
-								<input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1">
+								<input class="form-check-input for_class" type="radio" name="push_for" id="flexRadioDefault1" value="self">
 								<label class="form-check-label" for="flexRadioDefault1">
 									For Self
 								</label>
 							</div>
 							<div class="form-check mb-2">
-								<input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2" checked>
+								<input class="form-check-input for_class" type="radio" name="push_for" id="flexRadioDefault2" value="saleperson">
 								<label class="form-check-label" for="flexRadioDefault2">
-									For Salepersonnel
+									For Saleperson
 								</label>
 							</div>
 						</div>
-						<div class="mb-3 d-none">
+						<div class="mb-3 d-none" id="sf">
 							<select class="form-select bg-body" name="push_to" id="teamMembers"
 							data-choices='{"searchEnabled": false, "choices": [
 								{
 							"value": "",
-							"label": "Select a salepersonnel",
+							"label": "Select a sales person",
 							"customProperties": {
 								"avatarSrc": "<?= PROOT; ?>assets/media/avatar.png"
 							}
@@ -500,8 +500,8 @@
 						</div>
 					</div>
 					<div class="modal-footer">
-						<button type="button" class="btn btn-sm btn-neutral" data-bs-dismiss="modal">Close</button> 
-						<button type="submit" id="submitCapital" class="btn btn-sm btn-primary">Save</button>
+						<button type="button" class="btn btn-sm btn-light" data-bs-dismiss="modal">Close</button>&nbsp;&nbsp;
+						<button type="button" id="submitCapital" class="btn btn-sm btn-warning">Save</button>
 					</div>
 				</form>
 			</div>
@@ -515,7 +515,27 @@
 
 <script type="text/javascript" src="<?= PROOT; ?>assets/js/Chart.min.js"></script>
 <script>
-	// updateTime()
+	$(document).ready(function() {
+
+		// list salepersonnel on push capital
+		$(".for_class").change(function(e) {
+			event.preventDefault()
+			var select_for = $(".for_class:checked").val();
+
+			if (select_for == 'saleperson') {
+				$('#sf').removeClass('d-none');
+				//alert('saleperson');
+			} else {
+				$('#sf').addClass('d-none');
+			}
+		});
+
+
+		$('#submitCapital').on('click', function() {
+			
+			// $('#capitalForm').submit();
+		})
+	});
 
 </script>
 <script type="text/javascript">
