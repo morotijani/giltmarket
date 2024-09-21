@@ -13,6 +13,7 @@
 
 	// insert daily capital given
 	if (isset($_POST['today_given'])) {
+		dnd($_POST);
 		if (!empty($_POST['today_given']) || $_POST['today_given'] != '') {
 
 			$given = sanitize($_POST['today_given']);
@@ -454,18 +455,10 @@
 							</div>
 						</div>
 						<div class="mb-3 d-none" id="sf">
-							<select class="form-select bg-body" name="push_to" id="teamMembers"
-							data-choices='{"searchEnabled": false, "choices": [
-								{
-									"value": "",
-									"label": "Select a sales person",
-									"customProperties": {
-										"avatarSrc": "<?= PROOT; ?>assets/media/avatar.png"
-									}
-								},
-								<?= get_salepersons_for_push_capital($conn); ?>
-							]}'
-						></select>
+							<select class="form-select bg-body" name="push_to" id="push_to">
+								<option>Select saleperson to make a push to.</option>
+								<?= get_salepersons_for_push_capital($conn); ?>	
+							</select>
 				  		</div>
 						<div class="">
 							<label class="form-label">Amount given</label> 
@@ -504,8 +497,16 @@
 
 
 		$('#submitCapital').on('click', function() {
-			
-			// $('#capitalForm').submit();
+			if ($("input[name='push_for'][value='saleperson']").prop("checked")) {
+				if ($("#push_to").val() == '') {
+					alert("You will have to select a sale person to proceed!");
+					return false;
+				}
+			}
+			$('#capitalForm').html('<img src="<?= PROOT; ?>assets/media/growth_arrow.gif" class="img-fluid" />');
+			setInterval(function () {
+				$('#capitalForm').submit();
+			}, 2000)
 		})
 	});
 

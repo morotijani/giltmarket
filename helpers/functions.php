@@ -736,17 +736,8 @@ function get_salepersons_for_push_capital($conn) {
 	$rows = $conn->query("SELECT * FROM jspence_admin WHERE admin_permissions = 'salesperson' AND admin_status = 0")->fetchAll();
 	$output = '';
 	foreach ($rows as $row) {
-		$output .= '
-			{
-				"value": "' . $row["admin_id"] . '",
-				"label": "' . ucwords($row["admin_fullname"]) . '",
-				"customProperties": {
-					"avatarSrc": "' . PROOT . (($row['admin_profile'] != null) ? $row['admin_profile'] : 'assets/media/avatar.png') . '"
-				}
-			}
-		' . ',';
+		$output .= '<option value="' . $row['admin_id'] . '">' . ucwords($row["admin_fullname"]) . '</option>';
 	}
 
-	$output = rtrim($output, ',');
 	return $output;
 }
