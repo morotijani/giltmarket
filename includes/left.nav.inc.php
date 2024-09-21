@@ -3,8 +3,8 @@
         <nav class="navbar navbar-expand-xl navbar-vertical">
             <div class="container-fluid">
                     <!-- Brand -->
-                    <a class="navbar-brand fs-5 fw-bold px-xl-3 mb-xl-4" href="./index.html">
-                        <i class="fs-4 text-secondary me-1" data-duoicon="box-2"></i> Dashbrd
+                    <a class="navbar-brand fs-5 fw-bold px-xl-3 mb-xl-4" href="<?= PROOT; ?>">
+                        <i class="fs-4 text-secondary me-1" data-duoicon="box-2"></i> JSpence
                     </a>
                 
                     <!-- User -->
@@ -48,12 +48,13 @@
                             class="form-control"
                             id="topnavSearchInputMobile"
                             type="search"
-                            placeholder="Search"
+                            placeholder="Trade"
                             aria-label="Search"
-                            aria-describedby="navbarSearchMobile"
+                            aria-describedby="navbarSearchMobile" 
+                            readonly style="cursor: pointer" data-bs-target="<?= ((!admin_has_permission()) ? '#buyModal' : ''); ?>" data-bs-toggle="modal"
                         />
                         <span class="input-group-text" id="navbarSearchMobile">
-                            <span class="material-symbols-outlined"> search </span>
+                            <span class="material-symbols-outlined"> send_money </span>
                         </span>
                     </div>
                 
@@ -94,7 +95,7 @@
                             <nav class="nav nav-pills">
                                     <a class="nav-link " href="<?= PROOT; ?>account/trades">Sales</a>
                                     <a class="nav-link " href="<?= PROOT; ?>account/expenditure">Expenditures</a>
-                                    <a class="nav-link " href="javascript:;">New trade</a>
+                                    <a class="nav-link " href="javascript:;" data-bs-target="<?= ((!admin_has_permission()) ? '#buyModal' : ''); ?>" data-bs-toggle="modal">New trade</a>
                                 </nav>
                             </div>
                         </div>

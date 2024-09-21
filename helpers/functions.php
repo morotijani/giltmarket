@@ -690,13 +690,15 @@ function get_logs($admin) {
 
 	$where = '';
 	if (!admin_has_permission()) {
-		$where = ' WHERE log_admin = "'.$admin.'" ';
+		$where = ' WHERE jspence_logs.log_admin = "'.$admin.'" ';
 	}
 
 	$sql = "
 		SELECT * FROM jspence_logs 
+		INNER JOIN jspence_admin 
+		ON jspence_admin.admin_id = jspence_logs.log_admin
 		$where 
-		ORDER BY createdAt DESC
+		ORDER BY jspence_logs.createdAt DESC
 		LIMIT 8
 	";
 	$statement = $conn->prepare($sql);
@@ -704,9 +706,16 @@ function get_logs($admin) {
 	$rows = $statement->fetchAll();
 
 	foreach ($rows as $row) {
-		// code...
+		$admin_name = explode(' ', $row['admin_fullname']);
+		$admin_name = ucwords($admin_name[0]);
+
 		$output .= '
-			<li class="list-group-item small"><em>' . $row["log_message"] . '</em></li>
+			<li data-icon="account_circle">
+				<div>
+					<h6 class="fs-base mb-1">' . (($row["log_admin"] == $admin) ? 'You': $admin_name) . ' <span class="fs-sm fw-normal text-body-secondary ms-1">' . pretty_date($row["createdAt"]) .'</span></h6>
+					<p class="mb-0">' . $row["log_message"] . '</p>
+				</div>
+			</li>
 		';
 	}
 

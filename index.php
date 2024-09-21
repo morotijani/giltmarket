@@ -279,10 +279,51 @@
 					</div>
 					<div class="card-body">
 						<div class="chart">
+							<!-- <canvas class="chart-canvas" id="performanceChart"></canvas> -->
 							<canvas class="chart-canvas" id="performanceChart"></canvas>
+							<!-- <canvas class="my-4 w-100" id="myChart" width="900" height="400"></canvas> -->
 						</div>
 					</div>
 				</div>
+
+				<div class="card mb-6">
+					<div class="card-header">
+						<div class="row align-items-center">
+							<div class="col">
+								<h3 class="fs-6 mb-0">Accumulated trades by months and years</h3>
+							</div>
+							<div class="col-auto my-n3 me-n3">
+								<a class="btn btn-link" href="<?= PROOT; ?>account/analytics">
+								Analytics
+								<span class="material-symbols-outlined">arrow_right_alt</span>
+								</a>
+							</div>
+						</div>
+					</div>
+					<div class="card-body py-3">
+						<div class="table-responsive">
+							<table class="table table-flush table-hover align-middle mb-0">
+								<tbody>
+									<?php for ($i = 1; $i <= 12; $i++):
+										$dt = dateTime::createFromFormat('!m',$i);
+									?>
+										<tr>
+											<td <?= (date('m') == $i) ? ' class="bg-danger-subtle"' : ''; ?>><?= $dt->format("F"); ?></td>
+											<td <?= (date('m') == $i) ? ' class="bg-danger-subtle"' : ''; ?>><?= ((array_key_exists($i, $last)) ? money($last[$i]) : money(0)); ?></td>
+											<td <?= (date('m') == $i) ? ' class="bg-danger-subtle"' : ''; ?>><?=  ((array_key_exists($i, $current)) ? money($current[$i]) : money(0)); ?></td>
+										</tr>
+									<?php endfor; ?>
+									<tr>
+										<td class="bg-success-subtle">Total</td>
+										<td class="bg-success-subtle"><?= money($lastTotal); ?></td>
+										<td class="bg-success-subtle"><?= money($currentTotal); ?></td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+					</div>
+				</div>
+
 			<?php endif; ?>
 
             <!-- Projects -->
@@ -352,53 +393,25 @@
 
             <!-- Activity -->
             <div class="card">
-              <div class="card-header">
-                <h3 class="fs-6 mb-0">Recent activity</h3>
-              </div>
-              <div class="card-body">
-                <ul class="activity">
-                  <li data-icon="thumb_up">
-                    <div>
-                      <h6 class="fs-base mb-1">You <span class="fs-sm fw-normal text-body-secondary ms-1">1hr ago</span></h6>
-                      <p class="mb-0">Liked a post by @john_doe</p>
-                    </div>
-                  </li>
-                  <li data-icon="chat_bubble">
-                    <div>
-                      <h6 class="fs-base mb-1">Jessica Miller <span class="fs-sm fw-normal text-body-secondary ms-1">3hr ago</span></h6>
-                      <p class="mb-0">Commented on a photo</p>
-                    </div>
-                  </li>
-                  <li data-icon="share">
-                    <div>
-                      <h6 class="fs-base mb-1">Emily Thompson <span class="fs-sm fw-normal text-body-secondary ms-1">3hr ago</span></h6>
-                      <p class="mb-0">Shared an article: "Top 10 Travel Destinations"</p>
-                    </div>
-                  </li>
-                  <li data-icon="person_add">
-                    <div>
-                      <h6 class="fs-base mb-1">You <span class="fs-sm fw-normal text-body-secondary ms-1">1 day ago</span></h6>
-                      <p class="mb-0">Started following @jane_smith</p>
-                    </div>
-                  </li>
-                  <li data-icon="account_circle">
-                    <div>
-                      <h6 class="fs-base mb-1">Olivia Davis <span class="fs-sm fw-normal text-body-secondary ms-1">2 days ago</span></h6>
-                      <p class="mb-0">Updated profile picture</p>
-                    </div>
-                  </li>
-                </ul>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
+				<div class="card-header">
+					<h3 class="fs-6 mb-0">Recent activity</h3>
+				</div>
+				<div class="card-body">
+					<ul class="activity">
+						<?= get_logs($admin_data['admin_id']); ?>
+					</ul>
+				</div>
+			</div>
+
+		</div>
+	</div>
+</div>
 
 
 		
 <?php include ("includes/footer.inc.php"); ?>
 
-<script type="text/javascript" src="<?= PROOT; ?>dist/js/Chart.min.js"></script>
+<script type="text/javascript" src="<?= PROOT; ?>assets/js/Chart.min.js"></script>
 <script type="text/javascript">
     /* globals Chart:false, feather:false */
 
@@ -406,7 +419,7 @@
 	    'use strict'
 
 	      // Graphs
-	    var ctx = document.getElementById('myChart')
+	    var ctx = document.getElementById('performanceChart')
 	      // eslint-disable-next-line no-unused-vars
 	    var myChart = new Chart(ctx, {
 	        type: 'line',
@@ -434,7 +447,7 @@
 	                backgroundColor: 'rgba(225, 0.1, 0.3, 0.1)',
 	                borderColor: 'tomato',
 	                borderWidth: 3,
-	                pointBackgroundColor: 'red'
+	                pointBackgroundColor: 'red',
 	            },{
 	                label: '<?= $lastYr; ?>, Amount ₵',
 	                data : [
@@ -465,10 +478,11 @@
 	                position: 'top',
 	            },
 	            title: {
-	                display: true,
+	                display: false,
 	                text: 'Sales By Month - J-Spence LTD.'
 	            }
 	        }
 	    })
 	})()
+	
 </script>

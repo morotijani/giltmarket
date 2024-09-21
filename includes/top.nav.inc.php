@@ -6,7 +6,7 @@
                     <div class="col">
                         <!-- Search -->
                         <div class="input-group" style="max-width: 400px">
-                            <input class="form-control" id="topnavSearchInput" type="search" placeholder="Trade" aria-label="Search" aria-describedby="navbarSearch" readonly style="cursor: pointer" data-bs-target="#buyModal" data-bs-toggle="modal" />
+                            <input class="form-control" id="topnavSearchInput" type="search" placeholder="Trade" aria-label="Search" aria-describedby="navbarSearch" readonly style="cursor: pointer" data-bs-target="<?= ((!admin_has_permission()) ? '#buyModal' : ''); ?>" data-bs-toggle="modal" />
                             <span class="input-group-text" id="navbarSearch">
                                 <kbd class="badge bg-body-secondary text-black">⌘</kbd>
                                 <kbd class="badge bg-body-secondary text-black ms-1">K</kbd>
