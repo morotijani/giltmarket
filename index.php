@@ -9,21 +9,28 @@
     if (!admin_is_logged_in()) {
 		admn_login_redirect();
 	}
-	$today = date("F j, Y, g:i a"); 
+
+	// $today = date("F j, Y, g:i a"); 
 
 	// insert daily capital given
 	if (isset($_POST['today_given'])) {
-		dnd($_POST);
 		if (!empty($_POST['today_given']) || $_POST['today_given'] != '') {
 
 			$given = sanitize($_POST['today_given']);
 			$today_date = sanitize($_POST['today_date']);
+			$push_for = ((isset($_POST['push_for']) && !empty($_POST['push_for'])) ? sanitize($_POST['push_for']) : '');
+			$push_to = ((isset($_POST['push_to']) && !empty($_POST['push_to'])) ? sanitize($_POST['push_to']) : '');
+			
 
 			$today = date("Y-m-d");
 			$daily_id = guidv4();
-			$daily_by = $admin_data[0]['admin_id'];
+			$daily_by = $admin_data['admin_id'];
 
 			if ($today_date == $today) {
+				if ($push_for == 'saleperson') {
+					$daily_to = $push_to;
+				}
+				
 				$data = [$daily_id, $given, $today, $daily_by];
 				$sql = "
 					INSERT INTO jspence_daily (daily_id, daily_capital, daily_date, daily_by) 
@@ -434,7 +441,7 @@
 						<small class="d-block text-xs text-muted">You are to give todays capital before you can start trade.</small>
 					</div>
 				</div>
-				<form action="" method="POST" id="capitalForm">
+				<form method="POST" id="capitalForm">
 					<div class="modal-body">
 						<div class="mb-4">
 							<label class="form-label">Today's Date</label> 
@@ -462,7 +469,7 @@
 				  		</div>
 						<div class="">
 							<label class="form-label">Amount given</label> 
-							<input class="form-control" placeholder="0.00" name="today_given" id="today_given" type="number" min="0.00" step="0.01" value="<?= (is_capital_given() ? _capital()['today_capital'] : '' ); ?>">
+							<input class="form-control" placeholder="0.00" name="today_given" id="today_given" type="number" min="0.00" step="0.01">
 						</div>
 					</div>
 					<div class="modal-footer">
@@ -503,7 +510,10 @@
 					return false;
 				}
 			}
-			$('#capitalForm').html('<img src="<?= PROOT; ?>assets/media/growth_arrow.gif" class="img-fluid" />');
+
+			$('#submitCapital').attr('disabled', true);
+			$('#submitCapital').text('Sending ...');
+			
 			setInterval(function () {
 				$('#capitalForm').submit();
 			}, 2000)
