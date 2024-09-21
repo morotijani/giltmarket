@@ -36,40 +36,56 @@
 				$daily_data = [$given, $today, $daily_by, $daily_to, $daily_id];
 				if (is_capital_given()) {
 					// update sum
-					$dailyUpdateQuery = "
+
+					$g = (float)($given - _capital()['today_capital']);
+					$b = ((admin_has_permission('salesperson') && _capital()['today_balance'] == '') ? '' : (float)($g + _capital()['today_balance']));
+
+					if (admin_has_permission('supervisor')) {
+						$b = _capital()['today_balance'];
+					}
+
+					$dailyQ = "
 						UPDATE jspence_daily 
 						SET daily_capital = ?, 
 						daily_balance = " . $b . "
 						WHERE daily_date = ? 
 						AND daily_by = ? 
 						AND daily_to = ? 
+						AND daily_id = ?
 					";
-
 				} else {
 					// insert 
-					$dailyQuery = "
+					$dailyQ = "
 						INSERT INTO jspence_daily (daily_capital, daily_date, daily_by, daily_to, daily_id) 
 						VALUES (?, ?, ?, ?, ?)
 					";
-					
 				}
 
-				// insert into push table
-				$push_data = [$push_id, $daily_id, $given, $daily_by, $today];
-				$sql = "
-					INSERT INTO jspence_pushes (push_id, push_daily, push_amount, push_by, push_date) 
-					VALUES (?, ?, ?, ?, ?)
-				";
-				$statement = $conn->prepare($sql);
-				$push_result = $statement->execute([$push_data]);
+				$statement = $conn->prepare($dailyQ);
+				$daily_result = $statement->execute([$daily_data]);
 
-				if (isset($push_result)) {
-					if (find_dialy_for_push($today, $daily_id)) {
-						// add by update
-					} else {
-						// insert
+				if (isset($daily_result)) {
+					// insert into push table
+					$push_data = [$push_id, $daily_id, $given, $daily_by, $today];
+					$sql = "
+						INSERT INTO jspence_pushes (push_id, push_daily, push_amount, push_to, push_date) 
+						VALUES (?, ?, ?, ?, ?)
+					";
+					$statement = $conn->prepare($sql);
+					$push_result = $statement->execute([$push_data]);
+
+					if (isset($push_result)) {
+						// if (find_dialy_for_push($today, $daily_id)) {
+						// 	// add by update
+						// } else {
+						// 	// insert
+						// }
 					}
+				} else {
+
 				}
+
+				
 
 
 				$daily_data = [$daily_id, $given, $today, $daily_to];
