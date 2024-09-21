@@ -34,40 +34,51 @@
 					$findCapital = find_capital_given_to($daily_to, $today);
 				}
 
+				// get today capital
+				$c = _capital()['today_capital'];
+
 				$daily_data = [$daily_id, $given, $today, $daily_by, $daily_to];
+
+				// check if capital has been given
 				if ($findCapital) {
-					// update sum
 
 					$g = $given;
-					$c = (float)($g + _capital()['today_capital']);;
-					$b = ((admin_has_permission('salesperson') && _capital()['today_balance'] == null) ? null : (float)($c + _capital()['today_balance']));
+					$c = (float)($g + $c);
+					$bal = ((admin_has_permission('salesperson') && _capital()['today_balance'] == null) ? null : (float)($g + _capital()['today_balance']));
 
 					if (admin_has_permission('supervisor')) {
-						$b = _capital()['today_balance'];
+						$bal = _capital()['today_balance'];
 					}
-
+					// update daily capital and balance
 					$dailyQ = "
 						UPDATE `jspence_daily` 
-						SET `daily_capital` = ?, `daily_balance` = " . $b . "
-						WHERE `daily_date` = ? AND `daily_by` = ? `AND daily_to` = ?
+						SET `daily_capital` = ?, `daily_balance` = ? 
+						WHERE `daily_date` = ? AND `daily_by` = ? AND `daily_to` = ?
 					";
-					$daily_data = array_splice($daily_data, 1, 4);
+					$daily_data = [$c, $bal, $today, $daily_by, $daily_to];
 					$message = "on this day " . $today . " capital updated of an amount of " . money($c) . ', added amount ' . money($g);
 				} else {
-					// insert 
+					// insert into daily
 					$dailyQ = "
 						INSERT INTO jspence_daily (daily_id, daily_capital, daily_date, daily_by, daily_to) 
 						VALUES (?, ?, ?, ?, ?)
 					";
+					$message = "on this day " . $today . ", capital entered of an amount of " . money($c);
 				}
-				// dnd($b);
 
 				$statement = $conn->prepare($dailyQ);
 				$daily_result = $statement->execute($daily_data);
 
+				// find the just enetered capital id
+				if (!$findCapital) {
+					$LID = $conn->lastInsertId();
+					$q = $conn->query("SELECT * FROM jspence_daily WHERE id = '" . $LID . "' LIMIT 1")->fetchAll();
+					$findCapital = $q[0]['daily_id'];
+				}
+
 				if (isset($daily_result)) {
 					// insert into push table
-					$push_data = [$push_id, $findCapital, $given, $push_to, $today];
+					$push_data = [$push_id, $findCapital, $given, $daily_to, $today];
 					$sql = "
 						INSERT INTO jspence_pushes (push_id, push_daily, push_amount, push_to, push_date) 
 						VALUES (?, ?, ?, ?, ?)
@@ -532,7 +543,7 @@
 					</div>
 					<div class="modal-footer">
 						<button type="button" class="btn btn-sm btn-light" data-bs-dismiss="modal">Close</button>&nbsp;&nbsp;
-						<button type="button" id="submitCapital" class="btn btn-sm btn-warning">Save</button>
+						<button type="button" id="submitCapital" class="btn btn-sm btn-warning">Push</button>
 					</div>
 				</form>
 			</div>
@@ -570,10 +581,12 @@
 			}
 
 			$('#submitCapital').attr('disabled', true);
-			$('#submitCapital').text('Sending ...');
+			$('#submitCapital').text('Pushing ...');
 			
 			setInterval(function () {
 				$('#capitalForm').submit();
+				$('#submitCapital').attr('disabled', false);
+				$('#submitCapital').text('Push');
 			}, 2000)
 		})
 	});
