@@ -729,5 +729,19 @@ function count_new_delete_requests($conn) {
 	    ';
     }
 	return '';
-    
+}
+
+//
+function get_salepersons_for_push_capital($conn) {
+	$row = $conn->query("SELECT * FROM jspence_admin WHERE admin_permissions = 'saleperson' AND admin_status = 0")->fetchAll();
+
+	return '
+		{
+			"value": "Emily Thompson",
+			"label": "Emily Thompson",
+			"customProperties": {
+				"avatarSrc": "./assets/img/photos/photo-1.jpg"
+			}
+		}
+	';
 }

@@ -457,42 +457,15 @@
 							<select class="form-select bg-body" name="push_to" id="teamMembers"
 							data-choices='{"searchEnabled": false, "choices": [
 								{
-							"value": "",
-							"label": "Select a sales person",
-							"customProperties": {
-								"avatarSrc": "<?= PROOT; ?>assets/media/avatar.png"
-							}
-							},
-							{
-							"value": "Emily Thompson",
-							"label": "Emily Thompson",
-							"customProperties": {
-								"avatarSrc": "./assets/img/photos/photo-1.jpg"
-							}
-							},
-							{
-							"value": "Michael Johnson",
-							"label": "Michael Johnson",
-							"customProperties": {
-								"avatarSrc": "./assets/img/photos/photo-2.jpg"
-							}
-							},
-							{
-							"value": "Robert Garcia",
-							"label": "Robert Garcia",
-							"customProperties": {
-								"avatarSrc": "./assets/img/photos/photo-3.jpg"
-							}
-							},
-							{
-							"value": "Jessica Miller",
-							"label": "Jessica Miller",
-							"customProperties": {
-								"avatarSrc": "./assets/img/photos/photo-4.jpg"
-							}
-							}
-						]}'
-							></select>
+									"value": "",
+									"label": "Select a sales person",
+									"customProperties": {
+										"avatarSrc": "<?= PROOT; ?>assets/media/avatar.png"
+									}
+								},
+								<?= ; ?>
+							]}'
+						></select>
 				  		</div>
 						<div class="">
 							<label class="form-label">Amount given</label> 
@@ -524,7 +497,23 @@
 
 			if (select_for == 'saleperson') {
 				$('#sf').removeClass('d-none');
-				//alert('saleperson');
+				
+				$.aja({
+					method : "POST",
+					url : "<?= PROOT; ?>auth/get.salepersons.php",
+					data : {
+						select_for : select_for
+					},
+					beforeSend : function() {
+
+					},
+					success : function(data) {
+
+					},
+					error : function () {
+
+					}
+				})
 			} else {
 				$('#sf').addClass('d-none');
 			}
