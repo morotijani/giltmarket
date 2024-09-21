@@ -32,7 +32,7 @@
 					$daily_to = $push_to;
 				}
 
-				$daily_data = [$given, $today, $daily_by, $daily_to, $daily_id];
+				$daily_data = [$daily_id, $given, $today, $daily_by, $daily_to];
 				if (is_capital_given()) {
 					// update sum
 
@@ -49,14 +49,14 @@
 						daily_balance = " . $b . "
 						WHERE daily_date = ? 
 						AND daily_by = ? 
-						AND daily_to = ? 
-						AND daily_id = ?
+						AND daily_to = ?
 					";
+					$data = array_splice($data, 1, 4);
 					$message = "today " . $today . " capital updated of an amount of " . money($given) . ', added amount ' . money($g);
 				} else {
 					// insert 
 					$dailyQ = "
-						INSERT INTO jspence_daily (daily_capital, daily_date, daily_by, daily_to, daily_id) 
+						INSERT INTO jspence_daily (daily_id, daily_capital, daily_date, daily_by, daily_to) 
 						VALUES (?, ?, ?, ?, ?)
 					";
 				}
@@ -75,6 +75,8 @@
 					$push_result = $statement->execute([$push_data]);
 
 					if (isset($push_result)) {
+						$push_message = "push made on " . $today . " of an amount of " . money($given);
+						add_to_log($push_message, $admin_id);
 						// if (find_dialy_for_push($today, $daily_id)) {
 						// 	// add by update
 						// } else {
