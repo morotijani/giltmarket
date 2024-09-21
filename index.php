@@ -29,7 +29,6 @@
 			if ($today_date == $today) {
 				$daily_to = $daily_by;
 				$findCapital = find_capital_given_to($daily_to, $today);
-				dnd($findCapital);
 				if ($push_for == 'saleperson') {
 					$daily_to = $push_to;
 					$findCapital = find_capital_given_to($daily_to, $today);
@@ -39,23 +38,21 @@
 				if ($findCapital) {
 					// update sum
 
-					$g = (float)($given - _capital()['today_capital']);
-					$b = ((admin_has_permission('salesperson') && _capital()['today_balance'] == '') ? '' : (float)($g + _capital()['today_balance']));
+					$g = $given;
+					$c = (float)($g + _capital()['today_capital']);;
+					$b = ((admin_has_permission('salesperson') && _capital()['today_balance'] == null) ? null : (float)($c + _capital()['today_balance']));
 
 					if (admin_has_permission('supervisor')) {
 						$b = _capital()['today_balance'];
 					}
 
 					$dailyQ = "
-						UPDATE jspence_daily 
-						SET daily_capital = ?, 
-						daily_balance = " . $b . "
-						WHERE daily_date = ? 
-						AND daily_by = ? 
-						AND daily_to = ?
+						UPDATE `jspence_daily` 
+						SET `daily_capital` = ?, `daily_balance` = " . $b . "
+						WHERE `daily_date` = ? AND `daily_by` = ? `AND daily_to` = ?
 					";
-					$data = array_splice($data, 1, 4);
-					$message = "today " . $today . " capital updated of an amount of " . money($given) . ', added amount ' . money($g);
+					$daily_data = array_splice($daily_data, 1, 4);
+					$message = "on this day " . $today . " capital updated of an amount of " . money($c) . ', added amount ' . money($g);
 				} else {
 					// insert 
 					$dailyQ = "
@@ -63,28 +60,24 @@
 						VALUES (?, ?, ?, ?, ?)
 					";
 				}
+				// dnd($b);
 
 				$statement = $conn->prepare($dailyQ);
-				$daily_result = $statement->execute([$daily_data]);
+				$daily_result = $statement->execute($daily_data);
 
 				if (isset($daily_result)) {
 					// insert into push table
-					$push_data = [$push_id, $daily_id, $given, $push_to, $today];
+					$push_data = [$push_id, $findCapital, $given, $push_to, $today];
 					$sql = "
 						INSERT INTO jspence_pushes (push_id, push_daily, push_amount, push_to, push_date) 
 						VALUES (?, ?, ?, ?, ?)
 					";
 					$statement = $conn->prepare($sql);
-					$push_result = $statement->execute([$push_data]);
+					$push_result = $statement->execute($push_data);
 
 					if (isset($push_result)) {
 						$push_message = "push made on " . $today . " of an amount of " . money($given);
 						add_to_log($push_message, $admin_id);
-						// if (find_dialy_for_push($today, $daily_id)) {
-						// 	// add by update
-						// } else {
-						// 	// insert
-						// }
 					}
 
 					add_to_log($message, $admin_id);
@@ -528,7 +521,7 @@
 						</div>
 						<div class="mb-3 d-none" id="sf">
 							<select class="form-select bg-body" name="push_to" id="push_to">
-								<option>Select saleperson to make a push to.</option>
+								<option value="">Select saleperson to make a push to.</option>
 								<?= get_salepersons_for_push_capital($conn); ?>	
 							</select>
 				  		</div>

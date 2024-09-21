@@ -75,9 +75,10 @@ function find_capital_given_to($to, $today) {
 	$statement = $conn->prepare($sql);
 	$statement->execute([$today, $to]);
 	$count_row = $statement->rowCount();
+	$row = $statement->fetchAll();
 
 	if ($count_row > 0) {
-		return true;
+		return $row[0]['daily_id'];
 	}
 	return false;
 }
@@ -100,7 +101,7 @@ function _capital() {
 	$statement->execute([$today, $admin_data['admin_id']]);
 	$rows = $statement->fetchAll();
 
-	$balance = 0;
+	$balance = null;
 	$output = [
 		'today_capital' => 0,
 		'today_balance' => $balance,
@@ -111,10 +112,10 @@ function _capital() {
 		$row = $rows[0];
 		$balance = $row['daily_balance'];
 
-		if (admin_has_permission('supervisor') && $row['daily_balance'] == '0.00') {
+		if (admin_has_permission('supervisor') && $row['daily_balance'] == null) {
 			$balance = $row['daily_balance'];
 		} else if (admin_has_permission('salesperson')) {
-			$balance = (($row['daily_balance'] == '0.00') ? $row['daily_capital'] : $row['daily_balance']);
+			$balance = (($row['daily_balance'] == null) ? $row['daily_capital'] : $row['daily_balance']);
 		}
 		
 		$output = [
@@ -183,7 +184,7 @@ function update_today_capital_given_balance($type, $today_total_balance, $today,
 
 function _gained_calculation($balance, $capital) {
 	$output = (float)($balance - $capital);
-	if ($balance == '0.00') {
+	if ($balance == null) {
 		$output = $balance;
 	}
 	return money($output);
