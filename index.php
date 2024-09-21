@@ -28,12 +28,15 @@
 
 			if ($today_date == $today) {
 				$daily_to = $daily_by;
+				$findCapital = find_capital_given_to($daily_to, $today);
+				dnd($findCapital);
 				if ($push_for == 'saleperson') {
 					$daily_to = $push_to;
+					$findCapital = find_capital_given_to($daily_to, $today);
 				}
 
 				$daily_data = [$daily_id, $given, $today, $daily_by, $daily_to];
-				if (is_capital_given()) {
+				if ($findCapital) {
 					// update sum
 
 					$g = (float)($given - _capital()['today_capital']);
