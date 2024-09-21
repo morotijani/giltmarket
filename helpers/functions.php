@@ -445,8 +445,6 @@ function fetch_all_sales($status, $admin) {
 function total_amount_today($admin) {
 	global $conn;
 	$thisDay = date("d");
-	$yesterDay = $thisDay - 1;
-
 	$output = [];
 
 	$where = '';
@@ -465,49 +463,14 @@ function total_amount_today($admin) {
 	$statement->execute();
 	$thisDayrow = $statement->fetchAll();
 
-	$thisDayPercentage = ($thisDayrow[0]['total'] / 100);
 
-	$yesterDaySql = "
-		SELECT SUM(sale_total_amount) AS total 
-		FROM `jspence_sales` 
-		WHERE $where 
-		DAY(createdAt) = '{$yesterDay}' 
-	    AND sale_status = 0 
-	";
-	$statement = $conn->prepare($yesterDaySql);
-	$statement->execute();
-	$yesterDayrow = $statement->fetchAll();
-
-	$yesterDayPercentage = ($yesterDayrow[0]['total'] / 100);
-
-	if ($thisDayPercentage > $yesterDayPercentage) {
-		// going top
-		$percentage = (($thisDayPercentage + $yesterDayPercentage) / 100);
-		$percentage_color = 'success';
-		$percentage_icon = 'up-right';
-	} else {
-		// going down
-		$percentage = (($thisDayPercentage - $yesterDayPercentage) / 100);
-		$percentage_color = 'danger';
-		$percentage_icon = 'down-left';
-	}
-
-	$output = [
-		'amount' 			=> money($thisDayrow[0]['total']),
-		'percentage' 		=> $percentage,
-		'percentage_color' 	=> $percentage_color,
-		'percentage_icon' 	=> $percentage_icon,
-	];
-
-	return $output;
+	return money($thisDayrow[0]['total']);
 }
 
 // get total amount of orders in current month
 function total_amount_thismonth($admin) {
 	global $conn;
 	$thisMonth = date("m");
-	$lastMonth = $thisMonth - 1;
-
 	$output = [];
 
 	$where = '';
@@ -526,41 +489,7 @@ function total_amount_thismonth($admin) {
 	$statement->execute();
 	$thisRow = $statement->fetchAll();
 
-	$thisPercentage = ($thisRow[0]['total'] / 100);
-
-	$lastSql = "
-		SELECT SUM(sale_total_amount) AS total 
-		FROM `jspence_sales` 
-		WHERE $where 
-		MONTH(createdAt) = '{$lastMonth}' 
-	    AND sale_status = 0 
-	";
-	$statement = $conn->prepare($lastSql);
-	$statement->execute();
-	$lastRrow = $statement->fetchAll();
-
-	$lastPercentage = ($lastRrow[0]['total'] / 100);
-
-	if ($thisPercentage > $lastPercentage) {
-		// going top
-		$percentage = (($thisPercentage + $lastPercentage) / 100);
-		$percentage_color = 'success';
-		$percentage_icon = 'up-right';
-	} else {
-		// going down
-		$percentage = (($thisPercentage - $lastPercentage) / 100);
-		$percentage_color = 'danger';
-		$percentage_icon = 'down-left';
-	}
-
-	$output = [
-		'amount' 			=> money($thisRow[0]['total']),
-		'percentage' 		=> $percentage,
-		'percentage_color' 	=> $percentage_color,
-		'percentage_icon' 	=> $percentage_icon,
-	];
-
-	return $output;
+	return money($thisRow[0]['total']);
 }
 
 // count total orders

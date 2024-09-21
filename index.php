@@ -149,8 +149,6 @@
         <!-- Divider -->
         <hr class="my-8" />
 
-		<?php if (!admin_has_permission()) : ?>
-
 		<!-- Stats -->
 		<div class="row mb-8">
         	<div class="col-12 col-md-6 col-xxl-3 mb-4 mb-xxl-0">
@@ -159,10 +157,10 @@
                 		<div class="row align-items-center">
 							<div class="col">
 								<!-- Heading -->
-								<h4 class="fs-base fw-normal text-body-secondary mb-1">Capital</h4>
+								<h4 class="fs-base fw-normal text-body-secondary mb-1"><?= ((admin_has_permission()) ? 'Today' : 'Capital'); ?></h4>
 
 								<!-- Text -->
-								<div class="fs-5 fw-semibold"><?= money(_capital()['today_capital']); ?></div>
+								<div class="fs-5 fw-semibold"><?= ((admin_has_permission()) ? total_amount_today($admin_data['admin_id']) : money(_capital()['today_capital'])); ?></div>
 							</div>
 							<div class="col-auto">
 								<!-- Avatar -->
@@ -180,10 +178,14 @@
 							<div class="row align-items-center">
 							<div class="col">
 								<!-- Heading -->
-								<h4 class="fs-base fw-normal text-body-secondary mb-1"><?= ((admin_has_permission('supervisor')) ? 'Sold' : 'Balance'); ?></h4>
+								<?php if (admin_has_permission()) : ?>
+									<h4 class="fs-base fw-normal text-body-secondary mb-1"> This Month () </h4>
+								<?php else: ?>
+									<h4 class="fs-base fw-normal text-body-secondary mb-1"><?= ((admin_has_permission('supervisor')) ? 'Sold' : 'Balance'); ?></h4>
+								<?php endif; ?>
 
 								<!-- Text -->
-								<div class="fs-5 fw-semibold"><?= money(_capital()['today_balance']); ?></div>
+								<div class="fs-5 fw-semibold"><?= ((admin_has_permission()) ? total_amount_thismonth($admin_data['admin_id']) : money(_capital()['today_balance'])); ?></div>
 							</div>
 							<div class="col-auto">
 								<!-- Avatar -->
@@ -255,7 +257,6 @@
 				</div>
 			</div>
 		</div>
-		<?php endif; ?>
 
         <div class="row">
 			
