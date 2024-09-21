@@ -741,3 +741,22 @@ function get_salepersons_for_push_capital($conn) {
 
 	return $output;
 }
+
+// find daily to push
+function find_dialy_for_push($t, $id) {
+	global $conn;
+	//
+	$sql = "
+		SELECT * FROM jspence_daily 
+		WHERE daily_date = ? 
+		AND daily_id = ? 
+		LIMIT 1
+	";
+	$statement = $conn->prepare($sql);
+	$result = $statement->execute([$t, $id]);
+
+	if ($result) {
+		return true;
+	}
+	return false;
+}

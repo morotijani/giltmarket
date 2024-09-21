@@ -24,16 +24,57 @@
 
 			$today = date("Y-m-d");
 			$daily_id = guidv4();
+			$push_id = guidv4();
 			$daily_by = $admin_data['admin_id'];
 
 			if ($today_date == $today) {
+				$daily_to = $daily_by;
 				if ($push_for == 'saleperson') {
 					$daily_to = $push_to;
 				}
-				
-				$data = [$daily_id, $given, $today, $daily_by];
+
+				$daily_data = [$given, $today, $daily_by, $daily_to, $daily_id];
+				if (is_capital_given()) {
+					// update sum
+					$dailyUpdateQuery = "
+						UPDATE jspence_daily 
+						SET daily_capital = ?, 
+						daily_balance = " . $b . "
+						WHERE daily_date = ? 
+						AND daily_by = ? 
+						AND daily_to = ? 
+					";
+
+				} else {
+					// insert 
+					$dailyQuery = "
+						INSERT INTO jspence_daily (daily_capital, daily_date, daily_by, daily_to, daily_id) 
+						VALUES (?, ?, ?, ?, ?)
+					";
+					
+				}
+
+				// insert into push table
+				$push_data = [$push_id, $daily_id, $given, $daily_by, $today];
 				$sql = "
-					INSERT INTO jspence_daily (daily_id, daily_capital, daily_date, daily_by) 
+					INSERT INTO jspence_pushes (push_id, push_daily, push_amount, push_by, push_date) 
+					VALUES (?, ?, ?, ?, ?)
+				";
+				$statement = $conn->prepare($sql);
+				$push_result = $statement->execute([$push_data]);
+
+				if (isset($push_result)) {
+					if (find_dialy_for_push($today, $daily_id)) {
+						// add by update
+					} else {
+						// insert
+					}
+				}
+
+
+				$daily_data = [$daily_id, $given, $today, $daily_to];
+				$sqlDaily = "
+					INSERT INTO jspence_daily (daily_id, daily_capital, daily_date, daily_to) 
 					VALUES (?, ?, ?, ?)
 				";
 				$message = "today " . $today . " capital entered of an amount of " . money($given);
