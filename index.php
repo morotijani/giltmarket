@@ -328,7 +328,7 @@
 
 			<?php endif; ?>
 
-            <!-- Projects -->
+            <!-- Trades -->
 			<div class="card mb-6 mb-xxl-0">
 				<div class="card-header">
 					<div class="row align-items-center">
@@ -359,7 +359,17 @@
             <!-- Goals -->
             <div class="card mb-6">
               	<div class="card-header">
-                	<h3 class="fs-6 mb-0">Pushes</h3>
+					<div class="row align-items-center">
+						<div class="col">
+							<h3 class="fs-6 mb-0">Pushes</h3>
+						</div>
+						<div class="col-auto my-n3 me-n3">
+							<a class="btn btn-link" href="javascript:;" data-bs-target="<?= ((!admin_has_permission()) ? '#modalCapital' : ''); ?>" data-bs-toggle="modal">
+							Make a push
+							<span class="material-symbols-outlined">send_money</span>
+							</a>
+						</div>
+					</div>
               	</div>
               	<div class="card-body py-3">
                 	<div class="list-group list-group-flush">
@@ -408,6 +418,96 @@
 		</div>
 	</div>
 </div>
+
+<!-- Push todays capital -->
+<?php if ($admin_data['admin_permissions'] == 'supervisor'): ?>
+	<div class="modal fade" id="modalCapital" tabindex="-1" aria-labelledby="modalCapital" aria-hidden="true" style="backdrop-filter: blur(5px);">
+		<div class="modal-dialog modal-dialog-centered">
+			<div class="modal-content shadow-3">
+				<div class="modal-header justify-content-start">
+					<div class="icon icon-shape rounded-3 bg-primary-subtle text-primary text-lg me-4">
+						<i class="bi bi-currency-exchange"></i>
+					</div>
+					<div>
+						<h5 class="mb-1">Push Capital</h5>
+						<small class="d-block text-xs text-muted">You are to give todays capital before you can start trade.</small>
+					</div>
+				</div>
+				<form action="" method="POST" id="capitalForm">
+					<div class="modal-body">
+						<div class="mb-4">
+							<label class="form-label">Today's Date</label> 
+							<input class="form-control" name="today_date" id="today_date" type="date" value="<?php echo date('Y-m-d'); ?>">
+						</div>
+						<div class="mb-4">
+							<div class="form-check mb-2">
+								<input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1">
+								<label class="form-check-label" for="flexRadioDefault1">
+									For Self
+								</label>
+							</div>
+							<div class="form-check mb-2">
+								<input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2" checked>
+								<label class="form-check-label" for="flexRadioDefault2">
+									For Salepersonnel
+								</label>
+							</div>
+						</div>
+						<div class="mb-3 d-none">
+							<select class="form-select bg-body" name="push_to" id="teamMembers"
+							data-choices='{"searchEnabled": false, "choices": [
+								{
+							"value": "",
+							"label": "Select a salepersonnel",
+							"customProperties": {
+								"avatarSrc": "<?= PROOT; ?>assets/media/avatar.png"
+							}
+							},
+							{
+							"value": "Emily Thompson",
+							"label": "Emily Thompson",
+							"customProperties": {
+								"avatarSrc": "./assets/img/photos/photo-1.jpg"
+							}
+							},
+							{
+							"value": "Michael Johnson",
+							"label": "Michael Johnson",
+							"customProperties": {
+								"avatarSrc": "./assets/img/photos/photo-2.jpg"
+							}
+							},
+							{
+							"value": "Robert Garcia",
+							"label": "Robert Garcia",
+							"customProperties": {
+								"avatarSrc": "./assets/img/photos/photo-3.jpg"
+							}
+							},
+							{
+							"value": "Jessica Miller",
+							"label": "Jessica Miller",
+							"customProperties": {
+								"avatarSrc": "./assets/img/photos/photo-4.jpg"
+							}
+							}
+						]}'
+							></select>
+				  		</div>
+						<div class="">
+							<label class="form-label">Amount given</label> 
+							<input class="form-control" placeholder="0.00" name="today_given" id="today_given" type="number" min="0.00" step="0.01" value="<?= (is_capital_given() ? _capital()['today_capital'] : '' ); ?>">
+						</div>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-sm btn-neutral" data-bs-dismiss="modal">Close</button> 
+						<button type="submit" id="submitCapital" class="btn btn-sm btn-primary">Save</button>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+<?php endif; ?>
 
 
 		

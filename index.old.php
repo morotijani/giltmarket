@@ -347,40 +347,7 @@
 						</div>
 					</div>
 					
-					<!-- Seeting for todays capital -->
-					 <?php if (!admin_has_permission()): ?>
-					<div class="modal fade" id="modalCapital" tabindex="-1" aria-labelledby="modalCapital" aria-hidden="true" style="backdrop-filter: blur(5px);">
-						<div class="modal-dialog modal-dialog-centered">
-							<div class="modal-content shadow-3">
-								<div class="modal-header justify-content-start">
-									<div class="icon icon-shape rounded-3 bg-primary-subtle text-primary text-lg me-4">
-										<i class="bi bi-currency-exchange"></i>
-									</div>
-									<div>
-										<h5 class="mb-1">Today's Capital</h5>
-										<small class="d-block text-xs text-muted">You are to give todays capital before you can start trade.</small>
-									</div>
-								</div>
-								<form action="" method="POST" id="capitalForm">
-									<div class="modal-body">
-										<div class="mb-3">
-											<label class="form-label">Today's Date</label> 
-											<input class="form-control" name="today_date" id="today_date" type="date" value="<?php echo date('Y-m-d'); ?>">
-										</div>
-										<div class="">
-											<label class="form-label">Amount given</label> 
-											<input class="form-control" placeholder="0.00" name="today_given" id="today_given" type="number" min="0.00" step="0.01" value="<?= (is_capital_given() ? _capital()['today_capital'] : '' ); ?>">
-										</div>
-									</div>
-									<div class="modal-footer">
-										<button type="button" class="btn btn-sm btn-neutral" data-bs-dismiss="modal">Close</button> 
-										<button type="submit" id="submitCapital" class="btn btn-sm btn-primary">Save</button>
-									</div>
-								</form>
-							</div>
-						</div>
-					</div>
-					<?php endif; ?>
+					
 
 
 					<?php else: ?>

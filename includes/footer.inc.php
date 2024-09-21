@@ -4,7 +4,7 @@
 
     <div class="modal fade" id="buyModal" tabindex="-1" aria-labelledby="buyModalLabel" aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="false" style="backdrop-filter: blur(5px);">
         <div class="modal-dialog modal-dialog-centered">
-            <div class="modal-content overflow-hidden" style="background: #d0b3728f;">
+            <div class="modal-content overflow-hidden bg-body-tertiary">
                 <div class="modal-header pb-0 border-0">
                     <h1 class="modal-title h4" id="buyModalLabel"><?= admin_has_permission('supervisor') ? 'Sell' : 'Buy'; ?> trade</h1>
                     <button type="button" class="btn-close btn-close-buyform" data-bs-dismiss="modal" aria-label="Close"></button>
@@ -35,7 +35,7 @@
                                 <input type="tel" name="current_price" id="current_price" class="form-control" placeholder="Current price" style="border: none;" required autocomplete="off">
                             </div>
                             <div class="vstack" style="gap: .25rem !important;">
-                                <div class="bg-body-light rounded-3 p-4" style="background-color: rgb(247 247 248);">
+                                <div class="bg-body-secondary rounded-3 p-4">
                                     <div class="d-flex justify-content-between text-xs text-muted">
                                         <span class="fw-semibold">Gram</span> <span class="gramMsg">...</span>
                                     </div>
@@ -45,11 +45,10 @@
                                 </div>
                                 <div class="position-relative text-center my-n4 overlap-10" style="margin-top: -1rem !important; margin-bottom: -1rem !important;">
                                     <div class="icon icon-sm icon-shape bg-body shadow-soft-3 rounded-circle text-sm text-body-tertiary" style="box-shadow: 0 9px 9px -1px rgba(10,22,70,.04)!important">
-                                        <!-- <i class="bi bi-arrow-down-up"></i> -->
                                         <span class="material-symbols-outlined">swap_vert</span>
                                     </div>
                                 </div>
-                                <div class="bg-body-light rounded-3 p-4" style="background-color: rgb(247 247 248);">
+                                <div class="bg-body-secondary rounded-3 p-4">
                                     <div class="d-flex justify-content-between text-xs text-muted">
                                         <span class="fw-semibold">Volume</span> <span class="volumeMsg">...</span>
                                     </div>
