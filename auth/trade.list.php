@@ -347,8 +347,6 @@ $output .= '
             <p class="text-body-secondary mb-0">Showing ' . $count_filter . ' items out of ' . $total_data . ' results found</p>
         </div>
         <div class="col-auto">
-
-
 ';
 
 if ($total_data > 0) {
@@ -464,8 +462,8 @@ if ($total_data > 0) {
 }
 
 echo $output . '
-				</ul>
-			</nav>
-		</div>
+					</ul>
+				</nav>
+			</div>
 		</div>
 	';

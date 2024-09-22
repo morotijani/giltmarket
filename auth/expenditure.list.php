@@ -50,24 +50,15 @@ $result = $statement->fetchAll();
 $count_filter = $statement->rowCount();
 
 $output = ' 
-	<ul class="nav nav-tabs nav-tabs-flush gap-8 overflow-x border-0 mt-1">
-            <li class="nav-item">
-                <a href="' . PROOT . 'acc/expenditure" class="nav-link active">All data (' . $total_data . ')</a>
-            </li>
-            <!-- <li class="nav-item">
-                <a href="acc/expenditure.archive" class="nav-link">Archive</a>
-            </li> -->
-        </ul>
-
-        <div class="table-responsive">
-            <table class="table table-hover table-striped table-nowrap">
-                <thead class="table-light">
+        <div class="table-responsive mb-7">
+            <table class="table align-middle mb-0">
+                <thead>
                     <tr>
                         <th>#</th>
-                        <th scope="col">Reference</span></th>
-                        <th scope="col">What for</th>
-                        <th scope="col">Amount</th>
-                        <th scope="col">Date</th>
+                        <th>Reference</span></th>
+                        <th>What for</th>
+                        <th>Amount</th>
+                        <th>Date</th>
                         ' . (!admin_has_permission() ? '<th></th>' : '') . '
                     </tr>
                 </thead>
@@ -81,7 +72,7 @@ if ($total_data > 0) {
         if (!admin_has_permission() && $row["edate"] == date("Y-m-d")) {
            $option = '
                 <td class="text-end">
-                    <a href="'. PROOT .'acc/expenditure?edit=' . $row["expenditure_id"] . '" class="badge bg-body-secondary text-xs text-success">Edit </a>
+                    <a href="'. PROOT .'account/expenditure?edit=' . $row["expenditure_id"] . '" class="badge bg-body-secondary text-xs text-success">Edit </a>
                     <a href="javascript:;" data-bs-target="#deleteModal_' . $row["eid"] . '" data-bs-toggle="modal" class="badge bg-body-secondary text-xs text-danger">Delete </a>
                 </td>
            '; 
@@ -102,14 +93,14 @@ if ($total_data > 0) {
                     </div>
                 </td>
                 <td>'. $row["expenditure_what_for"] .'</a></td>
-                <td style="font-family: Roboto Mono, monospace;">'. money($row["expenditure_amount"]) .'</td>
+                <td>'. money($row["expenditure_amount"]) .'</td>
                 <td>'. pretty_date($row["eca"]) .'</td>
                 ' . $option . '
             </tr>
 
             <!-- DELETE TRADE -->
             <div class="modal fade" id="deleteModal_' . $row["eid"] . '" tabindex="-1" aria-labelledby="deleteModalLabel_' . $row["eid"] . '" data-bs-backdrop="static" data-bs-keyboard="false" aria-hidden="true">
-                <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-dialog modal-sm modal-dialog-centered">
                     <div class="modal-content overflow-hidden">
                         <div class="modal-header pb-0 border-0">
                             <h1 class="modal-title h4" id="deleteModalLabel_' . $row["eid"] . '">Delete expenditure!</h1>
@@ -124,7 +115,7 @@ if ($total_data > 0) {
                                 </p>
                             </div>
                             <div class="px-6 py-5 bg-body-secondary d-flex justify-content-center">
-                                <a href="' . PROOT . 'acc/expenditure?delete=' . $row["expenditure_id"] . '" class="btn btn-sm btn-danger"><i class="bi bi-trash me-2"></i>Yes, Confirm delete</a>&nbsp;&nbsp;
+                                <a href="' . PROOT . 'account/expenditure?delete=' . $row["expenditure_id"] . '" class="btn btn-sm btn-danger"><i class="bi bi-trash me-2"></i>Yes, Confirm delete</a>&nbsp;&nbsp;
                                 <button type="button" class="btn btn-sm btn-dark"data-bs-dismiss="modal">No, cancel</button>
                             </div>
                         </div>
@@ -134,13 +125,13 @@ if ($total_data > 0) {
 
             <!-- HANDLER DETAILS -->
             <div class="modal fade" id="adminModal_' . $row["aid"] . '" tabindex="-1" aria-labelledby="adminModalLabel_' . $row["aid"] . '" data-bs-backdrop="static" data-bs-keyboard="false" aria-hidden="true" style="backdrop-filter: blur(5px);">>
-                <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-dialog modal-sm modal-dialog-centered">
                     <div class="modal-content overflow-hidden">
                         <div class="modal-header pb-0 border-0">
                             <h1 class="modal-title h4" id="adminModalLabel_' . $row["aid"] . '">Handler details</h1>
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
-                        <div class="modal-body p-0 text-center">
+                        <div class="modal-body">
                             <ul class="list-group">
                                 <li class="list-group-item" style="padding: 0.1rem 1rem;">
                                     <small class="text-muted">Profile,</small>
@@ -164,7 +155,7 @@ if ($total_data > 0) {
                                 </li>
                             </ul><div class="p-2"></div>
                             <div class="px-6 py-5 bg-body-secondary d-flex justify-content-center">
-                            <a class="btn btn-sm btn-neutral" href="' . PROOT . 'acc/admins"><i class="bi bi-people me-2"></i>All admins</a>
+                            <a class="btn btn-sm btn-neutral" href="' . PROOT . 'account/admins"><i class="bi bi-people me-2"></i>All admins</a>
                             </div>
                         </div>
                     </div>
@@ -176,8 +167,10 @@ if ($total_data > 0) {
 
 } else {
 	$output .= '
-		<tr class="text-warning">
-			<td colspan="6">No data found!</td>
+		<tr>
+            <td colspan="6">
+               <div class="alert alert-info"> No data found!</div>
+            </td>
 		</tr>
 	';
 }
@@ -186,18 +179,18 @@ $output .= '
 			</tbody>
         </table>
     </div>
-    <div class="py-4 px-6">
-        <div class="row align-items-center justify-content-between">
-            <div class="col-md-6 d-none d-md-block">
-                <span class="text-muted text-sm">Showing ' . $count_filter . ' items out of ' . $total_data . ' results found</span>
-            </div>
+	<div class="row align-items-center">
+        <div class="col">
+            <!-- Text -->
+            <p class="text-body-secondary mb-0">Showing ' . $count_filter . ' items out of ' . $total_data . ' results found</p>
+        </div>
+        <div class="col-auto">
 ';
 
 if ($total_data > 0) {
 	$output .= '
-		<div class="col-md-auto">
-            <nav aria-label="Page navigation example">
-                <ul class="pagination pagination-spaced gap-1">
+		<nav aria-label="Page navigation example">
+            <ul class="pagination mb-0">
 	';
 
 	$total_links = ceil($total_data / $limit);
@@ -250,16 +243,16 @@ if ($total_data > 0) {
 			if ($previous_id > 0) {
 				$previous_link = '
 					<li class="page-item">
-	                    <a class="page-link" href="javascript:;" data-page_number="'.$previous_id.'">
-	                        <i class="bi bi-chevron-left"></i>
+	                    <a class="page-link" href="javascript:;" data-page_number="'.$previous_id.'" aria-label="Previous">
+	                        <span aria-hidden="true">&laquo;</span>
 	                    </a>
 	                </li>
 				';
 			} else {
 				$previous_link = '
 					<li class="page-item disabled">
-	                    <a class="page-link" href="javascript:;">
-	                        <i class="bi bi-chevron-left"></i>
+	                    <a class="page-link" href="javascript:;" aria-label="Previous">
+	                        <span aria-hidden="true">&laquo;</span>
 	                    </a>
 	                </li>
 				';
@@ -269,16 +262,16 @@ if ($total_data > 0) {
 			if ($next_id >= $total_links) {
 				$next_link = '
 					<li class="page-item disabled">
-                        <a class="page-link" href="javascript:;">
-                            <i class="bi bi-chevron-right"></i>
+                        <a class="page-link" href="javascript:;" aria-label="Next">
+                            <span aria-hidden="true">&raquo;</span>
                         </a>
                     </li>
 				';
 			} else {
 				$next_link = '
 					<li class="page-item">
-                        <a class="page-link" href="javascript:;" data-page_number="'.$next_id.'">
-                            <i class="bi bi-chevron-right"></i>
+                        <a class="page-link" href="javascript:;" data-page_number="'.$next_id.' aria-label="Next">
+                            <span aria-hidden="true">&raquo;</span>
                         </a>
                     </li>
 				';
@@ -306,6 +299,9 @@ if ($total_data > 0) {
 	$output .= $previous_link. $page_link . $next_link;
 }
 
-echo $output . '</ul>
-                    </nav>
-                </div>';
+echo $output . '	
+                    </ul>
+				</nav>
+			</div>
+		</div>
+    ';

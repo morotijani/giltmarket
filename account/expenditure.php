@@ -11,6 +11,12 @@
         redirect(PROOT . 'index');
     }
 
+    $where = '';
+    if (!admin_has_permission()) {
+        $where = ' AND expenditure_by = "'.$admin_data["admin_id"].'" ';
+    }
+    $total_exp = $conn->query("SELECT * FROM jspence_expenditures INNER JOIN jspence_admin ON jspence_admin.admin_id = jspence_expenditures.expenditure_by WHERE jspence_expenditures.status = 0 $where")->rowCount();
+
     include ("../includes/header.inc.php");
     include ("../includes/aside.inc.php");
     include ("../includes/left.nav.inc.php");
@@ -189,12 +195,12 @@
                 <nav aria-label="breadcrumb">
                     <ol class="breadcrumb mb-2">
                         <li class="breadcrumb-item"><a class="text-body-secondary" href="javascript:;">Expenditure</a></li>
-                        <li class="breadcrumb-item active" aria-current="page">New project</li>
+                        <li class="breadcrumb-item active" aria-current="page">Expenditure</li>
                     </ol>
                 </nav>
 
                 <!-- Heading -->
-                <h1 class="fs-4 mb-0">New project</h1>
+                <h1 class="fs-4 mb-0"><?= ((isset($_GET['add']) && !empty($_GET['add'])) ? 'New' : 'All'); ?> expenditure</h1>
             </div>
             <div class="col-12 col-sm-auto mt-4 mt-sm-0">
                 <!-- Action -->
@@ -206,7 +212,6 @@
     <?php if (!admin_has_permission()): ?>
     <?php if (is_capital_given()): ?>
        
-
             <form method="POST" id="expenditureForm">
                 <section class="card card-line bg-body-tertiary border-transparent mb-5">
                     <div class="card-body">
@@ -275,17 +280,95 @@
 
     <?php else: ?>
 
-    <div class="row align-items-center g-6 mt-0 mb-6">
-        <div class="col-sm-6">
-            <div class="d-flex gap-2">
-                <div class="input-group input-group-sm input-group-inline w-100 w-md-50">
-                    <span class="input-group-text"><i class="bi bi-search me-2"></i> </span>
-                    <input type="search" class="form-control ps-0" placeholder="Search all trades" aria-label="Search" id="search">
+    <!-- Page content -->
+    <div class="row">
+        <div class="col-12">
+            <!-- Filters -->
+            <div class="card card-line bg-body-tertiary border-transparent mb-7">
+                <div class="card-body p-4">
+                    <div class="row align-items-center">
+                        <div class="col-12 col-lg-auto mb-3 mb-lg-0">
+                            <ul class="nav nav-pills">
+                                <li class="nav-item">
+                                    <a class="nav-link bg-dark active" aria-current="page" href="<?= PROOT; ?>account/expenditure">All data (<?= $total_exp; ?>)</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="<?= PROOT; ?>account/trades.delete.requests">Delete request <?= count_new_delete_requests($conn); ?></a>
+                                </li>
+                                <?php if (admin_has_permission()) { ?>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="<?= PROOT; ?>account/trades.archive">Archive</a>
+                                </li>
+                                <?php } ?>
+                            </ul>
+                        </div>
+                        <div class="col-12 col-lg">
+                            <div class="row gx-3">
+                                <div class="col col-lg-auto ms-auto">
+                                    <div class="input-group bg-body">
+                                        <input type="text" class="form-control" placeholder="Search" aria-label="Search" aria-describedby="search" id="search" />
+                                        <span class="input-group-text" id="search">
+                                            <span class="material-symbols-outlined">search</span>
+                                        </span>
+                                    </div>
+                                </div>
+                                <div class="col-auto">
+                                    <div class="dropdown">
+                                <button class="btn btn-dark px-3" data-bs-toggle="dropdown" data-bs-auto-close="outside" aria-expanded="false">
+                                    <span class="material-symbols-outlined">filter_list</span>
+                                </button>
+                                <div class="dropdown-menu rounded-3 p-6">
+                                    <h4 class="fs-lg mb-4">Filter</h4>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-auto ms-n2">
+                            <div class="dropdown">
+                            <button class="btn btn-dark px-3" data-bs-toggle="dropdown" data-bs-auto-close="outside" aria-expanded="false">
+                                <span class="material-symbols-outlined">export_notes</span>
+                            </button>
+                            <div class="dropdown-menu rounded-3 p-6">
+                                <h4 class="fs-lg mb-4">Export data</h4>
+                                <form style="width: 350px" id="filterForm" method="GET" action="<?= PROOT; ?>account/export">
+                                    <div class="row gx-3">
+                                        <div class="col mb-2">
+                                            <input type="date" class="form-control" id="export-date" name="export-date">
+                                        </div>
+                                        <div class="col-auto mb-2">
+                                            <div class="btn-group" role="group" aria-label="Basic radio toggle button group">
+                                                <input type="radio" class="btn-check" name="export_type" id="export_xlsx" autocomplete="off" checked value="xlsx" required />
+                                                <label class="btn btn-light" for="export_xlsx" data-bs-toggle="tooltip" data-bs-title="XLSX">
+                                                <img src="<?= PROOT; ?>assets/media/XLSX.png" width="30" height="30" class="w-rem-6 h-rem-6 rounded-circle" alt="...">
+                                                </label>
+                                                <input type="radio" class="btn-check" name="export_type" id="export_csv" autocomplete="off" value="csv" required />
+                                                <label class="btn btn-light" for="export_csv" data-bs-toggle="tooltip" data-bs-title="CSV">
+                                                <img src="<?= PROOT; ?>assets/media/CSV.png" width="30" height="30" class="rounded-circle" alt="...">
+                                                </label>
+                                                <input type="radio" class="btn-check" name="export_type" id="export_pdf" autocomplete="off" value="pdf" required />
+                                                <label class="btn btn-light" for="export_pdf" data-bs-toggle="tooltip" data-bs-title="PDF">
+                                                <img src="<?= PROOT; ?>assets/media/PDF.png" width="30" height="30" class="rounded-circle" alt="...">
+                                                </label>
+                                                <input type="radio" class="btn-check" name="export_type" id="export_xls" autocomplete="off" value="xls" required />
+                                                <label class="btn btn-light" for="export_xls" data-bs-toggle="tooltip" data-bs-title="XLS">
+                                                <img src="<?= PROOT; ?>assets/media/XLS.png" width="30" height="30" class="rounded-circle" alt="...">
+                                                </label>
+                                                <button type="submit" class="btn btn-light">Export</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
+</div>
+    
     <div id="load-content"></div>
+
+
 
     <?php endif; ?>
 
