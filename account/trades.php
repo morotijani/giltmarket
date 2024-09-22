@@ -60,7 +60,7 @@
         <div class="row align-items-center mb-7">
             <div class="col-auto">
                 <!-- Avatar -->
-                <div class="avatar avatar-xl rounded text-primary">
+                <div class="avatar avatar-xl rounded text-warning">
                     <i class="fs-2" data-duoicon="credit-card"></i>
                 </div>
             </div>

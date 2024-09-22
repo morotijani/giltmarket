@@ -54,13 +54,13 @@ $output = '
             <thead>
                 <tr>
                    <th>#</th>
-				   <td></th>
                     ' .  ((admin_has_permission()) ? '<th scope="col">Handler</th>' : '') . '
                     <th>Customer</th>
                     <th>Gram</th>
                     <th>Volume</th>
                     <th>Price</th>
                     <th>Amount</th>
+                    <th></th>
                     <th>Date</th>
                     <th></th>
                 </tr>
@@ -72,9 +72,24 @@ if ($total_data > 0) {
 	$i = 1;
 	foreach ($result as $row) {
 
-		$arrayOutput = array('reference' => $row['sale_id'], 'customername' => $row['sale_customer_name'], 'gram' => $row['sale_gram'], 'volume' => $row['sale_volume'], 'density' => $row['sale_density'], 'pounds' => $row['sale_pounds'], 'carat' => $row['sale_carat'], 'total_amount' => $row['sale_total_amount'], 'current_price' => $row['sale_price'], 'by' => $row['sale_by'], 'message' => '',);
-		
+		$type = "";
+		if ($row["sale_type"] == 'out') {
+			$type = '
+				<span class="badge bg-danger-subtle text-danger">out-trade</span>
+			';
+		} else if ($row["sale_type"] == 'in') {
+			$type = '
+				<span class="badge bg-success-subtle text-success">in-trade</span>
+			';
+		} else if ($row["sale_type"] == 'exp') {
+			$type = '
+				<span class="badge bg-secondary-subtle text-secondary">expenditure</span>
+			';
+		}
+
+		$arrayOutput = array('reference' => $row['sale_id'], 'customername' => $row['sale_customer_name'], 'gram' => $row['sale_gram'], 'volume' => $row['sale_volume'], 'density' => $row['sale_density'], 'pounds' => $row['sale_pounds'], 'carat' => $row['sale_carat'], 'total_amount' => $row['sale_total_amount'], 'current_price' => $row['sale_price'], 'by' => $row['sale_by'], 'message' => '');
 		$outputData = json_encode($arrayOutput);
+
 		$option1 = '
 			&nbsp;
 			<a href=' . PROOT . 'account/print-reciept?data=' . $outputData .'&date=' . $row['sca'] . '" title="Print receipt" class="btn btn-light">
@@ -105,9 +120,6 @@ if ($total_data > 0) {
 		$output .= '	
 				<tr>
 	                <td>' . $i . '</td>
-					<td>
-						<div class="icon icon-shape rounded-circle icon-sm flex-none w-rem-10 h-rem-10 text-sm bg-'.(($row["sale_type"] == 'out') ? 'danger' : 'success').' bg-opacity-25 text-'.(($row["sale_type"] == 'out') ? 'danger' : 'success').'"><i class="bi bi-'.(($row["sale_type"] == 'out') ? 'arrow-up-right-circle-fill' : 'arrow-down-left-circle-fill').'"></i></div>
-					</td>
 	                ' . (admin_has_permission() ? ' <td><a href="javascript:;" data-bs-target="#adminModal_' . $row["aid"] . '" data-bs-toggle="modal"><span class="d-block text-heading">' . ucwords($row["admin_fullname"]) . '</span></a></td> ' : '') . '
 	                <td class="text-xs">
 						' . strtoupper($row["sale_customer_name"]) . ' <span class="material-symbols-outlined mx-2"> trending_flat </span> ' . $row["sale_customer_contact"] . '
@@ -116,6 +128,7 @@ if ($total_data > 0) {
 	                <td>' . $row["sale_volume"] . '</td>
 	                <td>' . money($row["sale_price"]) . '</td>
 	                <td>' . money($row["sale_total_amount"]) . '</td>
+	                <td>' . $type . '</td>
 	                <td>' . pretty_date($row["sca"]) . '</td>
 	                <td class="text-end">
 	                    <button type="button" class="btn btn-dark" title="More" data-bs-target="#saleModal_' . $row["sid"] . '" data-bs-toggle="modal">

@@ -759,7 +759,20 @@ function get_recent_trades($admin) {
 	if ($counts > 0) {
 		// code...
 		foreach ($rows as $row) {
-			// code...
+			$type = "";
+			if ($row["sale_type"] == 'out') {
+				$type = '
+					<span class="badge bg-danger-subtle text-danger">out-trade</span>
+				';
+			} else if ($row["sale_type"] == 'in') {
+				$type = '
+					<span class="badge bg-success-subtle text-success">in-trade</span>
+				';
+			} else if ($row["sale_type"] == 'exp') {
+				$type = '
+					<span class="badge bg-secondary-subtle text-secondary">expenditure</span>
+				';
+			}
 			$output .= '
 				<tr>
 					<td>
@@ -769,12 +782,12 @@ function get_recent_trades($admin) {
 							</div>
 							<div class="ms-4">
 							<div>' . $row["sale_id"] . '</div>
-							<div class="fs-sm text-body-secondary">Created on J' . pretty_date($row["createdAt"]) . '</div>
+							<div class="fs-sm text-body-secondary">Created on ' . pretty_date($row["createdAt"]) . '</div>
 							</div>
 						</div>
 					</td>
 					<td>
-						<span class="badge bg-secondary-subtle text-secondary">expenditure/trade</span>
+						' . $type . '
 					</td>
 					<td>
 						' . money($row["sale_total_amount"]) . '
