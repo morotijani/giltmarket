@@ -83,7 +83,7 @@ if ($total_data > 0) {
 		';
         $option2 =  '
 			<div class="p-2"></div>
-			<div class="px-6 py-5 bg-body-secondary d-flex justify-content-center">
+			<div class="px-6 py-5 d-flex justify-content-center">
 				<!-- <button class="btn btn-sm btn-dark"><i class="bi bi-receipt me-2"></i>Print receipt</button>&nbsp -->
 				' . (($row["sdate"] == date("Y-m-d")) ? '<a href="#deleteModal_'. $row["sid"] . '" data-bs-toggle="modal" class="btn btn-danger"><span class="material-symbols-outlined me-2"> delete </span> Delete</a>' : '') . '
 			</div>
@@ -94,7 +94,7 @@ if ($total_data > 0) {
 			$option2 = '';
 			if (admin_has_permission() && $row["sdate"] == date("Y-m-d")) {
 				$option3 = '
-					<a href="' . PROOT . 'acc/trades.delete.requests?pd=' . $row["sale_id"] . '" class="btn btn-sm btn-danger mt-2 mb-2"><i class="bi bi-trash3 me-2"></i>Delete</a>
+					<a href="' . PROOT . 'account/trades.delete.requests?pd=' . $row["sale_id"] . '" class="btn btn-sm btn-danger mt-2 mb-2"><i class="bi bi-trash3 me-2"></i>Delete</a>
 				';
 			}
 		} else if ($row['sale_status'] == 2) {
@@ -126,54 +126,116 @@ if ($total_data > 0) {
 
 	            <!-- Trade details -->
 	            <div class="modal fade" id="saleModal_' . $row["sid"] . '" tabindex="-1" aria-labelledby="saleModalLabel_' . $row["sid"] . '" aria-hidden="true" style="backdrop-filter: blur(5px);">
-					<div class="modal-dialog modal-dialog-centered">
+					<div class="modal-dialog modal-sm modal-dialog-centered">
 						<div class="modal-content overflow-hidden">
 							<div class="modal-header pb-0 border-0">
 								<h1 class="modal-title h4" id="saleModalLabel_' . $row["sid"] . '">' . $row["sale_id"] . (admin_has_permission() ? '<br>by' . ucwords($row["admin_fullname"]) : '' )  . '</h1>
 								<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 							</div>
-							<div class="modal-body p-0 text-center">
-								<ul class="list-group">
-									<li class="list-group-item" style="padding: 0.1rem 1rem;">
-				                        <small class="text-muted">Total amount,</small>
-				                        <p>' . money($row["sale_total_amount"]) . '</p>
-				                    </li>
-				                    <li class="list-group-item" style="padding: 0.1rem 1rem;">
-				                        <small class="text-muted">Price,</small>
-				                        <p>' . money($row["sale_price"]) . '</p>
-				                    </li>
-				                    <li class="list-group-item" style="padding: 0.1rem 1rem;">
-				                        <small class="text-muted">Gram</small>
-				                        <p>' . $row["sale_gram"] . '</p>
-				                    </li>
-				                    <li class="list-group-item" style="padding: 0.1rem 1rem;">
-				                        <small class="text-muted">Volume</small>
-				                        <p>' . $row["sale_volume"] . '</p>
-				                    </li>
-				                    <li class="list-group-item" style="padding: 0.1rem 1rem;">
-				                        <small class="text-muted">Density</small>
-				                        <p>' . $row["sale_density"] . '</p>
-				                    </li>
-				                    <li class="list-group-item" style="padding: 0.1rem 1rem;">
-				                        <small class="text-muted">Pounds</small>
-				                        <p>' . $row["sale_pounds"] . '</p>
-				                    </li>
-				                    <li class="list-group-item" style="padding: 0.1rem 1rem;">
-				                        <small class="text-muted">Carat</small>
-				                        <p id="send-amount">' . $row["sale_carat"] . '</p>
-				                    </li>
-				                    <li class="list-group-item" style="padding: 0.1rem 1rem;">
-				                        <small class="text-muted">Customer</small>
-				                        <p id="send-amount">Name: ' . ucwords($row["sale_customer_name"]) . ' | Contact: ' . $row["sale_customer_contact"] . '</p>
-				                    </li>
-				                    <li class="list-group-item" style="padding: 0.1rem 1rem;">
-				                        <small class="text-muted">Note</small>
-				                        <p>' . $row["sale_comment"] . '</p>
-				                    </li>
-				                    <li class="list-group-item" style="padding: 0.1rem 1rem;">
-				                        <small class="text-muted">Date</small>
-				                        <p>' . pretty_date($row["sca"]) . '</p>
-				                    </li>
+							<div class="modal-body">
+								<ul class="list-group list-group-flush">
+
+									<div class="list-group-item px-0">
+										<div class="row align-items-center">
+											<div class="col ms-n2">
+												<h6 class="fs-base fw-normal mb-1">Total amount,</h6>
+											</div>
+											<div class="col-auto">
+												<time class="text-body-secondary" datetime="01/01/2025">' . money($row["sale_total_amount"]) . '</time>
+											</div>
+										</div>
+									</div>
+
+									<div class="list-group-item px-0">
+										<div class="row align-items-center">
+											<div class="col ms-n2">
+												<h6 class="fs-base fw-normal mb-1">Price,</h6>
+											</div>
+											<div class="col-auto">
+												<time class="text-body-secondary" datetime="01/01/2025">' . money($row["sale_price"]) . '</time>
+											</div>
+										</div>
+									</div>
+									<div class="list-group-item px-0">
+										<div class="row align-items-center">
+											<div class="col ms-n2">
+												<h6 class="fs-base fw-normal mb-1">Gram,</h6>
+											</div>
+											<div class="col-auto">
+												<time class="text-body-secondary" datetime="01/01/2025">' . $row["sale_gram"] . '</time>
+											</div>
+										</div>
+									</div>
+									<div class="list-group-item px-0">
+										<div class="row align-items-center">
+											<div class="col ms-n2">
+												<h6 class="fs-base fw-normal mb-1">Volume,</h6>
+											</div>
+											<div class="col-auto">
+												<time class="text-body-secondary" datetime="01/01/2025">' . $row["sale_volume"] . '</time>
+											</div>
+										</div>
+									</div>
+									<div class="list-group-item px-0">
+										<div class="row align-items-center">
+											<div class="col ms-n2">
+												<h6 class="fs-base fw-normal mb-1">Density,</h6>
+											</div>
+											<div class="col-auto">
+												<time class="text-body-secondary" datetime="01/01/2025">' . $row["sale_density"] . '</time>
+											</div>
+										</div>
+									</div>
+									<div class="list-group-item px-0">
+										<div class="row align-items-center">
+											<div class="col ms-n2">
+												<h6 class="fs-base fw-normal mb-1">Pounds,</h6>
+											</div>
+											<div class="col-auto">
+												<time class="text-body-secondary" datetime="01/01/2025">' . $row["sale_pounds"] . '</time>
+											</div>
+										</div>
+									</div>
+									<div class="list-group-item px-0">
+										<div class="row align-items-center">
+											<div class="col ms-n2">
+												<h6 class="fs-base fw-normal mb-1">Carat,</h6>
+											</div>
+											<div class="col-auto">
+												<time class="text-body-secondary" datetime="01/01/2025">' . $row["sale_carat"] . '</time>
+											</div>
+										</div>
+									</div>
+									<div class="list-group-item px-0">
+										<div class="row align-items-center">
+											<div class="col ms-n2">
+												<h6 class="fs-base fw-normal mb-1">Customer,</h6>
+											</div>
+											<div class="col-auto">
+												<time class="text-body-secondary" datetime="01/01/2025">' . ucwords($row["sale_customer_name"]) . ' | Contact: ' . $row["sale_customer_contact"] . '</time>
+											</div>
+										</div>
+									</div>
+									<div class="list-group-item px-0">
+										<div class="row align-items-center">
+											<div class="col ms-n2">
+												<h6 class="fs-base fw-normal mb-1">Note,</h6>
+											</div>
+											<div class="col-auto">
+												<time class="text-body-secondary" datetime="01/01/2025">' . $row["sale_comment"] . '</time>
+											</div>
+										</div>
+									</div>
+									<div class="list-group-item px-0">
+										<div class="row align-items-center">
+											<div class="col ms-n2">
+												<h6 class="fs-base fw-normal mb-1">Date,</h6>
+											</div>
+											<div class="col-auto">
+												<time class="text-body-secondary" datetime="01/01/2025">' . pretty_date($row["sca"]) . '</time>
+											</div>
+										</div>
+									</div>
 								</ul>
 								' . $option2 . '
 								' . $option3 . '
@@ -202,8 +264,8 @@ if ($total_data > 0) {
 			                       		Are you sure you want to proceed to this action.
 			                       </p>
 			                    </div>
-			                    <div class="px-6 py-5 bg-body-secondary d-flex justify-content-center">
-			                        <a href="'.PROOT.'acc/trades?delete_request='.$row["sale_id"].'" class="btn btn-sm btn-danger"><i class="bi bi-trash me-2"></i>Yes, Confirm delete</a>&nbsp;&nbsp;
+			                    <div class="px-6 py-5 d-flex justify-content-center">
+			                        <a href="'.PROOT.'account/trades?delete_request='.$row["sale_id"].'" class="btn btn-sm btn-danger"><i class="bi bi-trash me-2"></i>Yes, Confirm delete</a>&nbsp;&nbsp;
 			                        <button type="button" class="btn btn-sm btn-dark"data-bs-dismiss="modal">No, cancel</button>
 			                    </div>
 				            </div>
@@ -241,9 +303,9 @@ if ($total_data > 0) {
 				                        <small class="text-muted">Last Login</small>
 				                        <p>' . (($row["admin_last_login"] == NULL) ? 'NEVER' : pretty_date($row["admin_last_login"])) . '</p>
 				                    </li>
-								</ul><div class="p-2"></div>
-								<div class="px-6 py-5 bg-body-secondary d-flex justify-content-center">
-								<a class="btn btn-sm btn-neutral" href="' . PROOT . 'acc/admins"><i class="bi bi-people me-2"></i>All admins</a>
+								</ul>
+								<div class="px-6 py-5 d-flex justify-content-center">
+									<a class="btn btn-sm btn-neutral" href="' . PROOT . 'acc/admins"><i class="bi bi-people me-2"></i>All admins</a>
 								</div>
 							</div>
 						</div>
