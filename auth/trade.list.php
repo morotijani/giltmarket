@@ -72,17 +72,20 @@ if ($total_data > 0) {
 	$i = 1;
 	foreach ($result as $row) {
 
-		$arrayOutput = array('reference' => $row['sale_id'], 'customername' => $row['sale_customer_name'], 'date' => $row['sca'], 'gram' => $row['sale_gram'], 'volume' => $row['sale_volume'], 'density' => $row['sale_density'], 'pounds' => $row['sale_pounds'], 'carat' => $row['sale_carat'], 'total_amount' => $row['sale_total_amount'], 'current_price' => $row['sale_price'], 'by' => $row['sale_by'], 'message' => '',);
+		$arrayOutput = array('reference' => $row['sale_id'], 'customername' => $row['sale_customer_name'], 'gram' => $row['sale_gram'], 'volume' => $row['sale_volume'], 'density' => $row['sale_density'], 'pounds' => $row['sale_pounds'], 'carat' => $row['sale_carat'], 'total_amount' => $row['sale_total_amount'], 'current_price' => $row['sale_price'], 'by' => $row['sale_by'], 'message' => '',);
 		
 		$outputData = json_encode($arrayOutput);
-		$option1 = '';
-		// $option1 = '&nbsp;<a href="javascript:;" onClick="MyWindow=window.open('.$outputData.',\'MyWindow\',\'width=600,height=300\'); return false;" title="Print receipt" class="btn btn-sm btn-square btn-neutral w-rem-6 h-rem-6">
-        //                 <i class="bi bi-receipt"></i>';
+		$option1 = '
+			&nbsp;
+			<a href=' . PROOT . 'account/print-reciept?data=' . $outputData .'&date=' . $row['sca'] . '" title="Print receipt" class="btn btn-light">
+				<span class="material-symbols-outlined"> print </span>
+			</a>
+		';
         $option2 =  '
 			<div class="p-2"></div>
 			<div class="px-6 py-5 bg-body-secondary d-flex justify-content-center">
 				<!-- <button class="btn btn-sm btn-dark"><i class="bi bi-receipt me-2"></i>Print receipt</button>&nbsp -->
-				' . (($row["sdate"] == date("Y-m-d")) ? '<a href="#deleteModal_'. $row["sid"] . '" data-bs-toggle="modal" class="btn btn-sm btn-neutral"><i class="bi bi-trash3 me-2"></i>Delete</a>' : '') . '
+				' . (($row["sdate"] == date("Y-m-d")) ? '<a href="#deleteModal_'. $row["sid"] . '" data-bs-toggle="modal" class="btn btn-danger"><span class="material-symbols-outlined me-2"> delete </span> Delete</a>' : '') . '
 			</div>
         ';
         $option3 = '';
@@ -105,7 +108,7 @@ if ($total_data > 0) {
 					<td>
 						<div class="icon icon-shape rounded-circle icon-sm flex-none w-rem-10 h-rem-10 text-sm bg-'.(($row["sale_type"] == 'out') ? 'danger' : 'success').' bg-opacity-25 text-'.(($row["sale_type"] == 'out') ? 'danger' : 'success').'"><i class="bi bi-'.(($row["sale_type"] == 'out') ? 'arrow-up-right-circle-fill' : 'arrow-down-left-circle-fill').'"></i></div>
 					</td>
-	                ' . (admin_has_permission() ? ' <td><a href="javascript:;" data-bs-target="#adminModal_' . $row["aid"] . '" data-bs-toggle="modal"><span class="d-block text-heading fw-bold">' . ucwords($row["admin_fullname"]) . '</span></a></td> ' : '') . '
+	                ' . (admin_has_permission() ? ' <td><a href="javascript:;" data-bs-target="#adminModal_' . $row["aid"] . '" data-bs-toggle="modal"><span class="d-block text-heading">' . ucwords($row["admin_fullname"]) . '</span></a></td> ' : '') . '
 	                <td class="text-xs">
 						' . strtoupper($row["sale_customer_name"]) . ' <span class="material-symbols-outlined mx-2"> trending_flat </span> ' . $row["sale_customer_contact"] . '
 					</td>
@@ -115,10 +118,9 @@ if ($total_data > 0) {
 	                <td>' . money($row["sale_total_amount"]) . '</td>
 	                <td>' . pretty_date($row["sca"]) . '</td>
 	                <td class="text-end">
-	                    <button type="button" class="btn btn-sm btn-square btn-neutral w-rem-6 h-rem-6" title="More" data-bs-target="#saleModal_' . $row["sid"] . '" data-bs-toggle="modal">
-	                        <i class="bi bi-three-dots"></i>
+	                    <button type="button" class="btn btn-dark" title="More" data-bs-target="#saleModal_' . $row["sid"] . '" data-bs-toggle="modal">
+	                       <span class="material-symbols-outlined"> table_eye </span>
 	                    </button> '.$option1.'
-	                    </a>
 	                </td>
 	            </tr>
 
@@ -127,38 +129,38 @@ if ($total_data > 0) {
 					<div class="modal-dialog modal-dialog-centered">
 						<div class="modal-content overflow-hidden">
 							<div class="modal-header pb-0 border-0">
-								<h1 class="modal-title h4" id="saleModalLabel_' . $row["sid"] . '">' . $row["sale_id"] . ' <br>by ' . (admin_has_permission() ? ucwords($row["admin_fullname"]) : 'you' )  . '</h1>
+								<h1 class="modal-title h4" id="saleModalLabel_' . $row["sid"] . '">' . $row["sale_id"] . (admin_has_permission() ? '<br>by' . ucwords($row["admin_fullname"]) : '' )  . '</h1>
 								<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 							</div>
 							<div class="modal-body p-0 text-center">
 								<ul class="list-group">
 									<li class="list-group-item" style="padding: 0.1rem 1rem;">
 				                        <small class="text-muted">Total amount,</small>
-				                        <p style="font-family: Roboto Mono, monospace;">' . money($row["sale_total_amount"]) . '</p>
+				                        <p>' . money($row["sale_total_amount"]) . '</p>
 				                    </li>
 				                    <li class="list-group-item" style="padding: 0.1rem 1rem;">
 				                        <small class="text-muted">Price,</small>
-				                        <p style="font-family: Roboto Mono, monospace;">' . money($row["sale_price"]) . '</p>
+				                        <p>' . money($row["sale_price"]) . '</p>
 				                    </li>
 				                    <li class="list-group-item" style="padding: 0.1rem 1rem;">
 				                        <small class="text-muted">Gram</small>
-				                        <p style="font-family: Roboto Mono, monospace;">' . $row["sale_gram"] . '</p>
+				                        <p>' . $row["sale_gram"] . '</p>
 				                    </li>
 				                    <li class="list-group-item" style="padding: 0.1rem 1rem;">
 				                        <small class="text-muted">Volume</small>
-				                        <p style="font-family: Roboto Mono, monospace;">' . $row["sale_volume"] . '</p>
+				                        <p>' . $row["sale_volume"] . '</p>
 				                    </li>
 				                    <li class="list-group-item" style="padding: 0.1rem 1rem;">
 				                        <small class="text-muted">Density</small>
-				                        <p style="font-family: Roboto Mono, monospace;">' . $row["sale_density"] . '</p>
+				                        <p>' . $row["sale_density"] . '</p>
 				                    </li>
 				                    <li class="list-group-item" style="padding: 0.1rem 1rem;">
 				                        <small class="text-muted">Pounds</small>
-				                        <p style="font-family: Roboto Mono, monospace;">' . $row["sale_pounds"] . '</p>
+				                        <p>' . $row["sale_pounds"] . '</p>
 				                    </li>
 				                    <li class="list-group-item" style="padding: 0.1rem 1rem;">
 				                        <small class="text-muted">Carat</small>
-				                        <p id="send-amount" style="font-family: Roboto Mono, monospace;">' . $row["sale_carat"] . '</p>
+				                        <p id="send-amount">' . $row["sale_carat"] . '</p>
 				                    </li>
 				                    <li class="list-group-item" style="padding: 0.1rem 1rem;">
 				                        <small class="text-muted">Customer</small>
@@ -266,18 +268,20 @@ $output .= '
 			</tbody>
         </table>
     </div>
-    <div class="py-4 px-6">
-        <div class="row align-items-center justify-content-between">
-            <div class="col-md-6 d-none d-md-block">
-                <span class="text-muted text-sm">Showing ' . $count_filter . ' items out of ' . $total_data . ' results found</span>
-            </div>
+	<div class="row align-items-center">
+        <div class="col">
+            <!-- Text -->
+            <p class="text-body-secondary mb-0">Showing ' . $count_filter . ' items out of ' . $total_data . ' results found</p>
+        </div>
+        <div class="col-auto">
+
+
 ';
 
 if ($total_data > 0) {
 	$output .= '
-		<div class="col-md-auto">
-            <nav aria-label="Page navigation example">
-                <ul class="pagination pagination-spaced gap-1">
+		<nav aria-label="Page navigation example">
+            <ul class="pagination mb-0">
 	';
 
 	$total_links = ceil($total_data / $limit);
@@ -330,16 +334,16 @@ if ($total_data > 0) {
 			if ($previous_id > 0) {
 				$previous_link = '
 					<li class="page-item">
-	                    <a class="page-link" href="javascript:;" data-page_number="'.$previous_id.'">
-	                        <i class="bi bi-chevron-left"></i>
+	                    <a class="page-link" href="javascript:;" data-page_number="'.$previous_id.'" aria-label="Previous">
+	                        <span aria-hidden="true">&laquo;</span>
 	                    </a>
 	                </li>
 				';
 			} else {
 				$previous_link = '
 					<li class="page-item disabled">
-	                    <a class="page-link" href="javascript:;">
-	                        <i class="bi bi-chevron-left"></i>
+	                    <a class="page-link" href="javascript:;" aria-label="Previous">
+	                        <span aria-hidden="true">&laquo;</span>
 	                    </a>
 	                </li>
 				';
@@ -349,16 +353,16 @@ if ($total_data > 0) {
 			if ($next_id >= $total_links) {
 				$next_link = '
 					<li class="page-item disabled">
-                        <a class="page-link" href="javascript:;">
-                            <i class="bi bi-chevron-right"></i>
+                        <a class="page-link" href="javascript:;" aria-label="Next">
+                            <span aria-hidden="true">&raquo;</span>
                         </a>
                     </li>
 				';
 			} else {
 				$next_link = '
 					<li class="page-item">
-                        <a class="page-link" href="javascript:;" data-page_number="'.$next_id.'">
-                            <i class="bi bi-chevron-right"></i>
+                        <a class="page-link" href="javascript:;" aria-label="Next" data-page_number="'.$next_id.'">
+                            <span aria-hidden="true">&raquo;</span>
                         </a>
                     </li>
 				';
@@ -386,6 +390,9 @@ if ($total_data > 0) {
 	$output .= $previous_link. $page_link . $next_link;
 }
 
-echo $output . '</ul>
-                    </nav>
-                </div>';
+echo $output . '
+				</ul>
+			</nav>
+		</div>
+		</div>
+	';
