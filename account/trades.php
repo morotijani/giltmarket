@@ -12,6 +12,13 @@
     include ("../includes/left.nav.inc.php");
     include ("../includes/top.nav.inc.php");
 
+    $where = '';
+    if (!admin_has_permission()) {
+        $where = ' AND sale_by = "'.$admin_data["admin_id"].'" ';
+    }
+    $total_trades = $conn->query("SELECT * FROM jspence_sales INNER JOIN jspence_admin ON jspence_admin.admin_id = jspence_sales.sale_by WHERE sale_status = 0 $where")->rowCount();
+
+
     //
     if (isset($_GET['delete_request']) && !empty($_GET['delete_request'])) {
         // code...
@@ -71,7 +78,7 @@
             </div>
             <div class="col-12 col-sm-auto mt-4 mt-sm-0">
                 <!-- Action -->
-                <a class="btn btn-secondary d-block" href="javascript:;" data-bs-target="#buyModal" data-bs-toggle="modal"> <span class="material-symbols-outlined me-1">add</span> New Order </a>
+                <a class="btn btn-secondary d-block" href="javascript:;" data-bs-target="#buyModal" data-bs-toggle="modal"> <span class="material-symbols-outlined me-1">add</span> New Trade </a>
             </div>
         </div>
 
@@ -83,11 +90,19 @@
                     <div class="card-body p-4">
                         <div class="row align-items-center">
                             <div class="col-12 col-lg-auto mb-3 mb-lg-0">
-                                <div class="row align-items-center">
-                                    <div class="col-auto">
-                                        <div class="text-body-secondary">No orders selected.</div>
-                                    </div>
-                                </div>
+                                <ul class="nav nav-pills">
+                                    <li class="nav-item">
+                                        <a class="nav-link bg-dark active" aria-current="page" href="<?= PROOT; ?>account/trades">All trades (<?= $total_trades; ?>)</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" href="<?= PROOT; ?>account/trades.delete.requests">Delete request <?= count_new_delete_requests($conn); ?></a>
+                                    </li>
+                                    <?php if (admin_has_permission()) { ?>
+                                    <li class="nav-item">
+                                        <a class="nav-link" href="<?= PROOT; ?>account/trades.archive">Archive</a>
+                                    </li>
+                                    <?php } ?>
+                                </ul>
                             </div>
                             <div class="col-12 col-lg">
                                 <div class="row gx-3">
@@ -152,8 +167,9 @@
             </div>
         </div>
     </div>
-
-        <div id="load-content"></div>
+    
+    <div id="load-content"></div>
+</div>
 
 
 <?php include ("../includes/footer.inc.php"); ?>

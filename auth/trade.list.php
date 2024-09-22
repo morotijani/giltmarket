@@ -48,40 +48,21 @@ $statement->execute();
 $result = $statement->fetchAll();
 $count_filter = $statement->rowCount();
 
-$archive = '';
-if (admin_has_permission()) {
-	$archive = '
-		<li class="nav-item">
-    		<a href="' . PROOT . 'acc/trades.archive" class="nav-link">Archive</a>
-		</li>
-	';
-}
-
 $output = ' 
-	<ul class="nav nav-tabs nav-tabs-flush gap-8 overflow-x border-0 mt-1">
-            <li class="nav-item">
-                <a href="' . PROOT . 'acc/trades" class="nav-link active">All data (' . $total_data . ')</a>
-            </li>
-            <li class="nav-item">
-                <a href="' . PROOT . 'acc/trades.delete.requests" class="nav-link">Delete request ' . count_new_delete_requests($conn) . '</a>
-            </li>
-           ' . $archive . '
-        </ul>
-
-    <div class="table-responsive">
-        <table class="table table-hover table-striped table-nowrap">
-            <thead class="table-light">
+    <div class="table-responsive mb-7">
+        <table class="table align-middle mb-0">
+            <thead>
                 <tr>
                    <th>#</th>
 				   <td></th>
                     ' .  ((admin_has_permission()) ? '<th scope="col">Handler</th>' : '') . '
-                    <th scope="col">Customer</th>
-                    <th scope="col">Gram</th>
-                    <th scope="col">Volume</th>
-                    <th scope="col">Price</th>
-                    <th scope="col">Amount</th>
-                    <th scope="col">Date</th>
-                    <th scope="col"></th>
+                    <th>Customer</th>
+                    <th>Gram</th>
+                    <th>Volume</th>
+                    <th>Price</th>
+                    <th>Amount</th>
+                    <th>Date</th>
+                    <th></th>
                 </tr>
             </thead>
             <tbody>
@@ -126,13 +107,13 @@ if ($total_data > 0) {
 					</td>
 	                ' . (admin_has_permission() ? ' <td><a href="javascript:;" data-bs-target="#adminModal_' . $row["aid"] . '" data-bs-toggle="modal"><span class="d-block text-heading fw-bold">' . ucwords($row["admin_fullname"]) . '</span></a></td> ' : '') . '
 	                <td class="text-xs">
-						' . strtoupper($row["sale_customer_name"]) . ' <i class="bi bi-arrow-right mx-2"></i> ' . $row["sale_customer_contact"] . '
+						' . strtoupper($row["sale_customer_name"]) . ' <span class="material-symbols-outlined mx-2"> trending_flat </span> ' . $row["sale_customer_contact"] . '
 					</td>
-	                <td style="font-family: Roboto Mono, monospace;">' . $row["sale_gram"] . '</td>
-	                <td style="font-family: Roboto Mono, monospace;">' . $row["sale_volume"] . '</td>
-	                <td style="font-family: Roboto Mono, monospace;">' . money($row["sale_price"]) . '</td>
-	                <td style="font-family: Roboto Mono, monospace;">' . money($row["sale_total_amount"]) . '</td>
-	                <td style="font-family: Roboto Mono, monospace;">' . pretty_date($row["sca"]) . '</td>
+	                <td>' . $row["sale_gram"] . '</td>
+	                <td>' . $row["sale_volume"] . '</td>
+	                <td>' . money($row["sale_price"]) . '</td>
+	                <td>' . money($row["sale_total_amount"]) . '</td>
+	                <td>' . pretty_date($row["sca"]) . '</td>
 	                <td class="text-end">
 	                    <button type="button" class="btn btn-sm btn-square btn-neutral w-rem-6 h-rem-6" title="More" data-bs-target="#saleModal_' . $row["sid"] . '" data-bs-toggle="modal">
 	                        <i class="bi bi-three-dots"></i>
@@ -274,7 +255,9 @@ if ($total_data > 0) {
 } else {
 	$output .= '
 		<tr class="text-warning">
-			<td colspan="5">No data found!</td>
+			<td colspan="8"> 
+				<div class="alert alert-info">No data found!</div>
+			</td>
 		</tr>
 	';
 }
