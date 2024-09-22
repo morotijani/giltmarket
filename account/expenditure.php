@@ -175,34 +175,37 @@
 
 ?>
 
-    <?php if (!admin_has_permission()): ?>
-    <?php if (is_capital_given()): ?>
-        <div class="container-lg">
-            <!-- Page header -->
-            <div class="row align-items-center mb-7">
-                <div class="col-auto">
-                    <!-- Avatar -->
-                    <div class="avatar avatar-xl rounded text-primary">
-                    <i class="fs-2" data-duoicon="clipboard"></i>
-                    </div>
-                </div>
-                <div class="col">
-                    <!-- Breadcrumb -->
-                    <nav aria-label="breadcrumb">
-                        <ol class="breadcrumb mb-2">
-                            <li class="breadcrumb-item"><a class="text-body-secondary" href="javascript:;">Expenditure</a></li>
-                            <li class="breadcrumb-item active" aria-current="page">New project</li>
-                        </ol>
-                    </nav>
-
-                    <!-- Heading -->
-                    <h1 class="fs-4 mb-0">New project</h1>
-                </div>
-                <div class="col-12 col-sm-auto mt-4 mt-sm-0">
-                    <!-- Action -->
-                    <a class="btn btn-light d-block" href="<?= goBack(); ?>"> Go back </a>
+    <div class="container-lg">
+        <!-- Page header -->
+        <div class="row align-items-center mb-7">
+            <div class="col-auto">
+                <!-- Avatar -->
+                <div class="avatar avatar-xl rounded text-warning">
+                <i class="fs-2" data-duoicon="clipboard"></i>
                 </div>
             </div>
+            <div class="col">
+                <!-- Breadcrumb -->
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb mb-2">
+                        <li class="breadcrumb-item"><a class="text-body-secondary" href="javascript:;">Expenditure</a></li>
+                        <li class="breadcrumb-item active" aria-current="page">New project</li>
+                    </ol>
+                </nav>
+
+                <!-- Heading -->
+                <h1 class="fs-4 mb-0">New project</h1>
+            </div>
+            <div class="col-12 col-sm-auto mt-4 mt-sm-0">
+                <!-- Action -->
+                <a class="btn btn-light d-block" href="<?= goBack(); ?>"> Go back </a>
+            </div>
+        </div>
+
+    <?php if (isset($_GET['add'])) : ?>
+    <?php if (!admin_has_permission()): ?>
+    <?php if (is_capital_given()): ?>
+       
 
             <form method="POST" id="expenditureForm">
                 <section class="card card-line bg-body-tertiary border-transparent mb-5">
@@ -231,31 +234,6 @@
                             <div class="modal-body">
                                 <div class="inputpin mb-3">
                                     <div>
-                                        <style>
-                                            .w-rem-40 {
-                                                width: 10rem !important;
-                                            }
-
-                                            .text-xl {
-                                                font-size: calc(1.275rem + .3vw) !important;
-                                            }
-
-                                            .h-rem-6 {
-                                                height: 1.5rem !important;
-                                            }
-
-                                            .w-rem-6 {
-                                                width: 1.5rem !important;
-                                            }
-
-                                            .form-control-flush:focus {
-                                                box-shadow: none;
-                                                background-color: transparent;
-                                                border-width: 0;
-                                            }
-
-                                            
-                                        </style>
                                         <?php if (is_capital_given()): ?>
                                             <?php if (is_capital_exhausted($conn, $admin_data['admin_id'])): ?>
                                             <label class="form-label">Enter pin</label>
@@ -294,6 +272,9 @@
  
     <?php endif; ?>
     <?php endif; ?>
+
+    <?php else: ?>
+
     <div class="row align-items-center g-6 mt-0 mb-6">
         <div class="col-sm-6">
             <div class="d-flex gap-2">
@@ -305,6 +286,8 @@
         </div>
     </div>
     <div id="load-content"></div>
+
+    <?php endif; ?>
 
 <?php include ("../includes/footer.inc.php"); ?>
 
