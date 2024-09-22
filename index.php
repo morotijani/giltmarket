@@ -54,7 +54,7 @@
 						WHERE `daily_date` = ? AND `daily_by` = ? AND `daily_to` = ?
 					";
 					$daily_data = [$c, $bal, $today, $daily_by, $daily_to];
-					$message = "on this day " . $today . " capital updated of an amount of " . money($c) . ', added amount ' . money($g);
+					$message = "on this day " . $today . ", capital updated of an amount " . money($c) . ', added amount ' . money($g) . (($daily_to == $admin_data['admin_id']) ? ' for self.' : '');
 				} else {
 					$daily_data = [$daily_id, $given, $today, $daily_by, $daily_to];
 					
@@ -63,7 +63,7 @@
 						INSERT INTO jspence_daily (daily_id, daily_capital, daily_date, daily_by, daily_to) 
 						VALUES (?, ?, ?, ?, ?)
 					";
-					$message = "on this day " . $today . ", capital entered of an amount of " . money($c);
+					$message = "on this day " . $today . ", capital entered of an amount of " . money($c) . (($daily_to == $admin_data['admin_id']) ? ' for self.' : '');
 				}
 
 				$statement = $conn->prepare($dailyQ);
@@ -87,10 +87,9 @@
 					$push_result = $statement->execute($push_data);
 
 					if (isset($push_result)) {
-						$push_message = "push made on " . $today . " of an amount of " . money($given);
+						$push_message = "push made on " . $today . ", of an amount of " . money($given) . (($daily_to == $admin_data['admin_id']) ? ' for self.' : '');
 						add_to_log($push_message, $admin_id);
 					}
-
 					add_to_log($message, $admin_id);
 	
 					$_SESSION['flash_success'] = 'Today capital saved successfully!';
@@ -99,45 +98,6 @@
 					echo js_alert('Something went wrong, please refresh and try agin!');
 					redirect(PROOT);
 				}
-
-				// $daily_data = [$daily_id, $given, $today, $daily_to];
-				// $sqlDaily = "
-				// 	INSERT INTO jspence_daily (daily_id, daily_capital, daily_date, daily_to) 
-				// 	VALUES (?, ?, ?, ?)
-				// ";
-				// $message = "today " . $today . " capital entered of an amount of " . money($given);
-
-				// if (is_capital_given()) {
-				// 	$g = (float)($given - _capital()['today_capital']);
-				// 	$b = ((admin_has_permission('salesperson') && _capital()['today_balance'] == '0.00') ? '0.00' : (float)($g + _capital()['today_balance']));
-
-				// 	if (admin_has_permission('supervisor')) {
-				// 		$b = _capital()['today_balance'];
-				// 	}
-
-				// 	$sql = "
-				// 		UPDATE jspence_daily 
-				// 		SET daily_capital = ?, 
-				// 		daily_balance = " . $b . "
-				// 		WHERE daily_date = ? 
-				// 		AND daily_by = ?
-				// 	";
-				// 	// remove the first element and only remove one element
-				// 	$data = array_splice($data, 1, 3);
-				// 	$message = "today " . $today . " capital updated of an amount of " . money($given) . ', added amount ' . money($g);
-				// }
-				// $statement = $conn->prepare($sql);
-				// $result = $statement->execute($data);
-				// if ($result) {
-					
-				// 	add_to_log($message, $admin_id);
-	
-				// 	$_SESSION['flash_success'] = 'Today capital saved successfully!';
-				// 	redirect(PROOT);
-				// } else {
-				// 	echo js_alert('Something went wrong, please refresh and try agin!');
-				// 	redirect(PROOT);
-				// }
 			}
 		}
 	}
@@ -585,8 +545,6 @@
 			
 			setInterval(function () {
 				$('#capitalForm').submit();
-				$('#submitCapital').attr('disabled', false);
-				$('#submitCapital').text('Push');
 			}, 2000)
 		})
 	});

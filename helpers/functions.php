@@ -96,12 +96,12 @@ function _capital($admin) {
 		INNER JOIN jspence_admin 
 		ON (jspence_admin.admin_id = jspence_daily.daily_by OR jspence_admin.admin_id = jspence_daily.daily_to)
 		WHERE daily_date = ? 
-		-- AND daily_by = ? 
+		AND daily_to = ? 
 		AND admin_id = ?
 		LIMIT 1
 	";
 	$statement = $conn->prepare($sql);
-	$statement->execute([$today, $admin]);
+	$statement->execute([$today, $admin, $admin]);
 	$rows = $statement->fetchAll();
 
 	$balance = null;
