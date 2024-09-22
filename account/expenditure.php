@@ -225,22 +225,45 @@
                     <div class="modal-dialog modal-dialog-centered">
                         <div class="modal-content overflow-hidden">
                             <div class="modal-header pb-0 border-0">
-                                <h1 class="modal-title h4" id="expenditureModalLabel">Verify expenditure!</h1>
+                                <h1 class="modal-title h4" id="expenditureModalLabel">Verify add expenditure!</h1>
                                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                             </div>
                             <div class="modal-body">
                                 <div class="inputpin mb-3">
                                     <div>
+                                        <style>
+                                            .w-rem-40 {
+                                                width: 10rem !important;
+                                            }
+
+                                            .text-xl {
+                                                font-size: calc(1.275rem + .3vw) !important;
+                                            }
+
+                                            .h-rem-6 {
+                                                height: 1.5rem !important;
+                                            }
+
+                                            .w-rem-6 {
+                                                width: 1.5rem !important;
+                                            }
+
+                                            .form-control-flush:focus {
+                                                box-shadow: none;
+                                                background-color: transparent;
+                                                border-width: 0;
+                                            }
+
+                                            
+                                        </style>
                                         <?php if (is_capital_given()): ?>
                                             <?php if (is_capital_exhausted($conn, $admin_data['admin_id'])): ?>
                                             <label class="form-label">Enter pin</label>
                                             <div class="d-flex justify-content-between p-4 bg-body-tertiary rounded">
                                                 <input type="tel" class="form-control form-control-flush text-xl fw-bold w-rem-40" placeholder="0000" name="pin" id="pin" autocomplete="off" inputmode="numeric" data-maxlength="4" oninput="this.value=this.value.slice(0,this.dataset.maxlength)" required>
-                                                <div class="dropdown">
-                                                    <button type="button" class="btn btn-sm btn-neutral rounded-pill shadow-none flex-none d-flex align-items-center gap-2 p-2">
-                                                        <img src="<?= PROOT; ?>assets/media/pin.jpg" class="w-rem-6 h-rem-6 rounded-circle" alt="..."> <span>PIN</span>
-                                                    </button>
-                                                </div>
+                                                <button type="button" class="btn btn-sm btn-light rounded-pill shadow-none flex-none d-flex align-items-center gap-2 p-2" style="border: 1px solid #cbd5e1">
+                                                    <img src="<?= PROOT; ?>assets/media/pin.jpg" class="w-rem-6 h-rem-6 rounded-circle" alt="..."> <span>PIN</span>
+                                                </button>
                                             </div>
                                             <?php else: ?>
                                                 <p class="h4">
