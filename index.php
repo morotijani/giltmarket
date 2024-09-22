@@ -245,7 +245,7 @@
 									<h4 class="fs-base fw-normal text-body-secondary mb-1">Number of requests</h4>
 
 									<!-- Text -->
-									<div class="fs-5 fw-semibold">19</div>
+									<div class="fs-5 fw-semibold"><?= $conn->query("SELECT * FROM jspence_pushes WHERE push_to = '" . $admin_data["admin_id"] . "' AND push_date = '" . date('Y-m-d') . "' AND push_status = 0")->rowCount(); ?></div>
 								</div>
 								<div class="col-auto">
 									<!-- Avatar -->
@@ -373,7 +373,7 @@
 							<h3 class="fs-6 mb-0">Trades</h3>
 						</div>
 						<div class="col-auto my-n3 me-n3">
-							<a class="btn btn-link" href="#!">
+							<a class="btn btn-link" href="<?= PROOT; ?>account/trades">
 							Browse all
 							<span class="material-symbols-outlined">arrow_right_alt</span>
 							</a>
