@@ -71,7 +71,7 @@
             </div>
             <div class="col-12 col-sm-auto mt-4 mt-sm-0">
                 <!-- Action -->
-                <a class="btn btn-secondary d-block" href="#!"> <span class="material-symbols-outlined me-1">add</span> New Order </a>
+                <a class="btn btn-secondary d-block" href="javascript:;" data-bs-target="#buyModal" data-bs-toggle="modal"> <span class="material-symbols-outlined me-1">add</span> New Order </a>
             </div>
         </div>
 
@@ -93,7 +93,7 @@
                                 <div class="row gx-3">
                                     <div class="col col-lg-auto ms-auto">
                                         <div class="input-group bg-body">
-                                            <input type="text" class="form-control" placeholder="Search" aria-label="Search" aria-describedby="search" />
+                                            <input type="text" class="form-control" placeholder="Search" aria-label="Search" aria-describedby="search" id="search" />
                                             <span class="input-group-text" id="search">
                                                 <span class="material-symbols-outlined">search</span>
                                             </span>
@@ -115,7 +115,7 @@
                                     <span class="material-symbols-outlined">export_notes</span>
                                 </button>
                                 <div class="dropdown-menu rounded-3 p-6">
-                                    <h4 class="fs-lg mb-4">Sort</h4>
+                                    <h4 class="fs-lg mb-4">Export data</h4>
                                     <form style="width: 350px" id="filterForm" method="GET" action="<?= PROOT; ?>account/export">
                                         <div class="row gx-3">
                                             <div class="col mb-2">
@@ -123,24 +123,24 @@
                                             </div>
                                             <div class="col-auto mb-2">
                                                 <div class="btn-group" role="group" aria-label="Basic radio toggle button group">
-                                                    <input type="radio" class="btn-check" name="export_type" id="export_xlsx" autocomplete="off" checked />
+                                                    <input type="radio" class="btn-check" name="export_type" id="export_xlsx" autocomplete="off" checked value="xlsx" required />
                                                     <label class="btn btn-light" for="export_xlsx" data-bs-toggle="tooltip" data-bs-title="XLSX">
                                                     <img src="<?= PROOT; ?>assets/media/XLSX.png" width="30" height="30" class="w-rem-6 h-rem-6 rounded-circle" alt="...">
                                                     </label>
-                                                    <input type="radio" class="btn-check" name="export_type" id="export_csv" autocomplete="off" />
+                                                    <input type="radio" class="btn-check" name="export_type" id="export_csv" autocomplete="off" value="csv" required />
                                                     <label class="btn btn-light" for="export_csv" data-bs-toggle="tooltip" data-bs-title="CSV">
                                                     <img src="<?= PROOT; ?>assets/media/CSV.png" width="30" height="30" class="rounded-circle" alt="...">
                                                     </label>
-                                                    <input type="radio" class="btn-check" name="export_type" id="export_pdf" autocomplete="off" />
+                                                    <input type="radio" class="btn-check" name="export_type" id="export_pdf" autocomplete="off" value="pdf" required />
                                                     <label class="btn btn-light" for="export_pdf" data-bs-toggle="tooltip" data-bs-title="PDF">
                                                     <img src="<?= PROOT; ?>assets/media/PDF.png" width="30" height="30" class="rounded-circle" alt="...">
                                                     </label>
-                                                    <input type="radio" class="btn-check" name="export_type" id="export_xls" autocomplete="off" />
+                                                    <input type="radio" class="btn-check" name="export_type" id="export_xls" autocomplete="off" value="xls" required />
                                                     <label class="btn btn-light" for="export_xls" data-bs-toggle="tooltip" data-bs-title="XLS">
                                                     <img src="<?= PROOT; ?>assets/media/XLS.png" width="30" height="30" class="rounded-circle" alt="...">
                                                     </label>
+                                                    <button type="submit" class="btn btn-light">Export</button>
                                                 </div>
-                                                <button type="submit" class="btn btn-light">Export</button>
                                             </div>
                                         </div>
                                     </form>
@@ -153,61 +153,6 @@
         </div>
     </div>
 
-
-        
-
-
-
-
-
-
-    <div class="px-6 px-lg-7 pt-8 border-bottom">
-        <div class="d-flex align-items-center">
-            <h1>Trades</h1>
-            <div class="hstack gap-2 ms-auto">
-                <?php if (admin_has_permission()): ?>
-                <div class="dropdown">
-                    <button class="btn btn-sm btn-neutral flex-none d-flex align-items-center gap-2 py-1 px-2" data-bs-toggle="dropdown" aria-expanded="false">
-                        <img src="<?= PROOT; ?>dist/media/export.png" class="w-rem-5 h-rem-5 rounded-circle" alt="..."> <span>Export</span> <i class="bi bi-chevron-down text-xs me-1"></i>
-                    </button>
-                    <ul class="dropdown-menu dropdown-menu-end dropdown-menu-sm">
-                        <li>
-                            <a class="dropdown-item d-flex align-items-center gap-2" href="<?= PROOT; ?>acc/export/all/xlsx">
-                                <img src="<?= PROOT; ?>dist/media/XLSX.png" class="w-rem-6 h-rem-6 rounded-circle" alt="..."> <span>XLSX</span>
-                            </a>
-                        </li>
-                        <li>
-                            <a class="dropdown-item d-flex align-items-center gap-2" href="<?= PROOT; ?>acc/export/all/xls">
-                                <img src="<?= PROOT; ?>dist/media/XLS.png" class="w-rem-6 h-rem-6 rounded-circle" alt="..."> <span>XLS</span>
-                            </a>
-                        </li>
-                        <li>
-                            <a class="dropdown-item d-flex align-items-center gap-2" href="<?= PROOT; ?>acc/export/all/csv">
-                                <img src="<?= PROOT; ?>dist/media/CSV.png" class="w-rem-6 h-rem-6 rounded-circle" alt="..."> <span>CSV</span>
-                            </a>
-                        </li>
-                        <li>
-                            <a class="dropdown-item d-flex align-items-center gap-2" href="<?= PROOT; ?>acc/export/all/pdf">
-                                <img src="<?= PROOT; ?>dist/media/CSV.png" class="w-rem-6 h-rem-6 rounded-circle" alt="..."> <span>PDF</span>
-                            </a>
-                        </li>
-                    </ul>
-                </div>
-                <?php else: ?>
-                    <button type="button" class="btn btn-sm btn-primary d-none d-sm-inline-flex" data-bs-target="#buyModal" data-bs-toggle="modal"><span class="pe-2"><i class="bi bi-plus-circle"></i> </span><span>Trade</span></button>
-                <?php endif ?>
-            </div>
-        </div>
-       <div class="row align-items-center g-6 mt-0 mb-6">
-            <div class="col-sm-6">
-                <div class="d-flex gap-2">
-                    <div class="input-group input-group-sm input-group-inline w-100 w-md-50">
-                        <span class="input-group-text"><i class="bi bi-search me-2"></i> </span>
-                        <input type="search" class="form-control ps-0" placeholder="Search all trades" aria-label="Search" id="search">
-                    </div>
-                </div>
-            </div>
-        </div>
         <div id="load-content"></div>
 
 
