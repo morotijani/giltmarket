@@ -17,7 +17,7 @@ if ($_POST['page'] > 1) {
 
 $where = '';
 if (!admin_has_permission()) {
-	$where = ' AND sale_by = "'.$admin_data[0]["admin_id"].'" ';
+	$where = ' AND sale_by = "'.$admin_data["admin_id"].'" ';
 }
 $query = "
 	SELECT *, jspence_sales.id AS sid, jspence_sales.createdAt AS sca, jspence_sales.updatedAt AS sua, jspence_admin.id AS aid, CAST(jspence_sales.createdAt AS date) AS sdate  FROM jspence_sales 

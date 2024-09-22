@@ -8,7 +8,9 @@
     }
 
     include ("../includes/header.inc.php");
-    include ("../includes/nav.inc.php");
+    include ("../includes/aside.inc.php");
+    include ("../includes/left.nav.inc.php");
+    include ("../includes/top.nav.inc.php");
 
     //
     if (isset($_GET['delete_request']) && !empty($_GET['delete_request'])) {
@@ -44,8 +46,120 @@
 
 
 ?>
-<!-- <a href="#" onClick="MyWindow=window.open('http://www.google.com','MyWindow','width=600,height=300'); return false;">Click Here</a>
-<a href="#" onClick="MyWindow=window.open('http://www.google.com','MyWindow','width=600,height=300'); return false;">Click Here</a> -->
+
+    <!-- Content -->
+    <div class="container-lg">
+        <!-- Page header -->
+        <div class="row align-items-center mb-7">
+            <div class="col-auto">
+                <!-- Avatar -->
+                <div class="avatar avatar-xl rounded text-primary">
+                    <i class="fs-2" data-duoicon="credit-card"></i>
+                </div>
+            </div>
+            <div class="col">
+                <!-- Breadcrumb -->
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb mb-2">
+                        <li class="breadcrumb-item"><a class="text-body-secondary" href="#">Market</a></li>
+                        <li class="breadcrumb-item active" aria-current="page">Trades</li>
+                    </ol>
+                </nav>
+
+                <!-- Heading -->
+                <h1 class="fs-4 mb-0">Trades</h1>
+            </div>
+            <div class="col-12 col-sm-auto mt-4 mt-sm-0">
+                <!-- Action -->
+                <a class="btn btn-secondary d-block" href="#!"> <span class="material-symbols-outlined me-1">add</span> New Order </a>
+            </div>
+        </div>
+
+        <!-- Page content -->
+        <div class="row">
+            <div class="col-12">
+                <!-- Filters -->
+                <div class="card card-line bg-body-tertiary border-transparent mb-7">
+                    <div class="card-body p-4">
+                        <div class="row align-items-center">
+                            <div class="col-12 col-lg-auto mb-3 mb-lg-0">
+                                <div class="row align-items-center">
+                                    <div class="col-auto">
+                                        <div class="text-body-secondary">No orders selected.</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-12 col-lg">
+                                <div class="row gx-3">
+                                    <div class="col col-lg-auto ms-auto">
+                                        <div class="input-group bg-body">
+                                            <input type="text" class="form-control" placeholder="Search" aria-label="Search" aria-describedby="search" />
+                                            <span class="input-group-text" id="search">
+                                                <span class="material-symbols-outlined">search</span>
+                                            </span>
+                                        </div>
+                                    </div>
+                                    <div class="col-auto">
+                                        <div class="dropdown">
+                                    <button class="btn btn-dark px-3" data-bs-toggle="dropdown" data-bs-auto-close="outside" aria-expanded="false">
+                                        <span class="material-symbols-outlined">filter_list</span>
+                                    </button>
+                                    <div class="dropdown-menu rounded-3 p-6">
+                                        <h4 class="fs-lg mb-4">Filter</h4>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-auto ms-n2">
+                                <div class="dropdown">
+                                <button class="btn btn-dark px-3" data-bs-toggle="dropdown" data-bs-auto-close="outside" aria-expanded="false">
+                                    <span class="material-symbols-outlined">export_notes</span>
+                                </button>
+                                <div class="dropdown-menu rounded-3 p-6">
+                                    <h4 class="fs-lg mb-4">Sort</h4>
+                                    <form style="width: 350px" id="filterForm" method="GET" action="<?= PROOT; ?>account/export">
+                                        <div class="row gx-3">
+                                            <div class="col mb-2">
+                                                <input type="date" class="form-control" id="export-date" name="export-date">
+                                            </div>
+                                            <div class="col-auto mb-2">
+                                                <div class="btn-group" role="group" aria-label="Basic radio toggle button group">
+                                                    <input type="radio" class="btn-check" name="export_type" id="export_xlsx" autocomplete="off" checked />
+                                                    <label class="btn btn-light" for="export_xlsx" data-bs-toggle="tooltip" data-bs-title="XLSX">
+                                                    <img src="<?= PROOT; ?>assets/media/XLSX.png" width="30" height="30" class="w-rem-6 h-rem-6 rounded-circle" alt="...">
+                                                    </label>
+                                                    <input type="radio" class="btn-check" name="export_type" id="export_csv" autocomplete="off" />
+                                                    <label class="btn btn-light" for="export_csv" data-bs-toggle="tooltip" data-bs-title="CSV">
+                                                    <img src="<?= PROOT; ?>assets/media/CSV.png" width="30" height="30" class="rounded-circle" alt="...">
+                                                    </label>
+                                                    <input type="radio" class="btn-check" name="export_type" id="export_pdf" autocomplete="off" />
+                                                    <label class="btn btn-light" for="export_pdf" data-bs-toggle="tooltip" data-bs-title="PDF">
+                                                    <img src="<?= PROOT; ?>assets/media/PDF.png" width="30" height="30" class="rounded-circle" alt="...">
+                                                    </label>
+                                                    <input type="radio" class="btn-check" name="export_type" id="export_xls" autocomplete="off" />
+                                                    <label class="btn btn-light" for="export_xls" data-bs-toggle="tooltip" data-bs-title="XLS">
+                                                    <img src="<?= PROOT; ?>assets/media/XLS.png" width="30" height="30" class="rounded-circle" alt="...">
+                                                    </label>
+                                                </div>
+                                                <button type="submit" class="btn btn-light">Export</button>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+        
+
+
+
+
+
 
     <div class="px-6 px-lg-7 pt-8 border-bottom">
         <div class="d-flex align-items-center">
@@ -95,6 +209,7 @@
             </div>
         </div>
         <div id="load-content"></div>
+
 
 <?php include ("../includes/footer.inc.php"); ?>
 
