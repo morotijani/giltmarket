@@ -400,12 +400,14 @@
 						<div class="col">
 							<h3 class="fs-6 mb-0">Pushes</h3>
 						</div>
+						<?php if ($admin_data["admin_permissions"] == 'supervisor') : ?>
 						<div class="col-auto my-n3 me-n3">
-							<a class="btn btn-link" href="javascript:;" data-bs-target="<?= ((!admin_has_permission()) ? '#modalCapital' : ''); ?>" data-bs-toggle="modal">
+							<a class="btn btn-link" href="javascript:;" data-bs-target="#modalCapital" data-bs-toggle="modal">
 							Make a push
 							<span class="material-symbols-outlined">send_money</span>
 							</a>
 						</div>
+						<?php endif; ?>
 					</div>
               	</div>
               	<div class="card-body py-3">
