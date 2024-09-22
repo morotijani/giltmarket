@@ -99,6 +99,7 @@
                                 </nav>
                             </div>
                         </div>
+                        <?php if ($admin_data['admin_permissions'] == 'salesperson'): ?>
                         <div class="nav-item">
                             <a
                             class="nav-link "
@@ -118,6 +119,7 @@
                                 </nav>
                             </div>
                         </div>
+                        <?php endif; ?>
                         <div class="nav-item">
                             <a
                             class="nav-link "

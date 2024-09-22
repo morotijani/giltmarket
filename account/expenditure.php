@@ -7,13 +7,16 @@
         admn_login_redirect();
     }
 
-    if ($admin_data[0]['admin_permissions'] == 'supervisor') {
+    if ($admin_data['admin_permissions'] == 'supervisor') {
         redirect(PROOT . 'index');
     }
 
     include ("../includes/header.inc.php");
-    include ("../includes/nav.inc.php");
+    include ("../includes/aside.inc.php");
+    include ("../includes/left.nav.inc.php");
+    include ("../includes/top.nav.inc.php");
 
+    $by = $admin_data['admin_id'];
     $for_amount = ((isset($_POST['for_amount']) && !empty($_POST['for_amount'])) ? sanitize($_POST['for_amount']) : '');
     $what_for = ((isset($_POST['what_for']) && !empty($_POST['what_for'])) ? sanitize($_POST['what_for']) : '');
 
@@ -39,7 +42,6 @@
         }
     }
 
-    $by = $admin_data[0]['admin_id'];
     if ($_POST) {
         $e_id = guidv4();
         $createdAt = date("Y-m-d H:i:s");
@@ -48,11 +50,11 @@
 
             if (is_capital_given()) {
                 if ($for_amount > 0) {
-                    if ($admin_data[0]['admin_pin'] == $_POST['pin']) {
+                    if ($admin_data['admin_pin'] == $_POST['pin']) {
 
-                        $today_balance = _capital()['today_balance'];
+                        $today_balance = _capital($by)['today_balance'];
                         if ($for_amount <= $today_balance) {
-                            $data = [$e_id, _capital()['today_capital_id'], $what_for, $for_amount, $by, $createdAt];
+                            $data = [$e_id, _capital($by)['today_capital_id'], $what_for, $for_amount, $by, $createdAt];
 
                             $sql = "
                                 INSERT INTO jspence_expenditures (expenditure_id, expenditure_capital_id, expenditure_what_for, expenditure_amount, expenditure_by, createdAt) 
@@ -72,16 +74,16 @@
                             if (isset($result)) {
                                 
                                 $today = date("Y-m-d");
-                                $balance = (float)(_capital()['today_balance'] - $for_amount);
+                                $balance = (float)(_capital($by)['today_balance'] - $for_amount);
                                 if (isset($_GET['edit']) && !empty($_GET['edit'])) {
                                     if ($for_amount < $_row[0]['expenditure_amount']) {
                                         $balance = (float)($_row[0]['expenditure_amount'] - $for_amount);
-                                        $balance = (float)(_capital()['today_balance'] + $balance);
+                                        $balance = (float)(_capital($by)['today_balance'] + $balance);
                                     } elseif ($for_amount > $_row[0]['expenditure_amount']) {
                                         $balance = (float)($for_amount - $_row[0]['expenditure_amount']);
-                                        $balance = (float)(_capital()['today_balance'] - $balance);
+                                        $balance = (float)(_capital($by)['today_balance'] - $balance);
                                     } else {
-                                        $balance = _capital()['today_balance'];
+                                        $balance = _capital($by)['today_balance'];
                                     }
                                 }
 
@@ -132,7 +134,7 @@
             LIMIT 1 
         ";
         $statement = $conn->prepare($sql);
-        $statement->execute([$id, $admin_data[0]['admin_id']]);
+        $statement->execute([$id, $admin_data['admin_id']]);
         $_row = $statement->fetchAll();
 
         if ($statement->rowCount()) {
@@ -147,7 +149,7 @@
             if (isset($result)) {
                 $for_amount = $_row[0]['expenditure_amount'];
                 $today = date("Y-m-d");
-                $balance = (float)(_capital()['today_balance'] + $for_amount);
+                $balance = (float)(_capital($by)['today_balance'] + $for_amount);
 
                 $query = "
                     UPDATE jspence_daily 
@@ -172,103 +174,101 @@
     }
 
 ?>
-    
-    <div class="mb-6 mb-xl-10">
-        <div class="row g-3 align-items-center">
-            <div class="col">
-                <h1 class="ls-tight">Expenditure</h1>
-            </div>
-            <div class="col">
-                <div class="hstack gap-2 justify-content-end">
-                    <a href="<?= goBack(); ?>" class="btn btn-sm btn-neutral d-sm-inline-flex"><span class="pe-2"><i class="bi bi-arrow-90deg-left"></i> </span><span>Go back</span></a>
-                </div>
-            </div>
-        </div>
-    </div>
 
     <?php if (!admin_has_permission()): ?>
     <?php if (is_capital_given()): ?>
-    <div class="row row-cols-md-1 g-6">
-        <div class="col">
-            <div class="card">
-                <div class="card-body py-4">
-                    <div class="d-flex flex-wrap align-items-center justify-content-between mb-5">
-                        <div class="flex-1">
-                            <h6 class="h5 text-limit fw-semibold mb-1">Create an Expenditure</h6>
-                            <p class="text-sm text-muted d-none d-sm-block">Fill in the below fields to make an expenditure</p>
-                        </div>
-                        <div class="ms-sm-auto">
-                            <div class="d-flex align-items-center mt-5 mb-3 lh-none text-heading d-block display-5 ls-tight mb-0">
-                                <span class="fw-semibold text-2xl align-self-start mt-1 me-1"></span> <span><?= (is_capital_given() ? money(_capital()['today_balance']) : '' ); ?></span> <span class="d-inline-block fw-normal text-muted text-lg mt-sm-3 ms-1">/ <?= (is_capital_given() ? money(_capital()['today_capital']) : '' ); ?></span>
-                            </div>
-                        </div>
+        <div class="container-lg">
+            <!-- Page header -->
+            <div class="row align-items-center mb-7">
+                <div class="col-auto">
+                    <!-- Avatar -->
+                    <div class="avatar avatar-xl rounded text-primary">
+                    <i class="fs-2" data-duoicon="clipboard"></i>
                     </div>
-                    <form method="POST" id="expenditureForm">
-                        <div class="border rounded">
-                            <div>
-                                <div class="">
-                                    <input class="form-control border-0 shadow-none p-4" name="what_for" id="what_for" placeholder="Enter description" value="<?= $what_for; ?>" required>
-                                </div>
-                                <div class="d-flex align-items-center px-6 py-3 border-top">
-                                    <div class="flex-fill align-items-center">
-                                        <input class="form-control form-control-flush text-lg fw-bold" name="for_amount" id="for_amount" type="number" min="0.00" step="0.01" value="<?= $for_amount; ?>" placeholder="0.00" required>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="my-4"></div>
-                        <div class="d-flex flex-wrap gap-2 align-items-center justify-content-between">
-                            <a href="<?= PROOT; ?>" class="text-muted text-danger-hover text-sm fw-semibold">Go dashboard</a> 
-                            <button type="button" data-bs-target="#expenditureModal" data-bs-toggle="modal" class="btn btn-sm btn-neutral">Add expenditure</button>
-                        </div>
+                </div>
+                <div class="col">
+                    <!-- Breadcrumb -->
+                    <nav aria-label="breadcrumb">
+                        <ol class="breadcrumb mb-2">
+                            <li class="breadcrumb-item"><a class="text-body-secondary" href="javascript:;">Expenditure</a></li>
+                            <li class="breadcrumb-item active" aria-current="page">New project</li>
+                        </ol>
+                    </nav>
 
-                        <div class="modal fade" id="expenditureModal" tabindex="-1" aria-labelledby="expenditureModalLabel" data-bs-backdrop="static" data-bs-keyboard="false" aria-hidden="true" style="backdrop-filter: blur(5px);">
-                            <div class="modal-dialog modal-dialog-centered">
-                                <div class="modal-content overflow-hidden">
-                                    <div class="modal-header pb-0 border-0">
-                                        <h1 class="modal-title h4" id="expenditureModalLabel">Verify expenditure!</h1>
-                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                    </div>
-                                    <div class="modal-body">
-                                        <div class="inputpin mb-3">
-                                            <div>
-                                                <?php if (is_capital_given()): ?>
-                                                    <?php if (is_capital_exhausted($conn, $admin_data[0]['admin_id'])): ?>
-                                                    <label class="form-label">Enter pin</label>
-                                                    <div class="d-flex justify-content-between p-4 bg-body-tertiary rounded">
-                                                        <input type="tel" class="form-control form-control-flush text-xl fw-bold w-rem-40" placeholder="0000" name="pin" id="pin" autocomplete="off" inputmode="numeric" data-maxlength="4" oninput="this.value=this.value.slice(0,this.dataset.maxlength)" required>
-                                                        <div class="dropdown">
-                                                            <button type="button" class="btn btn-sm btn-neutral rounded-pill shadow-none flex-none d-flex align-items-center gap-2 p-2">
-                                                                <img src="<?= PROOT; ?>dist/media/pin.jpg" class="w-rem-6 h-rem-6 rounded-circle" alt="..."> <span>PIN</span>
-                                                            </button>
-                                                        </div>
-                                                    </div>
-                                                    <?php else: ?>
-                                                        <p class="h4">
-                                                            Trade ended: the capital given for today's trade has been exhausted!
-                                                        </p>
-                                                    <?php endif; ?>
-                                                <?php else: ?>
-                                                    <p class="h4">
-                                                        Please you are to provide today's capital given before you can complete a trade!
-                                                    </p>
-                                                <?php endif; ?>
-                                            </div>
-                                        </div>
+                    <!-- Heading -->
+                    <h1 class="fs-4 mb-0">New project</h1>
+                </div>
+                <div class="col-12 col-sm-auto mt-4 mt-sm-0">
+                    <!-- Action -->
+                    <a class="btn btn-light d-block" href="<?= goBack(); ?>"> Go back </a>
+                </div>
+            </div>
+
+            <form method="POST" id="expenditureForm">
+                <section class="card card-line bg-body-tertiary border-transparent mb-5">
+                    <div class="card-body">
+                        <h3 class="fs-5 mb-1">Create an expenditure</h3>
+                        <p class="text-body-secondary mb-5">Fill in the below fields to make an expenditure</p>
+                        <hr />
+                        <div class="mb-4">
+                            <label class="form-label" for="projectTitle">Reason</label>
+                            <input class="form-control bg-body" type="text" name="what_for" id="what_for" placeholder="Enter description" value="<?= $what_for; ?>" required />
+                        </div>
+                        <div class="mb-4">
+                            <label class="form-label" for="projectTitle">Amount</label>
+                            <input class="form-control bg-body" name="for_amount" id="for_amount" type="number" min="0.00" step="0.01" value="<?= $for_amount; ?>" placeholder="0.00" required />
+                        </div>
+                        <button type="button" data-bs-target="#expenditureModal" data-bs-toggle="modal" class="btn btn-dark">Add expenditure</button>
+                    </div>
+                </section>
+                <div class="modal fade" id="expenditureModal" tabindex="-1" aria-labelledby="expenditureModalLabel" data-bs-backdrop="static" data-bs-keyboard="false" aria-hidden="true" style="backdrop-filter: blur(5px);">
+                    <div class="modal-dialog modal-dialog-centered">
+                        <div class="modal-content overflow-hidden">
+                            <div class="modal-header pb-0 border-0">
+                                <h1 class="modal-title h4" id="expenditureModalLabel">Verify expenditure!</h1>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                <div class="inputpin mb-3">
+                                    <div>
                                         <?php if (is_capital_given()): ?>
-                                            <?php if (is_capital_exhausted($conn, $admin_data[0]['admin_id'])): ?>
-                                                <button type="button" id="submitExpenditure" class="btn btn-warning mt-4">Submit</button>
+                                            <?php if (is_capital_exhausted($conn, $admin_data['admin_id'])): ?>
+                                            <label class="form-label">Enter pin</label>
+                                            <div class="d-flex justify-content-between p-4 bg-body-tertiary rounded">
+                                                <input type="tel" class="form-control form-control-flush text-xl fw-bold w-rem-40" placeholder="0000" name="pin" id="pin" autocomplete="off" inputmode="numeric" data-maxlength="4" oninput="this.value=this.value.slice(0,this.dataset.maxlength)" required>
+                                                <div class="dropdown">
+                                                    <button type="button" class="btn btn-sm btn-neutral rounded-pill shadow-none flex-none d-flex align-items-center gap-2 p-2">
+                                                        <img src="<?= PROOT; ?>assets/media/pin.jpg" class="w-rem-6 h-rem-6 rounded-circle" alt="..."> <span>PIN</span>
+                                                    </button>
+                                                </div>
+                                            </div>
+                                            <?php else: ?>
+                                                <p class="h4">
+                                                    Trade ended: the capital given for today's trade has been exhausted!
+                                                </p>
                                             <?php endif; ?>
+                                        <?php else: ?>
+                                            <p class="h4">
+                                                Please you are to provide today's capital given before you can complete a trade!
+                                            </p>
                                         <?php endif; ?>
                                     </div>
                                 </div>
+                                <?php if (is_capital_given()): ?>
+                                    <?php if (is_capital_exhausted($conn, $admin_data['admin_id'])): ?>
+                                        <button type="button" id="submitExpenditure" class="btn btn-warning mt-4">Submit</button>
+                                    <?php endif; ?>
+                                <?php endif; ?>
                             </div>
                         </div>
-                    </form>
+                    </div>
                 </div>
-            </div>
+            </form>
         </div>
-    </div>
+
+
+
+ 
     <?php endif; ?>
     <?php endif; ?>
     <div class="row align-items-center g-6 mt-0 mb-6">

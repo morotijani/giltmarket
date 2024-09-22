@@ -16,7 +16,7 @@ if ($_POST['page'] > 1) {
 
 $where = '';
 if (!admin_has_permission()) {
-	$where = ' AND expenditure_by = "'.$admin_data[0]["admin_id"].'" ';
+	$where = ' AND expenditure_by = "'.$admin_data["admin_id"].'" ';
 }
 $query = "
 	SELECT *, jspence_expenditures.id AS eid, jspence_expenditures.createdAt AS eca, jspence_expenditures.updatedAt AS sua, jspence_admin.id AS aid, CAST(jspence_expenditures.createdAt AS date) AS edate 
