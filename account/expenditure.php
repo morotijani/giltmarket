@@ -94,18 +94,23 @@
                                     }
                                 }
 
+                                $update_comma = '';
+                                if ($balance <= 0) {
+                                    $update_comma .= " , daily_capital_status = 1";
+                                }
+
                                 $query = "
                                     UPDATE jspence_daily 
-                                    SET daily_balance = ?
+                                    SET daily_balance = ? $update_comma
                                     WHERE daily_date = ? 
-                                    AND daily_by = ?
+                                    AND daily_to = ?
                                 ";
                                 $statement = $conn->prepare($query);
                                 $statement->execute([$balance, $today, $by]);
 
                                 $message = "added new expenditure: " . $what_for . " and amount of: " . money($for_amount);
                                 add_to_log($message, $by);
-                
+                                
                                 $_SESSION['flash_success'] = 'Expenditure has been saved!';
                                 redirect(PROOT . "account/expenditure");
                             } else {

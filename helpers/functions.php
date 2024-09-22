@@ -106,19 +106,22 @@ function _capital($admin) {
 
 	$balance = null;
 	$output = [
-		'today_capital' => 0,
+		'today_capital' => null,
 		'today_balance' => $balance,
-		'today_capital_id' => 0
+		'today_capital_id' => null
 	];
 
 	if ($statement->rowCount() > 0): 
 		$row = $rows[0];
 		$balance = $row['daily_balance'];
 
-		if ($row["admin_permissions"] == 'supervisor' && $row['daily_balance'] == null) {
+		if ($row["admin_permissions"] == 'supervisor' && $row['daily_balance'] == null || $row['daily_balance'] == '0.00') {
 			$balance = $row['daily_balance'];
 		} else if ($row["admin_permissions"] == 'salesperson') {
-			$balance = (($row['daily_balance'] == null) ? $row['daily_capital'] : $row['daily_balance']);
+			$balance = (($row['daily_balance'] == null || $row['daily_balance'] == '0.00') ? $row['daily_capital'] : $row['daily_balance']);
+			if ($row["daily_capital_status"] == 1) {
+				$balance = null;
+			}
 		}
 		
 		$output = [
