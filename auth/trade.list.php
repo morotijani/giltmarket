@@ -109,7 +109,7 @@ if ($total_data > 0) {
 			$option2 = '';
 			if (admin_has_permission() && $row["sdate"] == date("Y-m-d")) {
 				$option3 = '
-					<a href="' . PROOT . 'account/trades.delete.requests?pd=' . $row["sale_id"] . '" class="btn btn-sm btn-danger mt-2 mb-2"><i class="bi bi-trash3 me-2"></i>Delete</a>
+					<a href="' . PROOT . 'account/trades.delete.requests?pd=' . $row["sale_id"] . '" class="btn btn-sm btn-danger mt-2 mb-2"><span class="material-symbols-outlined me-2"> delete </span> Delete</a>
 				';
 			}
 		} else if ($row['sale_status'] == 2) {
@@ -147,7 +147,6 @@ if ($total_data > 0) {
 							</div>
 							<div class="modal-body">
 								<ul class="list-group list-group-flush">
-
 									<div class="list-group-item px-0">
 										<div class="row align-items-center">
 											<div class="col ms-n2">
@@ -158,7 +157,6 @@ if ($total_data > 0) {
 											</div>
 										</div>
 									</div>
-
 									<div class="list-group-item px-0">
 										<div class="row align-items-center">
 											<div class="col ms-n2">

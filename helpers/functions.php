@@ -333,31 +333,38 @@ function fetch_all_sales($status, $admin) {
 	$rows = $statement->fetchAll();
 
 	if ($statement->rowCount() > 0) {
-		// code...
 		$i = 1;
 		foreach ($rows as $row) {
 
-			$arrayOutput = array('reference' => $row['sale_id'], 'customername' => $row['sale_customer_name'], 'date' => $row['sca'], 'gram' => $row['sale_gram'], 'volume' => $row['sale_volume'], 'density' => $row['sale_density'], 'pounds' => $row['sale_pounds'], 'carat' => $row['sale_carat'], 'total_amount' => $row['sale_total_amount'], 'current_price' => $row['sale_price'], 'by' => $row['sale_by'], 'message' => '',);
+			$type = "";
+			if ($row["sale_type"] == 'out') {
+				$type = '
+					<span class="badge bg-danger-subtle text-danger">out-trade</span>
+				';
+			} else if ($row["sale_type"] == 'in') {
+				$type = '
+					<span class="badge bg-success-subtle text-success">in-trade</span>
+				';
+			} else if ($row["sale_type"] == 'exp') {
+				$type = '
+					<span class="badge bg-secondary-subtle text-secondary">expenditure</span>
+				';
+			}
 			
-			$outputData = json_encode($arrayOutput);
-			
-			$option1 = '&nbsp;<a href="javascript:;" onClick="MyWindow=window.open('.$outputData.',\'MyWindow\',\'width=600,height=300\'); return false;" title="Print receipt" class="btn btn-sm btn-square btn-neutral w-rem-6 h-rem-6">
-	                        <i class="bi bi-receipt"></i>';
+			$option1 = '';
 	        $option2 =  '
 				<div class="p-2"></div>
-				<div class="px-6 py-5 bg-body-secondary d-flex justify-content-center">
-					<button class="btn btn-sm btn-dark"><i class="bi bi-receipt me-2"></i>Print receipt</button>&nbsp<a href="#deleteModal_'. $row["sid"] . '" data-bs-toggle="modal" class="btn btn-sm btn-neutral"><i class="bi bi-trash3 me-2"></i>Delete</a>
+				<div class="px-6 py-5 d-flex justify-content-center">
+					<button class="btn btn-dark"><i class="bi bi-receipt me-2"></i>Print receipt</button>&nbsp<a href="#deleteModal_'. $row["sid"] . '" data-bs-toggle="modal" class="btn btn-danger"><span class="material-symbols-outlined me-2"> delete </span> Delete</a>
 				</div>
 	        ';
 	        $option3 = '';
 			if ($row['sale_status'] == 1) {
-				// code...
 				$option1 = '';
 				$option2 = '';
 				if (admin_has_permission()) {
-					// code...
 					$option3 = '
-						<a href="' . PROOT . 'acc/trades.delete.requests?pd=' . $row["sale_id"] . '" class="btn btn-sm btn-danger mt-2 mb-2"><i class="bi bi-trash3 me-2"></i>Delete</a>
+						<a href="' . PROOT . 'account/trades.delete.requests?pd=' . $row["sale_id"] . '" class="btn btn-danger mt-2 mb-2"><span class="material-symbols-outlined me-2"> delete </span> Delete</a>
 					';
 				}
 			} else if ($row['sale_status'] == 2) {
@@ -371,69 +378,129 @@ function fetch_all_sales($status, $admin) {
 	                <td>' . $i . '</td>
 	                ' . (admin_has_permission() ? ' <td><a href="javascript:;" data-bs-target="#adminModal_' . $row["aid"] . '" data-bs-toggle="modal"><span class="d-block text-heading fw-bold">' . ucwords($row["admin_fullname"]) . '</span></a></td> ' : '') . '
 	                <td class="text-xs">' . strtoupper($row["sale_customer_name"]) . ' <i class="bi bi-arrow-right mx-2"></i> ' . $row["sale_customer_contact"] . '</td>
-	                <td style="font-family: Roboto Mono, monospace;">' . $row["sale_gram"] . '</td>
-	                <td style="font-family: Roboto Mono, monospace;">' . $row["sale_volume"] . '</td>
-	                <td style="font-family: Roboto Mono, monospace;">' . money($row["sale_price"]) . '</td>
-	                <td style="font-family: Roboto Mono, monospace;">' . money($row["sale_total_amount"]) . '</td>
+	                <td>' . $row["sale_gram"] . '</td>
+	                <td>' . $row["sale_volume"] . '</td>
+	                <td>' . money($row["sale_price"]) . '</td>
+	                <td>' . money($row["sale_total_amount"]) . '</td>
+	                <td>' . $type . '</td>
 	                <td>' . pretty_date($row["sca"]) . '</td>
 	                <td class="text-end">
-	                    <button type="button" class="btn btn-sm btn-square btn-neutral w-rem-6 h-rem-6" title="More" data-bs-target="#saleModal_' . $row["sid"] . '" data-bs-toggle="modal">
-	                        <i class="bi bi-three-dots"></i>
+	                    <button type="button" class="btn btn-dark w-rem-6 h-rem-6" title="More" data-bs-target="#saleModal_' . $row["sid"] . '" data-bs-toggle="modal">
+	                        <span class="material-symbols-outlined"> table_eye </span> 
 	                    </button> '.$option1.'
-	                    </a>
 	                </td>
 	            </tr>
 
 	            <!-- Trade details -->
-	            <div class="modal fade" id="saleModal_' . $row["sid"] . '" tabindex="-1" aria-labelledby="saleModalLabel_' . $row["sid"] . '" aria-hidden="true">
-					<div class="modal-dialog modal-dialog-centered">
+	            <div class="modal fade" id="saleModal_' . $row["sid"] . '" tabindex="-1" aria-labelledby="saleModalLabel_' . $row["sid"] . '" aria-hidden="true" style="backdrop-filter: blur(5px);">
+					<div class="modal-dialog modal-sm modal-dialog-centered">
 						<div class="modal-content overflow-hidden">
 							<div class="modal-header pb-0 border-0">
-								<h1 class="modal-title h4" id="saleModalLabel_' . $row["sid"] . '">' . $row["sale_id"] . ' <br>by ' . (admin_has_permission() ? ucwords($row["admin_fullname"]) : 'you' )  . '</h1>
+								<h1 class="modal-title h4" id="saleModalLabel_' . $row["sid"] . '">' . $row["sale_id"] . (admin_has_permission() ? '<br>by ' .ucwords($row["admin_fullname"]) : '' )  . '</h1>
 								<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 							</div>
-							<div class="modal-body p-0 text-center">
-								<ul class="list-group">
-									<li class="list-group-item" style="padding: 0.1rem 1rem;">
-				                        <small class="text-muted">Total amount,</small>
-				                        <p style="font-family: Roboto Mono, monospace;">' . money($row["sale_total_amount"]) . '</p>
-				                    </li>
-				                    <li class="list-group-item" style="padding: 0.1rem 1rem;">
-				                        <small class="text-muted">Price,</small>
-				                        <p style="font-family: Roboto Mono, monospace;">' . money($row["sale_price"]) . '</p>
-				                    </li>
-				                    <li class="list-group-item" style="padding: 0.1rem 1rem;">
-				                        <small class="text-muted">Gram</small>
-				                        <p style="font-family: Roboto Mono, monospace;">' . $row["sale_gram"] . '</p>
-				                    </li>
-				                    <li class="list-group-item" style="padding: 0.1rem 1rem;">
-				                        <small class="text-muted">Volume</small>
-				                        <p style="font-family: Roboto Mono, monospace;">' . $row["sale_volume"] . '</p>
-				                    </li>
-				                    <li class="list-group-item" style="padding: 0.1rem 1rem;">
-				                        <small class="text-muted">Density</small>
-				                        <p style="font-family: Roboto Mono, monospace;">' . $row["sale_density"] . '</p>
-				                    </li>
-				                    <li class="list-group-item" style="padding: 0.1rem 1rem;">
-				                        <small class="text-muted">Pounds</small>
-				                        <p style="font-family: Roboto Mono, monospace;">' . $row["sale_pounds"] . '</p>
-				                    </li>
-				                    <li class="list-group-item" style="padding: 0.1rem 1rem;">
-				                        <small class="text-muted">Carat</small>
-				                        <p id="send-amount" style="font-family: Roboto Mono, monospace;">' . $row["sale_carat"] . '</p>
-				                    </li>
-				                    <li class="list-group-item" style="padding: 0.1rem 1rem;">
-				                        <small class="text-muted">Customer</small>
-				                        <p id="send-amount">Name: ' . ucwords($row["sale_customer_name"]) . ' | Contact: ' . $row["sale_customer_contact"] . '</p>
-				                    </li>
-				                    <li class="list-group-item" style="padding: 0.1rem 1rem;">
-				                        <small class="text-muted">Note</small>
-				                        <p>' . $row["sale_comment"] . '</p>
-				                    </li>
-				                    <li class="list-group-item" style="padding: 0.1rem 1rem;">
-				                        <small class="text-muted">Date</small>
-				                        <p>' . pretty_date($row["sca"]) . '</p>
-				                    </li>
+							<div class="modal-body">
+								<ul class="list-group list-group-flush">
+									<div class="list-group-item px-0">
+										<div class="row align-items-center">
+											<div class="col ms-n2">
+												<h6 class="fs-base fw-normal mb-1">Total amount,</h6>
+											</div>
+											<div class="col-auto">
+												<time class="text-body-secondary" datetime="01/01/2025">' . money($row["sale_total_amount"]) . '</time>
+											</div>
+										</div>
+									</div>
+									<div class="list-group-item px-0">
+										<div class="row align-items-center">
+											<div class="col ms-n2">
+												<h6 class="fs-base fw-normal mb-1">Price,</h6>
+											</div>
+											<div class="col-auto">
+												<time class="text-body-secondary" datetime="01/01/2025">' . money($row["sale_price"]) . '</time>
+											</div>
+										</div>
+									</div>
+									<div class="list-group-item px-0">
+										<div class="row align-items-center">
+											<div class="col ms-n2">
+												<h6 class="fs-base fw-normal mb-1">Gram,</h6>
+											</div>
+											<div class="col-auto">
+												<time class="text-body-secondary" datetime="01/01/2025">' . $row["sale_gram"] . '</time>
+											</div>
+										</div>
+									</div>
+									<div class="list-group-item px-0">
+										<div class="row align-items-center">
+											<div class="col ms-n2">
+												<h6 class="fs-base fw-normal mb-1">Volume,</h6>
+											</div>
+											<div class="col-auto">
+												<time class="text-body-secondary" datetime="01/01/2025">' . $row["sale_volume"] . '</time>
+											</div>
+										</div>
+									</div>
+									<div class="list-group-item px-0">
+										<div class="row align-items-center">
+											<div class="col ms-n2">
+												<h6 class="fs-base fw-normal mb-1">Density,</h6>
+											</div>
+											<div class="col-auto">
+												<time class="text-body-secondary" datetime="01/01/2025">' . $row["sale_density"] . '</time>
+											</div>
+										</div>
+									</div>
+									<div class="list-group-item px-0">
+										<div class="row align-items-center">
+											<div class="col ms-n2">
+												<h6 class="fs-base fw-normal mb-1">Pounds,</h6>
+											</div>
+											<div class="col-auto">
+												<time class="text-body-secondary" datetime="01/01/2025">' . $row["sale_pounds"] . '</time>
+											</div>
+										</div>
+									</div>
+									<div class="list-group-item px-0">
+										<div class="row align-items-center">
+											<div class="col ms-n2">
+												<h6 class="fs-base fw-normal mb-1">Carat,</h6>
+											</div>
+											<div class="col-auto">
+												<time class="text-body-secondary" datetime="01/01/2025">' . $row["sale_carat"] . '</time>
+											</div>
+										</div>
+									</div>
+									<div class="list-group-item px-0">
+										<div class="row align-items-center">
+											<div class="col ms-n2">
+												<h6 class="fs-base fw-normal mb-1">Customer,</h6>
+											</div>
+											<div class="col-auto">
+												<time class="text-body-secondary" datetime="01/01/2025">' . ucwords($row["sale_customer_name"]) . ' | Contact: ' . $row["sale_customer_contact"] . '</time>
+											</div>
+										</div>
+									</div>
+									<div class="list-group-item px-0">
+										<div class="row align-items-center">
+											<div class="col ms-n2">
+												<h6 class="fs-base fw-normal mb-1">Note,</h6>
+											</div>
+											<div class="col-auto">
+												<time class="text-body-secondary" datetime="01/01/2025">' . $row["sale_comment"] . '</time>
+											</div>
+										</div>
+									</div>
+									<div class="list-group-item px-0">
+										<div class="row align-items-center">
+											<div class="col ms-n2">
+												<h6 class="fs-base fw-normal mb-1">Date,</h6>
+											</div>
+											<div class="col-auto">
+												<time class="text-body-secondary" datetime="01/01/2025">' . pretty_date($row["sca"]) . '</time>
+											</div>
+										</div>
+									</div>
 								</ul>
 								' . $option2 . '
 								' . $option3 . '
@@ -443,8 +510,8 @@ function fetch_all_sales($status, $admin) {
 				</div>
 
 				<!-- DELETE TRADE -->
-				<div class="modal fade" id="deleteModal_' . $row["sid"] . '" tabindex="-1" aria-labelledby="deleteModalLabel_' . $row["sid"] . '" data-bs-backdrop="static" data-bs-keyboard="false" aria-hidden="true">
-				    <div class="modal-dialog modal-dialog-centered">
+				<div class="modal fade" id="deleteModal_' . $row["sid"] . '" tabindex="-1" aria-labelledby="deleteModalLabel_' . $row["sid"] . '" data-bs-backdrop="static" data-bs-keyboard="false" aria-hidden="true" style="backdrop-filter: blur(5px);">
+				    <div class="modal-dialog modal-sm modal-dialog-centered">
 				        <div class="modal-content overflow-hidden">
 				            <div class="modal-header pb-0 border-0">
 				                <h1 class="modal-title h4" id="deleteModalLabel_' . $row["sid"] . '">Delete trade!</h1>
@@ -472,14 +539,14 @@ function fetch_all_sales($status, $admin) {
 				</div>
 
 				<!-- HANDLER DETAILS -->
-				<div class="modal fade" id="adminModal_' . $row["aid"] . '" tabindex="-1" aria-labelledby="adminModalLabel_' . $row["aid"] . '" data-bs-backdrop="static" data-bs-keyboard="false" aria-hidden="true">
-					<div class="modal-dialog modal-dialog-centered">
+				<div class="modal fade" id="adminModal_' . $row["aid"] . '" tabindex="-1" aria-labelledby="adminModalLabel_' . $row["aid"] . '" data-bs-backdrop="static" data-bs-keyboard="false" aria-hidden="true" style="backdrop-filter: blur(5px);">
+					<div class="modal-dialog modal-sm modal-dialog-centered">
 						<div class="modal-content overflow-hidden">
 							<div class="modal-header pb-0 border-0">
 								<h1 class="modal-title h4" id="adminModalLabel_' . $row["aid"] . '">Handler details</h1>
 								<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 							</div>
-							<div class="modal-body p-0 text-center">
+							<div class="modal-body">
 								<ul class="list-group">
 									<li class="list-group-item" style="padding: 0.1rem 1rem;">
 				                        <small class="text-muted">Profile,</small>
