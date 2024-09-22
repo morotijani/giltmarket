@@ -410,32 +410,7 @@
               	</div>
               	<div class="card-body py-3">
                 	<div class="list-group list-group-flush">
-						<div class="list-group-item px-0">
-							<div class="row align-items-center">
-								<div class="col-auto">
-									<div class="avatar">
-										<div
-											class="progress progress-circle text-success"
-											role="progressbar"
-											aria-label="Reduce response time"
-											aria-valuenow="100"
-											aria-valuemin="0"
-											aria-valuemax="100"
-											data-bs-toggle="tooltip"
-											data-bs-title="100%"
-											style="--bs-progress-circle-value: 100"
-										></div>
-									</div>
-								</div>
-								<div class="col ms-n2">
-									<h6 class="fs-base fw-normal mb-1">A push amount recieved</h6>
-									<span class="fs-sm text-body-secondary">0.00</span>
-								</div>
-								<div class="col-auto">
-									<time class="text-body-secondary" datetime="01/01/2025">Jan 01</time>
-								</div>
-							</div>
-						</div>
+						<?= get_pushes_made($admin_data['admin_id'], date("Y-m-d")); ?>
                 	</div>
               	</div>
             </div>

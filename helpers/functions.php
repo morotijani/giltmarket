@@ -193,6 +193,66 @@ function _gained_calculation($balance, $capital) {
 	return money($output);
 }
 
+// get pushes
+function get_pushes_made($admin, $today = null) {
+	global $conn;
+
+	$where = '';
+	if (!admin_has_permission()) {
+		$where .= ' AND jspence_pushes.push_to = "' . $admin . '" ';
+	}
+
+	if ($today != null) {
+		$where .= 'AND jspence_pushes.push_date = "' . $today . '"';
+	}
+
+	$sql = "
+		SELECT * FROM jspence_pushes 
+		WHERE jspence_pushes.push_status = ?
+		$where
+	";
+	$statement = $conn->prepare($sql);
+	$result = $statement->execute([0]);
+	$output = '';
+	
+	if ($statement->rowCount() > 0)
+		foreach ($statement->fetchAll() as $row) {
+			$output .= '
+				<div class="list-group-item px-0">
+					<div class="row align-items-center">
+						<div class="col-auto">
+							<div class="avatar">
+								<div
+									class="progress progress-circle text-success"
+									role="progressbar"
+									aria-label="Reduce response time"
+									aria-valuenow="100"
+									aria-valuemin="0"
+									aria-valuemax="100"
+									data-bs-toggle="tooltip"
+									data-bs-title="100%"
+									style="--bs-progress-circle-value: 100"
+								></div>
+							</div>
+						</div>
+						<div class="col ms-n2">
+							<h6 class="fs-base fw-normal mb-1">' . money($row["push_amount"]) . '</h6>
+							<span class="fs-sm text-body-secondary">' . time_from_date($row["createdAt"]) . '</span>
+						</div>
+						<div class="col-auto">
+							<time class="text-body-secondary" datetime="01/01/2025">' . pretty_date_only($row["createdAt"]) .'</time>
+						</div>
+					</div>
+				</div>
+			';
+		}
+
+	return $output;
+}
+
+
+
+
 function truncate($val, $f = "0") {
     if(($p = strpos($val, '.')) !== false) {
         $val = floatval(substr($val, 0, $p + 1 + $f));

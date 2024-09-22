@@ -1,5 +1,6 @@
 <?php 
 
+//
 function dnd($data) {
 	echo "<pre>";
 	print_r($data);
@@ -8,8 +9,24 @@ function dnd($data) {
 }
 
 // Make Date Readable
-function pretty_date($date){
+function pretty_date($date) {
 	return date("M d, Y h:i A", strtotime($date));
+}
+
+// get only date from full datetime
+function pretty_date_only($date) {
+	return date("F j, Y", strtotime($date));
+}
+
+// extract time from full date
+function time_from_date($date) {
+	$dt = new DateTime($date);
+
+	$date = $dt->format('d-m-Y');
+	$time = $dt->format('h:i:s A');
+
+
+	return $time;
 }
 
 // Display money in a readable way
