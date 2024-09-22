@@ -63,15 +63,16 @@
                             $data = [$e_id, _capital($by)['today_capital_id'], $what_for, $for_amount, $by, $createdAt];
 
                             $sql = "
-                                INSERT INTO jspence_expenditures (expenditure_id, expenditure_capital_id, expenditure_what_for, expenditure_amount, expenditure_by, createdAt) 
+                                INSERT INTO jspence_sales (sale_id, sale_total_amount, sale_comment, sale_by, sale_daily, createdAt) 
                                 VALUES (?, ?, ?, ?, ?, ?)
                             ";
+                            
                             if (isset($_GET['edit']) && !empty($_GET['edit'])) {
                                 $data = [$what_for, $for_amount, $id];
                                 $sql = "
-                                    UPDATE jspence_expenditures 
-                                    SET expenditure_what_for = ?, expenditure_amount = ?
-                                    WHERE expenditure_id = ?
+                                    UPDATE jspence_sales 
+                                    SET sale_comment = ?, sale_total_amount = ?
+                                    WHERE sale_id = ?
                                 ";
                             }
 
@@ -106,27 +107,27 @@
                                 add_to_log($message, $by);
                 
                                 $_SESSION['flash_success'] = 'Expenditure has been saved!';
-                                redirect(PROOT . "acc/expenditure");
+                                redirect(PROOT . "account/expenditure");
                             } else {
                                 echo js_alert("Something went wrong!");
-                                redirect(PROOT . "acc/expenditure");
+                                redirect(PROOT . "account/expenditure");
                             }
                         } else {
                             $_SESSION['flash_error'] = 'Today\'s remaining balance cannot complete this expenditure!';
-                            redirect(PROOT . "acc/expenditure");
+                            redirect(PROOT . "account/expenditure");
                         }
                     } else {
                         $_SESSION['flash_error'] = 'Invalid pin code provided!';
-                        redirect(PROOT . "acc/expenditure");
+                        redirect(PROOT . "account/expenditure");
                     }
                 }
             } else {
                 $_SESSION['flash_error'] = 'Today\'s capital has not been given so, you can not create an expenditure!';
-                redirect(PROOT . "acc/expenditure");
+                redirect(PROOT . "account/expenditure");
             }
         } else {
             $_SESSION['flash_error'] = 'Empty fields are required!';
-            redirect(PROOT . "acc/expenditure");
+            redirect(PROOT . "account/expenditure");
         }
     }
 
@@ -204,13 +205,13 @@
             </div>
             <div class="col-12 col-sm-auto mt-4 mt-sm-0">
                 <!-- Action -->
-                <a class="btn btn-light d-block" href="<?= goBack(); ?>"> Go back </a>
+                <a class="btn btn-warning d-block" href="<?= ((isset($_GET['add']) && !empty($_GET['add'])) ? goBack() : PROOT . 'account/expenditure?add=1'); ?>"> <?= ((isset($_GET['add']) && !empty($_GET['add'])) ? 'Go back' : 'Add expenditure'); ?></a>
             </div>
         </div>
 
-    <?php if (isset($_GET['add'])) : ?>
-    <?php if (!admin_has_permission()): ?>
-    <?php if (is_capital_given()): ?>
+    <?php if (isset($_GET['add']) || isset($_GET['edit'])) : ?>
+        <?php if (!admin_has_permission()): ?>
+            <?php if (is_capital_given()): ?>
        
             <form method="POST" id="expenditureForm">
                 <section class="card card-line bg-body-tertiary border-transparent mb-5">
