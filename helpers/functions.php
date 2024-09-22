@@ -91,7 +91,7 @@ function _capital($admin) {
 	$today = date('Y-m-d');
 
 	$sql = "
-		SELECT daily_id, daily_capital, daily_balance, jspence_admin.admin_permissions
+		SELECT daily_id, daily_capital, daily_balance, daily_capital_status, jspence_admin.admin_permissions
 		FROM jspence_daily 
 		INNER JOIN jspence_admin 
 		ON (jspence_admin.admin_id = jspence_daily.daily_by OR jspence_admin.admin_id = jspence_daily.daily_to)
@@ -119,9 +119,9 @@ function _capital($admin) {
 			$balance = $row['daily_balance'];
 		} else if ($row["admin_permissions"] == 'salesperson') {
 			$balance = (($row['daily_balance'] == null || $row['daily_balance'] == '0.00') ? $row['daily_capital'] : $row['daily_balance']);
-			if ($row["daily_capital_status"] == 1) {
-				$balance = null;
-			}
+			// if ($row["daily_capital_status"] == 1) {
+			// 	$balance = null;
+			// }
 		}
 		
 		$output = [
