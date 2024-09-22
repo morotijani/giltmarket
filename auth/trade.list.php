@@ -122,7 +122,7 @@ if ($total_data > 0) {
 	                <td>' . $i . '</td>
 	                ' . (admin_has_permission() ? ' <td><a href="javascript:;" data-bs-target="#adminModal_' . $row["aid"] . '" data-bs-toggle="modal"><span class="d-block text-heading">' . ucwords($row["admin_fullname"]) . '</span></a></td> ' : '') . '
 	                <td class="text-xs">
-						' . strtoupper($row["sale_customer_name"]) . ' <span class="material-symbols-outlined mx-2"> trending_flat </span> ' . $row["sale_customer_contact"] . '
+						' . (($row["sale_customer_name"] != null) ? ucwords($row["sale_customer_name"]) : '') . ' <span class="material-symbols-outlined mx-2"> trending_flat </span> ' . $row["sale_customer_contact"] . '
 					</td>
 	                <td>' . $row["sale_gram"] . '</td>
 	                <td>' . $row["sale_volume"] . '</td>
@@ -223,7 +223,7 @@ if ($total_data > 0) {
 												<h6 class="fs-base fw-normal mb-1">Customer,</h6>
 											</div>
 											<div class="col-auto">
-												<time class="text-body-secondary" datetime="01/01/2025">' . ucwords($row["sale_customer_name"]) . ' | Contact: ' . $row["sale_customer_contact"] . '</time>
+												<time class="text-body-secondary" datetime="01/01/2025">' . (($row["sale_customer_name"] != null) ? ucwords($row["sale_customer_name"]) : '') . ' | Contact: ' . $row["sale_customer_contact"] . '</time>
 											</div>
 										</div>
 									</div>
@@ -266,7 +266,7 @@ if ($total_data > 0) {
 				            <div class="modal-body p-0">
 			                    <div class="px-6 py-5 border-bottom">
 			                       <p>
-			                       Trade of Volume '.$row["sale_volume"].', Gram ' . $row["sale_gram"] . ', Price ' . money($row["sale_price"]) . ' and Amount ' . money($row["sale_total_amount"]) . ' from customer ' . ucwords($row["sale_customer_name"]) . ' will be notified to the main admin to complete the deletion!
+			                       Trade of Volume '.$row["sale_volume"].', Gram ' . $row["sale_gram"] . ', Price ' . money($row["sale_price"]) . ' and Amount ' . money($row["sale_total_amount"]) . ' from customer ' . (($row["sale_customer_name"] != null) ? ucwords($row["sale_customer_name"]) : '') . ' will be notified to the main admin to complete the deletion!
 			                       </p>
 			                       <br>
 			                       Trade ID: ' . $row["sale_id"] . '

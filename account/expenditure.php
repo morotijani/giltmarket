@@ -13,9 +13,9 @@
 
     $where = '';
     if (!admin_has_permission()) {
-        $where = ' AND expenditure_by = "'.$admin_data["admin_id"].'" ';
+        $where = ' AND sale_by = "'.$admin_data["admin_id"].'" ';
     }
-    $total_exp = $conn->query("SELECT * FROM jspence_expenditures INNER JOIN jspence_admin ON jspence_admin.admin_id = jspence_expenditures.expenditure_by WHERE jspence_expenditures.status = 0 $where")->rowCount();
+    $total_exp = $conn->query("SELECT * FROM jspence_sales INNER JOIN jspence_admin ON jspence_admin.admin_id = jspence_sales.sale_by WHERE jspence_sales.sale_status = 0 AND jspence_sales.sale_type = 'exp' $where")->rowCount();
 
     include ("../includes/header.inc.php");
     include ("../includes/aside.inc.php");
@@ -60,11 +60,11 @@
 
                         $today_balance = _capital($by)['today_balance'];
                         if ($for_amount <= $today_balance) {
-                            $data = [$e_id, $for_amount, $what_for, $by, _capital($by)['today_capital_id'], $createdAt];
+                            $data = [$e_id, $for_amount, $what_for, 'exp', $by, _capital($by)['today_capital_id'], $createdAt];
 
                             $sql = "
-                                INSERT INTO jspence_sales (sale_id, sale_total_amount, sale_comment, sale_by, sale_daily, createdAt) 
-                                VALUES (?, ?, ?, ?, ?, ?)
+                                INSERT INTO jspence_sales (sale_id, sale_total_amount, sale_comment, sale_type, sale_by, sale_daily, createdAt) 
+                                VALUES (?, ?, ?, ?, ?, ?, ?)
                             ";
                             
                             if (isset($_GET['edit']) && !empty($_GET['edit'])) {

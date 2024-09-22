@@ -862,7 +862,7 @@ function get_recent_trades($admin) {
 						' . money($row["sale_total_amount"]) . '
 					</td>
 					<td>
-						' . ucwords($row["sale_customer_name"]) . '
+						' . (($row["sale_customer_name"] != null) ? ucwords($row["sale_customer_name"]) : '') . '
 					</td>
 				</tr>
 			';

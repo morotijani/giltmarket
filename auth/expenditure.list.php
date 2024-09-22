@@ -16,33 +16,33 @@ if ($_POST['page'] > 1) {
 
 $where = '';
 if (!admin_has_permission()) {
-	$where = ' AND expenditure_by = "'.$admin_data["admin_id"].'" ';
+	$where = ' AND sale_by = "'.$admin_data["admin_id"].'" ';
 }
 $query = "
-	SELECT *, jspence_expenditures.id AS eid, jspence_expenditures.createdAt AS eca, jspence_expenditures.updatedAt AS sua, jspence_admin.id AS aid, CAST(jspence_expenditures.createdAt AS date) AS edate 
-    FROM jspence_expenditures 
+	SELECT *, jspence_sales.id AS eid, jspence_sales.createdAt AS eca, jspence_sales.updatedAt AS sua, jspence_admin.id AS aid, CAST(jspence_sales.createdAt AS date) AS edate 
+    FROM jspence_sales 
 	INNER JOIN jspence_admin 
-	ON jspence_admin.admin_id = jspence_expenditures.expenditure_by 
-	WHERE jspence_expenditures.status = 0 
+	ON jspence_admin.admin_id = jspence_sales.sale_by 
+	WHERE jspence_sales.sale_status = 0 
 	$where 
 ";
 $search_query = ((isset($_POST['query'])) ? sanitize($_POST['query']) : '');
 $find_query = str_replace(' ', '%', $search_query);
 if ($search_query != '') {
 	$query .= '
-		AND (expenditure_id LIKE "%'.$find_query.'%" 
-		OR expenditure_amount LIKE "%'.$find_query.'%" 
-		OR expenditure_what_for LIKE "%'.$find_query.'%" 
-		OR jspence_expenditures.createdAt = "%'.$find_query.'%" 
+		AND (sale_id LIKE "%'.$find_query.'%" 
+		OR sale_total_amount LIKE "%'.$find_query.'%" 
+		OR sale_comment LIKE "%'.$find_query.'%" 
+		OR jspence_sales.createdAt = "%'.$find_query.'%" 
 		OR admin_fullname LIKE "%'.$find_query.'%") 
 	';
 } else {
-	$query .= 'ORDER BY jspence_expenditures.createdAt DESC ';
+	$query .= 'ORDER BY jspence_sales.createdAt DESC ';
 }
 
 $filter_query = $query . 'LIMIT ' . $start . ', ' . $limit . '';
 
-$total_data = $conn->query("SELECT * FROM jspence_expenditures INNER JOIN jspence_admin ON jspence_admin.admin_id = jspence_expenditures.expenditure_by WHERE jspence_expenditures.status = 0 $where")->rowCount();
+$total_data = $conn->query("SELECT * FROM jspence_sales INNER JOIN jspence_admin ON jspence_admin.admin_id = jspence_sales.sale_by WHERE jspence_sales.sale_status = 0 AND jspence_sales.sale_type = 'exp' $where")->rowCount();
 
 $statement = $conn->prepare($filter_query);
 $statement->execute();
@@ -72,7 +72,7 @@ if ($total_data > 0) {
         if (!admin_has_permission() && $row["edate"] == date("Y-m-d")) {
            $option = '
                 <td class="text-end">
-                    <a href="'. PROOT .'account/expenditure?edit=' . $row["expenditure_id"] . '" class="badge bg-body-secondary text-xs text-success">Edit </a>
+                    <a href="'. PROOT .'account/expenditure?edit=' . $row["sale_id"] . '" class="badge bg-body-secondary text-xs text-success">Edit </a>
                     <a href="javascript:;" data-bs-target="#deleteModal_' . $row["eid"] . '" data-bs-toggle="modal" class="badge bg-body-secondary text-xs text-danger">Delete </a>
                 </td>
            '; 
@@ -87,13 +87,13 @@ if ($total_data > 0) {
                             <i class="bi bi-send-fill"></i>
                         </div>
                         <div>
-                            <span class="d-block text-heading fw-bold">'. $row["expenditure_id"] .'</span>
+                            <span class="d-block text-heading fw-bold">'. $row["sale_id"] .'</span>
                                 ' . (admin_has_permission() ? ' <span class="text-xs text-muted">by <a href="javascript:;" data-bs-target="#adminModal_' . $row["aid"] . '" data-bs-toggle="modal">' . ucwords($row["admin_fullname"]) . '</a></span> ' : '') . '
                         </div>
                     </div>
                 </td>
-                <td>'. $row["expenditure_what_for"] .'</a></td>
-                <td>'. money($row["expenditure_amount"]) .'</td>
+                <td>'. $row["sale_comment"] .'</a></td>
+                <td>'. money($row["sale_total_amount"]) .'</td>
                 <td>'. pretty_date($row["eca"]) .'</td>
                 ' . $option . '
             </tr>
@@ -109,13 +109,13 @@ if ($total_data > 0) {
                         <div class="modal-body p-0">
                             <div class="px-6 py-5 border-bottom">
                                 <p>
-                                    <i>'.$row["expenditure_what_for"].', with an amount of <span style="font-family: Roboto Mono, monospace;">'.money($row["expenditure_amount"]).'</span></i> 
+                                    <i>'.$row["sale_comment"].', with an amount of <span style="font-family: Roboto Mono, monospace;">'.money($row["sale_total_amount"]).'</span></i> 
                                     <br><br>
                                     Are you sure you want to proceed to this action.
                                 </p>
                             </div>
                             <div class="px-6 py-5 bg-body-secondary d-flex justify-content-center">
-                                <a href="' . PROOT . 'account/expenditure?delete=' . $row["expenditure_id"] . '" class="btn btn-sm btn-danger"><i class="bi bi-trash me-2"></i>Yes, Confirm delete</a>&nbsp;&nbsp;
+                                <a href="' . PROOT . 'account/expenditure?delete=' . $row["sale_id"] . '" class="btn btn-sm btn-danger"><i class="bi bi-trash me-2"></i>Yes, Confirm delete</a>&nbsp;&nbsp;
                                 <button type="button" class="btn btn-sm btn-dark"data-bs-dismiss="modal">No, cancel</button>
                             </div>
                         </div>
