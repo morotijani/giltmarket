@@ -154,7 +154,7 @@ function is_capital_exhausted($conn, $admin) {
 	
 	$return = true;
 	if ($r[0]['ttsa'] > 0) {
-		$today_total_balance = (float)(_capital()['today_capital'] - $r[0]['ttsa']);
+		$today_total_balance = (float)(_capital($admin)['today_capital'] - $r[0]['ttsa']);
 		if (admin_has_permission('supervisor')) {
 			$today_total_balance = $r[0]['ttsa'];
 			// return ($today_total_balance >= _capital()['today_capital']) ? true : false;
@@ -163,7 +163,7 @@ function is_capital_exhausted($conn, $admin) {
 		
 		if ($today_total_balance == 0) {
 			$return = false;
-		} else if (($today_total_balance > 0) && $today_total_balance < _capital()['today_capital']) {
+		} else if (($today_total_balance > 0) && $today_total_balance < _capital($admin)['today_capital']) {
 			$return = true;
 		} 
 	}
@@ -179,12 +179,12 @@ function update_today_capital_given_balance($type, $today_total_balance, $today,
 		UPDATE jspence_daily 
 		SET daily_balance = ? 
 		WHERE daily_date = ? 
-		AND daily_by = ?
+		AND daily_to = ?
 	";
 	$statement = $conn->prepare($updateQ);
 	$statement->execute([$today_total_balance, $today, $log_admin]);
 	
-	$message = $type . " made, balance remaining is: " . money($today_total_balance) . " and " . $today . " capital was:  " . money(_capital()['today_capital']);
+	$message = $type . " made, balance remaining is: " . money($today_total_balance) . " and " . $today . " capital was:  " . money(_capital($log_admin)['today_capital']);
 	add_to_log($message, $log_admin);
 }
 
@@ -823,6 +823,7 @@ function get_recent_trades($admin) {
 		WHERE $where 
 		DAY(createdAt) = ? 
 	    AND sale_status = 0 
+		ORDER BY createdAt DESC
 	";
 	$statement = $conn->prepare($sql);
 	$statement->execute([$today]);

@@ -5,7 +5,7 @@ require_once ("../db_connection/conn.php");
 $output = '';
 if (isset($_POST['gram-amount'])) {
 	
-	$log_admin = $admin_data[0]['admin_id'];
+	$log_admin = $admin_data['admin_id'];
 	$sale_daily =  _capital($admin_data['admin_id'])['today_capital_id'];
 	
 	$gram = (isset($_POST['gram-amount']) ? sanitize($_POST['gram-amount']) : '');
@@ -17,7 +17,7 @@ if (isset($_POST['gram-amount'])) {
 	$note = (isset($_POST['note']) ? sanitize($_POST['note']) : '');
 	$sale_type = ((admin_has_permission('supervisor')) ? 'in' : 'out');
 
-	if ($pin == $admin_data[0]['admin_pin']) {
+	if ($pin == $admin_data['admin_pin']) {
 
 		$density = calculateDensity($gram, $volume);
 		$pounds = calculatePounds($gram);
@@ -59,7 +59,7 @@ if (isset($_POST['gram-amount'])) {
 					AND jspence_sales.sale_status = ?
 				";
 				$statement = $conn->prepare($q);
-				$statement->execute([$today, $t, $admin_data[0]['admin_id'], 0]);
+				$statement->execute([$today, $t, $admin_data['admin_id'], 0]);
 				$r = $statement->fetchAll();
 				
 				$trade_status = 'out-trade';
