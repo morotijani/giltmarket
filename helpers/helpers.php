@@ -25,7 +25,6 @@ function time_from_date($date) {
 	$date = $dt->format('d-m-Y');
 	$time = $dt->format('h:i:s A');
 
-
 	return $time;
 }
 
