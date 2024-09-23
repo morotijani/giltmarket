@@ -150,12 +150,16 @@
                                                     <input class="form-check-input export_class" type="radio" name="exp_with" id="inlineRadio3" value="year">
                                                     <label class="form-check-label" for="inlineRadio3">Year</label>
                                                 </div>
+                                                <div class="form-check form-check-inline">
+                                                    <input class="form-check-input export_class" type="radio" name="exp_with" id="inlineRadio3" value="all">
+                                                    <label class="form-check-label" for="inlineRadio3">All</label>
+                                                </div>
                                             </div>
                                             <div class="col-sm-12 mb-3 d-none" id="check-date">
                                                 <input type="date" class="form-control form-control-sm" id="export-date" name="export-date">
                                             </div>
                                             <div class="col-sm-12 mb-3 d-none" id="check-month">
-                                                <select id='use-month' class="form-control form-control-sm text-muted">
+                                                <select id='export-month' name="export-month" class="form-control form-control-sm">
                                                     <option value=''>Select Month</option>
                                                     <option value="1">January</option>
                                                     <option value='2'>February</option>
@@ -172,7 +176,7 @@
                                                 </select>
                                             </div>
                                             <div class="col-sm-12 mb-3 d-none" id="check-year">
-                                                <select id='use-month' class="form-control form-control-sm text-muted">
+                                                <select id='export-year' name="export-year" class="form-control form-control-sm">
                                                     <option value=''>Select Year</option>
                                                     <?php for ($i = date('Y'); $i >= 2020; $i--) : ?>
                                                         <option value='<?= $i; ?>'><?= $i; ?></option>
@@ -226,18 +230,43 @@
         if (select_for == 'date') {
             $('#check-date').removeClass('d-none');
 
+            // display none
             $('#check-month').addClass('d-none');
             $('#check-year').addClass('d-none');
+
+            // empty values
+            $('#export-month').val('');
+            $('#export-year').val('');
         } else if (select_for == 'month') {
             $('#check-month').removeClass('d-none');
 
+            // display none
             $('#check-date').addClass('d-none');
             $('#check-year').addClass('d-none');
+
+            // empty values
+            $('#export-date').val('');
+            $('#export-year').val('');
         } else if (select_for == 'year') {
             $('#check-year').removeClass('d-none');
 
+            // display none
             $('#check-month').addClass('d-none');
             $('#check-date').addClass('d-none');
+
+            // empty values
+            $('#export-date').val('');
+            $('#export-month').val('');
+        } else {
+            // display none
+            $('#check-date').addClass('d-none');
+            $('#check-month').addClass('d-none');
+            $('#check-year').addClass('d-none');
+
+            // empty values
+            $('#export-date').val('');
+            $('#export-month').val('');
+            $('#export-year').val('');
         }
     });
 
