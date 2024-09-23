@@ -75,7 +75,9 @@
                             <div class="collapse show" id="dashboards">
                                 <nav class="nav nav-pills">
                                     <a class="nav-link active" href="<?= PROOT; ?>index"><?= _admin_position($admin_data['admin_id']); ?></a>
+                                    <?php if (admin_has_permission()): ?>
                                     <a class="nav-link" href="<?= PROOT; ?>analytics">Analytics</a>
+                                    <?php endif; ?>
                                 </nav>
                             </div>
                         </div>
@@ -89,11 +91,11 @@
                             aria-expanded="false"
                             aria-controls="orders"
                             >
-                            <span class="material-symbols-outlined me-3">storefront</span> Trades
+                            <span class="material-symbols-outlined me-3">storefront</span> Market
                             </a>
                             <div class="collapse " id="orders">
                             <nav class="nav nav-pills">
-                                    <a class="nav-link " href="<?= PROOT; ?>account/trades">Sales</a>
+                                    <a class="nav-link " href="<?= PROOT; ?>account/trades">Trades</a>
                                     <a class="nav-link " href="<?= PROOT; ?>account/expenditure">Expenditures</a>
                                     <?php if (!admin_has_permission()): ?>
                                     <a class="nav-link " href="javascript:;" data-bs-target="#buyModal" data-bs-toggle="modal">New trade</a>
@@ -122,6 +124,7 @@
                             </div>
                         </div>
                         <?php endif; ?>
+                        <?php if (admin_has_permission()): ?>
                         <div class="nav-item">
                             <a
                             class="nav-link "
@@ -142,6 +145,7 @@
                             </nav>
                             </div>
                         </div>
+                        <?php endif; ?>
                         <div class="nav-item">
                             <a
                             class="nav-link "
@@ -194,7 +198,7 @@
                             </div>
                             <div class="nav-item">
                                 <a class="nav-link " href="<?= PROOT; ?>account/profile">
-                                    <span class="material-symbols-outlined me-3">deployed_code</span> Account
+                                    <span class="material-symbols-outlined me-3">face</span> Account
                                 </a>
                             </div>
                             <div class="nav-item">

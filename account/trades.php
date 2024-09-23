@@ -138,7 +138,57 @@
                                     <form style="width: 350px" id="filterForm" method="GET" action="<?= PROOT; ?>account/export">
                                         <div class="row gx-3">
                                             <div class="col mb-2">
-                                                <input type="date" class="form-control" id="export-date" name="export-date">
+                                                <div class="mb-2">
+                                                    <div class="form-check form-check-inline">
+                                                        <input class="form-check-input" type="radio" name="exp_with" id="inlineRadio1" value="date">
+                                                        <label class="form-check-label" for="inlineRadio1">Date</label>
+                                                    </div>
+                                                    <div class="form-check form-check-inline">
+                                                        <input class="form-check-input" type="radio" name="exp_with" id="inlineRadio2" value="month">
+                                                        <label class="form-check-label" for="inlineRadio2">Month</label>
+                                                    </div>
+                                                    <div class="form-check form-check-inline">
+                                                        <input class="form-check-input" type="radio" name="exp_with" id="inlineRadio3" value="year">
+                                                        <label class="form-check-label" for="inlineRadio3">Year</label>
+                                                    </div>
+                                                </div>
+                                                <div class="mb-2">
+                                                    <input type="date" class="form-control form-control-sm" id="export-date" name="export-date">
+                                                </div>
+                                                <div class="mb-2">
+                                                    <select id='use-month' class="form-control form-control-sm text-muted">
+                                                        <option value=''>Select Month</option>
+                                                        <option value="1">January</option>
+                                                        <option value='2'>February</option>
+                                                        <option value='3'>March</option>
+                                                        <option value='4'>April</option>
+                                                        <option value='5'>May</option>
+                                                        <option value='6'>June</option>
+                                                        <option value='7'>July</option>
+                                                        <option value='8'>August</option>
+                                                        <option value='9'>September</option>
+                                                        <option value='10'>October</option>
+                                                        <option value='11'>November</option>
+                                                        <option value='12'>December</option>
+                                                    </select>
+                                                </div>
+                                                <div class="mb-2">
+                                                    <select id='use-month' class="form-control form-control-sm text-muted">
+                                                        <option value=''>Select Month</option>
+                                                        <option value="1">January</option>
+                                                        <option value='2'>February</option>
+                                                        <option value='3'>March</option>
+                                                        <option value='4'>April</option>
+                                                        <option value='5'>May</option>
+                                                        <option value='6'>June</option>
+                                                        <option value='7'>July</option>
+                                                        <option value='8'>August</option>
+                                                        <option value='9'>September</option>
+                                                        <option value='10'>October</option>
+                                                        <option value='11'>November</option>
+                                                        <option value='12'>December</option>
+                                                    </select>
+                                                </div>
                                             </div>
                                             <div class="col-auto mb-2">
                                                 <div class="btn-group" role="group" aria-label="Basic radio toggle button group">
@@ -158,9 +208,9 @@
                                                     <label class="btn btn-light" for="export_xls" data-bs-toggle="tooltip" data-bs-title="XLS">
                                                     <img src="<?= PROOT; ?>assets/media/XLS.png" width="30" height="30" class="rounded-circle" alt="...">
                                                     </label>
-                                                    <button type="submit" class="btn btn-light">Export</button>
                                                 </div>
                                             </div>
+                                            <button type="submit" class="btn btn-warning">Export</button>
                                         </div>
                                     </form>
                                 </div>

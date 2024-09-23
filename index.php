@@ -174,7 +174,7 @@
 			</div>
 			<div class="col-12 col-md order-md-0 text-center text-md-start">
 				<h1>Hello, <?= $admin_data['first']; ?></h1>
-				<p class="fs-lg text-body-secondary mb-0">Here's a summary of your account activity for this day.</p>
+				<p class="fs-lg text-body-secondary mb-0">Here's a summary of your account activity for this day: <?= date('l, F jS, Y', strtotime(date("Y-m-d"))); ?>.</p>
 			</div>
 		</div>
 		<!-- <span class="d-flex align-items-center mt-4" style="cursor: pointer">
