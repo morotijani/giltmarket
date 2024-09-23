@@ -15,7 +15,7 @@ if (isset($_POST['gram'])) {
 	$carat = calculateCarat($gram, $volume);
 	$total_amount = calculateTotalAmount($gram, $volume, $current_price);
 
-	$today_balance = _capital()['today_balance'];
+	$today_balance = _capital($admin_data['admin_id'])['today_balance'];
 	$message = 'Calculations made correctly.';
 
 	if (admin_has_permission('salesperson')) {

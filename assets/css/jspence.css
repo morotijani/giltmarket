@@ -52,6 +52,18 @@
     font-style: italic;
 }
 
+/* Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+input[type=number] {
+  -moz-appearance: textfield;
+}
+
 /*  */
 .w-rem-40 {
     width: 10rem !important;
@@ -73,4 +85,25 @@
     box-shadow: none;
     background-color: transparent;
     border-width: 0;
+}
+
+.h-rem-6 {
+    height: 1.5rem !important;
+}
+
+.w-rem-6 {
+    width: 1.5rem !important;
+}
+
+.text-xs {
+    font-size: .75rem !important;
+}
+
+.text-heading {
+    opacity: 1;
+    color: var(--x-heading-color) !important;
+}
+
+.gap-1 {
+    gap: .25rem !important;
 }

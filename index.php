@@ -496,6 +496,28 @@
 <script>
 	$(document).ready(function() {
 
+		// fetch current time.
+		function updateTime() {
+			var currentTime = new Date()
+			var hours = currentTime.getHours()
+			var seconds = currentTime.getSeconds();
+			var minutes = currentTime.getMinutes()
+			if (minutes < 10){
+				minutes = "0" + minutes
+			}
+			if (seconds < 10){
+				seconds = "0" + seconds
+			}
+			var t_str = hours + ":" + minutes + " " + seconds + " ";
+			if(hours > 11){
+				t_str += "PM";
+			} else {
+				t_str += "AM";
+			}
+			document.getElementById('time_span').innerHTML = t_str;
+		}
+		setInterval(updateTime, 1000);
+
 		// list salepersonnel on push capital
 		$(".for_class").change(function(e) {
 			event.preventDefault()

@@ -6,7 +6,7 @@ $output = '';
 if (isset($_POST['gram-amount'])) {
 	
 	$log_admin = $admin_data[0]['admin_id'];
-	$sale_daily =  _capital()['today_capital_id'];
+	$sale_daily =  _capital($admin_data['admin_id'])['today_capital_id'];
 	
 	$gram = (isset($_POST['gram-amount']) ? sanitize($_POST['gram-amount']) : '');
 	$volume = (isset($_POST['volume-amount']) ? sanitize($_POST['volume-amount']) : '');
@@ -24,7 +24,7 @@ if (isset($_POST['gram-amount'])) {
 		$carat = calculateCarat($gram, $volume);
 		$total_amount = calculateTotalAmount($gram, $volume, $current_price);
 
-		$today_balance = _capital()['today_balance'];
+		$today_balance = _capital($admin_data['admin_id'])['today_balance'];
 		$sale_id = guidv4();
 		$createdAt = date("Y-m-d H:i:s");
 
@@ -65,7 +65,7 @@ if (isset($_POST['gram-amount'])) {
 				$trade_status = 'out-trade';
 				if (admin_has_permission('salesperson')) {
 					if ($r[0]['ttsa'] > 0) {
-						$today_total_balance = (float)(_capital()['today_capital'] - $r[0]['ttsa']);
+						$today_total_balance = (float)(_capital($admin_data['admin_id'])['today_capital'] - $r[0]['ttsa']);
 					}
 				}
 

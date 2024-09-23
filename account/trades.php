@@ -12,12 +12,16 @@
     include ("../includes/left.nav.inc.php");
     include ("../includes/top.nav.inc.php");
 
+    $today = date("Y-m-d");
     $where = '';
     if (!admin_has_permission()) {
-        $where = ' AND sale_by = "'.$admin_data["admin_id"].'" ';
+        $where = ' AND sale_by = "'.$admin_data["admin_id"].'" AND CAST(jspence_sales.createdAt AS date) = "' . $today . '" ';
     }
     $total_trades = $conn->query("SELECT * FROM jspence_sales INNER JOIN jspence_admin ON jspence_admin.admin_id = jspence_sales.sale_by WHERE sale_status = 0 $where")->rowCount();
-
+    $trades_count = '';
+    if ($total_trades > 0) {
+        $trades_count = '(' . $total_trades . ')';
+    }
 
     //
     if (isset($_GET['delete_request']) && !empty($_GET['delete_request'])) {
@@ -92,7 +96,7 @@
                             <div class="col-12 col-lg-auto mb-3 mb-lg-0">
                                 <ul class="nav nav-pills">
                                     <li class="nav-item">
-                                        <a class="nav-link bg-dark active" aria-current="page" href="<?= PROOT; ?>account/trades">All trades (<?= $total_trades; ?>)</a>
+                                        <a class="nav-link bg-dark active" aria-current="page" href="<?= PROOT; ?>account/trades">All trades <?= $trades_count; ?></a>
                                     </li>
                                     <li class="nav-item">
                                         <a class="nav-link" href="<?= PROOT; ?>account/trades.delete.requests">Delete request <?= count_new_delete_requests($conn); ?></a>

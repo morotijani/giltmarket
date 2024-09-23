@@ -32,15 +32,15 @@
                     <form class="vstack gap-6" id="buyForm">
                         <div id="step-1">
                             <div class="mb-3">
-                                <input type="tel" name="current_price" id="current_price" class="form-control" placeholder="Current price" style="border: none;" required autocomplete="off">
+                                <input type="number" name="current_price" id="current_price" class="form-control fw-semibold" placeholder="Current price" style="border: none;" required autocomplete="off" inputmode="numeric" min="0.00" step="0.01" autofocus>
                             </div>
-                            <div class="vstack" style="gap: .25rem !important;">
+                            <div class="vstack gap-1">
                                 <div class="bg-body-secondary rounded-3 p-4">
                                     <div class="d-flex justify-content-between text-xs text-muted">
                                         <span class="fw-semibold">Gram</span> <span class="gramMsg">...</span>
                                     </div>
                                     <div class="d-flex justify-content-between gap-2 mt-4">
-                                        <input type="tel" inputmode="numeric" class="form-control form-control-flush text-xl flex-fill" placeholder="0.00" id="gram-amount" name="gram-amount" autofocus required autocomplete="off" data-step="2"> <button type="button" class="btn btn-neutral shadow-none rounded-pill flex-none d-flex align-items-center gap-2 py-2 ps-2 pe-4"><img src="<?= PROOT; ?>assets/media/grams.svg" class="w-rem-6 h-rem-6" alt="..." style="height: 1.5rem !important;width: 1.5rem !important;"> <span class="text-xs fw-semibold text-heading ms-1">GRM</span></button>
+                                        <input type="number" inputmode="numeric" class="form-control form-control-flush fw-bold text-xl flex-fill" placeholder="0.00" id="gram-amount" name="gram-amount" required autocomplete="off" min="0.00" step="0.01"> <button type="button" class="btn btn-light shadow-none rounded-pill flex-none d-flex align-items-center gap-2 py-2 ps-2 pe-4" style="border: 1px solid #cbd5e1"><img src="<?= PROOT; ?>assets/media/grams.svg" class="w-rem-6 h-rem-6" alt="..."> <span class="text-xs text-heading ms-1">GRM</span>&nbsp;</button>
                                     </div>
                                 </div>
                                 <div class="position-relative text-center my-n4 overlap-10" style="margin-top: -1rem !important; margin-bottom: -1rem !important;">
@@ -53,7 +53,7 @@
                                         <span class="fw-semibold">Volume</span> <span class="volumeMsg">...</span>
                                     </div>
                                     <div class="d-flex justify-content-between gap-2 mt-4">
-                                        <input type="tel" inputmode="numeric" class="form-control form-control-flush text-xl flex-fill" placeholder="0.00" id="volume-amount" name="volume-amount" required autocomplete="off" data-step="2"> <button class="btn btn-neutral shadow-none rounded-pill flex-none d-flex align-items-center gap-2 py-2 ps-2 pe-4" type="button"><img src="<?= PROOT; ?>assets/media/volume.png" class="w-rem-6 h-rem-6 rounded-circle" alt="..." style="height: 1.5rem !important;width: 1.5rem !important;"> <span class="text-xs fw-semibold text-heading ms-1">VLM</span></button>
+                                        <input type="number" inputmode="numeric" class="form-control form-control-flush fw-bold text-xl flex-fill" placeholder="0.00" id="volume-amount" name="volume-amount" required autocomplete="off" min="0.00" step="0.01"> <button class="btn btn-light shadow-none rounded-pill flex-none d-flex align-items-center gap-2 py-2 ps-2 pe-4" type="button" style="border: 1px solid #cbd5e1"><img src="<?= PROOT; ?>assets/media/volume.png" class="w-rem-6 h-rem-6 rounded-circle" alt="..."> <span class="text-xs text-heading ms-1">VLM</span>&nbsp;</button>
                                     </div>
                                 </div>
                             </div>
@@ -63,16 +63,16 @@
                                 <label class="form-label">Total Amount</label>
                                 <div class="d-flex flex-wrap gap-1 gap-sm-2">
                                     <div class="w-sm-56 input-group input-group-sm input-group-inline">
-                                        <input type="text" readonly class="form-control" placeholder="0.00" id="total-amount"> <span class="input-group-text">₵</span>
+                                        <input type="text" readonly class="form-control fw-semibold" placeholder="0.00" id="total-amount"> <span class="input-group-text">₵</span>
                                     </div>
                                     <div class="flex-fill">
-                                        <input type="radio" title="Density" class="btn-check"> <label class="btn btn-sm btn-neutral w-100" id="density" for="option1">0.0 Density</label>
+                                        <input type="radio" title="Density" class="btn-check"> <label class="btn btn-sm btn-light w-100" id="density" for="option1">0.0 Density</label>
                                     </div>
                                     <div class="flex-fill">
-                                        <input type="radio" class="btn-check" title="Pounds"> <label class="btn btn-sm btn-neutral w-100" id="pounds" for="option2">0.00 Pounds</label>
+                                        <input type="radio" class="btn-check" title="Pounds"> <label class="btn btn-sm btn-light w-100" id="pounds" for="option2">0.00 Pounds</label>
                                     </div>
                                     <div class="flex-fill">
-                                        <input type="radio" class="btn-check" title="Carat"> <label class="btn btn-sm btn-neutral w-100" id="carat" for="option3">0.00 Carat</label>
+                                        <input type="radio" class="btn-check" title="Carat"> <label class="btn btn-sm btn-light w-100" id="carat" for="option3">0.00 Carat</label>
                                     </div>
                                 </div>
                             </div>
@@ -98,13 +98,13 @@
                             <div class="inputpin mb-3">
                                 <div>
                                     <?php if (is_capital_given()): ?>
-                                        <?php if (is_capital_exhausted($conn, $admin_data[0]['admin_id'])): ?>
+                                        <?php if (is_capital_exhausted($conn, $admin_data['admin_id'])): ?>
                                         <label class="form-label">Enter pin</label>
                                         <div class="d-flex justify-content-between p-4 bg-body-tertiary rounded">
-                                            <input type="tel" class="form-control form-control-flush text-xl fw-bold w-rem-40" placeholder="0000" name="pin" id="pin" autocomplete="off" inputmode="numeric" data-maxlength="4" oninput="this.value=this.value.slice(0,this.dataset.maxlength)">
+                                            <input type="number" class="form-control form-control-flush text-xl fw-bold w-rem-40" placeholder="0000" name="pin" id="pin" autocomplete="off" inputmode="numeric" data-maxlength="4" oninput="this.value=this.value.slice(0,this.dataset.maxlength)">
                                             <div class="dropdown">
-                                                <button type="button" class="btn btn-sm btn-neutral rounded-pill shadow-none flex-none d-flex align-items-center gap-2 p-2">
-                                                    <img src="<?= PROOT; ?>dist/media/pin.jpg" class="w-rem-6 h-rem-6 rounded-circle" alt="..."> <span>PIN</span>
+                                                <button type="button" class="btn btn-sm btn-light rounded-pill shadow-none flex-none d-flex align-items-center gap-2 p-2" style="border: 1px solid #cbd5e1">
+                                                    <img src="<?= PROOT; ?>assets/media/pin.jpg" class="w-rem-6 h-rem-6 rounded-circle" alt="..."> <span>PIN</span>
                                                 </button>
                                             </div>
                                         </div>
@@ -121,7 +121,7 @@
                                 </div>
                             </div>
                             <?php if (is_capital_given()): ?>
-                                <?php if (is_capital_exhausted($conn, $admin_data[0]['admin_id'])): ?>
+                                <?php if (is_capital_exhausted($conn, $admin_data['admin_id'])): ?>
                                     <button type="submit" class="btn btn-warning mt-4" id="submitSend" name="submitSend">Complete Sale</button>
                                 <?php endif; ?>
                             <?php endif; ?>
@@ -151,27 +151,6 @@
             // Fade out messages
             $("#temporary").fadeOut(5000);
 
-            function updateTime() {
-                var currentTime = new Date()
-                var hours = currentTime.getHours()
-                var seconds = currentTime.getSeconds();
-                var minutes = currentTime.getMinutes()
-                if (minutes < 10){
-                    minutes = "0" + minutes
-                }
-                if (seconds < 10){
-                    seconds = "0" + seconds
-                }
-                var t_str = hours + ":" + minutes + " " + seconds + " ";
-                if(hours > 11){
-                    t_str += "PM";
-                } else {
-                    t_str += "AM";
-                }
-                document.getElementById('time_span').innerHTML = t_str;
-            }
-            setInterval(updateTime, 1000);
-
             // Calculation made with current price input
             $('#current_price').on('keyup', function(e) {
                 e.preventDefault();
@@ -196,7 +175,7 @@
                                 },
                                 beforeSend : function () {
                                     // body...
-                                    $('#calculation-result').html('<img class="img-fluid" src="<?= PROOT; ?>dist/media/loading_v2.gif"/>');
+                                    $('#calculation-result').html('<img class="img-fluid" src="<?= PROOT; ?>asstes/media/loading_v2.gif"/>');
                                     $('#next-1').attr('disabled', true);
                                     $('#result-view').addClass('d-none');
                                 },
@@ -267,7 +246,7 @@
                                 },
                                 beforeSend : function () {
                                     // body...
-                                    $('#calculation-result').html('<img class="img-fluid" src="<?= PROOT; ?>dist/media/loading_v2.gif"/>');
+                                    $('#calculation-result').html('<img class="img-fluid" src="<?= PROOT; ?>asstes/media/loading_v2.gif"/>');
                                     $('#next-1').attr('disabled', true);
                                     $('#result-view').addClass('d-none');
                                 },
@@ -333,7 +312,7 @@
                                 },
                                 beforeSend : function () {
                                     // body...
-                                    $('#calculation-result').html('<img class="img-fluid" src="<?= PROOT; ?>dist/media/loading_v2.gif"/>');
+                                    $('#calculation-result').html('<img class="img-fluid" src="<?= PROOT; ?>asstes/media/loading_v2.gif"/>');
                                     $('#next-1').attr('disabled', true);
                                     $('#result-view').addClass('d-none');
                                 },
