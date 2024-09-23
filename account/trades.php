@@ -135,7 +135,7 @@
                                 </button>
                                 <div class="dropdown-menu rounded-3 p-6">
                                     <h4 class="fs-lg mb-4">Export data</h4>
-                                    <form style="width: 350px" id="filterForm" method="GET" action="<?= PROOT; ?>account/export">
+                                    <form style="width: 350px" id="exportForm" method="GET" action="<?= PROOT; ?>account/export">
                                         <div class="row gx-3">
                                             <div class="col-sm-12 mb-3">
                                                 <div class="form-check form-check-inline">
@@ -184,26 +184,26 @@
                                                 </select>
                                             </div>
                                             <div class="col-sm-12 mb-3">
-                                                <div class="btn-group" role="group" aria-label="Basic radio toggle button group">
+                                                <div class="btn-group w-100" role="group" aria-label="Basic radio toggle button group">
                                                     <input type="radio" class="btn-check" name="export_type" id="export_xlsx" autocomplete="off" checked value="xlsx" required />
                                                     <label class="btn btn-light" for="export_xlsx" data-bs-toggle="tooltip" data-bs-title="XLSX">
-                                                    <img src="<?= PROOT; ?>assets/media/XLSX.png" width="30" height="30" class="w-rem-6 h-rem-6 rounded-circle" alt="...">
+                                                    <img src="<?= PROOT; ?>assets/media/XLSX.png" class="w-rem-6 h-rem-6 rounded-circle" alt="...">
                                                     </label>
                                                     <input type="radio" class="btn-check" name="export_type" id="export_csv" autocomplete="off" value="csv" required />
                                                     <label class="btn btn-light" for="export_csv" data-bs-toggle="tooltip" data-bs-title="CSV">
-                                                    <img src="<?= PROOT; ?>assets/media/CSV.png" width="30" height="30" class="rounded-circle" alt="...">
+                                                    <img src="<?= PROOT; ?>assets/media/CSV.png" class="w-rem-6 h-rem-6 rounded-circle" alt="...">
                                                     </label>
                                                     <input type="radio" class="btn-check" name="export_type" id="export_pdf" autocomplete="off" value="pdf" required />
                                                     <label class="btn btn-light" for="export_pdf" data-bs-toggle="tooltip" data-bs-title="PDF">
-                                                    <img src="<?= PROOT; ?>assets/media/PDF.png" width="30" height="30" class="rounded-circle" alt="...">
+                                                    <img src="<?= PROOT; ?>assets/media/PDF.png" class="w-rem-6 rh-rem-6 ounded-circle" alt="...">
                                                     </label>
                                                     <input type="radio" class="btn-check" name="export_type" id="export_xls" autocomplete="off" value="xls" required />
                                                     <label class="btn btn-light" for="export_xls" data-bs-toggle="tooltip" data-bs-title="XLS">
-                                                    <img src="<?= PROOT; ?>assets/media/XLS.png" width="30" height="30" class="rounded-circle" alt="...">
+                                                    <img src="<?= PROOT; ?>assets/media/XLS.png" class="w-rem-6 h-rem-6 rounded-circle" alt="...">
                                                     </label>
                                                 </div>
                                             </div>
-                                            <button type="submit" class="btn btn-warning">Export</button>
+                                            <button id="submit-export" type="button" class="btn btn-warning">Export</button>
                                         </div>
                                     </form>
                                 </div>
@@ -271,20 +271,34 @@
     });
 
 
-    $('#submitCapital').on('click', function() {
-        if ($("input[name='push_for'][value='saleperson']").prop("checked")) {
-            if ($("#push_to").val() == '') {
-                alert("You will have to select a sale person to proceed!");
+    $('#submit-export').on('click', function() {
+
+        if($(".export_class:checked").val()) {
+            var select_for = $(".export_class:checked").val();
+
+            if (select_for == 'date' && $("#export-date").val() == '') {
+                alert("You will have to select date!");
+                $("#export-date").focus();
+                return false;
+            } else if (select_for == 'month' && $("#export-month").val() == '') {
+                alert("You will have to select month!");
+                $("#export-month").focus();
+                return false;
+            } else if (select_for == 'year' && $("#export-year").val() == '') {
+                alert("You will have to select year!");
+                $("#export-year").focus();
                 return false;
             }
-        }
 
-        $('#submitCapital').attr('disabled', true);
-        $('#submitCapital').text('Pushing ...');
-        
-        setInterval(function () {
-            $('#capitalForm').submit();
-        }, 2000)
+            $('#submit-export').attr('disabled', true);
+            $('#submit-export').text('Exporting ...');
+            
+            setInterval(function () {
+                $('#exportForm').submit();
+            }, 2000)
+        } else {
+            return false;
+        }
     });
     
     // SEARCH AND PAGINATION FOR LIST
