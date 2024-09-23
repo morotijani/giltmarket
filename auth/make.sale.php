@@ -48,18 +48,19 @@ if (isset($_POST['gram-amount'])) {
 			if (isset($result)) {
 				$today = date("Y-m-d");
 				$t = (admin_has_permission('supervisor') ? 'in' : 'out');
+				$_t = (admin_has_permission('salesperson') ? 'exp' : '');
 				$q = "
 					SELECT 
 						SUM(jspence_sales.sale_total_amount) AS ttsa, 
 						CAST(jspence_sales.createdAt AS date) AS sd 
 					FROM `jspence_sales` 
 					WHERE CAST(jspence_sales.createdAt AS date) = ? 
-					AND jspence_sales.sale_type = ? 
+					AND (jspence_sales.sale_type = ? || jspence_sales.sale_type = ?)
 					AND jspence_sales.sale_by = ? 
 					AND jspence_sales.sale_status = ?
 				";
 				$statement = $conn->prepare($q);
-				$statement->execute([$today, $t, $admin_data['admin_id'], 0]);
+				$statement->execute([$today, $t, $_t, $admin_data['admin_id'], 0]);
 				$r = $statement->fetchAll();
 				
 				$trade_status = 'out-trade';
