@@ -63,7 +63,7 @@
                                 <label class="form-label">Total Amount</label>
                                 <div class="d-flex flex-wrap gap-1 gap-sm-2">
                                     <div class="w-sm-56 input-group input-group-sm input-group-inline">
-                                        <input type="text" readonly class="form-control fw-semibold" placeholder="0.00" id="total-amount"> <span class="input-group-text">₵</span>
+                                        <input type="text" readonly class="form-control fw-semibold" placeholder="0.00" id="total-amount" style="border: none;"> <span class="input-group-text">₵</span>
                                     </div>
                                     <div class="flex-fill">
                                         <input type="radio" title="Density" class="btn-check"> <label class="btn btn-sm btn-light w-100" id="density" for="option1">0.0 Density</label>
