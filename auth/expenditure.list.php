@@ -4,6 +4,7 @@
 
 require_once ("../db_connection/conn.php");
 
+$today = date("Y-m-d");
 $limit = 10;
 $page = 1;
 
@@ -16,7 +17,7 @@ if ($_POST['page'] > 1) {
 
 $where = '';
 if (!admin_has_permission()) {
-	$where = ' AND sale_by = "'.$admin_data["admin_id"].'" ';
+	$where = ' AND sale_by = "'.$admin_data["admin_id"].'" AND CAST(jspence_sales.createdAt AS date) = "' . $today . '" ';
 }
 $query = "
 	SELECT *, jspence_sales.id AS eid, jspence_sales.createdAt AS eca, jspence_sales.updatedAt AS sua, jspence_admin.id AS aid, CAST(jspence_sales.createdAt AS date) AS edate 

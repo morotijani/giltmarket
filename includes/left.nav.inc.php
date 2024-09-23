@@ -95,7 +95,9 @@
                             <nav class="nav nav-pills">
                                     <a class="nav-link " href="<?= PROOT; ?>account/trades">Sales</a>
                                     <a class="nav-link " href="<?= PROOT; ?>account/expenditure">Expenditures</a>
-                                    <a class="nav-link " href="javascript:;" data-bs-target="<?= ((!admin_has_permission()) ? '#buyModal' : ''); ?>" data-bs-toggle="modal">New trade</a>
+                                    <?php if (!admin_has_permission()): ?>
+                                    <a class="nav-link " href="javascript:;" data-bs-target="#buyModal" data-bs-toggle="modal">New trade</a>
+                                    <?php endif; ?>
                                 </nav>
                             </div>
                         </div>

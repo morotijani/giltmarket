@@ -11,11 +11,16 @@
         redirect(PROOT . 'index');
     }
 
+    $today = date("Y-m-d");
     $where = '';
     if (!admin_has_permission()) {
-        $where = ' AND sale_by = "'.$admin_data["admin_id"].'" ';
+        $where = ' AND sale_by = "'.$admin_data["admin_id"].'" AND CAST(jspence_sales.createdAt AS date) = "' . $today . '" ';
     }
     $total_exp = $conn->query("SELECT * FROM jspence_sales INNER JOIN jspence_admin ON jspence_admin.admin_id = jspence_sales.sale_by WHERE jspence_sales.sale_status = 0 AND jspence_sales.sale_type = 'exp' $where")->rowCount();
+    $count_exp = '';
+    if ($total_exp > 0) {
+        $count_exp = ' (' . $total_exp . ')';
+    }
 
     include ("../includes/header.inc.php");
     include ("../includes/aside.inc.php");
@@ -219,7 +224,7 @@
             <?php if (is_capital_given()): ?>
        
             <form method="POST" id="expenditureForm">
-                <section class="card card-line bg-body-tertiary border-transparent mb-5">
+                <section class="card bg-body-tertiary border-transparent mb-5">
                     <div class="card-body">
                         <h3 class="fs-5 mb-1">Create an expenditure</h3>
                         <p class="text-body-secondary mb-5">Fill in the below fields to make an expenditure</p>
@@ -249,7 +254,12 @@
                                             <?php if (is_capital_exhausted($conn, $admin_data['admin_id'])): ?>
                                             <label class="form-label">Enter pin</label>
                                             <div class="d-flex justify-content-between p-4 bg-body-tertiary rounded">
-                                                <input type="number" class="form-control form-control-flush text-xl fw-bold w-rem-40" placeholder="0000" name="pin" id="pin" autocomplete="off" inputmode="numeric" data-maxlength="4" oninput="this.value=this.value.slice(0,this.dataset.maxlength)" required>
+                                                <style>
+                                                    #pin:focus {
+                                                        box-shadow: none;
+                                                    }
+                                                </style>
+                                                <input type="number" class="form-control form-control-flush text-xl fw-bold w-rem-40 bg-transparent" placeholder="0000" name="pin" id="pin" autocomplete="off" inputmode="numeric" data-maxlength="4" oninput="this.value=this.value.slice(0,this.dataset.maxlength)" required>
                                                 <button type="button" class="btn btn-sm btn-light rounded-pill shadow-none flex-none d-flex align-items-center gap-2 p-2" style="border: 1px solid #cbd5e1;">
                                                     <img src="<?= PROOT; ?>assets/media/pin.jpg" class="w-rem-6 h-rem-6 rounded-circle" alt="..."> <span>PIN</span>
                                                 </button>
@@ -296,7 +306,7 @@
                         <div class="col-12 col-lg-auto mb-3 mb-lg-0">
                             <ul class="nav nav-pills">
                                 <li class="nav-item">
-                                    <a class="nav-link bg-dark active" aria-current="page" href="<?= PROOT; ?>account/expenditure">All data (<?= $total_exp; ?>)</a>
+                                    <a class="btn btn-dark active" aria-current="page" href="<?= PROOT; ?>account/expenditure">All data<?= $count_exp; ?></a>
                                 </li>
                                 <li class="nav-item">
                                     <a class="nav-link" href="<?= PROOT; ?>account/trades.delete.requests">Delete request <?= count_new_delete_requests($conn); ?></a>

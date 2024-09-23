@@ -40,7 +40,7 @@
                                         <span class="fw-semibold">Gram</span> <span class="gramMsg">...</span>
                                     </div>
                                     <div class="d-flex justify-content-between gap-2 mt-4">
-                                        <input type="number" inputmode="numeric" class="form-control form-control-flush fw-bold text-xl flex-fill" placeholder="0.00" id="gram-amount" name="gram-amount" required autocomplete="off" min="0.00" step="0.01"> <button type="button" class="btn btn-neutral shadow-none rounded-pill flex-none d-flex align-items-center gap-2 py-2 ps-2 pe-4"><img src="<?= PROOT; ?>assets/media/grams.svg" class="w-rem-6 h-rem-6" alt="..."> <span class="text-xs text-heading ms-1">GRM</span>&nbsp;</button>
+                                        <input type="number" inputmode="numeric" class="form-control form-control-flush fw-bold text-xl flex-fill" placeholder="0.00" id="gram-amount" name="gram-amount" required autocomplete="off" min="0.00" step="0.01"> <button type="button" class="btn btn-outline-light shadow-none rounded-pill flex-none d-flex align-items-center gap-2 py-2 ps-2 pe-4"><img src="<?= PROOT; ?>assets/media/grams.svg" class="w-rem-6 h-rem-6" alt="..."> <span class="text-xs text-heading ms-1">GRM</span>&nbsp;</button>
                                     </div>
                                 </div>
                                 <div class="position-relative text-center my-n4 overlap-10" style="margin-top: -1rem !important; margin-bottom: -1rem !important;">
@@ -53,7 +53,7 @@
                                         <span class="fw-semibold">Volume</span> <span class="volumeMsg">...</span>
                                     </div>
                                     <div class="d-flex justify-content-between gap-2 mt-4">
-                                        <input type="number" inputmode="numeric" class="form-control form-control-flush fw-bold text-xl flex-fill" placeholder="0.00" id="volume-amount" name="volume-amount" required autocomplete="off" min="0.00" step="0.01"> <button class="btn btn-neutral shadow-none rounded-pill flex-none d-flex align-items-center gap-2 py-2 ps-2 pe-4" type="button"><img src="<?= PROOT; ?>assets/media/volume.png" class="w-rem-6 h-rem-6 rounded-circle" alt="..."> <span class="text-xs text-heading ms-1">VLM</span>&nbsp;</button>
+                                        <input type="number" inputmode="numeric" class="form-control form-control-flush fw-bold text-xl flex-fill" placeholder="0.00" id="volume-amount" name="volume-amount" required autocomplete="off" min="0.00" step="0.01"> <button class="btn btn-outline-light shadow-none rounded-pill flex-none d-flex align-items-center gap-2 py-2 ps-2 pe-4" type="button"><img src="<?= PROOT; ?>assets/media/volume.png" class="w-rem-6 h-rem-6 rounded-circle" alt="..."> <span class="text-xs text-heading ms-1">VLM</span>&nbsp;</button>
                                     </div>
                                 </div>
                             </div>
@@ -66,13 +66,13 @@
                                         <input type="text" readonly class="form-control fw-semibold" placeholder="0.00" id="total-amount" style="border: none;"> <span class="input-group-text">₵</span>
                                     </div>
                                     <div class="flex-fill">
-                                        <input type="radio" title="Density" class="btn-check"> <label class="btn btn-sm btn-light w-100" id="density" for="option1">0.0 Density</label>
+                                        <input type="radio" title="Density" class="btn-check"> <label class="btn btn-sm w-100" id="density" for="option1">0.0 Density</label>
                                     </div>
                                     <div class="flex-fill">
-                                        <input type="radio" class="btn-check" title="Pounds"> <label class="btn btn-sm btn-light w-100" id="pounds" for="option2">0.00 Pounds</label>
+                                        <input type="radio" class="btn-check" title="Pounds"> <label class="btn btn-sm w-100" id="pounds" for="option2">0.00 Pounds</label>
                                     </div>
                                     <div class="flex-fill">
-                                        <input type="radio" class="btn-check" title="Carat"> <label class="btn btn-sm btn-light w-100" id="carat" for="option3">0.00 Carat</label>
+                                        <input type="radio" class="btn-check" title="Carat"> <label class="btn btn-sm w-100" id="carat" for="option3">0.00 Carat</label>
                                     </div>
                                 </div>
                             </div>
