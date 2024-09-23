@@ -4,7 +4,7 @@
 
 require_once ("../db_connection/conn.php");
 
-
+$today = date("Y-m-d");
 $limit = 10;
 $page = 1;
 
@@ -17,7 +17,7 @@ if ($_POST['page'] > 1) {
 
 $where = '';
 if (!admin_has_permission()) {
-	$where = ' AND sale_by = "'.$admin_data["admin_id"].'" ';
+	$where = ' AND sale_by = "'.$admin_data["admin_id"].'" AND CAST(jspence_sales.createdAt AS date) = "' . $today . '" ';
 }
 $query = "
 	SELECT *, jspence_sales.id AS sid, jspence_sales.createdAt AS sca, jspence_sales.updatedAt AS sua, jspence_admin.id AS aid, CAST(jspence_sales.createdAt AS date) AS sdate  FROM jspence_sales 
@@ -118,7 +118,7 @@ if ($total_data > 0) {
 			$option3 = '';
 		}
 		$output .= '	
-				<tr>
+				<tr class="' . (($row["sdate"] == $today) ? 'bg-danger' : '') . '">
 	                <td>' . $i . '</td>
 	                ' . (admin_has_permission() ? ' <td><a href="javascript:;" data-bs-target="#adminModal_' . $row["aid"] . '" data-bs-toggle="modal"><span class="d-block text-heading">' . ucwords($row["admin_fullname"]) . '</span></a></td> ' : '') . '
 	                <td class="text-xs">

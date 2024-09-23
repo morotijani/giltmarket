@@ -768,11 +768,12 @@ function grand_total_amount($admin) {
 // get logs for admins
 function get_logs($admin) {
 	global $conn;
+	$today = date("Y-m-d");
 	$output = '';
 
 	$where = '';
 	if (!admin_has_permission()) {
-		$where = ' WHERE jspence_logs.log_admin = "'.$admin.'" ';
+		$where = ' WHERE jspence_logs.log_admin = "'.$admin.'" AND CAST(jspence_logs.createdAt AS date) = "' . $today . '"';
 	}
 
 	$sql = "
@@ -781,7 +782,7 @@ function get_logs($admin) {
 		ON jspence_admin.admin_id = jspence_logs.log_admin
 		$where 
 		ORDER BY jspence_logs.createdAt DESC
-		LIMIT 8
+		LIMIT 10
 	";
 	$statement = $conn->prepare($sql);
 	$statement->execute();

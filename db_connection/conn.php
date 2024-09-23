@@ -47,16 +47,16 @@
  	$flash = '';
  	if (isset($_SESSION['flash_success'])) {
  	 	$flash = '
- 	 		<div class="bg-success" id="temporary">
- 	 			<p class="text-white px-2">'.$_SESSION['flash_success'].'</p>
+ 	 		<div class="alert alert-success" id="temporary">
+ 	 			' . $_SESSION['flash_success'] . '
  	 		</div>';
  	 	unset($_SESSION['flash_success']);
  	}
 
  	if (isset($_SESSION['flash_error'])) {
  	 	$flash = '
- 	 		<div class="bg-danger" id="temporary">
- 	 			<p class="text-white px-2">'.$_SESSION['flash_error'].'</p>
+ 	 		<div class="alert alert-danger" id="temporary">
+ 	 			' . $_SESSION['flash_error'] . '
  	 		</div>';
  	 	unset($_SESSION['flash_error']);
  	}
