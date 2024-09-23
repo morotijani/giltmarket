@@ -107,3 +107,40 @@ input[type=number] {
 .gap-1 {
     gap: .25rem !important;
 }
+
+.bg-body-gold {
+    --bs-bg-opacity: 1;
+    background-color: rgb(246 244 236) !important;
+}
+
+.btn-neutral {
+    --x-btn-color: #334155;
+    --x-btn-bg: #fff;
+    --x-btn-border-color: #cbd5e1;
+    --x-btn-hover-color: #334155;
+    --x-btn-hover-bg: #f1f5f9;
+    --x-btn-hover-border-color: #e2e8f0;
+    --x-btn-focus-shadow-rgb: 180, 191, 204;
+    --x-btn-active-color: #334155;
+    --x-btn-active-bg: #e2e8f0;
+    --x-btn-active-border-color: #cbd5e1;
+    --x-btn-active-shadow: 0 0 0 0 transparent;
+    --x-btn-disabled-color: #000;
+    --x-btn-disabled-bg: #fff;
+    --x-btn-disabled-border-color: #cbd5e1;
+}
+
+[data-bs-theme=dark] .btn-neutral {
+    --x-btn-bg: var(--x-gray-800);
+    --x-btn-border-color: var(--x-gray-800);
+    --x-btn-color: var(--x-gray-100);
+    --x-btn-hover-bg: var(--x-gray-700);
+    --x-btn-hover-color: var(--x-white);
+    --x-btn-hover-border-color: var(--x-gray-700);
+}
+
+.btn-neutral:hover {
+    color: var(--x-btn-hover-color);
+    background-color: #334155;
+    border-color: var(--x-btn-hover-border-color);
+}

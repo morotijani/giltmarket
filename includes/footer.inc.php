@@ -40,7 +40,7 @@
                                         <span class="fw-semibold">Gram</span> <span class="gramMsg">...</span>
                                     </div>
                                     <div class="d-flex justify-content-between gap-2 mt-4">
-                                        <input type="number" inputmode="numeric" class="form-control form-control-flush fw-bold text-xl flex-fill" placeholder="0.00" id="gram-amount" name="gram-amount" required autocomplete="off" min="0.00" step="0.01"> <button type="button" class="btn btn-light shadow-none rounded-pill flex-none d-flex align-items-center gap-2 py-2 ps-2 pe-4" style="border: 1px solid #cbd5e1"><img src="<?= PROOT; ?>assets/media/grams.svg" class="w-rem-6 h-rem-6" alt="..."> <span class="text-xs text-heading ms-1">GRM</span>&nbsp;</button>
+                                        <input type="number" inputmode="numeric" class="form-control form-control-flush fw-bold text-xl flex-fill" placeholder="0.00" id="gram-amount" name="gram-amount" required autocomplete="off" min="0.00" step="0.01"> <button type="button" class="btn btn-neutral shadow-none rounded-pill flex-none d-flex align-items-center gap-2 py-2 ps-2 pe-4"><img src="<?= PROOT; ?>assets/media/grams.svg" class="w-rem-6 h-rem-6" alt="..."> <span class="text-xs text-heading ms-1">GRM</span>&nbsp;</button>
                                     </div>
                                 </div>
                                 <div class="position-relative text-center my-n4 overlap-10" style="margin-top: -1rem !important; margin-bottom: -1rem !important;">
@@ -53,7 +53,7 @@
                                         <span class="fw-semibold">Volume</span> <span class="volumeMsg">...</span>
                                     </div>
                                     <div class="d-flex justify-content-between gap-2 mt-4">
-                                        <input type="number" inputmode="numeric" class="form-control form-control-flush fw-bold text-xl flex-fill" placeholder="0.00" id="volume-amount" name="volume-amount" required autocomplete="off" min="0.00" step="0.01"> <button class="btn btn-light shadow-none rounded-pill flex-none d-flex align-items-center gap-2 py-2 ps-2 pe-4" type="button" style="border: 1px solid #cbd5e1"><img src="<?= PROOT; ?>assets/media/volume.png" class="w-rem-6 h-rem-6 rounded-circle" alt="..."> <span class="text-xs text-heading ms-1">VLM</span>&nbsp;</button>
+                                        <input type="number" inputmode="numeric" class="form-control form-control-flush fw-bold text-xl flex-fill" placeholder="0.00" id="volume-amount" name="volume-amount" required autocomplete="off" min="0.00" step="0.01"> <button class="btn btn-neutral shadow-none rounded-pill flex-none d-flex align-items-center gap-2 py-2 ps-2 pe-4" type="button"><img src="<?= PROOT; ?>assets/media/volume.png" class="w-rem-6 h-rem-6 rounded-circle" alt="..."> <span class="text-xs text-heading ms-1">VLM</span>&nbsp;</button>
                                     </div>
                                 </div>
                             </div>
@@ -91,8 +91,8 @@
                         <div id="step-2" class="d-none text-center">
                             <ul class="list-group" id="buysummary"></ul>
                             <button type="button" class="btn btn-warning mt-4" id="next-2">Confirm Sale</button>
-                            <br>
-                            <a href="javascript:;" class="" id="prev-1"><< Go Back</a>
+                            <br><br>
+                            <a href="javascript:;" class="text-dark" id="prev-1"><< Go Back</a>
                         </div>
                         <div id="step-3" class="d-none">
                             <div class="inputpin mb-3">
@@ -100,10 +100,10 @@
                                     <?php if (is_capital_given()): ?>
                                         <?php if (is_capital_exhausted($conn, $admin_data['admin_id'])): ?>
                                         <label class="form-label">Enter pin</label>
-                                        <div class="d-flex justify-content-between p-4 bg-body-tertiary rounded">
+                                        <div class="d-flex justify-content-between p-4 bg-body-secondary rounded">
                                             <input type="number" class="form-control form-control-flush text-xl fw-bold w-rem-40" placeholder="0000" name="pin" id="pin" autocomplete="off" inputmode="numeric" data-maxlength="4" oninput="this.value=this.value.slice(0,this.dataset.maxlength)">
                                             <div class="dropdown">
-                                                <button type="button" class="btn btn-sm btn-light rounded-pill shadow-none flex-none d-flex align-items-center gap-2 p-2" style="border: 1px solid #cbd5e1">
+                                                <button type="button" class="btn btn-sm btn-light rounded-pill shadow-none flex-none d-flex align-items-center gap-2 p-2" style="border: 1px solid #cbd5e1;">
                                                     <img src="<?= PROOT; ?>assets/media/pin.jpg" class="w-rem-6 h-rem-6 rounded-circle" alt="..."> <span>PIN</span>
                                                 </button>
                                             </div>
@@ -125,7 +125,7 @@
                                     <button type="submit" class="btn btn-warning mt-4" id="submitSend" name="submitSend">Complete Sale</button>
                                 <?php endif; ?>
                             <?php endif; ?>
-                            <br><a href="javascript:;" class="" id="prev-2"><< Go Back</a>
+                            <br><br><a href="javascript:;" class="text-dark" id="prev-2"><< Go Back</a>
                         </div>
                     </form>
                 </div>
