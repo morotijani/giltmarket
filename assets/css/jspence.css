@@ -138,9 +138,3 @@ input[type=number] {
     --x-btn-hover-color: var(--x-white);
     --x-btn-hover-border-color: var(--x-gray-700);
 }
-
-.btn-neutral:hover {
-    color: var(--x-btn-hover-color);
-    background-color: #334155;
-    border-color: var(--x-btn-hover-border-color);
-}
