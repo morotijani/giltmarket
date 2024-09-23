@@ -137,60 +137,58 @@
                                     <h4 class="fs-lg mb-4">Export data</h4>
                                     <form style="width: 350px" id="filterForm" method="GET" action="<?= PROOT; ?>account/export">
                                         <div class="row gx-3">
-                                            <div class="col mb-2">
-                                                <div class="mb-2">
-                                                    <div class="form-check form-check-inline">
-                                                        <input class="form-check-input" type="radio" name="exp_with" id="inlineRadio1" value="date">
-                                                        <label class="form-check-label" for="inlineRadio1">Date</label>
-                                                    </div>
-                                                    <div class="form-check form-check-inline">
-                                                        <input class="form-check-input" type="radio" name="exp_with" id="inlineRadio2" value="month">
-                                                        <label class="form-check-label" for="inlineRadio2">Month</label>
-                                                    </div>
-                                                    <div class="form-check form-check-inline">
-                                                        <input class="form-check-input" type="radio" name="exp_with" id="inlineRadio3" value="year">
-                                                        <label class="form-check-label" for="inlineRadio3">Year</label>
-                                                    </div>
+                                            <div class="col-sm-12 mb-3">
+                                                <div class="form-check form-check-inline">
+                                                    <input class="form-check-input export_class" type="radio" name="exp_with" id="inlineRadio1" value="date">
+                                                    <label class="form-check-label" for="inlineRadio1">Date</label>
                                                 </div>
-                                                <div class="mb-2">
-                                                    <input type="date" class="form-control form-control-sm" id="export-date" name="export-date">
+                                                <div class="form-check form-check-inline">
+                                                    <input class="form-check-input export_class" type="radio" name="exp_with" id="inlineRadio2" value="month">
+                                                    <label class="form-check-label" for="inlineRadio2">Month</label>
                                                 </div>
-                                                <div class="mb-2">
-                                                    <select id='use-month' class="form-control form-control-sm text-muted">
-                                                        <option value=''>Select Month</option>
-                                                        <option value="1">January</option>
-                                                        <option value='2'>February</option>
-                                                        <option value='3'>March</option>
-                                                        <option value='4'>April</option>
-                                                        <option value='5'>May</option>
-                                                        <option value='6'>June</option>
-                                                        <option value='7'>July</option>
-                                                        <option value='8'>August</option>
-                                                        <option value='9'>September</option>
-                                                        <option value='10'>October</option>
-                                                        <option value='11'>November</option>
-                                                        <option value='12'>December</option>
-                                                    </select>
-                                                </div>
-                                                <div class="mb-2">
-                                                    <select id='use-month' class="form-control form-control-sm text-muted">
-                                                        <option value=''>Select Month</option>
-                                                        <option value="1">January</option>
-                                                        <option value='2'>February</option>
-                                                        <option value='3'>March</option>
-                                                        <option value='4'>April</option>
-                                                        <option value='5'>May</option>
-                                                        <option value='6'>June</option>
-                                                        <option value='7'>July</option>
-                                                        <option value='8'>August</option>
-                                                        <option value='9'>September</option>
-                                                        <option value='10'>October</option>
-                                                        <option value='11'>November</option>
-                                                        <option value='12'>December</option>
-                                                    </select>
+                                                <div class="form-check form-check-inline">
+                                                    <input class="form-check-input export_class" type="radio" name="exp_with" id="inlineRadio3" value="year">
+                                                    <label class="form-check-label" for="inlineRadio3">Year</label>
                                                 </div>
                                             </div>
-                                            <div class="col-auto mb-2">
+                                            <div class="col-sm-12 mb-3 d-none" id="check-date">
+                                                <input type="date" class="form-control form-control-sm" id="export-date" name="export-date">
+                                            </div>
+                                            <div class="col-sm-12 mb-3 d-none" id="check-month">
+                                                <select id='use-month' class="form-control form-control-sm text-muted">
+                                                    <option value=''>Select Month</option>
+                                                    <option value="1">January</option>
+                                                    <option value='2'>February</option>
+                                                    <option value='3'>March</option>
+                                                    <option value='4'>April</option>
+                                                    <option value='5'>May</option>
+                                                    <option value='6'>June</option>
+                                                    <option value='7'>July</option>
+                                                    <option value='8'>August</option>
+                                                    <option value='9'>September</option>
+                                                    <option value='10'>October</option>
+                                                    <option value='11'>November</option>
+                                                    <option value='12'>December</option>
+                                                </select>
+                                            </div>
+                                            <div class="col-sm-12 mb-3 d-none" id="check-year">
+                                                <select id='use-month' class="form-control form-control-sm text-muted">
+                                                    <option value=''>Select Month</option>
+                                                    <option value="1">January</option>
+                                                    <option value='2'>February</option>
+                                                    <option value='3'>March</option>
+                                                    <option value='4'>April</option>
+                                                    <option value='5'>May</option>
+                                                    <option value='6'>June</option>
+                                                    <option value='7'>July</option>
+                                                    <option value='8'>August</option>
+                                                    <option value='9'>September</option>
+                                                    <option value='10'>October</option>
+                                                    <option value='11'>November</option>
+                                                    <option value='12'>December</option>
+                                                </select>
+                                            </div>
+                                            <div class="col-sm-12 mb-3">
                                                 <div class="btn-group" role="group" aria-label="Basic radio toggle button group">
                                                     <input type="radio" class="btn-check" name="export_type" id="export_xlsx" autocomplete="off" checked value="xlsx" required />
                                                     <label class="btn btn-light" for="export_xlsx" data-bs-toggle="tooltip" data-bs-title="XLSX">
@@ -229,6 +227,45 @@
 <?php include ("../includes/footer.inc.php"); ?>
 
 <script>
+    
+    $(".export_class").change(function(e) {
+        event.preventDefault()
+        var select_for = $(".export_class:checked").val();
+
+        if (select_for == 'date') {
+            $('#check-date').removeClass('d-none');
+
+            $('#check-month').addClass('d-none');
+            $('#check-year').addClass('d-none');
+        } else if (select_for == 'month') {
+            $('#check-month').removeClass('d-none');
+
+            $('#check-date').addClass('d-none');
+            $('#check-year').addClass('d-none');
+        } else if (select_for == 'year') {
+            $('#check-year').removeClass('d-none');
+
+            $('#check-month').addClass('d-none');
+            $('#check-date').addClass('d-none');
+        }
+    });
+
+
+    $('#submitCapital').on('click', function() {
+        if ($("input[name='push_for'][value='saleperson']").prop("checked")) {
+            if ($("#push_to").val() == '') {
+                alert("You will have to select a sale person to proceed!");
+                return false;
+            }
+        }
+
+        $('#submitCapital').attr('disabled', true);
+        $('#submitCapital').text('Pushing ...');
+        
+        setInterval(function () {
+            $('#capitalForm').submit();
+        }, 2000)
+    });
     
     // SEARCH AND PAGINATION FOR LIST
     function load_data(page, query = '') {

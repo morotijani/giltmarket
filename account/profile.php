@@ -62,7 +62,7 @@
             </div>
             <div class="col-12 col-lg-9" data-bs-spy="scroll" data-bs-target="#accountNav" data-bs-smooth-scroll="true" tabindex="0">
                 <!-- General -->
-                <section class="card card-line bg-body-tertiary border-transparent mb-5" id="general">
+                <section class="card bg-body-tertiary border-transparent mb-5" id="general">
                     <div class="card-body">
                         <?= get_admin_profile($admin_data['admin_id']); ?>
                     </div>
