@@ -35,8 +35,8 @@
             $query .= "AND CAST(jspence_sales.createdAt AS date) = '" . $get_out_from_date . "'";
         }
 
-        if ($exp_status != 'all') {
-            $query .= " AND jspence_sales.sale_type = '" . $exp_status . "'";
+        if ($exp_status == 'all') {
+            $query .= " AND jspence_sales.sale_type = 'exp'";
         }
 
         $statement = $conn->prepare($query);
@@ -98,5 +98,5 @@
         } else {
             $_SESSION['flash_error'] = "No Record Found!";
         }
-        redirect(PROOT . "account/trades");
+        redirect(PROOT . "account/expenditure");
     }

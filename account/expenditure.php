@@ -541,7 +541,7 @@
                     $('#exportForm').submit();
 
                     $('#submit-export').attr('disabled', false);
-                    $('#submit-export').text('Export');
+                    $('#submit-export').text('Export1');
                     // location.reload();
                 }, 2000)
             } else {
