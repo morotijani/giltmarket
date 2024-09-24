@@ -49,42 +49,24 @@
             $sheet = $spreadsheet->getActiveSheet();
 
             // Header
-            $sheet->setCellValue('A1', 'SALE ID');
-            $sheet->setCellValue('B1', 'GRAM');
-            $sheet->setCellValue('C1', 'VOLUME');
-            $sheet->setCellValue('D1', 'DENSITY');
-            $sheet->setCellValue('E1', 'POUNDS');
-            $sheet->setCellValue('F1', 'KARAT');
-            $sheet->setCellValue('G1', 'PRICE');
-            $sheet->setCellValue('H1', 'TOTAL AMOUNT');
-            $sheet->setCellValue('I1', 'CUSTOMER NAME');
-            $sheet->setCellValue('J1', 'CUSTOMER CONTACT');
-            $sheet->setCellValue('K1', 'COMMENT');
-            $sheet->setCellValue('L1', 'TYPE');
-            $sheet->setCellValue('M1', 'SALE BY');
-            $sheet->setCellValue('N1', 'DATE');
+            $sheet->setCellValue('A1', 'EXPENDITURE ID');
+            $sheet->setCellValue('B1', 'WHAT FOR');
+            $sheet->setCellValue('C1', 'AMOUNT');
+            $sheet->setCellValue('D1', 'BY');
+            $sheet->setCellValue('E1', 'DATE');
 
             $rowCount = 2;
             foreach ($rows as $row) {
                 $sheet->setCellValue('A' . $rowCount, $row['sale_id']);
-                $sheet->setCellValue('B' . $rowCount, $row['sale_gram']);
-                $sheet->setCellValue('C' . $rowCount, $row['sale_volume']);
-                $sheet->setCellValue('D' . $rowCount, $row['sale_density']);
-                $sheet->setCellValue('E' . $rowCount, $row['sale_pounds']);
-                $sheet->setCellValue('F' . $rowCount, $row['sale_carat']);
-                $sheet->setCellValue('G' . $rowCount, money($row['sale_price']));
-                $sheet->setCellValue('H' . $rowCount, money($row['sale_total_amount']));
-                $sheet->setCellValue('I' . $rowCount, (($row['sale_customer_name'] != null) ? ucwords($row['sale_customer_name']) : ''));
-                $sheet->setCellValue('J' . $rowCount, $row['sale_customer_contact']);
-                $sheet->setCellValue('K' . $rowCount, $row['sale_comment']);
-                $sheet->setCellValue('L' . $rowCount, (($row['sale_type'] != null) ? strtoupper($row['sale_type']) : ''));
-                $sheet->setCellValue('M' . $rowCount, ucwords($row['admin_fullname']));
-                $sheet->setCellValue('N' . $rowCount, $row['createdAt']);
+                $sheet->setCellValue('B' . $rowCount, $row['sale_comment']);
+                $sheet->setCellValue('C' . $rowCount, money($row['sale_total_amount']));
+                $sheet->setCellValue('D' . $rowCount, ucwords($row['admin_fullname']));
+                $sheet->setCellValue('E' . $rowCount, $row['createdAt']);
                 $rowCount++;
             }
 
             $FileExtType = $exp_type;
-            $fileName = "J-Spence-Trades-" . $exp_status . "-sheet";
+            $fileName = "J-Spence-Expenditure-" . $exp_status . "-sheet";
 
             if ($FileExtType == 'xlsx') {
                 $writer = new Xlsx($spreadsheet);
