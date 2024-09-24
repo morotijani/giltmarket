@@ -447,6 +447,109 @@
             }
             return false
         });
+
+        $(".export_class").change(function(e) {
+            event.preventDefault()
+            var select_for = $(".export_class:checked").val();
+
+            if (select_for == 'date') {
+                $('#check-date').removeClass('d-none');
+
+                // display none
+                $('#check-month').addClass('d-none');
+                $('#check-year').addClass('d-none');
+
+                // empty values
+                // $('#export-month').val('');
+                // $('#export-year').val('');
+            } else if (select_for == 'month') {
+                $('#check-month').removeClass('d-none');
+
+                // display none
+                $('#check-date').addClass('d-none');
+                $('#check-year').addClass('d-none');
+
+                // empty values
+                // $('#export-date').val('');
+                // $('#export-year').val('');
+            } else if (select_for == 'year') {
+                $('#check-year').removeClass('d-none');
+
+                // display none
+                $('#check-month').addClass('d-none');
+                $('#check-date').addClass('d-none');
+
+                // empty values
+                // $('#export-date').val('');
+                // $('#export-month').val('');
+            } else {
+                // display none
+                $('#check-date').addClass('d-none');
+                $('#check-month').addClass('d-none');
+                $('#check-year').addClass('d-none');
+
+                // empty values
+                // $('#export-date').val('');
+                // $('#export-month').val('');
+                // $('#export-year').val('');
+            }
+        });
+
+
+        $('#submit-export').on('click', function() {
+
+            if ($(".export_class:checked").val()) {
+                var select_for = $(".export_class:checked").val();
+
+                if (select_for == 'date' && $("#export-date").val() == '') {
+                    alert("You will have to select date!");
+                    $("#export-date").focus();
+                    return false;
+                } else if (select_for == 'month' && $("#export-month").val() == '') {
+                    alert("You will have to select month!");
+                    $("#export-month").focus();
+                    return false;
+                } else if (select_for == 'year' && $("#export-year").val() == '') {
+                    alert("You will have to select year!");
+                    $("#export-year").focus();
+                    return false;
+                }
+
+                // var formData = $('#exportForm');
+                // $.ajax({
+                //     method : "GET",
+                //     url : "<?= PROOT; ?>auth/export",
+                //     data : formData.serialize(),
+                //     beforeSend : function() {
+                //         $('#submit-export').attr('disabled', true);
+                //         $('#submit-export').text('Exporting ...');
+                //     },
+                //     success : function (data) {
+                //         console.log(data)
+                //         $('#submit-export').attr('disabled', false);
+                //         $('#submit-export').text('Export');
+                //         location.reload();
+                //     },
+                //     error : function () {
+
+                //     }
+                // })
+
+                $('#submit-export').attr('disabled', true);
+                $('#submit-export').text('Exporting ...');
+                setTimeout(function () {
+                    $('#exportForm').submit();
+
+                    $('#submit-export').attr('disabled', false);
+                    $('#submit-export').text('Export');
+                    // location.reload();
+                }, 2000)
+            } else {
+                return false;
+            }
+        });
+
+
     });
     
     // SEARCH AND PAGINATION FOR LIST
