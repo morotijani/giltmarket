@@ -46,21 +46,11 @@
         } else {
 
         }
-        $query .= " AND jspence_sales.sale_type = '" . $exp_type . "'";
-        dnd($query);
-    //}
-
-    //if (isset($_GET['data']) && !empty($_GET['type'])) {
-        // $data = sanitize($_GET['data']);
+        $query .= " AND jspence_sales.sale_type = '" . $exp_status . "'";
+        
         $FileExtType = $exp_type;
         $fileName = "J-Spence-Trades-" . $exp_status . "-sheet";
-        // 
 
-        // if ($data == 'all') {
-        //     $query = "SELECT * FROM jspence_sales INNER JOIN jspence_admin ON jspence_admin.admin_id = jspence_sales.sale_by WHERE jspence_sales.sale_status = 0";
-        // } else if ($data == 'archive') {
-        //     $query = "SELECT * FROM jspence_sales INNER JOIN jspence_admin ON jspence_admin.admin_id = jspence_sales.sale_by WHERE jspence_sales.sale_status = 1";
-        // }
         $statement = $conn->prepare($query);
         $statement->execute();
         $rows = $statement->fetchAll();
@@ -135,3 +125,4 @@
             redirect(PROOT . 'account/trades');
         }
     }
+    
