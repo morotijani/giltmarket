@@ -311,7 +311,7 @@
             $('#submit-export').attr('disabled', true);
             $('#submit-export').text('Exporting ...');
             
-            setInterval(function () {
+            setTimeout(function () {
                 $('#exportForm').submit();
             }, 2000)
         } else {
