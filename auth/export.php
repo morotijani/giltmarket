@@ -17,16 +17,6 @@
     $class = \PhpOffice\PhpSpreadsheet\Writer\Pdf\Mpdf::class;
     \PhpOffice\PhpSpreadsheet\IOFactory::registerWriter('Pdf', $class);
 
-//     Array
-// (
-//          [exp-status] => all
-//     [exp_with] => month
-//     [export-date] => 2024-09-25
-//     [export-month] => 9
-//     [export-year] => 2024
-//     [export-type] => csv
-// )
-
     if (isset($_GET['exp_with'])) {
         $exp_with = (isset($_GET['exp_with']) && !empty($_GET['exp_with']) ? sanitize($_GET['exp_with']) : '');
         $exp_status = (isset($_GET['export-status']) && !empty($_GET['export-status']) ? sanitize($_GET['export-status']) : '');
@@ -72,8 +62,9 @@
             $sheet->setCellValue('I1', 'CUSTOMER NAME');
             $sheet->setCellValue('J1', 'CUSTOMER CONTACT');
             $sheet->setCellValue('K1', 'COMMENT');
-            $sheet->setCellValue('L1', 'SALE BY');
-            $sheet->setCellValue('M1', 'DATE');
+            $sheet->setCellValue('L1', 'TYPE');
+            $sheet->setCellValue('M1', 'SALE BY');
+            $sheet->setCellValue('N1', 'DATE');
 
             $rowCount = 2;
             foreach ($rows as $row) {
@@ -88,8 +79,9 @@
                 $sheet->setCellValue('I' . $rowCount, ucwords($row['sale_customer_name']));
                 $sheet->setCellValue('J' . $rowCount, $row['sale_customer_contact']);
                 $sheet->setCellValue('K' . $rowCount, $row['sale_comment']);
-                $sheet->setCellValue('L' . $rowCount, ucwords($row['admin_fullname']));
-                $sheet->setCellValue('M' . $rowCount, $row['createdAt']);
+                $sheet->setCellValue('L' . $rowCount, strtoupper($row['sale_type']));
+                $sheet->setCellValue('M' . $rowCount, ucwords($row['admin_fullname']));
+                $sheet->setCellValue('N' . $rowCount, $row['createdAt']);
                 $rowCount++;
             }
 
@@ -104,7 +96,6 @@
                 $NewFileName = $fileName . '.csv';
             } elseif($FileExtType == 'pdf') {
                 //$writer = new Csv($spreadsheet);
-
 
                 $writer = \PhpOffice\PhpSpreadsheet\IOFactory::createWriter($spreadsheet, 'Pdf');
                 $writer = new \PhpOffice\PhpSpreadsheet\Writer\Pdf\Dompdf($spreadsheet);
@@ -125,4 +116,3 @@
             redirect(PROOT . 'account/trades');
         }
     }
-    
