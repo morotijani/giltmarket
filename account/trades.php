@@ -137,21 +137,39 @@
                                     <h4 class="fs-lg mb-4">Export data</h4>
                                     <form style="width: 350px" id="exportForm" method="GET" action="<?= PROOT; ?>auth/export">
                                         <div class="row gx-3">
+                                        <div class="col-sm-12 mb-3">
+                                                <div class="form-check form-check-inline">
+                                                    <input class="form-check-input export_type" type="radio" name="exp_type" id="inlineRadioStatus1" required value="all" checked>
+                                                    <label class="form-check-label" for="inlineRadioStatus1">All</label>
+                                                </div>
+                                                <div class="form-check form-check-inline">
+                                                    <input class="form-check-input export_type" type="radio" name="exp_type" id="inlineRadioStatus2" required value="exp">
+                                                    <label class="form-check-label" for="inlineRadioStatus2">Expenditure</label>
+                                                </div>
+                                                <div class="form-check form-check-inline">
+                                                    <input class="form-check-input export_type" type="radio" name="exp_type" id="inlineRadioStatus3" required value="in">
+                                                    <label class="form-check-label" for="inlineRadioStatus3">In</label>
+                                                </div>
+                                                <div class="form-check form-check-inline">
+                                                    <input class="form-check-input export_type" type="radio" name="exp_type" id="inlineRadioStatus4" required value="out">
+                                                    <label class="form-check-label" for="inlineRadioStatus4">Out</label>
+                                                </div>
+                                            </div>
                                             <div class="col-sm-12 mb-3">
                                                 <div class="form-check form-check-inline">
-                                                    <input class="form-check-input export_class" type="radio" name="exp_with" id="inlineRadio1" value="date">
+                                                    <input class="form-check-input export_class" type="radio" name="exp_with" id="inlineRadio1" required value="date">
                                                     <label class="form-check-label" for="inlineRadio1">Date</label>
                                                 </div>
                                                 <div class="form-check form-check-inline">
-                                                    <input class="form-check-input export_class" type="radio" name="exp_with" id="inlineRadio2" value="month">
+                                                    <input class="form-check-input export_class" type="radio" name="exp_with" id="inlineRadio2" required value="month">
                                                     <label class="form-check-label" for="inlineRadio2">Month</label>
                                                 </div>
                                                 <div class="form-check form-check-inline">
-                                                    <input class="form-check-input export_class" type="radio" name="exp_with" id="inlineRadio3" value="year">
+                                                    <input class="form-check-input export_class" type="radio" name="exp_with" id="inlineRadio3" required value="year">
                                                     <label class="form-check-label" for="inlineRadio3">Year</label>
                                                 </div>
                                                 <div class="form-check form-check-inline">
-                                                    <input class="form-check-input export_class" type="radio" name="exp_with" id="inlineRadio3" value="all">
+                                                    <input class="form-check-input export_class" type="radio" name="exp_with" id="inlineRadio3" required value="all">
                                                     <label class="form-check-label" for="inlineRadio3">All</label>
                                                 </div>
                                             </div>

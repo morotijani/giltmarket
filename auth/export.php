@@ -5,8 +5,6 @@
         admn_login_redirect();
     }
 
-    dnd($_GET);
-
     use PhpOffice\PhpSpreadsheet\Spreadsheet;
     use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
     use PhpOffice\PhpSpreadsheet\Writer\Xls;
@@ -19,17 +17,47 @@
     $class = \PhpOffice\PhpSpreadsheet\Writer\Pdf\Mpdf::class;
     \PhpOffice\PhpSpreadsheet\IOFactory::registerWriter('Pdf', $class);
 
+//     Array
+// (
+//          [exp_type] => all
+//     [exp_with] => month
+//     [export-date] => 2024-09-25
+//     [export-month] => 9
+//     [export-year] => 2024
+//     [export_type] => csv
+// )
 
-    if (isset($_GET['data']) && !empty($_GET['type'])) {
+    if (isset($_GET['exp_with'])) {
+        $exp_with = (isset($_GET['exp_with']) && !empty($_GET['exp_with']) ? sanitize($_GET['exp_with']) : '');
+        $exp_type = (isset($_GET['exp_type']) && !empty($_GET['exp_type']) ? sanitize($_GET['exp_type']) : '');
+        $get_out_from_date = null;
+
+        $query = "SELECT * FROM jspence_sales INNER JOIN jspence_admin ON jspence_admin.admin_id = jspence_sales.sale_by WHERE jspence_sales.sale_status = 0 ";
+        if ($exp_with == 'month') {
+            $get_out_from_date = (isset($_GET['export-month']) && !empty($_GET['export-month']) ? sanitize($_GET['export-month']) : '');
+            $query .= "AND MONTH(jspence_sales.createdAt) = '" . $get_out_from_date . "'";
+        } else  if ($exp_with == 'year') {
+            $get_out_from_date = (isset($_GET['export-year']) && !empty($_GET['export-year']) ? sanitize($_GET['export-year']) : '');
+            $query .= "AND YEAR(jspence_sales.createdAt) = '" . $get_out_from_date . "'";
+        } else  if ($exp_with == 'date') {
+            $get_out_from_date = (isset($_GET['export-date']) && !empty($_GET['export-date']) ? sanitize($_GET['export-date']) : '');
+            $query .= "AND CAST(jspence_sales.createdAt AS date) = '" . $get_out_from_date . "'";
+        } else {
+
+        }
+        $query .= " AND jspence_sales.sale_type = '" . $exp_type . "'";
+    //}
+
+    //if (isset($_GET['data']) && !empty($_GET['type'])) {
         $data = sanitize($_GET['data']);
         $FileExtType = sanitize($_GET['type']);
         $fileName = "J-Spence-Trades-" . $data . "-sheet";
 
-        if ($data == 'all') {
-            $query = "SELECT * FROM jspence_sales INNER JOIN jspence_admin ON jspence_admin.admin_id = jspence_sales.sale_by WHERE jspence_sales.sale_status = 0";
-        } else if ($data == 'archive') {
-            $query = "SELECT * FROM jspence_sales INNER JOIN jspence_admin ON jspence_admin.admin_id = jspence_sales.sale_by WHERE jspence_sales.sale_status = 1";
-        }
+        // if ($data == 'all') {
+        //     $query = "SELECT * FROM jspence_sales INNER JOIN jspence_admin ON jspence_admin.admin_id = jspence_sales.sale_by WHERE jspence_sales.sale_status = 0";
+        // } else if ($data == 'archive') {
+        //     $query = "SELECT * FROM jspence_sales INNER JOIN jspence_admin ON jspence_admin.admin_id = jspence_sales.sale_by WHERE jspence_sales.sale_status = 1";
+        // }
         $statement = $conn->prepare($query);
         $statement->execute();
         $rows = $statement->fetchAll();
