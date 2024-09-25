@@ -19,17 +19,18 @@
 
 //     Array
 // (
-//          [exp_type] => all
+//          [exp-status] => all
 //     [exp_with] => month
 //     [export-date] => 2024-09-25
 //     [export-month] => 9
 //     [export-year] => 2024
-//     [export_type] => csv
+//     [export-type] => csv
 // )
 
     if (isset($_GET['exp_with'])) {
         $exp_with = (isset($_GET['exp_with']) && !empty($_GET['exp_with']) ? sanitize($_GET['exp_with']) : '');
-        $exp_type = (isset($_GET['exp_type']) && !empty($_GET['exp_type']) ? sanitize($_GET['exp_type']) : '');
+        $exp_status = (isset($_GET['export-status']) && !empty($_GET['export-status']) ? sanitize($_GET['export-status']) : '');
+        $exp_type = (isset($_GET['export-type']) && !empty($_GET['export-type']) ? sanitize($_GET['export-type']) : '');
         $get_out_from_date = null;
 
         $query = "SELECT * FROM jspence_sales INNER JOIN jspence_admin ON jspence_admin.admin_id = jspence_sales.sale_by WHERE jspence_sales.sale_status = 0 ";
@@ -46,12 +47,14 @@
 
         }
         $query .= " AND jspence_sales.sale_type = '" . $exp_type . "'";
+        dnd($query);
     //}
 
     //if (isset($_GET['data']) && !empty($_GET['type'])) {
-        $data = sanitize($_GET['data']);
-        $FileExtType = sanitize($_GET['type']);
-        $fileName = "J-Spence-Trades-" . $data . "-sheet";
+        // $data = sanitize($_GET['data']);
+        $FileExtType = $exp_type;
+        $fileName = "J-Spence-Trades-" . $exp_status . "-sheet";
+        // 
 
         // if ($data == 'all') {
         //     $query = "SELECT * FROM jspence_sales INNER JOIN jspence_admin ON jspence_admin.admin_id = jspence_sales.sale_by WHERE jspence_sales.sale_status = 0";
@@ -128,7 +131,7 @@
             $writer->save('php://output');
 
         } else {
-            $_SESSION['flash_error'] = "No Record Found";
-            redirect(PROOT . 'acc/trades');
+            $_SESSION['flash_error'] = "No Record Found!";
+            redirect(PROOT . 'account/trades');
         }
     }

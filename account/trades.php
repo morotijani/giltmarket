@@ -139,19 +139,19 @@
                                         <div class="row gx-3">
                                         <div class="col-sm-12 mb-3">
                                                 <div class="form-check form-check-inline">
-                                                    <input class="form-check-input export_type" type="radio" name="exp_type" id="inlineRadioStatus1" required value="all" checked>
+                                                    <input class="form-check-input export_type" type="radio" name="export-status" id="inlineRadioStatus1" required value="all" checked>
                                                     <label class="form-check-label" for="inlineRadioStatus1">All</label>
                                                 </div>
                                                 <div class="form-check form-check-inline">
-                                                    <input class="form-check-input export_type" type="radio" name="exp_type" id="inlineRadioStatus2" required value="exp">
+                                                    <input class="form-check-input export_type" type="radio" name="export-status" id="inlineRadioStatus2" required value="exp">
                                                     <label class="form-check-label" for="inlineRadioStatus2">Expenditure</label>
                                                 </div>
                                                 <div class="form-check form-check-inline">
-                                                    <input class="form-check-input export_type" type="radio" name="exp_type" id="inlineRadioStatus3" required value="in">
+                                                    <input class="form-check-input export_type" type="radio" name="export-status" id="inlineRadioStatus3" required value="in">
                                                     <label class="form-check-label" for="inlineRadioStatus3">In</label>
                                                 </div>
                                                 <div class="form-check form-check-inline">
-                                                    <input class="form-check-input export_type" type="radio" name="exp_type" id="inlineRadioStatus4" required value="out">
+                                                    <input class="form-check-input export_type" type="radio" name="export-status" id="inlineRadioStatus4" required value="out">
                                                     <label class="form-check-label" for="inlineRadioStatus4">Out</label>
                                                 </div>
                                             </div>
@@ -169,8 +169,8 @@
                                                     <label class="form-check-label" for="inlineRadio3">Year</label>
                                                 </div>
                                                 <div class="form-check form-check-inline">
-                                                    <input class="form-check-input export_class" type="radio" name="exp_with" id="inlineRadio3" required value="all">
-                                                    <label class="form-check-label" for="inlineRadio3">All</label>
+                                                    <input class="form-check-input export_class" type="radio" name="exp_with" id="inlineRadio4" required value="all">
+                                                    <label class="form-check-label" for="inlineRadio4">All</label>
                                                 </div>
                                             </div>
                                             <div class="col-sm-12 mb-3 d-none" id="check-date">
@@ -203,19 +203,19 @@
                                             </div>
                                             <div class="col-sm-12 mb-3">
                                                 <div class="btn-group w-100" role="group" aria-label="Basic radio toggle button group">
-                                                    <input type="radio" class="btn-check" name="export_type" id="export_xlsx" autocomplete="off" checked value="xlsx" required />
+                                                    <input type="radio" class="btn-check" name="export-type" id="export_xlsx" autocomplete="off" checked value="xlsx" required />
                                                     <label class="btn btn-light" for="export_xlsx" data-bs-toggle="tooltip" data-bs-title="XLSX">
                                                     <img src="<?= PROOT; ?>assets/media/XLSX.png" class="w-rem-6 h-rem-6 rounded-circle" alt="...">
                                                     </label>
-                                                    <input type="radio" class="btn-check" name="export_type" id="export_csv" autocomplete="off" value="csv" required />
+                                                    <input type="radio" class="btn-check" name="export-type" id="export_csv" autocomplete="off" value="csv" required />
                                                     <label class="btn btn-light" for="export_csv" data-bs-toggle="tooltip" data-bs-title="CSV">
                                                     <img src="<?= PROOT; ?>assets/media/CSV.png" class="w-rem-6 h-rem-6 rounded-circle" alt="...">
                                                     </label>
-                                                    <input type="radio" class="btn-check" name="export_type" id="export_pdf" autocomplete="off" value="pdf" required />
+                                                    <input type="radio" class="btn-check" name="export-type" id="export_pdf" autocomplete="off" value="pdf" required />
                                                     <label class="btn btn-light" for="export_pdf" data-bs-toggle="tooltip" data-bs-title="PDF">
                                                     <img src="<?= PROOT; ?>assets/media/PDF.png" class="w-rem-6 rh-rem-6 ounded-circle" alt="...">
                                                     </label>
-                                                    <input type="radio" class="btn-check" name="export_type" id="export_xls" autocomplete="off" value="xls" required />
+                                                    <input type="radio" class="btn-check" name="export-type" id="export_xls" autocomplete="off" value="xls" required />
                                                     <label class="btn btn-light" for="export_xls" data-bs-toggle="tooltip" data-bs-title="XLS">
                                                     <img src="<?= PROOT; ?>assets/media/XLS.png" class="w-rem-6 h-rem-6 rounded-circle" alt="...">
                                                     </label>
