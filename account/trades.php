@@ -135,7 +135,7 @@
                                 </button>
                                 <div class="dropdown-menu rounded-3 p-6">
                                     <h4 class="fs-lg mb-4">Export data</h4>
-                                    <form style="width: 350px" id="exportForm" method="GET" action="<?= PROOT; ?>account/export">
+                                    <form style="width: 350px" id="exportForm" method="GET" action="<?= PROOT; ?>auth/export">
                                         <div class="row gx-3">
                                             <div class="col-sm-12 mb-3">
                                                 <div class="form-check form-check-inline">
@@ -156,30 +156,30 @@
                                                 </div>
                                             </div>
                                             <div class="col-sm-12 mb-3 d-none" id="check-date">
-                                                <input type="date" class="form-control form-control-sm" id="export-date" name="export-date">
+                                                <input type="date" class="form-control form-control-sm" id="export-date" name="export-date" value="<?= date("Y-m-d"); ?>">
                                             </div>
                                             <div class="col-sm-12 mb-3 d-none" id="check-month">
                                                 <select id='export-month' name="export-month" class="form-control form-control-sm">
                                                     <option value=''>Select Month</option>
-                                                    <option value="1">January</option>
-                                                    <option value='2'>February</option>
-                                                    <option value='3'>March</option>
-                                                    <option value='4'>April</option>
-                                                    <option value='5'>May</option>
-                                                    <option value='6'>June</option>
-                                                    <option value='7'>July</option>
-                                                    <option value='8'>August</option>
-                                                    <option value='9'>September</option>
-                                                    <option value='10'>October</option>
-                                                    <option value='11'>November</option>
-                                                    <option value='12'>December</option>
+                                                    <option value="1"<?= ((date('m') == '1') ? ' selected' : ''); ?>>January</option>
+                                                    <option value='2'<?= ((date('m') == '2') ? ' selected' : ''); ?>>February</option>
+                                                    <option value='3'<?= ((date('m') == '3') ? ' selected' : ''); ?>>March</option>
+                                                    <option value='4'<?= ((date('m') == '4') ? ' selected' : ''); ?>>April</option>
+                                                    <option value='5'<?= ((date('m') == '5') ? ' selected' : ''); ?>>May</option>
+                                                    <option value='6'<?= ((date('m') == '6') ? ' selected' : ''); ?>>June</option>
+                                                    <option value='7'<?= ((date('m') == '7') ? ' selected' : ''); ?>>July</option>
+                                                    <option value='8'<?= ((date('m') == '8') ? ' selected' : ''); ?>>August</option>
+                                                    <option value='9'<?= ((date('m') == '9') ? ' selected' : ''); ?>>September</option>
+                                                    <option value='10<?= ((date('m') == '10') ? ' selected' : ''); ?>'>October</option>
+                                                    <option value='11<?= ((date('m') == '11') ? ' selected' : ''); ?>'>November</option>
+                                                    <option value='12<?= ((date('m') == '12') ? ' selected' : ''); ?>'>December</option>
                                                 </select>
                                             </div>
                                             <div class="col-sm-12 mb-3 d-none" id="check-year">
                                                 <select id='export-year' name="export-year" class="form-control form-control-sm">
                                                     <option value=''>Select Year</option>
                                                     <?php for ($i = date('Y'); $i >= 2020; $i--) : ?>
-                                                        <option value='<?= $i; ?>'><?= $i; ?></option>
+                                                        <option value='<?= $i; ?>' <?= ((date('Y') == $i)? 'selected' : ''); ?>><?= $i; ?></option>
                                                     <?php endfor; ?>
                                                 </select>
                                             </div>
@@ -235,8 +235,8 @@
             $('#check-year').addClass('d-none');
 
             // empty values
-            $('#export-month').val('');
-            $('#export-year').val('');
+            // $('#export-month').val('');
+            // $('#export-year').val('');
         } else if (select_for == 'month') {
             $('#check-month').removeClass('d-none');
 
@@ -245,8 +245,8 @@
             $('#check-year').addClass('d-none');
 
             // empty values
-            $('#export-date').val('');
-            $('#export-year').val('');
+            // $('#export-date').val('');
+            // $('#export-year').val('');
         } else if (select_for == 'year') {
             $('#check-year').removeClass('d-none');
 
@@ -255,8 +255,8 @@
             $('#check-date').addClass('d-none');
 
             // empty values
-            $('#export-date').val('');
-            $('#export-month').val('');
+            // $('#export-date').val('');
+            // $('#export-month').val('');
         } else {
             // display none
             $('#check-date').addClass('d-none');
@@ -264,9 +264,9 @@
             $('#check-year').addClass('d-none');
 
             // empty values
-            $('#export-date').val('');
-            $('#export-month').val('');
-            $('#export-year').val('');
+            // $('#export-date').val('');
+            // $('#export-month').val('');
+            // $('#export-year').val('');
         }
     });
 
