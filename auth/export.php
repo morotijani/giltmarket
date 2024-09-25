@@ -33,18 +33,16 @@
         } else  if ($exp_with == 'date') {
             $get_out_from_date = (isset($_GET['export-date']) && !empty($_GET['export-date']) ? sanitize($_GET['export-date']) : '');
             $query .= "AND CAST(jspence_sales.createdAt AS date) = '" . $get_out_from_date . "'";
-        } else {
-
         }
-        $query .= " AND jspence_sales.sale_type = '" . $exp_status . "'";
-        
-        $FileExtType = $exp_type;
-        $fileName = "J-Spence-Trades-" . $exp_status . "-sheet";
+
+        if ($exp_status != 'all') {
+            $query .= " AND jspence_sales.sale_type = '" . $exp_status . "'";
+        }
 
         $statement = $conn->prepare($query);
         $statement->execute();
         $rows = $statement->fetchAll();
-        $count_row = $statement->fetchAll();
+        $count_row = $statement->rowCount();
 
         if ($count_row > 0) {
             $spreadsheet = new Spreadsheet();
@@ -76,7 +74,7 @@
                 $sheet->setCellValue('F' . $rowCount, $row['sale_carat']);
                 $sheet->setCellValue('G' . $rowCount, money($row['sale_price']));
                 $sheet->setCellValue('H' . $rowCount, money($row['sale_total_amount']));
-                $sheet->setCellValue('I' . $rowCount, ucwords($row['sale_customer_name']));
+                $sheet->setCellValue('I' . $rowCount, (($row['sale_customer_name'] != null) ? ucwords($row['sale_customer_name']) : ''));
                 $sheet->setCellValue('J' . $rowCount, $row['sale_customer_contact']);
                 $sheet->setCellValue('K' . $rowCount, $row['sale_comment']);
                 $sheet->setCellValue('L' . $rowCount, strtoupper($row['sale_type']));
@@ -84,6 +82,9 @@
                 $sheet->setCellValue('N' . $rowCount, $row['createdAt']);
                 $rowCount++;
             }
+
+            $FileExtType = $exp_type;
+            $fileName = "J-Spence-Trades-" . $exp_status . "-sheet";
 
             if ($FileExtType == 'xlsx') {
                 $writer = new Xlsx($spreadsheet);

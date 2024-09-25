@@ -311,9 +311,10 @@
             $('#submit-export').attr('disabled', true);
             $('#submit-export').text('Exporting ...');
             
-            setTimeout(function () {
+            // setTimeout(function () {
                 $('#exportForm').submit();
-            }, 2000)
+                // location.reload();
+            // }, 2000)
         } else {
             return false;
         }
