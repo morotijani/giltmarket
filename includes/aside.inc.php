@@ -23,7 +23,7 @@
             </div>
             <?php if (!admin_has_permission()): ?>
             <div class="nav-item" data-bs-toggle="tooltip" data-bs-title="End trade">
-              <a class="nav-link" href="<?= PROOT; ?>account/end-trade">
+              <a class="nav-link text-danger" href="<?= PROOT; ?>account/end-trade">
                   <span class="material-symbols-outlined mx-auto"> money_off </span>
                 </a>
             </div>

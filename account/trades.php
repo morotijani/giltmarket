@@ -82,7 +82,15 @@
             </div>
             <div class="col-12 col-sm-auto mt-4 mt-sm-0">
                 <!-- Action -->
-                <a class="btn btn-secondary d-block" href="javascript:;" data-bs-target="#buyModal" data-bs-toggle="modal"> <span class="material-symbols-outlined me-1">add</span> New Trade </a>
+                <div class="row gx-2">
+                    <div class="col-6 col-sm-auto">
+                        <a class="btn btn-secondary d-block" href="javascript:;" data-bs-target="#buyModal" data-bs-toggle="modal"> <span class="material-symbols-outlined me-1">add</span> New trade </a>
+                    </div>
+                    <div class="col-6 col-sm-auto">
+                        <a class="btn btn-light d-block" href="<?= PROOT; ?>account/end-trade"> <span class="material-symbols-outlined me-1">money_off</span> End trade </a>
+                    </div>
+                </div>
+
             </div>
         </div>
 
@@ -118,16 +126,6 @@
                                             </span>
                                         </div>
                                     </div>
-                                    <div class="col-auto">
-                                        <div class="dropdown">
-                                    <button class="btn btn-dark px-3" data-bs-toggle="dropdown" data-bs-auto-close="outside" aria-expanded="false">
-                                        <span class="material-symbols-outlined">filter_list</span>
-                                    </button>
-                                    <div class="dropdown-menu rounded-3 p-6">
-                                        <h4 class="fs-lg mb-4">Filter</h4>
-                                    </div>
-                                </div>
-                            </div>
                             <div class="col-auto ms-n2">
                                 <div class="dropdown">
                                 <button class="btn btn-dark px-3" data-bs-toggle="dropdown" data-bs-auto-close="outside" aria-expanded="false">

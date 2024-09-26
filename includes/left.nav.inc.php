@@ -221,7 +221,7 @@
                                 <a class="nav-link" href="#"> <span class="material-symbols-outlined me-3">local_mall</span> Trade </a>
                             </div>
                             <div class="nav-item">
-                                <a class="nav-link" href="<?= PROOT; ?>account/end-trade"> <span class="material-symbols-outlined me-3">money_off</span> End trade </a>
+                                <a class="nav-link text-danger" href="<?= PROOT; ?>account/end-trade"> <span class="material-symbols-outlined me-3">money_off</span> End trade </a>
                             </div>
                             <div class="nav-item">
                                 <a class="nav-link" href="#"> <span class="material-symbols-outlined me-3">alternate_email</span> Contact us </a>
