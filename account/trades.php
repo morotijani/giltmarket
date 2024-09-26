@@ -291,7 +291,7 @@
 
     $('#submit-export').on('click', function() {
 
-        if($(".export_class:checked").val()) {
+        if ($(".export_class:checked").val()) {
             var select_for = $(".export_class:checked").val();
 
             if (select_for == 'date' && $("#export-date").val() == '') {
