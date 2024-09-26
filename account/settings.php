@@ -107,15 +107,16 @@
                             <div class="col-md-8 col-xl-5">
                                 <div class="" id="upload_profile">
                                     <div class="d-flex align-items-center">
-                                        <a href="<?= PROOT . $admin_data['admin_profile']; ?>" class="avatar avatar-lg bg-warning rounded-circle text-white">
+                                        <a href="<?= (($admin_data['admin_profile'] != NULL) ? PROOT . $admin_data['admin_profile'] : 'javascript:;'); ?>" class="avatar avatar-lg bg-warning rounded-circle text-white">
                                             <img src="<?= PROOT . (($admin_data['admin_profile'] == NULL) ? 'assets/media/avatar.png' : $admin_data['admin_profile']); ?>" style="object-fit: cover; object-position: center; width: 35px; height: 35px" alt="<?=ucwords($admin_data['admin_fullname']); ?>'s profile.">
                                         </a>
                                         <div class="hstack gap-2 ms-5">
+                                            <?php if ($admin_data['admin_profile'] == NULL): ?>
                                             <label for="file_upload" class="btn btn-sm btn-neutral">
                                                 <span>Upload</span> 
                                                 <input type="file" name="file_upload" id="file_upload" class="visually-hidden">
                                             </label>
-                                            <?php if ($admin_data['admin_profile'] != NULL): ?>
+                                            <?php else: ?>
                                             <a href="javascript:;" class="btn d-inline-flex btn-sm btn-neutral text-danger change-profile-picture" id="<?=  $admin_data['admin_profile']; ?>">
                                                 <span><i class="bi bi-trash"></i> </span>
                                                 <span class="d-none d-sm-block me-2">Remove</span>
@@ -216,7 +217,17 @@
 
         // save account details
         $('#submitForm').on('click', function() {
-            $('#settingsForm').submit();
+
+            $('#submitForm').attr('disabled', true);
+            $('#submitForm').text('Saving ...');
+
+            setTimeout(function () {
+                $('#settingsForm').submit();
+
+                $('#submitForm').attr('disabled', false);
+                $('#submitForm').text('Save');
+            }, 2000)
+
         })
     });
     

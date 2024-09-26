@@ -16,11 +16,11 @@
 				WHERE admin_id = ?
 			";
 			$statement = $conn->prepare($sql);
-			$result = $statement->execute(['', $admin_data[0]['admin_id']]);
+			$result = $statement->execute([NULL, $admin_data['admin_id']]);
 			if (isset($result)) {
 				
 				$message = "deleted profile picture";
-                add_to_log($message, $admin_data[0]['admin_id']);
+                add_to_log($message, $admin_data['admin_id']);
 
 				echo '';
 			}
