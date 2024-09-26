@@ -16,6 +16,7 @@
     $errors = '';
     $admin_fullname = ((isset($_POST['admin_fullname'])) ? sanitize($_POST['admin_fullname']) : $admin_data['admin_fullname']);
     $admin_email = ((isset($_POST['admin_email'])) ? sanitize($_POST['admin_email']) : $admin_data['admin_email']);
+    $admin_phone = ((isset($_POST['admin_phone'])) ? sanitize($_POST['admin_phone']) : $admin_data['admin_phone']);
 
     if ($_POST) {
         if (empty($_POST['admin_email']) && empty($_POST['admin_email'])) {
@@ -29,10 +30,10 @@
         if (!empty($errors)) {
             $errors;
         } else {
-            $data = [$admin_fullname, $admin_email, $admin_data['admin_id']];
+            $data = [$admin_fullname, $admin_email, $admin_phone, $admin_data['admin_id']];
             $query = "
                 UPDATE jspence_admin 
-                SET admin_fullname = ?, admin_email = ? 
+                SET admin_fullname = ?, admin_email = ?, admin_phone = ?  
                 WHERE admin_id = ?
             ";
             $statement = $conn->prepare($query);
@@ -87,7 +88,7 @@
             <div class="col-12 col-lg-3">
                 <!-- Nav -->
                 <nav class="nav nav-pills position-sticky flex-column mb-8" id="accountNav" style="top: 2rem">
-                    <a class="nav-link" href="javascript:;">General</a>
+                    <a class="nav-link" href="<?= PROOT; ?>account/profile">General</a>
                     <a class="nav-link" href="<?= PROOT; ?>account/settings">Update account</a>
                     <a class="nav-link" href="<?= PROOT; ?>account/change-password">Change password</a>
                     <a class="nav-link text-danger" href="<?= PROOT; ?>auth/logout">Logout</a>
@@ -97,9 +98,8 @@
                 <!-- General -->
                 <section class="card bg-body-tertiary border-transparent mb-5" id="general">
                     <div class="card-body">
-                        <h2 class="fs-5 mb-1">General</h2>
+                        <h2 class="fs-5 mb-1">Settings</h2>
                         <p class="text-body-secondary">Update your general account information.</p>
-                        <hr>
                         <div class="row align-items-center">
                             <div class="col-md-2">
                                 <label class="form-label">Avatar</label>
@@ -131,13 +131,18 @@
                             <div class="text-danger mb-3"><?= $errors; ?></div>
                             <div class="mb-4">
                                 <label for="admin_fullname" class="form-label">Full Name</label>
-                                <input type="text" class="form-control" name="admin_fullname" id="admin_fullname" value="<?= $admin_fullname; ?>" required>
+                                <input type="text" class="form-control bg-body" name="admin_fullname" id="admin_fullname" value="<?= $admin_fullname; ?>" required>
                                 <div class="text-sm text-muted">Change your full name in this field</div>
                             </div>
                             <div class="mb-4">
                                 <label for="admin_email" class="form-label">Email</label>
-                                <input type="email" class="form-control" name="admin_email" id="admin_email" value="<?= $admin_email; ?>" required>
+                                <input type="email" class="form-control bg-body" name="admin_email" id="admin_email" value="<?= $admin_email; ?>" required>
                                 <div class="text-sm text-muted">Change your email in this field</div>
+                            </div>
+                            <div class="mb-4">
+                                <label for="admin_phone" class="form-label">Phone number</label>
+                                <input type="text" class="form-control bg-body" name="admin_phone" id="admin_phone" value="<?= $admin_phone; ?>" required>
+                                <div class="text-sm text-muted">Change your phone number in this field</div>
                             </div>
                         </form>
                     </div>

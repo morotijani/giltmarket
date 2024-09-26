@@ -152,7 +152,7 @@
             <div class="col-12 col-lg-3">
                 <!-- Nav -->
                 <nav class="nav nav-pills position-sticky flex-column mb-8" id="accountNav" style="top: 2rem">
-                    <a class="nav-link" href="javascript:;">General</a>
+                    <a class="nav-link" href="<?= PROOT; ?>account/profile">General</a>
                     <a class="nav-link" href="<?= PROOT; ?>account/settings">Update account</a>
                     <a class="nav-link" data-bs-target="#pinModal" data-bs-toggle="modal" href="javascript:;">Change PIN</a>
                     <a class="nav-link" href="<?= PROOT; ?>account/change-password">Change password</a>
