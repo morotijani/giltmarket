@@ -34,7 +34,9 @@
             $get_out_from_date = (isset($_GET['export-date']) && !empty($_GET['export-date']) ? sanitize($_GET['export-date']) : '');
             $query .= "AND CAST(jspence_sales.createdAt AS date) = '" . $get_out_from_date . "'";
         }
-
+        if (!admin_has_permission()) {
+            $query .= ' AND jspence_sales.sale_by = "'.$admin_data['admin_id'].'" ';
+        }
         if ($exp_status != 'all') {
             $query .= " AND jspence_sales.sale_type = '" . $exp_status . "'";
         }

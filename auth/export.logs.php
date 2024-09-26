@@ -37,7 +37,7 @@
         }
 
         if (!admin_has_permission()) {
-            $query = ' AND jspence_admin.admin_id = "'.$admin_data['admin_id'].'" ';
+            $query .= ' AND jspence_logs.log_admin = "' . $admin_data['admin_id'] . '" ';
         }
         $query .= " AND jspence_logs.log_status = 0";
         
@@ -60,7 +60,7 @@
             $rowCount = 2;
             foreach ($rows as $row) {
                 $sheet->setCellValue('A' . $rowCount, $row['log_id']);
-                $sheet->setCellValue('B' . $rowCount, $row['sale_comment']);
+                $sheet->setCellValue('B' . $rowCount, $row['log_message']);
                 $sheet->setCellValue('C' . $rowCount, ucwords($row['admin_fullname']));
                 $sheet->setCellValue('D' . $rowCount, $row['createdAt']);
                 $rowCount++;

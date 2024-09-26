@@ -40,6 +40,9 @@
             $query .= "AND CAST(jspence_sales.createdAt AS date) = '" . $get_out_from_date . "'";
         }
 
+        if (!admin_has_permission()) {
+            $query .= ' AND jspence_sales.sale_by = "'.$admin_data['admin_id'].'" ';
+        }
         $query .= " AND jspence_sales.sale_type = 'exp'";
         
 
