@@ -133,32 +133,6 @@
         </div>
     </div>
 
-    <!-- CHANGE PIN -->
-    <div class="modal fade" id="pinModal" tabindex="-1" aria-labelledby="pinModalLabel" data-bs-backdrop="static" data-bs-keyboard="false" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered">
-            <div class="modal-content overflow-hidden">
-                <div class="modal-header pb-0 border-0">
-                    <h1 class="modal-title h4" id="pinModalLabel">Change PIN</h1>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body p-0">
-                    <form method="POST" action="<?= PROOT; ?>account/change-password?pin=1">
-                        <div class="px-6 py-5 border-bottom">
-                            <input type="number" inputmode="numeric" data-maxlength="4" oninput="this.value=this.value.slice(0,this.dataset.maxlength)" class="form-control" name="oldpin" placeholder="Old PIN" required>
-                            <br>
-                            <input type="number" inputmode="numeric" min="0" data-maxlength="4" oninput="this.value=this.value.slice(0,this.dataset.maxlength)" class="form-control" name="newpin" placeholder="New PIN" required>
-                            <br>
-                            <input type="number" inputmode="numeric" min="0" data-maxlength="4" oninput="this.value=this.value.slice(0,this.dataset.maxlength)" class="form-control" name="confirmpin" placeholder="Confirm new PIN" required>
-                        </div>
-                        <div class="px-6 py-5 bg-body-secondary d-flex justify-content-center">
-                            <button name="pin_submit" class="btn btn-sm btn-dark"><i class="bi bi-incognito me-2"></i>Change pin now</button>
-                        </div>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </div>
-
     <!-- JAVASCRIPT -->
     <script src="<?= PROOT; ?>assets/js/jquery-3.7.1.min.js"></script>
     <!-- Map JS -->

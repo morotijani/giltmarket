@@ -24,7 +24,7 @@
     $new_hashed = password_hash($password, PASSWORD_BCRYPT);
     $admin_id = $admin_data['admin_id'];
 
-    if ($_POST) {
+    if (isset($_POST['old_password'])) {
         if (empty($_POST['old_password']) || empty($_POST['password']) || empty($_POST['confirm'])) {
             $errors = 'You must fill out all fields';
         } else {
@@ -164,21 +164,24 @@
                 <!-- General -->
                 <section class="card bg-body-tertiary border-transparent mb-5" id="general">
                     <div class="card-body">
+                        <h2 class="fs-5 mb-1">Password</h2>
+                        <p class="text-body-secondary">Change your login information.</p>
+                        <hr>
                         <form method="POST" id="changePasswordForm">
                             <div class="text-danger mb-3"><?= $errors; ?></div>
                             <div class="mb-4">
                                 <label for="old_password" class="form-label">Old password</label>
-                                <input type="password" class="form-control" name="old_password" id="old_password" value="<?= $old_password; ?>" required>
+                                <input type="password" class="form-control bg-body" name="old_password" id="old_password" value="<?= $old_password; ?>" required>
                                 <div class="text-sm text-muted">Enter old password in this field</div>
                             </div>
                             <div class="mb-4">
                                 <label for="new_password" class="form-label">New password</label>
-                                <input type="password" class="form-control" name="password" id="password" value="<?= $password; ?>" required>
+                                <input type="password" class="form-control bg-body" name="password" id="password" value="<?= $password; ?>" required>
                                 <div class="text-sm text-muted">Enter new password in this field</div>
                             </div>
                             <div class="mb-4">
                                 <label for="confirm" class="form-label">Confirm new password</label>
-                                <input type="password" class="form-control" name="confirm" id="confirm" value="<?= $confirm; ?>" required>
+                                <input type="password" class="form-control bg-body" name="confirm" id="confirm" value="<?= $confirm; ?>" required>
                                 <div class="text-sm text-muted">Enter confirm new password in this field</div>
                             </div>
                         </form>
@@ -188,6 +191,31 @@
         </div>
     </div>
 
+    <!-- CHANGE PIN -->
+    <div class="modal fade" id="pinModal" tabindex="-1" aria-labelledby="pinModalLabel" data-bs-backdrop="static" data-bs-keyboard="false" aria-hidden="true" style="backdrop-filter: blur(5px);">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content overflow-hidden">
+                <div class="modal-header pb-0 border-0">
+                    <h1 class="modal-title h4" id="pinModalLabel">Change PIN</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body p-0">
+                    <form method="POST" action="<?= PROOT; ?>account/change-password?pin=1">
+                        <div class="px-6 py-5">
+                            <input type="number" inputmode="numeric" data-maxlength="4" oninput="this.value=this.value.slice(0,this.dataset.maxlength)" class="form-control" name="oldpin" placeholder="Old PIN" required>
+                            <br>
+                            <input type="number" inputmode="numeric" min="0" data-maxlength="4" oninput="this.value=this.value.slice(0,this.dataset.maxlength)" class="form-control" name="newpin" placeholder="New PIN" required>
+                            <br>
+                            <input type="number" inputmode="numeric" min="0" data-maxlength="4" oninput="this.value=this.value.slice(0,this.dataset.maxlength)" class="form-control" name="confirmpin" placeholder="Confirm new PIN" required>
+                        </div>
+                        <div class="px-6 py-5 d-flex justify-content-center">
+                            <button name="pin_submit" class="btn btn-warning"><i data-duoicon="user-card" class="me-2 fs-2"></i>Change pin</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
 
 <?php include ("../includes/footer.inc.php"); ?>
 
