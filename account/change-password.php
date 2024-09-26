@@ -119,45 +119,72 @@
 
 ?>
 
-    <div class="mb-6 mb-xl-10">
-        <div class="row g-3 align-items-center">
-            <div class="col">
-                <h1 class="ls-tight">Edit logins</h1>
+     <!-- Content -->
+     <div class="container-lg">
+        <!-- Page header -->
+        <div class="row align-items-center mb-7">
+            <div class="col-auto">
+                <!-- Avatar -->
+                <div class="avatar avatar-xl rounded text-primary">
+                    <i class="fs-2" data-duoicon="user"></i>
+                </div>
             </div>
             <div class="col">
-                <div class="hstack gap-2 justify-content-end">
-                    <a href="<?= goBack(); ?>" class="btn btn-sm btn-neutral"><span class="pe-2"><i class="bi bi-arrow-90deg-left"></i> </span><span>Go back</span></a> 
-                    <a href="javascript:;" data-bs-target="#pinModal" data-bs-toggle="modal" class="btn btn-sm btn-dark"><span>Change PIN</span></a>
-                </div>
+                <!-- Breadcrumb -->
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb mb-2">
+                        <li class="breadcrumb-item"><a class="text-body-secondary" href="#">Account</a></li>
+                        <li class="breadcrumb-item active" aria-current="page">Edit Logins</li>
+                    </ol>
+                </nav>
+
+                <!-- Heading -->
+                <h1 class="fs-5 mb-0">Account</h1>
+            </div>
+            <div class="col-12 col-sm-auto mt-4 mt-sm-0">
+                <!-- Action -->
+                <button class="btn btn-warning d-block" id="submitForm"> Save </button>
             </div>
         </div>
-    </div>
 
-     <div class="row justify-content-center">
-        <div class="col-12">
-            <div class="card">
-                <div class="card-body d-flex flex-column">
-                    <form method="POST">
-                        <div class="text-danger"><?= $errors; ?></div>
-                        <div class="mb-3">
-                            <label for="old_password" class="form-label">Old password</label>
-                            <input type="password" class="form-control" name="old_password" id="old_password" value="<?= $old_password; ?>" required>
-                            <div class="text-sm text-muted">Enter old password in this field</div>
-                        </div>
-                        <div class="mb-3">
-                            <label for="new_password" class="form-label">New password</label>
-                            <input type="password" class="form-control" name="password" id="password" value="<?= $password; ?>" required>
-                            <div class="text-sm text-muted">Enter new password in this field</div>
-                        </div>
-                        <div class="mb-3">
-                            <label for="confirm" class="form-label">Confirm new password</label>
-                            <input type="password" class="form-control" name="confirm" id="confirm" value="<?= $confirm; ?>" required>
-                            <div class="text-sm text-muted">Enter confirm new password in this field</div>
-                        </div>
-                        <button type="submit" class="btn btn-dark" name="edit_pasword" id="edit_pasword">Edit password</button>
-                    </form>
-                </div>
+        <!-- Page content -->
+        <div class="row">
+            <div class="col-12 col-lg-3">
+                <!-- Nav -->
+                <nav class="nav nav-pills position-sticky flex-column mb-8" id="accountNav" style="top: 2rem">
+                    <a class="nav-link" href="javascript:;">General</a>
+                    <a class="nav-link" href="<?= PROOT; ?>account/settings">Update account</a>
+                    <a class="nav-link" data-bs-target="#pinModal" data-bs-toggle="modal" href="javascript:;">Change PIN</a>
+                    <a class="nav-link" href="<?= PROOT; ?>account/change-password">Change password</a>
+                    <a class="nav-link text-danger" href="<?= PROOT; ?>auth/logout">Logout</a>
+                </nav>
             </div>
+
+            <div class="col-12 col-lg-9" data-bs-spy="scroll" data-bs-target="#accountNav" data-bs-smooth-scroll="true" tabindex="0">
+                <!-- General -->
+                <section class="card bg-body-tertiary border-transparent mb-5" id="general">
+                    <div class="card-body">
+                        <form method="POST">
+                            <div class="text-danger"><?= $errors; ?></div>
+                            <div class="mb-4">
+                                <label for="old_password" class="form-label">Old password</label>
+                                <input type="password" class="form-control" name="old_password" id="old_password" value="<?= $old_password; ?>" required>
+                                <div class="text-sm text-muted">Enter old password in this field</div>
+                            </div>
+                            <div class="mb-4">
+                                <label for="new_password" class="form-label">New password</label>
+                                <input type="password" class="form-control" name="password" id="password" value="<?= $password; ?>" required>
+                                <div class="text-sm text-muted">Enter new password in this field</div>
+                            </div>
+                            <div class="mb-4">
+                                <label for="confirm" class="form-label">Confirm new password</label>
+                                <input type="password" class="form-control" name="confirm" id="confirm" value="<?= $confirm; ?>" required>
+                                <div class="text-sm text-muted">Enter confirm new password in this field</div>
+                            </div>
+                        </form>
+                    </div>
+                </section>
+             </div>
         </div>
     </div>
 
