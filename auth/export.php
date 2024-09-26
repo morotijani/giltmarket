@@ -116,4 +116,5 @@
         } else {
             $_SESSION['flash_error'] = "No Record Found!";
         }
+        redirect(PROOT . "account/trades");
     }

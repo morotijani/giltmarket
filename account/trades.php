@@ -310,7 +310,7 @@
 
             // var formData = $('#exportForm');
             // $.ajax({
-            //     method : "POST",
+            //     method : "GET",
             //     url : "<?= PROOT; ?>auth/export",
             //     data : formData.serialize(),
             //     beforeSend : function() {
@@ -328,9 +328,14 @@
             //     }
             // })
 
+            $('#submit-export').attr('disabled', true);
+            $('#submit-export').text('Exporting ...');
             setTimeout(function () {
                 $('#exportForm').submit();
-                location.reload();
+
+                $('#submit-export').attr('disabled', false);
+                $('#submit-export').text('Export');
+                // location.reload();
             }, 2000)
         } else {
             return false;
