@@ -24,7 +24,7 @@
     $new_hashed = password_hash($password, PASSWORD_BCRYPT);
     $admin_id = $admin_data['admin_id'];
 
-    if (isset($_POST['edit_pasword'])) {
+    if ($_POST) {
         if (empty($_POST['old_password']) || empty($_POST['password']) || empty($_POST['confirm'])) {
             $errors = 'You must fill out all fields';
         } else {
@@ -125,7 +125,7 @@
         <div class="row align-items-center mb-7">
             <div class="col-auto">
                 <!-- Avatar -->
-                <div class="avatar avatar-xl rounded text-primary">
+                <div class="avatar avatar-xl rounded text-warning">
                     <i class="fs-2" data-duoicon="user"></i>
                 </div>
             </div>
@@ -165,7 +165,7 @@
                 <section class="card bg-body-tertiary border-transparent mb-5" id="general">
                     <div class="card-body">
                         <form method="POST" id="changePasswordForm">
-                            <div class="text-danger"><?= $errors; ?></div>
+                            <div class="text-danger mb-3"><?= $errors; ?></div>
                             <div class="mb-4">
                                 <label for="old_password" class="form-label">Old password</label>
                                 <input type="password" class="form-control" name="old_password" id="old_password" value="<?= $old_password; ?>" required>

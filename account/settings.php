@@ -60,7 +60,7 @@
         <div class="row align-items-center mb-7">
             <div class="col-auto">
                 <!-- Avatar -->
-                <div class="avatar avatar-xl rounded text-primary">
+                <div class="avatar avatar-xl rounded text-warning">
                     <i class="fs-2" data-duoicon="user"></i>
                 </div>
             </div>
@@ -129,7 +129,7 @@
                         </div>
                         <hr>
                         <form method="POST" id="settingsForm">
-                            <div class="text-danger"><?= $errors; ?></div>
+                            <div class="text-danger mb-3"><?= $errors; ?></div>
                             <div class="mb-4">
                                 <label for="admin_fullname" class="form-label">Full Name</label>
                                 <input type="text" class="form-control" name="admin_fullname" id="admin_fullname" value="<?= $admin_fullname; ?>" required>
