@@ -1,16 +1,14 @@
 <?php 
     require_once ("db_connection/conn.php");
 
+	if (!admin_is_logged_in()) {
+		admn_login_redirect();
+	}
+
     include ("includes/header.inc.php");
     include ("includes/aside.inc.php");
     include ("includes/left.nav.inc.php");
     include ("includes/top.nav.inc.php");
-
-    if (!admin_is_logged_in()) {
-		admn_login_redirect();
-	}
-
-	// $today = date("F j, Y, g:i a"); 
 
 	// insert daily capital given
 	if (isset($_POST['today_given'])) {

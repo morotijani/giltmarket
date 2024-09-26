@@ -388,21 +388,21 @@ function get_admin_profile($id) {
 				<ul class="list-group list-group-flush">
 					<li class="list-group-item px-0">
 						<div class="row align-items-center">
-						<div class="col-auto">
-							<span class="material-symbols-outlined text-body-tertiary">credit_card</span>
-						</div>
-						<div class="col">Joined at <small class="text-body-secondary ms-1">(' . pretty_date($row["admin_joined_date"]) . ')</small></div>
-						<div class="col-auto">
-							<span class="badge bg-success-subtle text-success">Primary</span>
-						</div>
+							<div class="col-auto">
+								<span class="material-symbols-outlined text-body-tertiary">credit_card</span>
+							</div>
+							<div class="col">Joined at <small class="text-body-secondary ms-1">(' . pretty_date($row["admin_joined_date"]) . ')</small></div>
 						</div>
 					</li>
 					<li class="list-group-item px-0">
 						<div class="row align-items-center">
-						<div class="col-auto">
-							<span class="material-symbols-outlined text-body-tertiary">credit_card</span>
-						</div>
-						<div class="col">Last login <small class="text-body-secondary ms-1">(' . pretty_date($row["admin_last_login"]) . ')</small></div>
+							<div class="col-auto">
+								<span class="material-symbols-outlined text-body-tertiary">credit_card</span>
+							</div>
+							<div class="col">Last login <small class="text-body-secondary ms-1">(' . pretty_date($row["admin_last_login"]) . ')</small></div>
+							<div class="col-auto">
+								<span class="badge bg-success-subtle text-success">' . date("F j, Y, g:i a") . '</span>
+							</div>
 						</div>
 					</li>
 				</ul>
