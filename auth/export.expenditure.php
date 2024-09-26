@@ -22,10 +22,13 @@
         $exp_status = (isset($_GET['export-status']) && !empty($_GET['export-status']) ? sanitize($_GET['export-status']) : '');
         $exp_type = (isset($_GET['export-type']) && !empty($_GET['export-type']) ? sanitize($_GET['export-type']) : '');
         $get_out_from_date = null;
-
-        $status = (($exp_status == 'archived') ? 1 : 0);
-
-        $query = "SELECT * FROM jspence_sales INNER JOIN jspence_admin ON jspence_admin.admin_id = jspence_sales.sale_by WHERE jspence_sales.sale_status = $status ";
+        
+        $query = "SELECT * FROM jspence_sales INNER JOIN jspence_admin ON jspence_admin.admin_id = jspence_sales.sale_by WHERE ";
+        if ($exp_status == 'zero') {
+            $query .= "jspence_sales.sale_status =  0 ";
+        } else if ($exp_status == 'one') {
+            $query .= "jspence_sales.sale_status = 1 ";
+        }
         if ($exp_with == 'month') {
             $get_out_from_date = (isset($_GET['export-month']) && !empty($_GET['export-month']) ? sanitize($_GET['export-month']) : '');
             $query .= "AND MONTH(jspence_sales.createdAt) = '" . $get_out_from_date . "'";
@@ -37,9 +40,8 @@
             $query .= "AND CAST(jspence_sales.createdAt AS date) = '" . $get_out_from_date . "'";
         }
 
-        if ($exp_status == 'all') {
-            $query .= " AND jspence_sales.sale_type = 'exp'";
-        }
+        $query .= " AND jspence_sales.sale_type = 'exp'";
+        
 
         $statement = $conn->prepare($query);
         $statement->execute();
@@ -56,6 +58,7 @@
             $sheet->setCellValue('C1', 'AMOUNT');
             $sheet->setCellValue('D1', 'BY');
             $sheet->setCellValue('E1', 'DATE');
+            $sheet->setCellValue('F1', 'STATUS');
 
             $rowCount = 2;
             foreach ($rows as $row) {
@@ -64,6 +67,7 @@
                 $sheet->setCellValue('C' . $rowCount, money($row['sale_total_amount']));
                 $sheet->setCellValue('D' . $rowCount, ucwords($row['admin_fullname']));
                 $sheet->setCellValue('E' . $rowCount, $row['createdAt']);
+                $sheet->setCellValue('F' . $rowCount, $row['sale_status']);
                 $rowCount++;
             }
 
