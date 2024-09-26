@@ -21,6 +21,14 @@
                 </a>
               <?php endif; ?>
             </div>
+            <?php if (!admin_has_permission()): ?>
+            <div class="nav-item" data-bs-toggle="tooltip" data-bs-title="End trade">
+              <a class="nav-link" href="<?= PROOT; ?>account/end-trade">
+                  <span class="material-symbols-outlined mx-auto"> money_off </span>
+                </a>
+            </div>
+            <?php endif; ?>
+
             <div class="nav-item mt-auto" data-bs-toggle="tooltip" data-bs-title="Contact IT department">
               <a class="nav-link" href="mailto:it@jspence.com">
                 <span class="material-symbols-outlined mx-auto"> support </span>

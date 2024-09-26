@@ -80,14 +80,14 @@
                             </div>
                             <div class="col-12 col-lg">
                                 <div class="row gx-3">
-                                    <div class="col col-lg-auto ms-auto">
+                                    <!-- <div class="col col-lg-auto ms-auto">
                                         <div class="input-group bg-body">
                                             <input type="text" class="form-control" placeholder="Search" aria-label="Search" aria-describedby="search" id="search" />
                                             <span class="input-group-text" id="search">
                                                 <span class="material-symbols-outlined">search</span>
                                             </span>
                                         </div>
-                                    </div>
+                                    </div> -->
                                     <div class="col-auto ms-n2">
                                         <div class="dropdown">
                                         <button class="btn btn-dark px-3" data-bs-toggle="dropdown" data-bs-auto-close="outside" aria-expanded="false">

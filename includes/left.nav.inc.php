@@ -99,6 +99,7 @@
                                     <a class="nav-link " href="<?= PROOT; ?>account/expenditure">Expenditures</a>
                                     <?php if (!admin_has_permission()): ?>
                                     <a class="nav-link " href="javascript:;" data-bs-target="#buyModal" data-bs-toggle="modal">New trade</a>
+                                    <a class="nav-link " href="<?= PROOT; ?>account/end-trade">End trade</a>
                                     <?php endif; ?>
                                 </nav>
                             </div>
@@ -213,15 +214,18 @@
                 
                         <!-- Nav -->
                         <nav class="navbar-nav d-xl-none mb-7">
-                        <div class="nav-item">
-                            <a class="nav-link" href="#"> <span class="material-symbols-outlined me-3">contrast</span> Dark mode </a>
-                        </div>
-                        <div class="nav-item">
-                            <a class="nav-link" href="#"> <span class="material-symbols-outlined me-3">local_mall</span> Trade </a>
-                        </div>
-                        <div class="nav-item">
-                            <a class="nav-link" href="#"> <span class="material-symbols-outlined me-3">alternate_email</span> Contact us </a>
-                        </div>
+                            <div class="nav-item">
+                                <a class="nav-link" href="#"> <span class="material-symbols-outlined me-3">contrast</span> Dark mode </a>
+                            </div>
+                            <div class="nav-item">
+                                <a class="nav-link" href="#"> <span class="material-symbols-outlined me-3">local_mall</span> Trade </a>
+                            </div>
+                            <div class="nav-item">
+                                <a class="nav-link" href="<?= PROOT; ?>account/end-trade"> <span class="material-symbols-outlined me-3">money_off</span> End trade </a>
+                            </div>
+                            <div class="nav-item">
+                                <a class="nav-link" href="#"> <span class="material-symbols-outlined me-3">alternate_email</span> Contact us </a>
+                            </div>
                         </nav>
                 
                         <!-- Card -->
