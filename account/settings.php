@@ -53,25 +53,53 @@
 
 ?>
 
-    <div class="mb-6 mb-xl-10">
-        <div class="row g-3 align-items-center">
-            <div class="col">
-                <h1 class="ls-tight">Update profile details</h1>
-            </div>
-            <div class="col">
-                <div class="hstack gap-2 justify-content-end">
-                    <a href="<?= goBack(); ?>" class="btn btn-sm btn-neutral d-none d-sm-inline-flex"><span class="pe-2"><i class="bi bi-arrow-90deg-left"></i> </span><span>Go back</span></a> 
-                    <a href="<?= PROOT; ?>acc/change-password" class="btn d-inline-flex btn-sm btn-dark"><span>Change password</span></a>
+
+    <!-- Content -->
+    <div class="container-lg">
+        <!-- Page header -->
+        <div class="row align-items-center mb-7">
+            <div class="col-auto">
+                <!-- Avatar -->
+                <div class="avatar avatar-xl rounded text-primary">
+                    <i class="fs-2" data-duoicon="user"></i>
                 </div>
             </div>
+            <div class="col">
+                <!-- Breadcrumb -->
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb mb-2">
+                        <li class="breadcrumb-item"><a class="text-body-secondary" href="#">Account</a></li>
+                        <li class="breadcrumb-item active" aria-current="page">Account Settings</li>
+                    </ol>
+                </nav>
+
+                <!-- Heading -->
+                <h1 class="fs-5 mb-0">Account</h1>
+            </div>
+            <div class="col-12 col-sm-auto mt-4 mt-sm-0">
+                <!-- Action -->
+                <button class="btn btn-warning d-block" id="submitForm"> Save </button>
+            </div>
         </div>
-    </div>
 
-    <div class="row justify-content-center">
-        <div class="col-12">
-            <div class="card">
-                <div class="card-body">
-
+        <!-- Page content -->
+        <div class="row">
+            <div class="col-12 col-lg-3">
+                <!-- Nav -->
+                <nav class="nav nav-pills position-sticky flex-column mb-8" id="accountNav" style="top: 2rem">
+                    <a class="nav-link" href="javascript:;">General</a>
+                    <a class="nav-link" href="<?= PROOT; ?>account/settings">Update account</a>
+                    <a class="nav-link" href="<?= PROOT; ?>account/change-password">Change password</a>
+                    <a class="nav-link text-danger" href="<?= PROOT; ?>auth/logout">Logout</a>
+                </nav>
+            </div>
+            <div class="col-12 col-lg-9" data-bs-spy="scroll" data-bs-target="#accountNav" data-bs-smooth-scroll="true" tabindex="0">
+                <!-- General -->
+                <section class="card bg-body-tertiary border-transparent mb-5" id="general">
+                    <div class="card-body">
+                        <h2 class="fs-5 mb-1">General</h2>
+                        <p class="text-body-secondary">Update your general account information.</p>
+                        <hr>
                         <div class="row align-items-center">
                             <div class="col-md-2">
                                 <label class="form-label">Avatar</label>
@@ -80,7 +108,7 @@
                                 <div class="" id="upload_profile">
                                     <div class="d-flex align-items-center">
                                         <a href="<?= PROOT . $admin_data['admin_profile']; ?>" class="avatar avatar-lg bg-warning rounded-circle text-white">
-                                            <img src="<?= PROOT . (($admin_data['admin_profile'] == NULL) ? 'dist/media/avatar.png' : $admin_data['admin_profile']); ?>" style="object-fit: cover; object-position: center; width: 35px; height: 35px" alt="<?=ucwords($admin_data['admin_fullname']); ?>'s profile.">
+                                            <img src="<?= PROOT . (($admin_data['admin_profile'] == NULL) ? 'assets/media/avatar.png' : $admin_data['admin_profile']); ?>" style="object-fit: cover; object-position: center; width: 35px; height: 35px" alt="<?=ucwords($admin_data['admin_fullname']); ?>'s profile.">
                                         </a>
                                         <div class="hstack gap-2 ms-5">
                                             <label for="file_upload" class="btn btn-sm btn-neutral">
@@ -96,25 +124,23 @@
                                 </div>
                             </div>
                         </div>
-
-                        <hr class="my-6">
-
-                    <form method="POST">
-                        <div class="text-danger"><?= $errors; ?></div>
-                        <div class="mb-3">
-                            <label for="admin_fullname" class="form-label">Full Name</label>
-                            <input type="text" class="form-control" name="admin_fullname" id="admin_fullname" value="<?= $admin_fullname; ?>" required>
-                            <div class="text-sm text-muted">Change your full name in this field</div>
-                        </div>
-                        <div class="mb-3">
-                            <label for="admin_email" class="form-label">Email</label>
-                            <input type="email" class="form-control" name="admin_email" id="admin_email" value="<?= $admin_email; ?>" required>
-                            <div class="text-sm text-muted">Change your email in this field</div>
-                        </div>
-                        <button type="submit" class="btn btn-dark" name="submit_settings" id="submit_settings">Update</button>&nbsp;
-                    </form>
-                </div>
-            </div>
+                        <hr>
+                        <form method="POST">
+                            <div class="text-danger"><?= $errors; ?></div>
+                            <div class="mb-4">
+                                <label for="admin_fullname" class="form-label">Full Name</label>
+                                <input type="text" class="form-control" name="admin_fullname" id="admin_fullname" value="<?= $admin_fullname; ?>" required>
+                                <div class="text-sm text-muted">Change your full name in this field</div>
+                            </div>
+                            <div class="mb-4">
+                                <label for="admin_email" class="form-label">Email</label>
+                                <input type="email" class="form-control" name="admin_email" id="admin_email" value="<?= $admin_email; ?>" required>
+                                <div class="text-sm text-muted">Change your email in this field</div>
+                            </div>
+                        </form>
+                    </div>
+                </section>
+             </div>
         </div>
     </div>
 
