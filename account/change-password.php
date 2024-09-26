@@ -8,11 +8,13 @@
     }
 
     include ("../includes/header.inc.php");
-    include ("../includes/nav.inc.php");
+    include ("../includes/aside.inc.php");
+    include ("../includes/left.nav.inc.php");
+    include ("../includes/top.nav.inc.php");
 
 
     $errors = '';
-    $hashed = $admin_data[0]['admin_password'];
+    $hashed = $admin_data['admin_password'];
     $old_password = ((isset($_POST['old_password'])) ? sanitize($_POST['old_password']) : '');
     $old_password = trim($old_password);
     $password = ((isset($_POST['password'])) ? sanitize($_POST['password']) : '');
@@ -20,7 +22,7 @@
     $confirm = ((isset($_POST['confirm'])) ? sanitize($_POST['confirm']) : '');
     $confirm = trim($confirm);
     $new_hashed = password_hash($password, PASSWORD_BCRYPT);
-    $admin_id = $admin_data[0]['admin_id'];
+    $admin_id = $admin_data['admin_id'];
 
     if (isset($_POST['edit_pasword'])) {
         if (empty($_POST['old_password']) || empty($_POST['password']) || empty($_POST['confirm'])) {
@@ -56,10 +58,10 @@
                 add_to_log($message, $admin_id);
 
                 $_SESSION['flash_success'] = 'Password successfully updated!';
-                redirect(PROOT . "acc/profile");
+                redirect(PROOT . "account/profile");
             } else {
                 echo js_alert('Something went wrong');
-                redirect(PROOT . "acc/change-password");
+                redirect(PROOT . "account/change-password");
             }
         }
     }
@@ -73,7 +75,7 @@
                 $msg = 'You must fill out all fields!';
             } else {
 
-                if ($_POST['oldpin'] != $admin_data[0]['admin_pin']) {
+                if ($_POST['oldpin'] != $admin_data['admin_pin']) {
                     $msg = 'Incorrect Old PIN provided!';
                 }
 
@@ -103,7 +105,7 @@
                         add_to_log($message, $admin_id);
 
                         $_SESSION['flash_success'] = 'New PIN successfully set!';
-                        redirect(PROOT . "acc/profile");
+                        redirect(PROOT . "account/profile");
                     } else {
                         echo js_alert('Something went wrong');
                     }
@@ -170,7 +172,7 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body p-0">
-                <form method="POST" action="<?= PROOT; ?>acc/change-password?pin=1">
+                <form method="POST" action="<?= PROOT; ?>account/change-password?pin=1">
                     <div class="px-6 py-5 border-bottom">
                         <input type="number" inputmode="numeric" data-maxlength="4" oninput="this.value=this.value.slice(0,this.dataset.maxlength)" class="form-control" name="oldpin" placeholder="Old PIN" required>
                         <br>
