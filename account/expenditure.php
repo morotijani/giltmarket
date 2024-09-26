@@ -345,12 +345,16 @@
                             </button>
                             <div class="dropdown-menu rounded-3 p-6">
                                 <h4 class="fs-lg mb-4">Export expenditure</h4>
-                                <form style="width: 350px" id="exportForm" action="<?= PROOT; ?>auth/export.expenditure">
+                                <form style="width: 350px" id="exportForm" action="<?= PROOT; ?>auth/export.expenditure.php">
                                     <div class="row gx-3">
                                         <div class="col-sm-12 mb-3">
                                             <div class="form-check form-check-inline">
                                                 <input class="form-check-input export_type" type="radio" name="export-status" id="inlineRadioStatus1" required value="all" checked>
                                                 <label class="form-check-label" for="inlineRadioStatus1">All</label>
+                                            </div>
+                                            <div class="form-check form-check-inline">
+                                                <input class="form-check-input export_type" type="radio" name="export-status" id="inlineRadioStatus2" value="archived" required>
+                                                <label class="form-check-label" for="inlineRadioStatus2">Archived</label>
                                             </div>
                                         </div>
                                         <div class="col-sm-12 mb-3">

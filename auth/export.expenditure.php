@@ -23,7 +23,9 @@
         $exp_type = (isset($_GET['export-type']) && !empty($_GET['export-type']) ? sanitize($_GET['export-type']) : '');
         $get_out_from_date = null;
 
-        $query = "SELECT * FROM jspence_sales INNER JOIN jspence_admin ON jspence_admin.admin_id = jspence_sales.sale_by WHERE jspence_sales.sale_status = 0 ";
+        $status = (($exp_status == 'archived') ? 1 : 0);
+
+        $query = "SELECT * FROM jspence_sales INNER JOIN jspence_admin ON jspence_admin.admin_id = jspence_sales.sale_by WHERE jspence_sales.sale_status = $status ";
         if ($exp_with == 'month') {
             $get_out_from_date = (isset($_GET['export-month']) && !empty($_GET['export-month']) ? sanitize($_GET['export-month']) : '');
             $query .= "AND MONTH(jspence_sales.createdAt) = '" . $get_out_from_date . "'";
