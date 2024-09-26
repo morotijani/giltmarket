@@ -308,8 +308,8 @@
                 return false;
             }
 
-            $('#submit-export').attr('disabled', true);
-            $('#submit-export').text('Exporting ...');
+            // $('#submit-export').attr('disabled', true);
+            // $('#submit-export').text('Exporting ...');
             
             // setTimeout(function () {
                 $('#exportForm').submit();

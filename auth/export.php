@@ -66,7 +66,7 @@
 
             $rowCount = 2;
             foreach ($rows as $row) {
-                $sheet->setCellValue('A' . $rowCount, ucwords($row['sale_id']));
+                $sheet->setCellValue('A' . $rowCount, $row['sale_id']);
                 $sheet->setCellValue('B' . $rowCount, $row['sale_gram']);
                 $sheet->setCellValue('C' . $rowCount, $row['sale_volume']);
                 $sheet->setCellValue('D' . $rowCount, $row['sale_density']);
@@ -77,7 +77,7 @@
                 $sheet->setCellValue('I' . $rowCount, (($row['sale_customer_name'] != null) ? ucwords($row['sale_customer_name']) : ''));
                 $sheet->setCellValue('J' . $rowCount, $row['sale_customer_contact']);
                 $sheet->setCellValue('K' . $rowCount, $row['sale_comment']);
-                $sheet->setCellValue('L' . $rowCount, strtoupper($row['sale_type']));
+                $sheet->setCellValue('L' . $rowCount, (($row['sale_type'] != null) ? strtoupper($row['sale_type']) : ''));
                 $sheet->setCellValue('M' . $rowCount, ucwords($row['admin_fullname']));
                 $sheet->setCellValue('N' . $rowCount, $row['createdAt']);
                 $rowCount++;
@@ -112,8 +112,9 @@
             header('Content-Disposition: attactment; filename="' . urlencode($NewFileName) . '"');
             $writer->save('php://output');
 
+           //  $_SESSION['flash_success'] = "Downloaded!";
         } else {
             $_SESSION['flash_error'] = "No Record Found!";
-            redirect(PROOT . 'account/trades');
         }
+        redirect(PROOT . 'account/trades');
     }
