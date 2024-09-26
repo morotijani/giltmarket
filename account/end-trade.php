@@ -7,52 +7,16 @@
         admn_login_redirect();
     }
 
+    if (admin_has_permission()) {
+        redirect(PROOT . 'accounts/trades');
+    }
+
     include ("../includes/header.inc.php");
     include ("../includes/aside.inc.php");
     include ("../includes/left.nav.inc.php");
     include ("../includes/top.nav.inc.php");
 
-    $today = date("Y-m-d");
-    $where = '';
-    if (!admin_has_permission()) {
-        $where = ' AND sale_by = "'.$admin_data["admin_id"].'" AND CAST(jspence_sales.createdAt AS date) = "' . $today . '" ';
-    }
-    $total_trades = $conn->query("SELECT * FROM jspence_sales INNER JOIN jspence_admin ON jspence_admin.admin_id = jspence_sales.sale_by WHERE sale_status = 0 $where")->rowCount();
-    $trades_count = '';
-    if ($total_trades > 0) {
-        $trades_count = '(' . $total_trades . ')';
-    }
-
-    //
-    if (isset($_GET['delete_request']) && !empty($_GET['delete_request'])) {
-        // code...
-        $id = sanitize($_GET['delete_request']);
-
-        $findSale = $conn->query("SELECT * FROM jspence_sales WHERE sale_id = '".$id."'")->rowCount();
-        if ($findSale > 0) {
-            // code...
-            $sql = "
-                UPDATE jspence_sales 
-                SET sale_status = ?, sale_delete_request_status = ?
-                WHERE sale_id = ?
-            ";
-            $statement = $conn->prepare($sql);
-            $result = $statement->execute([1, 1, $id]);
-            if (isset($result)) {                
-                $message = "delete request for trade id: '".$id."'";
-                add_to_log($message, $admin_data[0]['admin_id']);
-
-                $_SESSION['flash_success'] = ' Sale delete request successfully sent!';
-                redirect(PROOT . 'acc/trades');
-            } else {
-                echo js_alert("Something went wrong, please try again!");
-            }
-        } else {
-            $_SESSION['flash_error'] = ' Could not find sale to send a delete request!';
-            redirect(PROOT . 'acc/trades');
-        }
-
-    }
+    $errors = "";
 
 
 
@@ -122,39 +86,87 @@
                 <form method="POST" id="changePasswordForm">
                     <div class="text-danger mb-3"><?= $errors; ?></div>
 
-                    <div class="table-responsive">
-                        <table class="table table-bordered">
+                    <div class="table-responsive mb-7">
+                        <table class="table table-sm align-middle mb-0">
                             <thead>
                                 <tr>
                                     <th></th>
-                                    <th>a</th>
+                                    <th>Count</th>
+                                    <th>Amount</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 <tr>
-                                    <td>
-                                    </td>
-                                    <td>
-                                    </td>
+                                    <td>TWO HUNDRED Ghana cedis (200 GHS) X </td>
+                                    <td><input type="number" min="0" step="1" class="form-control bg-body" placeholder="0" /></td>
+                                    <td><input type="number" min="0" step="1" class="form-control bg-body" placeholder="0" /></td>
+                                </tr>
+                                <tr>
+                                    <td>HUNDRED Ghana cedis (100 GHS) X </td>
+                                    <td><input type="number" min="0" step="1" class="form-control bg-body" placeholder="0" /></td>
+                                    <td><input type="number" min="0" step="1" class="form-control bg-body" placeholder="0" /></td>
+                                </tr>
+                                <tr>
+                                    <td>FIFTY Ghana cedis (50 GHS) X </td>
+                                    <td><input type="number" min="0" step="1" class="form-control bg-body" placeholder="0" /></td>
+                                    <td><input type="number" min="0" step="1" class="form-control bg-body" placeholder="0" /></td>
+                                </tr>
+                                <tr>
+                                    <td>TWENTY Ghana cedis (20 GHS) X </td>
+                                    <td><input type="number" min="0" step="1" class="form-control bg-body" placeholder="0" /></td>
+                                    <td><input type="number" min="0" step="1" class="form-control bg-body" placeholder="0" /></td>
+                                </tr>
+                                <tr>
+                                    <td>TEN Ghana cedis (10 GHS) X </td>
+                                    <td><input type="number" min="0" step="1" class="form-control bg-body" placeholder="0" /></td>
+                                    <td><input type="number" min="0" step="1" class="form-control bg-body" placeholder="0" /></td>
+                                </tr>
+                                <tr>
+                                    <td>FIVE Ghana cedis (5 GHS) X </td>
+                                    <td><input type="number" min="0" step="1" class="form-control bg-body" placeholder="0" /></td>
+                                    <td><input type="number" min="0" step="1" class="form-control bg-body" placeholder="0" /></td>
+                                </tr>
+                                <tr>
+                                    <td>TWO Ghana cedis (2 GHS) X </td>
+                                    <td><input type="number" min="0" step="1" class="form-control bg-body" placeholder="0" /></td>
+                                    <td><input type="number" min="0" step="1" class="form-control bg-body" placeholder="0" /></td>
+                                </tr>
+                                <tr>
+                                    <td>ONE Ghana cedis (1 GHS) X </td>
+                                    <td><input type="number" min="0" step="1" class="form-control bg-body" placeholder="0" /></td>
+                                    <td><input type="number" min="0" step="1" class="form-control bg-body" placeholder="0" /></td>
+                                </tr>
+                                <tr>
+                                    <td>FIFTY Ghana pesswas (50 P) X </td>
+                                    <td><input type="number" min="0" step="1" class="form-control bg-body" placeholder="0" /></td>
+                                    <td><input type="number" min="0" step="1" class="form-control bg-body" placeholder="0" /></td>
+                                </tr>
+                                <tr>
+                                    <td>TWENTY Ghana pesswas (20 P) X </td>
+                                    <td><input type="number" min="0" step="1" class="form-control bg-body" placeholder="0" /></td>
+                                    <td><input type="number" min="0" step="1" class="form-control bg-body" placeholder="0" /></td>
+                                </tr>
+                                <tr>
+                                    <td>TEN Ghana pesswas (10 P) X </td>
+                                    <td><input type="number" min="0" step="1" class="form-control bg-body" placeholder="0" /></td>
+                                    <td><input type="number" min="0" step="1" class="form-control bg-body" placeholder="0" /></td>
+                                </tr>
+                                <tr>
+                                    <td>FIVE Ghana pesswas (5 P) X </td>
+                                    <td><input type="number" min="0" step="1" class="form-control bg-body" placeholder="0" /></td>
+                                    <td><input type="number" min="0" step="1" class="form-control bg-body" placeholder="0" /></td>
+                                </tr>
+                                <tr>
+                                    <td>ONE Ghana pesswas (1 P) X </td>
+                                    <td><input type="number" min="0" step="1" class="form-control bg-body" placeholder="0" /></td>
+                                    <td><input type="number" min="0" step="1" class="form-control bg-body" placeholder="0" disabled /></td>
+                                </tr>
+                                <tr>
+                                    <td colspan="2">Total</td>
+                                    <td>0.00</td>
                                 </tr>
                             </tbody>
                         </table>
-                    </div>
-
-                    <div class="mb-4">
-                        <label for="old_password" class="form-label">Old password</label>
-                        <input type="password" class="form-control bg-body" name="old_password" id="old_password" value="<?= $old_password; ?>" required>
-                        <div class="text-sm text-muted">Enter old password in this field</div>
-                    </div>
-                    <div class="mb-4">
-                        <label for="new_password" class="form-label">New password</label>
-                        <input type="password" class="form-control bg-body" name="password" id="password" value="<?= $password; ?>" required>
-                        <div class="text-sm text-muted">Enter new password in this field</div>
-                    </div>
-                    <div class="mb-4">
-                        <label for="confirm" class="form-label">Confirm new password</label>
-                        <input type="password" class="form-control bg-body" name="confirm" id="confirm" value="<?= $confirm; ?>" required>
-                        <div class="text-sm text-muted">Enter confirm new password in this field</div>
                     </div>
                 </form>
             </div>

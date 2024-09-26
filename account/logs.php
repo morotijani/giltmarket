@@ -88,7 +88,7 @@
                                             </span>
                                         </div>
                                     </div> -->
-                                    <div class="col-auto ms-n2">
+                                    <div class="col col-auto ms-auto">
                                         <div class="dropdown">
                                         <button class="btn btn-dark px-3" data-bs-toggle="dropdown" data-bs-auto-close="outside" aria-expanded="false">
                                             <span class="material-symbols-outlined">export_notes</span>
