@@ -43,10 +43,10 @@
                 add_to_log($message, $admin_data['admin_id']);
 
                 $_SESSION['flash_success'] = 'Admin has been updated!';
-                redirect(PROOT . "acc/profile");
+                redirect(PROOT . "account/profile");
             } else {
                 echo js_alert("Something went wrong!");
-                redirect(PROOT . "acc/profile");
+                redirect(PROOT . "account/profile");
             }
         }
     }
@@ -89,6 +89,7 @@
                 <nav class="nav nav-pills position-sticky flex-column mb-8" id="accountNav" style="top: 2rem">
                     <a class="nav-link" href="javascript:;">General</a>
                     <a class="nav-link" href="<?= PROOT; ?>account/settings">Update account</a>
+                    <a class="nav-link" href="javascript:;">Change PIN</a>
                     <a class="nav-link" href="<?= PROOT; ?>account/change-password">Change password</a>
                     <a class="nav-link text-danger" href="<?= PROOT; ?>auth/logout">Logout</a>
                 </nav>
@@ -114,18 +115,20 @@
                                             <label for="file_upload" class="btn btn-sm btn-neutral">
                                                 <span>Upload</span> 
                                                 <input type="file" name="file_upload" id="file_upload" class="visually-hidden">
-                                            </label> 
-                                            <a href="javascript:;" class="btn d-inline-flex btn-sm btn-neutral text-danger change-profile-picture" id="<?= (($admin_data['admin_profile'] == NULL) ? '' : $admin_data['admin_profile']); ?>">
+                                            </label>
+                                            <?php if ($admin_data['admin_profile'] != NULL): ?>
+                                            <a href="javascript:;" class="btn d-inline-flex btn-sm btn-neutral text-danger change-profile-picture" id="<?=  $admin_data['admin_profile']; ?>">
                                                 <span><i class="bi bi-trash"></i> </span>
                                                 <span class="d-none d-sm-block me-2">Remove</span>
                                             </a>
+                                            <?php endif; ?>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
                         <hr>
-                        <form method="POST">
+                        <form method="POST" id="settingsForm">
                             <div class="text-danger"><?= $errors; ?></div>
                             <div class="mb-4">
                                 <label for="admin_fullname" class="form-label">Full Name</label>
@@ -207,6 +210,11 @@
                 }
             });
         });
+
+        // save account details
+        $('#submitForm').on('click', function() {
+            $('#settingsForm').submit();
+        })
     });
     
 </script>
