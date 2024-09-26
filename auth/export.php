@@ -112,9 +112,8 @@
             header('Content-Disposition: attactment; filename="' . urlencode($NewFileName) . '"');
             $writer->save('php://output');
 
-           //  $_SESSION['flash_success'] = "Downloaded!";
+           $_SESSION['flash_success'] = "Downloaded!";
         } else {
             $_SESSION['flash_error'] = "No Record Found!";
         }
-        redirect(PROOT . 'account/trades');
     }

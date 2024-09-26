@@ -135,7 +135,7 @@
                                 </button>
                                 <div class="dropdown-menu rounded-3 p-6">
                                     <h4 class="fs-lg mb-4">Export data</h4>
-                                    <form style="width: 350px" id="exportForm" method="GET" action="<?= PROOT; ?>auth/export">
+                                    <form style="width: 350px" id="exportForm" action="<?= PROOT; ?>auth/export">
                                         <div class="row gx-3">
                                         <div class="col-sm-12 mb-3">
                                                 <div class="form-check form-check-inline">
@@ -308,13 +308,30 @@
                 return false;
             }
 
-            // $('#submit-export').attr('disabled', true);
-            // $('#submit-export').text('Exporting ...');
-            
-            // setTimeout(function () {
+            // var formData = $('#exportForm');
+            // $.ajax({
+            //     method : "POST",
+            //     url : "<?= PROOT; ?>auth/export",
+            //     data : formData.serialize(),
+            //     beforeSend : function() {
+            //         $('#submit-export').attr('disabled', true);
+            //         $('#submit-export').text('Exporting ...');
+            //     },
+            //     success : function (data) {
+            //         console.log(data)
+            //         $('#submit-export').attr('disabled', false);
+            //         $('#submit-export').text('Export');
+            //         location.reload();
+            //     },
+            //     error : function () {
+
+            //     }
+            // })
+
+            setTimeout(function () {
                 $('#exportForm').submit();
-                // location.reload();
-            // }, 2000)
+                location.reload();
+            }, 2000)
         } else {
             return false;
         }
