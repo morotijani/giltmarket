@@ -186,16 +186,16 @@
                     <h3 class="fs-6 mb-0">Recent activity</h3>
                 </div>
                 <div class="card-body">
-                    <ul class="activity">
+                    <div class="list-group mb-7">
                         <?php foreach ($rows as $row): ?>
-                        <li data-icon="account_circle">
-                            <div>
-                                <h6 class="fs-base mb-1"><?= (($row["log_admin"] == $admin_data['admin_id']) ? 'You' : ucwords($row['admin_fullname'])); ?>  <span class="fs-sm fw-normal text-body-secondary ms-1"><?= pretty_date($row['createdAt']); ?></span></h6>
-                                <p class="mb-0"><?= $row['log_message']; ?></p>
+                        <div class="list-group-item bg-body">
+                            <div class="row">
+                                <div class="col fst-italic"><?= (($row["log_admin"] == $admin_data['admin_id']) ? 'You' : ucwords($row['admin_fullname'])); ?> - <?= $row['log_message']; ?></div>
+                                <div class="col-auto fst-italic"><?= pretty_date($row['createdAt']); ?></div>
                             </div>
-                        </li>
+                        </div>
                         <?php endforeach; ?>
-                    </ul>
+                    </div>
                 </div>
             </div>
 
