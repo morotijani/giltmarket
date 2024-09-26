@@ -8,12 +8,14 @@
     }
 
     include ("../includes/header.inc.php");
-    include ("../includes/nav.inc.php");
+    include ("../includes/aside.inc.php");
+    include ("../includes/left.nav.inc.php");
+    include ("../includes/top.nav.inc.php");
 
 
     $errors = '';
-    $admin_fullname = ((isset($_POST['admin_fullname'])) ? sanitize($_POST['admin_fullname']) : $admin_data[0]['admin_fullname']);
-    $admin_email = ((isset($_POST['admin_email'])) ? sanitize($_POST['admin_email']) : $admin_data[0]['admin_email']);
+    $admin_fullname = ((isset($_POST['admin_fullname'])) ? sanitize($_POST['admin_fullname']) : $admin_data['admin_fullname']);
+    $admin_email = ((isset($_POST['admin_email'])) ? sanitize($_POST['admin_email']) : $admin_data['admin_email']);
 
     if ($_POST) {
         if (empty($_POST['admin_email']) && empty($_POST['admin_email'])) {
@@ -27,7 +29,7 @@
         if (!empty($errors)) {
             $errors;
         } else {
-            $data = [$admin_fullname, $admin_email, $admin_data[0]['admin_id']];
+            $data = [$admin_fullname, $admin_email, $admin_data['admin_id']];
             $query = "
                 UPDATE jspence_admin 
                 SET admin_fullname = ?, admin_email = ? 
@@ -38,7 +40,7 @@
             if (isset($result)) {
 
                 $message = "updated profile details";
-                add_to_log($message, $admin_data[0]['admin_id']);
+                add_to_log($message, $admin_data['admin_id']);
 
                 $_SESSION['flash_success'] = 'Admin has been updated!';
                 redirect(PROOT . "acc/profile");
@@ -77,15 +79,15 @@
                             <div class="col-md-8 col-xl-5">
                                 <div class="" id="upload_profile">
                                     <div class="d-flex align-items-center">
-                                        <a href="<?= PROOT . $admin_data[0]['admin_profile']; ?>" class="avatar avatar-lg bg-warning rounded-circle text-white">
-                                            <img src="<?= PROOT . (($admin_data[0]['admin_profile'] == NULL) ? 'dist/media/avatar.png' : $admin_data[0]['admin_profile']); ?>" style="object-fit: cover; object-position: center; width: 35px; height: 35px" alt="<?=ucwords($admin_data[0]['admin_fullname']); ?>'s profile.">
+                                        <a href="<?= PROOT . $admin_data['admin_profile']; ?>" class="avatar avatar-lg bg-warning rounded-circle text-white">
+                                            <img src="<?= PROOT . (($admin_data['admin_profile'] == NULL) ? 'dist/media/avatar.png' : $admin_data['admin_profile']); ?>" style="object-fit: cover; object-position: center; width: 35px; height: 35px" alt="<?=ucwords($admin_data['admin_fullname']); ?>'s profile.">
                                         </a>
                                         <div class="hstack gap-2 ms-5">
                                             <label for="file_upload" class="btn btn-sm btn-neutral">
                                                 <span>Upload</span> 
                                                 <input type="file" name="file_upload" id="file_upload" class="visually-hidden">
                                             </label> 
-                                            <a href="javascript:;" class="btn d-inline-flex btn-sm btn-neutral text-danger change-profile-picture" id="<?= (($admin_data[0]['admin_profile'] == NULL) ? '' : $admin_data[0]['admin_profile']); ?>">
+                                            <a href="javascript:;" class="btn d-inline-flex btn-sm btn-neutral text-danger change-profile-picture" id="<?= (($admin_data['admin_profile'] == NULL) ? '' : $admin_data['admin_profile']); ?>">
                                                 <span><i class="bi bi-trash"></i> </span>
                                                 <span class="d-none d-sm-block me-2">Remove</span>
                                             </a>
