@@ -12,7 +12,7 @@
 
 		$name = md5(microtime()) . '.' . $extention;
 
-		$name = 'dist/media/admin-profiles/' . $name;
+		$name = 'assets/media/admin-profiles/' . $name;
 
 		$location = BASEURL . $name;
 
@@ -25,11 +25,11 @@
 				WHERE admin_id  = ? 
 			";
 			$statement = $conn->prepare($sql);
-			$result = $statement->execute([$name, $admin_data[0]['admin_id']]);
+			$result = $statement->execute([$name, $admin_data['admin_id']]);
 
 			if (isset($result)) {
 				$message = "updated profile picture";
-                add_to_log($message, $admin_data[0]['admin_id']);
+                add_to_log($message, $admin_data['admin_id']);
 
 				echo '';
 			}

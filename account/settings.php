@@ -185,7 +185,7 @@
                     cache: false,
                     processData: false,
                     beforeSend: function() {
-                        $("#upload_profile").html("<div class='text-success font-weight-bolder'>Uploading passport picture ...</div>");
+                        $("#upload_profile").html("<div class='text-success font-weight-bolder'>Uploading profile picture ...</div>");
                     },
                     success: function(data) {
                         if (data == '') {
