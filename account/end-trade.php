@@ -288,11 +288,25 @@
     });
 
     function denomination_total() {
-        var sum = parseFloat((
-            $('#denomination_200c_amt').val() + $('#denomination_100c_amt').val() + $('#denomination_50c_amt').val() + $('#denomination_20c_amt').val() + $('#denomination_10c_amt').val() + $('#denomination_5c_amt').val() + $('#denomination_2c_amt').val() + $('#denomination_1c_amt').val() + $('#denomination_50p_amt').val() + $('#denomination_20p_amt').val() + $('#denomination_10p_amt').val() + $('#denomination_5p_amt').val() + $('#denomination_1p_amt').val()
-        ))
+        var sum = (
+            parseFloat(
+                +$('#denomination_200c_amt').val() + 
+                +$('#denomination_100c_amt').val() + 
+                +$('#denomination_50c_amt').val() + 
+                +$('#denomination_20c_amt').val() + 
+                +$('#denomination_10c_amt').val() + 
+                +$('#denomination_5c_amt').val() + 
+                +$('#denomination_2c_amt').val() + 
+                +$('#denomination_1c_amt').val() + 
+                +$('#denomination_50p_amt').val() + 
+                +$('#denomination_20p_amt').val() + 
+                +$('#denomination_10p_amt').val() + 
+                +$('#denomination_5p_amt').val() + 
+                +$('#denomination_1p_amt').val()
+            )
+        )
 
-        $('#denomination-total').text(sum).toFixed(2);
+        $('#denomination-total').text(sum);
     }
 
     
