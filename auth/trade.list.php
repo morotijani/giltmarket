@@ -142,7 +142,7 @@ if ($total_data > 0) {
 					<div class="modal-dialog modal-sm modal-dialog-centered">
 						<div class="modal-content overflow-hidden">
 							<div class="modal-header pb-0 border-0">
-								<h1 class="modal-title h4" id="saleModalLabel_' . $row["sid"] . '">' . $row["sale_id"] . (admin_has_permission() ? '<br>by' . ucwords($row["admin_fullname"]) : '' )  . '</h1>
+								<h1 class="modal-title h4" id="saleModalLabel_' . $row["sid"] . '">' . $row["sale_id"] . (admin_has_permission() ? '<br>by ' . ucwords($row["admin_fullname"]) : '' )  . '</h1>
 								<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 							</div>
 							<div class="modal-body">
@@ -292,7 +292,7 @@ if ($total_data > 0) {
 								<h1 class="modal-title h4" id="adminModalLabel_' . $row["aid"] . '">Handler details</h1>
 								<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 							</div>
-							<div class="modal-body p-0 text-center">
+							<div class="modal-body">
 								<ul class="list-group">
 									<li class="list-group-item" style="padding: 0.1rem 1rem;">
 				                        <small class="text-muted">Profile,</small>
@@ -316,7 +316,7 @@ if ($total_data > 0) {
 				                    </li>
 								</ul>
 								<div class="px-6 py-5 d-flex justify-content-center">
-									<a class="btn btn-sm btn-neutral" href="' . PROOT . 'acc/admins"><i class="bi bi-people me-2"></i>All admins</a>
+									<a class="btn btn-light" href="' . PROOT . 'acc/admins"><i class="bi bi-people me-2"></i>All admins</a>
 								</div>
 							</div>
 						</div>

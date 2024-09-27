@@ -158,7 +158,6 @@
     
     <!-- Theme JS -->
     <script src="<?= PROOT; ?>assets/js/theme.bundle.js"></script>
-    <script src="<?= PROOT; ?>assets/js/switcher.js"></script>
 
     <script type="text/javascript">
         $(document).ready(function() {

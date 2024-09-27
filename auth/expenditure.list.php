@@ -126,7 +126,7 @@ if ($total_data > 0) {
 
             <!-- HANDLER DETAILS -->
             <div class="modal fade" id="adminModal_' . $row["aid"] . '" tabindex="-1" aria-labelledby="adminModalLabel_' . $row["aid"] . '" data-bs-backdrop="static" data-bs-keyboard="false" aria-hidden="true" style="backdrop-filter: blur(5px);">>
-                <div class="modal-dialog modal-sm modal-dialog-centered">
+                <div class="modal-dialog modal-dialog-centered">
                     <div class="modal-content overflow-hidden">
                         <div class="modal-header pb-0 border-0">
                             <h1 class="modal-title h4" id="adminModalLabel_' . $row["aid"] . '">Handler details</h1>
@@ -154,9 +154,9 @@ if ($total_data > 0) {
                                     <small class="text-muted">Last Login</small>
                                     <p>' . (($row["admin_last_login"] == NULL) ? 'NEVER' : pretty_date($row["admin_last_login"])) . '</p>
                                 </li>
-                            </ul><div class="p-2"></div>
-                            <div class="px-6 py-5 bg-body-secondary d-flex justify-content-center">
-                            <a class="btn btn-sm btn-neutral" href="' . PROOT . 'account/admins"><i class="bi bi-people me-2"></i>All admins</a>
+                            </ul>
+                            <div class="px-6 py-5 d-flex justify-content-center">
+                                <a class="btn btn-light" href="' . PROOT . 'account/admins"><i class="bi bi-people me-2"></i>All admins</a>
                             </div>
                         </div>
                     </div>

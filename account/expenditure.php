@@ -213,10 +213,12 @@
                 <!-- Heading -->
                 <h1 class="fs-4 mb-0"><?= ((isset($_GET['add']) && !empty($_GET['add'])) ? 'New' : 'All'); ?> expenditure</h1>
             </div>
+            <?php if (!admin_has_permission()): ?>
             <div class="col-12 col-sm-auto mt-4 mt-sm-0">
                 <!-- Action -->
                 <a class="btn btn-warning d-block" href="<?= ((isset($_GET['add']) && !empty($_GET['add'])) ? goBack() : PROOT . 'account/expenditure?add=1'); ?>"> <?= ((isset($_GET['add']) && !empty($_GET['add'])) ? 'Go back' : 'Add expenditure'); ?></a>
             </div>
+            <?php endif; ?>
         </div>
 
     <?php if (isset($_GET['add']) || isset($_GET['edit'])) : ?>

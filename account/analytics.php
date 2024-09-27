@@ -81,185 +81,227 @@
 
 ?>
 
-<div class="flex-fill overflow-y-lg-auto scrollbar bg-body rounded-top-4 rounded-top-start-lg-4 rounded-top-end-lg-0 border-top border-lg shadow-2">
-    <main class="container-fluid px-3 py-5 p-lg-6 p-xxl-8 ">
-        <div class="mb-6 mb-xl-10">
-            <div class="row g-3 align-items-center">
-                <div class="col">
-                    <h1 class="ls-tight">Analytics</h1>
+
+<!-- Content -->
+<div class="container-lg">
+        <!-- Page header -->
+        <div class="row align-items-center mb-7">
+            <div class="col-auto">
+                <!-- Avatar -->
+                <div class="avatar avatar-xl rounded text-warning">
+                    <i class="fs-2" data-duoicon="slideshow"></i>
                 </div>
-                <div class="col">
-                    <div class="hstack gap-2 justify-content-end">
-                        <div class="d-flex scrollable-x justify-content-between gap-1 p-1 align-items-center bg-body-secondary rounded text-xs fw-semibold">
-                            <input type="date" id="dater" class="px-3 py-1 text-muted">
-                            <select id='use-month' class="px-3 py-1 text-muted">
-                                <option value=''>Select Month</option>
-                                <option value="1">January</option>
-                                <option value='2'>February</option>
-                                <option value='3'>March</option>
-                                <option value='4'>April</option>
-                                <option value='5'>May</option>
-                                <option value='6'>June</option>
-                                <option value='7'>July</option>
-                                <option value='8'>August</option>
-                                <option value='9'>September</option>
-                                <option value='10'>October</option>
-                                <option value='11'>November</option>
-                                <option value='12'>December</option>
-                            </select>
-                        </div>
-                        <a href="<?= PROOT . 'account/analytics' ?>" class="btn btn-sm btn-neutral d-sm-inline-flex"><span class="pe-2"><i class="bi bi-arrow-clockwise"></i> </span><span>Reset</span></a>
-                            <!-- <div class="input-group input-group-inline datepicker">
-                                <span class="input-group-text pe-2"><i class="bi bi-calendar"></i> </span>
-                                <input type="text" class="form-control" placeholder="Select date" data-input="data-input">
-                            </div> -->
-                    </div>
-                </div>
+            </div>
+            <div class="col">
+                <!-- Breadcrumb -->
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb mb-2">
+                        <li class="breadcrumb-item"><a class="text-body-secondary" href="#">Dashboard</a></li>
+                        <li class="breadcrumb-item active" aria-current="page">Analytics</li>
+                    </ol>
+                </nav>
+
+                <!-- Heading -->
+                <h1 class="fs-4 mb-0">Analytics</h1>
+            </div>
+            <div class="col-12 col-sm-auto mt-4 mt-sm-0">
+                <!-- Action -->
+                <a class="btn btn-light d-block" href="<?= PROOT; ?>"> <span class="material-symbols-outlined me-1">dashboard</span> Go to dashboard </a>
             </div>
         </div>
 
-        <div class="vstack gap-3 gap-xl-6">
-            <div class="row g-3">
+        <!-- Page content -->
+        <div class="row">
+            <div class="col-12">
+                <!-- Filters -->
+                <div class="card card-line bg-body-tertiary border-transparent mb-7">
+                    <div class="card-body p-4">
+                        <div class="row align-items-center">
+                            <div class="col-12 col-lg-auto mb-3 mb-lg-0">
+                                <ul class="nav nav-pills">
+                                    <li class="nav-item">
+                                        <a class="btn btn-dark active" aria-current="page" href="<?= PROOT; ?>account/analytics">Data</a>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="col-12 col-lg">
+                                <div class="row gx-3">
+                                    <div class="col col-lg-auto ms-auto">
+                                        <input type="date" id="dater" class="form-control bg-body">
+                                    </div>
+                                    <div class="col-auto">
+                                        <select id='use-month' class="form-control bg-body">
+                                            <option value=''>Select Month</option>
+                                            <option value="1">January</option>
+                                            <option value='2'>February</option>
+                                            <option value='3'>March</option>
+                                            <option value='4'>April</option>
+                                            <option value='5'>May</option>
+                                            <option value='6'>June</option>
+                                            <option value='7'>July</option>
+                                            <option value='8'>August</option>
+                                            <option value='9'>September</option>
+                                            <option value='10'>October</option>
+                                            <option value='11'>November</option>
+                                            <option value='12'>December</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-auto ms-n2">
+                                        <a href="<?= PROOT . 'account/analytics' ?>" class="btn btn-dark px-3">
+                                            <span class="material-symbols-outlined">reset_wrench</span>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            
+            <div class="row">
                 <div class="col">
+                <div class="vstack gap-3 gap-xl-6">
+                    <div class="row g-3">
+                        <div class="col">
+                            <div class="card">
+                                <div class="p-4">
+                                    <h6 class="text-limit text-muted mb-3">Supervisor</h6>
+                                    <span class="text-muted text-opacity-60 text-opacity-100-hover" tabindex="0" data-bs-toggle="popover" data-bs-trigger="hover focus" data-bs-placement="right" data-bs-html="true" data-bs-content="The total capital given out to supervisors and Balance remaining, which can be determined as profit or loss." role="button"><i class="bi bi-info-circle"></i></span>
+                                    <span class="text-sm text-muted text-opacity-90 fw-semibold">GHS</span> <span class="d-block h3 ls-tight fw-bold" id="sup-capital">0.00</span>
+                                    <p class="mt-1">
+                                        <span class="text-success text-xs"><i class="fas fa-arrow-up me-1"></i>Balance: </span>
+                                        <span class="text-muted text-xs text-opacity-75" id="sup-balance">0.00</span>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="card">
+                                <div class="p-4">
+                                    <h6 class="text-limit text-muted mb-3">Salespersonnel</h6>
+                                    <span class="text-muted text-opacity-60 text-opacity-100-hover" tabindex="0" data-bs-toggle="popover" data-bs-trigger="hover focus" data-bs-placement="right" data-bs-html="true" data-bs-content="The total capital given out to salespersonnels and Balance remaining." role="button"><i class="bi bi-info-circle"></i></span>
+                                    <span class="text-sm text-muted text-opacity-90 fw-semibold">GHS</span> <span class="d-block h3 ls-tight fw-bold" id="sal-capital">0.00</span>
+                                    <p class="mt-1">
+                                        <span class="text-success text-xs"><i class="fas fa-arrow-up me-1"></i>Balance: </span>
+                                        <span class="text-muted text-xs text-opacity-75" id="sal-balance">0.00</span>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="card">
+                                <div class="p-4">
+                                    <h6 class="text-limit text-muted mb-3">Expenses</h6>
+                                    <span class="text-muted text-opacity-60 text-opacity-100-hover" tabindex="0" data-bs-toggle="popover" data-bs-trigger="hover focus" data-bs-placement="right" data-bs-html="true" data-bs-content="The total expenses made." role="button"><i class="bi bi-info-circle"></i></span>
+                                    <span class="text-sm text-muted text-opacity-90 fw-semibold">GHS</span> <span class="d-block h3 ls-tight fw-bold" id="expenses">0.00</span>
+                                    <p class="mt-1">
+                                        <span class="text-success text-xs"><i class="fas fa-arrow-up me-1"></i><!-- 20% --></span>
+                                        <span class="text-muted text-xs text-opacity-75"><!-- vs last week --></span>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="card">
+                                <div class="p-4">
+                                    <h6 class="text-limit text-muted mb-3">Total trades</h6>
+                                    <span class="text-muted text-opacity-60 text-opacity-100-hover" tabindex="0" data-bs-toggle="popover" data-bs-trigger="hover focus" data-bs-placement="right" data-bs-html="true" data-bs-content="The total number of trade(s) made." role="button"><i class="bi bi-info-circle"></i></span>
+                                    <span class="text-sm text-muted text-opacity-90 fw-semibold">#</span> <span class="d-block h3 ls-tight fw-bold" id="total-trades">0.00</span>
+                                    <p class="mt-1">
+                                        <span class="text-success text-xs"><i class="fas fa-arrow-up me-1"></i><!-- 20% --></span>
+                                        <span class="text-muted text-xs text-opacity-75"><!-- vs last week--></span>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                     <div class="card">
-                        <div class="p-4">
-                            <h6 class="text-limit text-muted mb-3">Supervisor</h6>
-                            <span class="text-muted text-opacity-60 text-opacity-100-hover" tabindex="0" data-bs-toggle="popover" data-bs-trigger="hover focus" data-bs-placement="right" data-bs-html="true" data-bs-content="The total capital given out to supervisors and Balance remaining, which can be determined as profit or loss." role="button"><i class="bi bi-info-circle"></i></span>
-                            <span class="text-sm text-muted text-opacity-90 fw-semibold">GHS</span> <span class="d-block h3 ls-tight fw-bold" id="sup-capital">0.00</span>
-                            <p class="mt-1">
-                                <span class="text-success text-xs"><i class="fas fa-arrow-up me-1"></i>Balance: </span>
-                                <span class="text-muted text-xs text-opacity-75" id="sup-balance">0.00</span>
-                            </p>
+                        <div class="card-body d-flex flex-column">
+                            <div class="d-flex justify-content-between align-items-center mb-3">
+                            <div>
+                                <h5>Earnings</h5>
+                            </div>
+                            <div>
+                                <span class="text-heading fw-bold"><i class="bi me-2" id="e-arrow"></i><!-- 7.8% --></span></div>
+                            </div>
+                            <div class="text-2xl fw-bolder text-heading ls-tight" id="profit-loss">0.00 GHS</div>
+                            <div class="d-flex align-items-center justify-content-between mt-8">
+                            <div class="">
+                                <div class="d-flex gap-3 align-items-center">
+                                <div class="icon icon-sm icon-shape text-sm rounded-circle bg-dark text-success"><i class="bi bi-arrow-down"></i></div><span class="h6 fw-semibold text-muted">Incoming</span> <span class="text-muted text-opacity-60 text-opacity-100-hover" tabindex="0" data-bs-toggle="popover" data-bs-trigger="hover focus" data-bs-placement="right" data-bs-html="true" data-bs-content="The total amount of trades comming in done by supervisors" role="button"><i class="bi bi-info-circle"></i></span>
+                                </div>
+                                <div class="fw-bold text-heading mt-3" id="incoming">0.00 GHS</div>
+                            </div><span class="vr bg-dark bg-opacity-10"></span>
+                            <div class="">
+                                <div class="d-flex gap-3 align-items-center">
+                                <div class="icon icon-sm icon-shape text-sm rounded-circle bg-dark text-danger"><i class="bi bi-arrow-up"></i></div><span class="h6 fw-semibold text-muted">Outgoing</span> <span class="text-muted text-opacity-60 text-opacity-100-hover" tabindex="0" data-bs-toggle="popover" data-bs-trigger="hover focus" data-bs-placement="right" data-bs-html="true" data-bs-content="The total amount of trades going out done by salespersonnels" role="button"><i class="bi bi-info-circle"></i></span>
+                                </div>
+                                <div class="fw-bold text-heading mt-3" id="outgoing">0.00 GHS</div>
+                            </div>
+                            </div>
                         </div>
                     </div>
-                </div>
-                <div class="col">
-                    <div class="card">
-                        <div class="p-4">
-                            <h6 class="text-limit text-muted mb-3">Salespersonnel</h6>
-                            <span class="text-muted text-opacity-60 text-opacity-100-hover" tabindex="0" data-bs-toggle="popover" data-bs-trigger="hover focus" data-bs-placement="right" data-bs-html="true" data-bs-content="The total capital given out to salespersonnels and Balance remaining." role="button"><i class="bi bi-info-circle"></i></span>
-                            <span class="text-sm text-muted text-opacity-90 fw-semibold">GHS</span> <span class="d-block h3 ls-tight fw-bold" id="sal-capital">0.00</span>
-                            <p class="mt-1">
-                                <span class="text-success text-xs"><i class="fas fa-arrow-up me-1"></i>Balance: </span>
-                                <span class="text-muted text-xs text-opacity-75" id="sal-balance">0.00</span>
-                            </p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col">
-                    <div class="card">
-                        <div class="p-4">
-                            <h6 class="text-limit text-muted mb-3">Expenses</h6>
-                            <span class="text-muted text-opacity-60 text-opacity-100-hover" tabindex="0" data-bs-toggle="popover" data-bs-trigger="hover focus" data-bs-placement="right" data-bs-html="true" data-bs-content="The total expenses made." role="button"><i class="bi bi-info-circle"></i></span>
-                            <span class="text-sm text-muted text-opacity-90 fw-semibold">GHS</span> <span class="d-block h3 ls-tight fw-bold" id="expenses">0.00</span>
-                            <p class="mt-1">
-                                <span class="text-success text-xs"><i class="fas fa-arrow-up me-1"></i><!-- 20% --></span>
-                                <span class="text-muted text-xs text-opacity-75"><!-- vs last week --></span>
-                            </p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col">
-                    <div class="card">
-                        <div class="p-4">
-                            <h6 class="text-limit text-muted mb-3">Total trades</h6>
-                            <span class="text-muted text-opacity-60 text-opacity-100-hover" tabindex="0" data-bs-toggle="popover" data-bs-trigger="hover focus" data-bs-placement="right" data-bs-html="true" data-bs-content="The total number of trade(s) made." role="button"><i class="bi bi-info-circle"></i></span>
-                            <span class="text-sm text-muted text-opacity-90 fw-semibold">#</span> <span class="d-block h3 ls-tight fw-bold" id="total-trades">0.00</span>
-                            <p class="mt-1">
-                                <span class="text-success text-xs"><i class="fas fa-arrow-up me-1"></i><!-- 20% --></span>
-                                <span class="text-muted text-xs text-opacity-75"><!-- vs last week--></span>
-                            </p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="card">
-                <div class="card-body d-flex flex-column">
-                    <div class="d-flex justify-content-between align-items-center mb-3">
-                    <div>
-                        <h5>Earnings</h5>
-                    </div>
-                    <div>
-                        <span class="text-heading fw-bold"><i class="bi me-2" id="e-arrow"></i><!-- 7.8% --></span></div>
-                    </div>
-                    <div class="text-2xl fw-bolder text-heading ls-tight" id="profit-loss">0.00 GHS</div>
-                    <div class="d-flex align-items-center justify-content-between mt-8">
-                    <div class="">
-                        <div class="d-flex gap-3 align-items-center">
-                        <div class="icon icon-sm icon-shape text-sm rounded-circle bg-dark text-success"><i class="bi bi-arrow-down"></i></div><span class="h6 fw-semibold text-muted">Incoming</span> <span class="text-muted text-opacity-60 text-opacity-100-hover" tabindex="0" data-bs-toggle="popover" data-bs-trigger="hover focus" data-bs-placement="right" data-bs-html="true" data-bs-content="The total amount of trades comming in done by supervisors" role="button"><i class="bi bi-info-circle"></i></span>
-                        </div>
-                        <div class="fw-bold text-heading mt-3" id="incoming">0.00 GHS</div>
-                    </div><span class="vr bg-dark bg-opacity-10"></span>
-                    <div class="">
-                        <div class="d-flex gap-3 align-items-center">
-                        <div class="icon icon-sm icon-shape text-sm rounded-circle bg-dark text-danger"><i class="bi bi-arrow-up"></i></div><span class="h6 fw-semibold text-muted">Outgoing</span> <span class="text-muted text-opacity-60 text-opacity-100-hover" tabindex="0" data-bs-toggle="popover" data-bs-trigger="hover focus" data-bs-placement="right" data-bs-html="true" data-bs-content="The total amount of trades going out done by salespersonnels" role="button"><i class="bi bi-info-circle"></i></span>
-                        </div>
-                        <div class="fw-bold text-heading mt-3" id="outgoing">0.00 GHS</div>
-                    </div>
-                    </div>
-                </div>
-            </div>
 
-            <div class="card">
-                <div class="card-body pb-0">
-                    <div class="d-flex justify-content-between align-items-center">
-                        <div>
-                            <h5>Earnings</h5>
-                        </div>
-                        <div class="hstack align-items-center">
-                            <a href="<?= PROOT; ?>acc/analytics" class="text-muted"><i class="bi bi-arrow-repeat"></i></a>
+                    <div class="card">
+                        <div class="card-body pb-0">
+                            <div class="d-flex justify-content-between align-items-center">
+                                <div>
+                                    <h5>Earnings</h5>
+                                </div>
+                                <div class="hstack align-items-center">
+                                    <a href="<?= PROOT; ?>acc/analytics" class="text-muted"><i class="bi bi-arrow-repeat"></i></a>
+                                </div>
+                            </div>
+                            <div class="mx-n4">
+                                <canvas class="my-4 w-100" id="myChart" width="900" height="380"></canvas>
+                            </div>
                         </div>
                     </div>
-                    <div class="mx-n4">
-                        <canvas class="my-4 w-100" id="myChart" width="900" height="380"></canvas>
+
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="d-flex justify-content-between align-items-center mb-5">
+                                <div>
+                                    <h5>Accumulated profits by months and years</h5>
+                                </div>
+                                <div class="hstack align-items-center">
+                                    <a href="<?= PROOT; ?>acc/trades" class="text-muted">
+                                        <i class="bi bi-arrow-repeat"></i>
+                                    </a>
+                                </div>
+                            </div>
+                            <div class="vstack gap-6">
+                                <table class="table table-bordered table-lg">
+                                    <thead>
+                                        <tr>
+                                            <th scope="col"></th>
+                                            <th scope="col" style="font-family: Roboto Mono, monospace;"><?= $lastYr; ?></th>
+                                            <th scope="col" style="font-family: Roboto Mono, monospace;"><?= $thisYr; ?></th>
+                                        </tr>
+                                    </thead>
+                                        <tbody>
+                                        <?php for ($i = 1; $i <= 12; $i++):
+                                            $dt = dateTime::createFromFormat('!m',$i);
+                                        ?>
+                                            <tr>
+                                                <td <?= (date('m') == $i) ? ' class="bg-danger"' : ''; ?>><?= $dt->format("F"); ?></td>
+                                                <td <?= (date('m') == $i) ? ' class="bg-danger"' : ''; ?> style="font-family: Roboto Mono, monospace;"><?= ((array_key_exists($i, $last)) ? money($last[$i]) : money(0)); ?></td>
+                                                <td <?= (date('m') == $i) ? ' class="bg-danger"' : ''; ?> style="font-family: Roboto Mono, monospace;"><?=  ((array_key_exists($i, $current)) ? money($current[$i]) : money(0)); ?></td>
+                                            </tr>
+                                        <?php endfor; ?>
+                                        <tr>
+                                            <td>Total</td>
+                                            <td style="font-family: Roboto Mono, monospace;"><?= money($lastTotal); ?></td>
+                                            <td style="font-family: Roboto Mono, monospace;"><?= money($currentTotal); ?></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
                     </div>
                 </div>
-            </div>
-
-            <div class="card">
-                <div class="card-body">
-                    <div class="d-flex justify-content-between align-items-center mb-5">
-                        <div>
-                            <h5>Accumulated profits by months and years</h5>
-                        </div>
-                        <div class="hstack align-items-center">
-                            <a href="<?= PROOT; ?>acc/trades" class="text-muted">
-                                <i class="bi bi-arrow-repeat"></i>
-                            </a>
-                        </div>
-                    </div>
-                    <div class="vstack gap-6">
-                        <table class="table table-bordered table-lg">
-                            <thead>
-                                <tr>
-                                    <th scope="col"></th>
-                                    <th scope="col" style="font-family: Roboto Mono, monospace;"><?= $lastYr; ?></th>
-                                    <th scope="col" style="font-family: Roboto Mono, monospace;"><?= $thisYr; ?></th>
-                                </tr>
-                            </thead>
-                                <tbody>
-                                <?php for ($i = 1; $i <= 12; $i++):
-                                    $dt = dateTime::createFromFormat('!m',$i);
-                                ?>
-                                    <tr>
-                                        <td <?= (date('m') == $i) ? ' class="bg-danger"' : ''; ?>><?= $dt->format("F"); ?></td>
-                                        <td <?= (date('m') == $i) ? ' class="bg-danger"' : ''; ?> style="font-family: Roboto Mono, monospace;"><?= ((array_key_exists($i, $last)) ? money($last[$i]) : money(0)); ?></td>
-                                        <td <?= (date('m') == $i) ? ' class="bg-danger"' : ''; ?> style="font-family: Roboto Mono, monospace;"><?=  ((array_key_exists($i, $current)) ? money($current[$i]) : money(0)); ?></td>
-                                    </tr>
-                                <?php endfor; ?>
-                                <tr>
-                                    <td>Total</td>
-                                    <td style="font-family: Roboto Mono, monospace;"><?= money($lastTotal); ?></td>
-                                    <td style="font-family: Roboto Mono, monospace;"><?= money($currentTotal); ?></td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
                 </div>
             </div>
         </div>
-    </main>
-</div>
 
 
 <?php include ("../includes/footer.inc.php"); ?>
