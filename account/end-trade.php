@@ -79,7 +79,7 @@
             <div class="card-body">
                 <h2 class="fs-5 mb-1">Denomination</h2>
                 <p class="text-body-secondary">Complete the form below to end trade.</p>
-                <form method="POST" id="denominationForm">
+                <form method="POST" id="denominationForm" url="<?= PROOT; ?>auth/denomination.php">
                     <div class="text-danger mb-3"><?= $errors; ?></div>
                     <div class="table-responsive mb-7">
                         <table class="table table-sm align-middle mb-0">
@@ -311,125 +311,31 @@
         $('#denomination-total').text(sum);
     }
 
-    var form = $('#denominationForm');
-    $('#submitDenomination').on('click', function() {
-        $.ajax({
-            method : "POST",
-            url : "<?= PROOT; ?>auth/denomination.php",
-            data : form.serialize(),
-            beforeSend : function () {
-                $('#submitDenomination').attr('disabled', true);
-            },
-            success : function(data) {
-                $('#submitDenomination').attr('disabled', false);
-            }, 
-            error : function() {
+    $('#submitDenomination').attr('disabled', true);
+    setTimeout(function () {
+        $('#denominationForm').submit();
 
-            }
-        })
-    })
+        $('#submitDenomination').attr('disabled', false);
+    }, 2000)
 
-    
-    $(".export_class").change(function(e) {
-        event.preventDefault()
-        var select_for = $(".export_class:checked").val();
+    // var form = $('#denominationForm');
+    // $('#submitDenomination').on('click', function() {
+    //     $.ajax({
+    //         method : "POST",
+    //         url : "<?= PROOT; ?>auth/denomination.php",
+    //         data : form.serialize(),
+    //         beforeSend : function () {
+    //             $('#submitDenomination').attr('disabled', true);
+    //         },
+    //         success : function(data) {
+    //             $('#submitDenomination').attr('disabled', false);
+    //         }, 
+    //         error : function() {
 
-        if (select_for == 'date') {
-            $('#check-date').removeClass('d-none');
+    //         }
+    //     })
+    // })
 
-            // display none
-            $('#check-month').addClass('d-none');
-            $('#check-year').addClass('d-none');
-
-            // empty values
-            // $('#export-month').val('');
-            // $('#export-year').val('');
-        } else if (select_for == 'month') {
-            $('#check-month').removeClass('d-none');
-
-            // display none
-            $('#check-date').addClass('d-none');
-            $('#check-year').addClass('d-none');
-
-            // empty values
-            // $('#export-date').val('');
-            // $('#export-year').val('');
-        } else if (select_for == 'year') {
-            $('#check-year').removeClass('d-none');
-
-            // display none
-            $('#check-month').addClass('d-none');
-            $('#check-date').addClass('d-none');
-
-            // empty values
-            // $('#export-date').val('');
-            // $('#export-month').val('');
-        } else {
-            // display none
-            $('#check-date').addClass('d-none');
-            $('#check-month').addClass('d-none');
-            $('#check-year').addClass('d-none');
-
-            // empty values
-            // $('#export-date').val('');
-            // $('#export-month').val('');
-            // $('#export-year').val('');
-        }
-    });
-
-
-    $('#submit-export').on('click', function() {
-
-        if ($(".export_class:checked").val()) {
-            var select_for = $(".export_class:checked").val();
-
-            if (select_for == 'date' && $("#export-date").val() == '') {
-                alert("You will have to select date!");
-                $("#export-date").focus();
-                return false;
-            } else if (select_for == 'month' && $("#export-month").val() == '') {
-                alert("You will have to select month!");
-                $("#export-month").focus();
-                return false;
-            } else if (select_for == 'year' && $("#export-year").val() == '') {
-                alert("You will have to select year!");
-                $("#export-year").focus();
-                return false;
-            }
-
-            // var formData = $('#exportForm');
-            // $.ajax({
-            //     method : "GET",
-            //     url : "<?= PROOT; ?>auth/export",
-            //     data : formData.serialize(),
-            //     beforeSend : function() {
-            //         $('#submit-export').attr('disabled', true);
-            //         $('#submit-export').text('Exporting ...');
-            //     },
-            //     success : function (data) {
-            //         console.log(data)
-            //         $('#submit-export').attr('disabled', false);
-            //         $('#submit-export').text('Export');
-            //         location.reload();
-            //     },
-            //     error : function () {
-
-            //     }
-            // })
-
-            $('#submit-export').attr('disabled', true);
-            $('#submit-export').text('Exporting ...');
-            setTimeout(function () {
-                $('#exportForm').submit();
-
-                $('#submit-export').attr('disabled', false);
-                $('#submit-export').text('Export');
-                // location.reload();
-            }, 2000)
-        } else {
-            return false;
-        }
-    });
     
     // SEARCH AND PAGINATION FOR LIST
     function load_data(page, query = '') {
