@@ -14,18 +14,18 @@ if (isset($_POST['dater'])) {
     if ($action == 'with_date' && $dater != null) {
         $and = ' AND CAST(jspence_sales.createdAt AS date) = "'.$dater.'"';
         $andDaily = ' AND daily_date = "'.$dater.'"';
-        $andExpenditure = ' AND CAST(jspence_expenditures.createdAt AS date) = "'.$dater.'"';
+        $andExpenditure = ' AND CAST(jspence_sales.createdAt AS date) = "'.$dater.'"';
     } else if ($action == 'with_month') {
         $and = ' AND MONTH(jspence_sales.createdAt) = "'.$dater.'"';
         $andDaily = ' AND MONTH(daily_date) = "'.$dater.'"';
-        $andExpenditure = ' AND MONTH(jspence_expenditures.createdAt) = "'.$dater.'"';
+        $andExpenditure = ' AND MONTH(jspence_sales.createdAt) = "'.$dater.'"';
     }
 
     $supervisorQuery = "
         SELECT SUM(daily_capital) AS capital, SUM(daily_balance) AS balance 
         FROM jspence_daily 
         INNER JOIN jspence_admin 
-        ON jspence_admin.admin_id = jspence_daily.daily_by
+        ON jspence_admin.admin_id = jspence_daily.daily_to
         WHERE jspence_daily.status = ? 
         AND jspence_admin.admin_permissions = ?
         $andDaily
@@ -39,7 +39,7 @@ if (isset($_POST['dater'])) {
         "SELECT SUM(daily_capital) AS capital, SUM(daily_balance) AS balance 
         FROM jspence_daily 
         INNER JOIN jspence_admin 
-        ON jspence_admin.admin_id = jspence_daily.daily_by
+        ON jspence_admin.admin_id = jspence_daily.daily_to
         WHERE jspence_daily.status = 0 
         AND jspence_admin.admin_permissions = 'salesperson'
         $andDaily
@@ -49,7 +49,7 @@ if (isset($_POST['dater'])) {
 
     $ins = $conn->query("SELECT SUM(sale_total_amount) AS ins_amt, CAST(jspence_sales.createdAt AS date) AS in_d FROM jspence_sales WHERE sale_type = 'in' AND sale_status = 0 $and")->fetchAll();
     $outs = $conn->query("SELECT SUM(sale_total_amount) AS outs_amt, CAST(jspence_sales.createdAt AS date) AS out_d FROM jspence_sales WHERE sale_type = 'out' AND sale_status = 0 $and")->fetchAll();
-    $expense = $conn->query("SELECT SUM(expenditure_amount) AS exp_amt, CAST(jspence_expenditures.createdAt AS date) AS exp_d FROM jspence_expenditures WHERE status = 0 $andExpenditure")->fetchAll();
+    $expense = $conn->query("SELECT SUM(sale_total_amount) AS exp_amt, CAST(jspence_sales.createdAt AS date) AS exp_d FROM jspence_sales WHERE sale_type = 'exp' $andExpenditure")->fetchAll();
     $count_trades = $conn->query("SELECT *, CAST(jspence_sales.createdAt AS date) AS c_d FROM jspence_sales WHERE sale_status = 0 $and")->rowCount();
 
     $gained_or_loss = 0;

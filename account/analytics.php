@@ -10,9 +10,10 @@
     if (!admin_has_permission()) {
         redirect(PROOT . 'index');
     }
-
     include ("../includes/header.inc.php");
-    include ("../includes/nav.inc.php");
+    include ("../includes/aside.inc.php");
+    include ("../includes/left.nav.inc.php");
+    include ("../includes/top.nav.inc.php");
 
     $thisYr = date("Y");
 	$lastYr = $thisYr - 1;
@@ -21,7 +22,7 @@
         SELECT SUM(daily_capital) AS dc, SUM(daily_balance) AS db, jspence_daily.daily_date
         FROM `jspence_daily` 
         INNER JOIN jspence_admin
-        ON admin_id = jspence_daily.daily_by
+        ON admin_id = jspence_daily.daily_to
         WHERE jspence_admin.admin_permissions = ?
         AND YEAR(jspence_daily.daily_date) = ? 
         AND jspence_daily.status = ? 
@@ -35,7 +36,7 @@
         SELECT SUM(daily_capital) AS dc, SUM(daily_balance) AS db, jspence_daily.daily_date
         FROM `jspence_daily` 
         INNER JOIN jspence_admin
-        ON admin_id = jspence_daily.daily_by
+        ON admin_id = jspence_daily.daily_to
         WHERE jspence_admin.admin_permissions = ?
         AND YEAR(jspence_daily.daily_date) = ? 
         AND jspence_daily.status = ? 
@@ -107,7 +108,7 @@
                                 <option value='12'>December</option>
                             </select>
                         </div>
-                        <a href="<?= PROOT . 'acc/analytics' ?>" class="btn btn-sm btn-neutral d-sm-inline-flex"><span class="pe-2"><i class="bi bi-arrow-clockwise"></i> </span><span>Reset</span></a>
+                        <a href="<?= PROOT . 'account/analytics' ?>" class="btn btn-sm btn-neutral d-sm-inline-flex"><span class="pe-2"><i class="bi bi-arrow-clockwise"></i> </span><span>Reset</span></a>
                             <!-- <div class="input-group input-group-inline datepicker">
                                 <span class="input-group-text pe-2"><i class="bi bi-calendar"></i> </span>
                                 <input type="text" class="form-control" placeholder="Select date" data-input="data-input">
