@@ -63,7 +63,7 @@
                             <div class="col-12 col-lg-auto mb-3 mb-lg-0">
                                 <ul class="nav nav-pills">
                                     <li class="nav-item">
-                                        <a class="btn btn-dark active" aria-current="page" href="<?= PROOT; ?>account/end-trades">Denomination</a>
+                                        <a class="btn btn-dark active" aria-current="page" href="javascript:;">Denomination</a>
                                     </li>
                                 </ul>
                             </div>
@@ -156,7 +156,7 @@
                                 </tr>
                                 <tr>
                                     <td colspan="2">Total</td>
-                                    <td>0.00</td>
+                                    <td id="denomination-total">0.00</td>
                                 </tr>
                             </tbody>
                         </table>
@@ -180,81 +180,120 @@
 
     // denomination_200c
     $('#denomination_200c').keyup(function() {
-        var a = +200.00 * +$('#denomination_200c').val()
+        var a = (200 * +$('#denomination_200c').val())
         $('#denomination_200c_amt').val(a);
+
+        denomination_total()
     });
 
     // denomination_100c
     $('#denomination_100c').keyup(function() {
-        var a = +100.00 * +$('#denomination_100c').val()
+        var a = (100 * +$('#denomination_100c').val())
         $('#denomination_100c_amt').val(a);
+
+        denomination_total()
     });
 
     // denomination_50c
     $('#denomination_50c').keyup(function() {
-        var a = +50.00 * +$('#denomination_50c').val()
+        var a = (50 * +$('#denomination_50c').val())
         $('#denomination_50c_amt').val(a);
+
+        denomination_total()
     });
 
     // denomination_20c
     $('#denomination_20c').keyup(function() {
-        var a = +20.00 * +$('#denomination_20c').val()
-        $('#denomination_20c_amt').val(a);
+        var a = (20 * +$('#denomination_20c').val())
+        $('#denomination_20c_amt').val(a)
+
+        denomination_total()
     });
 
     // denomination_10c
     $('#denomination_10c').keyup(function() {
-        var a = +10.00 * +$('#denomination_10c').val()
+        var a = (10 * +$('#denomination_10c').val())
         $('#denomination_10c_amt').val(a);
+
+        denomination_total()
     });
 
     // denomination_5c
     $('#denomination_5c').keyup(function() {
-        var a = +5.00 * +$('#denomination_5c').val()
+        var a = (5 * +$('#denomination_5c').val())
         $('#denomination_5c_amt').val(a);
+
+        denomination_total()
     });
 
     // denomination_2c
     $('#denomination_2c').keyup(function() {
-        var a = +2.00 * +$('#denomination_2c').val()
+        var a = (2 * +$('#denomination_2c').val())
         $('#denomination_2c_amt').val(a);
+
+        denomination_total()
     });
 
     // denomination_1c
     $('#denomination_1c').keyup(function() {
-        var a = +1.00 * +$('#denomination_1c').val()
+        var a = (1 * +$('#denomination_1c').val())
         $('#denomination_1c_amt').val(a);
+
+        denomination_total()
     });
 
     // denomination_50p
     $('#denomination_50p').keyup(function() {
-        var a = +0.50 * +$('#denomination_50p').val()
+        var a = (parseFloat(+0.50) * +$('#denomination_50p').val())
+        a = a.toFixed(2)
         $('#denomination_50p_amt').val(a);
+
+        denomination_total()
     });
 
     // denomination_20p
     $('#denomination_20p').keyup(function() {
-        var a = +0.20 * +$('#denomination_20p').val()
+        var a = (parseFloat(0.20) * $('#denomination_20p').val())
+        a = a.toFixed(2)
         $('#denomination_20p_amt').val(a);
+
+        denomination_total()
     });
 
     // denomination_10p
     $('#denomination_10p').keyup(function() {
-        var a = +0.10 * +$('#denomination_10p').val()
+        var a = (parseFloat(0.10) * $('#denomination_10p').val())
+        a = a.toFixed(2)
         $('#denomination_10p_amt').val(a);
+
+        denomination_total()
     });
 
     // denomination_5p
     $('#denomination_5p').keyup(function() {
-        var a = +0.05 * +$('#denomination_5p').val()
+        var a = (parseFloat(0.05) * $('#denomination_5p').val())
+        a = a.toFixed(2)
         $('#denomination_5p_amt').val(a);
+
+        denomination_total()
     });
 
     // denomination_1p
     $('#denomination_1p').keyup(function() {
-        var a = +0.01 * +$('#denomination_1p').val()
+        var a = (parseFloat(0.01) * $('#denomination_1p').val())
+        a = a.toFixed(2)
         $('#denomination_1p_amt').val(a);
+
+        denomination_total()
     });
+
+    function denomination_total() {
+        var sum = parseFloat((
+            $('#denomination_200c_amt').val() + $('#denomination_100c_amt').val() + $('#denomination_50c_amt').val() + $('#denomination_20c_amt').val() + $('#denomination_10c_amt').val() + $('#denomination_5c_amt').val() + $('#denomination_2c_amt').val() + $('#denomination_1c_amt').val() + $('#denomination_50p_amt').val() + $('#denomination_20p_amt').val() + $('#denomination_10p_amt').val() + $('#denomination_5p_amt').val() + $('#denomination_1p_amt').val()
+        ))
+
+        $('#denomination-total').text(sum).toFixed(2);
+    }
 
     
     $(".export_class").change(function(e) {
