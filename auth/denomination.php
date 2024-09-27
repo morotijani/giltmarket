@@ -1,9 +1,14 @@
 <?php 
 
-// Analytics info 
-
+// Denomination
 require_once ("../db_connection/conn.php");
+if (!admin_is_logged_in()) {
+    admn_login_redirect();
+}
 
+if (admin_has_permission()) {
+    redirect(PROOT . 'accounts/trades');
+}
 include ("../includes/header.inc.php");
 
 if (isset($_POST['denomination_200c'])) {
@@ -37,7 +42,7 @@ if (isset($_POST['denomination_200c'])) {
 
     $denomination_id = guidv4();
     $by = $admin_data['admin_id'];
-    $capital_id = 11; //_capital($by)['today_capital_id'];
+    $capital_id = _capital($by)['today_capital_id'];
 
     $data = [$denomination_id, $capital_id, $by, $denomination_200c, $denomination_200c_amt, $denomination_100c, $denomination_100c_amt, $denomination_50c, $denomination_50c_amt, $denomination_20c, $denomination_20c_amt, $denomination_10c, $denomination_10c_amt, $denomination_5c, $denomination_5c_amt, $denomination_2c, $denomination_2c_amt, $denomination_1c, $denomination_1c_amt, $denomination_50p, $denomination_50p_amt, $denomination_20p, $denomination_20p_amt, $denomination_10p, $denomination_10p_amt, $denomination_5p, $denomination_5p_amt, $denomination_1p, $denomination_1p_amt];
 
@@ -49,12 +54,19 @@ if (isset($_POST['denomination_200c'])) {
     $result = $statement->execute($data);
     if (isset($result)) {
 
+        $message = "ended trade denomination id:" . $denomination_id . ", total amount of " . money($denomination_total);
+		add_to_log($message, $by);
+
         $query = "
             UPDATE jspence_daily SET daily_capital_status = ? 
             WHERE daily_id = ?
         ";
         $statement = $conn->prepare($query);
-        $statement->execute([1, $capital_id]);
+        $r = $statement->execute([1, $capital_id]);
+        if ($r) {
+            $message = "added new sale with gram of " . $gram . " and volume of " . $volume . " and total amount of " . money($total_amount) ." and price of " . money($current_price) . " on id " . $sale_id . "";
+			add_to_log($message, $by);
+        }
 
 ?>
 
@@ -79,7 +91,7 @@ if (isset($_POST['denomination_200c'])) {
                     </nav>
 
                     <!-- Heading -->
-                    <h1 class="fs-4 mb-0">ID <?= $denomination_id; ?></h1>
+                    <h1 class="fs-4 mb-0">ID: <?= $denomination_id; ?></h1>
                 </div>
                 <div class="col-12 col-sm-auto mt-4 mt-sm-0">
                     <!-- Action -->
@@ -230,7 +242,7 @@ if (isset($_POST['denomination_200c'])) {
                     </div>
                     <h3 class="fs-base">Notes:</h3>
                     <p class="text-body-secondary mb-0">
-                    Thank you for your purchase! <br />
+                    Thank you for todays sales! <br />
                     Please let us know if you have any questions.
                     </p>
                 </div>

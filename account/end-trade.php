@@ -2,7 +2,6 @@
 
     // view admin profile details
     require_once ("../db_connection/conn.php");
-
     if (!admin_is_logged_in()) {
         admn_login_redirect();
     }
@@ -11,10 +10,9 @@
         redirect(PROOT . 'accounts/trades');
     }
 
-    // if (!is_capital_given()) {
-    //     redirect(PROOT);
-    // }
-
+    if (!is_capital_given()) {
+        redirect(PROOT);
+    }
     include ("../includes/header.inc.php");
     include ("../includes/aside.inc.php");
     include ("../includes/left.nav.inc.php");
@@ -79,7 +77,7 @@
             <div class="card-body">
                 <h2 class="fs-5 mb-1">Denomination</h2>
                 <p class="text-body-secondary">Complete the form below to end trade.</p>
-                <form method="POST" id="denominationForm" url="<?= PROOT; ?>auth/denomination.php">
+                <form method="POST" id="denominationForm" action="<?= PROOT; ?>auth/denomination">
                     <div class="text-danger mb-3"><?= $errors; ?></div>
                     <div class="table-responsive mb-7">
                         <table class="table table-sm align-middle mb-0">
@@ -319,15 +317,16 @@
             )
         )
 
-        $('#denomination-total').text(sum);
+        $('#denomination-total').val(sum);
     }
 
-    $('#submitDenomination').attr('disabled', true);
-    setTimeout(function () {
-        $('#denominationForm').submit();
-
-        $('#submitDenomination').attr('disabled', false);
-    }, 2000)
+    $('#submitDenomination').on('click', function() {
+        $('#submitDenomination').attr('disabled', true);
+        setTimeout(function () {
+            $('#denominationForm').submit();
+            $('#submitDenomination').attr('disabled', false);
+        }, 2000)
+    })
 
     // var form = $('#denominationForm');
     // $('#submitDenomination').on('click', function() {
@@ -347,19 +346,4 @@
     //     })
     // })
 
-    
-    // SEARCH AND PAGINATION FOR LIST
-    function load_data(page, query = '') {
-        $.ajax({
-            url : "<?= PROOT; ?>auth/trade.list.php",
-            method : "POST",
-            data : {
-                page : page, 
-                query : query
-            },
-            success : function(data) {
-                $("#load-content").html(data);
-            }
-        });
-    }
 </script>
