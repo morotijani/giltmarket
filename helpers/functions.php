@@ -779,19 +779,27 @@ function get_logs($admin) {
 	$statement->execute();
 	$rows = $statement->fetchAll();
 
-	foreach ($rows as $row) {
-		$admin_name = explode(' ', $row['admin_fullname']);
-		$admin_name = ucwords($admin_name[0]);
+	if ($statement->rowCount() > 0): 
+		foreach ($rows as $row) {
+			$admin_name = explode(' ', $row['admin_fullname']);
+			$admin_name = ucwords($admin_name[0]);
 
+			$output .= '
+				<li data-icon="account_circle">
+					<div>
+						<h6 class="fs-base mb-1">' . (($row["log_admin"] == $admin) ? 'You': $admin_name) . ' <span class="fs-sm fw-normal text-body-secondary ms-1">' . pretty_date($row["createdAt"]) .'</span></h6>
+						<p class="mb-0">' . $row["log_message"] . '</p>
+					</div>
+				</li>
+			';
+		}
+	else:
 		$output .= '
-			<li data-icon="account_circle">
-				<div>
-					<h6 class="fs-base mb-1">' . (($row["log_admin"] == $admin) ? 'You': $admin_name) . ' <span class="fs-sm fw-normal text-body-secondary ms-1">' . pretty_date($row["createdAt"]) .'</span></h6>
-					<p class="mb-0">' . $row["log_message"] . '</p>
+				<div class="alert alert-info">
+					No data found!
 				</div>
-			</li>
-		';
-	}
+			';
+	endif;
 
 	return $output;
 }

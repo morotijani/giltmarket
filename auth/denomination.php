@@ -43,6 +43,8 @@ if (isset($_POST['denomination_200c'])) {
     $denomination_id = guidv4();
     $by = $admin_data['admin_id'];
     $capital_id = _capital($by)['today_capital_id'];
+    $capital_amt = money(_capital($by)['today_capital']);
+    $capital_bal = money(_capital($by)['today_balance']);
 
     $data = [$denomination_id, $capital_id, $by, $denomination_200c, $denomination_200c_amt, $denomination_100c, $denomination_100c_amt, $denomination_50c, $denomination_50c_amt, $denomination_20c, $denomination_20c_amt, $denomination_10c, $denomination_10c_amt, $denomination_5c, $denomination_5c_amt, $denomination_2c, $denomination_2c_amt, $denomination_1c, $denomination_1c_amt, $denomination_50p, $denomination_50p_amt, $denomination_20p, $denomination_20p_amt, $denomination_10p, $denomination_10p_amt, $denomination_5p, $denomination_5p_amt, $denomination_1p, $denomination_1p_amt];
 
@@ -54,7 +56,7 @@ if (isset($_POST['denomination_200c'])) {
     $result = $statement->execute($data);
     if (isset($result)) {
 
-        $message = "ended trade denomination id:" . $denomination_id . ", total amount of " . money($denomination_total);
+        $message = "ended trade denomination id: " . $denomination_id . ", total amount of " . money($denomination_total);
 		add_to_log($message, $by);
 
         $query = "
@@ -124,8 +126,8 @@ if (isset($_POST['denomination_200c'])) {
                                 <span class="fw-bold text-body">Capital:</span> <br />
                                 <span class="text-body">From Sytem</span> <br />
                                 Capital ID: <?= $capital_id; ?><br />
-                                Amount Given: <?= _capital($by)['today_capital']; ?><br />
-                                Balance: <?= _capital($by)['today_balance']; ?><br />
+                                Amount Given: <?= $capital_amt; ?><br />
+                                Balance: <?= $capital_bal; ?><br />
                             </p>
                         </div>
                         <div class="col-auto">
@@ -252,6 +254,8 @@ if (isset($_POST['denomination_200c'])) {
 
 <?php
     }
+} else {
+    redirect(PROOT);
 }
 
     include ("../includes/footer.inc.php"); 
