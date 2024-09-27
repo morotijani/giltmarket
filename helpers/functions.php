@@ -78,8 +78,6 @@ function find_capital_given_to($to, $today) {
 // Amount given to trade
 function _capital($admin) {
 	global $conn;
-	global $admin_data;
-
 	$today = date('Y-m-d');
 
 	$sql = "
@@ -87,13 +85,14 @@ function _capital($admin) {
 		FROM jspence_daily 
 		INNER JOIN jspence_admin 
 		ON (jspence_admin.admin_id = jspence_daily.daily_by OR jspence_admin.admin_id = jspence_daily.daily_to)
-		WHERE daily_date = ? 
-		AND daily_to = ? 
-		AND admin_id = ?
+		WHERE jspence_daily.daily_date = ? 
+		AND jspence_daily.daily_to = ? 
+		AND jspence_admin.admin_id = ? 
+		AND jspence_daily.daily_capital_status = ? 
 		LIMIT 1
 	";
 	$statement = $conn->prepare($sql);
-	$statement->execute([$today, $admin, $admin]);
+	$statement->execute([$today, $admin, $admin, 0]);
 	$rows = $statement->fetchAll();
 
 	$balance = null;

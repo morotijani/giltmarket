@@ -64,7 +64,7 @@ if (isset($_POST['denomination_200c'])) {
         $statement = $conn->prepare($query);
         $r = $statement->execute([1, $capital_id]);
         if ($r) {
-            $message = "added new sale with gram of " . $gram . " and volume of " . $volume . " and total amount of " . money($total_amount) ." and price of " . money($current_price) . " on id " . $sale_id . "";
+            $message = "market capital ended, capital id: " . $capital_id;
 			add_to_log($message, $by);
         }
 
