@@ -91,68 +91,68 @@
                             <tbody>
                                 <tr>
                                     <td>TWO HUNDRED Ghana cedis (200 GHS) X </td>
-                                    <td><input type="number" min="0" step="1" class="form-control" name="denomination_200c" id="denomination_200c" placeholder="0" /></td>
-                                    <td><input type="number" min="0" step="1" class="form-control" name="denomination_200c_amt" id="denomination_200c_amt" placeholder="0.00" readonly /></td>
+                                    <td><input type="number" inputmode="numeric" min="0" step="1" class="form-control" name="denomination_200c" id="denomination_200c" placeholder="0" /></td>
+                                    <td><input type="number" inputmode="numeric" min="0" step="1" class="form-control" name="denomination_200c_amt" id="denomination_200c_amt" placeholder="0.00" readonly /></td>
                                 </tr>
                                 <tr>
                                     <td>HUNDRED Ghana cedis (100 GHS) X </td>
-                                    <td><input type="number" min="0" step="1" class="form-control" name="denomination_100c" id="denomination_100c" placeholder="0" /></td>
-                                    <td><input type="number" min="0" step="1" class="form-control" name="denomination_100c_amt" id="denomination_100c_amt" placeholder="0.00" readonly /></td>
+                                    <td><input type="number" inputmode="numeric" min="0" step="1" class="form-control" name="denomination_100c" id="denomination_100c" placeholder="0" /></td>
+                                    <td><input type="number" inputmode="numeric" min="0" step="1" class="form-control" name="denomination_100c_amt" id="denomination_100c_amt" placeholder="0.00" readonly /></td>
                                 </tr>
                                 <tr>
                                     <td>FIFTY Ghana cedis (50 GHS) X </td>
-                                    <td><input type="number" min="0" step="1" class="form-control" name="denomination_50c" id="denomination_50c" placeholder="0" /></td>
-                                    <td><input type="number" min="0" step="1" class="form-control" name="denomination_50c_amt" id="denomination_50c_amt" placeholder="0.00" readonly /></td>
+                                    <td><input type="number" inputmode="numeric" min="0" step="1" class="form-control" name="denomination_50c" id="denomination_50c" placeholder="0" /></td>
+                                    <td><input type="number" inputmode="numeric" min="0" step="1" class="form-control" name="denomination_50c_amt" id="denomination_50c_amt" placeholder="0.00" readonly /></td>
                                 </tr>
                                 <tr>
                                     <td>TWENTY Ghana cedis (20 GHS) X </td>
-                                    <td><input type="number" min="0" step="1" class="form-control" name="denomination_20c" id="denomination_20c" placeholder="0" /></td>
-                                    <td><input type="number" min="0" step="1" class="form-control" name="denomination_20c_amt" id="denomination_20c_amt" placeholder="0.00" readonly /></td>
+                                    <td><input type="number" inputmode="numeric" min="0" step="1" class="form-control" name="denomination_20c" id="denomination_20c" placeholder="0" /></td>
+                                    <td><input type="number" inputmode="numeric" min="0" step="1" class="form-control" name="denomination_20c_amt" id="denomination_20c_amt" placeholder="0.00" readonly /></td>
                                 </tr>
                                 <tr>
                                     <td>TEN Ghana cedis (10 GHS) X </td>
-                                    <td><input type="number" min="0" step="1" class="form-control" name="denomination_10c" id="denomination_10c" placeholder="0" /></td>
-                                    <td><input type="number" min="0" step="1" class="form-control" name="denomination_10c_amt" id="denomination_10c_amt" placeholder="0" readonly /></td>
+                                    <td><input type="number" inputmode="numeric" min="0" step="1" class="form-control" name="denomination_10c" id="denomination_10c" placeholder="0" /></td>
+                                    <td><input type="number" inputmode="numeric" min="0" step="1" class="form-control" name="denomination_10c_amt" id="denomination_10c_amt" placeholder="0" readonly /></td>
                                 </tr>
                                 <tr>
                                     <td>FIVE Ghana cedis (5 GHS) X </td>
-                                    <td><input type="number" min="0" step="1" class="form-control" name="denomination_5c" id="denomination_5c" placeholder="0" /></td>
-                                    <td><input type="number" min="0" step="1" class="form-control" name="denomination_5c_amt" id="denomination_5c_amt" placeholder="0.00" readonly /></td>
+                                    <td><input type="number" inputmode="numeric" min="0" step="1" class="form-control" name="denomination_5c" id="denomination_5c" placeholder="0" /></td>
+                                    <td><input type="number" inputmode="numeric" min="0" step="1" class="form-control" name="denomination_5c_amt" id="denomination_5c_amt" placeholder="0.00" readonly /></td>
                                 </tr>
                                 <tr>
                                     <td>TWO Ghana cedis (2 GHS) X </td>
-                                    <td><input type="number" min="0" step="1" class="form-control" name="denomination_2c" id="denomination_2c" placeholder="0" /></td>
-                                    <td><input type="number" min="0" step="1" class="form-control" name="denomination_2c_amt" id="denomination_2c_amt" placeholder="0.00" readonly /></td>
+                                    <td><input type="number" inputmode="numeric" min="0" step="1" class="form-control" name="denomination_2c" id="denomination_2c" placeholder="0" /></td>
+                                    <td><input type="number" inputmode="numeric" min="0" step="1" class="form-control" name="denomination_2c_amt" id="denomination_2c_amt" placeholder="0.00" readonly /></td>
                                 </tr>
                                 <tr>
                                     <td>ONE Ghana cedis (1 GHS) X </td>
-                                    <td><input type="number" min="0" step="1" class="form-control" name="denomination_1c" id="denomination_1c" placeholder="0" /></td>
-                                    <td><input type="number" min="0" step="1" class="form-control" name="denomination_1c_amt" id="denomination_1c_amt" placeholder="0.00" readonly /></td>
+                                    <td><input type="number" inputmode="numeric" min="0" step="1" class="form-control" name="denomination_1c" id="denomination_1c" placeholder="0" /></td>
+                                    <td><input type="number" inputmode="numeric" min="0" step="1" class="form-control" name="denomination_1c_amt" id="denomination_1c_amt" placeholder="0.00" readonly /></td>
                                 </tr>
                                 <tr>
-                                    <td>FIFTY Ghana pesswas (50 P) X </td>
-                                    <td><input type="number" min="0" step="1" class="form-control" name="denomination_50p" id="denomination_50p" placeholder="0" /></td>
-                                    <td><input type="number" min="0" step="1" class="form-control" name="denomination_50p_amt" id="denomination_50p_amt" placeholder="0.00" readonly /></td>
+                                    <td>FIFTY Ghana pesewas (0.50 P) X </td>
+                                    <td><input type="number" inputmode="numeric" min="0" step="1" class="form-control" name="denomination_50p" id="denomination_50p" placeholder="0" /></td>
+                                    <td><input type="number" inputmode="numeric" min="0" step="1" class="form-control" name="denomination_50p_amt" id="denomination_50p_amt" placeholder="0.00" readonly /></td>
                                 </tr>
                                 <tr>
-                                    <td>TWENTY Ghana pesswas (20 P) X </td>
-                                    <td><input type="number" min="0" step="1" class="form-control" name="denomination_20p" id="denomination_20p" placeholder="0" /></td>
-                                    <td><input type="number" min="0" step="1" class="form-control" name="denomination_20p_amt" id="denomination_20p_amt" placeholder="0.00" readonly /></td>
+                                    <td>TWENTY Ghana pesewas (0.20 P) X </td>
+                                    <td><input type="number" inputmode="numeric" min="0" step="1" class="form-control" name="denomination_20p" id="denomination_20p" placeholder="0" /></td>
+                                    <td><input type="number" inputmode="numeric" min="0" step="1" class="form-control" name="denomination_20p_amt" id="denomination_20p_amt" placeholder="0.00" readonly /></td>
                                 </tr>
                                 <tr>
-                                    <td>TEN Ghana pesswas (10 P) X </td>
-                                    <td><input type="number" min="0" step="1" class="form-control" name="denomination_10p" id="denomination_10p" placeholder="0" /></td>
-                                    <td><input type="number" min="0" step="1" class="form-control" name="denomination_10p_amt" id="denomination_10p_amt" placeholder="0.00" readonly /></td>
+                                    <td>TEN Ghana pesewas (0.10 P) X </td>
+                                    <td><input type="number" inputmode="numeric" min="0" step="1" class="form-control" name="denomination_10p" id="denomination_10p" placeholder="0" /></td>
+                                    <td><input type="number" inputmode="numeric" min="0" step="1" class="form-control" name="denomination_10p_amt" id="denomination_10p_amt" placeholder="0.00" readonly /></td>
                                 </tr>
                                 <tr>
-                                    <td>FIVE Ghana pesswas (5 P) X </td>
-                                    <td><input type="number" min="0" step="1" class="form-control" name="denomination_5p" id="denomination_5p" placeholder="0" /></td>
-                                    <td><input type="number" min="0" step="1" class="form-control" name="denomination_5p_amt" id="denomination_5p_amt" placeholder="0.00" readonly /></td>
+                                    <td>FIVE Ghana pesewas (0.05 P) X </td>
+                                    <td><input type="number" inputmode="numeric" min="0" step="1" class="form-control" name="denomination_5p" id="denomination_5p" placeholder="0" /></td>
+                                    <td><input type="number" inputmode="numeric" min="0" step="1" class="form-control" name="denomination_5p_amt" id="denomination_5p_amt" placeholder="0.00" readonly /></td>
                                 </tr>
                                 <tr>
-                                    <td>ONE Ghana pesswas (1 P) X </td>
-                                    <td><input type="number" min="0" step="1" class="form-control" name="denomination_1p" id="denomination_1p" placeholder="0" /></td>
-                                    <td><input type="number" min="0" step="1" class="form-control" name="denomination_1p_amt" id="denomination_1p_amt" placeholder="0.00" readonly /></td>
+                                    <td>ONE Ghana pesewas (0.01 P) X </td>
+                                    <td><input type="number" inputmode="numeric" min="0" step="1" class="form-control" name="denomination_1p" id="denomination_1p" placeholder="0" /></td>
+                                    <td><input type="number" inputmode="numeric" min="0" step="1" class="form-control" name="denomination_1p_amt" id="denomination_1p_amt" placeholder="0.00" readonly /></td>
                                 </tr>
                                 <tr>
                                     <td colspan="2">Total</td>
@@ -161,12 +161,41 @@
                             </tbody>
                         </table>
                     </div>
-                    <button type="button" class="btn btn-secondary w-100" id="submitDenomination">
+                    <button type="button" class="btn btn-secondary w-100" data-bs-target="#endModal" data-bs-toggle="modal">
                         <span class="material-symbols-outlined me-1">money_off</span> Save and End trade 
                     </button>
                     <a href="<?= PROOT; ?>account/end-trade" class="btn btn-link w-100 mt-3">
                         Reset form
                     </a>
+                    <div class="modal fade" id="endModal" tabindex="-1" aria-labelledby="endModalLabel" data-bs-backdrop="static" data-bs-keyboard="false" aria-hidden="true" style="backdrop-filter: blur(5px);">
+                        <div class="modal-dialog modal-dialog-centered">
+                            <div class="modal-content overflow-hidden">
+                                <div class="modal-header pb-0 border-0">
+                                    <h1 class="modal-title h4" id="endModalLabel">Confirm end trade capital!</h1>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                    <div class="inputpin mb-3">
+                                        <div>
+                                            <label class="form-label">Enter pin</label>
+                                            <div class="d-flex justify-content-between p-4 bg-body-tertiary rounded">
+                                                <style>
+                                                    #pin:focus {
+                                                        box-shadow: none;
+                                                    }
+                                                </style>
+                                                <input type="number" class="form-control form-control-flush text-xl fw-bold w-rem-40 bg-transparent" placeholder="0000" name="pin" id="pin" autocomplete="off" inputmode="numeric" data-maxlength="4" oninput="this.value=this.value.slice(0,this.dataset.maxlength)" required>
+                                                <button type="button" class="btn btn-sm btn-light rounded-pill shadow-none flex-none d-flex align-items-center gap-2 p-2" style="border: 1px solid #cbd5e1;">
+                                                    <img src="<?= PROOT; ?>assets/media/pin.jpg" class="w-rem-6 h-rem-6 rounded-circle" alt="..."> <span>PIN</span>
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <button type="button" id="submitDenomination" class="btn btn-warning mt-4">Submit</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </form>
             </div>
         </section>
@@ -322,28 +351,30 @@
 
     $('#submitDenomination').on('click', function() {
         $('#submitDenomination').attr('disabled', true);
-        setTimeout(function () {
-            $('#denominationForm').submit();
+        $('#submitDenomination').text('Processing ...');
+        if (confirm("By clicking on ok, trade capital will be ended!")) {
+
+            if ($('#pin').val() == <?= $admin_data['admin_pin']; ?>) {
+                setTimeout(function () {
+                    $('#submitDenomination').text('Submit');
+                    $('#submitDenomination').attr('disabled', false);
+
+                    $('#denominationForm').submit();
+                }, 2000)
+            } else {
+                alert("Invalid PIN provided");
+                $('#pin').val('');
+
+                $('#submitDenomination').text('Submit');
+                $('#submitDenomination').attr('disabled', false);
+                return false
+            }
+        } else {
+            $('#submitDenomination').text('Submit');
             $('#submitDenomination').attr('disabled', false);
-        }, 2000)
-    })
-
-    // var form = $('#denominationForm');
-    // $('#submitDenomination').on('click', function() {
-    //     $.ajax({
-    //         method : "POST",
-    //         url : "<?= PROOT; ?>auth/denomination.php",
-    //         data : form.serialize(),
-    //         beforeSend : function () {
-    //             $('#submitDenomination').attr('disabled', true);
-    //         },
-    //         success : function(data) {
-    //             $('#submitDenomination').attr('disabled', false);
-    //         }, 
-    //         error : function() {
-
-    //         }
-    //     })
-    // })
+            return false
+        }
+        
+    });
 
 </script>

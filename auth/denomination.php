@@ -97,12 +97,20 @@ if (isset($_POST['denomination_200c'])) {
                 </div>
                 <div class="col-12 col-sm-auto mt-4 mt-sm-0">
                     <!-- Action -->
-                    <a class="btn btn-secondary d-block" href="#!"> <span class="material-symbols-outlined me-1">download</span> Download </a>
+                    <div class="row gx-2">
+                        <div class="col-6 col-sm-auto">
+                            <a class="btn btn-secondary d-block" href="javascript:;" onclick="printPageArea('printableArea')"> <span class="material-symbols-outlined me-1">download</span> Download </a>
+                        </div>
+                        <div class="col-6 col-sm-auto">
+                            <a class="btn btn-light d-block" href="<?= PROOT; ?>"> Go home </a>
+                        </div>
+                    </div>
+
                 </div>
             </div>
 
             <!-- Page content -->
-            <div class="card">
+            <div class="card" id="printableArea">
                 <div class="card-body">
                     <div class="row align-items-center justify-content-between mb-7">
                         <div class="col-auto">
@@ -135,7 +143,8 @@ if (isset($_POST['denomination_200c'])) {
                             <span class="fw-bold text-body">From:</span> <br />
                                 <span class="text-body"><?= ucwords($admin_data['admin_fullname']); ?></span> <br />
                                 Admin ID: <?= $admin_data['admin_id']; ?> <br />
-                                Last Login: <?= pretty_date($admin_data['admin_last_login']); ?>
+                                Last Login: <?= pretty_date($admin_data['admin_last_login']); ?> <br />
+                                Denomination ID: <?= $denomination_id; ?>
                             </p>
                         </div>
                     </div>
@@ -260,3 +269,13 @@ if (isset($_POST['denomination_200c'])) {
 
     include ("../includes/footer.inc.php"); 
 ?>
+
+<script>
+    function printPageArea(areaID){
+        var printContent = document.getElementById(areaID).innerHTML;
+        var originalContent = document.body.innerHTML;
+        document.body.innerHTML = printContent;
+        window.print();
+        document.body.innerHTML = originalContent;
+    }
+</script>
