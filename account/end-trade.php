@@ -11,9 +11,9 @@
         redirect(PROOT . 'accounts/trades');
     }
 
-    if (!is_capital_given()) {
-        redirect(PROOT);
-    }
+    // if (!is_capital_given()) {
+    //     redirect(PROOT);
+    // }
 
     include ("../includes/header.inc.php");
     include ("../includes/aside.inc.php");

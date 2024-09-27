@@ -33,8 +33,8 @@ if (isset($_POST['denomination_200c'])) {
     $denomination_1p_amt = ((isset($_POST['denomination_1p_amt']) && !empty($_POST['denomination_1p_amt'])) ? sanitize($_POST['denomination_1p_amt']) : NULL);
 
     $denomination_id = guidv4();
-    $by = $admin_id['admin_id'];
-    $capital_id = _capital($by)['today_capital_id'];
+    $by = $admin_data['admin_id'];
+    $capital_id = 11; //_capital($by)['today_capital_id'];
 
     $data = [$denomination_id, $capital_id, $by, $denomination_200c, $denomination_200c_amt, $denomination_100c, $denomination_100c_amt, $denomination_50c, $denomination_50c_amt, $denomination_20c, $denomination_20c_amt, $denomination_10c, $denomination_10c_amt, $denomination_5c, $denomination_5c_amt, $denomination_2c, $denomination_2c_amt, $denomination_1c, $denomination_1c_amt, $denomination_50p, $denomination_50p_amt, $denomination_20p, $denomination_20p_amt, $denomination_10p, $denomination_10p_amt, $denomination_5p, $denomination_5p_amt, $denomination_1p, $denomination_1p_amt];
 
