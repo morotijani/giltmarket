@@ -203,7 +203,8 @@ function get_pushes_made($admin, $today = null) {
 	$sql = "
 		SELECT * FROM jspence_pushes 
 		WHERE jspence_pushes.push_status = ?
-		$where
+		$where 
+		AND " . (()) . "
 	";
 	$statement = $conn->prepare($sql);
 	$result = $statement->execute([0]);

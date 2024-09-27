@@ -22,10 +22,10 @@
 			$today = date("Y-m-d");
 			$daily_id = guidv4();
 			$push_id = guidv4();
-			$daily_by = $admin_data['admin_id'];
+			$push_from = $admin_data['admin_id'];
 
 			if ($today_date == $today) {
-				$daily_to = $daily_by;
+				$daily_to = $push_from;
 				$findCapital = find_capital_given_to($daily_to, $today);
 				if ($push_for == 'saleperson') {
 					$daily_to = $push_to;
@@ -40,26 +40,26 @@
 
 					$g = $given;
 					$c = (float)($g + $c);
-					$bal = ((admin_has_permission('salesperson') && _capital($daily_by)['today_balance'] == null) ? null : (float)($g + _capital($daily_by)['today_balance']));
+					$bal = ((admin_has_permission('salesperson') && _capital($push_from)['today_balance'] == null) ? null : (float)($g + _capital($push_from)['today_balance']));
 
 					if (admin_has_permission('supervisor')) {
-						$bal = _capital($daily_by)['today_balance'];
+						$bal = _capital($push_from)['today_balance'];
 					}
 					// update daily capital and balance
 					$dailyQ = "
 						UPDATE `jspence_daily` 
 						SET `daily_capital` = ?, `daily_balance` = ? 
-						WHERE `daily_date` = ? AND `daily_by` = ? AND `daily_to` = ?
+						WHERE `daily_date` = ? AND `daily_to` = ?
 					";
-					$daily_data = [$c, $bal, $today, $daily_by, $daily_to];
+					$daily_data = [$c, $bal, $today, $daily_to];
 					$message = "on this day " . $today . ", capital updated of an amount " . money($c) . ', added amount ' . money($g) . (($daily_to == $admin_data['admin_id']) ? ' for self.' : '');
 				} else {
-					$daily_data = [$daily_id, $given, $today, $daily_by, $daily_to];
+					$daily_data = [$daily_id, $given, $today, $daily_to];
 					
 					// insert into daily
 					$dailyQ = "
-						INSERT INTO jspence_daily (daily_id, daily_capital, daily_date, daily_by, daily_to) 
-						VALUES (?, ?, ?, ?, ?)
+						INSERT INTO jspence_daily (daily_id, daily_capital, daily_date, daily_to) 
+						VALUES (?, ?, ?, ?)
 					";
 					$message = "on this day " . $today . ", capital entered of an amount of " . money($c) . (($daily_to == $admin_data['admin_id']) ? ' for self.' : '');
 				}
@@ -76,10 +76,10 @@
 
 				if (isset($daily_result)) {
 					// insert into push table
-					$push_data = [$push_id, $findCapital, $given, $daily_to, $today];
+					$push_data = [$push_id, $findCapital, $given, $push_from, $daily_to, $today];
 					$sql = "
-						INSERT INTO jspence_pushes (push_id, push_daily, push_amount, push_to, push_date) 
-						VALUES (?, ?, ?, ?, ?)
+						INSERT INTO jspence_pushes (push_id, push_daily, push_amount, push_from, push_to, push_date) 
+						VALUES (?, ?, ?, ?, ?, ?)
 					";
 					$statement = $conn->prepare($sql);
 					$push_result = $statement->execute($push_data);
