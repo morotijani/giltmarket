@@ -180,80 +180,80 @@
 
     // denomination_200c
     $('#denomination_200c').keyup(function() {
-        var a = +200 * +$('#denomination_200c').val()
+        var a = +200.00 * +$('#denomination_200c').val()
         $('#denomination_200c_amt').val(a);
     });
 
     // denomination_100c
     $('#denomination_100c').keyup(function() {
-        var a = +100 * +$('#denomination_100c_amt').val()
+        var a = +100.00 * +$('#denomination_100c').val()
         $('#denomination_100c_amt').val(a);
     });
 
     // denomination_50c
     $('#denomination_50c').keyup(function() {
-        var a = +50 * +$('#denomination_50c_amt').val()
+        var a = +50.00 * +$('#denomination_50c').val()
         $('#denomination_50c_amt').val(a);
     });
 
     // denomination_20c
     $('#denomination_20c').keyup(function() {
-        var a = +20 * +$('#denomination_20c_amt').val()
+        var a = +20.00 * +$('#denomination_20c').val()
         $('#denomination_20c_amt').val(a);
     });
 
     // denomination_10c
     $('#denomination_10c').keyup(function() {
-        var a = +200 * +$('#denomination_10c_amt').val()
+        var a = +10.00 * +$('#denomination_10c').val()
         $('#denomination_10c_amt').val(a);
     });
 
     // denomination_5c
     $('#denomination_5c').keyup(function() {
-        var a = +200 * +$('#denomination_5c_amt').val()
+        var a = +5.00 * +$('#denomination_5c').val()
         $('#denomination_5c_amt').val(a);
     });
 
     // denomination_2c
     $('#denomination_2c').keyup(function() {
-        var a = +200 * +$('#denomination_2c_amt').val()
+        var a = +2.00 * +$('#denomination_2c').val()
         $('#denomination_2c_amt').val(a);
     });
-    
+
     // denomination_1c
-    $('#denomination_100c').keyup(function() {
-        var a = +200 * +$('#denomination_1c_amt').val()
+    $('#denomination_1c').keyup(function() {
+        var a = +1.00 * +$('#denomination_1c').val()
         $('#denomination_1c_amt').val(a);
     });
-// denomination_50p
-// denomination_50p_amt
-$('#denomination_100c').keyup(function() {
-        var a = +200 * +$('#denomination_100c_amt').val()
-        $('#denomination_100c_amt').val(a);
+
+    // denomination_50p
+    $('#denomination_50p').keyup(function() {
+        var a = +0.50 * +$('#denomination_50p').val()
+        $('#denomination_50p_amt').val(a);
     });
-// denomination_20p
-// denomination_20p_amt
-$('#denomination_100c').keyup(function() {
-        var a = +200 * +$('#denomination_100c_amt').val()
-        $('#denomination_100c_amt').val(a);
+
+    // denomination_20p
+    $('#denomination_20p').keyup(function() {
+        var a = +0.20 * +$('#denomination_20p').val()
+        $('#denomination_20p_amt').val(a);
     });
-// denomination_10p
-// denomination_10p_amt
-$('#denomination_100c').keyup(function() {
-        var a = +200 * +$('#denomination_100c_amt').val()
-        $('#denomination_100c_amt').val(a);
+
+    // denomination_10p
+    $('#denomination_10p').keyup(function() {
+        var a = +0.10 * +$('#denomination_10p').val()
+        $('#denomination_10p_amt').val(a);
     });
-// denomination_5p
-// denomination_5p_amt
-$('#denomination_100c').keyup(function() {
-        var a = +200 * +$('#denomination_100c_amt').val()
-        $('#denomination_100c_amt').val(a);
+
+    // denomination_5p
+    $('#denomination_5p').keyup(function() {
+        var a = +0.05 * +$('#denomination_5p').val()
+        $('#denomination_5p_amt').val(a);
     });
-// denomination_1p
-// denomination_1p_amt
-$('#denomination_100c').keyup(function() {
-        var a = +200 * +$('#denomination_100c_amt').val()
-        $('#denomination_100c_amt').val(a);
+
+    // denomination_1p
+    $('#denomination_1p').keyup(function() {
+        var a = +0.01 * +$('#denomination_1p').val()
+        $('#denomination_1p_amt').val(a);
     });
 
     
