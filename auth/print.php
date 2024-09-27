@@ -23,11 +23,11 @@
 		<div class="card">
 			<div class="card-header pb-0 border-0">
 				<h1 class="modal-title h4 text-center" id="connectWalletModalLabel">
-					<?= ucwords($crow[0]['company_name']); ?>
+					<?= ucwords($crow['company_name']); ?>
 					<br>
-					<?= $crow[0]['company_address']; ?>
+					<?= $crow['company_address']; ?>
 					<br>
-					<?= $crow[0]['company_phone1'] . (($crow[0]['company_phone2'] == '') ? '' : ' / ' . $crow[0]['company_phone2']); ?>
+					<?= $crow['company_phone1'] . (($crow['company_phone2'] == '') ? '' : ' / ' . $crow['company_phone2']); ?>
 					<br>
 					PURCHASE INVOICE
 				</h1>

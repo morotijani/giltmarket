@@ -180,6 +180,17 @@
 
 <script>
 
+    const price = 14340;
+
+    // Format the price above to USD using the locale, style, and currency.
+    let USDollar = new Intl.NumberFormat('en-US', {
+        style: 'currency',
+        currency: 'USD',
+    });
+
+    console.log(`The formated version of ${price} is ${USDollar.format(price)}`);
+    // The formated version of 14340 is $14,340.00
+
     // denomination_200c
     $('#denomination_200c').keyup(function() {
         var a = (200 * +$('#denomination_200c').val())

@@ -10,7 +10,8 @@ function company_data() {
 	";
 	$statement = $conn->prepare($sql);
 	$statement->execute();
-	$row = $statement->fetchAll();
+	$rows = $statement->fetchAll();
+	$row = $rows[0];
 
 	return $row;
 }

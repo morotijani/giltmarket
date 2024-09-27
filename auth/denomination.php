@@ -96,43 +96,126 @@ if (isset($_POST['denomination_200c'])) {
                         <div class="col-auto">
                             <!-- Icon -->
                             <div class="avatar avatar-xl rounded text-primary">
-                                <i class="fs-2" data-duoicon="box-2"></i>
+                                <img src="<?= PROOT; ?>assets/media/logo-no-bg.png" width="40" height="40" class="img-fluid" />
                             </div>
                         </div>
                         <div class="col-auto">
                             <p class="text-end text-body-secondary mb-0">
-                            <span class="text-body">Michael Johnson</span> <br />
-                            ID No: #123 <br />
-                            Date: 12/12/2021
+                                <span class="text-body"><?= company_data()['company_name']; ?></span> <br />
+                                <?= company_data()['company_address']; ?> <br />
+                                <?= company_data()['company_phone1']; ?>
                             </p>
+                            
                         </div>
                     </div>
                     <div class="row justify-content-between mb-7">
                         <div class="col-auto">
                             <p class="text-body-secondary mb-0">
-                                <span class="fw-bold text-body">From:</span> <br />
-                                <span class="text-body">Quantum Dynamics</span>
+                                <span class="fw-bold text-body">Capital:</span> <br />
+                                <span class="text-body">From Sytem</span> <br />
+                                Capital ID: <?= $capital_id; ?><br />
+                                Amount Given: <?= _capital($by)['today_capital']; ?><br />
+                                Balance: <?= _capital($by)['today_balance']; ?><br />
                             </p>
                         </div>
                         <div class="col-auto">
                             <p class="text-end text-body-secondary mb-0">
-                                <span class="fw-bold text-body">To:</span> <br />
-                                <span class="text-body">Michael Johnson</span> <br />
-                                1234 Main St. <br />
-                                Springfield, IL 62701
+                            <span class="fw-bold text-body">From:</span> <br />
+                                <span class="text-body"><?= ucwords($admin_data['admin_fullname']); ?></span> <br />
+                                Admin ID: <?= $admin_data['admin_id']; ?> <br />
+                                Last Login: <?= pretty_date($admin_data['admin_last_login']); ?>
                             </p>
                         </div>
                     </div>
                     <div class="list-group mb-7">
                         <div class="list-group-item bg-body">
                             <div class="row">
-                                <div class="col">Machine Learning Course</div>
+                                <div class="col">200 X </div>
+                                <div class="col">0</div>
                                 <div class="col-auto">$99.99</div>
                             </div>
                         </div>
                         <div class="list-group-item bg-body">
                             <div class="row">
-                                <div class="col">Web Development Course</div>
+                                <div class="col">100 X </div>
+                                <div class="col">0</div>
+                                <div class="col-auto">$159.99</div>
+                            </div>
+                        </div>
+                        <div class="list-group-item bg-body">
+                            <div class="row">
+                                <div class="col">50 X </div>
+                                <div class="col">0</div>
+                                <div class="col-auto">$159.99</div>
+                            </div>
+                        </div>
+                        <div class="list-group-item bg-body">
+                            <div class="row">
+                                <div class="col">20 X </div>
+                                <div class="col">0</div>
+                                <div class="col-auto">$159.99</div>
+                            </div>
+                        </div>
+                        <div class="list-group-item bg-body">
+                            <div class="row">
+                                <div class="col">10 X </div>
+                                <div class="col">0</div>
+                                <div class="col-auto">$159.99</div>
+                            </div>
+                        </div>
+                        <div class="list-group-item bg-body">
+                            <div class="row">
+                                <div class="col">5 X </div>
+                                <div class="col">0</div>
+                                <div class="col-auto">$159.99</div>
+                            </div>
+                        </div>
+                        <div class="list-group-item bg-body">
+                            <div class="row">
+                                <div class="col">2 X </div>
+                                <div class="col">0</div>
+                                <div class="col-auto">$159.99</div>
+                            </div>
+                        </div>
+                        <div class="list-group-item bg-body">
+                            <div class="row">
+                                <div class="col">1 X </div>
+                                <div class="col">0</div>
+                                <div class="col-auto">$159.99</div>
+                            </div>
+                        </div>
+                        <div class="list-group-item bg-body">
+                            <div class="row">
+                                <div class="col">0.50 X </div>
+                                <div class="col">0</div>
+                                <div class="col-auto">$159.99</div>
+                            </div>
+                        </div>
+                        <div class="list-group-item bg-body">
+                            <div class="row">
+                                <div class="col">0.20 X </div>
+                                <div class="col">0</div>
+                                <div class="col-auto">$159.99</div>
+                            </div>
+                        </div>
+                        <div class="list-group-item bg-body">
+                            <div class="row">
+                                <div class="col">0.10 X </div>
+                                <div class="col">0</div>
+                                <div class="col-auto">$159.99</div>
+                            </div>
+                        </div>
+                        <div class="list-group-item bg-body">
+                            <div class="row">
+                                <div class="col">0.05 X </div>
+                                <div class="col">0</div>
+                                <div class="col-auto">$159.99</div>
+                            </div>
+                        </div>
+                        <div class="list-group-item bg-body">
+                            <div class="row">
+                                <div class="col">0.01 X </div>
+                                <div class="col">0</div>
                                 <div class="col-auto">$159.99</div>
                             </div>
                         </div>
