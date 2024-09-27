@@ -45,6 +45,14 @@ if (isset($_POST['denomination_200c'])) {
     $statement = $conn->prepare($sql);
     $result = $statement->execute($data);
     if (isset($result)) {
+
+        $query = "
+            UPDATE jspence_daily SET daily_capital_status = ? 
+            WHERE daily_id = ?
+        ";
+        $statement = $conn->prepare($query);
+        $statement->execute([1, $capital_id]);
+
         echo 'done';
     }
 }

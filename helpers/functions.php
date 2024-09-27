@@ -50,10 +50,11 @@ function is_capital_given() {
 		SELECT *
 		FROM jspence_daily 
 		WHERE daily_date = ? 
-		AND daily_to = ?
+		AND daily_to = ? 
+		AND daily_capital_status = ?
 	";
 	$statement = $conn->prepare($sql);
-	$statement->execute([$today, $admin_data['admin_id']]);
+	$statement->execute([$today, $admin_data['admin_id'], 0]);
 	$count_row = $statement->rowCount();
 
 	if ($count_row > 0) {
@@ -70,10 +71,11 @@ function find_capital_given_to($to, $today) {
 		SELECT *
 		FROM jspence_daily 
 		WHERE daily_date = ? 
-		AND daily_to = ?
+		AND daily_to = ? 
+		AND daily_capital_status = ?
 	";
 	$statement = $conn->prepare($sql);
-	$statement->execute([$today, $to]);
+	$statement->execute([$today, $to, 0]);
 	$count_row = $statement->rowCount();
 	$row = $statement->fetchAll();
 

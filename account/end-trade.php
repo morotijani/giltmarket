@@ -11,14 +11,16 @@
         redirect(PROOT . 'accounts/trades');
     }
 
+    if (!is_capital_given()) {
+        redirect(PROOT);
+    }
+
     include ("../includes/header.inc.php");
     include ("../includes/aside.inc.php");
     include ("../includes/left.nav.inc.php");
     include ("../includes/top.nav.inc.php");
 
     $errors = "";
-
-
 
 ?>
 
