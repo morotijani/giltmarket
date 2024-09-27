@@ -1,6 +1,5 @@
 <?php 
 
-
 // get company data
 function company_data() {
 	global $conn;
@@ -17,17 +16,7 @@ function company_data() {
 }
 
 // get admin position
-function _admin_position($admin) {
-	global $conn;
-
-	$sql = "
-		SELECT admin_permissions FROM jspence_admin 
-		WHERE admin_id = ?
-	";
-	$statement = $conn->prepare($sql);
-	$statement->execute([$admin]);
-	$rows = $statement->fetchAll();
-	$permission = $rows[0]['admin_permissions'];
+function _admin_position($permission) {
 
 	$output = 'admin';
 	if (admin_has_permission()) {

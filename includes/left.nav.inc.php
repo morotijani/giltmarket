@@ -74,7 +74,7 @@
                             </a>
                             <div class="collapse show" id="dashboards">
                                 <nav class="nav nav-pills">
-                                    <a class="nav-link active" href="<?= PROOT; ?>index"><?= _admin_position($admin_data['admin_id']); ?></a>
+                                    <a class="nav-link active" href="<?= PROOT; ?>index"><?= _admin_position($admin_data['admin_permissions']); ?></a>
                                     <?php if (admin_has_permission()): ?>
                                     <a class="nav-link" href="<?= PROOT; ?>analytics">Analytics</a>
                                     <?php endif; ?>

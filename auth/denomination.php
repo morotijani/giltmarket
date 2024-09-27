@@ -33,6 +33,7 @@ if (isset($_POST['denomination_200c'])) {
     $denomination_5p_amt = ((isset($_POST['denomination_5p_amt']) && !empty($_POST['denomination_5p_amt'])) ? sanitize($_POST['denomination_5p_amt']) : NULL);
     $denomination_1p = ((isset($_POST['denomination_1p']) && !empty($_POST['denomination_1p'])) ? sanitize($_POST['denomination_1p']) : NULL);
     $denomination_1p_amt = ((isset($_POST['denomination_1p_amt']) && !empty($_POST['denomination_1p_amt'])) ? sanitize($_POST['denomination_1p_amt']) : NULL);
+    $denomination_total = ((isset($_POST['denomination_total']) && !empty($_POST['denomination_total'])) ? sanitize($_POST['denomination_total']) : NULL);
 
     $denomination_id = guidv4();
     $by = $admin_data['admin_id'];
@@ -55,11 +56,8 @@ if (isset($_POST['denomination_200c'])) {
         $statement = $conn->prepare($query);
         $statement->execute([1, $capital_id]);
 
-        echo 'done';
-    }
-}
-
 ?>
+
     <main class="main px-lg-6">
         <!-- Content -->
         <div class="container-lg">
@@ -81,7 +79,7 @@ if (isset($_POST['denomination_200c'])) {
                     </nav>
 
                     <!-- Heading -->
-                    <h1 class="fs-4 mb-0">ID #123</h1>
+                    <h1 class="fs-4 mb-0">ID <?= $denomination_id; ?></h1>
                 </div>
                 <div class="col-12 col-sm-auto mt-4 mt-sm-0">
                     <!-- Action -->
@@ -131,92 +129,92 @@ if (isset($_POST['denomination_200c'])) {
                         <div class="list-group-item bg-body">
                             <div class="row">
                                 <div class="col">200 X </div>
-                                <div class="col">0</div>
-                                <div class="col-auto">$99.99</div>
+                                <div class="col"><?= $denomination_200c; ?></div>
+                                <div class="col-auto"><?= money($denomination_200c_amt); ?></div>
                             </div>
                         </div>
                         <div class="list-group-item bg-body">
                             <div class="row">
                                 <div class="col">100 X </div>
-                                <div class="col">0</div>
-                                <div class="col-auto">$159.99</div>
+                                <div class="col"><?= $denomination_100c; ?></div>
+                                <div class="col-auto"><?= money($denomination_100c_amt); ?></div>
                             </div>
                         </div>
                         <div class="list-group-item bg-body">
                             <div class="row">
                                 <div class="col">50 X </div>
-                                <div class="col">0</div>
-                                <div class="col-auto">$159.99</div>
+                                <div class="col"><?= $denomination_50c; ?></div>
+                                <div class="col-auto"><?= money($denomination_50c_amt); ?></div>
                             </div>
                         </div>
                         <div class="list-group-item bg-body">
                             <div class="row">
                                 <div class="col">20 X </div>
-                                <div class="col">0</div>
-                                <div class="col-auto">$159.99</div>
+                                <div class="col"><?= $denomination_20c; ?></div>
+                                <div class="col-auto"><?= money($denomination_20c_amt); ?></div>
                             </div>
                         </div>
                         <div class="list-group-item bg-body">
                             <div class="row">
                                 <div class="col">10 X </div>
-                                <div class="col">0</div>
-                                <div class="col-auto">$159.99</div>
+                                <div class="col"><?= $denomination_10c; ?></div>
+                                <div class="col-auto"><?= money($denomination_10c_amt); ?></div>
                             </div>
                         </div>
                         <div class="list-group-item bg-body">
                             <div class="row">
                                 <div class="col">5 X </div>
-                                <div class="col">0</div>
-                                <div class="col-auto">$159.99</div>
+                                <div class="col"><?= $denomination_5c; ?></div>
+                                <div class="col-auto"><?= money($denomination_5c_amt); ?></div>
                             </div>
                         </div>
                         <div class="list-group-item bg-body">
                             <div class="row">
                                 <div class="col">2 X </div>
-                                <div class="col">0</div>
-                                <div class="col-auto">$159.99</div>
+                                <div class="col"><?= $denomination_2c; ?></div>
+                                <div class="col-auto"><?= money($denomination_2c_amt); ?></div>
                             </div>
                         </div>
                         <div class="list-group-item bg-body">
                             <div class="row">
                                 <div class="col">1 X </div>
-                                <div class="col">0</div>
-                                <div class="col-auto">$159.99</div>
+                                <div class="col"><?= $denomination_1c; ?></div>
+                                <div class="col-auto"><?= money($denomination_1c_amt); ?></div>
                             </div>
                         </div>
                         <div class="list-group-item bg-body">
                             <div class="row">
                                 <div class="col">0.50 X </div>
-                                <div class="col">0</div>
-                                <div class="col-auto">$159.99</div>
+                                <div class="col"><?= $denomination_50p; ?></div>
+                                <div class="col-auto"><?= money($denomination_50p_amt); ?></div>
                             </div>
                         </div>
                         <div class="list-group-item bg-body">
                             <div class="row">
                                 <div class="col">0.20 X </div>
-                                <div class="col">0</div>
-                                <div class="col-auto">$159.99</div>
+                                <div class="col"><?= $denomination_20p; ?></div>
+                                <div class="col-auto"><?= money($denomination_20p_amt); ?></div>
                             </div>
                         </div>
                         <div class="list-group-item bg-body">
                             <div class="row">
                                 <div class="col">0.10 X </div>
-                                <div class="col">0</div>
-                                <div class="col-auto">$159.99</div>
+                                <div class="col"><?= $denomination_10p; ?></div>
+                                <div class="col-auto"><?= money($denomination_10p_amt); ?></div>
                             </div>
                         </div>
                         <div class="list-group-item bg-body">
                             <div class="row">
                                 <div class="col">0.05 X </div>
-                                <div class="col">0</div>
-                                <div class="col-auto">$159.99</div>
+                                <div class="col"><?= $denomination_5p; ?></div>
+                                <div class="col-auto"><?= money($denomination_5p_amt); ?></div>
                             </div>
                         </div>
                         <div class="list-group-item bg-body">
                             <div class="row">
                                 <div class="col">0.01 X </div>
-                                <div class="col">0</div>
-                                <div class="col-auto">$159.99</div>
+                                <div class="col"><?= $denomination_1p; ?></div>
+                                <div class="col-auto"><?= money($denomination_1p_amt); ?></div>
                             </div>
                         </div>
                         <div class="list-group-item bg-body">
@@ -225,7 +223,7 @@ if (isset($_POST['denomination_200c'])) {
                                     <strong>Total</strong>
                                 </div>
                                     <div class="col-auto">
-                                    <strong>$259.98</strong>
+                                    <strong><?= money($denomination_total); ?></strong>
                                 </div>
                             </div>
                         </div>
@@ -240,4 +238,9 @@ if (isset($_POST['denomination_200c'])) {
         </div>
     </main>
 
-<?php include ("../includes/footer.inc.php"); ?>
+<?php
+    }
+}
+
+    include ("../includes/footer.inc.php"); 
+?>
