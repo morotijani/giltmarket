@@ -84,7 +84,7 @@ function _capital($admin) {
 		SELECT daily_id, daily_capital, daily_balance, daily_capital_status, jspence_admin.admin_permissions
 		FROM jspence_daily 
 		INNER JOIN jspence_admin 
-		ON (jspence_admin.admin_id = jspence_daily.daily_by OR jspence_admin.admin_id = jspence_daily.daily_to)
+		ON jspence_admin.admin_id = jspence_daily.daily_to
 		WHERE jspence_daily.daily_date = ? 
 		AND jspence_daily.daily_to = ? 
 		AND jspence_admin.admin_id = ? 
@@ -193,7 +193,7 @@ function get_pushes_made($admin, $today = null) {
 
 	$where = '';
 	if (!admin_has_permission()) {
-		$where .= ' AND jspence_pushes.push_to = "' . $admin . '" ';
+		$where .= ' AND (jspence_pushes.push_to = "' . $admin . '" OR jspence_pushes.push_from = "' . $admin . '") ';
 	}
 
 	if ($today != null) {
@@ -202,15 +202,17 @@ function get_pushes_made($admin, $today = null) {
 
 	$sql = "
 		SELECT * FROM jspence_pushes 
-		WHERE jspence_pushes.push_status = ?
+		INNER JOIN jspence_admin 
+		ON jspence_admin.admin_id = jspence_pushes.push_to
+		WHERE jspence_pushes.push_status = ? 
 		$where 
-		AND " . (()) . "
+		ORDER BY jspence_pushes.id DESC
 	";
 	$statement = $conn->prepare($sql);
 	$result = $statement->execute([0]);
 	$output = '';
 	
-	if ($statement->rowCount() > 0)
+	if ($statement->rowCount() > 0): 
 		foreach ($statement->fetchAll() as $row) {
 			$output .= '
 				<div class="list-group-item px-0">
@@ -231,7 +233,7 @@ function get_pushes_made($admin, $today = null) {
 							</div>
 						</div>
 						<div class="col ms-n2">
-							<h6 class="fs-base fw-normal mb-1">' . money($row["push_amount"]) . '</h6>
+							<h6 class="fs-base fw-normal mb-1">' . money($row["push_amount"]) . ' pushed to ' . (($row["admin_permissions"] == 'supervisor' && $row["push_to"] == $admin) ? 'self' : ucwords($row["admin_fullname"])) . '</h6>
 							<span class="fs-sm text-body-secondary">' . time_from_date($row["createdAt"]) . '</span>
 						</div>
 						<div class="col-auto">
@@ -241,6 +243,11 @@ function get_pushes_made($admin, $today = null) {
 				</div>
 			';
 		}
+	else: 
+		$output = "
+			<div class='alert alert-info'>No data found!</div>
+		";
+	endif;
 
 	return $output;
 }
