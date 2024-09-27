@@ -4,6 +4,8 @@
 
 require_once ("../db_connection/conn.php");
 
+include ("../includes/header.inc.php");
+
 if (isset($_POST['denomination_200c'])) {
     $denomination_200c = ((isset($_POST['denomination_200c']) && !empty($_POST['denomination_200c'])) ? sanitize($_POST['denomination_200c']) : NULL);
     $denomination_200c_amt = ((isset($_POST['denomination_200c_amt']) && !empty($_POST['denomination_200c_amt'])) ? sanitize($_POST['denomination_200c_amt']) : NULL);
@@ -56,3 +58,103 @@ if (isset($_POST['denomination_200c'])) {
         echo 'done';
     }
 }
+
+?>
+    <main class="main px-lg-6">
+        <!-- Content -->
+        <div class="container-lg">
+            <!-- Page header -->
+            <div class="row align-items-center mb-7">
+                <div class="col-auto">
+                    <!-- Avatar -->
+                    <div class="avatar avatar-xl rounded text-warning">
+                        <i class="fs-2" data-duoicon="credit-card"></i>
+                    </div>
+                </div>
+                <div class="col">
+                    <!-- Breadcrumb -->
+                    <nav aria-label="breadcrumb">
+                        <ol class="breadcrumb mb-2">
+                            <li class="breadcrumb-item"><a class="text-body-secondary" href="#">Market</a></li>
+                            <li class="breadcrumb-item active" aria-current="page">End trade</li>
+                        </ol>
+                    </nav>
+
+                    <!-- Heading -->
+                    <h1 class="fs-4 mb-0">ID #123</h1>
+                </div>
+                <div class="col-12 col-sm-auto mt-4 mt-sm-0">
+                    <!-- Action -->
+                    <a class="btn btn-secondary d-block" href="#!"> <span class="material-symbols-outlined me-1">download</span> Download </a>
+                </div>
+            </div>
+
+            <!-- Page content -->
+            <div class="card">
+                <div class="card-body">
+                    <div class="row align-items-center justify-content-between mb-7">
+                        <div class="col-auto">
+                            <!-- Icon -->
+                            <div class="avatar avatar-xl rounded text-primary">
+                                <i class="fs-2" data-duoicon="box-2"></i>
+                            </div>
+                        </div>
+                        <div class="col-auto">
+                            <p class="text-end text-body-secondary mb-0">
+                            <span class="text-body">Michael Johnson</span> <br />
+                            ID No: #123 <br />
+                            Date: 12/12/2021
+                            </p>
+                        </div>
+                    </div>
+                    <div class="row justify-content-between mb-7">
+                        <div class="col-auto">
+                            <p class="text-body-secondary mb-0">
+                                <span class="fw-bold text-body">From:</span> <br />
+                                <span class="text-body">Quantum Dynamics</span>
+                            </p>
+                        </div>
+                        <div class="col-auto">
+                            <p class="text-end text-body-secondary mb-0">
+                                <span class="fw-bold text-body">To:</span> <br />
+                                <span class="text-body">Michael Johnson</span> <br />
+                                1234 Main St. <br />
+                                Springfield, IL 62701
+                            </p>
+                        </div>
+                    </div>
+                    <div class="list-group mb-7">
+                        <div class="list-group-item bg-body">
+                            <div class="row">
+                                <div class="col">Machine Learning Course</div>
+                                <div class="col-auto">$99.99</div>
+                            </div>
+                        </div>
+                        <div class="list-group-item bg-body">
+                            <div class="row">
+                                <div class="col">Web Development Course</div>
+                                <div class="col-auto">$159.99</div>
+                            </div>
+                        </div>
+                        <div class="list-group-item bg-body">
+                            <div class="row">
+                                <div class="col">
+                                    <strong>Total</strong>
+                                </div>
+                                    <div class="col-auto">
+                                    <strong>$259.98</strong>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <h3 class="fs-base">Notes:</h3>
+                    <p class="text-body-secondary mb-0">
+                    Thank you for your purchase! <br />
+                    Please let us know if you have any questions.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </main>
+
+<?php include ("../includes/footer.inc.php"); ?>
