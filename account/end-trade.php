@@ -316,10 +316,10 @@
             url : "<?= PROOT; ?>auth/denomination.php",
             data : form.serialize(),
             beforeSend : function () {
-                $('#submitDenomination').attr('diabled', true);
+                $('#submitDenomination').attr('disabled', true);
             },
             success : function(data) {
-                $('#submitDenomination').attr('diabled', false);
+                $('#submitDenomination').attr('disabled', false);
             }, 
             error : function() {
 
