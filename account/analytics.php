@@ -161,7 +161,6 @@
                 <div class="col">
                 <div class="vstack gap-3 gap-xl-6">
                     <div class="row g-3">
-                        
                         <div class="col-12 col-md-6 col-xxl-3 mb-4 mb-xxl-0">
                             <div class="card bg-body-tertiary border-transparent">
                                 <div class="card-body">
@@ -265,31 +264,68 @@
                                 </div>
                             </div>
                         </div>
-
                     </div>
-                    <div class="card">
-                        <div class="card-body d-flex flex-column">
-                            <div class="d-flex justify-content-between align-items-center mb-3">
-                            <div>
-                                <h5>Earnings</h5>
-                            </div>
-                            <div>
-                                <span class="text-heading fw-bold"><i class="bi me-2" id="e-arrow"></i><!-- 7.8% --></span></div>
-                            </div>
-                            <div class="text-2xl fw-bolder text-heading ls-tight" id="profit-loss">0.00 GHS</div>
-                            <div class="d-flex align-items-center justify-content-between mt-8">
-                            <div class="">
-                                <div class="d-flex gap-3 align-items-center">
-                                <div class="icon icon-sm icon-shape text-sm rounded-circle bg-dark text-success"><i class="bi bi-arrow-down"></i></div><span class="h6 fw-semibold text-muted">Incoming</span> <span class="text-muted text-opacity-60 text-opacity-100-hover" tabindex="0" data-bs-toggle="popover" data-bs-trigger="hover focus" data-bs-placement="right" data-bs-html="true" data-bs-content="The total amount of trades comming in done by supervisors" role="button"><i class="bi bi-info-circle"></i></span>
+
+                    
+                    <div class="row g-3">
+                        <div class="col-6 col-md-8 col-xxl-10 mb-4 mb-xxl-0">
+                            <div class="card bg-body-tertiary border-transparent">
+                                <div class="card-body">
+                                    <div class="row align-items-center">
+                                        <div class="col">
+                                            <!-- Heading -->
+                                            <h4 class="fs-base fw-normal text-body-secondary mb-1">Earnings</h4>
+
+                                            <!-- Text -->
+                                            <div class="fs-5 fw-semibold" id="profit-loss">0.00</div>
+                                        </div>
+                                        <div class="col-auto">
+                                            <!-- Avatar -->
+                                            <div class="avatar avatar-lg bg-body text-warning">
+                                                <i class="fs-4" data-duoicon="credit-card"></i>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="d-flex align-items-center justify-content-between mt-8">
+                                        <div class="">
+                                            <div class="d-flex gap-3 align-items-center">
+                                                <span class="text-success text-xs">Incoming</span>
+                                            </div>
+                                            <div class="text-muted text-xs text-opacity-75 mt-3" id="incoming">0.00 GHS</div>
+                                        </div>
+                                        <div class="">
+                                            <div class="d-flex gap-3 align-items-center">
+                                                <span class="text-danger text-xs">Outgoing</span>
+                                            </div>
+                                            <div class="text-muted text-xs text-opacity-75 mt-3" id="outgoing">0.00 GHS</div>
+                                        </div>
+                                    </div>
                                 </div>
-                                <div class="fw-bold text-heading mt-3" id="incoming">0.00 GHS</div>
-                            </div><span class="vr bg-dark bg-opacity-10"></span>
-                            <div class="">
-                                <div class="d-flex gap-3 align-items-center">
-                                <div class="icon icon-sm icon-shape text-sm rounded-circle bg-dark text-danger"><i class="bi bi-arrow-up"></i></div><span class="h6 fw-semibold text-muted">Outgoing</span> <span class="text-muted text-opacity-60 text-opacity-100-hover" tabindex="0" data-bs-toggle="popover" data-bs-trigger="hover focus" data-bs-placement="right" data-bs-html="true" data-bs-content="The total amount of trades going out done by salespersonnels" role="button"><i class="bi bi-info-circle"></i></span>
-                                </div>
-                                <div class="fw-bold text-heading mt-3" id="outgoing">0.00 GHS</div>
                             </div>
+                        </div>
+                        <div class="col-6 col-md-4 col-xxl-2 mb-4 mb-xxl-0">
+                            <div class="card bg-body-tertiary border-transparent">
+                                <div class="card-body">
+                                    <div class="row align-items-center">
+                                        <div class="col">
+                                            <!-- Heading -->
+                                            <h4 class="fs-base fw-normal text-body-secondary mb-1">Total pushes</h4>
+
+                                            <!-- Text -->
+                                            <div class="fs-5 fw-semibold" id="total-pushes"></div>
+                                            <p class="mt-1">
+                                                <span class="text-success text-xs"><i class="fas fa-arrow-up me-1"></i> </span>
+                                                <span class="text-muted text-xs text-opacity-75" id=""></span>
+                                            </p>
+                                        </div>
+                                        <div class="col-auto">
+                                            <!-- Avatar -->
+                                            <div class="avatar avatar-lg bg-body text-warning">
+                                                <i class="fs-4" data-duoicon="align-bottom"></i>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -403,6 +439,7 @@
                     $('#profit-loss').text('loading ...');
                     $('#incoming').text('loading ...');
                     $('#outgoing').text('loading ...');
+                    $('#total-pushes').text('loading ...');
                 },
                 success: function(data) {
                     const response = JSON.parse(data);
@@ -421,6 +458,7 @@
                     }
                     $('#incoming').text(response["in"]);
                     $('#outgoing').text(response["out"]);
+                    $('#total-pushes').text(response["pushes"]);
 
                     console.log(data);
                 },
