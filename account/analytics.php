@@ -161,58 +161,111 @@
                 <div class="col">
                 <div class="vstack gap-3 gap-xl-6">
                     <div class="row g-3">
-                        <div class="col">
-                            <div class="card">
-                                <div class="p-4">
-                                    <h6 class="text-limit text-muted mb-3">Supervisor</h6>
-                                    <span class="text-muted text-opacity-60 text-opacity-100-hover" tabindex="0" data-bs-toggle="popover" data-bs-trigger="hover focus" data-bs-placement="right" data-bs-html="true" data-bs-content="The total capital given out to supervisors and Balance remaining, which can be determined as profit or loss." role="button"><i class="bi bi-info-circle"></i></span>
-                                    <span class="text-sm text-muted text-opacity-90 fw-semibold">GHS</span> <span class="d-block h3 ls-tight fw-bold" id="sup-capital">0.00</span>
-                                    <p class="mt-1">
-                                        <span class="text-success text-xs"><i class="fas fa-arrow-up me-1"></i>Balance: </span>
-                                        <span class="text-muted text-xs text-opacity-75" id="sup-balance">0.00</span>
-                                    </p>
+                        
+                        <div class="col-12 col-md-6 col-xxl-3 mb-4 mb-xxl-0">
+                            <div class="card bg-body-tertiary border-transparent">
+                                <div class="card-body">
+                                    <div class="row align-items-center">
+                                        <div class="col">
+                                            <!-- Heading -->
+                                            <h4 class="fs-base fw-normal text-body-secondary mb-1">Supervisor</h4>
+
+                                            <!-- Text -->
+                                            <div class="fs-5 fw-semibold" id="sup-capital"></div>
+                                            <p class="mt-1">
+                                                <span class="text-success text-xs"><i class="fas fa-arrow-up me-1"></i>Balance: </span>
+                                                <span class="text-muted text-xs text-opacity-75" id="sup-balance">0.00</span>
+                                            </p>
+                                        </div>
+                                        <div class="col-auto">
+                                            <!-- Avatar -->
+                                            <div class="avatar avatar-lg bg-body text-warning">
+                                                <i class="fs-4" data-duoicon="briefcase"></i>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                        <div class="col">
-                            <div class="card">
-                                <div class="p-4">
-                                    <h6 class="text-limit text-muted mb-3">Salespersonnel</h6>
-                                    <span class="text-muted text-opacity-60 text-opacity-100-hover" tabindex="0" data-bs-toggle="popover" data-bs-trigger="hover focus" data-bs-placement="right" data-bs-html="true" data-bs-content="The total capital given out to salespersonnels and Balance remaining." role="button"><i class="bi bi-info-circle"></i></span>
-                                    <span class="text-sm text-muted text-opacity-90 fw-semibold">GHS</span> <span class="d-block h3 ls-tight fw-bold" id="sal-capital">0.00</span>
-                                    <p class="mt-1">
-                                        <span class="text-success text-xs"><i class="fas fa-arrow-up me-1"></i>Balance: </span>
-                                        <span class="text-muted text-xs text-opacity-75" id="sal-balance">0.00</span>
-                                    </p>
+
+                        <div class="col-12 col-md-6 col-xxl-3 mb-4 mb-xxl-0">
+                            <div class="card bg-body-tertiary border-transparent">
+                                <div class="card-body">
+                                    <div class="row align-items-center">
+                                        <div class="col">
+                                            <!-- Heading -->
+                                            <h4 class="fs-base fw-normal text-body-secondary mb-1">Salespersonnel</h4>
+
+                                            <!-- Text -->
+                                            <div class="fs-5 fw-semibold" id="sal-capital"></div>
+                                            <p class="mt-1">
+                                                <span class="text-success text-xs"><i class="fas fa-arrow-up me-1"></i>Balance: </span>
+                                                <span class="text-muted text-xs text-opacity-75" id="sal-balance">0.00</span>
+                                            </p>
+                                        </div>
+                                        <div class="col-auto">
+                                            <!-- Avatar -->
+                                            <div class="avatar avatar-lg bg-body text-warning">
+                                                <i class="fs-4" data-duoicon="credit-card"></i>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                        <div class="col">
-                            <div class="card">
-                                <div class="p-4">
-                                    <h6 class="text-limit text-muted mb-3">Expenses</h6>
-                                    <span class="text-muted text-opacity-60 text-opacity-100-hover" tabindex="0" data-bs-toggle="popover" data-bs-trigger="hover focus" data-bs-placement="right" data-bs-html="true" data-bs-content="The total expenses made." role="button"><i class="bi bi-info-circle"></i></span>
-                                    <span class="text-sm text-muted text-opacity-90 fw-semibold">GHS</span> <span class="d-block h3 ls-tight fw-bold" id="expenses">0.00</span>
-                                    <p class="mt-1">
-                                        <span class="text-success text-xs"><i class="fas fa-arrow-up me-1"></i><!-- 20% --></span>
-                                        <span class="text-muted text-xs text-opacity-75"><!-- vs last week --></span>
-                                    </p>
+
+                        <div class="col-12 col-md-6 col-xxl-3 mb-4 mb-xxl-0">
+                            <div class="card bg-body-tertiary border-transparent">
+                                <div class="card-body">
+                                    <div class="row align-items-center">
+                                        <div class="col">
+                                            <!-- Heading -->
+                                            <h4 class="fs-base fw-normal text-body-secondary mb-1">Expenses</h4>
+
+                                            <!-- Text -->
+                                            <div class="fs-5 fw-semibold" id="expenses"></div>
+                                            <p class="mt-1">
+                                                <span class="text-success text-xs"><i class="fas fa-arrow-up me-1"></i> </span>
+                                                <span class="text-muted text-xs text-opacity-75" id=""></span>
+                                            </p>
+                                        </div>
+                                        <div class="col-auto">
+                                            <!-- Avatar -->
+                                            <div class="avatar avatar-lg bg-body text-warning">
+                                                <i class="fs-4" data-duoicon="clipboard"></i>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                        <div class="col">
-                            <div class="card">
-                                <div class="p-4">
-                                    <h6 class="text-limit text-muted mb-3">Total trades</h6>
-                                    <span class="text-muted text-opacity-60 text-opacity-100-hover" tabindex="0" data-bs-toggle="popover" data-bs-trigger="hover focus" data-bs-placement="right" data-bs-html="true" data-bs-content="The total number of trade(s) made." role="button"><i class="bi bi-info-circle"></i></span>
-                                    <span class="text-sm text-muted text-opacity-90 fw-semibold">#</span> <span class="d-block h3 ls-tight fw-bold" id="total-trades">0.00</span>
-                                    <p class="mt-1">
-                                        <span class="text-success text-xs"><i class="fas fa-arrow-up me-1"></i><!-- 20% --></span>
-                                        <span class="text-muted text-xs text-opacity-75"><!-- vs last week--></span>
-                                    </p>
+
+                        <div class="col-12 col-md-6 col-xxl-3 mb-4 mb-xxl-0">
+                            <div class="card bg-body-tertiary border-transparent">
+                                <div class="card-body">
+                                    <div class="row align-items-center">
+                                        <div class="col">
+                                            <!-- Heading -->
+                                            <h4 class="fs-base fw-normal text-body-secondary mb-1">Total trades</h4>
+
+                                            <!-- Text -->
+                                            <div class="fs-5 fw-semibold" id="total-trades"></div>
+                                            <p class="mt-1">
+                                                <span class="text-success text-xs"><i class="fas fa-arrow-up me-1"></i> </span>
+                                                <span class="text-muted text-xs text-opacity-75" id=""></span>
+                                            </p>
+                                        </div>
+                                        <div class="col-auto">
+                                            <!-- Avatar -->
+                                            <div class="avatar avatar-lg bg-body text-warning">
+                                                <i class="fs-4" data-duoicon="bell-badge"></i>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
+
                     </div>
                     <div class="card">
                         <div class="card-body d-flex flex-column">

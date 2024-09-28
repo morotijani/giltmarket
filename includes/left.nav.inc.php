@@ -129,6 +129,24 @@
                             </div>
                         </div>
                         <?php endif; ?>
+                        <div class="nav-item">
+                            <a
+                            class="nav-link "
+                            href="#"
+                            data-bs-toggle="collapse"
+                            data-bs-target="#pushes"
+                            rol="button"
+                            aria-expanded="false"
+                            aria-controls="pushes"
+                            >
+                                <span class="material-symbols-outlined me-3">compare_arrows</span> Pushes
+                            </a>
+                            <div class="collapse " id="pushes">
+                                <nav class="nav nav-pills">
+                                    <a class="nav-link " href="<?= PROOT; ?>account/pushes">Pushes</a>
+                                </nav>
+                            </div>
+                        </div>
                         <?php if (admin_has_permission()): ?>
                         <div class="nav-item">
                             <a
