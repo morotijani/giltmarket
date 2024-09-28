@@ -132,7 +132,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <?= fetch_all_sales(2, $admin_data['admin_permissions'], $admin_data['admin_id']); ?>
+                    <?= fetch_all_sales(2, $admin_data['admin_permissions'], $admin_data['admin_id'], 'no_exp'); ?>
                 </tbody>
             </table>
         </div>
