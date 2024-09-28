@@ -98,7 +98,7 @@
                             <div class="inputpin mb-3">
                                 <div>
                                     <?php if (is_capital_given()): ?>
-                                        <?php if (is_capital_exhausted($conn, $admin_data['admin_id'])): ?>
+                                        <?php if (admin_has_permission('salesperson') && is_capital_exhausted($conn, $admin_data['admin_id'])): ?>
                                         <label class="form-label">Enter pin</label>
                                         <div class="d-flex justify-content-between p-4 bg-body-secondary rounded">
                                             <input type="number" class="form-control form-control-flush text-xl fw-bold w-rem-40" placeholder="0000" name="pin" id="pin" autocomplete="off" inputmode="numeric" data-maxlength="4" oninput="this.value=this.value.slice(0,this.dataset.maxlength)">

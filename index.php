@@ -90,7 +90,7 @@
 					}
 					add_to_log($message, $admin_id);
 	
-					$_SESSION['flash_success'] = 'Today capital saved successfully!';
+					$_SESSION['flash_success'] = 'Today capital pushed to ' . (($push_for == 'saleperson') ? 'other' : 'self') . ' successfully!';
 					redirect(PROOT);
 				} else {
 					echo js_alert('Something went wrong, please refresh and try agin!');
@@ -237,7 +237,14 @@
 									<h4 class="fs-base fw-normal text-body-secondary mb-1">Number of requests</h4>
 
 									<!-- Text -->
-									<div class="fs-5 fw-semibold"><?= $conn->query("SELECT * FROM jspence_pushes WHERE push_to = '" . $admin_data["admin_id"] . "' AND push_date = '" . date('Y-m-d') . "' AND push_status = 0")->rowCount(); ?></div>
+									<?php
+										$where = '';
+										if (!admin_has_permission()) {
+											$where = ' AND push_to = "' . $admin_data["admin_id"] . '" ';
+										}
+										$p = $conn->query("SELECT * FROM jspence_pushes WHERE push_date = '" . date('Y-m-d') . "' $where AND push_status = 0")->rowCount()
+									?>
+									<div class="fs-5 fw-semibold"><?= $p; ?></div>
 								</div>
 								<div class="col-auto">
 									<!-- Avatar -->
