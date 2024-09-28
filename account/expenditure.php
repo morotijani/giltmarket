@@ -205,13 +205,13 @@
                 <!-- Breadcrumb -->
                 <nav aria-label="breadcrumb">
                     <ol class="breadcrumb mb-2">
-                        <li class="breadcrumb-item"><a class="text-body-secondary" href="javascript:;">Expenditure</a></li>
-                        <li class="breadcrumb-item active" aria-current="page">Expenditure</li>
+                        <li class="breadcrumb-item"><a class="text-body-secondary" href="javascript:;">Trade</a></li>
+                        <li class="breadcrumb-item active" aria-current="page"><?= ((isset($_GET['add']) && !empty($_GET['add'])) ? 'New' : ''); ?> expenditure</li>
                     </ol>
                 </nav>
 
                 <!-- Heading -->
-                <h1 class="fs-4 mb-0"><?= ((isset($_GET['add']) && !empty($_GET['add'])) ? 'New' : ''); ?> expenditure</h1>
+                <h1 class="fs-4 mb-0">Expenditure</h1>
             </div>
             <?php if (!admin_has_permission()): ?>
             <div class="col-12 col-sm-auto mt-4 mt-sm-0">
@@ -308,7 +308,7 @@
                         <div class="col-12 col-lg-auto mb-3 mb-lg-0">
                             <ul class="nav nav-pills">
                                 <li class="nav-item">
-                                    <a class="btn btn-dark active" aria-current="page" href="<?= PROOT; ?>account/expenditure">All data<?= $count_exp; ?></a>
+                                    <a class="nav-link bg-dark active" aria-current="page" href="<?= PROOT; ?>account/expenditure">All data<?= $count_exp; ?></a>
                                 </li>
                             </ul>
                         </div>

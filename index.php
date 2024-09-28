@@ -306,13 +306,13 @@
 							<div class="col">
 								<h3 class="fs-6 mb-0">Performance</h3>
 							</div>
-							<div class="col-auto my-n3 me-n3">
+							<!-- <div class="col-auto my-n3 me-n3">
 								<select
 								class="form-select"
 								id="performanceChartSelect"
 								data-choices='{ "searchEnabled": false, "choices": [{ "value": "week", "label": "Week" }, { "value": "month", "label": "Month" }]}'
 								></select>
-							</div>
+							</div> -->
 						</div>
 					</div>
 					<div class="card-body">

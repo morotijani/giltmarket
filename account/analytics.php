@@ -120,7 +120,7 @@
                             <div class="col-12 col-lg-auto mb-3 mb-lg-0">
                                 <ul class="nav nav-pills">
                                     <li class="nav-item">
-                                        <a class="btn btn-dark active" aria-current="page" href="<?= PROOT; ?>account/analytics">Data</a>
+                                        <a class="nav-link bg-dark active" aria-current="page" href="<?= PROOT; ?>account/analytics">Data</a>
                                     </li>
                                 </ul>
                             </div>

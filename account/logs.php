@@ -74,7 +74,7 @@
                             <div class="col-12 col-lg-auto mb-3 mb-lg-0">
                                 <ul class="nav nav-pills">
                                     <li class="nav-item">
-                                        <a class="btn btn-dark active" aria-current="page" href="<?= PROOT; ?>account/logs">Logs <?= $c_logs; ?></a>
+                                        <a class="nav-link bg-dark active" aria-current="page" href="<?= PROOT; ?>account/logs">Logs <?= $c_logs; ?></a>
                                     </li>
                                 </ul>
                             </div>
@@ -183,7 +183,7 @@
             
             <div class="card">
                 <div class="card-header">
-                    <h3 class="fs-6 mb-0">Recent activity</h3>
+                    <h3 class="fs-6 mb-0">Activities</h3>
                 </div>
                 <div class="card-body">
                     <div class="list-group mb-7">
