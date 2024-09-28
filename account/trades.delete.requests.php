@@ -2,11 +2,9 @@
 
     // view admin profile details
     require_once ("../db_connection/conn.php");
-
     if (!admin_is_logged_in()) {
         admn_login_redirect();
     }
-
     include ("../includes/header.inc.php");
     include ("../includes/aside.inc.php");
     include ("../includes/left.nav.inc.php");
@@ -18,7 +16,7 @@
         if ($viewedQ) {
             // code...    
             $message = "viewed all new delete request";
-            add_to_log($message, $admin_data[0]['admin_id']);
+            add_to_log($message, $admin_data['admin_id']);
         }
     }
 
@@ -58,18 +56,18 @@
                 $statement->execute([$saleAmt, $r[0]['sale_daily']]);
 
                 $message = "deleted sale from sale requests";
-                add_to_log($message, $admin_data[0]['admin_id']);
+                add_to_log($message, $admin_data['admin_id']);
 
                 $_SESSION['flash_success'] = "Sale deleted successfully!";
                 redirect(PROOT . 'acc/trades.delete.requests');
             } else {
                 $message = "tried to delete a sale from sale requests but 'Something went wrong.'";
-                add_to_log($message, $admin_data[0]['admin_id']);
+                add_to_log($message, $admin_data['admin_id']);
                 echo js_alert("Something went wrong, please try again!");
             }
         } else {
             $message = "tried to delete a sale from sale requests but 'Could not find trade to delete.'";
-            add_to_log($message, $admin_data[0]['admin_id']);
+            add_to_log($message, $admin_data['admin_id']);
 
             $_SESSION['flash_error'] = "Could not find trade to delete!";
             redirect(PROOT . 'acc/trades.delete.requests');
@@ -162,12 +160,7 @@
                 </tbody>
             </table>
         </div>
-       <!--  <div class="py-4 px-6"><div class="row align-items-center justify-content-between"><div class="col-md-6 d-none d-md-block"><span class="text-muted text-sm">Showing 10 items out of 250 results found</span></div><div class="col-md-auto"><nav aria-label="Page navigation example"><ul class="pagination pagination-spaced gap-1"><li class="page-item"><a class="page-link" href="#"><i class="bi bi-chevron-left"></i></a></li><li class="page-item"><a class="page-link" href="#">1</a></li><li class="page-item"><a class="page-link" href="#">2</a></li><li class="page-item"><a class="page-link" href="#">3</a></li><li class="page-item"><a class="page-link" href="#">4</a></li><li class="page-item"><a class="page-link" href="#">5</a></li><li class="page-item"><a class="page-link" href="#"><i class="bi bi-chevron-right"></i></a></li></ul></nav></div>
-
-
-
-        </div>
-    </div> -->
+    </div>
 
 
 <?php include ("../includes/footer.inc.php"); ?>

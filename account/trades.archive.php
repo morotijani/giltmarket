@@ -6,14 +6,14 @@
     if (!admin_is_logged_in()) {
         admn_login_redirect();
     }
-
     // check for permissions
     if (!admin_has_permission()) {
         admin_permission_redirect('index');
     }
-
     include ("../includes/header.inc.php");
-    include ("../includes/nav.inc.php");
+    include ("../includes/aside.inc.php");
+    include ("../includes/left.nav.inc.php");
+    include ("../includes/top.nav.inc.php");
 
     // delete sale
     if (isset($_GET['pd']) && !empty($_GET['pd'])) {
@@ -31,18 +31,18 @@
             $result = $statement->execute([2, 0, $id]);
             if (isset($result)) {
                 $message = "deleted sale from sale requests";
-                add_to_log($message, $admin_data[0]['admin_id']);
+                add_to_log($message, $admin_data['admin_id']);
 
                 $_SESSION['flash_success'] = "Sale deleted successfully!";
                 redirect(PROOT . 'acc/trades.delete.requests');
             } else {
                 $message = "tried to delete a sale from sale requests but 'Something went wrong.'";
-                add_to_log($message, $admin_data[0]['admin_id']);
+                add_to_log($message, $admin_data['admin_id']);
                 echo js_alert("Something went wrong, please try again!");
             }
         } else {
             $message = "tried to delete a sale from sale requests but 'Could not find trade to delete.'";
-            add_to_log($message, $admin_data[0]['admin_id']);
+            add_to_log($message, $admin_data['admin_id']);
 
             $_SESSION['flash_error'] = "Could not find trade to delete!";
             redirect(PROOT . 'acc/trades.delete.requests');
@@ -53,85 +53,89 @@
 
 ?>
 
-    <div class="px-6 px-lg-7 pt-8 border-bottom">
-        <div class="d-flex align-items-center">
-            <h1 class="text-warning">Archived trades</h1>
-            <div class="hstack gap-2 ms-auto">
-                <?php if (admin_has_permission()): ?>
-               <!--  <div class="dropdown">
-                    <button class="btn btn-sm btn-neutral flex-none d-flex align-items-center gap-2 py-1 px-2" data-bs-toggle="dropdown" aria-expanded="false">
-                        <img src="<?= PROOT; ?>dist/media/export.png" class="w-rem-5 h-rem-5 rounded-circle" alt="..."> <span>Export</span> <i class="bi bi-chevron-down text-xs me-1"></i>
-                    </button>
-                    <ul class="dropdown-menu dropdown-menu-end dropdown-menu-sm">
-                        <li>
-                            <a class="dropdown-item d-flex align-items-center gap-2" href="<?= PROOT; ?>acc/export/all/xlsx">
-                                <img src="<?= PROOT; ?>dist/media/XLSX.png" class="w-rem-6 h-rem-6 rounded-circle" alt="..."> <span>XLSX</span>
-                            </a>
-                        </li>
-                        <li>
-                            <a class="dropdown-item d-flex align-items-center gap-2" href="<?= PROOT; ?>acc/export/all/xls">
-                                <img src="<?= PROOT; ?>dist/media/XLS.png" class="w-rem-6 h-rem-6 rounded-circle" alt="..."> <span>XLS</span>
-                            </a>
-                        </li>
-                        <li>
-                            <a class="dropdown-item d-flex align-items-center gap-2" href="<?= PROOT; ?>acc/export/all/csv">
-                                <img src="<?= PROOT; ?>dist/media/CSV.png" class="w-rem-6 h-rem-6 rounded-circle" alt="..."> <span>CSV</span>
-                            </a>
-                        </li>
-                        <li>
-                            <a class="dropdown-item d-flex align-items-center gap-2" href="<?= PROOT; ?>acc/export/all/pdf">
-                                <img src="<?= PROOT; ?>dist/media/CSV.png" class="w-rem-6 h-rem-6 rounded-circle" alt="..."> <span>PDF</span>
-                            </a>
-                        </li>
-                    </ul>
-                </div> -->
-                <?php endif ?>
-                <button type="button" class="btn btn-sm btn-primary d-none d-sm-inline-flex" data-bs-target="#buyModal" data-bs-toggle="modal"><span class="pe-2"><i class="bi bi-plus-circle"></i> </span><span>Trade</span></button>
+
+    <!-- Content -->
+    <div class="container-lg">
+        <!-- Page header -->
+        <div class="row align-items-center mb-7">
+            <div class="col-auto">
+                <!-- Avatar -->
+                <div class="avatar avatar-xl rounded text-warning">
+                    <i class="fs-2" data-duoicon="credit-card"></i>
+                </div>
+            </div>
+            <div class="col">
+                <!-- Breadcrumb -->
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb mb-2">
+                        <li class="breadcrumb-item"><a class="text-body-secondary" href="#">Market</a></li>
+                        <li class="breadcrumb-item active" aria-current="page">Archived</li>
+                    </ol>
+                </nav>
+
+                <!-- Heading -->
+                <h1 class="fs-4 mb-0">Trades</h1>
+            </div>
+            <div class="col-12 col-sm-auto mt-4 mt-sm-0">
+                <!-- Action -->
+                <a class="btn btn-secondary d-block" href="<?= goBack(); ?>" data-bs-target="#buyModal" data-bs-toggle="modal"> <span class="material-symbols-outlined me-1">arrow_back</span> Go back </a>
             </div>
         </div>
-           
 
-        <ul class="nav nav-tabs nav-tabs-flush gap-8 overflow-x border-0 mt-1">
-            <li class="nav-item">
-                <a href="<?= PROOT; ?>acc/trades" class="nav-link">All data</a>
-            </li>
-            <li class="nav-item">
-                <a href="<?= PROOT; ?>acc/trades.delete.requests" class="nav-link">Delete request</a>
-            </li>
-            <?php if (admin_has_permission()): ?>
-                <li class="nav-item">
-                    <a href="<?= PROOT; ?>acc/trades.archive" class="nav-link active">Archive</a>
-                </li>
-            <?php endif ?>
-        </ul>
-        <div class="table-responsive">
-            <table class="table table-hover table-striped table-sm table-nowrap">
+        <div class="row">
+            <div class="col-12">
+                <!-- Filters -->
+                <div class="card card-line bg-body-tertiary border-transparent mb-7">
+                    <div class="card-body p-4">
+                        <div class="row align-items-center">
+                            <div class="col-12 col-lg-auto mb-3 mb-lg-0">
+                                <ul class="nav nav-pills">
+                                    <li class="nav-item">
+                                        <a class="nav-link" href="<?= PROOT; ?>account/trades">All trades</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" aria-current="page" href="<?= PROOT; ?>account/trades.delete.requests">Delete request <?= count_new_delete_requests($conn); ?></a>
+                                    </li>
+                                    <?php if (admin_has_permission()) { ?>
+                                    <li class="nav-item">
+                                        <a class="nav-link bg-dark active" href="<?= PROOT; ?>account/trades.archive">Archive</a>
+                                    </li>
+                                    <?php } ?>
+                                </ul>
+                            </div>
+                            <div class="col-12 col-lg">
+                            </div>
+                            <div class="col-auto ms-n2">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="table-responsive mb-7">
+            <table class="table align-middle mb-0">
                 <thead>
                     <tr>
                         <th>#</th>
                         <?php if (admin_has_permission()): ?>
                             <th scope="col">Handler</th>
                         <?php endif; ?>
-                        <th scope="col">Customer</th>
-                        <th scope="col">Gram</th>
-                        <th scope="col">Volume</th>
-                        <th scope="col">Price</th>
-                        <th scope="col">Amount</th>
-                        <th scope="col">Date</th>
-                        <th scope="col"></th>
+                        <th>Customer</th>
+                        <th>Gram</th>
+                        <th>Volume</th>
+                        <th>Price</th>
+                        <th>Amount</th>
+                        <th></th>
+                        <th>Date</th>
+                        <th></th>
                     </tr>
                 </thead>
                 <tbody>
-                    <?= fetch_all_sales(2, $admin_data[0]['admin_permissions'], $admin_data[0]['admin_id']); ?>
+                    <?= fetch_all_sales(2, $admin_data['admin_permissions'], $admin_data['admin_id']); ?>
                 </tbody>
             </table>
         </div>
-        <!-- <div class="py-4 px-6"><div class="row align-items-center justify-content-between"><div class="col-md-6 d-none d-md-block"><span class="text-muted text-sm">Showing 10 items out of 250 results found</span></div><div class="col-md-auto"><nav aria-label="Page navigation example"><ul class="pagination pagination-spaced gap-1"><li class="page-item"><a class="page-link" href="#"><i class="bi bi-chevron-left"></i></a></li><li class="page-item"><a class="page-link" href="#">1</a></li><li class="page-item"><a class="page-link" href="#">2</a></li><li class="page-item"><a class="page-link" href="#">3</a></li><li class="page-item"><a class="page-link" href="#">4</a></li><li class="page-item"><a class="page-link" href="#">5</a></li><li class="page-item"><a class="page-link" href="#"><i class="bi bi-chevron-right"></i></a></li></ul></nav></div>
-
-
-
-        </div>
-    </div> -->
-
+    </div>
 
 <?php include ("../includes/footer.inc.php"); ?>

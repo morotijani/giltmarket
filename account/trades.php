@@ -80,6 +80,7 @@
                 <!-- Heading -->
                 <h1 class="fs-4 mb-0">Trades</h1>
             </div>
+            <?php if (!admin_has_permission()): ?>
             <div class="col-12 col-sm-auto mt-4 mt-sm-0">
                 <!-- Action -->
                 <div class="row gx-2">
@@ -92,6 +93,7 @@
                 </div>
 
             </div>
+            <?php endif; ?>
         </div>
 
         <!-- Page content -->
