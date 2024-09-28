@@ -52,9 +52,9 @@
     $lastTotal = 0;
 
     foreach ($thisYr_result as $thisYr_row) {
-        $this_year_profit_amount = (float)($thisYr_row['dc'] - $thisYr_row['db']);
-        if ($thisYr_row['db'] > $thisYr_row['dc']) {
-            $this_year_profit_amount = (float)($thisYr_row['db'] - $thisYr_row['dc']);
+        $this_year_profit_amount = (float)($thisYr_row['db'] - $thisYr_row['dc']);
+        if ($thisYr_row['db'] == null) {
+            $this_year_profit_amount = 0;
         }
         $month = date("m", strtotime($thisYr_row['daily_date'] ?? ""));
         if (!array_key_exists((int)$month, $current)) {
@@ -66,9 +66,9 @@
     }
 
     foreach ($lastYr_result as $lastYr_row) {
-        $last_year_profit_amount = (float)($lastYr_row['dc'] - $lastYr_row['db']);
-        if ($lastYr_row['db'] > $lastYr_row['dc']) {
-            $last_year_profit_amount = (float)($lastYr_row['db'] - $lastYr_row['dc']);
+        $last_year_profit_amount = (float)($lastYr_row['db'] - $lastYr_row['dc']);
+        if ($lastYr_row['db'] == null) {
+            $last_year_profit_amount = 0;
         }
         $month = date("m", strtotime($lastYr_row['daily_date'] ?? ""));
         if (!array_key_exists((int)$month, $last)) {
@@ -289,13 +289,13 @@
                                     <div class="d-flex align-items-center justify-content-between mt-8">
                                         <div class="">
                                             <div class="d-flex gap-3 align-items-center">
-                                                <span class="text-success text-xs">Incoming</span>
+                                                <span class="text-success text-xs">Incoming (supervisor)</span>
                                             </div>
                                             <div class="text-muted text-xs text-opacity-75 mt-3" id="incoming">0.00 GHS</div>
                                         </div>
                                         <div class="">
                                             <div class="d-flex gap-3 align-items-center">
-                                                <span class="text-danger text-xs">Outgoing</span>
+                                                <span class="text-danger text-xs">Outgoing (salesperson)</span>
                                             </div>
                                             <div class="text-muted text-xs text-opacity-75 mt-3" id="outgoing">0.00 GHS</div>
                                         </div>
@@ -334,7 +334,7 @@
                         <div class="card-body pb-0">
                             <div class="d-flex justify-content-between align-items-center">
                                 <div>
-                                    <h5>Earnings</h5>
+                                    <h5>Earnings chart</h5>
                                 </div>
                                 <div class="hstack align-items-center">
                                     <a href="<?= PROOT; ?>acc/analytics" class="text-muted"><i class="bi bi-arrow-repeat"></i></a>
@@ -350,7 +350,7 @@
                         <div class="card-body">
                             <div class="d-flex justify-content-between align-items-center mb-5">
                                 <div>
-                                    <h5>Accumulated profits by months and years</h5>
+                                    <h5>Accumulated earnings by months and years</h5>
                                 </div>
                                 <div class="hstack align-items-center">
                                     <a href="<?= PROOT; ?>acc/trades" class="text-muted">
@@ -394,7 +394,7 @@
 
 
 <?php include ("../includes/footer.inc.php"); ?>
-<script type="text/javascript" src="<?= PROOT; ?>dist/js/Chart.min.js"></script>
+<script type="text/javascript" src="<?= PROOT; ?>assets/js/Chart.min.js"></script>
 <script>
     $(document).ready(function() {
         $('#submitExpenditure').on('click', function() {
@@ -540,7 +540,7 @@
 	            },
 	            title: {
 	                display: true,
-	                text: 'Sales By Month - J-Spence LTD.'
+	                text: 'Earnings By Month - J-Spence LTD.'
 	            }
 	        }
 	    })
