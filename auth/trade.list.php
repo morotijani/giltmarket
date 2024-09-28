@@ -92,7 +92,7 @@ if ($total_data > 0) {
 
 		$option1 = '
 			&nbsp;
-			<a href=' . PROOT . 'account/print-reciept?data=' . $outputData .'&date=' . $row['sca'] . '" title="Print receipt" class="btn btn-light">
+			<a href=' . PROOT . 'account/print-reciept?data=' . $outputData .'&date=' . $row['sca'] . '" title="Print receipt" class="btn btn-sm btn-light">
 				<span class="material-symbols-outlined"> print </span>
 			</a>
 		';
@@ -131,7 +131,7 @@ if ($total_data > 0) {
 	                <td>' . $type . '</td>
 	                <td>' . pretty_date($row["sca"]) . '</td>
 	                <td class="text-end">
-	                    <button type="button" class="btn btn-dark" title="More" data-bs-target="#saleModal_' . $row["sid"] . '" data-bs-toggle="modal">
+	                    <button type="button" class="btn btn-sm btn-dark" title="More" data-bs-target="#saleModal_' . $row["sid"] . '" data-bs-toggle="modal">
 	                       <span class="material-symbols-outlined"> table_eye </span>
 	                    </button> '.$option1.'
 	                </td>

@@ -211,7 +211,7 @@
                 </nav>
 
                 <!-- Heading -->
-                <h1 class="fs-4 mb-0"><?= ((isset($_GET['add']) && !empty($_GET['add'])) ? 'New' : 'All'); ?> expenditure</h1>
+                <h1 class="fs-4 mb-0"><?= ((isset($_GET['add']) && !empty($_GET['add'])) ? 'New' : ''); ?> expenditure</h1>
             </div>
             <?php if (!admin_has_permission()): ?>
             <div class="col-12 col-sm-auto mt-4 mt-sm-0">
@@ -310,14 +310,6 @@
                                 <li class="nav-item">
                                     <a class="btn btn-dark active" aria-current="page" href="<?= PROOT; ?>account/expenditure">All data<?= $count_exp; ?></a>
                                 </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" href="<?= PROOT; ?>account/trades.delete.requests">Delete request <?= count_new_delete_requests($conn); ?></a>
-                                </li>
-                                <?php if (admin_has_permission()) { ?>
-                                <li class="nav-item">
-                                    <a class="nav-link" href="<?= PROOT; ?>account/trades.archive">Archive</a>
-                                </li>
-                                <?php } ?>
                             </ul>
                         </div>
                         <div class="col-12 col-lg">
