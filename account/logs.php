@@ -58,10 +58,12 @@
                 <!-- Heading -->
                 <h1 class="fs-4 mb-0">Logs</h1>
             </div>
+            <?php if (!admin_has_permission()): ?>
             <div class="col-12 col-sm-auto mt-4 mt-sm-0">
                 <!-- Action -->
                 <a class="btn btn-secondary d-block" href="javascript:;" data-bs-target="#buyModal" data-bs-toggle="modal"> <span class="material-symbols-outlined me-1">add</span> New Trade </a>
             </div>
+            <?php endif; ?>
         </div>
 
         <!-- Page content -->
