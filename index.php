@@ -311,8 +311,8 @@
 					<div class="card-body">
 						<div class="chart">
 							<!-- <canvas class="chart-canvas" id="performanceChart"></canvas> -->
-							<canvas class="chart-canvas" id="performanceChart"></canvas>
-							<!-- <canvas class="my-4 w-100" id="myChart" width="900" height="400"></canvas> -->
+							<!-- <canvas class="chart-canvas" id="performanceChart"></canvas> -->
+							<canvas class="my-4 w-100" id="myChart" width="900" height="400"></canvas>
 						</div>
 					</div>
 				</div>
@@ -548,7 +548,7 @@
 	    'use strict'
 
 	      // Graphs
-	    var ctx = document.getElementById('performanceChart')
+	    var ctx = document.getElementById('myChart')
 	      // eslint-disable-next-line no-unused-vars
 	    var myChart = new Chart(ctx, {
 	        type: 'line',

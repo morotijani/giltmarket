@@ -25,6 +25,7 @@ $query = "
 	INNER JOIN jspence_admin 
 	ON jspence_admin.admin_id = jspence_sales.sale_by 
 	WHERE jspence_sales.sale_status = 0 
+    AND jspence_sales.sale_type = 'exp'
 	$where 
 ";
 $search_query = ((isset($_POST['query'])) ? sanitize($_POST['query']) : '');

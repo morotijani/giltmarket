@@ -5,8 +5,8 @@
     <div class="modal fade" id="buyModal" tabindex="-1" aria-labelledby="buyModalLabel" aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="false" style="backdrop-filter: blur(5px);">
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content overflow-hidden bg-body-tertiary">
-                <div class="modal-header pb-0 border-0">
-                    <h1 class="modal-title h4" id="buyModalLabel"><?= admin_has_permission('supervisor') ? 'Sell' : 'Buy'; ?> trade</h1>
+                <div class="modal-header w-400 pb-0 border-0">
+                    <h1 class="modal-title h4 fw-medium" id="buyModalLabel"><?= admin_has_permission('supervisor') ? 'Sell' : 'Buy'; ?> trade</h1>
                     <button type="button" class="btn-close btn-close-buyform" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body undefined">
@@ -92,7 +92,7 @@
                             <ul class="list-group" id="buysummary"></ul>
                             <button type="button" class="btn btn-warning mt-4" id="next-2">Confirm Sale</button>
                             <br><br>
-                            <a href="javascript:;" class="text-dark" id="prev-1"><< Go Back</a>
+                            <a href="javascript:;" class="text-danger" id="prev-1"><< Go Back</a>
                         </div>
                         <div id="step-3" class="d-none">
                             <div class="inputpin mb-3">
@@ -109,12 +109,12 @@
                                             </div>
                                         </div>
                                         <?php else: ?>
-                                            <p class="h4">
+                                            <p class="">
                                                 Trade ended: the capital given for today's trade has been exhausted!
                                             </p>
                                         <?php endif; ?>
                                     <?php else: ?>
-                                        <p class="h4">
+                                        <p class="">
                                             Please you are to provide today's capital given before you can complete a trade!
                                         </p>
                                     <?php endif; ?>
@@ -125,7 +125,7 @@
                                     <button type="submit" class="btn btn-warning mt-4" id="submitSend" name="submitSend">Complete Sale</button>
                                 <?php endif; ?>
                             <?php endif; ?>
-                            <br><br><a href="javascript:;" class="text-dark" id="prev-2"><< Go Back</a>
+                            <br><br><a href="javascript:;" class="text-danger" id="prev-2"><< Go Back</a>
                         </div>
                     </form>
                 </div>
@@ -137,7 +137,7 @@
     <div aria-live="polite" aria-atomic="true" class="d-flex justify-content-center align-items-center w-100">
         <div id="live-toast" class="toast fade hide position-fixed rounded" role="alert" aria-live="assertive" aria-atomic="true" style="background-color: #6e46cc; right: 6px; bottom: 0; z-index: 99999;">
             <div class="toast-header small p-1 border-bottom">
-                <img src="<?= PROOT; ?>dist/media/logo.jpeg" style="width: 35px; height: 35px;" class="rounded me-2" alt="J-Spence Logo">
+                <img src="<?= PROOT; ?>assets/media/logo.jpeg" style="width: 35px; height: 35px;" class="rounded me-2" alt="J-Spence Logo">
                 <strong class="me-auto small">J-Spence</strong>
                 <small>notification . just now</small>
                 <button type="button" class="btn-close small" data-bs-dismiss="toast" aria-label="Close"></button>

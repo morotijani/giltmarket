@@ -3,7 +3,7 @@
     require_once ("../db_connection/conn.php");
 
     if (admin_is_logged_in()) {
-        redirect(PROOT . "index");
+        redirect(PROOT);
     }
 
     $error = '';
@@ -15,14 +15,12 @@
         $query = "
             SELECT * FROM jspence_admin 
             WHERE admin_email = ? 
-            LIMIT 1
+            LIMIT 1 
         ";
         $statement = $conn->prepare($query);
         $statement->execute([sanitize($_POST['admin_email'])]);
         $count_row = $statement->rowCount();
         $row = $statement->fetchAll();
-
-        
 
         if ($count_row < 1) {
             $error = 'Unkown admin!';
@@ -34,6 +32,7 @@
 
         if (!empty($error)) {
             $_SESSION['flash_error'] = $error;
+            redirect(PROOT . 'auth/login');
         } else {
             $admin_id = $row[0]['admin_id'];
             adminLogin($admin_id);
@@ -98,7 +97,7 @@
                 </form>
 
                 <!-- Text -->
-                <p class="text-center text-body-secondary mb-0">Missing password? <a href="./sign-up.html">Recover here</a>.</p>
+                <p class="text-center text-body-secondary mb-0">Missing password? <a href="javascript:;">Recover here</a>.</p>
 				<p class="text-center text-body-secondary">By connecting, know that we save all actions into logs for future references. You agree to J-Spence <a href="#">Terms of Service</a></p>
 				
             </div>
@@ -106,6 +105,8 @@
     </div>
 
     <!-- JAVASCRIPT -->
+    <script src="<?= PROOT; ?>assets/js/jquery-3.7.1.min.js"></script>
+
     <!-- Map JS -->
     <script src='https://api.mapbox.com/mapbox-gl-js/v0.53.0/mapbox-gl.js'></script>
     <script src="<?= PROOT; ?>assets/js/switcher.js"></script>
