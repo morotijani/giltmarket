@@ -96,7 +96,9 @@
                             <div class="collapse " id="orders">
                             <nav class="nav nav-pills">
                                     <a class="nav-link " href="<?= PROOT; ?>account/trades">Trades</a>
+                                    <?php if (admin_has_permission('salesperson')): ?>
                                     <a class="nav-link " href="<?= PROOT; ?>account/expenditure">Expenditures</a>
+                                    <?php endif; ?>
                                     <?php if (!admin_has_permission()): ?>
                                     <a class="nav-link " href="javascript:;" data-bs-target="#buyModal" data-bs-toggle="modal">New trade</a>
                                     <a class="nav-link " href="<?= PROOT; ?>account/end-trade">End trade</a>
@@ -104,7 +106,7 @@
                                 </nav>
                             </div>
                         </div>
-                        <?php if ($admin_data['admin_permissions'] == 'salesperson'): ?>
+                        <?php if (admin_has_permission('salesperson')): ?>
                         <div class="nav-item">
                             <a
                             class="nav-link "
@@ -120,7 +122,9 @@
                             <div class="collapse " id="projects">
                                 <nav class="nav nav-pills">
                                     <a class="nav-link " href="<?= PROOT; ?>account/expenditure">Expenditures</a>
+                                    <?php if ($admin_data['admin_permissions'] == 'salesperson'): ?>
                                     <a class="nav-link " href="<?= PROOT; ?>account/expenditure?add=1">New expenditure</a>
+                                    <?php endif; ?>
                                 </nav>
                             </div>
                         </div>

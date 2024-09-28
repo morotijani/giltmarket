@@ -40,7 +40,7 @@ $arrayOutput = array(
 	'carat' => $carat, 
 	'current_price' => $current_price, 
 	'total_amount' => $total_amount,
-	'continue' => 'yes'
+	'continue' => $continue
 );
 $ouput = json_encode($arrayOutput);
 echo $ouput;

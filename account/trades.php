@@ -140,18 +140,22 @@
                                                     <input class="form-check-input export_type" type="radio" name="export-status" id="inlineRadioStatus1" required value="all" checked>
                                                     <label class="form-check-label" for="inlineRadioStatus1">All</label>
                                                 </div>
-                                                <div class="form-check form-check-inline">
-                                                    <input class="form-check-input export_type" type="radio" name="export-status" id="inlineRadioStatus2" required value="exp">
-                                                    <label class="form-check-label" for="inlineRadioStatus2">Expenditure</label>
-                                                </div>
+                                                <?php if (admin_has_permission('supervisor')): ?>
                                                 <div class="form-check form-check-inline">
                                                     <input class="form-check-input export_type" type="radio" name="export-status" id="inlineRadioStatus3" required value="in">
                                                     <label class="form-check-label" for="inlineRadioStatus3">In</label>
                                                 </div>
+                                                <?php endif; ?>
+                                                <?php if (admin_has_permission('salesperson')): ?>
                                                 <div class="form-check form-check-inline">
                                                     <input class="form-check-input export_type" type="radio" name="export-status" id="inlineRadioStatus4" required value="out">
                                                     <label class="form-check-label" for="inlineRadioStatus4">Out</label>
                                                 </div>
+                                                <div class="form-check form-check-inline">
+                                                    <input class="form-check-input export_type" type="radio" name="export-status" id="inlineRadioStatus2" required value="exp">
+                                                    <label class="form-check-label" for="inlineRadioStatus2">Expenditure</label>
+                                                </div>
+                                                <?php endif; ?>
                                             </div>
                                             <div class="col-sm-12 mb-3">
                                                 <div class="form-check form-check-inline">
