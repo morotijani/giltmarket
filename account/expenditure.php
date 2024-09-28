@@ -164,7 +164,7 @@
             $result = $statement->execute([1, $id]);
 
             if (isset($result)) {
-                $for_amount = $_row[0]['expenditure_amount'];
+                $for_amount = $_row[0]['sale_total_amount'];
                 $today = date("Y-m-d");
                 $balance = (float)(_capital($by)['today_balance'] + $for_amount);
 
@@ -172,7 +172,7 @@
                     UPDATE jspence_daily 
                     SET daily_balance = ?
                     WHERE daily_date = ? 
-                    AND daily_by = ?
+                    AND daily_to = ?
                 ";
                 $statement = $conn->prepare($query);
                 $statement->execute([$balance, $today, $by]);

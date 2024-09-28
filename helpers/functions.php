@@ -312,7 +312,7 @@ function add_to_log($message, $log_admin) {
 	}
 }
 
-function fetch_all_sales($status, $admin) {
+function fetch_all_sales($status, $admin, $type = null) {
 	global $conn;
 	$output = '';
 
@@ -321,15 +321,22 @@ function fetch_all_sales($status, $admin) {
 		$where = ' AND sale_by = "'.$admin.'" ';
 	}
 
+	$a = '';
+	if ($type == 'no_exp') {
+		$a = " AND sale_type != 'exp'";
+	}
+
+
 	$sql = "
 		SELECT *, jspence_sales.id AS sid, jspence_sales.createdAt AS sca, jspence_sales.updatedAt AS sua, jspence_admin.id AS aid 
 		FROM jspence_sales 
 		INNER JOIN jspence_admin 
 		ON jspence_admin.admin_id = jspence_sales.sale_by 
 		WHERE sale_status = ? 
-		$where 
-		ORDER BY createdAt DESC
+		$where
 	";
+	$sql .= $a . " ORDER BY createdAt DESC";
+	
 	$statement = $conn->prepare($sql);
 	$statement->execute([$status]);
 	$rows = $statement->fetchAll();
@@ -379,7 +386,7 @@ function fetch_all_sales($status, $admin) {
 				<tr>
 	                <td>' . $i . '</td>
 	                ' . (admin_has_permission() ? ' <td><a href="javascript:;" data-bs-target="#adminModal_' . $row["aid"] . '" data-bs-toggle="modal"><span class="d-block text-heading fw-bold">' . ucwords($row["admin_fullname"]) . '</span></a></td> ' : '') . '
-	                <td class="text-xs">' . strtoupper($row["sale_customer_name"]) . ' <i class="bi bi-arrow-right mx-2"></i> ' . $row["sale_customer_contact"] . '</td>
+	                <td class="text-xs">' . strtoupper($row["sale_customer_name"]) . ' <span class="material-symbols-outlined mx-2"> trending_flat </span> ' . $row["sale_customer_contact"] . '</td>
 	                <td>' . $row["sale_gram"] . '</td>
 	                <td>' . $row["sale_volume"] . '</td>
 	                <td>' . money($row["sale_price"]) . '</td>
@@ -387,7 +394,7 @@ function fetch_all_sales($status, $admin) {
 	                <td>' . $type . '</td>
 	                <td>' . pretty_date($row["sca"]) . '</td>
 	                <td class="text-end">
-	                    <button type="button" class="btn btn-dark w-rem-6 h-rem-6" title="More" data-bs-target="#saleModal_' . $row["sid"] . '" data-bs-toggle="modal">
+	                    <button type="button" class="btn btn-dark btn-sm" title="More" data-bs-target="#saleModal_' . $row["sid"] . '" data-bs-toggle="modal">
 	                        <span class="material-symbols-outlined"> table_eye </span> 
 	                    </button> '.$option1.'
 	                </td>
@@ -935,6 +942,26 @@ function find_dialy_for_push($t, $id) {
 
 	if ($result) {
 		return true;
+	}
+	return false;
+}
+
+// find admin
+function find_admin_with_id($id) {
+	global $conn;
+
+	$sql = "
+		SELECT * FROM jspence_admin 
+		WHERE admin_id = ? 
+		LIMIT 1
+	";
+	$statement = $conn->prepare($sql);
+	$statement->execute([$id]);
+	$rows = $statement->fetchAll();
+	$row = $rows[0];
+
+	if ($statement->rowCount() > 0) {
+		return $row;
 	}
 	return false;
 }

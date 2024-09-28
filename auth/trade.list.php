@@ -98,11 +98,19 @@ if ($total_data > 0) {
 		';
         $option2 =  '
 			<div class="p-2"></div>
-			<div class="px-6 py-5 d-flex justify-content-center">
+			<div class="d-flex justify-content-center">
 				<!-- <button class="btn btn-sm btn-dark"><i class="bi bi-receipt me-2"></i>Print receipt</button>&nbsp -->
+
 				' . (($row["sdate"] == date("Y-m-d")) ? '<a href="#deleteModal_'. $row["sid"] . '" data-bs-toggle="modal" class="btn btn-danger"><span class="material-symbols-outlined me-2"> delete </span> Delete</a>' : '') . '
 			</div>
         ';
+		if ($row['sale_type'] == 'exp') {
+			$option2 = '<div class="d-flex  justify-content-center">' . 
+				(($row["sdate"] == date("Y-m-d")) ? '<a href="#deleteExpModal_'. $row["sid"] . '" data-bs-toggle="modal" class="btn btn-danger"><span class="material-symbols-outlined me-2"> delete </span> Delete</a>' : '')
+				. '</div>'
+			;
+		}
+
         $option3 = '';
 		if ($row['sale_status'] == 1) {
 			$option1 = '';
@@ -282,6 +290,31 @@ if ($total_data > 0) {
 				            </div>
 				        </div>
 				    </div>
+				</div>
+
+				<!-- DELETE Expenditure -->
+				<div class="modal fade" id="deleteExpModal_' . $row["sid"] . '" tabindex="-1" aria-labelledby="deleteExpModalLabel_' . $row["sid"] . '" data-bs-backdrop="static" data-bs-keyboard="false" aria-hidden="true">
+					<div class="modal-dialog modal-sm modal-dialog-centered">
+						<div class="modal-content overflow-hidden">
+							<div class="modal-header pb-0 border-0">
+								<h1 class="modal-title h4" id="deleteExpModalLabel_' . $row["sid"] . '">Delete expenditure!</h1>
+								<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+							</div>
+							<div class="modal-body p-0">
+								<div class="px-6 py-5 border-bottom">
+									<p>
+										<i>'.$row["sale_comment"].', with an amount of <span style="font-family: Roboto Mono, monospace;">'.money($row["sale_total_amount"]).'</span></i> 
+										<br><br>
+										Are you sure you want to proceed to this action.
+									</p>
+								</div>
+								<div class="px-6 py-5 bg-body-secondary d-flex justify-content-center">
+									<a href="' . PROOT . 'account/expenditure?delete=' . $row["sale_id"] . '" class="btn btn-sm btn-danger"><i class="bi bi-trash me-2"></i>Yes, Confirm delete</a>&nbsp;&nbsp;
+									<button type="button" class="btn btn-sm btn-dark"data-bs-dismiss="modal">No, cancel</button>
+								</div>
+							</div>
+						</div>
+					</div>
 				</div>
 
 				<!-- HANDLER DETAILS -->

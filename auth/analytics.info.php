@@ -52,7 +52,7 @@ if (isset($_POST['dater'])) {
 
     $ins = $conn->query("SELECT SUM(sale_total_amount) AS ins_amt, CAST(jspence_sales.createdAt AS date) AS in_d FROM jspence_sales WHERE sale_type = 'in' AND sale_status = 0 $and")->fetchAll();
     $outs = $conn->query("SELECT SUM(sale_total_amount) AS outs_amt, CAST(jspence_sales.createdAt AS date) AS out_d FROM jspence_sales WHERE sale_type = 'out' AND sale_status = 0 $and")->fetchAll();
-    $expense = $conn->query("SELECT SUM(sale_total_amount) AS exp_amt, CAST(jspence_sales.createdAt AS date) AS exp_d FROM jspence_sales WHERE sale_type = 'exp' $andExpenditure")->fetchAll();
+    $expense = $conn->query("SELECT SUM(sale_total_amount) AS exp_amt, CAST(jspence_sales.createdAt AS date) AS exp_d FROM jspence_sales WHERE sale_type = 'exp' AND sale_status = 0 $andExpenditure")->fetchAll();
     $push = $conn->query("SELECT SUM(push_amount) AS push_amt, CAST(jspence_pushes.createdAt AS date) AS push_d FROM jspence_pushes WHERE push_status = 0 $andPush")->fetchAll();
     $count_trades = $conn->query("SELECT *, CAST(jspence_sales.createdAt AS date) AS c_d FROM jspence_sales WHERE sale_status = 0 $and")->rowCount();
 

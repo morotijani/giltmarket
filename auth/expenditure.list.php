@@ -74,8 +74,8 @@ if ($total_data > 0) {
         if (!admin_has_permission() && $row["edate"] == date("Y-m-d")) {
            $option = '
                 <td class="text-end">
-                    <a href="'. PROOT .'account/expenditure?edit=' . $row["sale_id"] . '" class="badge bg-body-secondary text-xs text-success">Edit </a>
-                    <a href="javascript:;" data-bs-target="#deleteModal_' . $row["eid"] . '" data-bs-toggle="modal" class="badge bg-body-secondary text-xs text-danger">Delete </a>
+                    <a href="'. PROOT .'account/expenditure?edit=' . $row["sale_id"] . '" class="btn btn-sm btn-light">Edit </a>
+                    <a href="javascript:;" data-bs-target="#deleteModal_' . $row["eid"] . '" data-bs-toggle="modal" class="btn btn-sm btn-danger">Delete </a>
                 </td>
            '; 
         }
@@ -100,7 +100,7 @@ if ($total_data > 0) {
                 ' . $option . '
             </tr>
 
-            <!-- DELETE TRADE -->
+            <!-- DELETE Expenditure -->
             <div class="modal fade" id="deleteModal_' . $row["eid"] . '" tabindex="-1" aria-labelledby="deleteModalLabel_' . $row["eid"] . '" data-bs-backdrop="static" data-bs-keyboard="false" aria-hidden="true">
                 <div class="modal-dialog modal-sm modal-dialog-centered">
                     <div class="modal-content overflow-hidden">

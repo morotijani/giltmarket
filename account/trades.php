@@ -40,16 +40,16 @@
             $result = $statement->execute([1, 1, $id]);
             if (isset($result)) {                
                 $message = "delete request for trade id: '".$id."'";
-                add_to_log($message, $admin_data[0]['admin_id']);
+                add_to_log($message, $admin_data['admin_id']);
 
                 $_SESSION['flash_success'] = ' Sale delete request successfully sent!';
-                redirect(PROOT . 'acc/trades');
+                redirect(PROOT . 'account/trades');
             } else {
                 echo js_alert("Something went wrong, please try again!");
             }
         } else {
             $_SESSION['flash_error'] = ' Could not find sale to send a delete request!';
-            redirect(PROOT . 'acc/trades');
+            redirect(PROOT . 'account/trades');
         }
 
     }
