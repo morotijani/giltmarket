@@ -59,7 +59,7 @@
                 add_to_log($message, $admin_data['admin_id']);
 
                 $_SESSION['flash_success'] = "Sale deleted successfully!";
-                redirect(PROOT . 'acc/trades.delete.requests');
+                redirect(PROOT . 'account/trades.delete.requests');
             } else {
                 $message = "tried to delete a sale from sale requests but 'Something went wrong.'";
                 add_to_log($message, $admin_data['admin_id']);

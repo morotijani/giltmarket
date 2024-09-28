@@ -194,6 +194,7 @@
                                     $('#result-view').addClass('d-none');
                                 },
                                 success: function(data) {
+                                    console.log(data)
                                     const response = JSON.parse(data);
                                     //if (response["message"] != '') {
                                         $('.toast-body').html(response["message"]);
@@ -265,6 +266,7 @@
                                     $('#result-view').addClass('d-none');
                                 },
                                 success: function(data) {
+                                    console.log(data)
                                     const response = JSON.parse(data);
                                     //if (response["message"] != '') {
                                         $('.toast-body').html(response["message"]);
@@ -331,6 +333,7 @@
                                     $('#result-view').addClass('d-none');
                                 },
                                 success: function(data) {
+                                    console.log(data)
                                     const response = JSON.parse(data);
                                     //if (response["message"] != '') {
                                         $('.toast-body').html(response["message"]);
@@ -578,6 +581,7 @@
                         },
                         success : function(data) {
                             try {
+                                console.log(data)
                                 const response = JSON.parse(data);
                                 if (response && typeof response === "object") {
 

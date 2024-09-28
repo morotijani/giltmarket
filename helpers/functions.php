@@ -539,7 +539,7 @@ function fetch_all_sales($status, $admin, $type = null) {
 			                       </p>
 			                    </div>
 			                    <div class="px-6 py-5 bg-body-secondary d-flex justify-content-center">
-			                        <a href="'.PROOT.'acc/trades?delete_request='.$row["sale_id"].'" class="btn btn-sm btn-danger"><i class="bi bi-trash me-2"></i>Yes, Confirm delete</a>&nbsp;&nbsp;
+			                        <a href="'.PROOT.'account/trades?delete_request='.$row["sale_id"].'" class="btn btn-sm btn-danger"><i class="bi bi-trash me-2"></i>Yes, Confirm delete</a>&nbsp;&nbsp;
 			                        <button type="button" class="btn btn-sm btn-dark"data-bs-dismiss="modal">No, cancel</button>
 			                    </div>
 				            </div>
@@ -578,8 +578,8 @@ function fetch_all_sales($status, $admin, $type = null) {
 				                        <p>' . (($row["admin_last_login"] == NULL) ? 'NEVER' : pretty_date($row["admin_last_login"])) . '</p>
 				                    </li>
 								</ul><div class="p-2"></div>
-								<div class="px-6 py-5 bg-body-secondary d-flex justify-content-center">
-								<a class="btn btn-sm btn-neutral" href="' . PROOT . 'acc/admins"><i class="bi bi-people me-2"></i>All admins</a>
+								<div class="d-flex justify-content-center">
+									<a class="btn btn-light" href="' . PROOT . 'account/admins"><i class="bi bi-people me-2"></i>All admins</a>
 								</div>
 							</div>
 						</div>
@@ -610,15 +610,15 @@ function total_amount_today($admin) {
 
 	$where = '';
 	if (!admin_has_permission()) {
-		$where = ' sale_by = "'.$admin.'" AND ';
+		$where = ' AND sale_by = "'.$admin.'" ';
 	}
 
 	$thisDaySql = "
 		SELECT SUM(sale_total_amount) AS total
 		FROM `jspence_sales` 
-		WHERE $where
-		DAY(createdAt) = '{$thisDay}' 
-	    AND sale_status = 0 
+		WHERE sale_status = 0
+		$where
+	    AND DAY(createdAt) = '{$thisDay}' 
 	";
 	$statement = $conn->prepare($thisDaySql);
 	$statement->execute();
