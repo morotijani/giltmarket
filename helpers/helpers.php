@@ -318,20 +318,30 @@ function get_all_admins() {
 				<td>
 		';
 					
-		if ($row['admin_id'] != $admin_data[0]['admin_id']) {
+		if ($row['admin_id'] != $admin_data['admin_id']) {
 			$output .= '
-				<a href="' . PROOT . 'acc/admins?delete='.$row["admin_id"].'" class="btn btn-sm btn-neutral"><i class="bi bi-trash3"></i></a>
+				<a href="' . PROOT . 'acc/admins?delete='.$row["admin_id"].'" class="btn btn-sm btn-light"><span class="material-symbols-outlined">delete</span></a>
 			';
 		}
 
 		$output .= '
 				</td>
-				<td>' . (($row["admin_profile"] == NULL) ? '' : '<div class="avatar"><a href="' . PROOT . $row["admin_profile"] . '" target="_blank"><img src="' . PROOT . $row["admin_profile"] . '" clas="" style="width: 50px; height: 50px;" />') . '</a></div></td>
-				<td>' . ucwords($row["admin_fullname"]) . '</td>
-				<td>' . $row["admin_email"] . '</td>
+				<td>
+					<div class="d-flex align-items-center">
+                        <div class="avatar">
+                          <img class="avatar-img" src="' . PROOT . (($row["admin_profile"] != NULL) ? $row["admin_profile"] : 'assets/media/avatar.png') . '" alt="..." />
+                        </div>
+                        <div class="ms-4">
+                          <div>' . ucwords($row["admin_fullname"]) . '</div>
+                          <div class="fs-sm text-body-secondary">
+                            <a class="text-reset" href="mailto:' . $row["admin_email"] . '">' . $row["admin_email"] . '</a>
+                          </div>
+                        </div>
+                      </div>
+				<td>' . strtoupper($row["admin_permissions"]) . '</td>
+				<td><a class="text-muted" href="tel:' . $row["admin_phone"] . '">' . $row["admin_phone"] . '</a></td>
 				<td>' . pretty_date($row["admin_joined_date"]) . '</td>
 				<td>' . $admin_last_login . '</td>
-				<td>' . strtoupper($row["admin_permissions"]) . '</td>
 			</tr>
 		';
 	}

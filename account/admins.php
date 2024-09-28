@@ -13,9 +13,17 @@ if (!admin_is_logged_in()) {
 if (!admin_has_permission()) {
     admin_permission_redirect('index');
 }
-
 include ("../includes/header.inc.php");
-include ("../includes/nav.inc.php");
+include ("../includes/aside.inc.php");
+include ("../includes/left.nav.inc.php");
+include ("../includes/top.nav.inc.php");
+
+$total_admins = $conn->query("SELECT * FROM jspence_admin WHERE admin_status = 0")->rowCount();
+$admin_count = '';
+if ($total_admins > 0) {
+    $admin_count = '(' . $total_admins . ')';
+}
+
 
 // delete admin
 if (isset($_GET['delete'])) {
@@ -31,13 +39,13 @@ if (isset($_GET['delete'])) {
     if (isset($result)) {
 
         $message = "delete an admin with id " . $admin_id . "";
-        add_to_log($message, $admin_data[0]['admin_id']);
+        add_to_log($message, $admin_data['admin_id']);
 
         $_SESSION['flash_success'] = 'Admin has been deleted!';
-        redirect(PROOT . "acc/admins");
+        redirect(PROOT . "account/admins");
     } else {
         echo js_alert("Something went wrong!");
-        redirect(PROOT . "acc/admins");
+        redirect(PROOT . "account/admins");
     }
 }
 
@@ -46,13 +54,14 @@ if (isset($_GET['add'])) {
     $errors = '';
     $admin_fullname = ((isset($_POST['admin_fullname'])) ? sanitize($_POST['admin_fullname']) : '');
     $admin_email = ((isset($_POST['admin_email'])) ? sanitize($_POST['admin_email']) : '');
+    $admin_phone = ((isset($_POST['admin_phone'])) ? sanitize($_POST['admin_phone']) : '');
     $admin_password = ((isset($_POST['admin_password'])) ? sanitize($_POST['admin_password']) : '');
     $confirm = ((isset($_POST['confirm']))? sanitize($_POST['confirm']) : '');
     $admin_permissions = ((isset($_POST['admin_permissions']))? sanitize($_POST['admin_permissions']) : '');
     $admin_id = guidv4();
 
     if ($_POST) {
-        $required = array('admin_fullname', 'admin_email', 'admin_password', 'confirm', 'admin_permissions');
+        $required = array('admin_fullname', 'admin_email', 'admin_phone', 'admin_password', 'confirm', 'admin_permissions');
         foreach ($required as $f) {
             if (empty($f)) {
                 $errors = 'You must fill out all fields!';
@@ -71,23 +80,23 @@ if (isset($_GET['add'])) {
         if (!empty($errors)) {
             $errors;
         } else {
-            $data = array($admin_id, $admin_fullname, $admin_email, password_hash($admin_password, PASSWORD_BCRYPT), $admin_permissions);
+            $data = array($admin_id, $admin_fullname, $admin_email, $admin_phone, password_hash($admin_password, PASSWORD_BCRYPT), $admin_permissions);
             $query = "
-                INSERT INTO `jspence_admin`(`admin_id`, `admin_fullname`, `admin_email`, `admin_password`, `admin_permissions`) 
-                VALUES (?, ?, ?, ?, ?)
+                INSERT INTO `jspence_admin`(`admin_id`, `admin_fullname`, `admin_email`, `admin_phone`, `admin_password`, `admin_permissions`) 
+                VALUES (?, ?, ?, ?, ?, ?)
             ";
             $statement = $conn->prepare($query);
             $result = $statement->execute($data);
             if (isset($result)) {
 
                 $message = "added new admin ".ucwords($admin_fullname)." as a ".strtoupper($admin_permissions)."";
-                add_to_log($message, $admin_data[0]['admin_id']);
+                add_to_log($message, $admin_data['admin_id']);
 
                 $_SESSION['flash_success'] = 'Admin has been Added!';
-                redirect(PROOT . "acc/admins");
+                redirect(PROOT . "account/admins");
             } else {
                 echo js_alert("Something went wrong!");
-                redirect(PROOT . "acc/admins?add=1");
+                redirect(PROOT . "account/admins?add=1");
             }
         }
     }
@@ -96,26 +105,70 @@ if (isset($_GET['add'])) {
 
 ?>
 
-    <?php if (isset($_GET['add']) && !empty($_GET['add'])): ?>
-        <div class="mb-6 mb-xl-10">
-            <div class="row g-3 align-items-center">
-                <div class="col">
-                    <h1 class="ls-tight">Add new admin</h1>
+
+    <!-- Content -->
+    <div class="container-lg">
+        <!-- Page header -->
+        <div class="row align-items-center mb-7">
+            <div class="col-auto">
+                <!-- Avatar -->
+                <div class="avatar avatar-xl rounded text-warning">
+                    <i class="fs-2" data-duoicon="user"></i>
                 </div>
-                <div class="col">
-                    <div class="hstack gap-2 justify-content-end">
-                        <a href="<?= goBack(); ?>" class="btn btn-sm btn-neutral d-none d-sm-inline-flex"><span class="pe-2"><i class="bi bi-arrow-90deg-left"></i> </span><span>Go back</span></a> 
-                        <a href="<?= PROOT; ?>acc/admins" class="btn d-inline-flex btn-sm btn-dark"><span>Cancel</span></a>
+            </div>
+            <div class="col">
+                <!-- Breadcrumb -->
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb mb-2">
+                        <li class="breadcrumb-item"><a class="text-body-secondary" href="#">System</a></li>
+                        <li class="breadcrumb-item active" aria-current="page">Admins</li>
+                    </ol>
+                </nav>
+
+                <!-- Heading -->
+                <h1 class="fs-4 mb-0">Admins</h1>
+            </div>
+            <div class="col-12 col-sm-auto mt-4 mt-sm-0">
+                <!-- Action -->
+                <div class="row gx-2">
+                    <div class="col-6 col-sm-auto">
+                        <a class="btn btn-secondary d-block" href="<?= PROOT; ?>account/admins?add=1"> <span class="material-symbols-outlined me-1">add</span> New admin </a>
+                    </div>
+                    <div class="col-6 col-sm-auto">
+                        <a class="btn btn-light d-block" href="<?= goBack(); ?>"> Go back </a>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- Page content -->
+        <div class="row">
+            <div class="col-12">
+                <!-- Filters -->
+                <div class="card card-line bg-body-tertiary border-transparent mb-7">
+                    <div class="card-body p-4">
+                        <div class="row align-items-center">
+                            <div class="col-12 col-lg-auto mb-3 mb-lg-0">
+                                <ul class="nav nav-pills">
+                                    <li class="nav-item">
+                                        <a class="btn btn-dark active" aria-current="page" href="<?= PROOT; ?>account/admins">All admins <?= $admin_count; ?></a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
+    
+
+    <?php if (isset($_GET['add']) && !empty($_GET['add'])): ?>
 
         <div class="row justify-content-center">
             <div class="col-12">
                 <div class="card">
                     <div class="card-body d-flex flex-column">
-                        <form method="POST" action="<?= PROOT; ?>acc/admins.php?add=1">
+                        <form method="POST" action="<?= PROOT; ?>account/admins.php?add=1">
                             <div class="text-danger"><?= $errors; ?></div>
                             <div class="mb-3">
                                 <label for="admin_fullname" class="form-label">Full Name</label>
@@ -126,6 +179,11 @@ if (isset($_GET['add'])) {
                                 <label for="admin_email" class="form-label">Email</label>
                                 <input type="email" class="form-control" name="admin_email" id="admin_email" value="<?= $admin_email; ?>" required>
                                 <div class="text-sm text-muted">Enter email in this field</div>
+                            </div>
+                            <div class="mb-3">
+                                <label for="admin_email" class="form-label">Phone number</label>
+                                <input type="number" class="form-control" name="admin_phone" id="admin_phone" value="<?= $admin_phone; ?>" required>
+                                <div class="text-sm text-muted">Enter phone numner in this field</div>
                             </div>
                             <div class="mb-3">
                                 <label for="admin_password" class="form-label">Password</label>
@@ -156,36 +214,27 @@ if (isset($_GET['add'])) {
 
     <?php else: ?>
 
-        <div class="mb-6 mb-xl-10">
-            <div class="row g-3 align-items-center">
-                <div class="col">
-                    <h1 class="ls-tight">Admins</h1>
-                </div>
-                <div class="col">
-                    <div class="hstack gap-2 justify-content-end">
-                        <a href="<?= goBack(); ?>" class="btn btn-sm btn-neutral d-none d-sm-inline-flex"><span class="pe-2"><i class="bi bi-arrow-90deg-left"></i> </span><span>Go back</span></a> 
-                        <a href="<?= PROOT; ?>acc/admins?add=1" class="btn d-inline-flex btn-sm btn-dark"><span>Add admin</span></a>
-                    </div>
-                </div>
-            </div>
+        <div class="table-responsive mb-7">
+            <table class="table table-selectable align-middle mb-0">
+                <thead>
+                    <tr>
+                        <th></th>
+                        <th>Admin</th>
+                        <th>Permission</th>
+                        <th>Phone</th>
+                        <th>Joined Date</th>
+                        <th>Last Login</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?= get_all_admins(); ?>
+                </tbody>
+            </table>
         </div>
-
-        <table class="table table-success table-striped">
-            <thead>
-                <tr>
-                    <th></th>
-                    <th></th>
-                    <th>Name</th>
-                    <th>Email</th>
-                    <th>Joined Date</th>
-                    <th>Last Login</th>
-                    <th>Permission</th>
-                </tr>
-            </thead>
-            <tbody>
-                <?= get_all_admins(); ?>
-            </tbody>
-        </table>
     <?php endif ?>
+
+
+
+</div>
 
 <?php include ("../includes/footer.inc.php"); ?>
