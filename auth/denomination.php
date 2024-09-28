@@ -1,8 +1,8 @@
 <?php 
 
-header( 'Cache-Control: no-store, no-cache, must-revalidate' ); 
-header( 'Cache-Control: post-check=0, pre-check=0', false ); 
-header( 'Pragma: no-cache' );
+// header( 'Cache-Control: no-store, no-cache, must-revalidate' ); 
+// header( 'Cache-Control: post-check=0, pre-check=0', false ); 
+// header( 'Pragma: no-cache' );
 
 // Denomination
 require_once ("../db_connection/conn.php");
@@ -44,7 +44,7 @@ if (isset($_POST['denomination_200c'])) {
     $denomination_1p_amt = ((isset($_POST['denomination_1p_amt']) && !empty($_POST['denomination_1p_amt'])) ? sanitize($_POST['denomination_1p_amt']) : NULL);
     $denomination_total = ((isset($_POST['denomination_total']) && !empty($_POST['denomination_total'])) ? sanitize($_POST['denomination_total']) : NULL);
 
-    // unset($_POST);
+    unset($_POST);
     // unset($_REQUEST);
 
     $denomination_id = guidv4();

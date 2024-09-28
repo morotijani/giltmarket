@@ -288,12 +288,13 @@
                     </div>
                 </div>
             </form>
+            <?php else: ?>
+                <div class="alert alert-info">
+                    Please you are to provide today's capital given before you can complete a trade!
+                </div>
+            <?php endif; ?>
         </div>
-
-
-
- 
-    <?php endif; ?>
+   
     <?php endif; ?>
 
     <?php else: ?>
@@ -424,7 +425,7 @@
         </div>
     
         <div id="load-content"></div>
-
+    </div>
     <?php endif; ?>
 
 <?php include ("../includes/footer.inc.php"); ?>
