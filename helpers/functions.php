@@ -1037,7 +1037,7 @@ function sum_up_grams($conn, $admin) {
 	$statement->execute([0]);
 	$row = $statement->fetchAll();
 
-	return $row[0]['g'];
+	return (($row[0]['g'] == null) ? 0 : $row[0]['g']);
 }
 
 // summ all volume per admin for today
@@ -1059,7 +1059,7 @@ function sum_up_volume($conn, $admin) {
 	$statement->execute([0]);
 	$row = $statement->fetchAll();
 
-	return $row[0]['v'];
+	return (($row[0]['v'] == null) ? 0 : $row[0]['v']);
 }
 
 // summ all density per admin for today
@@ -1081,7 +1081,7 @@ function sum_up_density($conn, $admin) {
 	$statement->execute([0]);
 	$row = $statement->fetchAll();
 
-	return $row[0]['d'];
+	return (($row[0]['d'] == null) ? 0 : $row[0]['d']);
 }
 
 // summ all pounds per admin for today
@@ -1103,7 +1103,7 @@ function sum_up_pounds($conn, $admin) {
 	$statement->execute([0]);
 	$row = $statement->fetchAll();
 
-	return $row[0]['p'];
+	return (($row[0]['p'] == null) ? 0 : $row[0]['p']);
 }
 
 // summ all carat per admin for today
@@ -1117,7 +1117,7 @@ function sum_up_carat($conn, $admin) {
 	}
 	
 	$sql = "
-		SELECT UM(sale_carat) AS c 
+		SELECT SUM(sale_carat) AS c 
 		FROM jspence_sales 
 		WHERE sale_status = ? 
 	";
@@ -1125,5 +1125,5 @@ function sum_up_carat($conn, $admin) {
 	$statement->execute([0]);
 	$row = $statement->fetchAll();
 
-	return $row[0]['c'];
+	return (($row[0]['c'] == null) ? 0 : $row[0]['c']);
 }
