@@ -365,7 +365,7 @@
 			<?php endif; ?>
 
             <!-- Trades -->
-			<div class="card mb-6 mb-xxl-0">
+			<div class="card mb-6">
 				<div class="card-header">
 					<div class="row align-items-center">
 						<div class="col">
@@ -389,28 +389,36 @@
 					</div>
 				</div>
 			</div>
-		</div>
 
-		<!-- Trades -->
-		<div class="card mb-6 mb-xxl-0">
+			<!-- Trades -->
+			<div class="card mb-6 mb-xxl-0">
 				<div class="card-header">
 					<div class="row align-items-center">
 						<div class="col">
-							<h3 class="fs-6 mb-0">Units</h3>
+							<h3 class="fs-6 mb-0">Sum units</h3>
 						</div>
 						<div class="col-auto my-n3 me-n3">
-							<a class="btn btn-link" href="<?= PROOT; ?>account/units">
-							Browse all
-							<span class="material-symbols-outlined">arrow_right_alt</span>
-							</a>
+							<!-- <a class="btn btn-link" href="">
+								Browse all
+								<span class="material-symbols-outlined">arrow_right_alt</span>
+							</a> -->
 						</div>
 					</div>
 				</div>
 				<div class="card-body py-3">
 					<div class="table-responsive">
 						<table class="table table-flush align-middle mb-0">
+							<thead>
+								<tr>
+									<th>Gram</td>
+									<th>Volume</td>
+									<th>Density</td>
+									<th>Pounds</td>
+									<th>Carat</td>
+								</tr>
+							</thead>
 							<tbody>
-								<?= get_recent_trades($admin_data['admin_id']); ?>
+								<?= sum_up_given_units($conn, $admin_data['admin_id']); ?>
 							</tbody>
 						</table>
 					</div>

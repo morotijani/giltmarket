@@ -968,7 +968,7 @@ function find_admin_with_id($id) {
 
 
 // sum of
-function sum_up_given_units ($conn, $admin) {
+function sum_up_given_units($conn, $admin) {
 	$output = '';
 	$today = date("Y-m-d");
 
@@ -994,42 +994,20 @@ function sum_up_given_units ($conn, $admin) {
 		foreach ($rows as $row) {
 			$output .= '
 				<tr>
-					<td>
-						<div class="d-flex align-items-center">
-							<div class="avatar text-primary">
-							<i class="fs-4" data-duoicon="book-3"></i>
-							</div>
-							<div class="ms-4">
-							<div>' . $row["sale_id"] . '</div>
-							<div class="fs-sm text-body-secondary">Created on ' . pretty_date($row["createdAt"]) . '</div>
-							</div>
-						</div>
-					</td>
-					<td>
-						' . $type . '
-					</td>
-					<td>
-						' . money($row["sale_total_amount"]) . '
-					</td>
-					<td>
-						' . (($row["sale_customer_name"] != null) ? ucwords($row["sale_customer_name"]) : '') . '
-					</td>
+					<td>' . $row["g"] . '</td>
+					<td>' . $row["v"] . ' </td>
+					<td>' . $row["d"] . ' </td>
+					<td>' . $row["p"]. ' </td>
+					<td>' . $row["c"]. ' </td>
 				</tr>
 			';
 		}
 	} else {
-		$output = "
-			<tr>
-				<td colspan=''>
-					<div class='alert alert-info'>No data found!</div>
-				</td>
-			</tr>
-		";
 		$output = '
 			<tr>
-				<td colspan="4">
+				<td colspan="5">
 					<div class="alert alert-warning">
-						<h6 class="progress-text mb-1 d-block">No trades found today!</h6>
+						<h6 class="progress-text mb-1 d-block">No data found today!</h6>
 						<p class="text-muted text-xs">Current date time: ' . date("l jS \of F Y h:i:s A") . '</p>
 					</div>
 				</td>
