@@ -96,6 +96,84 @@
             <?php endif; ?>
         </div>
 
+        <div class="row mb-8">
+            <div class="col-12 col-md-6 col-xxl mb-4 mb-xxl-0">
+                <div class="card bg-body-tertiary border-transparent">
+                    <div class="card-body">
+                        <div class="row align-items-center">
+                            <div class="col">
+                                <!-- Heading -->
+                                <h4 class="fs-sm fw-normal text-body-secondary mb-1">Gram</h4>
+
+                                <!-- Text -->
+                                <div class="fs-4 fw-semibold">$1,250</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-12 col-md-6 col-xxl mb-4 mb-xxl-0">
+                <div class="card bg-body-tertiary border-transparent">
+                    <div class="card-body">
+                        <div class="row align-items-center">
+                            <div class="col">
+                                <!-- Heading -->
+                                <h4 class="fs-sm fw-normal text-body-secondary mb-1">Volume</h4>
+
+                                <!-- Text -->
+                                <div class="fs-4 fw-semibold">35.5 hrs</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-12 col-md-6 col-xxl mb-4 mb-md-0">
+                <div class="card bg-body-tertiary border-transparent">
+                    <div class="card-body">
+                        <div class="row align-items-center">
+                            <div class="col">
+                                <!-- Heading -->
+                                <h4 class="fs-sm fw-normal text-body-secondary mb-1">Desity</h4>
+
+                                <!-- Text -->
+                                <div class="fs-4 fw-semibold">2:55 hrs</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-12 col-md-6 col-xxl mb-4 mb-md-0">
+                <div class="card bg-body-tertiary border-transparent">
+                    <div class="card-body">
+                        <div class="row align-items-center">
+                            <div class="col">
+                                <!-- Heading -->
+                                <h4 class="fs-sm fw-normal text-body-secondary mb-1">Pounds</h4>
+
+                                <!-- Text -->
+                                <div class="fs-4 fw-semibold">14.5%</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-12 col-md-6 col-xxl">
+                <div class="card bg-body-tertiary border-transparent">
+                    <div class="card-body">
+                        <div class="row align-items-center">
+                            <div class="col">
+                                <!-- Heading -->
+                                <h4 class="fs-sm fw-normal text-body-secondary mb-1">Carat</h4>
+
+                                <!-- Text -->
+                                <div class="fs-4 fw-semibold">14.5%</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
         <!-- Page content -->
         <div class="row">
             <div class="col-12">
