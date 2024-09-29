@@ -965,3 +965,77 @@ function find_admin_with_id($id) {
 	}
 	return false;
 }
+
+
+// sum of
+function sum_up_given_units ($conn, $admin) {
+	$output = '';
+	$today = date("Y-m-d");
+
+	$where = '';
+	if (!admin_has_permission()) {
+		$where = " AND jspence_sales.sale_by = '" . $admin . "' AND CAST(createdAt AS date) = '" . $today . "'";
+	}
+	
+	$sql = "
+		SELECT SUM(sale_gram) AS g, SUM(sale_volume) AS v, SUM(sale_density) AS d, SUM(sale_pounds) AS p, SUM(sale_carat) AS c 
+		FROM jspence_sales 
+		INNER JOIN jspence_admin 
+		ON jspence_admin.admin_id = jspence_sales.sale_by
+		WHERE sale_status = ? 
+		$where 
+		GROUP BY jspence_sales.sale_by
+	";
+	$statement = $conn->prepare($sql);
+	$statement->execute([0]);
+	$rows = $statement->fetchAll();
+
+	if ($statement->rowCount() > 0) {
+		foreach ($rows as $row) {
+			$output .= '
+				<tr>
+					<td>
+						<div class="d-flex align-items-center">
+							<div class="avatar text-primary">
+							<i class="fs-4" data-duoicon="book-3"></i>
+							</div>
+							<div class="ms-4">
+							<div>' . $row["sale_id"] . '</div>
+							<div class="fs-sm text-body-secondary">Created on ' . pretty_date($row["createdAt"]) . '</div>
+							</div>
+						</div>
+					</td>
+					<td>
+						' . $type . '
+					</td>
+					<td>
+						' . money($row["sale_total_amount"]) . '
+					</td>
+					<td>
+						' . (($row["sale_customer_name"] != null) ? ucwords($row["sale_customer_name"]) : '') . '
+					</td>
+				</tr>
+			';
+		}
+	} else {
+		$output = "
+			<tr>
+				<td colspan=''>
+					<div class='alert alert-info'>No data found!</div>
+				</td>
+			</tr>
+		";
+		$output = '
+			<tr>
+				<td colspan="4">
+					<div class="alert alert-warning">
+						<h6 class="progress-text mb-1 d-block">No trades found today!</h6>
+						<p class="text-muted text-xs">Current date time: ' . date("l jS \of F Y h:i:s A") . '</p>
+					</div>
+				</td>
+			</tr>
+		';
+	}
+
+	return $output;
+}
