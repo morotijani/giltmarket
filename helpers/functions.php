@@ -1017,3 +1017,113 @@ function sum_up_given_units($conn, $admin) {
 
 	return $output;
 }
+
+// summ all gram per admin for today
+function sum_up_grams($conn, $admin) {
+	$output = '';
+	$today = date("Y-m-d");
+
+	$where = '';
+	if (!admin_has_permission()) {
+		$where = " AND jspence_sales.sale_by = '" . $admin . "' AND CAST(createdAt AS date) = '" . $today . "'";
+	}
+	
+	$sql = "
+		SELECT SUM(sale_gram) AS g 
+		FROM jspence_sales 
+		WHERE sale_status = ?
+	";
+	$statement = $conn->prepare($sql);
+	$statement->execute([0]);
+	$row = $statement->fetchAll();
+
+	return $row[0]['g'];
+}
+
+// summ all volume per admin for today
+function sum_up_volume($conn, $admin) {
+	$output = '';
+	$today = date("Y-m-d");
+
+	$where = '';
+	if (!admin_has_permission()) {
+		$where = " AND jspence_sales.sale_by = '" . $admin . "' AND CAST(createdAt AS date) = '" . $today . "'";
+	}
+	
+	$sql = "
+		SELECT SUM(sale_volume) AS v 
+		FROM jspence_sales 
+		WHERE sale_status = ? 
+	";
+	$statement = $conn->prepare($sql);
+	$statement->execute([0]);
+	$row = $statement->fetchAll();
+
+	return $row[0]['v'];
+}
+
+// summ all density per admin for today
+function sum_up_density($conn, $admin) {
+	$output = '';
+	$today = date("Y-m-d");
+
+	$where = '';
+	if (!admin_has_permission()) {
+		$where = " AND jspence_sales.sale_by = '" . $admin . "' AND CAST(createdAt AS date) = '" . $today . "'";
+	}
+	
+	$sql = "
+		SELECT SUM(sale_density) AS d 
+		FROM jspence_sales 
+		WHERE sale_status = ? 
+	";
+	$statement = $conn->prepare($sql);
+	$statement->execute([0]);
+	$row = $statement->fetchAll();
+
+	return $row[0]['d'];
+}
+
+// summ all pounds per admin for today
+function sum_up_pounds($conn, $admin) {
+	$output = '';
+	$today = date("Y-m-d");
+
+	$where = '';
+	if (!admin_has_permission()) {
+		$where = " AND jspence_sales.sale_by = '" . $admin . "' AND CAST(createdAt AS date) = '" . $today . "'";
+	}
+	
+	$sql = "
+		SELECT SUM(sale_pounds) AS p 
+		FROM jspence_sales 
+		WHERE sale_status = ? 
+	";
+	$statement = $conn->prepare($sql);
+	$statement->execute([0]);
+	$row = $statement->fetchAll();
+
+	return $row[0]['p'];
+}
+
+// summ all carat per admin for today
+function sum_up_carat($conn, $admin) {
+	$output = '';
+	$today = date("Y-m-d");
+
+	$where = '';
+	if (!admin_has_permission()) {
+		$where = " AND jspence_sales.sale_by = '" . $admin . "' AND CAST(createdAt AS date) = '" . $today . "'";
+	}
+	
+	$sql = "
+		SELECT UM(sale_carat) AS c 
+		FROM jspence_sales 
+		WHERE sale_status = ? 
+	";
+	$statement = $conn->prepare($sql);
+	$statement->execute([0]);
+	$row = $statement->fetchAll();
+
+	return $row[0]['c'];
+}
