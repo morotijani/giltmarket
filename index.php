@@ -476,7 +476,7 @@
 						<?php else: ?>
 						<div class="mb-3 d-none" id="sf">
 							<select class="form-select bg-body" name="push_to" id="push_to">
-								<option value="">Select saleperson to make a push to.</option>
+								<option value="">Select supervisor to make a push to.</option>
 								<?= get_supervisors_for_push_capital($conn); ?>	
 							</select>
 				  		</div>
@@ -527,16 +527,16 @@
 		setInterval(updateTime, 1000);
 
 		// list salepersonnel on push capital
-		$(".for_class").change(function(e) {
-			event.preventDefault()
-			var select_for = $(".for_class:checked").val();
+		// $(".for_class").change(function(e) {
+		// 	event.preventDefault()
+		// 	var select_for = $(".for_class:checked").val();
 
-			if (select_for == 'saleperson') {
-				$('#sf').removeClass('d-none');
-			} else {
-				$('#sf').addClass('d-none');
-			}
-		});
+		// 	if (select_for == 'saleperson') {
+		// 		$('#sf').removeClass('d-none');
+		// 	} else {
+		// 		$('#sf').addClass('d-none');
+		// 	}
+		// });
 
 
 		$('#submitCapital').on('click', function() {

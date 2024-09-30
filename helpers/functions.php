@@ -927,6 +927,17 @@ function get_salepersons_for_push_capital($conn) {
 	return $output;
 }
 
+//
+function get_supervisors_for_push_capital($conn) {
+	$rows = $conn->query("SELECT * FROM jspence_admin WHERE admin_permissions = 'supervisor' AND admin_status = 0")->fetchAll();
+	$output = '';
+	foreach ($rows as $row) {
+		$output .= '<option value="' . $row['admin_id'] . '">' . ucwords($row["admin_fullname"]) . '</option>';
+	}
+
+	return $output;
+}
+
 // find daily to push
 function find_dialy_for_push($t, $id) {
 	global $conn;
