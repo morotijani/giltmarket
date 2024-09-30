@@ -16,7 +16,9 @@
 
 			$given = sanitize($_POST['today_given']);
 			$today_date = sanitize($_POST['today_date']);
-			$push_for = ((isset($_POST['push_for']) && !empty($_POST['push_for'])) ? sanitize($_POST['push_for']) : '');
+			
+			// $push_for = ((isset($_POST['push_for']) && !empty($_POST['push_for'])) ? sanitize($_POST['push_for']) : '');
+			
 			$push_to = ((isset($_POST['push_to']) && !empty($_POST['push_to'])) ? sanitize($_POST['push_to']) : '');
 
 			$today = date("Y-m-d");
@@ -25,15 +27,11 @@
 			$push_from = $admin_data['admin_id'];
 
 			if ($today_date == $today) {
-				$daily_to = $push_from;
-				$findCapital = find_capital_given_to($daily_to, $today);
-				if ($push_for == 'saleperson') {
-					$daily_to = $push_to;
-					$findCapital = find_capital_given_to($daily_to, $today);
-				}
+				// $daily_to = $push_from;
+				$findCapital = find_capital_given_to($push_to, $today);
 
 				// get today capital
-				$c = _capital($daily_to)['today_capital'];
+				$c = _capital($push_to)['today_capital'];
 
 				// check if capital has been given
 				if ($findCapital) {
@@ -54,14 +52,14 @@
 					$daily_data = [$c, $bal, $today, $daily_to];
 					$message = "on this day " . $today . ", capital updated of an amount " . money($c) . ', added amount ' . money($g) . (($daily_to == $admin_data['admin_id']) ? ' for self.' : '');
 				} else {
-					$daily_data = [$daily_id, $given, $today, $daily_to];
+					$daily_data = [$daily_id, $given, $today, $push_to];
 					
 					// insert into daily
 					$dailyQ = "
 						INSERT INTO jspence_daily (daily_id, daily_capital, daily_date, daily_to) 
 						VALUES (?, ?, ?, ?)
 					";
-					$message = "on this day " . $today . ", capital entered of an amount of " . money($c) . (($daily_to == $admin_data['admin_id']) ? ' for self.' : '');
+					$message = "on this day " . $today . ", capital entered of an amount of " . money($c) . ' to salepersonnel';
 				}
 
 				$statement = $conn->prepare($dailyQ);
