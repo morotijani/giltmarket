@@ -163,7 +163,6 @@
                             <div class="collapse " id="customers">
                             <nav class="nav nav-pills">
                                 <a class="nav-link " href="<?= PROOT; ?>account/admins">Admins</a>
-                                <!-- <a class="nav-link " href="./customer.html">Admin details</a> -->
                                 <a class="nav-link " href="<?= PROOT; ?>account/admins?add=1">New admin</a>
                             </nav>
                             </div>
