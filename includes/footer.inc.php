@@ -2,6 +2,7 @@
 
     </main>
 
+    <!-- TRADE MODAL -->
     <div class="modal fade" id="buyModal" tabindex="-1" aria-labelledby="buyModalLabel" aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="false" style="backdrop-filter: blur(5px);">
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content overflow-hidden bg-body-tertiary">

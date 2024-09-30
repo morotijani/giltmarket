@@ -433,7 +433,7 @@
 </div>
 
 <!-- Push todays capital -->
-<?php if ($admin_data['admin_permissions'] == 'supervisor'): ?>
+<?php if (admin_has_permission('supervisor')): ?>
 	<div class="modal fade" id="modalCapital" tabindex="-1" aria-labelledby="modalCapital" aria-hidden="true" style="backdrop-filter: blur(5px);">
 		<div class="modal-dialog modal-dialog-centered">
 			<div class="modal-content shadow-3">
@@ -442,8 +442,8 @@
 						<i class="bi bi-currency-exchange"></i>
 					</div>
 					<div>
-						<h5 class="mb-1">Push Capital</h5>
-						<small class="d-block text-xs text-muted">You are to give todays capital before you can start trade.</small>
+						<h5 class="mb-1">Push capital</h5>
+						<small class="d-block text-xs text-muted">You are to send todays capital to <?= ((admin_has_permission()) ? 'supervisor' : 'saleperson'); ?> before start trade.</small>
 					</div>
 				</div>
 				<form method="POST" id="capitalForm">
@@ -452,11 +452,11 @@
 							<label class="form-label">Today's Date</label> 
 							<input class="form-control" name="today_date" id="today_date" type="date" value="<?php echo date('Y-m-d'); ?>">
 						</div>
-						<div class="mb-4">
+						<!-- <div class="mb-4">
 							<div class="form-check mb-2">
 								<input class="form-check-input for_class" type="radio" name="push_for" id="flexRadioDefault1" value="self">
 								<label class="form-check-label" for="flexRadioDefault1">
-									For Self
+									For Supervisor
 								</label>
 							</div>
 							<div class="form-check mb-2">
@@ -465,13 +465,22 @@
 									For Saleperson
 								</label>
 							</div>
-						</div>
+						</div> -->
+						<?php if (admin_has_permission()): ?>
 						<div class="mb-3 d-none" id="sf">
 							<select class="form-select bg-body" name="push_to" id="push_to">
 								<option value="">Select saleperson to make a push to.</option>
 								<?= get_salepersons_for_push_capital($conn); ?>	
 							</select>
 				  		</div>
+						<?php else: ?>
+						<div class="mb-3 d-none" id="sf">
+							<select class="form-select bg-body" name="push_to" id="push_to">
+								<option value="">Select saleperson to make a push to.</option>
+								<?= get_supervisors_for_push_capital($conn); ?>	
+							</select>
+				  		</div>
+						<?php endif; ?>
 						<div class="">
 							<label class="form-label">Amount given</label> 
 							<input class="form-control" placeholder="0.00" name="today_given" id="today_given" type="number" min="0.00" step="0.01">
