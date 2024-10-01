@@ -191,7 +191,7 @@
 								<h4 class="fs-base fw-normal text-body-secondary mb-1"><?= ((admin_has_permission()) ? 'Today' : 'Capital'); ?></h4>
 
 								<!-- Text -->
-								<div class="fs-5 fw-semibold"><?= ((admin_has_permission()) ? total_amount_today($admin_data['admin_id']) : money(_capital($admin_data["admin_id"])['today_capital'])); ?></div>
+								<div class="fs-5 fw-semibold"><?= ((admin_has_permission()) ? total_amount_today($admin_id) : money(_capital($admin_id)['today_capital'])); ?></div>
 							</div>
 							<div class="col-auto">
 								<!-- Avatar -->
