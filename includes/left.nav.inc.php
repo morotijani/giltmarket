@@ -65,14 +65,14 @@
                             class="nav-link nav-dashboard"
                             href="<?= PROOT; ?>index#"
                             data-bs-toggle="collapse"
-                            data-bs-target="#dashboards"
+                            data-bs-target="#dashboard"
                             rol="button"
                             aria-expanded="false"
-                            aria-controls="dashboards"
+                            aria-controls="dashboard"
                             >
                             <span class="material-symbols-outlined me-3">space_dashboard</span> Dashboards
                             </a>
-                            <div class="collapse show" id="dashboards">
+                            <div class="collapse" id="dashboard">
                                 <nav class="nav nav-pills">
                                     <a class="nav-link nav-child" href="<?= PROOT; ?>index"><?= _admin_position($admin_data['admin_permissions']); ?></a>
                                     <?php if (admin_has_permission()): ?>
@@ -86,14 +86,14 @@
                             class="nav-link nav-market"
                             href="#"
                             data-bs-toggle="collapse"
-                            data-bs-target="#orders"
+                            data-bs-target="#market"
                             rol="button"
                             aria-expanded="false"
-                            aria-controls="orders"
+                            aria-controls="market"
                             >
                             <span class="material-symbols-outlined me-3">storefront</span> Market
                             </a>
-                            <div class="collapse " id="orders">
+                            <div class="collapse " id="market">
                             <nav class="nav nav-pills">
                                     <a class="nav-link nav-child" href="<?= PROOT; ?>account/trades">Trades</a>
                                     <?php if (admin_has_permission('salesperson')): ?>
@@ -112,14 +112,14 @@
                             class="nav-link nav-expenditure"
                             href="#"
                             data-bs-toggle="collapse"
-                            data-bs-target="#projects"
+                            data-bs-target="#expenditure"
                             rol="button"
                             aria-expanded="false"
-                            aria-controls="projects"
+                            aria-controls="expenditure"
                             >
                                 <span class="material-symbols-outlined me-3">payments</span> Expenditure
                             </a>
-                            <div class="collapse " id="projects">
+                            <div class="collapse " id="expenditure">
                                 <nav class="nav nav-pills">
                                     <a class="nav-link nav-child" href="<?= PROOT; ?>account/expenditure">Expenditures</a>
                                     <?php if ($admin_data['admin_permissions'] == 'salesperson'): ?>
@@ -153,14 +153,14 @@
                             class="nav-link nav-admins"
                             href="#"
                             data-bs-toggle="collapse"
-                            data-bs-target="#customers"
+                            data-bs-target="#admins"
                             rol="button"
                             aria-expanded="false"
-                            aria-controls="customers"
+                            aria-controls="admins"
                             >
                             <span class="material-symbols-outlined me-3">group</span> Admins
                             </a>
-                            <div class="collapse " id="customers">
+                            <div class="collapse " id="admins">
                             <nav class="nav nav-pills">
                                 <a class="nav-link nav-child" href="<?= PROOT; ?>account/admins">Admins</a>
                                 <a class="nav-link nav-child" href="<?= PROOT; ?>account/admins?add=1">New admin</a>
@@ -192,14 +192,14 @@
                             class="nav-link nav-logs"
                             href="#"
                             data-bs-toggle="collapse"
-                            data-bs-target="#authentication"
+                            data-bs-target="#logs"
                             rol="button"
                             aria-expanded="false"
-                            aria-controls="authentication"
+                            aria-controls="logs"
                             >
                             <span class="material-symbols-outlined me-3">list_alt</span> Logs
                             </a>
-                            <div class="collapse" id="authentication">
+                            <div class="collapse" id="logs">
                                 <nav class="nav nav-pills">
                                     <a class="nav-link nav-child" href="<?= PROOT; ?>account/logs">Logs</a>
                                 </nav>
