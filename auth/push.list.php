@@ -16,9 +16,7 @@ if ($_POST['page'] > 1) {
 }
 
 $where = '';
-if (admin_has_permission()) {
-    // $where = ' AND push_to = "' . $admin_data["admin_id"] . '" AND push_from =  "' . $admin_data["admin_id"] . '" AND CAST(jspence_pushes.createdAt AS date) = "' . $today . '" ';
-} else if ($admin_data['admin_permissions'] == 'supervisor') {
+if ($admin_data['admin_permissions'] == 'supervisor') {
 	$where = ' AND (push_to = "' . $admin_id . '" OR push_from IN (SELECT push_from FROM jspence_pushes WHERE push_from = "' . $admin_id . '")) AND push_date = "' . $today . '" ';
 } else if ($admin_data['admin_permissions'] == 'salesperson') {
 	$where = ' AND push_to = "' . $admin_id . '" AND push_date = "' . $today . '" ';
