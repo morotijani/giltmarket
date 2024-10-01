@@ -168,7 +168,12 @@
             $('.nav-dashboard').addClass('active');
             $('.nav-dashboard').attr('aria-expanded', true);
             $('#dashboard').addClass('show');
-
+        }
+        
+        if (window.location.href.indexOf("analytics") > -1) {
+            $('.nav-dashboard').addClass('active');
+            $('.nav-dashboard').attr('aria-expanded', true);
+            $('#dashboard').addClass('show');
         }
 
         if ((window.location.href.indexOf("trades") > -1) || (window.location.href.indexOf("end-trade") > -1)) {

@@ -530,6 +530,7 @@
 	});
 
 </script>
+<?php if (admin_has_permission()) : ?>
 <script type="text/javascript">
     /* globals Chart:false, feather:false */
 
@@ -604,3 +605,4 @@
 	})()
 	
 </script>
+<?php endif; ?>
