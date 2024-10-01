@@ -90,12 +90,11 @@
 					}
 					add_to_log($message, $admin_id);
 	
-					$_SESSION['flash_success'] = 'Today capital pushed to ' . (($push_for == 'saleperson') ? 'other' : 'self') . ' successfully!';
-					redirect(PROOT);
+					$_SESSION['flash_success'] = 'Today capital pushed to ' . ((admin_has_permission()) ? ' supervisor' : 'saleperson'). ' successfully!';
 				} else {
 					echo js_alert('Something went wrong, please refresh and try agin!');
-					redirect(PROOT);
 				}
+				redirect(PROOT);
 			}
 		}
 	}
@@ -466,21 +465,19 @@
 								</label>
 							</div>
 						</div> -->
-						<?php if (admin_has_permission()): ?>
-						<div class="mb-3 d-none" id="sf">
-							<select class="form-select bg-body" name="push_to" id="push_to">
-								<option value="">Select saleperson to make a push to.</option>
-								<?= get_salepersons_for_push_capital($conn); ?>	
+						<?php  ?>
+						<div class="mb-3" id="sf">
+							<select class="form-select" name="push_to" id="push_to">
+								<option value="">Select <?= ((admin_has_permission()) ? 'supervisor' : 'saleperson'); ?> to make a push to.</option>
+								<?php 
+									if (admin_has_permission()) {
+										echo get_supervisors_for_push_capital($conn);
+									} else {
+										echo get_salepersons_for_push_capital($conn);
+									}
+								?>
 							</select>
 				  		</div>
-						<?php else: ?>
-						<div class="mb-3 d-none" id="sf">
-							<select class="form-select bg-body" name="push_to" id="push_to">
-								<option value="">Select supervisor to make a push to.</option>
-								<?= get_supervisors_for_push_capital($conn); ?>	
-							</select>
-				  		</div>
-						<?php endif; ?>
 						<div class="">
 							<label class="form-label">Amount given</label> 
 							<input class="form-control" placeholder="0.00" name="today_given" id="today_given" type="number" min="0.00" step="0.01">
