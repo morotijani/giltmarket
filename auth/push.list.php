@@ -71,6 +71,7 @@ $output = '
                         <th>From</th>
                         <th></th>
                         <th>Date</th>
+						<th></th>
                     </tr>
                 </thead>
                 <tbody>
@@ -83,14 +84,9 @@ if ($total_data > 0) {
         $_from = find_admin_with_id($row["push_from"]);
         $_to = find_admin_with_id($row["push_to"]);
 
-        $option = ''; //////////
-       // if ($admin_data['admin_permissions'] == 'supervisor' && $row["pdate"] == date("Y-m-d")) {
-    	if (admin_has_permission('supervisor') && $row["pdate"] == date("Y-m-d")) {
-           $option = '
-                <td class="text-end">
-                    <a href="javascript:;" data-bs-target="#deleteModal_' . $row["pid"] . '" data-bs-toggle="modal" class="badge bg-dark"> Reverse push </a>
-                </td>
-           '; 
+        $option = '';
+    	if (admin_has_permission('supervisor') && $row["push_date"] == date("Y-m-d") && $row["push_from"] == $admin_id) {
+           $option = '<a href="javascript:;" data-bs-target="#deleteModal_' . $row["pid"] . '" data-bs-toggle="modal" class="badge bg-dark"> Reverse push </a>'; 
         }
 		
 		$s = '';
@@ -110,7 +106,7 @@ if ($total_data > 0) {
                 <td>' . ucwords($_to['admin_fullname']) . '</td>
                 <td>' . $s . '</td>
                 <td>'. pretty_date($row["pca"]) .'</td>
-                ' . $option . '
+                <td class="text-end">' . $option . '</td>
             </tr>
 		';
 		$i++;
