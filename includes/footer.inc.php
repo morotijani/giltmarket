@@ -134,6 +134,54 @@
         </div>
     </div>
 
+    <!-- Push todays capital -->
+    <?php if (admin_has_permission('supervisor')): ?>
+	<div class="modal fade" id="modalCapital" tabindex="-1" aria-labelledby="modalCapital" aria-hidden="true" style="backdrop-filter: blur(5px);">
+		<div class="modal-dialog modal-dialog-centered">
+			<div class="modal-content shadow-3">
+				<div class="modal-header justify-content-start">
+					<div class="icon icon-shape rounded-3 bg-primary-subtle text-primary text-lg me-4">
+						<i class="bi bi-currency-exchange"></i>
+					</div>
+					<div>
+						<h5 class="mb-1">Push capital</h5>
+						<small class="d-block text-xs text-muted">You are to send todays capital to <?= ((admin_has_permission()) ? 'supervisor' : 'saleperson'); ?> before start trade.</small>
+					</div>
+				</div>
+				<form method="POST" id="capitalForm" action="<?= PROOT; ?>auth/make.push.php">
+					<div class="modal-body">
+						<div class="mb-4">
+							<label class="form-label">Today's Date</label> 
+							<input class="form-control" name="today_date" id="today_date" type="date" value="<?php echo date('Y-m-d'); ?>" required>
+						</div>
+						<?php  ?>
+						<div class="mb-3">
+							<select class="form-select" name="push_to" id="push_to" required>
+								<option value="">Select <?= ((admin_has_permission()) ? 'supervisor' : 'saleperson'); ?> to make a push to.</option>
+								<?php 
+									if (admin_has_permission()) {
+										echo get_supervisors_for_push_capital($conn);
+									} else {
+										echo get_salepersons_for_push_capital($conn);
+									}
+								?>
+							</select>
+				  		</div>
+						<div class="">
+							<label class="form-label">Amount given</label> 
+							<input class="form-control" placeholder="0.00" name="today_given" id="today_given" type="number" min="0.00" step="0.01" required>
+						</div>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-sm btn-light" data-bs-dismiss="modal">Close</button>&nbsp;&nbsp;
+						<button type="button" id="submitCapital" class="btn btn-sm btn-warning">Push</button>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+    <?php endif; ?>
+
     <!-- TOAST FOR LIVE MESSAGES -->
     <div aria-live="polite" aria-atomic="true" class="d-flex justify-content-center align-items-center w-100">
         <div id="live-toast" class="toast fade hide position-fixed rounded" role="alert" aria-live="assertive" aria-atomic="true" style="background-color: #6e46cc; right: 6px; bottom: 0; z-index: 99999;">
@@ -224,6 +272,23 @@
 
             // Fade out messages
             $("#temporary").fadeOut(5000);
+
+            // make a push
+            $('#submitCapital').on('click', function() {
+			if ($("input[name='push_for'][value='saleperson']").prop("checked")) {
+				if ($("#push_to").val() == '') {
+					alert("You will have to select a sale person to proceed!");
+					return false;
+				}
+			}
+
+			$('#submitCapital').attr('disabled', true);
+			$('#submitCapital').text('Pushing ...');
+			
+			setInterval(function () {
+				$('#capitalForm').submit();
+			}, 2000)
+		})
 
             // Calculation made with current price input
             $('#current_price').on('keyup', function(e) {

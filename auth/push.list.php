@@ -95,7 +95,7 @@ if ($total_data > 0) {
 		}
 
 		$output .= '
-            <tr class="' . ((admin_has_permission() && $row["push_date"] == date("Y-m-d")) ? 'table-danger' : '') . '">
+            <tr class="' . ((admin_has_permission() && $row["push_date"] == date("Y-m-d")) ? 'table-info' : '') . '">
                 <td>' . $i . '</td>
                 <td>' . $row["push_id"] . '</td>
                 <td>' . $row["push_daily"] . '</td>

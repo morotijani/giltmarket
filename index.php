@@ -10,97 +10,6 @@
     include ("includes/left.nav.inc.php");
     include ("includes/top.nav.inc.php");
 
-	// insert daily capital given
-	if (isset($_POST['today_given'])) {
-		if (!empty($_POST['today_given']) || $_POST['today_given'] != '') {
-			if (!empty($_POST['push_to']) || $_POST['push_to'] != '') {
-
-				$given = sanitize($_POST['today_given']);
-				$today_date = sanitize($_POST['today_date']);
-				
-				// $push_for = ((isset($_POST['push_for']) && !empty($_POST['push_for'])) ? sanitize($_POST['push_for']) : '');
-				
-				$push_to = ((isset($_POST['push_to']) && !empty($_POST['push_to'])) ? sanitize($_POST['push_to']) : '');
-
-				$today = date("Y-m-d");
-				$daily_id = guidv4();
-				$push_id = guidv4();
-				$push_from = $admin_data['admin_id'];
-
-				if ($today_date == $today) {
-					// $daily_to = $push_from;
-					$findCapital = find_capital_given_to($push_to, $today);
-
-					// get today capital from whom we are pushing to
-					$c = _capital($push_to)['today_capital'];
-
-					// check if capital has been given
-					if ($findCapital) {
-
-						$g = $given;
-						$c = (float)($g + $c);
-
-						$bal = _capital($push_to)['today_balance'];
-						// check if we are sending to salepersonnel from supervisor
-						if (!admin_has_permission()) {
-							$bal = ((_capital($push_to)['today_balance'] == null) ? null : (float)($g + _capital($push_to)['today_balance']));
-						}
-
-						// update daily capital and balance
-						$dailyQ = "
-							UPDATE `jspence_daily` 
-							SET `daily_capital` = ?, `daily_balance` = ? 
-							WHERE `daily_date` = ? AND `daily_to` = ?
-						";
-						$daily_data = [$c, $bal, $today, $push_to];
-						$message = "on this day " . $today . ", capital updated of an amount " . money($c) . ', added amount ' . money($g) .  'for a ' .((admin_has_permission()) ? ' supervisor' : 'saleperson') . ' id: ' . $push_to;
-					} else {
-						$daily_data = [$daily_id, $given, $today, $push_to];
-						
-						// insert into daily
-						$dailyQ = "
-							INSERT INTO jspence_daily (daily_id, daily_capital, daily_date, daily_to) 
-							VALUES (?, ?, ?, ?)
-						";
-						$message = "on this day " . $today . ", capital entered of an amount of " . money($c) . ' to a ' . ((admin_has_permission()) ? ' supervisor' : 'saleperson') . ' id: ' . $push_to;
-					}
-
-					$statement = $conn->prepare($dailyQ);
-					$daily_result = $statement->execute($daily_data);
-
-					// find the just enetered capital id
-					if (!$findCapital) {
-						$LID = $conn->lastInsertId();
-						$q = $conn->query("SELECT * FROM jspence_daily WHERE id = '" . $LID . "' LIMIT 1")->fetchAll();
-						$findCapital = $q[0]['daily_id'];
-					}
-
-					if (isset($daily_result)) {
-						// insert into push table
-						$push_data = [$push_id, $findCapital, $given, $push_from, $push_to, $today];
-						$sql = "
-							INSERT INTO jspence_pushes (push_id, push_daily, push_amount, push_from, push_to, push_date) 
-							VALUES (?, ?, ?, ?, ?, ?)
-						";
-						$statement = $conn->prepare($sql);
-						$push_result = $statement->execute($push_data);
-
-						if (isset($push_result)) {
-							$push_message = "push made on " . $today . ", of an amount of " . money($given) . ' to a ' . ((admin_has_permission()) ? ' supervisor' : 'saleperson') . ' id: ' . $push_to;
-							add_to_log($push_message, $admin_id);
-						}
-						add_to_log($message, $admin_id);
-		
-						$_SESSION['flash_success'] = 'Today capital pushed to ' . ((admin_has_permission()) ? ' supervisor' : 'saleperson'). ' successfully!';
-					} else {
-						echo js_alert('Something went wrong, please refresh and try agin!');
-					}
-					redirect(PROOT);
-				}
-			}
-		}
-	}
-
 	// statisticall calculations
 	$thisYr = date("Y");
 	$lastYr = $thisYr - 1;
@@ -432,56 +341,6 @@
 		</div>
 	</div>
 </div>
-
-<!-- Push todays capital -->
-<?php if (admin_has_permission('supervisor')): ?>
-	<div class="modal fade" id="modalCapital" tabindex="-1" aria-labelledby="modalCapital" aria-hidden="true" style="backdrop-filter: blur(5px);">
-		<div class="modal-dialog modal-dialog-centered">
-			<div class="modal-content shadow-3">
-				<div class="modal-header justify-content-start">
-					<div class="icon icon-shape rounded-3 bg-primary-subtle text-primary text-lg me-4">
-						<i class="bi bi-currency-exchange"></i>
-					</div>
-					<div>
-						<h5 class="mb-1">Push capital</h5>
-						<small class="d-block text-xs text-muted">You are to send todays capital to <?= ((admin_has_permission()) ? 'supervisor' : 'saleperson'); ?> before start trade.</small>
-					</div>
-				</div>
-				<form method="POST" id="capitalForm">
-					<div class="modal-body">
-						<div class="mb-4">
-							<label class="form-label">Today's Date</label> 
-							<input class="form-control" name="today_date" id="today_date" type="date" value="<?php echo date('Y-m-d'); ?>" required>
-						</div>
-						<?php  ?>
-						<div class="mb-3">
-							<select class="form-select" name="push_to" id="push_to" required>
-								<option value="">Select <?= ((admin_has_permission()) ? 'supervisor' : 'saleperson'); ?> to make a push to.</option>
-								<?php 
-									if (admin_has_permission()) {
-										echo get_supervisors_for_push_capital($conn);
-									} else {
-										echo get_salepersons_for_push_capital($conn);
-									}
-								?>
-							</select>
-				  		</div>
-						<div class="">
-							<label class="form-label">Amount given</label> 
-							<input class="form-control" placeholder="0.00" name="today_given" id="today_given" type="number" min="0.00" step="0.01" required>
-						</div>
-					</div>
-					<div class="modal-footer">
-						<button type="button" class="btn btn-sm btn-light" data-bs-dismiss="modal">Close</button>&nbsp;&nbsp;
-						<button type="button" id="submitCapital" class="btn btn-sm btn-warning">Push</button>
-					</div>
-				</form>
-			</div>
-		</div>
-	</div>
-<?php endif; ?>
-
-
 		
 <?php include ("includes/footer.inc.php"); ?>
 
@@ -510,23 +369,6 @@
 			document.getElementById('time_span').innerHTML = t_str;
 		}
 		setInterval(updateTime, 1000);
-
-
-		$('#submitCapital').on('click', function() {
-			if ($("input[name='push_for'][value='saleperson']").prop("checked")) {
-				if ($("#push_to").val() == '') {
-					alert("You will have to select a sale person to proceed!");
-					return false;
-				}
-			}
-
-			$('#submitCapital').attr('disabled', true);
-			$('#submitCapital').text('Pushing ...');
-			
-			setInterval(function () {
-				$('#capitalForm').submit();
-			}, 2000)
-		})
 	});
 
 </script>
