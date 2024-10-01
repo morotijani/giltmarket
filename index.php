@@ -106,7 +106,7 @@
 
 	$where = '';
 	if (!admin_has_permission()) {
-		$where = ' AND sale_by = "'.$admin_data['admin_id'].'"';
+		$where = ' AND sale_by = "' . $admin_id . '"';
 	}
 
 	$thisYrQ = "
