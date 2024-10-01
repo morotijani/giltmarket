@@ -62,8 +62,8 @@
                     <nav class="navbar-nav nav-pills mb-7">
                         <div class="nav-item">
                             <a
-                            class="nav-link active"
-                            href="#"
+                            class="nav-link nav-dashboard"
+                            href="<?= PROOT; ?>index#"
                             data-bs-toggle="collapse"
                             data-bs-target="#dashboards"
                             rol="button"
@@ -74,16 +74,16 @@
                             </a>
                             <div class="collapse show" id="dashboards">
                                 <nav class="nav nav-pills">
-                                    <a class="nav-link active" href="<?= PROOT; ?>index"><?= _admin_position($admin_data['admin_permissions']); ?></a>
+                                    <a class="nav-link nav-child" href="<?= PROOT; ?>index"><?= _admin_position($admin_data['admin_permissions']); ?></a>
                                     <?php if (admin_has_permission()): ?>
-                                    <a class="nav-link" href="<?= PROOT; ?>account/analytics">Analytics</a>
+                                    <a class="nav-link nav-child" href="<?= PROOT; ?>account/analytics">Analytics</a>
                                     <?php endif; ?>
                                 </nav>
                             </div>
                         </div>
                         <div class="nav-item">
                             <a
-                            class="nav-link "
+                            class="nav-link nav-market"
                             href="#"
                             data-bs-toggle="collapse"
                             data-bs-target="#orders"
@@ -95,13 +95,13 @@
                             </a>
                             <div class="collapse " id="orders">
                             <nav class="nav nav-pills">
-                                    <a class="nav-link " href="<?= PROOT; ?>account/trades">Trades</a>
+                                    <a class="nav-link nav-child" href="<?= PROOT; ?>account/trades">Trades</a>
                                     <?php if (admin_has_permission('salesperson')): ?>
-                                    <a class="nav-link " href="<?= PROOT; ?>account/expenditure">Expenditures</a>
+                                    <a class="nav-link nav-child" href="<?= PROOT; ?>account/expenditure">Expenditures</a>
                                     <?php endif; ?>
                                     <?php if (!admin_has_permission()): ?>
-                                    <a class="nav-link " href="javascript:;" data-bs-target="#buyModal" data-bs-toggle="modal">New trade</a>
-                                    <a class="nav-link " href="<?= PROOT; ?>account/end-trade">End trade</a>
+                                    <a class="nav-link nav-child" href="javascript:;" data-bs-target="#buyModal" data-bs-toggle="modal">New trade</a>
+                                    <a class="nav-link nav-child" href="<?= PROOT; ?>account/end-trade">End trade</a>
                                     <?php endif; ?>
                                 </nav>
                             </div>
@@ -109,7 +109,7 @@
                         <?php if (admin_has_permission('salesperson')): ?>
                         <div class="nav-item">
                             <a
-                            class="nav-link "
+                            class="nav-link nav-expenditure"
                             href="#"
                             data-bs-toggle="collapse"
                             data-bs-target="#projects"
@@ -121,9 +121,9 @@
                             </a>
                             <div class="collapse " id="projects">
                                 <nav class="nav nav-pills">
-                                    <a class="nav-link " href="<?= PROOT; ?>account/expenditure">Expenditures</a>
+                                    <a class="nav-link nav-child" href="<?= PROOT; ?>account/expenditure">Expenditures</a>
                                     <?php if ($admin_data['admin_permissions'] == 'salesperson'): ?>
-                                    <a class="nav-link " href="<?= PROOT; ?>account/expenditure?add=1">New expenditure</a>
+                                    <a class="nav-link nav-child" href="<?= PROOT; ?>account/expenditure?add=1">New expenditure</a>
                                     <?php endif; ?>
                                 </nav>
                             </div>
@@ -131,7 +131,7 @@
                         <?php endif; ?>
                         <div class="nav-item">
                             <a
-                            class="nav-link "
+                            class="nav-link nav-pushes"
                             href="#"
                             data-bs-toggle="collapse"
                             data-bs-target="#pushes"
@@ -143,14 +143,14 @@
                             </a>
                             <div class="collapse " id="pushes">
                                 <nav class="nav nav-pills">
-                                    <a class="nav-link " href="<?= PROOT; ?>account/pushes">Pushes</a>
+                                    <a class="nav-link nav-child" href="<?= PROOT; ?>account/pushes">Pushes</a>
                                 </nav>
                             </div>
                         </div>
                         <?php if (admin_has_permission()): ?>
                         <div class="nav-item">
                             <a
-                            class="nav-link "
+                            class="nav-link nav-admins"
                             href="#"
                             data-bs-toggle="collapse"
                             data-bs-target="#customers"
@@ -162,15 +162,15 @@
                             </a>
                             <div class="collapse " id="customers">
                             <nav class="nav nav-pills">
-                                <a class="nav-link " href="<?= PROOT; ?>account/admins">Admins</a>
-                                <a class="nav-link " href="<?= PROOT; ?>account/admins?add=1">New admin</a>
+                                <a class="nav-link nav-child" href="<?= PROOT; ?>account/admins">Admins</a>
+                                <a class="nav-link nav-child" href="<?= PROOT; ?>account/admins?add=1">New admin</a>
                             </nav>
                             </div>
                         </div>
                         <?php endif; ?>
                         <div class="nav-item">
                             <a
-                            class="nav-link "
+                            class="nav-link nav-account"
                             href="#"
                             data-bs-toggle="collapse"
                             data-bs-target="#account"
@@ -182,14 +182,14 @@
                             </a>
                             <div class="collapse " id="account">
                                 <nav class="nav nav-pills">
-                                    <a class="nav-link " href="<?= PROOT; ?>account/profile">Account overview</a>
-                                    <a class="nav-link " href="<?= PROOT; ?>account/settings">Account settings</a>
+                                    <a class="nav-link nav-child" href="<?= PROOT; ?>account/profile">Account overview</a>
+                                    <a class="nav-link nav-child" href="<?= PROOT; ?>account/settings">Account settings</a>
                                 </nav>
                             </div>
                         </div>
                         <div class="nav-item">
                             <a
-                            class="nav-link"
+                            class="nav-link nav-logs"
                             href="#"
                             data-bs-toggle="collapse"
                             data-bs-target="#authentication"
@@ -201,7 +201,7 @@
                             </a>
                             <div class="collapse" id="authentication">
                                 <nav class="nav nav-pills">
-                                    <a class="nav-link" href="<?= PROOT; ?>account/logs">Logs</a>
+                                    <a class="nav-link nav-child" href="<?= PROOT; ?>account/logs">Logs</a>
                                 </nav>
                             </div>
                         </div>
@@ -213,18 +213,18 @@
                         <!-- Nav -->
                         <nav class="navbar-nav mb-xl-7">
                             <div class="nav-item">
-                                <a class="nav-link " href="javascript:;">
+                                <a class="nav-link nav-child" href="javascript:;">
                                     <span class="material-symbols-outlined me-3">sticky_note_2</span> Getting started
                                     <span class="badge text-bg-primary ms-auto">v1.0.0</span>
                                 </a>
                             </div>
                             <div class="nav-item">
-                                <a class="nav-link " href="<?= PROOT; ?>account/profile">
+                                <a class="nav-link nav-child" href="<?= PROOT; ?>account/profile">
                                     <span class="material-symbols-outlined me-3">face</span> Account
                                 </a>
                             </div>
                             <div class="nav-item">
-                                <a class="nav-link " href="<?= PROOT; ?>auth/logout">
+                                <a class="nav-link nav-child" href="<?= PROOT; ?>auth/logout">
                                     <span class="material-symbols-outlined me-3">login</span> Logout
                                 </a>
                             </div>

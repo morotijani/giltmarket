@@ -161,6 +161,45 @@
     <script src="<?= PROOT; ?>assets/js/theme.bundle.js"></script>
 
     <script type="text/javascript">
+
+        // activate left nav link upon url
+
+        if (window.location.href.indexOf("index") > -1) {
+            $('.nav-dashboard').addClass('active');
+        }
+
+        if (window.location.href.indexOf("trades") > -1) {
+            $('.nav-market').addClass('active');
+        }
+
+        if (window.location.href.indexOf("expenditure") > -1) {
+            $('.nav-expenditure').addClass('active');
+        }
+        
+        if (window.location.href.indexOf("pushes") > -1) {
+            $('.nav-pushes').addClass('active');
+        }
+
+        if (window.location.href.indexOf("admins") > -1) {
+            $('.nav-admins').addClass('active');
+        }
+
+        if ((window.location.href.indexOf("profile") > -1) || window.location.href.indexOf("settings") > -1) {
+            $('.nav-account').addClass('active');
+        }
+
+        if (window.location.href.indexOf("logs") > -1) {
+            $('.nav-logs').addClass('active');
+        }
+
+        var childpath = window.location.href;
+        $('nav a.nav-child').each(function() {
+            if (this.href === childpath) {
+               $(this).addClass('active');
+            }
+        });
+
+
         $(document).ready(function() {
 
             // Fade out messages

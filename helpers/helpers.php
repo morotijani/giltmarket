@@ -1,6 +1,6 @@
 <?php 
 
-//
+// print out results for development usages
 function dnd($data) {
 	echo "<pre>";
 	print_r($data);
