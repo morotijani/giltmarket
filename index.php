@@ -30,7 +30,7 @@
 				// $daily_to = $push_from;
 				$findCapital = find_capital_given_to($push_to, $today);
 
-				// get today capital
+				// get today capital from whom we are pushing to
 				$c = _capital($push_to)['today_capital'];
 
 				// check if capital has been given
@@ -38,19 +38,21 @@
 
 					$g = $given;
 					$c = (float)($g + $c);
-					$bal = ((admin_has_permission('salesperson') && _capital($push_from)['today_balance'] == null) ? null : (float)($g + _capital($push_from)['today_balance']));
 
-					if (admin_has_permission('supervisor')) {
-						$bal = _capital($push_from)['today_balance'];
+					$bal = _capital($push_to)['today_balance'];
+					// check if we are sending to salepersonnel from supervisor
+					if (!admin_has_permission()) {
+						$bal = ((_capital($push_to)['today_balance'] == null) ? null : (float)($g + _capital($push_to)['today_balance']));
 					}
+
 					// update daily capital and balance
 					$dailyQ = "
 						UPDATE `jspence_daily` 
 						SET `daily_capital` = ?, `daily_balance` = ? 
 						WHERE `daily_date` = ? AND `daily_to` = ?
 					";
-					$daily_data = [$c, $bal, $today, $daily_to];
-					$message = "on this day " . $today . ", capital updated of an amount " . money($c) . ', added amount ' . money($g) . (($daily_to == $admin_data['admin_id']) ? ' for self.' : '');
+					$daily_data = [$c, $bal, $today, $push_to];
+					$message = "on this day " . $today . ", capital updated of an amount " . money($c) . ', added amount ' . money($g) .  'for a ' .((admin_has_permission()) ? ' supervisor' : 'saleperson') . ' id: ' . $push_to;
 				} else {
 					$daily_data = [$daily_id, $given, $today, $push_to];
 					
@@ -59,7 +61,7 @@
 						INSERT INTO jspence_daily (daily_id, daily_capital, daily_date, daily_to) 
 						VALUES (?, ?, ?, ?)
 					";
-					$message = "on this day " . $today . ", capital entered of an amount of " . money($c) . ' to salepersonnel';
+					$message = "on this day " . $today . ", capital entered of an amount of " . money($c) . ' to a ' . ((admin_has_permission()) ? ' supervisor' : 'saleperson') . ' id: ' . $push_to;
 				}
 
 				$statement = $conn->prepare($dailyQ);
@@ -74,7 +76,7 @@
 
 				if (isset($daily_result)) {
 					// insert into push table
-					$push_data = [$push_id, $findCapital, $given, $push_from, $daily_to, $today];
+					$push_data = [$push_id, $findCapital, $given, $push_from, $push_to, $today];
 					$sql = "
 						INSERT INTO jspence_pushes (push_id, push_daily, push_amount, push_from, push_to, push_date) 
 						VALUES (?, ?, ?, ?, ?, ?)
@@ -83,7 +85,7 @@
 					$push_result = $statement->execute($push_data);
 
 					if (isset($push_result)) {
-						$push_message = "push made on " . $today . ", of an amount of " . money($given) . (($daily_to == $admin_data['admin_id']) ? ' for self.' : '');
+						$push_message = "push made on " . $today . ", of an amount of " . money($given) . ' to a ' . ((admin_has_permission()) ? ' supervisor' : 'saleperson') . ' id: ' . $push_to;
 						add_to_log($push_message, $admin_id);
 					}
 					add_to_log($message, $admin_id);
