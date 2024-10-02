@@ -55,6 +55,11 @@ if (isset($_POST['dater'])) {
     $expense = $conn->query("SELECT SUM(sale_total_amount) AS exp_amt, CAST(jspence_sales.createdAt AS date) AS exp_d FROM jspence_sales WHERE sale_type = 'exp' AND sale_status = 0 $andExpenditure")->fetchAll();
     $push = $conn->query("SELECT SUM(push_amount) AS push_amt, CAST(jspence_pushes.createdAt AS date) AS push_d FROM jspence_pushes WHERE push_status = 0 $andPush")->fetchAll();
     $count_trades = $conn->query("SELECT *, CAST(jspence_sales.createdAt AS date) AS c_d FROM jspence_sales WHERE sale_status = 0 $and")->rowCount();
+    $gram = $conn->query("SELECT SUM(sale_gram), CAST(jspence_sales.createdAt AS date) AS c_d FROM jspence_sales WHERE sale_status = 0 $and")->rowCount();
+    $volume = $conn->query("SELECT SUM(sale_volume), CAST(jspence_sales.createdAt AS date) AS c_d FROM jspence_sales WHERE sale_status = 0 $and")->rowCount();
+    $density = $conn->query("SELECT SUM(sale_density), CAST(jspence_sales.createdAt AS date) AS c_d FROM jspence_sales WHERE sale_status = 0 $and")->rowCount();
+    $pounds = $conn->query("SELECT SUM(sale_pounds), CAST(jspence_sales.createdAt AS date) AS c_d FROM jspence_sales WHERE sale_status = 0 $and")->rowCount();
+    $carat = $conn->query("SELECT SUM(sale_carat), CAST(jspence_sales.createdAt AS date) AS c_d FROM jspence_sales WHERE sale_status = 0 $and")->rowCount();
 
     $gained_or_loss = 0;
     $in = (($ins[0]['ins_amt']) ? $ins[0]['ins_amt'] : 0);
@@ -101,7 +106,12 @@ if (isset($_POST['dater'])) {
         'pushes' => money($pushes),
         'trades' => $count_trades,
         'expenses' => money($expenses),
-        'arrow' => $gained_or_loss
+        'arrow' => $gained_or_loss,
+        'gram' => $gram,
+        'volume' => $volume,
+        'density' => $density,
+        'pounds' => $pounds,
+        'carat' => $carat
     ];
 
     $ouput = json_encode($arrayOutput);
