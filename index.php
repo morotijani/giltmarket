@@ -321,7 +321,7 @@
               	</div>
               	<div class="card-body py-3">
                 	<div class="list-group list-group-flush">
-						<?= get_pushes_made($admin_data['admin_id'], date("Y-m-d")); ?>
+						<?= get_pushes_made($admin_id, date("Y-m-d")); ?>
                 	</div>
               	</div>
             </div>

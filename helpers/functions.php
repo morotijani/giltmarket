@@ -190,11 +190,14 @@ function _gained_calculation($balance, $capital) {
 // get pushes
 function get_pushes_made($admin, $today = null) {
 	global $conn;
+	global $admin_data;
 
 	$where = '';
-	if (!admin_has_permission()) {
-		$where .= ' AND (jspence_pushes.push_to = "' . $admin . '" OR jspence_pushes.push_from = "' . $admin . '") ';
-	}
+    if ($admin_data['admin_permissions'] == 'supervisor') {
+        $where = ' AND (push_to = "' . $admin . '" OR push_from IN (SELECT push_from FROM jspence_pushes WHERE push_from = "' . $admin . '")) AND push_date = "' . $today . '" ';
+    } else if ($admin_data['admin_permissions'] == 'salesperson') {
+        $where = ' AND push_to = "' . $admin . '" AND push_date = "' . $today . '" ';
+    }
 
 	if ($today != null) {
 		$where .= 'AND jspence_pushes.push_date = "' . $today . '"';
@@ -233,7 +236,7 @@ function get_pushes_made($admin, $today = null) {
 							</div>
 						</div>
 						<div class="col ms-n2">
-							<h6 class="fs-base fw-normal mb-1">' . money($row["push_amount"]) . ' pushed to ' . (($row["admin_permissions"] == 'supervisor' && $row["push_to"] == $admin) ? 'self' : ucwords($row["admin_fullname"])) . '</h6>
+							<h6 class="fs-base fw-normal mb-1">' . money($row["push_amount"]) . ' pushed to ' . ((admin_has_permission('supervisor') && $row["push_from"] == $admin) ? ucwords($row["admin_fullname"]) : 'received') . '</h6>
 							<span class="fs-sm text-body-secondary">' . time_from_date($row["createdAt"]) . '</span>
 						</div>
 						<div class="col-auto">

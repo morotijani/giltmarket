@@ -8,10 +8,7 @@
 			if (!empty($_POST['push_to']) || $_POST['push_to'] != '') {
 
 				$given = sanitize($_POST['today_given']);
-				$today_date = sanitize($_POST['today_date']);
-				
-				// $push_for = ((isset($_POST['push_for']) && !empty($_POST['push_for'])) ? sanitize($_POST['push_for']) : '');
-				
+				$today_date = sanitize($_POST['today_date']);				
 				$push_to = ((isset($_POST['push_to']) && !empty($_POST['push_to'])) ? sanitize($_POST['push_to']) : '');
 
 				$today = date("Y-m-d");
@@ -92,3 +89,4 @@
 			}
 		}
 	}
+    
