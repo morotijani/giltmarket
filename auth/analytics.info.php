@@ -56,11 +56,11 @@ if (isset($_POST['dater'])) {
     $push = $conn->query("SELECT SUM(push_amount) AS push_amt, CAST(jspence_pushes.createdAt AS date) AS push_d FROM jspence_pushes WHERE push_status = 0 $andPush")->fetchAll();
     $count_trades = $conn->query("SELECT *, CAST(jspence_sales.createdAt AS date) AS c_d FROM jspence_sales WHERE sale_status = 0 $and")->rowCount();
     
-    $grams = $conn->query("SELECT SUM(sale_gram) AS gram FROM jspence_sales WHERE sale_status = 0 $and")->rowCount();
-    $volumes = $conn->query("SELECT SUM(sale_volume) AS volume FROM jspence_sales WHERE sale_status = 0 $and")->rowCount();
-    $densitys = $conn->query("SELECT SUM(sale_density) AS density FROM jspence_sales WHERE sale_status = 0 $and")->rowCount();
-    $pounds = $conn->query("SELECT SUM(sale_pounds) AS pounds FROM jspence_sales WHERE sale_status = 0 $and")->rowCount();
-    $carats = $conn->query("SELECT SUM(sale_carat) AS carat FROM jspence_sales WHERE sale_status = 0 $and")->rowCount();
+    $grams = $conn->query("SELECT SUM(sale_gram) AS gram FROM jspence_sales WHERE sale_status = 0 $and")->fetchAll();
+    $volumes = $conn->query("SELECT SUM(sale_volume) AS volume FROM jspence_sales WHERE sale_status = 0 $and")->fetchAll();
+    $densitys = $conn->query("SELECT SUM(sale_density) AS density FROM jspence_sales WHERE sale_status = 0 $and")->fetchAll();
+    $pounds = $conn->query("SELECT SUM(sale_pounds) AS pds FROM jspence_sales WHERE sale_status = 0 $and")->fetchAll();
+    $carats = $conn->query("SELECT SUM(sale_carat) AS carat FROM jspence_sales WHERE sale_status = 0 $and")->fetchAll();
 
     $gained_or_loss = 0;
     $in = (($ins[0]['ins_amt']) ? $ins[0]['ins_amt'] : 0);
@@ -71,7 +71,7 @@ if (isset($_POST['dater'])) {
     $gram = (($grams[0]['gram']) ? $grams[0]['gram'] : 0);
     $volume = (($volumes[0]['volume']) ? $volumes[0]['volume'] : 0);
     $density = (($densitys[0]['density']) ? $densitys[0]['density'] : 0);
-    $pound = (($pound[0]['pounds']) ? $pound[0]['pounds'] : 0);
+    $pound = (($pounds[0]['pds']) ? $pounds[0]['pds'] : 0);
     $carat = (($carats[0]['carat']) ? $carats[0]['carat'] : 0);
 
     $total_sales_capital = $sales[0]['capital'] ?? 0;
@@ -96,7 +96,7 @@ if (isset($_POST['dater'])) {
         'gram' => $gram,
         'volume' => $volume,
         'density' => $density,
-        'pounds' => $pounds,
+        'pounds' => $pound,
         'carat' => $carat
     ];
 
@@ -121,7 +121,7 @@ if (isset($_POST['dater'])) {
         'gram' => $gram,
         'volume' => $volume,
         'density' => $density,
-        'pounds' => $pounds,
+        'pounds' => $pound,
         'carat' => $carat
     ];
 
