@@ -534,11 +534,6 @@
                     $('#expenses').text(response["expenses"]);
                     $('#total-trades').text(response["trades"]);
                     $('#profit-loss').text(response["gained_or_loss"]);
-                    if (response["arrow"] > 0) {
-                        $("#e-arrow").addClass("bi-arrow-up");
-                    } else {
-                        $("#e-arrow").addClass("bi-arrow-down");
-                    }
                     $('#incoming').text(response["in"]);
                     $('#outgoing').text(response["out"]);
                     $('#total-pushes').text(response["pushes"]);
