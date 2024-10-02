@@ -127,7 +127,7 @@
                     </div>
                 </div>
             </div>
-            <div class="col-12 col-md-6 col-xxl mb-4 mb-md-0">
+            <div class="col-12 col-md-6 col-xxl mb-4 mb-xxl-0">
                 <div class="card bg-body-tertiary border-transparent">
                     <div class="card-body">
                         <div class="row align-items-center">
@@ -142,7 +142,7 @@
                     </div>
                 </div>
             </div>
-            <div class="col-12 col-md-6 col-xxl mb-4 mb-md-0">
+            <div class="col-12 col-md-6 col-xxl mb-4 mb-xxl-0">
                 <div class="card bg-body-tertiary border-transparent">
                     <div class="card-body">
                         <div class="row align-items-center">
@@ -157,7 +157,7 @@
                     </div>
                 </div>
             </div>
-            <div class="col-12 col-md-6 col-xxl">
+            <div class="col-12 col-md-6 col-xxl mb-md-0">
                 <div class="card bg-body-tertiary border-transparent">
                     <div class="card-body">
                         <div class="row align-items-center">

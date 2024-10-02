@@ -329,6 +329,84 @@
                             </div>
                         </div>
                     </div>
+                    
+                    <div class="row mb-8">
+                        <div class="col-12 col-md-6 col-xxl mb-4 mb-xxl-0">
+                            <div class="card bg-body-tertiary border-transparent">
+                                <div class="card-body">
+                                    <div class="row align-items-center">
+                                        <div class="col">
+                                            <!-- Heading -->
+                                            <h4 class="fs-sm fw-normal text-body-secondary mb-1">Gram</h4>
+
+                                            <!-- Text -->
+                                            <div class="fs-4 fw-semibold" id="total-gram">0</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-12 col-md-6 col-xxl mb-4 mb-xxl-0">
+                            <div class="card bg-body-tertiary border-transparent">
+                                <div class="card-body">
+                                    <div class="row align-items-center">
+                                        <div class="col">
+                                            <!-- Heading -->
+                                            <h4 class="fs-sm fw-normal text-body-secondary mb-1">Volume</h4>
+
+                                            <!-- Text -->
+                                            <div class="fs-4 fw-semibold" id="total-volume">0</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-12 col-md-6 col-xxl mb-4 mb-xxl-0">
+                            <div class="card bg-body-tertiary border-transparent">
+                                <div class="card-body">
+                                    <div class="row align-items-center">
+                                        <div class="col">
+                                            <!-- Heading -->
+                                            <h4 class="fs-sm fw-normal text-body-secondary mb-1">Desity</h4>
+
+                                            <!-- Text -->
+                                            <div class="fs-4 fw-semibold" id="total-density">0</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-12 col-md-6 col-xxl mb-4 mb-xxl-0">
+                            <div class="card bg-body-tertiary border-transparent">
+                                <div class="card-body">
+                                    <div class="row align-items-center">
+                                        <div class="col">
+                                            <!-- Heading -->
+                                            <h4 class="fs-sm fw-normal text-body-secondary mb-1">Pounds</h4>
+
+                                            <!-- Text -->
+                                            <div class="fs-4 fw-semibold" id="total-pounds">0</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-12 col-md-6 col-xxl mb-md-0">
+                            <div class="card bg-body-tertiary border-transparent">
+                                <div class="card-body">
+                                    <div class="row align-items-center">
+                                        <div class="col">
+                                            <!-- Heading -->
+                                            <h4 class="fs-sm fw-normal text-body-secondary mb-1">Carat</h4>
+
+                                            <!-- Text -->
+                                            <div class="fs-4 fw-semibold" id="total-carat"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
 
                     <div class="card">
                         <div class="card-body pb-0">
@@ -440,6 +518,11 @@
                     $('#incoming').text('loading ...');
                     $('#outgoing').text('loading ...');
                     $('#total-pushes').text('loading ...');
+                    $('#total-gram').text('loading ...');
+                    $('#total-volume').text('loading ...');
+                    $('#total-density').text('loading ...');
+                    $('#total-pounds').text('loading ...');
+                    $('#total-carat').text('loading ...');
                 },
                 success: function(data) {
                     const response = JSON.parse(data);
@@ -459,6 +542,11 @@
                     $('#incoming').text(response["in"]);
                     $('#outgoing').text(response["out"]);
                     $('#total-pushes').text(response["pushes"]);
+                    $('#total-gram').text(response["gram"]);
+                    $('#total-volume').text(response["volume"]);
+                    $('#total-density').text(response["density"]);
+                    $('#total-pounds').text(response["pounds"]);
+                    $('#total-carat').text(response["carat"]);
 
                     console.log(data);
                 },
