@@ -84,37 +84,34 @@ if (isset($_POST['denomination_200c'])) {
             $tomorrow = $tomorrow->format('Y-m-d');
 
             $push_to = ''; // get supervisors id
-            $supervisor_capital = _capital($push_to)['today_capital'];
-
-            // current ending trade sale personnel balance
-            $salepersonnel_balance = $capital_bal;
-
+            $supervisor_capital = _capital($push_to)['today_capital']; // get supervisors capital
+           
             $daily_id = guidv4();
 			$push_id = guidv4();
+            $new_capital = _capital($admin_id)['today_balance']; // current ending trade sale personnel balance
 
             // check if supervisor has already recieved tomorrow capital from other salepersonels
             $findTomorrowCapital = find_capital_given_to($push_to, $tomorrow);
             if ($findTomorrowCapital) {
-                $newCapital = (float)($salepersonnel_balance + $supervisor_capital);
-                $data = [$newCapital, ];
+                $new_capital = (float)($new_capital + $supervisor_capital);
+                $daily_id = $findTomorrowCapital;
+            }
+            $data = [$new_capital, $tomorrow, $push_to, $daily_id];
+
+            // insert into supervosr's capital for tomorrow
+            $sql = "
+                INSERT INTO jspence_daily (daily_capital, daily_date, daily_to, daily_id) 
+                VALUES (?, ?, ?, ?)
+            ";
+            if ($findTomorrowCapital) {
+                // update supervosr's capital for tomorrow
                 $sql = "
                     UPDATE `jspence_daily` 
                     SET `daily_capital` = ? 
                     WHERE `daily_date` = ? AND `daily_to` = ? AND `daily_id` = ?
                 ";
-                $daily_data = [$c, $bal, $today, $push_to];
-                $message = "on this day " . $today . ", capital updated of an amount " . money($c) . ', added amount ' . money($g) .  'for a ' .((admin_has_permission()) ? ' supervisor' : 'saleperson') . ' id: ' . $push_to;   
-            } else {
-                $data = [$salepersonnel_balance, ];
-                $daily_data = [$daily_id, $given, $today, $push_to];
-                
-                // insert into daily
-                $sql = "
-                    INSERT INTO jspence_daily (daily_capital, daily_date, daily_to, daily_id) 
-                    VALUES (?, ?, ?, ?)
-                ";
-                $message = "on this day " . $today . ", capital entered of an amount of " . money($c) . ' to a ' . ((admin_has_permission()) ? ' supervisor' : 'saleperson') . ' id: ' . $push_to;
             }
+            $message = "end-trade, remaining balance " . money($capital_bal) . ' sent to supervisor id: ' . $push_to;
         }
 
 ?>
