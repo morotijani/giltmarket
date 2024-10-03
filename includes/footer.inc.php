@@ -711,7 +711,7 @@
                                 if (response && typeof response === "object") {
 
                                     $state.removeClass('text-danger');
-                                    $state.addClass('text-info');
+                                    $state.addClass('text-warning');
                                     $state.html('Sale successfully made!');
                                     $this.find('#submitSend').text("Complete Sale");
                                     $('.toast').toast('show');
@@ -751,6 +751,7 @@
                                 $('#step-1').removeClass('d-none');
                                 $('#step-2').addClass('d-none');
                                 $('#step-3').addClass('d-none');
+                                $('#pin').val('');
 
                                 return false;
                             }

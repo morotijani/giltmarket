@@ -236,7 +236,7 @@ function get_pushes_made($admin, $today = null) {
 							</div>
 						</div>
 						<div class="col ms-n2">
-							<h6 class="fs-base fw-normal mb-1">' . money($row["push_amount"]) . ' pushed to ' . ((admin_has_permission('supervisor') && $row["push_from"] == $admin) ? ucwords($row["admin_fullname"]) : 'received') . '</h6>
+							<h6 class="fs-base fw-normal mb-1">' . money($row["push_amount"]) . ' push' . ((admin_has_permission('supervisor') && $row["push_from"] == $admin) ? 'ed to ' . ucwords($row["admin_fullname"]) : ' received') . '</h6>
 							<span class="fs-sm text-body-secondary">' . time_from_date($row["createdAt"]) . '</span>
 						</div>
 						<div class="col-auto">
