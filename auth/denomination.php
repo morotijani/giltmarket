@@ -79,39 +79,69 @@ if (isset($_POST['denomination_200c'])) {
             $message = "market capital ended, capital id: " . $capital_id;
 			add_to_log($message, $admin_id);
 
-            // send balance back to the supervisor for his next day trade
-            $tomorrow = new DateTime('tomorrow');
-            $tomorrow = $tomorrow->format('Y-m-d');
+            // allow only salepersonnels to perform only this action
+            if (!admin_has_permission('supervisor')) {
+                // send balance back to the supervisor for his next day trade
+                $tomorrow = new DateTime('tomorrow');
+                $tomorrow = $tomorrow->format('Y-m-d');
 
-            $push_to = ''; // get supervisors id
-            $supervisor_capital = _capital($push_to)['today_capital']; // get supervisors capital
+                $push_to = '$2y$10$lwzmqYK9BHTWrHL0FNxoju1FCQQfOY78T8nb9kEeH0dTzvRCannvW'; // get supervisors id
+                $supervisor_capital = _capital($push_to)['today_capital']; // get supervisors capital
            
-            $daily_id = guidv4();
-			$push_id = guidv4();
-            $new_capital = _capital($admin_id)['today_balance']; // current ending trade sale personnel balance
+                $daily_id = guidv4();
+                $push_id = guidv4();
+                $new_capital = _capital($admin_id)['today_balance']; // current ending trade sale personnel balance
 
-            // check if supervisor has already recieved tomorrow capital from other salepersonels
-            $findTomorrowCapital = find_capital_given_to($push_to, $tomorrow);
-            if ($findTomorrowCapital) {
-                $new_capital = (float)($new_capital + $supervisor_capital);
-                $daily_id = $findTomorrowCapital;
-            }
-            $data = [$new_capital, $tomorrow, $push_to, $daily_id];
+                // check if supervisor has already recieved tomorrow capital from other salepersonels
+                $findTomorrowCapital = find_capital_given_to($push_to, $tomorrow);
+                if ($findTomorrowCapital) {
+                    $new_capital = (float)($new_capital + $supervisor_capital);
+                    $daily_id = $findTomorrowCapital;
+                }
+                $data = [$new_capital, $tomorrow, $push_to, $daily_id];
 
-            // insert into supervosr's capital for tomorrow
-            $sql = "
-                INSERT INTO jspence_daily (daily_capital, daily_date, daily_to, daily_id) 
-                VALUES (?, ?, ?, ?)
-            ";
-            if ($findTomorrowCapital) {
-                // update supervosr's capital for tomorrow
+                // insert into supervosr's capital for tomorrow
                 $sql = "
-                    UPDATE `jspence_daily` 
-                    SET `daily_capital` = ? 
-                    WHERE `daily_date` = ? AND `daily_to` = ? AND `daily_id` = ?
+                    INSERT INTO jspence_daily (daily_capital, daily_date, daily_to, daily_id) 
+                    VALUES (?, ?, ?, ?)
                 ";
+                if ($findTomorrowCapital) {
+                    // update supervosr's capital for tomorrow
+                    $sql = "
+                        UPDATE `jspence_daily` 
+                        SET `daily_capital` = ? 
+                        WHERE `daily_date` = ? AND `daily_to` = ? AND `daily_id` = ?
+                    ";
+                }
+                $message = "end-trade, remaining balance " . $capital_bal . ' sent to supervisor id: ' . $push_to;
+                $statement = $conn->prepare($dailyQ);
+                $daily_result = $statement->execute($daily_data);
+
+                // find the just enetered capital id
+                if (!$findTomorrowCapital) {
+                    $LID = $conn->lastInsertId();
+                    $q = $conn->query("SELECT * FROM jspence_daily WHERE id = '" . $LID . "' LIMIT 1")->fetchAll();
+                    $findTomorrowCapital = $q[0]['daily_id'];
+                }
+
+                if (isset($daily_result)) {
+                    // insert into push table
+                    $push_data = [$push_id, $findTomorrowCapital, _capital($admin_id)['today_balance'], $admin_id, $push_to, $tomorrow];
+                    $sql = "
+                        INSERT INTO jspence_pushes (push_id, push_daily, push_amount, push_from, push_to, push_date) 
+                        VALUES (?, ?, ?, ?, ?, ?)
+                    ";
+                    $statement = $conn->prepare($sql);
+                    $push_result = $statement->execute($push_data);
+
+                    if (isset($push_result)) {
+                        $push_message = "end-trade push made on " . $tomorrow . ", of an amount of " . $capital_bal . ' to supervisor id: ' . $push_to;
+                        add_to_log($push_message, $admin_id);
+                    }
+                    add_to_log($message, $admin_id);
+                }
+
             }
-            $message = "end-trade, remaining balance " . money($capital_bal) . ' sent to supervisor id: ' . $push_to;
         }
 
 ?>
