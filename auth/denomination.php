@@ -4,6 +4,8 @@
 // header( 'Cache-Control: post-check=0, pre-check=0', false ); 
 // header( 'Pragma: no-cache' );
 
+// supervisor should enter the money gotten into the system...so system details will be form what has come inside
+
 // Denomination
 require_once ("../db_connection/conn.php");
 if (!admin_is_logged_in()) {
@@ -48,12 +50,11 @@ if (isset($_POST['denomination_200c'])) {
     // unset($_REQUEST);
 
     $denomination_id = guidv4();
-    $by = $admin_data['admin_id'];
-    $capital_id = _capital($by)['today_capital_id'];
-    $capital_amt = money(_capital($by)['today_capital']);
-    $capital_bal = money(_capital($by)['today_balance']);
+    $capital_id = _capital($admin_id)['today_capital_id'];
+    $capital_amt = money(_capital($admin_id)['today_capital']);
+    $capital_bal = money(_capital($admin_id)['today_balance']);
 
-    $data = [$denomination_id, $capital_id, $by, $denomination_200c, $denomination_200c_amt, $denomination_100c, $denomination_100c_amt, $denomination_50c, $denomination_50c_amt, $denomination_20c, $denomination_20c_amt, $denomination_10c, $denomination_10c_amt, $denomination_5c, $denomination_5c_amt, $denomination_2c, $denomination_2c_amt, $denomination_1c, $denomination_1c_amt, $denomination_50p, $denomination_50p_amt, $denomination_20p, $denomination_20p_amt, $denomination_10p, $denomination_10p_amt, $denomination_5p, $denomination_5p_amt, $denomination_1p, $denomination_1p_amt];
+    $data = [$denomination_id, $capital_id, $admin_id, $denomination_200c, $denomination_200c_amt, $denomination_100c, $denomination_100c_amt, $denomination_50c, $denomination_50c_amt, $denomination_20c, $denomination_20c_amt, $denomination_10c, $denomination_10c_amt, $denomination_5c, $denomination_5c_amt, $denomination_2c, $denomination_2c_amt, $denomination_1c, $denomination_1c_amt, $denomination_50p, $denomination_50p_amt, $denomination_20p, $denomination_20p_amt, $denomination_10p, $denomination_10p_amt, $denomination_5p, $denomination_5p_amt, $denomination_1p, $denomination_1p_amt];
 
     $sql = "
         INSERT INTO `jspence_denomination`(`denominations_id`, `denomination_capital`, `denomination_by`, `denomination_200c`, `denomination_200c_amt`, `denomination_100c`, `denomination_100c_amt`, `denomination_50c`, `denomination_50c_amt`, `denomination_20c`, `denomination_20c_amt`, `denomination_10c`, `denomination_10c_amt`, `denomination_5c`, `denomination_5c_amt`, `denomination_2c`, `denomination_2c_amt`, `denomination_1c`, `denomination_1c_amt`, `denomination_50p`, `denomination_50p_amt`, `denomination_20p`, `denomination_20p_amt`, `denomination_10p`, `denomination_10p_amt`, `denomination_5p`, `denomination_5p_amt`, `denomination_1p`, `denomination_1p_amt`) 
@@ -63,8 +64,8 @@ if (isset($_POST['denomination_200c'])) {
     $result = $statement->execute($data);
     if (isset($result)) {
 
-        $message = "ended trade denomination id: " . $denomination_id . ", total amount of " . money($denomination_total);
-		add_to_log($message, $by);
+        $message = "ended trade, denomination id: " . $denomination_id . ", and total amount of " . money($denomination_total);
+		add_to_log($message, $admin_id);
 
         $query = "
             UPDATE jspence_daily SET daily_capital_status = ? 
@@ -74,7 +75,7 @@ if (isset($_POST['denomination_200c'])) {
         $r = $statement->execute([1, $capital_id]);
         if ($r) {
             $message = "market capital ended, capital id: " . $capital_id;
-			add_to_log($message, $by);
+			add_to_log($message, $admin_id);
         }
 
 ?>
