@@ -82,9 +82,27 @@ if (isset($_POST['denomination_200c'])) {
             // send balance back to the supervisor for his next day trade
             $tomorrow = new DateTime('tomorrow');
             $tomorrow = $tomorrow->format('Y-m-d');
-            $capital_bal;
 
-            
+            $push_to = ''; // get supervisors id
+            $supervisor_capital = _capital($push_to)['today_capital'];
+
+            // current ending trade sale personnel balance
+            $salepersonnel_balance = $capital_bal;
+
+            // check if supervisor has already recieved tomorrow capital from other salepersonels
+            $findTomorrowCapital = find_capital_given_to($push_to, $tomorrow);
+            if ($findTomorrowCapital) {
+                $newCapital = (float)($salepersonnel_balance + $supervisor_capital);
+                $data = [$newCapital, ];
+                $sql = "
+                    UPDATE 
+                ";
+            } else {
+                $data = [$salepersonnel_balance, ];
+                $sql = "
+                    INSERT
+                ";
+            }
         }
 
 ?>
