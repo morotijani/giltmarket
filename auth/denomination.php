@@ -89,19 +89,31 @@ if (isset($_POST['denomination_200c'])) {
             // current ending trade sale personnel balance
             $salepersonnel_balance = $capital_bal;
 
+            $daily_id = guidv4();
+			$push_id = guidv4();
+
             // check if supervisor has already recieved tomorrow capital from other salepersonels
             $findTomorrowCapital = find_capital_given_to($push_to, $tomorrow);
             if ($findTomorrowCapital) {
                 $newCapital = (float)($salepersonnel_balance + $supervisor_capital);
                 $data = [$newCapital, ];
                 $sql = "
-                    UPDATE 
+                    UPDATE `jspence_daily` 
+                    SET `daily_capital` = ? 
+                    WHERE `daily_date` = ? AND `daily_to` = ? AND `daily_id` = ?
                 ";
+                $daily_data = [$c, $bal, $today, $push_to];
+                $message = "on this day " . $today . ", capital updated of an amount " . money($c) . ', added amount ' . money($g) .  'for a ' .((admin_has_permission()) ? ' supervisor' : 'saleperson') . ' id: ' . $push_to;   
             } else {
                 $data = [$salepersonnel_balance, ];
+                $daily_data = [$daily_id, $given, $today, $push_to];
+                
+                // insert into daily
                 $sql = "
-                    INSERT
+                    INSERT INTO jspence_daily (daily_capital, daily_date, daily_to, daily_id) 
+                    VALUES (?, ?, ?, ?)
                 ";
+                $message = "on this day " . $today . ", capital entered of an amount of " . money($c) . ' to a ' . ((admin_has_permission()) ? ' supervisor' : 'saleperson') . ' id: ' . $push_to;
             }
         }
 

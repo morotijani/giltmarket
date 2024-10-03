@@ -14,10 +14,9 @@
 				$today = date("Y-m-d");
 				$daily_id = guidv4();
 				$push_id = guidv4();
-				$push_from = $admin_data['admin_id'];
+				$push_from = $admin_id;
 
 				if ($today_date == $today) {
-					// $daily_to = $push_from;
 					$findCapital = find_capital_given_to($push_to, $today);
 
 					// get today capital from whom we are pushing to
