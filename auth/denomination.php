@@ -114,8 +114,8 @@ if (isset($_POST['denomination_200c'])) {
                     ";
                 }
                 $message = "end-trade, remaining balance " . $capital_bal . ' sent to supervisor id: ' . $push_to;
-                $statement = $conn->prepare($dailyQ);
-                $daily_result = $statement->execute($daily_data);
+                $statement = $conn->prepare($sql);
+                $daily_result = $statement->execute($data);
 
                 // find the just enetered capital id
                 if (!$findTomorrowCapital) {
