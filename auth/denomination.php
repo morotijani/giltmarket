@@ -17,7 +17,12 @@ if (admin_has_permission()) {
 }
 include ("../includes/header.inc.php");
 
-if (isset($_POST['denomination_200c'])) {
+if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+    $_SESSION['postdata'] = $_POST;
+    unset($_SESSION['postdata']);
+
+    
+    if (isset($_POST['denomination_200c'])) {
     $denomination_200c = ((isset($_POST['denomination_200c']) && !empty($_POST['denomination_200c'])) ? sanitize($_POST['denomination_200c']) : NULL);
     $denomination_200c_amt = ((isset($_POST['denomination_200c_amt']) && !empty($_POST['denomination_200c_amt'])) ? sanitize($_POST['denomination_200c_amt']) : NULL);
     $denomination_100c = ((isset($_POST['denomination_100c']) && !empty($_POST['denomination_100c'])) ? sanitize($_POST['denomination_100c']) : NULL);
@@ -45,6 +50,7 @@ if (isset($_POST['denomination_200c'])) {
     $denomination_1p = ((isset($_POST['denomination_1p']) && !empty($_POST['denomination_1p'])) ? sanitize($_POST['denomination_1p']) : NULL);
     $denomination_1p_amt = ((isset($_POST['denomination_1p_amt']) && !empty($_POST['denomination_1p_amt'])) ? sanitize($_POST['denomination_1p_amt']) : NULL);
     $denomination_total = ((isset($_POST['denomination_total']) && !empty($_POST['denomination_total'])) ? sanitize($_POST['denomination_total']) : NULL);
+
 
     unset($_POST);
     // unset($_REQUEST);
