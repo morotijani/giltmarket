@@ -22,6 +22,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     
 //if (isset($_POST['denomination_200c'])) {
 if (array_key_exists('postdata', $_SESSION)) {
+    $_POST = $_SESSION['postdata'];
     $denomination_200c = ((isset($_POST['denomination_200c']) && !empty($_POST['denomination_200c'])) ? sanitize($_POST['denomination_200c']) : NULL);
     $denomination_200c_amt = ((isset($_POST['denomination_200c_amt']) && !empty($_POST['denomination_200c_amt'])) ? sanitize($_POST['denomination_200c_amt']) : NULL);
     $denomination_100c = ((isset($_POST['denomination_100c']) && !empty($_POST['denomination_100c'])) ? sanitize($_POST['denomination_100c']) : NULL);
@@ -345,7 +346,8 @@ if (array_key_exists('postdata', $_SESSION)) {
     redirect(PROOT);
 }
 
-    include ("../includes/footer.inc.php"); 
+include ("../includes/footer.inc.php"); 
+
 ?>
 
 <script>
