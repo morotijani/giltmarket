@@ -19,136 +19,136 @@ include ("../includes/header.inc.php");
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $_SESSION['postdata'] = $_POST;
-    unset($_SESSION['postdata']);
+    
 
     
     if (isset($_POST['denomination_200c'])) {
-    $denomination_200c = ((isset($_POST['denomination_200c']) && !empty($_POST['denomination_200c'])) ? sanitize($_POST['denomination_200c']) : NULL);
-    $denomination_200c_amt = ((isset($_POST['denomination_200c_amt']) && !empty($_POST['denomination_200c_amt'])) ? sanitize($_POST['denomination_200c_amt']) : NULL);
-    $denomination_100c = ((isset($_POST['denomination_100c']) && !empty($_POST['denomination_100c'])) ? sanitize($_POST['denomination_100c']) : NULL);
-    $denomination_100c_amt = ((isset($_POST['denomination_100c_amt']) && !empty($_POST['denomination_100c_amt'])) ? sanitize($_POST['denomination_100c_amt']) : NULL);
-    $denomination_50c = ((isset($_POST['denomination_50c']) && !empty($_POST['denomination_50c'])) ? sanitize($_POST['denomination_50c']) : NULL);
-    $denomination_50c_amt = ((isset($_POST['denomination_50c_amt']) && !empty($_POST['denomination_50c_amt'])) ? sanitize($_POST['denomination_50c_amt']) : NULL);
-    $denomination_20c = ((isset($_POST['denomination_20c']) && !empty($_POST['denomination_20c'])) ? sanitize($_POST['denomination_20c']) : NULL);
-    $denomination_20c_amt = ((isset($_POST['denomination_20c_amt']) && !empty($_POST['denomination_20c_amt'])) ? sanitize($_POST['denomination_20c_amt']) : NULL);
-    $denomination_10c = ((isset($_POST['denomination_10c']) && !empty($_POST['denomination_10c'])) ? sanitize($_POST['denomination_10c']) : NULL);
-    $denomination_10c_amt = ((isset($_POST['denomination_10c_amt']) && !empty($_POST['denomination_10c_amt'])) ? sanitize($_POST['denomination_10c_amt']) : NULL);
-    $denomination_5c = ((isset($_POST['denomination_5c']) && !empty($_POST['denomination_5c'])) ? sanitize($_POST['denomination_5c']) : NULL);
-    $denomination_5c_amt = ((isset($_POST['denomination_5c_amt']) && !empty($_POST['denomination_5c_amt'])) ? sanitize($_POST['denomination_5c_amt']) : NULL);
-    $denomination_2c = ((isset($_POST['denomination_2c']) && !empty($_POST['denomination_2c'])) ? sanitize($_POST['denomination_2c']) : NULL);
-    $denomination_2c_amt = ((isset($_POST['denomination_2c_amt']) && !empty($_POST['denomination_2c_amt'])) ? sanitize($_POST['denomination_2c_amt']) : NULL);
-    $denomination_1c = ((isset($_POST['denomination_1c']) && !empty($_POST['denomination_1c'])) ? sanitize($_POST['denomination_1c']) : NULL);
-    $denomination_1c_amt = ((isset($_POST['denomination_1c_amt']) && !empty($_POST['denomination_1c_amt'])) ? sanitize($_POST['denomination_1c_amt']) : NULL);
-    $denomination_50p = ((isset($_POST['denomination_50p']) && !empty($_POST['denomination_50p'])) ? sanitize($_POST['denomination_50p']) : NULL);
-    $denomination_50p_amt = ((isset($_POST['denomination_50p_amt']) && !empty($_POST['denomination_50p_amt'])) ? sanitize($_POST['denomination_50p_amt']) : NULL);
-    $denomination_20p = ((isset($_POST['denomination_20p']) && !empty($_POST['denomination_20p'])) ? sanitize($_POST['denomination_20p']) : NULL);
-    $denomination_20p_amt = ((isset($_POST['denomination_20p_amt']) && !empty($_POST['denomination_20p_amt'])) ? sanitize($_POST['denomination_20p_amt']) : NULL);
-    $denomination_10p = ((isset($_POST['denomination_10p']) && !empty($_POST['denomination_10p'])) ? sanitize($_POST['denomination_10p']) : NULL);
-    $denomination_10p_amt = ((isset($_POST['denomination_10p_amt']) && !empty($_POST['denomination_10p_amt'])) ? sanitize($_POST['denomination_10p_amt']) : NULL);
-    $denomination_5p = ((isset($_POST['denomination_5p']) && !empty($_POST['denomination_5p'])) ? sanitize($_POST['denomination_5p']) : NULL);
-    $denomination_5p_amt = ((isset($_POST['denomination_5p_amt']) && !empty($_POST['denomination_5p_amt'])) ? sanitize($_POST['denomination_5p_amt']) : NULL);
-    $denomination_1p = ((isset($_POST['denomination_1p']) && !empty($_POST['denomination_1p'])) ? sanitize($_POST['denomination_1p']) : NULL);
-    $denomination_1p_amt = ((isset($_POST['denomination_1p_amt']) && !empty($_POST['denomination_1p_amt'])) ? sanitize($_POST['denomination_1p_amt']) : NULL);
-    $denomination_total = ((isset($_POST['denomination_total']) && !empty($_POST['denomination_total'])) ? sanitize($_POST['denomination_total']) : NULL);
+        $denomination_200c = ((isset($_POST['denomination_200c']) && !empty($_POST['denomination_200c'])) ? sanitize($_POST['denomination_200c']) : NULL);
+        $denomination_200c_amt = ((isset($_POST['denomination_200c_amt']) && !empty($_POST['denomination_200c_amt'])) ? sanitize($_POST['denomination_200c_amt']) : NULL);
+        $denomination_100c = ((isset($_POST['denomination_100c']) && !empty($_POST['denomination_100c'])) ? sanitize($_POST['denomination_100c']) : NULL);
+        $denomination_100c_amt = ((isset($_POST['denomination_100c_amt']) && !empty($_POST['denomination_100c_amt'])) ? sanitize($_POST['denomination_100c_amt']) : NULL);
+        $denomination_50c = ((isset($_POST['denomination_50c']) && !empty($_POST['denomination_50c'])) ? sanitize($_POST['denomination_50c']) : NULL);
+        $denomination_50c_amt = ((isset($_POST['denomination_50c_amt']) && !empty($_POST['denomination_50c_amt'])) ? sanitize($_POST['denomination_50c_amt']) : NULL);
+        $denomination_20c = ((isset($_POST['denomination_20c']) && !empty($_POST['denomination_20c'])) ? sanitize($_POST['denomination_20c']) : NULL);
+        $denomination_20c_amt = ((isset($_POST['denomination_20c_amt']) && !empty($_POST['denomination_20c_amt'])) ? sanitize($_POST['denomination_20c_amt']) : NULL);
+        $denomination_10c = ((isset($_POST['denomination_10c']) && !empty($_POST['denomination_10c'])) ? sanitize($_POST['denomination_10c']) : NULL);
+        $denomination_10c_amt = ((isset($_POST['denomination_10c_amt']) && !empty($_POST['denomination_10c_amt'])) ? sanitize($_POST['denomination_10c_amt']) : NULL);
+        $denomination_5c = ((isset($_POST['denomination_5c']) && !empty($_POST['denomination_5c'])) ? sanitize($_POST['denomination_5c']) : NULL);
+        $denomination_5c_amt = ((isset($_POST['denomination_5c_amt']) && !empty($_POST['denomination_5c_amt'])) ? sanitize($_POST['denomination_5c_amt']) : NULL);
+        $denomination_2c = ((isset($_POST['denomination_2c']) && !empty($_POST['denomination_2c'])) ? sanitize($_POST['denomination_2c']) : NULL);
+        $denomination_2c_amt = ((isset($_POST['denomination_2c_amt']) && !empty($_POST['denomination_2c_amt'])) ? sanitize($_POST['denomination_2c_amt']) : NULL);
+        $denomination_1c = ((isset($_POST['denomination_1c']) && !empty($_POST['denomination_1c'])) ? sanitize($_POST['denomination_1c']) : NULL);
+        $denomination_1c_amt = ((isset($_POST['denomination_1c_amt']) && !empty($_POST['denomination_1c_amt'])) ? sanitize($_POST['denomination_1c_amt']) : NULL);
+        $denomination_50p = ((isset($_POST['denomination_50p']) && !empty($_POST['denomination_50p'])) ? sanitize($_POST['denomination_50p']) : NULL);
+        $denomination_50p_amt = ((isset($_POST['denomination_50p_amt']) && !empty($_POST['denomination_50p_amt'])) ? sanitize($_POST['denomination_50p_amt']) : NULL);
+        $denomination_20p = ((isset($_POST['denomination_20p']) && !empty($_POST['denomination_20p'])) ? sanitize($_POST['denomination_20p']) : NULL);
+        $denomination_20p_amt = ((isset($_POST['denomination_20p_amt']) && !empty($_POST['denomination_20p_amt'])) ? sanitize($_POST['denomination_20p_amt']) : NULL);
+        $denomination_10p = ((isset($_POST['denomination_10p']) && !empty($_POST['denomination_10p'])) ? sanitize($_POST['denomination_10p']) : NULL);
+        $denomination_10p_amt = ((isset($_POST['denomination_10p_amt']) && !empty($_POST['denomination_10p_amt'])) ? sanitize($_POST['denomination_10p_amt']) : NULL);
+        $denomination_5p = ((isset($_POST['denomination_5p']) && !empty($_POST['denomination_5p'])) ? sanitize($_POST['denomination_5p']) : NULL);
+        $denomination_5p_amt = ((isset($_POST['denomination_5p_amt']) && !empty($_POST['denomination_5p_amt'])) ? sanitize($_POST['denomination_5p_amt']) : NULL);
+        $denomination_1p = ((isset($_POST['denomination_1p']) && !empty($_POST['denomination_1p'])) ? sanitize($_POST['denomination_1p']) : NULL);
+        $denomination_1p_amt = ((isset($_POST['denomination_1p_amt']) && !empty($_POST['denomination_1p_amt'])) ? sanitize($_POST['denomination_1p_amt']) : NULL);
+        $denomination_total = ((isset($_POST['denomination_total']) && !empty($_POST['denomination_total'])) ? sanitize($_POST['denomination_total']) : NULL);
 
 
-    unset($_POST);
-    // unset($_REQUEST);
+        unset($_POST);
+        // unset($_REQUEST);
 
-    $denomination_id = guidv4();
-    $capital_id = _capital($admin_id)['today_capital_id'];
-    $capital_amt = money(_capital($admin_id)['today_capital']);
-    $capital_bal = money(_capital($admin_id)['today_balance']);
+        $denomination_id = guidv4();
+        $capital_id = _capital($admin_id)['today_capital_id'];
+        $capital_amt = money(_capital($admin_id)['today_capital']);
+        $capital_bal = money(_capital($admin_id)['today_balance']);
 
-    $data = [$denomination_id, $capital_id, $admin_id, $denomination_200c, $denomination_200c_amt, $denomination_100c, $denomination_100c_amt, $denomination_50c, $denomination_50c_amt, $denomination_20c, $denomination_20c_amt, $denomination_10c, $denomination_10c_amt, $denomination_5c, $denomination_5c_amt, $denomination_2c, $denomination_2c_amt, $denomination_1c, $denomination_1c_amt, $denomination_50p, $denomination_50p_amt, $denomination_20p, $denomination_20p_amt, $denomination_10p, $denomination_10p_amt, $denomination_5p, $denomination_5p_amt, $denomination_1p, $denomination_1p_amt];
-    
-    // save end trade records into denomination table
-    $sql = "
-        INSERT INTO `jspence_denomination`(`denominations_id`, `denomination_capital`, `denomination_by`, `denomination_200c`, `denomination_200c_amt`, `denomination_100c`, `denomination_100c_amt`, `denomination_50c`, `denomination_50c_amt`, `denomination_20c`, `denomination_20c_amt`, `denomination_10c`, `denomination_10c_amt`, `denomination_5c`, `denomination_5c_amt`, `denomination_2c`, `denomination_2c_amt`, `denomination_1c`, `denomination_1c_amt`, `denomination_50p`, `denomination_50p_amt`, `denomination_20p`, `denomination_20p_amt`, `denomination_10p`, `denomination_10p_amt`, `denomination_5p`, `denomination_5p_amt`, `denomination_1p`, `denomination_1p_amt`) 
-        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
-    ";
-    $statement = $conn->prepare($sql);
-    $result = $statement->execute($data);
-    if (isset($result)) {
-
-        $message = "ended trade, denomination id: " . $denomination_id . ", and total amount of " . money($denomination_total);
-		add_to_log($message, $admin_id);
-    
-        // allow only salepersonnels to perform only this action
-        if (!admin_has_permission('supervisor')) {
-            // send balance back to the supervisor for his next day trade
-            $tomorrow = new DateTime('tomorrow');
-            $tomorrow = $tomorrow->format('Y-m-d');
-
-            $push_to = '$2y$10$lwzmqYK9BHTWrHL0FNxoju1FCQQfOY78T8nb9kEeH0dTzvRCannvW'; // get supervisors id
-            $supervisor_capital = _capital($push_to)['today_capital']; // get supervisors capital
+        $data = [$denomination_id, $capital_id, $admin_id, $denomination_200c, $denomination_200c_amt, $denomination_100c, $denomination_100c_amt, $denomination_50c, $denomination_50c_amt, $denomination_20c, $denomination_20c_amt, $denomination_10c, $denomination_10c_amt, $denomination_5c, $denomination_5c_amt, $denomination_2c, $denomination_2c_amt, $denomination_1c, $denomination_1c_amt, $denomination_50p, $denomination_50p_amt, $denomination_20p, $denomination_20p_amt, $denomination_10p, $denomination_10p_amt, $denomination_5p, $denomination_5p_amt, $denomination_1p, $denomination_1p_amt];
         
-            $daily_id = guidv4();
-            $push_id = guidv4();
-            $new_capital = _capital($admin_id)['today_balance']; // current ending trade sale personnel balance
+        // save end trade records into denomination table
+        $sql = "
+            INSERT INTO `jspence_denomination`(`denominations_id`, `denomination_capital`, `denomination_by`, `denomination_200c`, `denomination_200c_amt`, `denomination_100c`, `denomination_100c_amt`, `denomination_50c`, `denomination_50c_amt`, `denomination_20c`, `denomination_20c_amt`, `denomination_10c`, `denomination_10c_amt`, `denomination_5c`, `denomination_5c_amt`, `denomination_2c`, `denomination_2c_amt`, `denomination_1c`, `denomination_1c_amt`, `denomination_50p`, `denomination_50p_amt`, `denomination_20p`, `denomination_20p_amt`, `denomination_10p`, `denomination_10p_amt`, `denomination_5p`, `denomination_5p_amt`, `denomination_1p`, `denomination_1p_amt`) 
+            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+        ";
+        $statement = $conn->prepare($sql);
+        $result = $statement->execute($data);
+        if (isset($result)) {
 
-            // check if supervisor has already recieved tomorrow capital from other salepersonels
-            $findTomorrowCapital = find_capital_given_to($push_to, $tomorrow);
-            if ($findTomorrowCapital) {
-                $new_capital = (float)($new_capital + $supervisor_capital);
-                $daily_id = $findTomorrowCapital;
-            }
-            $data = [$new_capital, $tomorrow, $push_to, $daily_id];
+            $message = "ended trade, denomination id: " . $denomination_id . ", and total amount of " . money($denomination_total);
+            add_to_log($message, $admin_id);
+        
+            // allow only salepersonnels to perform only this action
+            if (!admin_has_permission('supervisor')) {
+                // send balance back to the supervisor for his next day trade
+                $tomorrow = new DateTime('tomorrow');
+                $tomorrow = $tomorrow->format('Y-m-d');
 
-            // insert into supervosr's capital for tomorrow
-            $sql = "
-                INSERT INTO jspence_daily (daily_capital, daily_date, daily_to, daily_id) 
-                VALUES (?, ?, ?, ?)
-            ";
-            if ($findTomorrowCapital) {
-                // update supervosr's capital for tomorrow
-                $sql = "
-                    UPDATE `jspence_daily` 
-                    SET `daily_capital` = ? 
-                    WHERE `daily_date` = ? AND `daily_to` = ? AND `daily_id` = ?
-                ";
-            }
-            $message = "end-trade, remaining balance " . $capital_bal . ' sent to supervisor id: ' . $push_to;
-            $statement = $conn->prepare($sql);
-            $daily_result = $statement->execute($data);
+                $push_to = '$2y$10$lwzmqYK9BHTWrHL0FNxoju1FCQQfOY78T8nb9kEeH0dTzvRCannvW'; // get supervisors id
+                $supervisor_capital = _capital($push_to)['today_capital']; // get supervisors capital
+            
+                $daily_id = guidv4();
+                $push_id = guidv4();
+                $new_capital = _capital($admin_id)['today_balance']; // current ending trade sale personnel balance
 
-            // find the just enetered capital id
-            if (!$findTomorrowCapital) {
-                $LID = $conn->lastInsertId();
-                $q = $conn->query("SELECT * FROM jspence_daily WHERE id = '" . $LID . "' LIMIT 1")->fetchAll();
-                $findTomorrowCapital = $q[0]['daily_id'];
-            }
-
-            if (isset($daily_result)) {
-                // insert into push table
-                $push_data = [$push_id, $findTomorrowCapital, _capital($admin_id)['today_balance'], $admin_id, $push_to, $tomorrow];
-                $sql = "
-                    INSERT INTO jspence_pushes (push_id, push_daily, push_amount, push_from, push_to, push_date) 
-                    VALUES (?, ?, ?, ?, ?, ?)
-                ";
-                $statement = $conn->prepare($sql);
-                $push_result = $statement->execute($push_data);
-
-                if (isset($push_result)) {
-                    $push_message = "end-trade push made on " . $tomorrow . ", of an amount of " . $capital_bal . ' to supervisor id: ' . $push_to;
-                    add_to_log($push_message, $admin_id);
+                // check if supervisor has already recieved tomorrow capital from other salepersonels
+                $findTomorrowCapital = find_capital_given_to($push_to, $tomorrow);
+                if ($findTomorrowCapital) {
+                    $new_capital = (float)($new_capital + $supervisor_capital);
+                    $daily_id = $findTomorrowCapital;
                 }
+                $data = [$new_capital, $tomorrow, $push_to, $daily_id];
+
+                // insert into supervosr's capital for tomorrow
+                $sql = "
+                    INSERT INTO jspence_daily (daily_capital, daily_date, daily_to, daily_id) 
+                    VALUES (?, ?, ?, ?)
+                ";
+                if ($findTomorrowCapital) {
+                    // update supervosr's capital for tomorrow
+                    $sql = "
+                        UPDATE `jspence_daily` 
+                        SET `daily_capital` = ? 
+                        WHERE `daily_date` = ? AND `daily_to` = ? AND `daily_id` = ?
+                    ";
+                }
+                $message = "end-trade, remaining balance " . $capital_bal . ' sent to supervisor id: ' . $push_to;
+                $statement = $conn->prepare($sql);
+                $daily_result = $statement->execute($data);
+
+                // find the just enetered capital id
+                if (!$findTomorrowCapital) {
+                    $LID = $conn->lastInsertId();
+                    $q = $conn->query("SELECT * FROM jspence_daily WHERE id = '" . $LID . "' LIMIT 1")->fetchAll();
+                    $findTomorrowCapital = $q[0]['daily_id'];
+                }
+
+                if (isset($daily_result)) {
+                    // insert into push table
+                    $push_data = [$push_id, $findTomorrowCapital, _capital($admin_id)['today_balance'], $admin_id, $push_to, $tomorrow];
+                    $sql = "
+                        INSERT INTO jspence_pushes (push_id, push_daily, push_amount, push_from, push_to, push_date) 
+                        VALUES (?, ?, ?, ?, ?, ?)
+                    ";
+                    $statement = $conn->prepare($sql);
+                    $push_result = $statement->execute($push_data);
+
+                    if (isset($push_result)) {
+                        $push_message = "end-trade push made on " . $tomorrow . ", of an amount of " . $capital_bal . ' to supervisor id: ' . $push_to;
+                        add_to_log($push_message, $admin_id);
+                    }
+                    add_to_log($message, $admin_id);
+                }
+
+            }
+
+            // update today trade table so it does not accepts any trades anymore
+            $query = "
+                UPDATE jspence_daily SET daily_capital_status = ? 
+                WHERE daily_id = ?
+            ";
+            $statement = $conn->prepare($query);
+            $r = $statement->execute([1, $capital_id]);
+            if ($r) {
+                $message = "market capital ended, capital id: " . $capital_id;
                 add_to_log($message, $admin_id);
             }
-
-        }
-
-        // update today trade table so it does not accepts any trades anymore
-        $query = "
-            UPDATE jspence_daily SET daily_capital_status = ? 
-            WHERE daily_id = ?
-        ";
-        $statement = $conn->prepare($query);
-        $r = $statement->execute([1, $capital_id]);
-        if ($r) {
-            $message = "market capital ended, capital id: " . $capital_id;
-			add_to_log($message, $admin_id);
-        }
 
 ?>
 
@@ -342,9 +342,13 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     </main>
 
 <?php
+        }
+    } else {
+        redirect(PROOT);
     }
-} else {
-    redirect(PROOT);
+
+    unset($_SESSION['postdata']);
+    
 }
 
     include ("../includes/footer.inc.php"); 
