@@ -215,7 +215,7 @@ if (array_key_exists('postdata', $_SESSION)) {
                                 Amount Given: <?= $capital_amt; ?><br />
                                 Balance: <?= $capital_bal; ?><br />
                                 <?php if (admin_has_permission('supervisor')): ?>
-                                Earned: <?= $capital_bal; ?>
+                                Earned: <?= _gained_calculation(_capital($admin_id)['today_balance'], _capital($admin_id)['today_capital']); ?>
                                 <?php endif; ?>
                             </p>
                         </div>
