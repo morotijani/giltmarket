@@ -165,7 +165,7 @@ if (array_key_exists('postdata', $_SESSION)) {
                     <!-- Breadcrumb -->
                     <nav aria-label="breadcrumb">
                         <ol class="breadcrumb mb-2">
-                            <li class="breadcrumb-item"><a class="text-body-secondary" href="#">Market</a></li>
+                            <li class="breadcrumb-item"><a class="text-body-secondary" href="javascript:;">Market</a></li>
                             <li class="breadcrumb-item active" aria-current="page">End trade</li>
                         </ol>
                     </nav>
@@ -214,13 +214,17 @@ if (array_key_exists('postdata', $_SESSION)) {
                                 Capital ID: <?= $capital_id; ?><br />
                                 Amount Given: <?= $capital_amt; ?><br />
                                 Balance: <?= $capital_bal; ?><br />
+                                <?php if (admin_has_permission('supervisor')): ?>
+                                Earned: <?= $capital_bal; ?>
+                                <?php endif; ?>
                             </p>
                         </div>
                         <div class="col-auto">
                             <p class="text-end text-body-secondary mb-0">
                             <span class="fw-bold text-body">From:</span> <br />
                                 <span class="text-body"><?= ucwords($admin_data['admin_fullname']); ?></span> <br />
-                                Admin ID: <?= $admin_data['admin_id']; ?> <br />
+                                Admin ID: <?= $admin_id; ?> <br />
+                                Position: <?= _admin_position($admin_data['admin_permissions']); ?> <br />
                                 Last Login: <?= pretty_date($admin_data['admin_last_login']); ?> <br />
                                 Denomination ID: <?= $denomination_id; ?>
                             </p>

@@ -27,7 +27,7 @@ function _admin_position($permission) {
 		$output = 'salespersonnel';
 	}
 
-	return ucwords($output);
+	return strtoupper($output);
 }
 
 // check if capital is given today
