@@ -20,7 +20,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     exit;
 }
     
-//if (isset($_POST['denomination_200c'])) {
 // issetElse
 if (array_key_exists('postdata', $_SESSION)) {
 

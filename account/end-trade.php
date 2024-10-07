@@ -92,67 +92,67 @@
                                 <tr>
                                     <td>TWO HUNDRED Ghana cedis (200 GHS) X </td>
                                     <td><input type="number" inputmode="numeric" min="0" step="1" class="form-control" name="denomination_200c" id="denomination_200c" placeholder="0" /></td>
-                                    <td><input type="number" inputmode="numeric" min="0" step="1" class="form-control" name="denomination_200c_amt" id="denomination_200c_amt" placeholder="0.00" readonly /></td>
+                                    <td><input type="number" class="form-control" name="denomination_200c_amt" id="denomination_200c_amt" placeholder="0.00" readonly /></td>
                                 </tr>
                                 <tr>
                                     <td>HUNDRED Ghana cedis (100 GHS) X </td>
                                     <td><input type="number" inputmode="numeric" min="0" step="1" class="form-control" name="denomination_100c" id="denomination_100c" placeholder="0" /></td>
-                                    <td><input type="number" inputmode="numeric" min="0" step="1" class="form-control" name="denomination_100c_amt" id="denomination_100c_amt" placeholder="0.00" readonly /></td>
+                                    <td><input type="number" class="form-control" name="denomination_100c_amt" id="denomination_100c_amt" placeholder="0.00" readonly /></td>
                                 </tr>
                                 <tr>
                                     <td>FIFTY Ghana cedis (50 GHS) X </td>
                                     <td><input type="number" inputmode="numeric" min="0" step="1" class="form-control" name="denomination_50c" id="denomination_50c" placeholder="0" /></td>
-                                    <td><input type="number" inputmode="numeric" min="0" step="1" class="form-control" name="denomination_50c_amt" id="denomination_50c_amt" placeholder="0.00" readonly /></td>
+                                    <td><input type="number" class="form-control" name="denomination_50c_amt" id="denomination_50c_amt" placeholder="0.00" readonly /></td>
                                 </tr>
                                 <tr>
                                     <td>TWENTY Ghana cedis (20 GHS) X </td>
                                     <td><input type="number" inputmode="numeric" min="0" step="1" class="form-control" name="denomination_20c" id="denomination_20c" placeholder="0" /></td>
-                                    <td><input type="number" inputmode="numeric" min="0" step="1" class="form-control" name="denomination_20c_amt" id="denomination_20c_amt" placeholder="0.00" readonly /></td>
+                                    <td><input type="number" class="form-control" name="denomination_20c_amt" id="denomination_20c_amt" placeholder="0.00" readonly /></td>
                                 </tr>
                                 <tr>
                                     <td>TEN Ghana cedis (10 GHS) X </td>
                                     <td><input type="number" inputmode="numeric" min="0" step="1" class="form-control" name="denomination_10c" id="denomination_10c" placeholder="0" /></td>
-                                    <td><input type="number" inputmode="numeric" min="0" step="1" class="form-control" name="denomination_10c_amt" id="denomination_10c_amt" placeholder="0" readonly /></td>
+                                    <td><input type="number" class="form-control" name="denomination_10c_amt" id="denomination_10c_amt" placeholder="0" readonly /></td>
                                 </tr>
                                 <tr>
                                     <td>FIVE Ghana cedis (5 GHS) X </td>
                                     <td><input type="number" inputmode="numeric" min="0" step="1" class="form-control" name="denomination_5c" id="denomination_5c" placeholder="0" /></td>
-                                    <td><input type="number" inputmode="numeric" min="0" step="1" class="form-control" name="denomination_5c_amt" id="denomination_5c_amt" placeholder="0.00" readonly /></td>
+                                    <td><input type="number" class="form-control" name="denomination_5c_amt" id="denomination_5c_amt" placeholder="0.00" readonly /></td>
                                 </tr>
                                 <tr>
                                     <td>TWO Ghana cedis (2 GHS) X </td>
                                     <td><input type="number" inputmode="numeric" min="0" step="1" class="form-control" name="denomination_2c" id="denomination_2c" placeholder="0" /></td>
-                                    <td><input type="number" inputmode="numeric" min="0" step="1" class="form-control" name="denomination_2c_amt" id="denomination_2c_amt" placeholder="0.00" readonly /></td>
+                                    <td><input type="number" class="form-control" name="denomination_2c_amt" id="denomination_2c_amt" placeholder="0.00" readonly /></td>
                                 </tr>
                                 <tr>
                                     <td>ONE Ghana cedis (1 GHS) X </td>
                                     <td><input type="number" inputmode="numeric" min="0" step="1" class="form-control" name="denomination_1c" id="denomination_1c" placeholder="0" /></td>
-                                    <td><input type="number" inputmode="numeric" min="0" step="1" class="form-control" name="denomination_1c_amt" id="denomination_1c_amt" placeholder="0.00" readonly /></td>
+                                    <td><input type="number" class="form-control" name="denomination_1c_amt" id="denomination_1c_amt" placeholder="0.00" readonly /></td>
                                 </tr>
                                 <tr>
                                     <td>FIFTY Ghana pesewas (0.50 P) X </td>
                                     <td><input type="number" inputmode="numeric" min="0" step="1" class="form-control" name="denomination_50p" id="denomination_50p" placeholder="0" /></td>
-                                    <td><input type="number" inputmode="numeric" min="0" step="1" class="form-control" name="denomination_50p_amt" id="denomination_50p_amt" placeholder="0.00" readonly /></td>
+                                    <td><input type="number" class="form-control" name="denomination_50p_amt" id="denomination_50p_amt" placeholder="0.00" readonly /></td>
                                 </tr>
                                 <tr>
                                     <td>TWENTY Ghana pesewas (0.20 P) X </td>
                                     <td><input type="number" inputmode="numeric" min="0" step="1" class="form-control" name="denomination_20p" id="denomination_20p" placeholder="0" /></td>
-                                    <td><input type="number" inputmode="numeric" min="0" step="1" class="form-control" name="denomination_20p_amt" id="denomination_20p_amt" placeholder="0.00" readonly /></td>
+                                    <td><input type="number" class="form-control" name="denomination_20p_amt" id="denomination_20p_amt" placeholder="0.00" readonly /></td>
                                 </tr>
                                 <tr>
                                     <td>TEN Ghana pesewas (0.10 P) X </td>
                                     <td><input type="number" inputmode="numeric" min="0" step="1" class="form-control" name="denomination_10p" id="denomination_10p" placeholder="0" /></td>
-                                    <td><input type="number" inputmode="numeric" min="0" step="1" class="form-control" name="denomination_10p_amt" id="denomination_10p_amt" placeholder="0.00" readonly /></td>
+                                    <td><input type="number" class="form-control" name="denomination_10p_amt" id="denomination_10p_amt" placeholder="0.00" readonly /></td>
                                 </tr>
                                 <tr>
                                     <td>FIVE Ghana pesewas (0.05 P) X </td>
                                     <td><input type="number" inputmode="numeric" min="0" step="1" class="form-control" name="denomination_5p" id="denomination_5p" placeholder="0" /></td>
-                                    <td><input type="number" inputmode="numeric" min="0" step="1" class="form-control" name="denomination_5p_amt" id="denomination_5p_amt" placeholder="0.00" readonly /></td>
+                                    <td><input type="number" class="form-control" name="denomination_5p_amt" id="denomination_5p_amt" placeholder="0.00" readonly /></td>
                                 </tr>
                                 <tr>
                                     <td>ONE Ghana pesewas (0.01 P) X </td>
                                     <td><input type="number" inputmode="numeric" min="0" step="1" class="form-control" name="denomination_1p" id="denomination_1p" placeholder="0" /></td>
-                                    <td><input type="number" inputmode="numeric" min="0" step="1" class="form-control" name="denomination_1p_amt" id="denomination_1p_amt" placeholder="0.00" readonly /></td>
+                                    <td><input type="number" class="form-control" name="denomination_1p_amt" id="denomination_1p_amt" placeholder="0.00" readonly /></td>
                                 </tr>
                                 <tr>
                                     <td colspan="2">Total</td>
