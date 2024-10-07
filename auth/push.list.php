@@ -42,7 +42,7 @@ if ($search_query != '') {
 		OR push_amount LIKE "%'.$find_query.'%" 
 		OR jspence_pushes.createdAt = "%'.$find_query.'%" 
 		OR admin_fullname LIKE "%'.$find_query.'%") 
-		GROUP BY push_id
+		GROUP BY push_id 
 	';
 } else {
 	$query .= 'GROUP BY push_id ORDER BY jspence_pushes.createdAt DESC ';
