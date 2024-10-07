@@ -1078,46 +1078,49 @@ function sum_up_volume($conn, $admin) {
 
 // summ all density per admin for today
 function sum_up_density($conn, $admin) {
-	$output = '';
-	$today = date("Y-m-d");
+	// $output = '';
+	// $today = date("Y-m-d");
 
-	$where = '';
-	if (!admin_has_permission()) {
-		$where = " AND jspence_sales.sale_by = '" . $admin . "' AND CAST(createdAt AS date) = '" . $today . "'";
-	}
+	// $where = '';
+	// if (!admin_has_permission()) {
+	// 	$where = " AND jspence_sales.sale_by = '" . $admin . "' AND CAST(createdAt AS date) = '" . $today . "'";
+	// }
 	
-	$sql = "
-		SELECT SUM(sale_density) AS d 
-		FROM jspence_sales 
-		WHERE sale_status = ? 
-	";
-	$statement = $conn->prepare($sql);
-	$statement->execute([0]);
-	$row = $statement->fetchAll();
+	// $sql = "
+	// 	SELECT SUM(sale_density) AS d 
+	// 	FROM jspence_sales 
+	// 	WHERE sale_status = ? 
+	// ";
+	// $statement = $conn->prepare($sql);
+	// $statement->execute([0]);
+	// $row = $statement->fetchAll();
 
-	return (($row[0]['d'] == null) ? 0 : $row[0]['d']);
+	// return (($row[0]['d'] == null) ? 0 : $row[0]['d']);
+	$density = calculateDensity(sum_up_grams($conn, $admin), sum_up_volume($conn, $admin));
+	return 	$density;
 }
 
 // summ all pounds per admin for today
 function sum_up_pounds($conn, $admin) {
-	$output = '';
-	$today = date("Y-m-d");
+	// $output = '';
+	// $today = date("Y-m-d");
 
-	$where = '';
-	if (!admin_has_permission()) {
-		$where = " AND jspence_sales.sale_by = '" . $admin . "' AND CAST(createdAt AS date) = '" . $today . "'";
-	}
+	// $where = '';
+	// if (!admin_has_permission()) {
+	// 	$where = " AND jspence_sales.sale_by = '" . $admin . "' AND CAST(createdAt AS date) = '" . $today . "'";
+	// }
 	
-	$sql = "
-		SELECT SUM(sale_pounds) AS p 
-		FROM jspence_sales 
-		WHERE sale_status = ? 
-	";
-	$statement = $conn->prepare($sql);
-	$statement->execute([0]);
-	$row = $statement->fetchAll();
+	// $sql = "
+	// 	SELECT SUM(sale_pounds) AS p 
+	// 	FROM jspence_sales 
+	// 	WHERE sale_status = ? 
+	// ";
+	// $statement = $conn->prepare($sql);
+	// $statement->execute([0]);
+	// $row = $statement->fetchAll();
 
-	return (($row[0]['p'] == null) ? 0 : $row[0]['p']);
+	// return (($row[0]['p'] == null) ? 0 : $row[0]['p']);
+	return calculatePounds(sum_up_grams($conn, $admin));
 }
 
 // summ all carat per admin for today
@@ -1140,4 +1143,6 @@ function sum_up_carat($conn, $admin) {
 	$row = $statement->fetchAll();
 
 	return (($row[0]['c'] == null) ? 0 : $row[0]['c']);
+
+	calculateCarat($gram, $volume);
 }
