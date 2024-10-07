@@ -58,6 +58,12 @@ if (array_key_exists('postdata', $_SESSION)) {
     $capital_amt = money(_capital($admin_id)['today_capital']);
     $capital_bal = money(_capital($admin_id)['today_balance']);
 
+    // include gain amount to supervor details
+    $gained = '';
+    if (admin_has_permission('supervisor')) {
+        $gained = 'Earned: ' . _gained_calculation(_capital($admin_id)['today_balance'], _capital($admin_id)['today_capital']);
+    }
+
     $data = [$denomination_id, $capital_id, $admin_id, $denomination_200c, $denomination_200c_amt, $denomination_100c, $denomination_100c_amt, $denomination_50c, $denomination_50c_amt, $denomination_20c, $denomination_20c_amt, $denomination_10c, $denomination_10c_amt, $denomination_5c, $denomination_5c_amt, $denomination_2c, $denomination_2c_amt, $denomination_1c, $denomination_1c_amt, $denomination_50p, $denomination_50p_amt, $denomination_20p, $denomination_20p_amt, $denomination_10p, $denomination_10p_amt, $denomination_5p, $denomination_5p_amt, $denomination_1p, $denomination_1p_amt];
     
     // save end trade records into denomination table
@@ -214,17 +220,15 @@ if (array_key_exists('postdata', $_SESSION)) {
                                 Capital ID: <?= $capital_id; ?><br />
                                 Amount Given: <?= $capital_amt; ?><br />
                                 Balance: <?= $capital_bal; ?><br />
-                                <?php if (admin_has_permission('supervisor')): ?>
-                                Earned: <?= _gained_calculation(_capital($admin_id)['today_balance'], _capital($admin_id)['today_capital']); ?>
-                                <?php endif; ?>
+                                <?= $gained; ?>
                             </p>
                         </div>
                         <div class="col-auto">
                             <p class="text-end text-body-secondary mb-0">
                             <span class="fw-bold text-body">From:</span> <br />
                                 <span class="text-body"><?= ucwords($admin_data['admin_fullname']); ?></span> <br />
+                                Title: <?= _admin_position($admin_data['admin_permissions']); ?> <br />
                                 Admin ID: <?= $admin_id; ?> <br />
-                                Position: <?= _admin_position($admin_data['admin_permissions']); ?> <br />
                                 Last Login: <?= pretty_date($admin_data['admin_last_login']); ?> <br />
                                 Denomination ID: <?= $denomination_id; ?>
                             </p>
