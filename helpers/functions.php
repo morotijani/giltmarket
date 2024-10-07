@@ -1096,7 +1096,13 @@ function sum_up_density($conn, $admin) {
 	// $row = $statement->fetchAll();
 
 	// return (($row[0]['d'] == null) ? 0 : $row[0]['d']);
-	$density = calculateDensity(sum_up_grams($conn, $admin), sum_up_volume($conn, $admin));
+	$density = 0;
+	if (sum_up_grams($conn, $admin) > 0) {
+		if (sum_up_volume($conn, $admin) > 0) {
+			$density = calculateDensity(sum_up_grams($conn, $admin), sum_up_volume($conn, $admin));
+		}
+	}
+	
 	return $density;
 }
 
@@ -1143,7 +1149,12 @@ function sum_up_carat($conn, $admin) {
 	// $row = $statement->fetchAll();
 
 	// return (($row[0]['c'] == null) ? 0 : $row[0]['c']);
-
-	$carat = calculateCarat(sum_up_grams($conn, $admin), sum_up_volume($conn, $admin));
+	$carat = 0;
+	if (sum_up_grams($conn, $admin) > 0) {
+		if (sum_up_volume($conn, $admin) > 0) {
+			$carat = calculateCarat(sum_up_grams($conn, $admin), sum_up_volume($conn, $admin));
+		}
+	}
+	
 	return $carat;
 }
