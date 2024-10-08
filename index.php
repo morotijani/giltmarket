@@ -274,6 +274,22 @@
 
 			<?php endif; ?>
 
+			<div class="card mb-6">
+				<div class="card-header">
+					<div class="row align-items-center">
+						<div class="col">
+							<h3 class="fs-6 mb-0">Trades</h3>
+							<span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+								99+
+								<span class="visually-hidden">unread messages</span>
+							</span>
+						</div>
+					</div>
+				</div>
+				<div class="card-body py-3">
+				</div>
+			</div>
+
             <!-- Trades -->
 			<div class="card mb-6 mb-xxl-0">
 				<div class="card-header">
@@ -284,12 +300,6 @@
 								99+
 								<span class="visually-hidden">unread messages</span>
 							</span>
-						</div>
-						<div class="col-auto my-n3 me-n3">
-							<a class="btn btn-link" href="<?= PROOT; ?>account/trades">
-							Browse all
-							<span class="material-symbols-outlined">arrow_right_alt</span>
-							</a>
 						</div>
 					</div>
 					<div class="row align-items-center">

@@ -13,22 +13,7 @@
                 <div class="modal-body undefined">
                     <div class="buy-msg p-1 small"></div>
                     <style>
-                        #buyForm input, #buyForm textarea {
-                            box-shadow: none;
-                            border-color: none;
-                            background-color: transparent;
-                        }
-
-                        #buyForm .icon-shape {
-                            vertical-align: middle;
-                            text-align: center;
-                            width: 2rem;
-                            height: 2rem;
-                            border-radius: .375rem;
-                            justify-content: center;
-                            align-items: center;
-                            display: inline-flex;
-                        }
+                       
                     </style>
                     <form class="vstack gap-6" id="buyForm">
                         <div id="step-1">

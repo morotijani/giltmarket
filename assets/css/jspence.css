@@ -138,3 +138,20 @@ input[type=number] {
     --x-btn-hover-color: var(--x-white);
     --x-btn-hover-border-color: var(--x-gray-700);
 }
+
+#buyForm input, #buyForm textarea {
+    box-shadow: none;
+    border-color: none;
+    background-color: transparent;
+}
+
+#buyForm .icon-shape {
+    vertical-align: middle;
+    text-align: center;
+    width: 2rem;
+    height: 2rem;
+    border-radius: .375rem;
+    justify-content: center;
+    align-items: center;
+    display: inline-flex;
+}
