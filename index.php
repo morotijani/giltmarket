@@ -275,18 +275,32 @@
 			<?php endif; ?>
 
 			<div class="card mb-6">
-				<div class="card-header">
-					<div class="row align-items-center">
-						<div class="col">
-							<h3 class="fs-6 mb-0">Trades</h3>
-							<span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
-								99+
-								<span class="visually-hidden">unread messages</span>
-							</span>
-						</div>
-					</div>
-				</div>
 				<div class="card-body py-3">
+					<div class="d-flex gap-8 justify-content-center mb-5">
+						<a href="#" class="text-lg fw-bold text-heading">Push</a> <span class="opacity-10">~></span> <a href="#" class="text-lg fw-bold text-muted">Gold</a>
+					</div>
+					<form class="vstack gap-6" id="buyForm">
+                        <div id="step-1">
+                            <div class="vstack gap-2">
+                                <div class="bg-body-secondary rounded-3 p-4">
+                                    <div class="d-flex justify-content-between text-xs text-muted">
+                                        <span class="fw-semibold">Gold</span>
+                                    </div>
+                                    <div class="d-flex justify-content-between gap-2 mt-4">
+                                        <input type="number" inputmode="numeric" class="form-control form-control-flush fw-bold text-xl flex-fill w-rem-50" placeholder="0.00" id="gram-amount" name="gram-amount" required autocomplete="off" min="0.00" step="0.01"> <button type="button" class="btn btn-outline-light shadow-none rounded-pill flex-none d-flex align-items-center gap-2 py-2 ps-2 pe-4"><img src="<?= PROOT; ?>assets/media/grams.svg" class="w-rem-6 h-rem-6" alt="..."> <span class="text-xs text-heading ms-1">GRM</span>&nbsp;</button>
+                                    </div>
+                                </div>
+								<div class="text-center text-sm text-muted text-underline">Cash at Hand ≈ 23.000 EUR</div>
+								<div>
+									<label class="form-label">Pick a supervisor</label>
+									<div>
+										<select class="form-control text-reset border border-dashed d-flex align-items-center"></select>
+									</div>
+								</div>
+								<button type="button" class="btn btn-lg btn-dark w-100">Buy BTC</button>
+                            </div>
+						</div>
+					</form>
 				</div>
 			</div>
 

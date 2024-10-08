@@ -108,6 +108,10 @@ input[type=number] {
     gap: .25rem !important;
 }
 
+.gap-8 {
+    gap: 2rem !important;
+}
+
 .bg-body-gold {
     --bs-bg-opacity: 1;
     background-color: rgb(246 244 236) !important;
