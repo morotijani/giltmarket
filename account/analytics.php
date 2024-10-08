@@ -367,7 +367,7 @@
                                     <div class="row align-items-center">
                                         <div class="col">
                                             <!-- Heading -->
-                                            <h4 class="fs-sm fw-normal text-body-secondary mb-1">Desity</h4>
+                                            <h4 class="fs-sm fw-normal text-body-secondary mb-1">Density</h4>
 
                                             <!-- Text -->
                                             <div class="fs-4 fw-semibold" id="total-density">0</div>
