@@ -277,7 +277,7 @@
 			<div class="card mb-6">
 				<div class="card-body py-3">
 					<div class="d-flex gap-8 justify-content-center mb-5">
-						<a href="#" class="text-lg fw-bold text-heading">Push</a> <span class="opacity-10">~></span> <a href="#" class="text-lg fw-bold text-muted">Gold</a>
+						<a href="javascript:;" class="text-lg fw-bold text-heading">Push</a> <span class="opacity-10">~></span> <a href="#" class="text-lg fw-bold text-muted">Gold</a>
 					</div>
 					<form class="vstack gap-6" id="buyForm">
                         <div id="step-1">
@@ -287,7 +287,7 @@
                                         <span class="fw-semibold">Gold</span>
                                     </div>
                                     <div class="d-flex justify-content-between gap-2 mt-4">
-                                        <input type="number" inputmode="numeric" class="form-control form-control-flush fw-bold text-xl flex-fill w-rem-50" placeholder="0.00" id="gram-amount" name="gram-amount" required autocomplete="off" min="0.00" step="0.01"> <button type="button" class="btn btn-outline-light shadow-none rounded-pill flex-none d-flex align-items-center gap-2 py-2 ps-2 pe-4"><img src="<?= PROOT; ?>assets/media/gold.png" class="w-rem-6 h-rem-6" alt="..."> <span class="text-xs text-heading ms-1">GOLD</span>&nbsp;</button>
+                                        <input type="number" inputmode="numeric" class="form-control form-control-flush fw-bold text-xl flex-fill w-rem-50" placeholder="0.00" id="gram-amount" name="gram-amount" required autocomplete="off" min="0.00" step="0.01"> <button type="button" class="btn btn-outline-light shadow-none rounded-pill flex-none d-flex align-items-center gap-2 py-2 ps-2 pe-4"><img src="<?= PROOT; ?>assets/media/gold.png" class="w-rem-6 h-rem-6" alt="..."> <span class="text-xs text-heading ms-1">GRM</span>&nbsp;</button>
                                     </div>
                                 </div>
 								<div class="text-center text-sm text-muted text-underline">Cash at Hand ≈ 23.000 EUR</div>
@@ -297,8 +297,54 @@
 										<select class="form-control text-reset border border-dashed d-flex align-items-center"></select>
 									</div>
 								</div>
-								<button type="button" class="btn btn-lg btn-dark w-100">Buy BTC</button>
+								<button type="button" data-bs-target="#sendMGModal" data-bs-toggle="modal" class="btn btn-lg btn-dark w-100">Proceed</button>
                             </div>
+						</div>
+
+						<div class="modal fade" id="sendMGModal" tabindex="-1" aria-labelledby="sendMGModalLabel" data-bs-backdrop="static" data-bs-keyboard="false" aria-hidden="true" style="backdrop-filter: blur(5px);">
+							<div class="modal-dialog modal-dialog-centered">
+								<div class="modal-content overflow-hidden">
+									<div class="modal-header pb-0 border-0">
+										<h1 class="modal-title h4" id="sendMGModalLabel">Verify add expenditure!</h1>
+										<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+									</div>
+									<div class="modal-body">
+										<div class="inputpin mb-3">
+											<div>
+												<?php if (is_capital_given()): ?>
+													<?php if (is_capital_exhausted($conn, $admin_data['admin_id'])): ?>
+													<label class="form-label">Enter pin</label>
+													<div class="d-flex justify-content-between p-4 bg-body-tertiary rounded">
+														<style>
+															#pin:focus {
+																box-shadow: none;
+															}
+														</style>
+														<input type="number" class="form-control form-control-flush text-xl fw-bold w-rem-40 bg-transparent" placeholder="0000" name="pin" id="pin" autocomplete="off" inputmode="numeric" data-maxlength="4" oninput="this.value=this.value.slice(0,this.dataset.maxlength)" required>
+														<button type="button" class="btn btn-sm btn-light rounded-pill shadow-none flex-none d-flex align-items-center gap-2 p-2" style="border: 1px solid #cbd5e1;">
+															<img src="<?= PROOT; ?>assets/media/pin.jpg" class="w-rem-6 h-rem-6 rounded-circle" alt="..."> <span>PIN</span>
+														</button>
+													</div>
+													<?php else: ?>
+														<p class="h4">
+															Trade ended: the capital given for today's trade has been exhausted!
+														</p>
+													<?php endif; ?>
+												<?php else: ?>
+													<p class="h4">
+														Please you are to provide today's capital given before you can complete a trade!
+													</p>
+												<?php endif; ?>
+											</div>
+										</div>
+										<?php if (is_capital_given()): ?>
+											<?php if (is_capital_exhausted($conn, $admin_data['admin_id'])): ?>
+												<button type="button" id="submitExpenditure" class="btn btn-warning mt-4">Send gold</button>
+											<?php endif; ?>
+										<?php endif; ?>
+									</div>
+								</div>
+							</div>
 						</div>
 					</form>
 				</div>
@@ -315,14 +361,9 @@
 								<span class="visually-hidden">unread messages</span>
 							</span>
 						</div>
-					</div>
-					<div class="row align-items-center">
-						<div class="col">
-							<h3 class="fs-6 mb-0">Total: </h3>
-						</div>
 						<div class="col-auto my-n3 me-n3">
 							<a class="btn btn-link" href="<?= PROOT; ?>account/trades">
-							Send Money
+							Browse all
 							<span class="material-symbols-outlined">arrow_right_alt</span>
 							</a>
 						</div>
