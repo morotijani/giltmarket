@@ -290,7 +290,7 @@
                                         <input type="number" inputmode="numeric" class="form-control form-control-flush fw-bold text-xl flex-fill w-rem-50" placeholder="0.00" id="gram-amount" name="gram-amount" required autocomplete="off" min="0.00" step="0.01"> <button type="button" class="btn btn-outline-light shadow-none rounded-pill flex-none d-flex align-items-center gap-2 py-2 ps-2 pe-4"><img src="<?= PROOT; ?>assets/media/<?= ((admin_has_permission('supervisor')) ? 'money' : 'gold'); ?>.png" class="w-rem-6 h-rem-6" alt="..."> <span class="text-xs text-heading ms-1"><?= ((admin_has_permission('supervisor')) ? 'GHS' : 'GRM'); ?></span>&nbsp;</button>
                                     </div>
                                 </div>
-								<div class="text-center text-sm text-muted text-underline">Cash at Hand ≈ <?= money(_capital($admin_id)['today_balance']); ?> GHS</div>
+								<div class="text-center text-sm text-muted text-underline">Fund at Hand ≈ <?= money(_capital($admin_id)['today_balance']); ?> GHS</div>
 								<div>
 									<label class="form-label">Pick a <?= ((admin_has_permission('supervisor')) ? 'sales person' : 'supervisor'); ?></label>
 									<div>
@@ -320,8 +320,7 @@
 									<div class="modal-body">
 										<div class="inputpin mb-3">
 											<div>
-												<?php if (is_capital_given()): ?>
-													<?php if (is_capital_exhausted($conn, $admin_data['admin_id'])): ?>
+												<?php if (_capital($admin_id)['today_balance'] > 0): ?>
 													<label class="form-label">Enter pin</label>
 													<div class="d-flex justify-content-between p-4 bg-body-tertiary rounded">
 														<input type="number" class="form-control form-control-flush text-xl fw-bold w-rem-40 bg-transparent" placeholder="0000" name="pin" id="pin" autocomplete="off" inputmode="numeric" data-maxlength="4" oninput="this.value=this.value.slice(0,this.dataset.maxlength)" required>
@@ -329,19 +328,14 @@
 															<img src="<?= PROOT; ?>assets/media/pin.jpg" class="w-rem-6 h-rem-6 rounded-circle" alt="..."> <span>PIN</span>
 														</button>
 													</div>
-													<?php else: ?>
-														<p class="h4">
-															Trade ended: the capital given for today's trade has been exhausted!
-														</p>
-													<?php endif; ?>
 												<?php else: ?>
 													<p class="h4">
-														Please you are to provide today's capital given before you can complete a trade!
+														There is no fund at hand to make this push!
 													</p>
 												<?php endif; ?>
 											</div>
 										</div>
-										<?php if (is_capital_given()): ?>
+										<?php if (_capital($admin_id)['today_balance'] > 0): ?>
 											<?php if (is_capital_exhausted($conn, $admin_data['admin_id'])): ?>
 												<button type="button" id="submitExpenditure" class="btn btn-warning mt-4">Send gold</button>
 											<?php endif; ?>
