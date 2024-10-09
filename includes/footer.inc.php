@@ -12,9 +12,6 @@
                 </div>
                 <div class="modal-body undefined">
                     <div class="buy-msg p-1 small"></div>
-                    <style>
-                       
-                    </style>
                     <form class="vstack gap-6" id="buyForm">
                         <div id="step-1">
                             <div class="mb-3">
@@ -85,25 +82,23 @@
                                 <div>
                                     <?php if (is_capital_given()): ?>
                                         <?php if (is_capital_exhausted($conn, $admin_data['admin_id'])): ?>
-                                        <label class="form-label">Enter pin</label>
-                                        <div class="d-flex justify-content-between p-4 bg-body-secondary rounded">
-                                            <input type="number" class="form-control form-control-flush text-xl fw-bold w-rem-40" placeholder="0000" name="pin" id="pin" autocomplete="off" inputmode="numeric" data-maxlength="4" oninput="this.value=this.value.slice(0,this.dataset.maxlength)">
-                                            <div class="dropdown">
-                                                <button type="button" class="btn btn-sm btn-light rounded-pill shadow-none flex-none d-flex align-items-center gap-2 p-2" style="border: 1px solid #cbd5e1;">
-                                                    <img src="<?= PROOT; ?>assets/media/pin.jpg" class="w-rem-6 h-rem-6 rounded-circle" alt="..."> <span>PIN</span>
-                                                </button>
+                                            <label class="form-label">Enter pin</label>
+                                            <div class="d-flex justify-content-between p-4 bg-body-secondary rounded">
+                                                <input type="number" class="form-control form-control-flush text-xl fw-bold w-rem-40" placeholder="0000" name="pin" id="pin" autocomplete="off" inputmode="numeric" data-maxlength="4" oninput="this.value=this.value.slice(0,this.dataset.maxlength)">
+                                                <div class="dropdown">
+                                                    <button type="button" class="btn btn-sm btn-light rounded-pill shadow-none flex-none d-flex align-items-center gap-2 p-2" style="border: 1px solid #cbd5e1;">
+                                                        <img src="<?= PROOT; ?>assets/media/pin.jpg" class="w-rem-6 h-rem-6 rounded-circle" alt="..."> <span>PIN</span>
+                                                    </button>
+                                                </div>
                                             </div>
-                                        </div>
+                                            <p class="h5 text-muted">
                                         <?php else: ?>
-                                            <p class="">
-                                                Trade ended: the capital given for today's trade has been exhausted!
-                                            </p>
+                                            Trade ended: the capital given for today's trade has been exhausted!
                                         <?php endif; ?>
                                     <?php else: ?>
-                                        <p class="">
-                                            Please you are to provide today's capital given before you can complete a trade!
-                                        </p>
+                                        Please you are to provide today's capital given before you can complete a trade!
                                     <?php endif; ?>
+                                            </p>
                                 </div>
                             </div>
                             <?php if (is_capital_given()): ?>

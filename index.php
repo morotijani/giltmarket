@@ -279,7 +279,7 @@
 					<div class="d-flex gap-8 justify-content-center mb-5">
 						<a href="javascript:;" class="text-lg fw-bold text-heading">Push</a> <span class="opacity-10">~></span> <a href="#" class="text-lg fw-bold text-muted"><?= ((admin_has_permission('supervisor')) ? 'Money' : 'Gold'); ?></a>
 					</div>
-					<form class="vstack gap-6" id="buyForm">
+					<form class="vstack gap-6" id="sendMGForm">
                         <div id="step-1">
                             <div class="vstack gap-2">
                                 <div class="bg-body-secondary rounded-3 p-4">
@@ -320,7 +320,7 @@
 									<div class="modal-body">
 										<div class="inputpin mb-3">
 											<div>
-												<?php if (_capital($admin_id)['today_balance'] > 0): ?>
+												<?php if (_capital($admin_id)['today_balance'] > 200): ?>
 													<label class="form-label">Enter pin</label>
 													<div class="d-flex justify-content-between p-4 bg-body-tertiary rounded">
 														<input type="number" class="form-control form-control-flush text-xl fw-bold w-rem-40 bg-transparent" placeholder="0000" name="pin" id="pin" autocomplete="off" inputmode="numeric" data-maxlength="4" oninput="this.value=this.value.slice(0,this.dataset.maxlength)" required>
@@ -329,7 +329,7 @@
 														</button>
 													</div>
 												<?php else: ?>
-													<p class="h4">
+													<p class="h5 text-muted">
 														There is no fund at hand to make this push!
 													</p>
 												<?php endif; ?>
@@ -337,7 +337,7 @@
 										</div>
 										<?php if (_capital($admin_id)['today_balance'] > 0): ?>
 											<?php if (is_capital_exhausted($conn, $admin_data['admin_id'])): ?>
-												<button type="button" id="submitExpenditure" class="btn btn-warning mt-4">Send gold</button>
+												<button type="button" id="submitSendMG" class="btn btn-warning mt-4">Send gold</button>
 											<?php endif; ?>
 										<?php endif; ?>
 									</div>
