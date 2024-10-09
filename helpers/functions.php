@@ -1158,3 +1158,53 @@ function sum_up_carat($conn, $admin) {
 	
 	return $carat;
 }
+
+// get admin coffers balance (balance, receive or send)
+function get_admin_coffers($conn, $admin, $action = null) {
+	$output = 0;
+	if ($action == 'receive') {
+		$output = get_admin_coffers_received($conn, $admin);
+	} else if ($action == 'send') {
+		$output = get_admin_coffers_send($conn, $admin);
+	} else {
+		$output = (float)(get_admin_coffers_received($conn, $admin) - get_admin_coffers_send($conn, $admin));
+	}
+
+	return $output;
+}
+
+function get_admin_coffers_received($conn, $admin) {
+	$query = "
+		SELECT jspence_admin.admin_id, jspence_coffers.coffers_for, jspence_admin.admin_permissions, coffer_status, SUM(coffer_amount) AS sum_received 
+		FROM jspence_coffers 
+		INNER JOIN jspence_admin 
+		ON jspence_admin.admin_id = jspence_coffers.coffers_for 
+		WHERE jspence_coffers.coffers_for = ? 
+		AND (jspence_admin.admin_permissions = 'admin,salesperson,supervisor' OR jspence_admin.admin_permissions = 'supervisor') 
+		AND coffer_status = ?
+	";
+	$statement = $conn->prepare($query);
+	$statement->execute([$admin, 'receive']);
+	$rows = $statement->fetchAll();
+	$row = $rows[0];
+
+	return (($row[0]['sum_received'] == null) ? 0 : $row[0]['sum_received']);
+}
+
+function get_admin_coffers_send($conn, $admin) {
+	$query = "
+		SELECT jspence_admin.admin_id, jspence_coffers.coffers_for, jspence_admin.admin_permissions, coffer_status, SUM(coffer_amount) AS sum_send 
+		FROM jspence_coffers 
+		INNER JOIN jspence_admin 
+		ON jspence_admin.admin_id = jspence_coffers.coffers_for 
+		WHERE jspence_coffers.coffers_for = ? 
+		AND (jspence_admin.admin_permissions = 'admin,salesperson,supervisor' OR jspence_admin.admin_permissions = 'supervisor') 
+		AND coffer_status = ?
+	";
+	$statement = $conn->prepare($query);
+	$statement->execute([$admin, 'send']);
+	$rows = $statement->fetchAll();
+	$row = $rows[0];
+
+	return (($row[0]['sum_send'] == null) ? 0 : $row[0]['sum_send']);
+}

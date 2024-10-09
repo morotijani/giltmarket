@@ -541,8 +541,8 @@
 					return false;
 				}
 			// }
-
-			if ($("#today_given").val() > '<?= (_capital($admin_id)['today_balance']);?>') {
+			var balance = '<?= (_capital($admin_id)['today_balance']); ?>';
+			if ($("#today_given").val() > balance) {
 				alert("The <?= ((admin_has_permission('supervisor')) ? 'cash' : 'gold'); ?> is not eanough to make this push!");
 				return false;
 			}
