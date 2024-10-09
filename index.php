@@ -279,22 +279,25 @@
 					<div class="d-flex gap-8 justify-content-center mb-5">
 						<a href="javascript:;" class="text-lg fw-bold text-heading">Push</a> <span class="opacity-10">~></span> <a href="#" class="text-lg fw-bold text-muted"><?= ((admin_has_permission('supervisor')) ? 'Money' : 'Gold'); ?></a>
 					</div>
-					<form class="vstack gap-6" id="sendMGForm">
+					<form class="vstack gap-6" id="sendMGForm" action="<?= PROOT; ?>auth/make.push.php">
                         <div id="step-1">
                             <div class="vstack gap-2">
+								<div class="mb-4">
+									<input class="form-control" name="today_date" id="today_date" readonly type="date" value="<?php echo date('Y-m-d'); ?>" required>
+								</div>
                                 <div class="bg-body-secondary rounded-3 p-4">
                                     <div class="d-flex justify-content-between text-xs text-muted">
                                         <span class="fw-semibold"><?= ((admin_has_permission('supervisor')) ? 'Money' : 'Gold'); ?></span>
                                     </div>
                                     <div class="d-flex justify-content-between gap-2 mt-4">
-                                        <input type="number" inputmode="numeric" class="form-control form-control-flush fw-bold text-xl flex-fill w-rem-50" placeholder="0.00" id="gram-amount" name="gram-amount" required autocomplete="off" min="0.00" step="0.01"> <button type="button" class="btn btn-outline-light shadow-none rounded-pill flex-none d-flex align-items-center gap-2 py-2 ps-2 pe-4"><img src="<?= PROOT; ?>assets/media/<?= ((admin_has_permission('supervisor')) ? 'money' : 'gold'); ?>.png" class="w-rem-6 h-rem-6" alt="..."> <span class="text-xs text-heading ms-1"><?= ((admin_has_permission('supervisor')) ? 'GHS' : 'GRM'); ?></span>&nbsp;</button>
+                                        <input type="number" inputmode="numeric" class="form-control form-control-flush fw-bold text-xl flex-fill w-rem-50" placeholder="0.00" id="today_given" name="today_given" required autocomplete="off" min="0.00" step="0.01"> <button type="button" class="btn btn-outline-light shadow-none rounded-pill flex-none d-flex align-items-center gap-2 py-2 ps-2 pe-4"><img src="<?= PROOT; ?>assets/media/<?= ((admin_has_permission('supervisor')) ? 'money' : 'gold'); ?>.png" class="w-rem-6 h-rem-6" alt="..."> <span class="text-xs text-heading ms-1"><?= ((admin_has_permission('supervisor')) ? 'GHS' : 'GRM'); ?></span>&nbsp;</button>
                                     </div>
                                 </div>
-								<div class="text-center text-sm text-muted text-underline">Fund at Hand ≈ <?= money(_capital($admin_id)['today_balance']); ?> GHS</div>
+								<div class="text-center text-sm text-muted text-underline"><?= ((admin_has_permission('supervisor')) ? 'Cash' : 'Gold'); ?> at Hand ≈ <?= money(_capital($admin_id)['today_balance']); ?> GHS</div>
 								<div>
 									<label class="form-label">Pick a <?= ((admin_has_permission('supervisor')) ? 'sales person' : 'supervisor'); ?></label>
 									<div>
-										<select class="form-control text-reset border border-dashed d-flex align-items-center">
+										<select class="form-control" name="push_to" id="push_to">
 											<option value="">...</option>
 										<?php 
 											if (admin_has_permission('supervisor')) {
@@ -320,7 +323,7 @@
 									<div class="modal-body">
 										<div class="inputpin mb-3">
 											<div>
-												<?php if (_capital($admin_id)['today_balance'] > 200): ?>
+												<?php if (_capital($admin_id)['today_balance'] > 0): ?>
 													<label class="form-label">Enter pin</label>
 													<div class="d-flex justify-content-between p-4 bg-body-tertiary rounded">
 														<input type="number" class="form-control form-control-flush text-xl fw-bold w-rem-40 bg-transparent" placeholder="0000" name="pin" id="pin" autocomplete="off" inputmode="numeric" data-maxlength="4" oninput="this.value=this.value.slice(0,this.dataset.maxlength)" required>
@@ -330,7 +333,7 @@
 													</div>
 												<?php else: ?>
 													<p class="h5 text-muted">
-														There is no fund at hand to make this push!
+														There is no <?= ((admin_has_permission('supervisor')) ? 'cash' : 'gold'); ?> at hand to make this push!
 													</p>
 												<?php endif; ?>
 											</div>
@@ -527,3 +530,29 @@
 	
 </script>
 <?php endif; ?>
+<script>
+	$(document).ready(function() {
+
+		// make a push
+		$('#submitSendMG').on('click', function() {
+			// if ($("input[name='push_to'][value='saleperson']").prop("checked")) {
+				if ($("#push_to").val() == '') {
+					alert("You will have to select a sale person to proceed!");
+					return false;
+				}
+			// }
+
+			if ($("#today_given").val() > '<?= (_capital($admin_id)['today_balance']);?>') {
+				alert("The <?= ((admin_has_permission('supervisor')) ? 'cash' : 'gold'); ?> is not eanough to make this push!");
+				return false;
+			}
+
+			$('#submitSendMG').attr('disabled', true);
+			$('#submitSendMG').text('Pushing ...');
+
+			setInterval(function () {
+				$('#sendMGForm').submit();
+			}, 2000)
+		})
+	})
+</script>
