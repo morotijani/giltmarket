@@ -1189,7 +1189,7 @@ function get_admin_coffers_received($conn, $admin) {
 	$row = $rows[0];
 
 	if ($statement->rowCount() > 0) {
-		return (($row['sum_received'] == null || $row['sum_received'] == '0.00') ? 0 : $row[0]['sum_received']);
+		return (($row['sum_received'] == null || $row['sum_received'] == '0.00') ? 0 : $row['sum_received']);
 	}
 	return 0;
 }
@@ -1210,7 +1210,7 @@ function get_admin_coffers_send($conn, $admin) {
 	$row = $rows[0];
 
 	if ($statement->rowCount() > 0) {
-		return (($row['sum_send'] == null || $row['sum_send'] == '0.00') ? 0 : $row[0]['sum_send']);
+		return (($row['sum_send'] == null || $row['sum_send'] == '0.00') ? 0 : $row['sum_send']);
 	}
 	return 0;
 }

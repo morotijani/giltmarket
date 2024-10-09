@@ -279,7 +279,7 @@
 					<div class="d-flex gap-8 justify-content-center mb-5">
 						<a href="javascript:;" class="text-lg fw-bold text-heading">Push</a> <span class="opacity-10">~></span> <a href="#" class="text-lg fw-bold text-muted"><?= ((admin_has_permission('supervisor')) ? 'Money' : 'Gold'); ?></a>
 					</div>
-					<form class="vstack gap-6" id="sendMGForm" action="<?= PROOT; ?>auth/make.push.php">
+					<form class="vstack gap-6" method="POST" id="sendMGForm" action="<?= PROOT; ?>auth/make.push.php">
                         <div id="step-1">
                             <div class="vstack gap-2">
 								<div class="mb-4">
@@ -309,7 +309,7 @@
 										</select>
 									</div>
 								</div>
-								<button type="button" data-bs-target="#sendMGModal" data-bs-toggle="modal" class="btn btn-lg w-100">Proceed</button>
+								<button type="button" class="btn btn-lg w-100" id="show-sendMGModal">Proceed</button>
                             </div>
 						</div>
 
@@ -534,19 +534,23 @@
 	$(document).ready(function() {
 
 		// make a push
-		$('#submitSendMG').on('click', function() {
+		$('#show-sendMGModal').on('click', function() {
 			// if ($("input[name='push_to'][value='saleperson']").prop("checked")) {
 				if ($("#push_to").val() == '') {
 					alert("You will have to select a sale person to proceed!");
 					return false;
 				}
 			// }
-			var balance = '<?= (_capital($admin_id)['today_balance']); ?>';
-			if ($("#today_given").val() > balance) {
-				alert("The <?= ((admin_has_permission('supervisor')) ? 'cash' : 'gold'); ?> is not eanough to make this push!");
+			var balance = '<?= get_admin_coffers($conn, $admin_id, 'balance'); ?>';
+			console.log(balance);
+			if ($("#today_given").val() <= +balance) {
+				$('#sendMGModal').modal('show');
+			} else {
+				alert("The <?= ((admin_has_permission('supervisor')) ? 'cash in coffers' : 'gold in hand'); ?> is not enough to make this push!");
 				return false;
 			}
-
+		})
+		$('#submitSendMG').on('click', function() {
 			$('#submitSendMG').attr('disabled', true);
 			$('#submitSendMG').text('Pushing ...');
 
