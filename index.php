@@ -305,7 +305,7 @@
 							<div class="modal-dialog modal-dialog-centered">
 								<div class="modal-content overflow-hidden">
 									<div class="modal-header pb-0 border-0">
-										<h1 class="modal-title h4" id="sendMGModalLabel">Verify add expenditure!</h1>
+										<h1 class="modal-title h4" id="sendMGModalLabel">Verify push!</h1>
 										<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 									</div>
 									<div class="modal-body">
@@ -315,11 +315,6 @@
 													<?php if (is_capital_exhausted($conn, $admin_data['admin_id'])): ?>
 													<label class="form-label">Enter pin</label>
 													<div class="d-flex justify-content-between p-4 bg-body-tertiary rounded">
-														<style>
-															#pin:focus {
-																box-shadow: none;
-															}
-														</style>
 														<input type="number" class="form-control form-control-flush text-xl fw-bold w-rem-40 bg-transparent" placeholder="0000" name="pin" id="pin" autocomplete="off" inputmode="numeric" data-maxlength="4" oninput="this.value=this.value.slice(0,this.dataset.maxlength)" required>
 														<button type="button" class="btn btn-sm btn-light rounded-pill shadow-none flex-none d-flex align-items-center gap-2 p-2" style="border: 1px solid #cbd5e1;">
 															<img src="<?= PROOT; ?>assets/media/pin.jpg" class="w-rem-6 h-rem-6 rounded-circle" alt="..."> <span>PIN</span>

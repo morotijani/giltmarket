@@ -69,6 +69,10 @@ input[type=number] {
     width: 10rem !important;
 }
 
+.w-rem-50 {
+    width: 15rem !important;
+}
+
 .text-xl {
     font-size: calc(1.275rem + .3vw) !important;
 }
@@ -158,4 +162,8 @@ input[type=number] {
     justify-content: center;
     align-items: center;
     display: inline-flex;
+}
+
+#pin:focus {
+    box-shadow: none;
 }
