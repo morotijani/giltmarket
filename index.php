@@ -125,7 +125,7 @@
 								<?php endif; ?>
 
 								<!-- Text -->
-								<div class="fs-5 fw-semibold"><?= ((admin_has_permission()) ? total_amount_thismonth($admin_data['admin_id']) : money(_capital($admin_data["admin_id"])['today_balance'])); ?></div>
+								<div class="fs-5 fw-semibold"><?= ((admin_has_permission()) ? total_amount_thismonth($admin_id) : money(_capital($admin_id)['today_balance'])); ?></div>
 							</div>
 							<div class="col-auto">
 								<!-- Avatar -->
@@ -273,31 +273,40 @@
 				</div>
 
 			<?php endif; ?>
-
+			<?php if (!admin_has_permission()) : ?>
 			<div class="card mb-6">
 				<div class="card-body py-3">
 					<div class="d-flex gap-8 justify-content-center mb-5">
-						<a href="javascript:;" class="text-lg fw-bold text-heading">Push</a> <span class="opacity-10">~></span> <a href="#" class="text-lg fw-bold text-muted">Gold</a>
+						<a href="javascript:;" class="text-lg fw-bold text-heading">Push</a> <span class="opacity-10">~></span> <a href="#" class="text-lg fw-bold text-muted"><?= ((admin_has_permission('supervisor')) ? 'Money' : 'Gold'); ?></a>
 					</div>
 					<form class="vstack gap-6" id="buyForm">
                         <div id="step-1">
                             <div class="vstack gap-2">
                                 <div class="bg-body-secondary rounded-3 p-4">
                                     <div class="d-flex justify-content-between text-xs text-muted">
-                                        <span class="fw-semibold">Gold</span>
+                                        <span class="fw-semibold"><?= ((admin_has_permission('supervisor')) ? 'Money' : 'Gold'); ?></span>
                                     </div>
                                     <div class="d-flex justify-content-between gap-2 mt-4">
-                                        <input type="number" inputmode="numeric" class="form-control form-control-flush fw-bold text-xl flex-fill w-rem-50" placeholder="0.00" id="gram-amount" name="gram-amount" required autocomplete="off" min="0.00" step="0.01"> <button type="button" class="btn btn-outline-light shadow-none rounded-pill flex-none d-flex align-items-center gap-2 py-2 ps-2 pe-4"><img src="<?= PROOT; ?>assets/media/gold.png" class="w-rem-6 h-rem-6" alt="..."> <span class="text-xs text-heading ms-1">GRM</span>&nbsp;</button>
+                                        <input type="number" inputmode="numeric" class="form-control form-control-flush fw-bold text-xl flex-fill w-rem-50" placeholder="0.00" id="gram-amount" name="gram-amount" required autocomplete="off" min="0.00" step="0.01"> <button type="button" class="btn btn-outline-light shadow-none rounded-pill flex-none d-flex align-items-center gap-2 py-2 ps-2 pe-4"><img src="<?= PROOT; ?>assets/media/<?= ((admin_has_permission('supervisor')) ? 'money' : 'gold'); ?>.png" class="w-rem-6 h-rem-6" alt="..."> <span class="text-xs text-heading ms-1"><?= ((admin_has_permission('supervisor')) ? 'GHS' : 'GRM'); ?></span>&nbsp;</button>
                                     </div>
                                 </div>
-								<div class="text-center text-sm text-muted text-underline">Cash at Hand ≈ 23.000 EUR</div>
+								<div class="text-center text-sm text-muted text-underline">Cash at Hand ≈ <?= money(_capital($admin_id)['today_balance']); ?> GHS</div>
 								<div>
-									<label class="form-label">Pick a supervisor</label>
+									<label class="form-label">Pick a <?= ((admin_has_permission('supervisor')) ? 'sales person' : 'supervisor'); ?></label>
 									<div>
-										<select class="form-control text-reset border border-dashed d-flex align-items-center"></select>
+										<select class="form-control text-reset border border-dashed d-flex align-items-center">
+											<option value="">...</option>
+										<?php 
+											if (admin_has_permission('supervisor')) {
+												echo get_salepersons_for_push_capital($conn);
+											} else {
+												echo get_supervisors_for_push_capital($conn);
+											}
+										?>
+										</select>
 									</div>
 								</div>
-								<button type="button" data-bs-target="#sendMGModal" data-bs-toggle="modal" class="btn btn-lg btn-dark w-100">Proceed</button>
+								<button type="button" data-bs-target="#sendMGModal" data-bs-toggle="modal" class="btn btn-lg w-100">Proceed</button>
                             </div>
 						</div>
 
@@ -344,6 +353,7 @@
 					</form>
 				</div>
 			</div>
+			<?php endif; ?>
 
             <!-- Trades -->
 			<div class="card mb-6 mb-xxl-0">
