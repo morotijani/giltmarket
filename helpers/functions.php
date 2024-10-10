@@ -1175,13 +1175,13 @@ function get_admin_coffers($conn, $admin, $action = null) {
 
 function get_admin_coffers_received($conn, $admin) {
 	$query = "
-		SELECT jspence_admin.admin_id, jspence_coffers.coffers_for, jspence_admin.admin_permissions, coffer_status, SUM(coffer_amount) AS sum_received 
+		SELECT jspence_admin.admin_id, jspence_coffers.coffers_for, jspence_admin.admin_permissions, coffers_status, SUM(coffers_amount) AS sum_received 
 		FROM jspence_coffers 
 		INNER JOIN jspence_admin 
 		ON jspence_admin.admin_id = jspence_coffers.coffers_for 
 		WHERE jspence_coffers.coffers_for = ? 
 		AND (jspence_admin.admin_permissions = 'admin,salesperson,supervisor' OR jspence_admin.admin_permissions = 'supervisor') 
-		AND coffer_status = ?
+		AND coffers_status = ?
 	";
 	$statement = $conn->prepare($query);
 	$statement->execute([$admin, 'receive']);
@@ -1196,13 +1196,13 @@ function get_admin_coffers_received($conn, $admin) {
 
 function get_admin_coffers_send($conn, $admin) {
 	$query = "
-		SELECT jspence_admin.admin_id, jspence_coffers.coffers_for, jspence_admin.admin_permissions, coffer_status, SUM(coffer_amount) AS sum_send 
+		SELECT jspence_admin.admin_id, jspence_coffers.coffers_for, jspence_admin.admin_permissions, coffers_status, SUM(coffers_amount) AS sum_send 
 		FROM jspence_coffers 
 		INNER JOIN jspence_admin 
 		ON jspence_admin.admin_id = jspence_coffers.coffers_for 
 		WHERE jspence_coffers.coffers_for = ? 
 		AND (jspence_admin.admin_permissions = 'admin,salesperson,supervisor' OR jspence_admin.admin_permissions = 'supervisor') 
-		AND coffer_status = ?
+		AND coffers_status = ?
 	";
 	$statement = $conn->prepare($query);
 	$statement->execute([$admin, 'send']);
