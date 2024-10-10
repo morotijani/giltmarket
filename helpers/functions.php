@@ -613,18 +613,18 @@ function total_amount_today($admin) {
 
 	$where = '';
 	if (!admin_has_permission()) {
-		$where = ' AND sale_by = "'.$admin.'" ';
+		$where = ' AND sale_by = "' . $admin . '" ';
 	}
 
 	$thisDaySql = "
 		SELECT SUM(sale_total_amount) AS total
 		FROM `jspence_sales` 
-		WHERE sale_status = 0
+		WHERE sale_status = ?
 		$where
 	    AND DAY(createdAt) = '{$thisDay}' 
 	";
 	$statement = $conn->prepare($thisDaySql);
-	$statement->execute();
+	$statement->execute([0]);
 	$thisDayrow = $statement->fetchAll();
 
 	return money($thisDayrow[0]['total']);

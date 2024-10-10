@@ -187,10 +187,10 @@
 							<div class="row align-items-center">
 								<div class="col">
 									<!-- Heading -->
-									<h4 class="fs-base fw-normal text-body-secondary mb-1">Trades</h4>
+									<h4 class="fs-base fw-normal text-body-secondary mb-1">Accumulated amount</h4>
 
 									<!-- Text -->
-									<div class="fs-5 fw-semibold"><?= count_today_orders($admin_data['admin_id']); ?></div>
+									<div class="fs-5 fw-semibold"><?= total_amount_today($admin_id); ?></div>
 								</div>
 								<div class="col-auto">
 									<!-- Avatar -->
@@ -204,7 +204,6 @@
 				</div>
 			</div>
 		</div>
-
         <div class="row">
 			
           	<div class="col-12 col-xxl-8">
@@ -359,7 +358,7 @@
 						<div class="col">
 							<h3 class="fs-6 mb-0">Trades</h3>
 							<span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
-								99+
+								<?= count_today_orders($admin_id); ?>
 								<span class="visually-hidden">unread messages</span>
 							</span>
 						</div>
@@ -375,7 +374,7 @@
 					<div class="table-responsive">
 						<table class="table table-flush align-middle mb-0">
 							<tbody>
-								<?= get_recent_trades($admin_data['admin_id']); ?>
+								<?= get_recent_trades($admin_id); ?>
 							</tbody>
 						</table>
 					</div>
