@@ -57,13 +57,43 @@
         </div>
 
         <div class="row mb-8">
-            <div class="col-12 col-md-6 col-xxl mb-4 mb-xxl-0">
+            <div class="col-12 col-md-6 col-xxl-4 mb-4 mb-xxl-0">
                 <div class="card bg-body-tertiary border-transparent">
                     <div class="card-body">
                         <div class="row align-items-center">
                             <div class="col">
                                 <!-- Heading -->
-                                <h4 class="fs-sm fw-normal text-body-secondary mb-1">Coffers</h4>
+                                <h4 class="fs-sm fw-normal text-body-secondary mb-1">Total amount in coffers</h4>
+
+                                <!-- Text -->
+                                <div class="fs-4 fw-semibold"><?= sum_up_grams($conn, $admin_data['admin_id']); ?></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-12 col-md-6 col-xxl-4 mb-4 mb-xxl-0">
+                <div class="card bg-body-tertiary border-transparent">
+                    <div class="card-body">
+                        <div class="row align-items-center">
+                            <div class="col">
+                                <!-- Heading -->
+                                <h4 class="fs-sm fw-normal text-body-secondary mb-1">Gold coffers</h4>
+
+                                <!-- Text -->
+                                <div class="fs-4 fw-semibold"><?= sum_up_grams($conn, $admin_data['admin_id']); ?></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-12 col-md-6 col-xxl-4 mb-4 mb-xxl-0">
+                <div class="card bg-body-tertiary border-transparent">
+                    <div class="card-body">
+                        <div class="row align-items-center">
+                            <div class="col">
+                                <!-- Heading -->
+                                <h4 class="fs-sm fw-normal text-body-secondary mb-1">Cash coffers</h4>
 
                                 <!-- Text -->
                                 <div class="fs-4 fw-semibold"><?= sum_up_grams($conn, $admin_data['admin_id']); ?></div>
