@@ -279,7 +279,7 @@
 						<a href="javascript:;" class="text-lg fw-bold text-heading">Push</a> <span class="opacity-10">~></span> <a href="#" class="text-lg fw-bold text-muted"><?= ((admin_has_permission('supervisor')) ? 'Money' : 'Gold'); ?></a>
 					</div>
 					<form class="vstack gap-6" method="POST" id="sendMGForm" action="<?= PROOT; ?>auth/make.push.php">
-                        <div id="step-1">
+                        <div id="">
                             <div class="vstack gap-2">
 								<div class="mb-4">
 									<input class="form-control" name="today_date" id="today_date" readonly type="date" value="<?php echo date('Y-m-d'); ?>" required>
@@ -325,7 +325,7 @@
 												<?php if (_capital($admin_id)['today_balance'] > 0): ?>
 													<label class="form-label">Enter pin</label>
 													<div class="d-flex justify-content-between p-4 bg-body-tertiary rounded">
-														<input type="number" class="form-control form-control-flush text-xl fw-bold w-rem-40 bg-transparent" placeholder="0000" name="pin" id="pin" autocomplete="off" inputmode="numeric" data-maxlength="4" oninput="this.value=this.value.slice(0,this.dataset.maxlength)" required>
+														<input type="number" class="form-control form-control-flush text-xl fw-bold w-rem-40 bg-transparent" placeholder="0000" name="pin" id="push_pin" autocomplete="off" inputmode="numeric" data-maxlength="4" oninput="this.value=this.value.slice(0,this.dataset.maxlength)" required>
 														<button type="button" class="btn btn-sm btn-light rounded-pill shadow-none flex-none d-flex align-items-center gap-2 p-2" style="border: 1px solid #cbd5e1;">
 															<img src="<?= PROOT; ?>assets/media/pin.jpg" class="w-rem-6 h-rem-6 rounded-circle" alt="..."> <span>PIN</span>
 														</button>
@@ -551,9 +551,9 @@
 		})
 
 		// prevent enter key on trade form
-		$(document).on("keydown", "form :input:not(textarea)", function(event) {
-			return event.key != "Enter";
-		});
+		// $(document).on("keydown", "form :input:not(textarea)", function(event) {
+		// 	return event.key != "Enter";
+		// });
 
 		// submit trade form
 		$('#submitSendMG').on('click', function() {
