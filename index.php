@@ -100,7 +100,7 @@
 								<h4 class="fs-base fw-normal text-body-secondary mb-1"><?= ((admin_has_permission()) ? 'Today' : 'Capital'); ?></h4>
 
 								<!-- Text -->
-								<div class="fs-5 fw-semibold"><?= ((admin_has_permission()) ? total_amount_today($admin_id) : money(_capital($admin_id)['today_capital'])); ?></div>
+								<div class="fs-5 fw-semibold"><?= ((admin_has_permission()) ? money(total_amount_today($admin_id)) : money(_capital($admin_id)['today_capital'])); ?></div>
 							</div>
 							<div class="col-auto">
 								<!-- Avatar -->
@@ -146,7 +146,7 @@
 									<h4 class="fs-base fw-normal text-body-secondary mb-1"><?= (($admin_data['admin_permissions'] == 'salesperson') ? 'Gold' : 'Money'); ?> accumulated</h4>
 
 									<!-- Text -->
-									<div class="fs-5 fw-semibold"><?= total_amount_today($admin_id); ?></div>
+									<div class="fs-5 fw-semibold"><?= money(total_amount_today($admin_id)); ?></div>
 								</div>
 								<div class="col-auto">
 									<!-- Avatar -->
@@ -292,7 +292,7 @@
                                         <input type="number" inputmode="numeric" class="form-control form-control-flush fw-bold text-xl flex-fill w-rem-50" placeholder="0.00" id="today_given" name="today_given" required autocomplete="off" min="0.00" step="0.01"> <button type="button" class="btn btn-outline-light shadow-none rounded-pill flex-none d-flex align-items-center gap-2 py-2 ps-2 pe-4"><img src="<?= PROOT; ?>assets/media/<?= ((admin_has_permission('supervisor')) ? 'money' : 'gold'); ?>.png" class="w-rem-6 h-rem-6" alt="..."> <span class="text-xs text-heading ms-1"><?= ((admin_has_permission('supervisor')) ? 'GHS' : 'GRM'); ?></span>&nbsp;</button>
                                     </div>
                                 </div>
-								<div class="text-center text-sm text-muted text-underline"><?= ((admin_has_permission('supervisor')) ? 'Cash' : 'Gold'); ?> at Hand ≈ <?= ((admin_has_permission('supervisor')) ? money(get_admin_coffers($conn, $admin_id, 'balance')) : total_amount_today($admin_id)); ?> GHS</div>
+								<div class="text-center text-sm text-muted text-underline"><?= ((admin_has_permission('supervisor')) ? 'Cash' : 'Gold'); ?> at Hand ≈ <?= ((admin_has_permission('supervisor')) ? money(get_admin_coffers($conn, $admin_id, 'balance')) : money(total_amount_today($admin_id))); ?> GHS</div>
 								<div>
 									<label class="form-label">Pick a <?= ((admin_has_permission('supervisor')) ? 'sales person' : 'supervisor'); ?></label>
 									<div>
@@ -322,7 +322,7 @@
 									<div class="modal-body">
 										<div class="inputpin mb-3">
 											<div>
-												<?php if (_capital($admin_id)['today_balance'] > 0): ?>
+												<?php if ((admin_has_persmission('supervisor') && _capital($admin_id)['today_balance'] > 0) || (admin_has_persmission('salesperson') && total_amount_today($admin_id) > 0)): ?>
 													<label class="form-label">Enter pin</label>
 													<div class="d-flex justify-content-between p-4 bg-body-tertiary rounded">
 														<input type="number" class="form-control form-control-flush text-xl fw-bold w-rem-40 bg-transparent" placeholder="0000" name="pin" id="push_pin" autocomplete="off" inputmode="numeric" data-maxlength="4" oninput="this.value=this.value.slice(0,this.dataset.maxlength)" required>
@@ -540,7 +540,7 @@
 					return false;
 				}
 			// }
-			var balance = '<?= get_admin_coffers($conn, $admin_id, 'balance'); ?>';
+			var balance = '<?= ((admin_has_permission('supervisor')) ? get_admin_coffers($conn, $admin_id, 'balance') : total_amount_today($admin_id)); ?>';
 			console.log(balance);
 			if ($("#today_given").val() <= +balance) {
 				$('#sendMGModal').modal('show');
@@ -551,9 +551,9 @@
 		})
 
 		// prevent enter key on trade form
-		// $(document).on("keydown", "form :input:not(textarea)", function(event) {
-		// 	return event.key != "Enter";
-		// });
+		$(document).on("keydown", "form :input:not(textarea)", function(event) {
+			return event.key != "Enter";
+		});
 
 		// submit trade form
 		$('#submitSendMG').on('click', function() {

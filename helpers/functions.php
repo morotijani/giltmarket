@@ -627,7 +627,7 @@ function total_amount_today($admin) {
 	$statement->execute([0]);
 	$thisDayrow = $statement->fetchAll();
 
-	return money($thisDayrow[0]['total']);
+	return $thisDayrow[0]['total'];
 }
 
 // get total amount of orders in current month
