@@ -134,7 +134,6 @@
 							<label class="form-label">Today's Date</label> 
 							<input class="form-control" name="today_date" id="today_date" type="date" value="<?php echo date('Y-m-d'); ?>" required>
 						</div>
-						<?php  ?>
 						<div class="mb-3">
 							<select class="form-select" name="push_to" id="push_to" required>
 								<option value="">Select <?= ((admin_has_permission()) ? 'supervisor' : 'saleperson'); ?> to make a push to.</option>
