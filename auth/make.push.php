@@ -79,7 +79,7 @@
 						}
 						add_to_log($message, $admin_id);
 		
-						$_SESSION['flash_success'] = 'Today capital pushed to ' . ((admin_has_permission()) ? ' supervisor' : 'saleperson'). ' successfully!';
+						$_SESSION['flash_success'] = 'An amount has been pused' . ((admin_has_permission('saleperson')) ? ' supervisor' : 'saleperson'). ' successfully!';
 					} else {
 						echo js_alert('Something went wrong, please refresh and try agin!');
 					}

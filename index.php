@@ -322,7 +322,7 @@
 									<div class="modal-body">
 										<div class="inputpin mb-3">
 											<div>
-												<?php if ((admin_has_persmission('supervisor') && _capital($admin_id)['today_balance'] > 0) || (admin_has_persmission('salesperson') && total_amount_today($admin_id) > 0)): ?>
+												<?php if ((admin_has_permission('supervisor') && _capital($admin_id)['today_balance'] > 0) || (admin_has_permission('salesperson') && total_amount_today($admin_id) > 0)): ?>
 													<label class="form-label">Enter pin</label>
 													<div class="d-flex justify-content-between p-4 bg-body-tertiary rounded">
 														<input type="number" class="form-control form-control-flush text-xl fw-bold w-rem-40 bg-transparent" placeholder="0000" name="pin" id="push_pin" autocomplete="off" inputmode="numeric" data-maxlength="4" oninput="this.value=this.value.slice(0,this.dataset.maxlength)" required>
@@ -545,7 +545,7 @@
 			if ($("#today_given").val() <= +balance) {
 				$('#sendMGModal').modal('show');
 			} else {
-				alert("The <?= ((admin_has_permission('supervisor')) ? 'cash in coffers' : 'gold in hand'); ?> is not enough to make this push!");
+				alert("The <?= ((admin_has_permission('supervisor')) ? 'cash in coffers' : 'gold at hand'); ?> is not enough to make this push!");
 				return false;
 			}
 		})

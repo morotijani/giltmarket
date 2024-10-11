@@ -610,12 +610,14 @@ function fetch_all_sales($status, $admin, $type = null) {
 function total_amount_today($admin) {
 	global $conn;
 	$thisDay = date("d");
+	$today = date('Y-m-d');
 
 	$where = '';
 	if (!admin_has_permission()) {
 		$where = ' AND sale_by = "' . $admin . '" ';
 	}
 
+	// fetch today total amount
 	$thisDaySql = "
 		SELECT SUM(sale_total_amount) AS total
 		FROM `jspence_sales` 
@@ -627,7 +629,14 @@ function total_amount_today($admin) {
 	$statement->execute([0]);
 	$thisDayrow = $statement->fetchAll();
 
-	return $thisDayrow[0]['total'];
+	// get all pushed amout
+	$get_pushed = $conn->query("SELECT SUM(push_amount) AS pamt FROM jspence_pushes WHERE push_from = '" . $admin . "' AND push_date = '" . $today . "'")->fetchAll();
+
+	// subtract send from today total amount
+	$total = 0;
+	$total = (float)($thisDayrow[0]['total'] - $get_pushed[0]['pamt']);
+
+	return $total;
 }
 
 // get total amount of orders in current month
