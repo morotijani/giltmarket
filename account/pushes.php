@@ -56,6 +56,7 @@
             <?php endif; ?>
         </div>
 
+        <?php if (admin_has_permission('supervisor')): ?>
         <div class="row mb-8">
             <div class="col-12 col-md-6 col-xxl-4 mb-4 mb-xxl-0">
                 <div class="card bg-body-tertiary border-transparent">
@@ -103,6 +104,7 @@
                 </div>
             </div>
         </div>
+        <?php endif; ?>
     
         <!-- Page content -->
         <div class="row">
