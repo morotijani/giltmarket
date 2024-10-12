@@ -81,25 +81,25 @@ if (array_key_exists('postdata', $_SESSION)) {
         // allow only salepersonnels to perform only this action
         if (!admin_has_permission('supervisor')) {
             // send balance back to the supervisor for his next day trade
-            $tomorrow = new DateTime('tomorrow');
-            $tomorrow = $tomorrow->format('Y-m-d');
+            $today = date('Y-m-d');
 
             $push_to = '986785d8-7b98-4747-a0b2-8b4f4b239e06'; // get supervisors id
             $supervisor_capital = _capital($push_to)['today_capital']; // get supervisors capital
         
-            $daily_id = guidv4();
-            $push_id = guidv4();
+            $coffers_id = guidv4();
             $new_capital = _capital($admin_id)['today_balance']; // current ending trade sale personnel balance
 
-            $data = [$new_capital, $tomorrow, $push_to, $daily_id];
+            $data = [$new_capital, $today, $push_to, $coffers_id];
 
-            // insert into supervosr's capital for tomorrow
+            // insert into cash coffers
             $sql = "
                 INSERT INTO jspence_coffers (coffers_amount, coffers_receive_from, coffers_type, coffers_status, createdAt, coffers_id) 
                 VALUES (?, ?, ?, ?)
             ";
             $statement = $conn->prepare($sql);
             $coffers_result = $statement->execute($data);
+
+            // insert into gold coffers
             
             if (isset($coffers_result)) {
                 $message = "end-trade, remaining balance " . $capital_bal . ' sent to coffers id: ' . $push_to;
