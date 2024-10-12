@@ -114,7 +114,7 @@
         </div>
     </div>
 
-    <!-- Push todays capital -->
+    <!-- Coffers modal -->
     <?php if (admin_has_permission('supervisor')): ?>
 	<div class="modal fade" id="modalCapital" tabindex="-1" aria-labelledby="modalCapital" aria-hidden="true" style="backdrop-filter: blur(5px);">
 		<div class="modal-dialog modal-dialog-centered">
@@ -124,7 +124,7 @@
 						<i class="bi bi-currency-exchange"></i>
 					</div>
 					<div>
-						<h5 class="mb-1">Push capital</h5>
+						<h5 class="mb-1">Add amount to coffers</h5>
 						<small class="d-block text-xs text-muted">You are to send todays capital to <?= ((admin_has_permission()) ? 'supervisor' : 'saleperson'); ?> before start trade.</small>
 					</div>
 				</div>
@@ -132,28 +132,30 @@
 					<div class="modal-body">
 						<div class="mb-4">
 							<label class="form-label">Today's Date</label> 
-							<input class="form-control" name="today_date" id="today_date" type="date" value="<?php echo date('Y-m-d'); ?>" required>
+							<input class="form-control" name="today_date" id="today_date" readonly type="date" value="<?php echo date('Y-m-d'); ?>" required>
 						</div>
-						<div class="mb-3">
-							<select class="form-select" name="push_to" id="push_to" required>
-								<option value="">Select <?= ((admin_has_permission()) ? 'supervisor' : 'saleperson'); ?> to make a push to.</option>
-								<?php 
-									if (admin_has_permission()) {
-										echo get_supervisors_for_push_capital($conn);
-									} else {
-										echo get_salepersons_for_push_capital($conn);
-									}
-								?>
-							</select>
-				  		</div>
+						<div class="mb-4">
+							<div class="form-check mb-2">
+								<input class="form-check-input for_class" type="radio" name="add_from" id="flexRadioDefault1" value="trades">
+								<label class="form-check-label" for="flexRadioDefault1">
+									From today trades
+								</label>
+							</div>
+							<div class="form-check mb-2">
+								<input class="form-check-input for_class" type="radio" name="add_from" id="flexRadioDefault2" value="cash">
+								<label class="form-check-label" for="flexRadioDefault2">
+									Physical cash
+								</label>
+							</div>
+						</div>
 						<div class="">
 							<label class="form-label">Amount given</label> 
-							<input class="form-control" placeholder="0.00" name="today_given" id="today_given" type="number" min="0.00" step="0.01" required>
+							<input class="form-control" placeholder="0.00" name="add_amount" id="add_amount" type="number" min="0.00" step="0.01" required>
 						</div>
 					</div>
 					<div class="modal-footer">
 						<button type="button" class="btn btn-sm btn-light" data-bs-dismiss="modal">Close</button>&nbsp;&nbsp;
-						<button type="button" id="submitCapital" class="btn btn-sm btn-warning">Push</button>
+						<button type="button" id="submitCapital" class="btn btn-sm btn-warning">Add</button>
 					</div>
 				</form>
 			</div>
