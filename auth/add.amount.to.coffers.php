@@ -16,8 +16,9 @@
 
             if ($today_date == $today) {
 
+                // subtract add amount from cash in from supervisor gained cash
                 if ($add_from == 'trades') {
-
+                    //$
                 }
 
                 $coffersSQL = "
@@ -27,6 +28,10 @@
                 $statement = $conn->prepare($coffersSQL);
                 $result = $statement->execute([$coffers_id, $add_amount, $admin_id, 'receive', $createdAt]);
                 if ($result) {
+                    // add to log message
+                    $message = money($add_amount) . " from " . strtoupper($add_from) . " has been add to coffers";
+                    add_to_log($message, $admin_id);
+
                     $_SESSION['flash_success'] = money($given) . ((admin_has_permission('saleperson')) ? ' Gold push to supervisor' : 'Money pushed to saleperson'). ' successfully!';
                 } else {	
                     echo js_alert('Something went wrong, please refresh and try agin!');

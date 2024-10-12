@@ -107,7 +107,7 @@
             }
 
             $message = "exported " . strtoupper($FileExtType) . " trades data";
-            add_to_log($message, $_SESSION['JSAdmin']);
+            add_to_log($message, $admin_id);
 
             // $writer->save($NewFileName);
             header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
