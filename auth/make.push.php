@@ -24,14 +24,12 @@
 
 					// check if capital has been given
 					if ($findCapital) {
-
-						$g = $given;
-						$c = (float)($g + $c);
+						$c = (float)($given + $c);
 
 						$bal = _capital($push_to)['today_balance'];
 						// check if we are sending to salepersonnel from supervisor
 						if (!admin_has_permission()) {
-							$bal = ((_capital($push_to)['today_balance'] == null) ? null : (float)($g + _capital($push_to)['today_balance']));
+							$bal = ((_capital($push_to)['today_balance'] == null) ? null : (float)($given + _capital($push_to)['today_balance']));
 						}
 
 						// update daily capital and balance
@@ -41,7 +39,7 @@
 							WHERE `daily_date` = ? AND `daily_to` = ?
 						";
 						$daily_data = [$c, $bal, $today, $push_to];
-						$message = "on this day " . $today . ", capital updated of an amount " . money($c) . ', added amount ' . money($g) .  'for a ' .((admin_has_permission()) ? ' supervisor' : 'saleperson') . ' id: ' . $push_to;
+						$message = "on this day " . $today . ", capital updated of an amount " . money($c) . ', added amount ' . money($given) .  'for a ' .((admin_has_permission()) ? ' supervisor' : 'saleperson') . ' id: ' . $push_to;
 					} else {
 						$daily_data = [$daily_id, $given, $today, $push_to];
 						
@@ -79,8 +77,8 @@
 						}
 						add_to_log($message, $admin_id);
 		
-						$_SESSION['flash_success'] = 'An amount has been pused' . ((admin_has_permission('saleperson')) ? ' supervisor' : 'saleperson'). ' successfully!';
-					} else {
+						$_SESSION['flash_success'] = money($given) . ((admin_has_permission('saleperson')) ? ' Gold push to supervisor' : 'Money pushed to saleperson'). ' successfully!';
+					} else {	
 						echo js_alert('Something went wrong, please refresh and try agin!');
 					}
 					redirect(goBack());

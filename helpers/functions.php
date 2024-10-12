@@ -193,10 +193,14 @@ function get_pushes_made($admin, $today = null) {
 	global $admin_data;
 
 	$where = '';
-    if ($admin_data['admin_permissions'] == 'supervisor') {
+    // if ($admin_data['admin_permissions'] == 'supervisor') {
+    //     $where = ' AND (push_to = "' . $admin . '" OR push_from IN (SELECT push_from FROM jspence_pushes WHERE push_from = "' . $admin . '")) AND push_date = "' . $today . '" ';
+    // } else if ($admin_data['admin_permissions'] == 'salesperson') {
+    //     $where = ' AND push_to = "' . $admin . '" AND push_date = "' . $today . '" ';
+    // }
+
+	if (!admin_has_permission()) {
         $where = ' AND (push_to = "' . $admin . '" OR push_from IN (SELECT push_from FROM jspence_pushes WHERE push_from = "' . $admin . '")) AND push_date = "' . $today . '" ';
-    } else if ($admin_data['admin_permissions'] == 'salesperson') {
-        $where = ' AND push_to = "' . $admin . '" AND push_date = "' . $today . '" ';
     }
 
 	if ($today != null) {
@@ -236,7 +240,7 @@ function get_pushes_made($admin, $today = null) {
 							</div>
 						</div>
 						<div class="col ms-n2">
-							<h6 class="fs-base fw-normal mb-1">' . money($row["push_amount"]) . ' push' . ((admin_has_permission('supervisor') && $row["push_from"] == $admin) ? 'ed to ' . ucwords($row["admin_fullname"]) : ' received') . '</h6>
+							<h6 class="fs-base fw-normal mb-1">' . money($row["push_amount"]) . ' push' . (($row["push_from"] == $admin) ? 'ed to ' . ucwords($row["admin_fullname"]) : ' received') . '</h6>
 							<span class="fs-sm text-body-secondary">' . time_from_date($row["createdAt"]) . '</span>
 						</div>
 						<div class="col-auto">
@@ -609,7 +613,6 @@ function fetch_all_sales($status, $admin, $type = null) {
 // get total amount of orders today
 function total_amount_today($admin) {
 	global $conn;
-	$thisDay = date("d");
 	$today = date('Y-m-d');
 
 	$where = '';
@@ -621,9 +624,9 @@ function total_amount_today($admin) {
 	$thisDaySql = "
 		SELECT SUM(sale_total_amount) AS total
 		FROM `jspence_sales` 
-		WHERE sale_status = ?
+		WHERE sale_status = ? 
+		AND CAST(createdAt AS date) = '{$today}' 
 		$where
-	    AND DAY(createdAt) = '{$thisDay}' 
 	";
 	$statement = $conn->prepare($thisDaySql);
 	$statement->execute([0]);
