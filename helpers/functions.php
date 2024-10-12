@@ -639,6 +639,8 @@ function total_amount_today($admin) {
 	$get_pushed = 0;
 	if (admin_has_permission('salesperson')) {
 		$get_pushed = $conn->query("SELECT SUM(push_amount) AS pamt FROM jspence_pushes WHERE push_from = '" . $admin . "' AND push_date = '" . $today . "'")->fetchAll();
+	} else {
+		$get_pushed = $conn->query("SELECT SUM(coffers_amount) AS pamt FROM jspence_coffers WHERE coffers_for = '" . $admin . "' AND CAST(createdAt AS date) = '" . $today . "' AND coffers_receive_through = 'trades'")->fetchAll();
 	}
 
 	// subtract send from today total amount

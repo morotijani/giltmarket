@@ -260,6 +260,15 @@
                     alert("You will have to select a where the money is from!");
                     $("input[name='add_from']").focus()
                     return false;
+                } else {
+                    if ($("input[name='add_from']:checked").val() == 'trades') {
+                        var a = '<?= total_amount_today($admin_id); ?>'
+                        if ($('#add_amount').val() > +a) {
+                            alert("Invalid Fund amount!");
+                            $('#add_amount').focus() 
+                            return false;
+                        }
+                    }
                 }
 
                 if ($('#add_amount').val() <= 0) {
