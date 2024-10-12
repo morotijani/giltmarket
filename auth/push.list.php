@@ -16,13 +16,16 @@ if ($_POST['page'] > 1) {
 }
 
 $where = '';
-if ($admin_data['admin_permissions'] == 'supervisor') {
+// if ($admin_data['admin_permissions'] == 'supervisor') {
+// 	$where = ' AND (push_to = "' . $admin_id . '" OR push_from IN (SELECT push_from FROM jspence_pushes WHERE push_from = "' . $admin_id . '")) AND push_date = "' . $today . '" ';
+// } else if ($admin_data['admin_permissions'] == 'salesperson') {
+// 	$where = ' AND push_to = "' . $admin_id . '" AND push_date = "' . $today . '" ';
+// }
+
+if (!admin_has_permission()) {
 	$where = ' AND (push_to = "' . $admin_id . '" OR push_from IN (SELECT push_from FROM jspence_pushes WHERE push_from = "' . $admin_id . '")) AND push_date = "' . $today . '" ';
-} else if ($admin_data['admin_permissions'] == 'salesperson') {
-	$where = ' AND push_to = "' . $admin_id . '" AND push_date = "' . $today . '" ';
 }
 
-//if ($admin_data['admin_permission'])
 $query = "
 	SELECT *, jspence_pushes.id AS pid, jspence_pushes.createdAt AS pca, jspence_pushes.updatedAt AS sua, CAST(jspence_pushes.createdAt AS date) AS pdate 
     FROM jspence_pushes 
@@ -84,7 +87,7 @@ if ($total_data > 0) {
         $_to = find_admin_with_id($row["push_to"]);
 
         $option = '';
-    	if (admin_has_permission('supervisor') && $row["push_date"] == date("Y-m-d") && $row["push_from"] == $admin_id) {
+    	if ($row["push_date"] == date("Y-m-d") && $row["push_from"] == $admin_id) {
            $option = '<a href="javascript:;" data-bs-target="#deleteModal_' . $row["pid"] . '" data-bs-toggle="modal" class="badge bg-dark"> Reverse push </a>'; 
         }
 		

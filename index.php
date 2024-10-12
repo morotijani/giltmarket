@@ -137,27 +137,6 @@
 						</div>
 					</div>
           		</div>
-				  <div class="col-12 col-md-6 col-xxl-3">
-					<div class="card bg-body-tertiary border-transparent">
-						<div class="card-body">
-							<div class="row align-items-center">
-								<div class="col">
-									<!-- Heading -->
-									<h4 class="fs-base fw-normal text-body-secondary mb-1"><?= (($admin_data['admin_permissions'] == 'salesperson') ? 'Gold' : 'Money'); ?> accumulated</h4>
-
-									<!-- Text -->
-									<div class="fs-5 fw-semibold"><?= money(total_amount_today($admin_id)); ?></div>
-								</div>
-								<div class="col-auto">
-									<!-- Avatar -->
-									<div class="avatar avatar-lg bg-body text-warning">
-										<i class="fs-4" data-duoicon="briefcase"></i>
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
 				<div class="col-12 col-md-6 col-xxl-3 mb-4 mb-md-0">
 					<div class="card bg-body-tertiary border-transparent">
 						<div class="card-body">
@@ -198,6 +177,27 @@
 										</div>
 									</div>
 								<?php endif; ?>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="col-12 col-md-6 col-xxl-3">
+					<div class="card bg-body-tertiary border-transparent">
+						<div class="card-body">
+							<div class="row align-items-center">
+								<div class="col">
+									<!-- Heading -->
+									<h4 class="fs-base fw-normal text-body-secondary mb-1"><?= (($admin_data['admin_permissions'] == 'salesperson') ? 'Gold' : 'Money'); ?> accumulated</h4>
+
+									<!-- Text -->
+									<div class="fs-5 fw-semibold"><?= money(total_amount_today($admin_id)); ?></div>
+								</div>
+								<div class="col-auto">
+									<!-- Avatar -->
+									<div class="avatar avatar-lg bg-body text-warning">
+										<i class="fs-4" data-duoicon="briefcase"></i>
+									</div>
+								</div>
 							</div>
 						</div>
 					</div>
