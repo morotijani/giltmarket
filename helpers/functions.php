@@ -624,12 +624,15 @@ function total_amount_today($admin) {
 	$thisDaySql = "
 		SELECT SUM(sale_total_amount) AS total
 		FROM `jspence_sales` 
-		WHERE sale_status = ? 
-		AND CAST(createdAt AS date) = '{$today}' 
+		INNER JOIN jspence_daily
+		ON jspence_daily.daily_id = jspence_sales.sale_daily
+		WHERE jspence_sales.sale_status = ? 
+		AND CAST(jspence_sales.createdAt AS date) = '{$today}' 
+		AND jspence_daily.daily_capital_status = ?
 		$where
 	";
 	$statement = $conn->prepare($thisDaySql);
-	$statement->execute([0]);
+	$statement->execute([0, 0]);
 	$thisDayrow = $statement->fetchAll();
 
 	// get all pushed amout
