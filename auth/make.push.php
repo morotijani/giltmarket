@@ -90,7 +90,7 @@
 							$statement->execute([$coffers_id, $given, $admin_id, 'send', $createdAt]);
 						}
 		
-						$_SESSION['flash_success'] = money($given) . ((admin_has_permission('saleperson')) ? ' Gold push to supervisor' : ' Money pushed to saleperson'). ' successfully!';
+						$_SESSION['flash_success'] = money($given) . ((admin_has_permission('salesperson')) ? ' Gold push to supervisor' : ' Money pushed to saleperson'). ' successfully!';
 					} else {	
 						echo js_alert('Something went wrong, please refresh and try agin!');
 					}
