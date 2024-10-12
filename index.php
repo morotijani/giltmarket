@@ -391,7 +391,7 @@
 						<?php if (admin_has_permission('supervisor')) : ?>
 						<div class="col-auto my-n3 me-n3">
 							<a class="btn btn-link" href="javascript:;" data-bs-target="#modalCapital" data-bs-toggle="modal">
-							Make a push
+							Fund coffers
 							<span class="material-symbols-outlined">send_money</span>
 							</a>
 						</div>

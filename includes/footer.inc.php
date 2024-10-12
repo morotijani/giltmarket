@@ -124,11 +124,11 @@
 						<i class="bi bi-currency-exchange"></i>
 					</div>
 					<div>
-						<h5 class="mb-1">Add amount to coffers</h5>
-						<small class="d-block text-xs text-muted">You are to send todays capital to <?= ((admin_has_permission()) ? 'supervisor' : 'saleperson'); ?> before start trade.</small>
+						<h5 class="mb-1">Fund coffers</h5>
+						<small class="d-block text-xs text-muted">Add an amount from trades or other options to fund coffers.</small>
 					</div>
 				</div>
-				<form method="POST" id="capitalForm" action="<?= PROOT; ?>auth/make.push.php">
+				<form method="POST" id="fundCoffersForm" action="<?= PROOT; ?>auth/add.amount.to.coffers.php">
 					<div class="modal-body">
 						<div class="mb-4">
 							<label class="form-label">Today's Date</label> 
@@ -149,13 +149,13 @@
 							</div>
 						</div>
 						<div class="">
-							<label class="form-label">Amount given</label> 
+							<label class="form-label">Amount</label> 
 							<input class="form-control" placeholder="0.00" name="add_amount" id="add_amount" type="number" min="0.00" step="0.01" required>
 						</div>
 					</div>
 					<div class="modal-footer">
 						<button type="button" class="btn btn-sm btn-light" data-bs-dismiss="modal">Close</button>&nbsp;&nbsp;
-						<button type="button" id="submitCapital" class="btn btn-sm btn-warning">Add</button>
+						<button type="button" id="submitFundCoffers" class="btn btn-sm btn-warning">Add</button>
 					</div>
 				</form>
 			</div>
@@ -255,21 +255,26 @@
             $("#temporary").fadeOut(5000);
 
             // make a push
-            $('#submitCapital').on('click', function() {
-			if ($("input[name='push_for'][value='saleperson']").prop("checked")) {
-				if ($("#push_to").val() == '') {
-					alert("You will have to select a sale person to proceed!");
-					return false;
-				}
-			}
+            $('#submitFundCoffers').on('click', function() {
+                if (!$("input[name='add_from']").prop("checked")) {
+                    alert("You will have to select a where the money is from!");
+                    $("input[name='add_from']").focus()
+                    return false;
+                }
 
-			$('#submitCapital').attr('disabled', true);
-			$('#submitCapital').text('Pushing ...');
-			
-			setInterval(function () {
-				$('#capitalForm').submit();
-			}, 2000)
-		})
+                if ($('#add_amount').val() <= 0) {
+                    // alert("Fund amount cannot be less than 0!");
+                    $('#add_amount').focus() 
+                    return false;
+                }
+                
+                $('#submitFundCoffers').attr('disabled', true);
+                $('#submitFundCoffers').text('Adding ...');
+                
+                setInterval(function () {
+                    // $('#fundCoffersForm').submit();
+                }, 2000)
+            })
 
             // Calculation made with current price input
             $('#current_price').on('keyup', function(e) {
