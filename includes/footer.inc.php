@@ -256,7 +256,7 @@
 
             // make a push
             $('#submitFundCoffers').on('click', function() {
-                if (!$("input[name='add_from']").prop("checked")) {
+                if (!$("input[name='add_from']:checked").val()) {
                     alert("You will have to select a where the money is from!");
                     $("input[name='add_from']").focus()
                     return false;
@@ -272,7 +272,7 @@
                 $('#submitFundCoffers').text('Adding ...');
                 
                 setInterval(function () {
-                    // $('#fundCoffersForm').submit();
+                    $('#fundCoffersForm').submit();
                 }, 2000)
             })
 

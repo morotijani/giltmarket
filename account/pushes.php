@@ -48,10 +48,10 @@
                 <!-- Heading -->
                 <h1 class="fs-4 mb-0">Pushes</h1>
             </div>
-            <?php if (admin_has_permission('supervisor')): ?>
+            <?php if ($admin_permission = 'supervisor'): ?>
             <div class="col-12 col-sm-auto mt-4 mt-sm-0">
                 <!-- Action -->
-                <a class="btn btn-warning d-block" href="javascript:;" data-bs-target="#modalCapital" data-bs-toggle="modal"> Make a push</a>
+                <a class="btn btn-warning d-block" href="javascript:;" data-bs-target="#modalCapital" data-bs-toggle="modal"> Fund coffers</a>
             </div>
             <?php endif; ?>
         </div>
