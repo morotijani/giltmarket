@@ -136,13 +136,13 @@
 						</div>
 						<div class="mb-4">
 							<div class="form-check mb-2">
-								<input class="form-check-input for_class" type="radio" name="add_from" id="flexRadioDefault1" value="trades">
+								<input class="form-check-input for_class" type="radio" name="add_from" id="flexRadioDefault1" value="trades" required>
 								<label class="form-check-label" for="flexRadioDefault1">
 									From today trades
 								</label>
 							</div>
 							<div class="form-check mb-2">
-								<input class="form-check-input for_class" type="radio" name="add_from" id="flexRadioDefault2" value="cash">
+								<input class="form-check-input for_class" type="radio" name="add_from" id="flexRadioDefault2" value="cash" required>
 								<label class="form-check-label" for="flexRadioDefault2">
 									Physical cash
 								</label>
