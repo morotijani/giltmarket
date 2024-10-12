@@ -76,6 +76,19 @@
 							add_to_log($push_message, $admin_id);
 						}
 						add_to_log($message, $admin_id);
+
+						// update coffers
+						if (admin_has_permission('supervisor')) {
+							$coffers_id = guidv4();
+                			$createdAt = date("Y-m-d H:i:s");
+						
+							$coffersSQL = "
+								INSERT INTO jspence_coffers (coffers_id, coffers_amount, coffers_for, coffers_status, createdAt) 
+								VALUES (?, ?, ?, ?, ?)
+							";
+							$statement = $conn->prepare($coffersSQL);
+							$statement->execute([$coffers_id, $given, $admin_id, 'send', $createdAt]);
+						}
 		
 						$_SESSION['flash_success'] = money($given) . ((admin_has_permission('saleperson')) ? ' Gold push to supervisor' : 'Money pushed to saleperson'). ' successfully!';
 					} else {	

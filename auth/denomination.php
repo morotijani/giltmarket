@@ -142,20 +142,18 @@ if (array_key_exists('postdata', $_SESSION)) {
                 // send balance back to the supervisor for his next day trade
                 $coffers_id = guidv4();
                 $createdAt = date("Y-m-d H:i:s");
-                
                 if ($admin_persmission == 'salesperson') {
-                    $cash = _capital($admin_id)['today_balance']; // cash remaining from saleperson
+                        $cash = _capital($admin_id)['today_balance']; // cash remaining from saleperson
                 } else {
                     $cash = total_amount_today($admin_id); // cash gained from supervisor
                 }
                 // insert into cash coffers
                 $insertSql = "
-                    INSERT INTO jspence_coffers (coffers_amount, coffers_send_to, createdAt, coffers_id) 
+                    INSERT INTO jspence_coffers (coffers_amount, coffers_for, createdAt, coffers_id) 
                     VALUES (?, ?, ?, ?)
                 ";
                 $statement = $conn->prepare($insertSql);
                 $statement->execute([$cash, $push_to, $createdAt, $coffers_id]);
-
             }
 
         }

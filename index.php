@@ -322,7 +322,7 @@
 									<div class="modal-body">
 										<div class="inputpin mb-3">
 											<div>
-												<?php if ((admin_has_permission('supervisor') && _capital($admin_id)['today_balance'] > 0) || (admin_has_permission('salesperson') && total_amount_today($admin_id) > 0)): ?>
+												<?php if ((admin_has_permission('supervisor') && get_admin_coffers($conn, $admin_id, 'balance') > 0) || (admin_has_permission('salesperson') && total_amount_today($admin_id) > 0)): ?>
 													<label class="form-label">Enter pin</label>
 													<div class="d-flex justify-content-between p-4 bg-body-tertiary rounded">
 														<input type="number" class="form-control form-control-flush text-xl fw-bold w-rem-40 bg-transparent" placeholder="0000" name="pin" id="push_pin" autocomplete="off" inputmode="numeric" data-maxlength="4" oninput="this.value=this.value.slice(0,this.dataset.maxlength)" required>
@@ -337,10 +337,8 @@
 												<?php endif; ?>
 											</div>
 										</div>
-										<?php if (_capital($admin_id)['today_balance'] > 0): ?>
-											<?php if (is_capital_exhausted($conn, $admin_data['admin_id'])): ?>
-												<button type="button" id="submitSendMG" class="btn btn-warning mt-4">Send gold</button>
-											<?php endif; ?>
+										<?php if ((admin_has_permission('supervisor') && get_admin_coffers($conn, $admin_id, 'balance') > 0) || (admin_has_permission('salesperson') && total_amount_today($admin_id) > 0)): ?>
+										<button type="button" id="submitSendMG" class="btn btn-warning mt-4">Send gold</button>
 										<?php endif; ?>
 									</div>
 								</div>
@@ -541,7 +539,6 @@
 				}
 			// }
 			var balance = '<?= ((admin_has_permission('supervisor')) ? get_admin_coffers($conn, $admin_id, 'balance') : total_amount_today($admin_id)); ?>';
-			console.log(balance);
 			if ($("#today_given").val() <= +balance) {
 				$('#sendMGModal').modal('show');
 			} else {

@@ -67,7 +67,7 @@
                                 <h4 class="fs-sm fw-normal text-body-secondary mb-1">Total amount in coffers</h4>
 
                                 <!-- Text -->
-                                <div class="fs-4 fw-semibold"><?= sum_up_grams($conn, $admin_data['admin_id']); ?></div>
+                                <div class="fs-4 fw-semibold"><?= money(get_admin_coffers($conn, $admin_id)); ?></div>
                             </div>
                         </div>
                     </div>
@@ -79,10 +79,10 @@
                         <div class="row align-items-center">
                             <div class="col">
                                 <!-- Heading -->
-                                <h4 class="fs-sm fw-normal text-body-secondary mb-1">Gold coffers</h4>
+                                <h4 class="fs-sm fw-normal text-body-secondary mb-1">Cash in coffers</h4>
 
                                 <!-- Text -->
-                                <div class="fs-4 fw-semibold"><?= sum_up_grams($conn, $admin_data['admin_id']); ?></div>
+                                <div class="fs-4 fw-semibold"><?= money(get_admin_coffers($conn, $admin_id, 'receive')); ?></div>
                             </div>
                         </div>
                     </div>
@@ -94,10 +94,10 @@
                         <div class="row align-items-center">
                             <div class="col">
                                 <!-- Heading -->
-                                <h4 class="fs-sm fw-normal text-body-secondary mb-1">Cash coffers</h4>
+                                <h4 class="fs-sm fw-normal text-body-secondary mb-1">Cash out of coffers</h4>
 
                                 <!-- Text -->
-                                <div class="fs-4 fw-semibold"><?= sum_up_grams($conn, $admin_data['admin_id']); ?></div>
+                                <div class="fs-4 fw-semibold"><?= money(get_admin_coffers($conn, $admin_id, 'send')); ?></div>
                             </div>
                         </div>
                     </div>
