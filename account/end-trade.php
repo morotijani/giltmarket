@@ -344,7 +344,7 @@
                 +$('#denomination_5p_amt').val() + 
                 +$('#denomination_1p_amt').val()
             )
-        )
+        ).toFixed(2)
 
         $('#denomination-total').val(sum);
     }

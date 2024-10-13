@@ -80,12 +80,12 @@ if (array_key_exists('postdata', $_SESSION)) {
         add_to_log($message, $admin_id);
     
         // allow only salepersonnels to perform only this action
+        $push_to = '986785d8-7b98-4747-a0b2-8b4f4b239e06'; // get supervisors id
         if (!admin_has_permission('supervisor')) {
             // send balance back to the supervisor for his next day trade
             $tomorrow = new DateTime('tomorrow');
             $tomorrow = $tomorrow->format('Y-m-d');
 
-            $push_to = '986785d8-7b98-4747-a0b2-8b4f4b239e06'; // get supervisors id
             $supervisor_capital = _capital($push_to)['today_capital']; // get supervisors capital
         
             $daily_id = guidv4();
