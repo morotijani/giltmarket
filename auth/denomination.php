@@ -80,7 +80,7 @@ if (array_key_exists('postdata', $_SESSION)) {
         add_to_log($message, $admin_id);
     
         // allow only salepersonnels to perform only this action
-        if (!admin_has_permission('supervisor')) {
+        // if (!admin_has_permission('supervisor')) {
             // send balance back to the supervisor for his next day trade
             $tomorrow = new DateTime('tomorrow');
             $tomorrow = $tomorrow->format('Y-m-d');
@@ -157,7 +157,7 @@ if (array_key_exists('postdata', $_SESSION)) {
                 $statement->execute([$cash, $push_to, 'receive', $createdAt, $coffers_id]);
             }
 
-        }
+        // }
 
         // update today trade table so it does not accepts any trades anymore
         $query = "
