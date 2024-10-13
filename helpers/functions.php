@@ -653,6 +653,34 @@ function total_amount_today($admin) {
 	return $total;
 }
 
+// get total amount of orders today
+function total_sale_amount_today($admin) {
+	global $conn;
+	$today = date('Y-m-d');
+
+	$where = '';
+	if (!admin_has_permission()) {
+		$where = ' AND sale_by = "' . $admin . '" ';
+	}
+
+	// fetch today total amount
+	$thisDaySql = "
+		SELECT SUM(sale_total_amount) AS total
+		FROM `jspence_sales` 
+		INNER JOIN jspence_daily
+		ON jspence_daily.daily_id = jspence_sales.sale_daily
+		WHERE jspence_sales.sale_status = ? 
+		AND CAST(jspence_sales.createdAt AS date) = '{$today}' 
+		AND jspence_daily.daily_capital_status = ?
+		$where
+	";
+	$statement = $conn->prepare($thisDaySql);
+	$statement->execute([0, 0]);
+	$thisDayrow = $statement->fetchAll();
+
+	return $thisDayrow[0]['total'] ?? 0;
+}
+
 // get total amount of orders in current month
 function total_amount_thismonth($admin) {
 	global $conn;

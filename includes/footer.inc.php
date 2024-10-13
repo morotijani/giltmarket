@@ -154,7 +154,7 @@
 						</div>
 					</div>
 					<div class="modal-footer">
-						<button type="button" class="btn btn-sm btn-light" data-bs-dismiss="modal">Close</button>&nbsp;&nbsp;
+						<button type="button" class="btn btn-sm btn-light" id="close-fund-coffers-form" data-bs-dismiss="modal">Close</button>&nbsp;&nbsp;
 						<button type="button" id="submitFundCoffers" class="btn btn-sm btn-warning">Add</button>
 					</div>
 				</form>
@@ -255,6 +255,10 @@
             $("#temporary").fadeOut(5000);
 
             // make a push
+            $('#close-fund-coffers-form').on('click', function() {
+                $('#fundCoffersForm')[0].reset();
+            });
+
             $('#submitFundCoffers').on('click', function() {
                 if (!$("input[name='add_from']:checked").val()) {
                     alert("You will have to select a where the money is from!");
