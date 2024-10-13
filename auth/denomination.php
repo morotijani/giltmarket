@@ -81,7 +81,7 @@ if (array_key_exists('postdata', $_SESSION)) {
     
         // allow only salepersonnels to perform only this action
         $push_to = '986785d8-7b98-4747-a0b2-8b4f4b239e06'; // get supervisors id
-        if (!admin_has_permission('supervisor')) {
+        if (admin_has_permission('salesperson')) {
             // send balance back to the supervisor for his next day trade
             $tomorrow = new DateTime('tomorrow');
             $tomorrow = $tomorrow->format('Y-m-d');
@@ -145,7 +145,7 @@ if (array_key_exists('postdata', $_SESSION)) {
         // send balance back to the supervisor for his next day trade
         $coffers_id = guidv4();
         $createdAt = date("Y-m-d H:i:s");
-        if ($admin_persmission == 'salesperson') {
+        if (admin_has_permission('salesperson')) {
             $cash = _capital($admin_id)['today_balance']; // cash remaining from saleperson
         } else {
             $cash = total_amount_today($admin_id); // cash gained from supervisor
@@ -156,7 +156,26 @@ if (array_key_exists('postdata', $_SESSION)) {
             VALUES (?, ?, ?, ?, ?)
         ";
         $statement = $conn->prepare($insertSql);
-        $statement->execute([$cash, $push_to, 'receive', $createdAt, $coffers_id]);
+        $coffers_result = $statement->execute([$cash, $push_to, 'receive', $createdAt, $coffers_id]);
+
+        if ($coffers_result) {
+            $LID = $conn->lastInsertId();
+            $q = $conn->query("SELECT * FROM jspence_coffers WHERE id = '" . $LID . "' LIMIT 1")->fetchAll();
+            $findTomorrowCapital = $q[0]['daily_id'];
+
+            $push_data = [$push_id, $findTomorrowCapital, _capital($admin_id)['today_balance'], $admin_id, $push_to, $tomorrow];
+            $sql = "
+                INSERT INTO jspence_pushes (push_id, push_daily, push_amount, push_from, push_to, push_date) 
+                VALUES (?, ?, ?, ?, ?, ?)
+            ";
+            $statement = $conn->prepare($sql);
+            $push_result = $statement->execute($push_data);
+
+            if (isset($push_result)) {
+                $push_message = "end-trade push made on " . $tomorrow . ", of an amount of " . $capital_bal . ' to supervisor id: ' . $push_to;
+                add_to_log($push_message, $admin_id);
+            }
+        }
 
         // update today trade table so it does not accepts any trades anymore
         $query = "

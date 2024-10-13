@@ -18,7 +18,10 @@
             if ($today_date == $today) {
 
                 // subtract add amount from cash in from supervisor gained cash
+                $coffers_receive_through = null;
                 if ($add_from == 'trades') {
+                    
+                    $coffers_receive_through = 'trades';
                     $a = total_amount_today($admin_id);
                     if ($add_amount > $a) {
                         $_SESSION['flash_error'] = 'Invalid fund amount';
@@ -35,6 +38,8 @@
 
                     // $message = money($add_amount) . " push from " . strtoupper($add_from) . " total to coffers";
                     // add_to_log($message, $admin_id);
+                } else {
+                    $coffers_receive_through = 'cash';
                 }
 
                 $coffersSQL = "
@@ -42,7 +47,7 @@
                     VALUES (?, ?, ?, ?, ?, ?)
                 ";
                 $statement = $conn->prepare($coffersSQL);
-                $result = $statement->execute([$coffers_id, $add_amount, $admin_id, 'receive', 'trades', $createdAt]);
+                $result = $statement->execute([$coffers_id, $add_amount, $admin_id, 'receive', $coffers_receive_through, $createdAt]);
                 if ($result) {
                     // add to log message
                     $message = money($add_amount) . " from " . strtoupper($add_from) . " has been add to coffers";
