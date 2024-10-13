@@ -81,6 +81,8 @@ if (array_key_exists('postdata', $_SESSION)) {
     
         // allow only salepersonnels to perform only this action
         $push_to = '986785d8-7b98-4747-a0b2-8b4f4b239e06'; // get supervisors id
+        $push_id = guidv4();
+        $today = date('Y-m-d');
         if (admin_has_permission('salesperson')) {
             // send balance back to the supervisor for his next day trade
             $tomorrow = new DateTime('tomorrow');
@@ -89,7 +91,6 @@ if (array_key_exists('postdata', $_SESSION)) {
             $supervisor_capital = _capital($push_to)['today_capital']; // get supervisors capital
         
             $daily_id = guidv4();
-            $push_id = guidv4();
             $new_capital = total_amount_today($admin_id); // current ending trade sale personnel balance
 
             // check if supervisor has already recieved tomorrow capital from other salepersonels
@@ -135,7 +136,7 @@ if (array_key_exists('postdata', $_SESSION)) {
                 $push_result = $statement->execute($push_data);
 
                 if (isset($push_result)) {
-                    $push_message = "end-trade push made on " . $tomorrow . ", of an amount of " . $capital_bal . ' to supervisor id: ' . $push_to;
+                    $push_message = "end-trade-push made on " . $tomorrow . ", of an amount of " . $capital_bal . ' to supervisor id: ' . $push_to;
                     add_to_log($push_message, $admin_id);
                 }
                 add_to_log($message, $admin_id);
@@ -158,14 +159,14 @@ if (array_key_exists('postdata', $_SESSION)) {
         $statement = $conn->prepare($insertSql);
         $coffers_result = $statement->execute([$cash, $push_to, 'receive', $createdAt, $coffers_id]);
 
-        if (admin_has_permission('supervisor'))
+        if (admin_has_permission('supervisor')) {
             // insert into pushes and link with coffers id
             if ($coffers_result) {
                 $LID = $conn->lastInsertId();
                 $q = $conn->query("SELECT * FROM jspence_coffers WHERE id = '" . $LID . "' LIMIT 1")->fetchAll();
                 $coffers_id = $q[0]['coffers_id'];
 
-                $push_data = [$push_id, $coffers_id, _capital($admin_id)['today_balance'], $admin_id, $push_to, $today, 'coffers'];
+                $push_data = [$push_id, $coffers_id, $cash, $admin_id, $push_to, $today, 'coffers'];
                 $sql = "
                     INSERT INTO jspence_pushes (push_id, push_daily, push_amount, push_from, push_to, push_date, push_on) 
                     VALUES (?, ?, ?, ?, ?, ?, ?)
@@ -174,7 +175,7 @@ if (array_key_exists('postdata', $_SESSION)) {
                 $push_result = $statement->execute($push_data);
 
                 if (isset($push_result)) {
-                    $push_message = "end-trade push made on " . $today . ", of an amount of " . $capital_bal . ' to supervisor id: ' . $push_to;
+                    $push_message = "end-trade-push made on " . $today . ", of an amount of " . money($cash) . ' to supervisor id: ' . $push_to;
                     add_to_log($push_message, $admin_id);
                 }
             }
@@ -191,6 +192,7 @@ if (array_key_exists('postdata', $_SESSION)) {
             $message = "market capital ended, capital id: " . $capital_id;
             add_to_log($message, $admin_id);
         }
+
 
 ?>
 
