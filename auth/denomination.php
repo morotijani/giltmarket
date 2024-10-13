@@ -80,7 +80,7 @@ if (array_key_exists('postdata', $_SESSION)) {
         add_to_log($message, $admin_id);
     
         // allow only salepersonnels to perform only this action
-        // if (!admin_has_permission('supervisor')) {
+        if (!admin_has_permission('supervisor')) {
             // send balance back to the supervisor for his next day trade
             $tomorrow = new DateTime('tomorrow');
             $tomorrow = $tomorrow->format('Y-m-d');
@@ -139,25 +139,24 @@ if (array_key_exists('postdata', $_SESSION)) {
                     add_to_log($push_message, $admin_id);
                 }
                 add_to_log($message, $admin_id);
-                
-                // send balance back to the supervisor for his next day trade
-                $coffers_id = guidv4();
-                $createdAt = date("Y-m-d H:i:s");
-                if ($admin_persmission == 'salesperson') {
-                    $cash = _capital($admin_id)['today_balance']; // cash remaining from saleperson
-                } else {
-                    $cash = total_amount_today($admin_id); // cash gained from supervisor
-                }
-                // insert into cash coffers
-                $insertSql = "
-                    INSERT INTO jspence_coffers (coffers_amount, coffers_for, coffers_status, createdAt, coffers_id) 
-                    VALUES (?, ?, ?, ?, ?)
-                ";
-                $statement = $conn->prepare($insertSql);
-                $statement->execute([$cash, $push_to, 'receive', $createdAt, $coffers_id]);
             }
+        }
 
-        // }
+        // send balance back to the supervisor for his next day trade
+        $coffers_id = guidv4();
+        $createdAt = date("Y-m-d H:i:s");
+        if ($admin_persmission == 'salesperson') {
+            $cash = _capital($admin_id)['today_balance']; // cash remaining from saleperson
+        } else {
+            $cash = total_amount_today($admin_id); // cash gained from supervisor
+        }
+        // insert into cash coffers
+        $insertSql = "
+            INSERT INTO jspence_coffers (coffers_amount, coffers_for, coffers_status, createdAt, coffers_id) 
+            VALUES (?, ?, ?, ?, ?)
+        ";
+        $statement = $conn->prepare($insertSql);
+        $statement->execute([$cash, $push_to, 'receive', $createdAt, $coffers_id]);
 
         // update today trade table so it does not accepts any trades anymore
         $query = "
