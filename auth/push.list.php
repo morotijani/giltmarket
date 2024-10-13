@@ -87,7 +87,7 @@ if ($total_data > 0) {
         $_to = find_admin_with_id($row["push_to"]);
 
         $option = '';
-    	if ($row["push_date"] == date("Y-m-d") && $row["push_from"] == $admin_id) {
+    	if ($row["push_date"] == date("Y-m-d") && $row["push_from"] == $admin_id && ($row['push_on'] == 'dialy' || $row['push_on'] == 'coffers')) {
            $option = '<a href="javascript:;" data-bs-target="#deleteModal_' . $row["pid"] . '" data-bs-toggle="modal" class="badge bg-dark"> Reverse push </a>'; 
         }
 		

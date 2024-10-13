@@ -637,18 +637,23 @@ function total_amount_today($admin) {
 
 	// get all pushed amout
 	$get_pushed = 0;
-	if (admin_has_permission('salesperson')) {
-		$get_pushed = $conn->query("SELECT SUM(push_amount) AS pamt FROM jspence_pushes WHERE push_from = '" . $admin . "' AND push_date = '" . $today . "'")->fetchAll();
-	} else {
-		$get_pushed = $conn->query("SELECT SUM(coffers_amount) AS pamt FROM jspence_coffers INNER JOIN jspence_daily ON jspence_daily.daily_to = jspence_coffers.coffers_for WHERE jspence_coffers.coffers_for = '" . $admin . "' AND CAST(jspence_coffers.createdAt AS date) = '" . $today . "' AND coffers_receive_through = 'trades' AND jspence_daily.daily_capital_status = 0 GROUP BY coffers_status")->fetchAll();
+	$where = " AND jspence_pushes.push_on = 'dialy'";
+	if (admin_has_permission('supervisor')) {
+		$where = " AND jspence_pushes.push_on = 'coffers' AND jspence_pushes.push_daily = (SELECT * FROM jspence_coffers WHERE coffers_id)";
+	}
+
+	$get_pushed = $conn->query("SELECT SUM(push_amount) AS pamt FROM jspence_pushes WHERE push_from = '" . $admin . "' AND push_date = '" . $today . "' $where")->fetchAll();
+
+	// } else {
+	// 	$get_pushed = $conn->query("SELECT SUM(coffers_amount) AS pamt FROM jspence_coffers INNER JOIN jspence_daily ON jspence_daily.daily_to = jspence_coffers.coffers_for WHERE jspence_coffers.coffers_for = '" . $admin . "' AND CAST(jspence_coffers.createdAt AS date) = '" . $today . "' AND coffers_receive_through = 'trades' AND jspence_daily.daily_capital_status = 0 GROUP BY coffers_status")->fetchAll();
 		
 
-		$a = $conn->query("SELECT * FROM jspence_daily WHERE jspence_daily.daily_capital_status = 0 AND jspence_daily.daily_to = '" . $admin . "' AND jspence_daily.createdAt = '" . $today . "' GROUP BY daily_to")->fetchAll();
+	// 	$a = $conn->query("SELECT * FROM jspence_daily WHERE jspence_daily.daily_capital_status = 0 AND jspence_daily.daily_to = '" . $admin . "' AND jspence_daily.createdAt = '" . $today . "' GROUP BY daily_to")->fetchAll();
 
-		// $b = $conn->query("SELECT SUM(coffers_amount) AS pamt FROM jspence_coffers WHERE jspence_coffers.coffers_for = '" . $admin . "' AND CAST(jspence_coffers.createdAt AS date) = '" . $today . "' AND coffers_receive_through = 'trades'")->fetchAll();
+	// 	// $b = $conn->query("SELECT SUM(coffers_amount) AS pamt FROM jspence_coffers WHERE jspence_coffers.coffers_for = '" . $admin . "' AND CAST(jspence_coffers.createdAt AS date) = '" . $today . "' AND coffers_receive_through = 'trades'")->fetchAll();
 
-		dnd($get_pushed);
-	}
+	// 	dnd($get_pushed);
+	// }
 
 	// subtract send from today total amount
 	$total_amount_traded = $thisDayrow[0]['total'] ?? 0;
