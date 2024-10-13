@@ -126,10 +126,10 @@ if (array_key_exists('postdata', $_SESSION)) {
 
             if (isset($daily_result)) {
                 // insert into push table
-                $push_data = [$push_id, $findTomorrowCapital, _capital($admin_id)['today_balance'], $admin_id, $push_to, $tomorrow];
+                $push_data = [$push_id, $findTomorrowCapital, _capital($admin_id)['today_balance'], $admin_id, $push_to, $tomorrow, 'dialy'];
                 $sql = "
-                    INSERT INTO jspence_pushes (push_id, push_daily, push_amount, push_from, push_to, push_date) 
-                    VALUES (?, ?, ?, ?, ?, ?)
+                    INSERT INTO jspence_pushes (push_id, push_daily, push_amount, push_from, push_to, push_date, push_on) 
+                    VALUES (?, ?, ?, ?, ?, ?, ?)
                 ";
                 $statement = $conn->prepare($sql);
                 $push_result = $statement->execute($push_data);
@@ -150,7 +150,7 @@ if (array_key_exists('postdata', $_SESSION)) {
         } else {
             $cash = total_amount_today($admin_id); // cash gained from supervisor
         }
-        // insert into cash coffers
+
         $insertSql = "
             INSERT INTO jspence_coffers (coffers_amount, coffers_for, coffers_status, createdAt, coffers_id) 
             VALUES (?, ?, ?, ?, ?)
@@ -158,22 +158,25 @@ if (array_key_exists('postdata', $_SESSION)) {
         $statement = $conn->prepare($insertSql);
         $coffers_result = $statement->execute([$cash, $push_to, 'receive', $createdAt, $coffers_id]);
 
-        if ($coffers_result) {
-            $LID = $conn->lastInsertId();
-            $q = $conn->query("SELECT * FROM jspence_coffers WHERE id = '" . $LID . "' LIMIT 1")->fetchAll();
-            $findTomorrowCapital = $q[0]['daily_id'];
+        if (admin_has_permission('supervisor'))
+            // insert into pushes and link with coffers id
+            if ($coffers_result) {
+                $LID = $conn->lastInsertId();
+                $q = $conn->query("SELECT * FROM jspence_coffers WHERE id = '" . $LID . "' LIMIT 1")->fetchAll();
+                $coffers_id = $q[0]['coffers_id'];
 
-            $push_data = [$push_id, $findTomorrowCapital, _capital($admin_id)['today_balance'], $admin_id, $push_to, $tomorrow];
-            $sql = "
-                INSERT INTO jspence_pushes (push_id, push_daily, push_amount, push_from, push_to, push_date) 
-                VALUES (?, ?, ?, ?, ?, ?)
-            ";
-            $statement = $conn->prepare($sql);
-            $push_result = $statement->execute($push_data);
+                $push_data = [$push_id, $coffers_id, _capital($admin_id)['today_balance'], $admin_id, $push_to, $today, 'coffers'];
+                $sql = "
+                    INSERT INTO jspence_pushes (push_id, push_daily, push_amount, push_from, push_to, push_date, push_on) 
+                    VALUES (?, ?, ?, ?, ?, ?, ?)
+                ";
+                $statement = $conn->prepare($sql);
+                $push_result = $statement->execute($push_data);
 
-            if (isset($push_result)) {
-                $push_message = "end-trade push made on " . $tomorrow . ", of an amount of " . $capital_bal . ' to supervisor id: ' . $push_to;
-                add_to_log($push_message, $admin_id);
+                if (isset($push_result)) {
+                    $push_message = "end-trade push made on " . $today . ", of an amount of " . $capital_bal . ' to supervisor id: ' . $push_to;
+                    add_to_log($push_message, $admin_id);
+                }
             }
         }
 
