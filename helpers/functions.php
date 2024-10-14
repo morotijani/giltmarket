@@ -645,6 +645,8 @@ function total_amount_today($admin) {
 		$total_amount_traded = $total_amount_pushed;
 	}
 
+	//dnd($get_pushed);
+
 	// subtract send from today total amount
 	$total = (float)($total_amount_traded - $total_amount_pushed);
 
