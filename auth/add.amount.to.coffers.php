@@ -25,19 +25,7 @@
                     $a = total_amount_today($admin_id);
                     if ($add_amount > $a) {
                         $_SESSION['flash_error'] = 'Invalid fund amount';
-                    } else {
-
                     }
-                    // $push_data = [$push_id, $findCapital, $add_amount, $admin_id, $push_to, $today];
-                    // $sql = "
-                    //     INSERT INTO jspence_pushes (push_id, push_daily, push_amount, push_from, push_to, push_date) 
-                    //     VALUES (?, ?, ?, ?, ?, ?)
-                    // ";
-                    // $statement = $conn->prepare($sql);
-                    // $statement->execute($push_data);
-
-                    // $message = money($add_amount) . " push from " . strtoupper($add_from) . " total to coffers";
-                    // add_to_log($message, $admin_id);
                 } else {
                     $coffers_receive_through = 'cash';
                 }
@@ -49,6 +37,20 @@
                 $statement = $conn->prepare($coffersSQL);
                 $result = $statement->execute([$coffers_id, $add_amount, $admin_id, 'receive', $coffers_receive_through, $createdAt]);
                 if ($result) {
+                    if ($add_from == 'trades') {
+                        $LID = $conn->lastInsertId();
+                        $q = $conn->query("SELECT * FROM jspence_coffers WHERE id = '" . $LID . "' LIMIT 1")->fetchAll();
+                        $coffers_id = $q[0]['coffers_id'];
+
+                        $push_data = [$push_id, $coffers_id, $add_amount, $admin_id, $push_to, $today, 'dialy'];
+                        $sql = "
+                            INSERT INTO jspence_pushes (push_id, push_daily, push_amount, push_from, push_to, push_date, push_on) 
+                            VALUES (?, ?, ?, ?, ?, ?, ?)
+                        ";
+                        $statement = $conn->prepare($sql);
+                        $statement->execute($push_data);
+                    }
+
                     // add to log message
                     $message = money($add_amount) . " from " . strtoupper($add_from) . " has been add to coffers";
                     add_to_log($message, $admin_id);

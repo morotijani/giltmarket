@@ -313,7 +313,7 @@
                                 },
                                 beforeSend : function () {
                                     // body...
-                                    $('#calculation-result').html('<img class="img-fluid" src="<?= PROOT; ?>asstes/media/loading_v2.gif"/>');
+                                    $('#calculation-result').html('<img class="img-fluid" src="<?= PROOT; ?>assets/media/loading_v2.gif"/>');
                                     $('#next-1').attr('disabled', true);
                                     $('#result-view').addClass('d-none');
                                 },
@@ -385,7 +385,7 @@
                                 },
                                 beforeSend : function () {
                                     // body...
-                                    $('#calculation-result').html('<img class="img-fluid" src="<?= PROOT; ?>asstes/media/loading_v2.gif"/>');
+                                    $('#calculation-result').html('<img class="img-fluid" src="<?= PROOT; ?>assets/media/loading_v2.gif"/>');
                                     $('#next-1').attr('disabled', true);
                                     $('#result-view').addClass('d-none');
                                 },
@@ -452,7 +452,7 @@
                                 },
                                 beforeSend : function () {
                                     // body...
-                                    $('#calculation-result').html('<img class="img-fluid" src="<?= PROOT; ?>asstes/media/loading_v2.gif"/>');
+                                    $('#calculation-result').html('<img class="img-fluid" src="<?= PROOT; ?>assets/media/loading_v2.gif"/>');
                                     $('#next-1').attr('disabled', true);
                                     $('#result-view').addClass('d-none');
                                 },

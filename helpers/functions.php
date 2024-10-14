@@ -635,32 +635,18 @@ function total_amount_today($admin) {
 	$statement->execute([0, 0]);
 	$thisDayrow = $statement->fetchAll();
 
+	$total_amount_traded = $thisDayrow[0]['total'] ?? 0;
+
 	// get all pushed amout
-	$get_pushed = 0;
-	$where = " AND jspence_pushes.push_on = 'dialy'";
-	if (admin_has_permission('supervisor')) {
-		$where = " AND jspence_pushes.push_on = 'coffers'";
+	$get_pushed = $conn->query("SELECT SUM(push_amount) AS pamt FROM jspence_pushes WHERE push_from = '" . $admin . "' AND push_date = '" . $today . "' AND jspence_pushes.push_on = 'dialy'")->fetchAll();
+	$total_amount_pushed = $get_pushed[0]['pamt'] ?? 0;
+
+	if (admin_has_permission('supervisor') && $total_amount_traded < 0) {
+		$total_amount_traded = $total_amount_pushed;
 	}
 
-	$get_pushed = $conn->query("SELECT SUM(push_amount) AS pamt FROM jspence_pushes WHERE push_from = '" . $admin . "' AND push_date = '" . $today . "'")->fetchAll();
-
-	// } else {
-	// 	$get_pushed = $conn->query("SELECT SUM(coffers_amount) AS pamt FROM jspence_coffers INNER JOIN jspence_daily ON jspence_daily.daily_to = jspence_coffers.coffers_for WHERE jspence_coffers.coffers_for = '" . $admin . "' AND CAST(jspence_coffers.createdAt AS date) = '" . $today . "' AND coffers_receive_through = 'trades' AND jspence_daily.daily_capital_status = 0 GROUP BY coffers_status")->fetchAll();
-		
-
-	// 	$a = $conn->query("SELECT * FROM jspence_daily WHERE jspence_daily.daily_capital_status = 0 AND jspence_daily.daily_to = '" . $admin . "' AND jspence_daily.createdAt = '" . $today . "' GROUP BY daily_to")->fetchAll();
-
-	// 	// $b = $conn->query("SELECT SUM(coffers_amount) AS pamt FROM jspence_coffers WHERE jspence_coffers.coffers_for = '" . $admin . "' AND CAST(jspence_coffers.createdAt AS date) = '" . $today . "' AND coffers_receive_through = 'trades'")->fetchAll();
-
-	// 	dnd($get_pushed);
-	// }
-
 	// subtract send from today total amount
-	$total_amount_traded = $thisDayrow[0]['total'] ?? 0;
-	$total_amount_pused = $get_pushed[0]['pamt'] ?? 0;
-	$total = 0;
-	
-	$total = (float)($total_amount_traded - $total_amount_pused);
+	$total = (float)($total_amount_traded - $total_amount_pushed);
 
 	return $total;
 }
