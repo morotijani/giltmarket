@@ -259,7 +259,7 @@ if (array_key_exists('postdata', $_SESSION)) {
                                 <span class="text-body">From Sytem</span> <br />
                                 Capital ID: <?= $capital_id; ?><br />
                                 Amount Given: <?= $capital_amt; ?><br />
-                                Balance: <?= $capital_bal; ?><br />
+                                <?= ((admin_has_permission('salesperson')) ? 'Balance: ' . $capital_bal . '<br />' : ''); ?>
                                 <?= $brought_in_amount; ?><br />
                                 <?= $gained; ?>
                             </p>
