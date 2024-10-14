@@ -69,8 +69,8 @@ $output = '
                         <th>Push ID</span></th>
                         <th>Capital ID</th>
                         <th>Amount</th>
-                        <th>To</th>
                         <th>From</th>
+                        <th>To</th>
                         <th></th>
                         <th>Date</th>
 						<th></th>
@@ -84,8 +84,13 @@ if ($total_data > 0) {
 	foreach ($result as $row) {
 
         $_from = find_admin_with_id($row["push_from"]);
-        $_to = find_admin_with_id($row["push_to"]);
-
+		if ($row['push_to'] == 'coffers') {
+			$__to = 'coffers';
+		} else {
+			$_to = find_admin_with_id($row["push_to"]);
+			$__to = $_to['admin_fullname'];
+		}
+        
         $option = '';
     	if ($row["push_date"] == date("Y-m-d") && $row["push_from"] == $admin_id && ($row['push_on'] == 'dialy' || $row['push_on'] == 'coffers')) {
            $option = '<a href="javascript:;" data-bs-target="#deleteModal_' . $row["pid"] . '" data-bs-toggle="modal" class="badge bg-dark"> Reverse push </a>'; 
@@ -105,7 +110,7 @@ if ($total_data > 0) {
                 <td>' . $row["push_daily"] . '</td>
                 <td>' . money($row["push_amount"]) .'</td>
                 <td>' . ucwords($_from['admin_fullname']) . '</a></td>
-                <td>' . ucwords($_to['admin_fullname']) . '</td>
+                <td>' . ucwords($__to) . '</td>
                 <td>' . $s . '</td>
                 <td>'. pretty_date($row["pca"]) .'</td>
                 <td class="text-end">' . $option . '</td>

@@ -193,12 +193,6 @@ function get_pushes_made($admin, $today = null) {
 	global $admin_data;
 
 	$where = '';
-    // if ($admin_data['admin_permissions'] == 'supervisor') {
-    //     $where = ' AND (push_to = "' . $admin . '" OR push_from IN (SELECT push_from FROM jspence_pushes WHERE push_from = "' . $admin . '")) AND push_date = "' . $today . '" ';
-    // } else if ($admin_data['admin_permissions'] == 'salesperson') {
-    //     $where = ' AND push_to = "' . $admin . '" AND push_date = "' . $today . '" ';
-    // }
-
 	if (!admin_has_permission()) {
         $where = ' AND (push_to = "' . $admin . '" OR push_from IN (SELECT push_from FROM jspence_pushes WHERE push_from = "' . $admin . '")) AND push_date = "' . $today . '" ';
     }
@@ -645,11 +639,8 @@ function total_amount_today($admin) {
 		$total_amount_traded = $total_amount_pushed;
 	}
 
-	//dnd($get_pushed);
-
 	// subtract send from today total amount
 	$total = (float)($total_amount_traded - $total_amount_pushed);
-
 	return $total;
 }
 
