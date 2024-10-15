@@ -1260,7 +1260,7 @@ function get_admin_coffers_send($conn, $admin) {
 // 
 function get_total_push($conn, $admin) {
 	$query = "
-		SELECT SUM() AS FROM jspence_pushes 
+		SELECT SUM(push_amount) AS pamt FROM jspence_pushes 
 		WHERE push_from = ? 
 	";
 	$statement = $conn->prepare($query);
@@ -1268,7 +1268,7 @@ function get_total_push($conn, $admin) {
 	$row = $statement->fetchAll();
 	$output = 0;
 	if ($result) {
-		$output = (($row[0]['push_amount'] == null || $row[0]['push_amount'] == '0.00') ? 0 : $row[0]['push_amount']);
+		$output = (($row[0]['pamt'] == null || $row[0]['pamt'] == '0.00' || $row[0]['pamt'] == 0) ? 0 : $row[0]['pamt']);
 	}
 	return $output;
 }
