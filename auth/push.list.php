@@ -118,24 +118,27 @@ if ($total_data > 0) {
 				                <h1 class="modal-title h4" id="reverseModalLabel_' . $row["sid"] . '">Reverse push!</h1>
 				                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 				            </div>
-				            <div class="modal-body p-0">
-			                    <div class="px-6 py-5 border-bottom">
-			                       <p>
-								   You are to reverse a push you made of an amount of ' . money($row["push_amount"]) . ' to ' . ucwords($__to)  . '
-			                       </p>
-			                       <br>
-			                       Push ID: ' . $row["push_id"] . '
-			                       <br>
-			                       <p>
-			                       		Are you sure you want to proceed to this action.
-										<input class="form-control">
-			                       </p>
-			                    </div>
-			                    <div class="px-6 py-5 d-flex justify-content-center">
-			                        <a href="'.PROOT.'account/trades?delete_request='.$row["sale_id"].'" class="btn btn-sm btn-danger"><i class="bi bi-trash me-2"></i>Confirm reverse</a>&nbsp;&nbsp;
-			                        <button type="button" class="btn btn-sm btn-dark"data-bs-dismiss="modal">No, cancel</button>
-			                    </div>
-				            </div>
+							<form method="POST" action="reverse.push.php">
+								<div class="modal-body p-0">
+									<div class="px-6 py-5 border-bottom">
+									<p>
+									You are to reverse a push you made of an amount of ' . money($row["push_amount"]) . ' to ' . ucwords($__to)  . '
+									</p>
+									<br>
+									Push ID: 
+									<input class="form-control" id="push_id" name="push_id" readonly value="' . $row["push_id"] . '" />
+									<br>
+									<p>
+											Are you sure you want to proceed to this action.
+											<input class="form-control" id="admin_pin" name="admin_pin" />
+									</p>
+									</div>
+									<div class="px-6 py-5 d-flex justify-content-center">
+										<button class="btn btn-sm btn-danger"><i class="bi bi-trash me-2"></i>Confirm reverse</button>&nbsp;&nbsp;
+										<button type="button" class="btn btn-sm btn-dark"data-bs-dismiss="modal">Cancel</button>
+									</div>
+								</div>
+							</form>
 				        </div>
 				    </div>
 				</div>
