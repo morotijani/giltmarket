@@ -102,7 +102,9 @@
 								<!-- Text -->
 								<div class="fs-5 fw-semibold">
 									<?= ((admin_has_permission()) ? money(total_amount_today($admin_id)) : money(_capital($admin_id)['today_capital'])); ?>
-									<sub class="fw-normal fs-sm"><?= money((float)(_capital($admin_id)['today_capital'] - _capital($admin_id)['today_balance'])); ?></sub>
+									<?php if (admin_has_permission('supervisor')): ?>
+										<sub class="fw-normal fs-sm"><?= money(remaining_gold_balance($admin_id)); ?></sub>
+									<?php endif; ?>
 								</div>
 							</div>
 							<div class="col-auto">

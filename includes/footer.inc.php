@@ -172,9 +172,7 @@
                 <small>notification . just now</small>
                 <button type="button" class="btn-close small" data-bs-dismiss="toast" aria-label="Close"></button>
             </div>
-            <div class="toast-body p-1 small">
-                
-            </div>
+            <div class="toast-body p-1 small"></div>
         </div>
     </div>
 
@@ -363,10 +361,6 @@
                 var current_price = $('#current_price').val();
                 var gram = $('#gram-amount').val();
                 var volume = $('#volume-amount').val();
-
-                // if (gram < step) {
-                //  console.log('not accept');
-                // }
 
                 if (current_price != '' && current_price > 0) {
                     if (gram != '' && gram > 0) {

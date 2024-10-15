@@ -34,7 +34,11 @@ if (isset($_POST['gram-amount'])) {
 			}
 
 			if ($total_amount > $today_balance) {
-				$output = "Today's remaining balance cannot complete this trade!";
+				$output = "Today's remaining cash balance cannot complete this trade!";
+			}
+		} else {
+			if (remaining_gold_balance($admin_id) < 0) {
+				$output = "Today's remaining gold balance cannot complete this trade!";
 			}
 		}
 

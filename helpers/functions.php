@@ -127,12 +127,7 @@ function _capital($admin) {
 
 // fetch supervisor remaining gold
 function remaining_gold_balance($admin) {
-
-	$output = 0;
-	if (admin_has_permission('supervisor')) {
-
-	}
-	return $output;
+	return (float)(_capital($admin)['today_capital'] - _capital($admin)['today_balance']);
 }
 
 // check if balance is exhausted or not
