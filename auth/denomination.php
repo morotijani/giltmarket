@@ -127,10 +127,10 @@ if (array_key_exists('postdata', $_SESSION)) {
 
             if (isset($daily_result)) {
                 // insert into push table
-                $push_data = [$push_id, $findTomorrowCapital, _capital($admin_id)['today_balance'], $admin_id, 'coffers', $tomorrow, 'coffers', '1'];
+                $push_data = [$push_id, $findTomorrowCapital, _capital($admin_id)['today_balance'], $admin_id, 'coffers', $tomorrow, 'coffers'];
                 $sql = "
-                    INSERT INTO jspence_pushes (push_id, push_daily, push_amount, push_from, push_to, push_date, push_on, push_on_end) 
-                    VALUES (?, ?, ?, ?, ?, ?, ?, ?)
+                    INSERT INTO jspence_pushes (push_id, push_daily, push_amount, push_from, push_to, push_date, push_on) 
+                    VALUES (?, ?, ?, ?, ?, ?, ?)
                 ";
                 $statement = $conn->prepare($sql);
                 $push_result = $statement->execute($push_data);
@@ -166,10 +166,10 @@ if (array_key_exists('postdata', $_SESSION)) {
                 $q = $conn->query("SELECT * FROM jspence_coffers WHERE id = '" . $LID . "' LIMIT 1")->fetchAll();
                 $coffers_id = $q[0]['coffers_id'];
 
-                $push_data = [$push_id, $coffers_id, $cash, $admin_id, 'coffers', $today, 'coffers', 1];
+                $push_data = [$push_id, $coffers_id, $cash, $admin_id, 'coffers', $today, 'coffers'];
                 $sql = "
-                    INSERT INTO jspence_pushes (push_id, push_daily, push_amount, push_from, push_to, push_date, push_on, push_on_end) 
-                    VALUES (?, ?, ?, ?, ?, ?, ?, ?)
+                    INSERT INTO jspence_pushes (push_id, push_daily, push_amount, push_from, push_to, push_date, push_on) 
+                    VALUES (?, ?, ?, ?, ?, ?, ?)
                 ";
                 $statement = $conn->prepare($sql);
                 $push_result = $statement->execute($push_data);
