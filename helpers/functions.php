@@ -633,7 +633,7 @@ function total_amount_today($admin) {
 	$total_amount_traded = $thisDayrow[0]['total'] ?? 0;
 
 	// get all pushed amout
-	$get_pushed = $conn->query("SELECT SUM(push_amount) AS pamt FROM jspence_pushes WHERE push_from = '" . $admin . "' AND push_date = '" . $today . "' AND jspence_pushes.push_on = 'dialy'")->fetchAll();
+	$get_pushed = $conn->query("SELECT SUM(push_amount) AS pamt FROM jspence_pushes WHERE push_from = '" . $admin . "' AND push_date = '" . $today . "' AND jspence_pushes.push_on = 'dialy' AND push_on_end = 0")->fetchAll();
 	$total_amount_pushed = $get_pushed[0]['pamt'] ?? 0;
 
 	if (admin_has_permission('supervisor') && $total_amount_traded < 0) {

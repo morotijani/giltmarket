@@ -388,7 +388,7 @@
 						<div class="col">
 							<h3 class="fs-6 mb-0">Pushes</h3>
 						</div>
-						<?php if (admin_has_permission('supervisor')) : ?>
+						<?php if ($admin_permission == 'supervisor') : ?>
 						<div class="col-auto my-n3 me-n3">
 							<a class="btn btn-link" href="javascript:;" data-bs-target="#modalCapital" data-bs-toggle="modal">
 							Fund coffers
