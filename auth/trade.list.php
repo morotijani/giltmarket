@@ -303,7 +303,7 @@ if ($total_data > 0) {
 							<div class="modal-body p-0">
 								<div class="px-6 py-5 border-bottom">
 									<p>
-										<i>'.$row["sale_comment"].', with an amount of <span style="font-family: Roboto Mono, monospace;">'.money($row["sale_total_amount"]).'</span></i> 
+										<i>'.$row["sale_comment"].', with an amount of ' . money($row["sale_total_amount"]) . '</i> 
 										<br><br>
 										Are you sure you want to proceed to this action.
 									</p>

@@ -16,12 +16,6 @@ if ($_POST['page'] > 1) {
 }
 
 $where = '';
-// if ($admin_data['admin_permissions'] == 'supervisor') {
-// 	$where = ' AND (push_to = "' . $admin_id . '" OR push_from IN (SELECT push_from FROM jspence_pushes WHERE push_from = "' . $admin_id . '")) AND push_date = "' . $today . '" ';
-// } else if ($admin_data['admin_permissions'] == 'salesperson') {
-// 	$where = ' AND push_to = "' . $admin_id . '" AND push_date = "' . $today . '" ';
-// }
-
 if (!admin_has_permission()) {
 	$where = ' AND (push_to = "' . $admin_id . '" OR push_from IN (SELECT push_from FROM jspence_pushes WHERE push_from = "' . $admin_id . '")) AND push_date = "' . $today . '" ';
 }
@@ -93,7 +87,7 @@ if ($total_data > 0) {
         
         $option = '';
     	if ($row["push_date"] == date("Y-m-d") && $row["push_from"] == $admin_id && ($row['push_on'] == 'dialy' || $row['push_on'] == 'coffers')) {
-           $option = '<a href="javascript:;" data-bs-target="#deleteModal_' . $row["pid"] . '" data-bs-toggle="modal" class="badge bg-dark"> Reverse push </a>'; 
+           $option = '<a href="javascript:;" data-bs-target="#reverseModal_' . $row["pid"] . '" data-bs-toggle="modal" class="badge bg-dark"> Reverse push </a>'; 
         }
 		
 		$s = '';
@@ -115,6 +109,36 @@ if ($total_data > 0) {
                 <td>'. pretty_date($row["pca"]) .'</td>
                 <td class="text-end">' . $option . '</td>
             </tr>
+
+			<!-- Reverse push -->
+			<div class="modal fade" id="reverseModal_' . $row["sid"] . '" tabindex="-1" aria-labelledby="reverseModalLabel_' . $row["sid"] . '" data-bs-backdrop="static" data-bs-keyboard="false" aria-hidden="true" style="backdrop-filter: blur(5px);">
+				    <div class="modal-dialog modal-dialog-centered">
+				        <div class="modal-content overflow-hidden">
+				            <div class="modal-header pb-0 border-0">
+				                <h1 class="modal-title h4" id="reverseModalLabel_' . $row["sid"] . '">Reverse push!</h1>
+				                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+				            </div>
+				            <div class="modal-body p-0">
+			                    <div class="px-6 py-5 border-bottom">
+			                       <p>
+								   You are to reverse a push you made of an amount of ' . money($row["push_amount"]) . ' to ' . ucwords($__to)  . '
+			                       </p>
+			                       <br>
+			                       Push ID: ' . $row["push_id"] . '
+			                       <br>
+			                       <p>
+			                       		Are you sure you want to proceed to this action.
+										<input class="form-control">
+			                       </p>
+			                    </div>
+			                    <div class="px-6 py-5 d-flex justify-content-center">
+			                        <a href="'.PROOT.'account/trades?delete_request='.$row["sale_id"].'" class="btn btn-sm btn-danger"><i class="bi bi-trash me-2"></i>Confirm reverse</a>&nbsp;&nbsp;
+			                        <button type="button" class="btn btn-sm btn-dark"data-bs-dismiss="modal">No, cancel</button>
+			                    </div>
+				            </div>
+				        </div>
+				    </div>
+				</div>
 		';
 		$i++;
 	}
