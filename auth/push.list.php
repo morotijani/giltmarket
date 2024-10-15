@@ -111,11 +111,11 @@ if ($total_data > 0) {
             </tr>
 
 			<!-- Reverse push -->
-			<div class="modal fade" id="reverseModal_' . $row["sid"] . '" tabindex="-1" aria-labelledby="reverseModalLabel_' . $row["sid"] . '" data-bs-backdrop="static" data-bs-keyboard="false" aria-hidden="true" style="backdrop-filter: blur(5px);">
+			<div class="modal fade" id="reverseModal_' . $row["pid"] . '" tabindex="-1" aria-labelledby="reverseModalLabel_' . $row["pid"] . '" data-bs-backdrop="static" data-bs-keyboard="false" aria-hidden="true" style="backdrop-filter: blur(5px);">
 				    <div class="modal-dialog modal-dialog-centered">
 				        <div class="modal-content overflow-hidden">
 				            <div class="modal-header pb-0 border-0">
-				                <h1 class="modal-title h4" id="reverseModalLabel_' . $row["sid"] . '">Reverse push!</h1>
+				                <h1 class="modal-title h4" id="reverseModalLabel_' . $row["pid"] . '">Reverse push!</h1>
 				                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 				            </div>
 							<form method="POST" action="push.reverse.php">
@@ -129,12 +129,12 @@ if ($total_data > 0) {
 									<input class="form-control" id="push_id" name="push_id" readonly value="' . $row["push_id"] . '" />
 									<br>
 									<p>
-										Are you sure you want to proceed to this action.
+										Enter pin:
 										<input class="form-control" id="admin_pin" name="admin_pin" />
 									</p>
 									</div>
 									<div class="px-6 py-5 d-flex justify-content-center">
-										<button class="btn btn-sm btn-danger"><i class="bi bi-trash me-2"></i>Confirm reverse</button>&nbsp;&nbsp;
+										<button class="btn btn-sm btn-warning"><i class="bi bi-trash me-2"></i>Confirm reverse</button>&nbsp;&nbsp;
 										<button type="button" class="btn btn-sm btn-dark"data-bs-dismiss="modal">Cancel</button>
 									</div>
 								</div>
