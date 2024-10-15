@@ -100,7 +100,10 @@
 								<h4 class="fs-base fw-normal text-body-secondary mb-1"><?= ((admin_has_permission()) ? 'Today' : 'Capital'); ?></h4>
 
 								<!-- Text -->
-								<div class="fs-5 fw-semibold"><?= ((admin_has_permission()) ? money(total_amount_today($admin_id)) : money(_capital($admin_id)['today_capital'])); ?></div>
+								<div class="fs-5 fw-semibold">
+									<?= ((admin_has_permission()) ? money(total_amount_today($admin_id)) : money(_capital($admin_id)['today_capital'])); ?>
+									<sub class="fw-normal fs-sm"><?= money((float)(_capital($admin_id)['today_capital'] - _capital($admin_id)['today_balance'])); ?></sub>
+								</div>
 							</div>
 							<div class="col-auto">
 								<!-- Avatar -->
@@ -215,18 +218,10 @@
 							<div class="col">
 								<h3 class="fs-6 mb-0">Performance</h3>
 							</div>
-							<!-- <div class="col-auto my-n3 me-n3">
-								<select
-								class="form-select"
-								id="performanceChartSelect"
-								data-choices='{ "searchEnabled": false, "choices": [{ "value": "week", "label": "Week" }, { "value": "month", "label": "Month" }]}'
-								></select>
-							</div> -->
 						</div>
 					</div>
 					<div class="card-body">
 						<div class="chart">
-							<!-- <canvas class="chart-canvas" id="performanceChart"></canvas> -->
 							<!-- <canvas class="chart-canvas" id="performanceChart"></canvas> -->
 							<canvas class="my-4 w-100" id="myChart" width="900" height="400"></canvas>
 						</div>
