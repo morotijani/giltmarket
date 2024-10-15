@@ -118,27 +118,20 @@ if ($total_data > 0) {
 				                <h1 class="modal-title h4" id="reverseModalLabel_' . $row["pid"] . '">Reverse push!</h1>
 				                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 				            </div>
-							<form method="POST" action="push.reverse.php">
-								<div class="modal-body p-0">
-									<div class="px-6 py-5 border-bottom">
-									<p>
-										You are to reverse a push you made of an amount of ' . money($row["push_amount"]) . ' to ' . ucwords($__to)  . '
-									</p>
-									<br>
-									Push ID: 
-									<input class="form-control" id="push_id" name="push_id" readonly value="' . $row["push_id"] . '" />
-									<br>
-									<p>
-										Enter pin:
-										<input id="admin_pin" name="admin_pin" type="number" class="form-control form-control-flush text-xl fw-bold w-rem-40 bg-transparent" placeholder="0000" autocomplete="off" inputmode="numeric" data-maxlength="4" oninput="this.value=this.value.slice(0,this.dataset.maxlength)" required />
-									</p>
-									</div>
-									<div class="px-6 py-5 d-flex justify-content-center">
-										<button type="submit" class="btn btn-sm btn-warning"><i class="bi bi-trash me-2"></i>Confirm reverse</button>&nbsp;&nbsp;
-										<button type="button" class="btn btn-sm btn-dark"data-bs-dismiss="modal">Cancel</button>
-									</div>
+							<div class="modal-body p-0">
+								<div class="px-6 py-5 border-bottom">
+								<p>
+									You are to reverse a push you made of an amount of ' . money($row["push_amount"]) . ' to ' . ucwords($__to)  . '
+								</p>
+								<br>
+								Push ID: 
+								<input class="form-control" id="push_id" name="push_id" readonly value="' . $row["push_id"] . '" />
 								</div>
-							</form>
+								<div class="px-6 py-5 d-flex justify-content-center">
+									<a href="' . PROOT . 'auth/push.reverse.php?id=' . $row["push_amount"] . '" class="btn btn-sm btn-warning"><i class="bi bi-trash me-2"></i>Reverse</a>&nbsp;&nbsp;
+									<button type="button" class="btn btn-sm btn-dark"data-bs-dismiss="modal">Cancel</button>
+								</div>
+							</div>
 				        </div>
 				    </div>
 				</div>
