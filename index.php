@@ -338,7 +338,7 @@
 											</div>
 										</div>
 										<?php if ((admin_has_permission('supervisor') && get_admin_coffers($conn, $admin_id, 'balance') > 0) || (admin_has_permission('salesperson') && total_amount_today($admin_id) > 0)): ?>
-										<button type="button" id="submitSendMG" class="btn btn-warning mt-4">Send gold</button>
+										<button type="button" id="submitSendMG" class="btn btn-warning mt-4">Send <?= ((admin_has_permission('supervisor')) ? 'money' : 'gold'); ?></button>
 										<?php endif; ?>
 									</div>
 								</div>

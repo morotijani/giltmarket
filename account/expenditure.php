@@ -117,28 +117,23 @@
                                 add_to_log($message, $by);
                                 
                                 $_SESSION['flash_success'] = 'Expenditure has been saved!';
-                                redirect(PROOT . "account/expenditure");
                             } else {
                                 echo js_alert("Something went wrong!");
-                                redirect(PROOT . "account/expenditure");
                             }
                         } else {
                             $_SESSION['flash_error'] = 'Today\'s remaining balance cannot complete this expenditure!';
-                            redirect(PROOT . "account/expenditure");
                         }
                     } else {
                         $_SESSION['flash_error'] = 'Invalid pin code provided!';
-                        redirect(PROOT . "account/expenditure");
                     }
                 }
             } else {
                 $_SESSION['flash_error'] = 'Today\'s capital has not been given so, you can not create an expenditure!';
-                redirect(PROOT . "account/expenditure");
             }
         } else {
             $_SESSION['flash_error'] = 'Empty fields are required!';
-            redirect(PROOT . "account/expenditure");
         }
+        redirect(PROOT . "account/expenditure");
     }
 
     if (isset($_GET['delete']) && !empty($_GET['delete'])) {

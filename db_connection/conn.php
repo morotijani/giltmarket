@@ -40,8 +40,8 @@
 		if (count($fn) > 1) {
 			$admin_data['last'] = ucwords($fn[1]);
 		}
-		$admin_persmission = $admin_data['admin_permissions']; // get admin's permission
- 		
+		// $admin_persmission 
+		$admin_permission = $admin_data['admin_permissions']; // get admin's permission
  	}
 
  	// Display on Messages on Errors And Success
