@@ -5,6 +5,10 @@ RewriteRule ^gpmin/orders/([0-9a-zA-Z-]+)$ gpmin/orders.php?txn_id=$1 [NC,L]
 #Export trades data
 RewriteRule ^acc/export/([0-9a-zA-Z_-]+)/([0-9a-zA-Z_-]+)$ acc/export.php?data=$1&type=$2 [NC,L]
 
+# reverse push get link
+RewriteRule ^auth/push.reverse/([0-9a-zA-Z_-]+)$ auth/push.reverse.php?data=$1 [NC,L]
+
+
 
 RewriteCond %{REQUEST_FILENAME} !-d
 

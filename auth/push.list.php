@@ -128,7 +128,7 @@ if ($total_data > 0) {
 								<input class="form-control" id="push_id" name="push_id" readonly value="' . $row["push_id"] . '" />
 								</div>
 								<div class="px-6 py-5 d-flex justify-content-center">
-									<a href="' . PROOT . 'auth/push.reverse.php?id=' . $row["push_amount"] . '" class="btn btn-sm btn-warning"><i class="bi bi-trash me-2"></i>Reverse</a>&nbsp;&nbsp;
+									<a href="' . PROOT . 'auth/push.reverse/' . $row["push_id"] . '" class="btn btn-sm btn-warning"><i class="bi bi-trash me-2"></i>Reverse</a>&nbsp;&nbsp;
 									<button type="button" class="btn btn-sm btn-dark"data-bs-dismiss="modal">Cancel</button>
 								</div>
 							</div>
