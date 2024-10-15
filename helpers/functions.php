@@ -649,6 +649,35 @@ function total_amount_today($admin) {
 	return $total;
 }
 
+// get total expenditure today
+function total_expenditure_today($admin) {
+	global $conn;
+	$today = date('Y-m-d');
+
+	$where = '';
+	if (!admin_has_permission()) {
+		$where = ' AND sale_by = "' . $admin . '" ';
+	}
+
+	// fetch today total amount
+	$sql = "
+		SELECT SUM(sale_total_amount) AS total
+		FROM `jspence_sales` 
+		INNER JOIN jspence_daily
+		ON jspence_daily.daily_id = jspence_sales.sale_daily
+		WHERE jspence_sales.sale_type = ? 
+		AND jspence_sales.sale_status = ? 
+		AND CAST(jspence_sales.createdAt AS date) = ?
+		AND jspence_daily.daily_capital_status = ?
+		$where
+	";
+	$statement = $conn->prepare($sql);
+	$statement->execute(['exp', 0, $today, 0]);
+	$row = $statement->fetchAll();
+
+	return $row[0]['total'] ?? 0;
+}
+
 // get total amount of orders today
 function total_sale_amount_today($admin) {
 	global $conn;

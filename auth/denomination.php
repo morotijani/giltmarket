@@ -61,9 +61,9 @@ if (array_key_exists('postdata', $_SESSION)) {
     // include gain amount to supervor details
     $gained = '';
     if (admin_has_permission('supervisor')) {
-        $gained = 'Earned: ' . _gained_calculation(_capital($admin_id)['today_balance'], _capital($admin_id)['today_capital']);
+        $gained = 'Earned: ' . _gained_calculation(_capital($admin_id)['today_balance'], _capital($admin_id)['today_capital']) . '<br />';
     }
-    $brought_in_amount = ((admin_has_permission('supervisor')) ? 'Cash' : 'Gold') . ' accumulated: ' . money(total_sale_amount_today($admin_id));
+    $brought_in_amount = ((admin_has_permission('supervisor')) ? 'Cash' : 'Gold') . ' accumulated: ' . ((admin_has_permission('supervisor')) ? money(total_sale_amount_today($admin_id)) : money((float)(total_sale_amount_today($admin_id) - total_expenditure_today($admin_id))));
 
     $data = [$denomination_id, $capital_id, $admin_id, $denomination_200c, $denomination_200c_amt, $denomination_100c, $denomination_100c_amt, $denomination_50c, $denomination_50c_amt, $denomination_20c, $denomination_20c_amt, $denomination_10c, $denomination_10c_amt, $denomination_5c, $denomination_5c_amt, $denomination_2c, $denomination_2c_amt, $denomination_1c, $denomination_1c_amt, $denomination_50p, $denomination_50p_amt, $denomination_20p, $denomination_20p_amt, $denomination_10p, $denomination_10p_amt, $denomination_5p, $denomination_5p_amt, $denomination_1p, $denomination_1p_amt];
     
@@ -261,7 +261,7 @@ if (array_key_exists('postdata', $_SESSION)) {
                                 Amount Given: <?= $capital_amt; ?><br />
                                 <?= ((admin_has_permission('salesperson')) ? 'Balance: ' . $capital_bal . '<br />' : ''); ?>
                                 <?= $brought_in_amount; ?><br />
-                                <?= $gained; ?><br />
+                                <?= $gained; ?>
                                 Total Push made: <?= money(get_total_push($conn, $admin_id)); ?>
                             </p>
                         </div>
