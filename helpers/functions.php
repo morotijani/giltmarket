@@ -1256,3 +1256,19 @@ function get_admin_coffers_send($conn, $admin) {
 	}
 	return 0;
 }
+
+// 
+function get_total_push($conn, $admin) {
+	$query = "
+		SELECT SUM() AS FROM jspence_pushes 
+		WHERE push_from = ? 
+	";
+	$statement = $conn->prepare($query);
+	$result = $statement->execute([$admin]);
+	$row = $statement->fetchAll();
+	$output = 0;
+	if ($result) {
+		$output = (($row[0]['push_amount'] == null || $row[0]['push_amount'] == '0.00') ? 0 : $row[0]['push_amount']);
+	}
+	return $output;
+}

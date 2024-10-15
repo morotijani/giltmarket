@@ -122,7 +122,7 @@ if ($total_data > 0) {
 								<div class="modal-body p-0">
 									<div class="px-6 py-5 border-bottom">
 									<p>
-									You are to reverse a push you made of an amount of ' . money($row["push_amount"]) . ' to ' . ucwords($__to)  . '
+										You are to reverse a push you made of an amount of ' . money($row["push_amount"]) . ' to ' . ucwords($__to)  . '
 									</p>
 									<br>
 									Push ID: 

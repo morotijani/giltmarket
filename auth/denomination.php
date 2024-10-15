@@ -256,12 +256,13 @@ if (array_key_exists('postdata', $_SESSION)) {
                         <div class="col-auto">
                             <p class="text-body-secondary mb-0">
                                 <span class="fw-bold text-body">Capital:</span> <br />
-                                <span class="text-body">From Sytem</span> <br />
+                                <span class="text-body">Sytem summary</span> <br />
                                 Capital ID: <?= $capital_id; ?><br />
                                 Amount Given: <?= $capital_amt; ?><br />
                                 <?= ((admin_has_permission('salesperson')) ? 'Balance: ' . $capital_bal . '<br />' : ''); ?>
                                 <?= $brought_in_amount; ?><br />
-                                <?= $gained; ?>
+                                <?= $gained; ?><br />
+                                Total Push made: <?= get_total_push($conn, $admin_id); ?>
                             </p>
                         </div>
                         <div class="col-auto">
