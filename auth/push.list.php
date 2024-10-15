@@ -130,11 +130,11 @@ if ($total_data > 0) {
 									<br>
 									<p>
 										Enter pin:
-										<input class="form-control" id="admin_pin" name="admin_pin" />
+										<input id="admin_pin" name="admin_pin" type="number" class="form-control form-control-flush text-xl fw-bold w-rem-40 bg-transparent" placeholder="0000" autocomplete="off" inputmode="numeric" data-maxlength="4" oninput="this.value=this.value.slice(0,this.dataset.maxlength)" required />
 									</p>
 									</div>
 									<div class="px-6 py-5 d-flex justify-content-center">
-										<button class="btn btn-sm btn-warning"><i class="bi bi-trash me-2"></i>Confirm reverse</button>&nbsp;&nbsp;
+										<button type="submit" class="btn btn-sm btn-warning"><i class="bi bi-trash me-2"></i>Confirm reverse</button>&nbsp;&nbsp;
 										<button type="button" class="btn btn-sm btn-dark"data-bs-dismiss="modal">Cancel</button>
 									</div>
 								</div>
