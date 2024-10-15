@@ -242,15 +242,15 @@
                                                             <input class="form-check-input export_class" type="radio" name="exp_with" id="inlineRadio1" required value="date">
                                                             <label class="form-check-label" for="inlineRadio1">Date</label>
                                                         </div>
-                                                        <div class="form-check form-check-inline" <?= ((admin_has_permission()) ? '' : 'd-none'); ?>>
+                                                        <div class="form-check form-check-inline<?= ((admin_has_permission()) ? '' : ' d-none'); ?>">
                                                             <input class="form-check-input export_class" type="radio" name="exp_with" id="inlineRadio2" required value="month">
                                                             <label class="form-check-label" for="inlineRadio2">Month</label>
                                                         </div>
-                                                        <div class="form-check form-check-inline" <?= ((admin_has_permission()) ? '' : 'd-none'); ?>>
+                                                        <div class="form-check form-check-inline<?= ((admin_has_permission()) ? '' : ' d-none'); ?>">
                                                             <input class="form-check-input export_class" type="radio" name="exp_with" id="inlineRadio3" required value="year">
                                                             <label class="form-check-label" for="inlineRadio3">Year</label>
                                                         </div>
-                                                        <div class="form-check form-check-inline" <?= ((admin_has_permission()) ? '' : 'd-none'); ?>>
+                                                        <div class="form-check form-check-inline<?= ((admin_has_permission()) ? '' : ' d-none'); ?>">
                                                             <input class="form-check-input export_class" type="radio" name="exp_with" id="inlineRadio4" required value="all">
                                                             <label class="form-check-label" for="inlineRadio4">All</label>
                                                         </div>
