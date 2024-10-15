@@ -74,29 +74,65 @@
                 <nav aria-label="breadcrumb">
                     <ol class="breadcrumb mb-2">
                         <li class="breadcrumb-item"><a class="text-body-secondary" href="javascript:;">Market</a></li>
-                        <li class="breadcrumb-item active" aria-current="page">Pushes</li>
+                        <li class="breadcrumb-item active" aria-current="page">Reverse pushes</li>
                     </ol>
                 </nav>
 
                 <!-- Heading -->
-                <h1 class="fs-4 mb-0">Pushes</h1>
+                <h1 class="fs-4 mb-0">Push</h1>
             </div>
-            <?php if ($admin_permission == 'supervisor'): ?>
             <div class="col-12 col-sm-auto mt-4 mt-sm-0">
                 <!-- Action -->
-                <a class="btn btn-warning d-block" href="javascript:;" data-bs-target="#modalCapital" data-bs-toggle="modal"> Fund coffers</a>
+                <a class="btn btn-light d-block" href="<?= PROOT; ?>account/pushes" data-bs-target="#modalCapital" data-bs-toggle="modal"> Cancel reverse push</a>
             </div>
-            <?php endif; ?>
         </div>
 
 		<!-- Page content -->
-        <div class="row">
-            <div class="col-12">
-				<form action="">
-					Lorem ipsum dolor sit amet consectetur adipisicing elit. Distinctio voluptatibus sapiente ipsam delectus fugiat saepe, eaque, explicabo deserunt blanditiis pariatur eos sunt numquam asperiores corrupti dolore atque iusto perferendis assumenda.
-				</form>
-        </div>
-    </div>
+		<div class="row">
+        	<div class="col-12 col-lg-3">
+				<!-- Nav -->
+				<nav class="nav nav-pills position-sticky flex-column mb-8" id="accountNav" style="top: 32px">
+					<a class="nav-link active" href="javascript:;">Reverse push</a>
+					<a class="nav-link" href="#billing">Cancel</a>
+				</nav>
+          	</div>
+          	<div class="col-12 col-lg-9" data-bs-spy="scroll" data-bs-target="#accountNav" data-bs-smooth-scroll="true" tabindex="0">
+				<!-- General -->
+				<section class="card bg-body-tertiary border-transparent card-line mb-5" id="general">
+					<div class="card-body">
+						<h2 class="fs-5 mb-1">Reverse</h2>
+						<p class="text-body-secondary">You are to reverse a push you made, provide pin to complete the reverse.</p>
+						<form id="reverseForm" method="POST">
+							<div class="mb-3">
+								<label class="form-label" for="fullName">Reason</label>
+								<textarea class="form-control bg-body" type="reason" id="reson"></textarea>
+							</div>
+							<div class="mb-4">
+								<label class="form-label" for="fullName">Enter PIN</label>
+								<input class="form-control bg-body" type="number" id="admin_pin" name="admin_id" />
+							</div>
+							<button class="btn btn-outline-dark" id="submitReverse">Reverse</button>
+						</form>
+					</div>
+				</section>
+			</div>
+		</div>
 
 <?php include ("../includes/footer.inc.php"); ?>
 
+<script>
+
+	$('#submitReverse').on('click', function() {
+
+		$('#submitReverse').attr('disabled', true);
+		$('#submitReverse').text('Reversing ...');
+		setTimeout(function () {
+			$('#reverseForm').submit();
+
+			$('#submitReverse').attr('disabled', false);
+			$('#submitReverse').text('Reverse');
+			// location.reload();
+		}, 2000)
+
+	});
+</script>

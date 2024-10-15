@@ -77,6 +77,8 @@
                                     <a class="nav-link nav-child" href="<?= PROOT; ?>index"><?= _admin_position($admin_data['admin_permissions']); ?></a>
                                     <?php if (admin_has_permission()): ?>
                                     <a class="nav-link nav-child" href="<?= PROOT; ?>account/analytics">Analytics</a>
+                                    <?php else: ?>
+                                    <a class="nav-link nav-child" href="<?= PROOT; ?>account/summary">Summary board</a>
                                     <?php endif; ?>
                                 </nav>
                             </div>
