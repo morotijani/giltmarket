@@ -667,11 +667,11 @@ function total_sale_amount_today($admin) {
 		ON jspence_daily.daily_id = jspence_sales.sale_daily
 		WHERE jspence_sales.sale_status = ? 
 		AND CAST(jspence_sales.createdAt AS date) = '{$today}' 
-		AND jspence_daily.daily_capital_status = ?
+		-- AND jspence_daily.daily_capital_status = ?
 		$where
 	";
 	$statement = $conn->prepare($thisDaySql);
-	$statement->execute([0, 0]);
+	$statement->execute([0]);
 	$thisDayrow = $statement->fetchAll();
 
 	return $thisDayrow[0]['total'] ?? 0;
