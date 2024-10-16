@@ -129,13 +129,23 @@ function _capital($admin) {
 function remaining_gold_balance($admin) {
 	global $conn;
 
-	// get all pushes made
-	$a = $conn->query("SELECT SUM(push_amount) AS pamt FROM jspence_pushes WHERE push_from = '" . $admin . "' AND push_status = 0 AND push_on = 'dialy'")->fetchAll();
-	$b = (($a[0]['pamt'] != null || $a[0]['pamt'] != 0 || $a[0]['pamt'] != '0.00') ? $a[0]['pamt'] : 0);
-	$c = (float)(_capital($admin)['today_balance'] + $b);
-	$d = (float)(_capital($admin)['today_capital'] - $c);
+	// get all sending money pushes made
+	$sending = $conn->query(
+		"SELECT SUM(push_amount) 
+		AS pamt FROM jspence_pushes 
+		WHERE push_from = '" . $admin . "' 
+		AND push_status = 0 
+		AND push_on = 'dialy' 
+		AND push_date = '" . date("Y-m-d") . "'"
+	)->fetchAll();
+	
+	$send = (($sending[0]['pamt'] != null || $sending[0]['pamt'] != 0 || $sending[0]['pamt'] != '0.00') ? $sending[0]['pamt'] : 0);
 
-	return $d;
+	$a = (float)(_capital($admin)['today_balance'] + $send);
+
+	$b = (float)(_capital($admin)['today_capital'] - $a);
+
+	return $b;
 }
 
 // check if balance is exhausted or not
