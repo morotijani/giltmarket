@@ -127,7 +127,15 @@ function _capital($admin) {
 
 // fetch supervisor remaining gold
 function remaining_gold_balance($admin) {
-	return (float)(_capital($admin)['today_capital'] - _capital($admin)['today_balance']);
+	global $conn;
+
+	// get all pushes made
+	$a = $conn->query("SELECT SUM(push_amount) AS pamt FROM jspence_pushes WHERE push_from = '" . $admin . "' AND push_status = 0 AND push_on = 'dialy'")->fetchAll();
+	$b = (($a[0]['pamt'] != null || $a[0]['pamt'] != 0 || $a[0]['pamt'] != '0.00') ? $a[0]['pamt'] : 0);
+	$c = (float)(_capital($admin)['today_balance'] + $b);
+	$d = (float)(_capital($admin)['today_capital'] - $c);
+
+	return $d;
 }
 
 // check if balance is exhausted or not
