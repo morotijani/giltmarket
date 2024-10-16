@@ -28,8 +28,8 @@
 
 						$bal = _capital($push_to)['today_balance'];
 						// check if we are sending to salepersonnel from supervisor
-						if (!admin_has_permission()) {
-							$bal = ((_capital($push_to)['today_balance'] == null) ? null : (float)($given + _capital($push_to)['today_balance']));
+						if (admin_has_permission('supervisor')) {
+							$bal = ((_capital($push_to)['today_balance'] == null || _capital($push_to)['today_balance'] == 0 || _capital($push_to)['today_balance'] == '0.00') ? null : (float)($given + _capital($push_to)['today_balance']));
 						}
 
 						// update daily capital and balance
