@@ -94,7 +94,7 @@ if (array_key_exists('postdata', $_SESSION)) {
         $daily_id = guidv4(); // generate new daily id
         $supervisor_tomorrow_capital = _capital($push_to, $tomorrow)['today_capital']; // get supervisors tomorrow capital
         $new_capital = null;
-        
+
         if (admin_has_permission('salesperson')) {
             $gold_balance = total_amount_today($admin_id); // salepersonnel accumulated gold
         } else {
@@ -128,34 +128,35 @@ if (array_key_exists('postdata', $_SESSION)) {
         $daily_result = $statement->execute($data);
 
         // find the just enetered capital id
-        if (!$findTomorrowCapital) {
-            $LID = $conn->lastInsertId();
-            $q = $conn->query("SELECT * FROM jspence_daily WHERE id = '" . $LID . "' LIMIT 1")->fetchAll();
-            $findTomorrowCapital = $q[0]['daily_id'];
-        }
+        // if (!$findTomorrowCapital) {
+        //     $LID = $conn->lastInsertId();
+        //     $q = $conn->query("SELECT * FROM jspence_daily WHERE id = '" . $LID . "' LIMIT 1")->fetchAll();
+        //     $findTomorrowCapital = $q[0]['daily_id'];
+        // }
         
-        if (admin_has_permission('salesperson')) {
-            if (isset($daily_result)) {
-                // insert into push table
-                $push_data = [$push_id, $findTomorrowCapital, _capital($admin_id)['today_balance'], $admin_id, 'coffers', $tomorrow, 'coffers'];
-                $sql = "
-                    INSERT INTO jspence_pushes (push_id, push_daily, push_amount, push_from, push_to, push_date, push_on) 
-                    VALUES (?, ?, ?, ?, ?, ?, ?)
-                ";
-                $statement = $conn->prepare($sql);
-                $push_result = $statement->execute($push_data);
+        // if (admin_has_permission('salesperson')) {
+        //     if (isset($daily_result)) {
+        //         // insert into push table
+        //         $push_data = [$push_id, $findTomorrowCapital, _capital($admin_id)['today_balance'], $admin_id, 'coffers', $tomorrow, 'coffers'];
+        //         $sql = "
+        //             INSERT INTO jspence_pushes (push_id, push_daily, push_amount, push_from, push_to, push_date, push_on) 
+        //             VALUES (?, ?, ?, ?, ?, ?, ?)
+        //         ";
+        //         $statement = $conn->prepare($sql);
+        //         $push_result = $statement->execute($push_data);
 
-                if (isset($push_result)) {
-                    $push_message = "end-trade-push made on " . $tomorrow . ", of an amount of " . $capital_bal . ' to supervisor id: ' . $push_to;
-                    add_to_log($push_message, $admin_id);
-                }
-                add_to_log($message, $admin_id);
-            }
-        }
+        //         if (isset($push_result)) {
+        //             $push_message = "end-trade-push made on " . $tomorrow . ", of an amount of " . $capital_bal . ' to supervisor id: ' . $push_to;
+        //             add_to_log($push_message, $admin_id);
+        //         }
+        //         add_to_log($message, $admin_id);
+        //     }
+        // }
 
-        // send balance back to the supervisor for his next day trade
+        // send cash balance or cash accumulated to the coffers
         $coffers_id = guidv4();
         $createdAt = date("Y-m-d H:i:s");
+
         if (admin_has_permission('salesperson')) {
             $cash = _capital($admin_id)['today_balance']; // cash remaining from saleperson
         } else {
@@ -169,7 +170,7 @@ if (array_key_exists('postdata', $_SESSION)) {
         $statement = $conn->prepare($insertSql);
         $coffers_result = $statement->execute([$cash, $push_to, 'receive', $createdAt, $coffers_id]);
 
-        if (admin_has_permission('supervisor')) {
+        // if (admin_has_permission('supervisor')) {
             // insert into pushes and link with coffers id
             if ($coffers_result) {
                 $LID = $conn->lastInsertId();
@@ -189,7 +190,7 @@ if (array_key_exists('postdata', $_SESSION)) {
                     add_to_log($push_message, $admin_id);
                 }
             }
-        }
+        // }
 
         // update today trade table so it does not accepts any trades anymore
         $query = "
