@@ -98,7 +98,9 @@ if (array_key_exists('postdata', $_SESSION)) {
         if (admin_has_permission('salesperson')) {
             $gold_balance = total_amount_today($admin_id); // salepersonnel accumulated gold
         } else {
-            $gold_balance = remaining_gold_balance($admin_id); // remaining supervisor gold balance
+            if (remaining_gold_balance($admin_id) > 0) { // prevent adding negative balance
+                $gold_balance = remaining_gold_balance($admin_id); // remaining supervisor gold balance
+            }
         }
         $new_capital = $gold_balance;
 
