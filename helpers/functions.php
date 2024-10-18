@@ -149,7 +149,7 @@ function remaining_gold_balance($admin) {
 
 	$b = (float)(_capital($admin)['today_capital'] - $a);
 
-	return $b;
+	return (($b >= 0) ? $b : 0);
 }
 
 // check if balance is exhausted or not
