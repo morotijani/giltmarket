@@ -93,13 +93,14 @@ if (array_key_exists('postdata', $_SESSION)) {
         
         $daily_id = guidv4(); // generate new daily id
         $supervisor_tomorrow_capital = _capital($push_to, $tomorrow)['today_capital']; // get supervisors tomorrow capital
-        $new_capital = null;
-
+        
+        $gold_balance = 0;
         if (admin_has_permission('salesperson')) {
             $gold_balance = total_amount_today($admin_id); // salepersonnel accumulated gold
         } else {
-            $gold_balance = remaining_gold_balance($admin); // remaining supervisor gold balance
+            $gold_balance = remaining_gold_balance($admin_id); // remaining supervisor gold balance
         }
+        $new_capital = $gold_balance;
 
         // check if supervisor has already recieved tomorrow capital from other salepersonels
         $findTomorrowCapital = find_capital_given_to($push_to, $tomorrow);
@@ -164,11 +165,11 @@ if (array_key_exists('postdata', $_SESSION)) {
         }
 
         $insertSql = "
-            INSERT INTO jspence_coffers (coffers_amount, coffers_for, coffers_status, createdAt, coffers_id) 
-            VALUES (?, ?, ?, ?, ?)
+            INSERT INTO jspence_coffers (coffers_amount, coffers_for, coffers_status, coffers_receive_through, createdAt, coffers_id) 
+            VALUES (?, ?, ?, ?, ?, ?)
         ";
         $statement = $conn->prepare($insertSql);
-        $coffers_result = $statement->execute([$cash, $push_to, 'receive', $createdAt, $coffers_id]);
+        $coffers_result = $statement->execute([$cash, $push_to, 'receive', 'end_trade_balance', $createdAt, $coffers_id]);
 
         // if (admin_has_permission('supervisor')) {
             // insert into pushes and link with coffers id

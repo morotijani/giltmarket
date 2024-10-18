@@ -137,6 +137,7 @@ function remaining_gold_balance($admin) {
 		"SELECT SUM(push_amount) 
 		AS pamt FROM jspence_pushes 
 		WHERE push_from = '" . $admin . "' 
+		AND push_to != 'coffers' 
 		AND push_status = 0 
 		AND push_on = 'dialy' 
 		AND push_date = '" . date("Y-m-d") . "'"
