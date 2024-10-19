@@ -137,7 +137,7 @@
                                         </button>
                                         <div class="dropdown-menu rounded-3 p-6">
                                             <h4 class="fs-lg mb-4">Export push</h4>
-                                            <form style="width: 350px" id="exportForm" action="<?= PROOT; ?>auth/export.push.php">
+                                            <form style="width: 350px" id="exportForm" action="<?= PROOT; ?>auth/export.pushes.php">
                                                 <div class="row gx-3">
                                                     <div class="col-sm-12 mb-3">
                                                         <div class="form-check form-check-inline">
@@ -294,7 +294,7 @@
                     $('#exportForm').submit();
 
                     $('#submit-export').attr('disabled', false);
-                    $('#submit-export').text('Export1');
+                    $('#submit-export').text('Export');
                     // location.reload();
                 }, 2000)
             } else {

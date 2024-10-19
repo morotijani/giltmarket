@@ -39,7 +39,7 @@
         if (!admin_has_permission()) {
             $query .= ' AND (push_to = "' . $admin_id . '" OR push_from IN (SELECT push_from FROM jspence_pushes WHERE push_from = "' . $admin_id . '")) ';
         }
-        $query .= " AND jspence_pushes.push_status = 0";
+        $query .= " AND jspence_pushes.push_status = 0 GROUP BY push_id ORDER BY jspence_pushes.createdAt DESC";
 
         $statement = $conn->prepare($query);
         $statement->execute();
@@ -62,7 +62,7 @@
             $rowCount = 2;
             foreach ($rows as $row) {
 
-                $_from = find_admin_with_id($row["push_from"]);
+                $__from = find_admin_with_id($row["push_from"]);
                 if ($row['push_to'] == 'coffers') {
                     $__to = 'coffers';
                 } else {
@@ -72,11 +72,11 @@
 
                 $sheet->setCellValue('A' . $rowCount, $row['push_id']);
                 $sheet->setCellValue('B' . $rowCount, $row['push_daily']);
-                $sheet->setCellValue('B' . $rowCount, money($row['push_amount']));
-                $sheet->setCellValue('C' . $rowCount, ucwords($__from));
-                $sheet->setCellValue('C' . $rowCount, ucwords($__to));
-                $sheet->setCellValue('C' . $rowCount, strtoupper($row["push_on"]));
-                $sheet->setCellValue('D' . $rowCount, $row['createdAt']);
+                $sheet->setCellValue('C' . $rowCount, money($row['push_amount']));
+                $sheet->setCellValue('D' . $rowCount, ucwords($__from['admin_fullname']));
+                $sheet->setCellValue('E' . $rowCount, ucwords($__to));
+                $sheet->setCellValue('F' . $rowCount, strtoupper($row["push_on"]));
+                $sheet->setCellValue('G' . $rowCount, $row['createdAt']);
                 $rowCount++;
             }
 
@@ -113,5 +113,5 @@
         } else {
             $_SESSION['flash_error'] = "No Record Found!";
         }
-        redirect(PROOT . "account/logs");
+        redirect(PROOT . "account/pushes");
     }
