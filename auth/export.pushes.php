@@ -22,7 +22,7 @@
         $exp_with = (isset($_GET['exp_with']) && !empty($_GET['exp_with']) ? sanitize($_GET['exp_with']) : '');
         $exp_status = (isset($_GET['export-status']) && !empty($_GET['export-status']) ? sanitize($_GET['export-status']) : '');
         $exp_type = (isset($_GET['export-type']) && !empty($_GET['export-type']) ? sanitize($_GET['export-type']) : '');
-        $get_out_from_date = null;        
+        $get_out_from_date = null;
         
         $query = "SELECT * FROM jspence_pushes INNER JOIN jspence_admin ON jspence_admin.admin_id = jspence_pushes.log_admin ";
         if ($exp_with == 'month') {
@@ -33,14 +33,13 @@
             $query .= "WHERE YEAR(jspence_pushes.createdAt) = '" . $get_out_from_date . "'";
         } else if ($exp_with == 'date') {
             $get_out_from_date = (isset($_GET['export-date']) && !empty($_GET['export-date']) ? sanitize($_GET['export-date']) : '');
-            $query .= "WHERE CAST(jspence_pushes.createdAt AS date) = '" . $get_out_from_date . "'";
+            $query .= "WHERE push_date = '" . $get_out_from_date . "'";
         }
 
         if (!admin_has_permission()) {
-            $query .= ' AND jspence_logs.log_admin = "' . $admin_data['admin_id'] . '" ';
+            $query .= ' AND (push_to = "' . $admin_id . '" OR push_from IN (SELECT push_from FROM jspence_pushes WHERE push_from = "' . $admin_id . '")) ';
         }
         $query .= " AND jspence_logs.log_status = 0";
-        
 
         $statement = $conn->prepare($query);
         $statement->execute();
