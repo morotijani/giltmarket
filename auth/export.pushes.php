@@ -51,22 +51,37 @@
             $sheet = $spreadsheet->getActiveSheet();
 
             // Header
-            $sheet->setCellValue('A1', 'LOG ID');
-            $sheet->setCellValue('B1', 'MESSAGE');
-            $sheet->setCellValue('C1', 'BY');
-            $sheet->setCellValue('D1', 'DATE');
+            $sheet->setCellValue('A1', 'PUSH ID');
+            $sheet->setCellValue('B1', 'DAILY ID');
+            $sheet->setCellValue('C1', 'PUSH AMOUNT');
+            $sheet->setCellValue('D1', 'PUSH FROM');
+            $sheet->setCellValue('E1', 'PUSH TO');
+            $sheet->setCellValue('F1', 'PUSH ON');
+            $sheet->setCellValue('G1', 'DATE');
 
             $rowCount = 2;
             foreach ($rows as $row) {
-                $sheet->setCellValue('A' . $rowCount, $row['log_id']);
-                $sheet->setCellValue('B' . $rowCount, $row['log_message']);
-                $sheet->setCellValue('C' . $rowCount, ucwords($row['admin_fullname']));
+
+                $_from = find_admin_with_id($row["push_from"]);
+                if ($row['push_to'] == 'coffers') {
+                    $__to = 'coffers';
+                } else {
+                    $_to = find_admin_with_id($row["push_to"]);
+                    $__to = $_to['admin_fullname'];
+                }
+
+                $sheet->setCellValue('A' . $rowCount, $row['push_id']);
+                $sheet->setCellValue('B' . $rowCount, $row['push_daily']);
+                $sheet->setCellValue('B' . $rowCount, money($row['push_amount']));
+                $sheet->setCellValue('C' . $rowCount, ucwords($__from));
+                $sheet->setCellValue('C' . $rowCount, ucwords($__to));
+                $sheet->setCellValue('C' . $rowCount, strtoupper($row["push_on"]));
                 $sheet->setCellValue('D' . $rowCount, $row['createdAt']);
                 $rowCount++;
             }
 
             $FileExtType = $exp_type;
-            $fileName = "J-Spence-Logs-" . $exp_status . "-sheet";
+            $fileName = "J-Spence-Pushes-" . $exp_status . "-sheet";
 
             if ($FileExtType == 'xlsx') {
                 $writer = new Xlsx($spreadsheet);
