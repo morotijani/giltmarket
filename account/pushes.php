@@ -231,12 +231,6 @@
 
 <script>
     $(document).ready(function() {
-        $('#submitExpenditure').on('click', function() {
-            if (confirm("By clicking on ok, this expenditure will be recorded!")) {
-                expenditureForm.submit()
-            }
-            return false
-        });
 
         $(".export_class").change(function(e) {
             event.preventDefault()

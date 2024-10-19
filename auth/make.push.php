@@ -63,10 +63,10 @@
 
 					if (isset($daily_result)) {
 						// insert into push table
-						$push_data = [$push_id, $findCapital, $given, $push_from, $push_to, $today, ((admin_has_permission('supervisor')) ? 'coffers' : 'dialy')];
+						$push_data = [$push_id, $findCapital, $given, ((admin_has_permission('supervisor')) ? 'money' : 'gold'), $push_from, $push_to, $today, ((admin_has_permission('supervisor')) ? 'coffers' : 'dialy')];
 						$sql = "
-							INSERT INTO jspence_pushes (push_id, push_daily, push_amount, push_from, push_to, push_date, push_on) 
-							VALUES (?, ?, ?, ?, ?, ?, ?)
+							INSERT INTO jspence_pushes (push_id, push_daily, push_amount, push_type, push_from, push_to, push_date, push_on) 
+							VALUES (?, ?, ?, ?, ?, ?, ?, ?)
 						";
 						$statement = $conn->prepare($sql);
 						$push_result = $statement->execute($push_data);

@@ -56,7 +56,7 @@
             $sheet->setCellValue('C1', 'PUSH AMOUNT');
             $sheet->setCellValue('D1', 'PUSH FROM');
             $sheet->setCellValue('E1', 'PUSH TO');
-            $sheet->setCellValue('F1', 'PUSH ON');
+            $sheet->setCellValue('F1', 'PUSH INTO');
             $sheet->setCellValue('G1', 'DATE');
 
             $rowCount = 2;
