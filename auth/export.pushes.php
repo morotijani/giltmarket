@@ -57,7 +57,8 @@
             $sheet->setCellValue('D1', 'PUSH FROM');
             $sheet->setCellValue('E1', 'PUSH TO');
             $sheet->setCellValue('F1', 'PUSH INTO');
-            $sheet->setCellValue('G1', 'DATE');
+            $sheet->setCellValue('G1', 'STATUS');
+            $sheet->setCellValue('H1', 'DATE');
 
             $rowCount = 2;
             foreach ($rows as $row) {
@@ -70,13 +71,21 @@
                     $__to = $_to['admin_fullname'];
                 }
 
+                $s = '';
+                if ($row["push_to"] == $admin_id) {
+                    $s = 'received';
+                } else {
+                    $s = 'sent';
+                }
+
                 $sheet->setCellValue('A' . $rowCount, $row['push_id']);
                 $sheet->setCellValue('B' . $rowCount, $row['push_daily']);
                 $sheet->setCellValue('C' . $rowCount, money($row['push_amount']));
                 $sheet->setCellValue('D' . $rowCount, ucwords($__from['admin_fullname']));
                 $sheet->setCellValue('E' . $rowCount, ucwords($__to));
                 $sheet->setCellValue('F' . $rowCount, strtoupper($row["push_on"]));
-                $sheet->setCellValue('G' . $rowCount, $row['createdAt']);
+                $sheet->setCellValue('G' . $rowCount, $s);
+                $sheet->setCellValue('H' . $rowCount, $row['createdAt']);
                 $rowCount++;
             }
 
