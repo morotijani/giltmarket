@@ -134,7 +134,7 @@
 						<form id="reverseForm" method="POST">
 							<div class="mb-3">
 								<label class="form-label" for="fullName">Reason</label>
-								<textarea class="form-control bg-body" type="reason" id="reason" name="reason" maxlength="300"></textarea>
+								<textarea class="form-control bg-body" type="reason" id="reason" name="reason" maxlength="300" required></textarea>
 							</div>
 							<div class="mb-4">
 								<label class="form-label" for="fullName">Enter PIN</label>
