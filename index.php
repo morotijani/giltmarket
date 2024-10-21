@@ -293,7 +293,7 @@
 								<div>
 									<label class="form-label">Pick a <?= ((admin_has_permission('supervisor')) ? 'sales person' : 'supervisor'); ?></label>
 									<div>
-										<select class="form-control" name="push_to" id="push_to">
+										<select class="form-control" name="push_to" id="push_to" required>
 											<option value="">...</option>
 										<?php 
 											if (admin_has_permission('supervisor')) {
@@ -551,6 +551,11 @@
 
 		// submit trade form
 		$('#submitSendMG').on('click', function() {
+			if ($('#push_pin').val() == '') {
+				alert("PIN is required!");
+				return false;
+			}
+
 			$('#submitSendMG').attr('disabled', true);
 			$('#submitSendMG').text('Pushing ...');
 
