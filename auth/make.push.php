@@ -6,11 +6,13 @@
 	if (isset($_POST['today_given'])) {
 		if (!empty($_POST['today_given']) || $_POST['today_given'] != '') {
 			if (!empty($_POST['push_to']) || $_POST['push_to'] != '') {
-				if ($_POST['push_pin'] == $admin_data['admin_pin']) {
 
-					$given = sanitize($_POST['today_given']);
-					$today_date = sanitize($_POST['today_date']);				
-					$push_to = ((isset($_POST['push_to']) && !empty($_POST['push_to'])) ? sanitize($_POST['push_to']) : '');
+				$given = sanitize($_POST['today_given']);
+				$today_date = sanitize($_POST['today_date']);				
+				$push_to = ((isset($_POST['push_to']) && !empty($_POST['push_to'])) ? sanitize($_POST['push_to']) : '');
+				$pin = ((isset($_POST['pin']) && !empty($_POST['pin'])) ? sanitize($_POST['pin']) : '');
+
+				if ($pin == $admin_data['admin_pin']) {
 
 					$today = date("Y-m-d");
 					$daily_id = guidv4();
