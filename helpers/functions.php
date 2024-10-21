@@ -1326,14 +1326,15 @@ function get_admin_coffers_send($conn, $admin) {
 	return 0;
 }
 
-// 
-function get_total_push($conn, $admin) {
+// fetch total push made
+function get_total_push($conn, $admin, $d) {
 	$query = "
 		SELECT SUM(push_amount) AS pamt FROM jspence_pushes 
 		WHERE push_from = ? 
+		AND push_date = ?
 	";
 	$statement = $conn->prepare($query);
-	$result = $statement->execute([$admin]);
+	$result = $statement->execute([$admin, $d]);
 	$row = $statement->fetchAll();
 	$output = 0;
 	if ($result) {
