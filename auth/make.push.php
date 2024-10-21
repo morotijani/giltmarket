@@ -6,6 +6,7 @@
 	if (isset($_POST['today_given'])) {
 		if (!empty($_POST['today_given']) || $_POST['today_given'] != '') {
 			if (!empty($_POST['push_to']) || $_POST['push_to'] != '') {
+				if ($_POST['push_pin'] == $admin_data['admin_pin']) {
 
 				$given = sanitize($_POST['today_given']);
 				$today_date = sanitize($_POST['today_date']);				
@@ -96,6 +97,10 @@
 					}
 					redirect(goBack());
 				}
+			} else {
+				$_SESSION['flash_error'] = 'Invalid admin PIN provided!';
+				redirect(goBack());
+			}
 			}
 		}
 	}
