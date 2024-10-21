@@ -274,7 +274,7 @@ if (array_key_exists('postdata', $_SESSION)) {
                                 <?= ((admin_has_permission('salesperson')) ? 'Balance: ' . $capital_bal . '<br />' : ''); ?>
                                 <?= $brought_in_amount; ?><br />
                                 <?= $gained; ?>
-                                Total Push made: <?= money(get_total_push($conn, $admin_id)); ?>
+                                Total Push made: <?= money(get_total_push($conn, $admin_id, date("Y-m-d"))); ?>
                             </p>
                         </div>
                         <div class="col-auto">
