@@ -149,6 +149,8 @@ function remaining_gold_balance($admin) {
 
 	$b = (float)(_capital($admin)['today_capital'] - $a);
 
+	// check if there is balance remain from the capital given
+
 	return (($b >= 0) ? $b : 0);
 }
 
