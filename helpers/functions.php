@@ -151,6 +151,7 @@ function remaining_gold_balance($admin) {
 
 	// check if there is balance remain from the capital given
 
+
 	return (($b >= 0) ? $b : 0);
 }
 
@@ -210,7 +211,7 @@ function update_today_capital_given_balance($type, $today_total_balance, $today,
 
 function _gained_calculation($balance, $capital) {
 	$output = (float)($balance - $capital);
-	if ($balance == null) {
+	if ($balance == null || $balance == "0.00" || $balance == 0) {
 		$output = $balance;
 	}
 	return money($output);
