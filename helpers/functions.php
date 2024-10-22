@@ -210,10 +210,16 @@ function update_today_capital_given_balance($type, $today_total_balance, $today,
 }
 
 function _gained_calculation($balance, $capital) {
-	$output = (float)($balance - $capital);
+	$output = 0;
+
 	if ($balance == null || $balance == "0.00" || $balance == 0) {
 		$output = $balance;
 	}
+
+	if ($balance > 0) {
+		$output = (float)($balance - $capital);
+	}
+
 	return money($output);
 }
 
