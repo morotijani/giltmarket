@@ -79,7 +79,7 @@
                         <div class="row align-items-center">
                             <div class="col">
                                 <!-- Heading -->
-                                <h4 class="fs-sm fw-normal text-body-secondary mb-1">Cash in coffers</h4>
+                                <h4 class="fs-sm fw-normal text-body-secondary mb-1">Cash-in coffers</h4>
 
                                 <!-- Text -->
                                 <div class="fs-4 fw-semibold"><?= money(get_admin_coffers($conn, $admin_id, 'receive')); ?></div>
@@ -94,7 +94,7 @@
                         <div class="row align-items-center">
                             <div class="col">
                                 <!-- Heading -->
-                                <h4 class="fs-sm fw-normal text-body-secondary mb-1">Cash out of coffers</h4>
+                                <h4 class="fs-sm fw-normal text-body-secondary mb-1">Cash-out of coffers</h4>
 
                                 <!-- Text -->
                                 <div class="fs-4 fw-semibold"><?= money(get_admin_coffers($conn, $admin_id, 'send')); ?></div>
@@ -116,7 +116,7 @@
                             <div class="col-12 col-lg-auto mb-3 mb-lg-0">
                                 <ul class="nav nav-pills">
                                     <li class="nav-item">
-                                        <a class="nav-link bg-dark active" aria-current="page" href="<?= PROOT; ?>account/expenditure">All data<?= $count_push; ?></a>
+                                        <a class="nav-link bg-dark active" aria-current="page" href="<?= PROOT; ?>account/pushes">All data<?= $count_push; ?></a>
                                     </li>
                                 </ul>
                             </div>
