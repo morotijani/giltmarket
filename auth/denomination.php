@@ -61,7 +61,7 @@ if (array_key_exists('postdata', $_SESSION)) {
     // include gain amount to supervor details
     $gained = '';
     if (admin_has_permission('supervisor')) {
-        $gained = 'Earned: ' . _gained_calculation(_capital($admin_id)['today_balance'], _capital($admin_id)['today_capital']) . '<br />';
+        $gained = 'Earned: ' . _gained_calculation(_capital($admin_id)['today_balance'], _capital($admin_id)['today_capital'], $admin_id) . '<br />';
     }
     
     $brought_in_amount = ((admin_has_permission('supervisor')) ? 'Cash' : 'Gold') . ' accumulated: ' . ((admin_has_permission('supervisor')) ? money(total_sale_amount_today($admin_id)) : money((float)(total_sale_amount_today($admin_id) - total_expenditure_today($admin_id))));

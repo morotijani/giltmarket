@@ -209,14 +209,14 @@ function update_today_capital_given_balance($type, $today_total_balance, $today,
 	add_to_log($message, $log_admin);
 }
 
-function _gained_calculation($balance, $capital) {
+function _gained_calculation($balance, $capital, $admin) {
 	$output = 0;
 
 	if ($balance == null || $balance == "0.00" || $balance == 0) {
 		$output = $balance;
 	}
 
-	if ($balance > 0) {
+	if (remaining_gold_balance($admin_id) > 0) {
 		$output = (float)($balance - $capital);
 	}
 
