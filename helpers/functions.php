@@ -211,12 +211,13 @@ function update_today_capital_given_balance($type, $today_total_balance, $today,
 
 function _gained_calculation($balance, $capital, $admin) {
 	$output = 0;
+	$gb = remaining_gold_balance($admin); // gold balance
 
 	if ($balance == null || $balance == "0.00" || $balance == 0) {
 		$output = $balance;
 	}
 
-	if (remaining_gold_balance($admin_id) > 0) {
+	if ($gb < 0) {
 		$output = (float)($balance - $capital);
 	}
 
