@@ -217,7 +217,7 @@ function _gained_calculation($balance, $capital, $admin) {
 		$output = $balance;
 	}
 
-	if ($gb < 0) {
+	if ($gb <= 0) {
 		$output = (float)($balance - $capital);
 	}
 
