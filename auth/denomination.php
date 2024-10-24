@@ -125,9 +125,11 @@ if (array_key_exists('postdata', $_SESSION)) {
                     WHERE `daily_date` = ? AND `daily_to` = ? AND `daily_id` = ?
                 ";
             }
-            $message = "end-trade, remaining balance " . $capital_bal . ' sent to supervisor id: ' . $push_to;
             $statement = $conn->prepare($sql);
             $daily_result = $statement->execute($data);
+            
+            $message = "end-trade, remaining balance " . $capital_bal . ' sent to supervisor id: ' . $push_to;
+            add_to_log($message, $admin_id);
         }
 
         // send cash balance or cash accumulated to the coffers
