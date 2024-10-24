@@ -400,7 +400,7 @@
                                             <h4 class="fs-sm fw-normal text-body-secondary mb-1">Carat</h4>
 
                                             <!-- Text -->
-                                            <div class="fs-4 fw-semibold" id="total-carat"></div>
+                                            <div class="fs-4 fw-semibold" id="total-carat">0</div>
                                         </div>
                                     </div>
                                 </div>

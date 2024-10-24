@@ -170,7 +170,7 @@
                                             <h4 class="fs-base fw-normal text-body-secondary mb-1">Capital</h4>
 
                                             <!-- Text -->
-                                            <div class="fs-5 fw-semibold" id="sup-capital"></div>
+                                            <div class="fs-5 fw-semibold" id="sup-capital">0.00</div>
                                             <p class="mt-1">
                                                 <span class="text-success text-xs"><i class="fas fa-arrow-up me-1"></i>Balance: </span>
                                                 <span class="text-muted text-xs text-opacity-75" id="sup-balance">0.00</span>
@@ -196,7 +196,7 @@
                                             <h4 class="fs-base fw-normal text-body-secondary mb-1">Balance</h4>
 
                                             <!-- Text -->
-                                            <div class="fs-5 fw-semibold" id="sal-capital"></div>
+                                            <div class="fs-5 fw-semibold" id="sal-capital">0.00</div>
                                         </div>
                                         <div class="col-auto">
                                             <!-- Avatar -->
@@ -218,7 +218,7 @@
                                             <h4 class="fs-base fw-normal text-body-secondary mb-1">Expenses</h4>
 
                                             <!-- Text -->
-                                            <div class="fs-5 fw-semibold" id="expenses"></div>
+                                            <div class="fs-5 fw-semibold" id="expenses">0.00</div>
                                             <p class="mt-1">
                                                 <span class="text-success text-xs"><i class="fas fa-arrow-up me-1"></i>Count: </span>
                                                 <span class="text-muted text-xs text-opacity-75" id="sup-balance">0</span>
@@ -296,7 +296,7 @@
                                             <h4 class="fs-base fw-normal text-body-secondary mb-1">Receive Pushes (Gold/Money)</h4>
 
                                             <!-- Text -->
-                                            <div class="fs-5 fw-semibold" id="total-trades"></div>
+                                            <div class="fs-5 fw-semibold" id="total-trades">0.00</div>
                                             <p class="mt-1">
                                                 <span class="text-success text-xs"><i class="fas fa-arrow-up me-1"></i>Count: </span>
                                                 <span class="text-muted text-xs text-opacity-75" id="">0</span>
@@ -448,7 +448,7 @@
                                             <h4 class="fs-sm fw-normal text-body-secondary mb-1">Carat</h4>
 
                                             <!-- Text -->
-                                            <div class="fs-4 fw-semibold" id="total-carat"></div>
+                                            <div class="fs-4 fw-semibold" id="total-carat">0</div>
                                         </div>
                                     </div>
                                 </div>
