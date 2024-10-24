@@ -97,9 +97,7 @@ if (array_key_exists('postdata', $_SESSION)) {
         if (admin_has_permission('salesperson')) {
             $gold_balance = total_amount_today($admin_id); // salepersonnel accumulated gold
         } else {
-            if (remaining_gold_balance($admin_id) > 0) { // prevent adding negative balance
-                $gold_balance = remaining_gold_balance($admin_id); // remaining supervisor gold balance
-            }
+            $gold_balance = remaining_gold_balance($admin_id); // remaining supervisor gold balance
         }
         $new_capital = $gold_balance;
 
@@ -110,24 +108,27 @@ if (array_key_exists('postdata', $_SESSION)) {
             $daily_id = $findTomorrowCapital;
         }
 
-        $data = [$new_capital, $tomorrow, $push_to, $daily_id];
+        // prevent adding negative balance
+        if ($gold_balance > 0) {
+            $data = [$new_capital, $tomorrow, $push_to, $daily_id];
 
-        // insert into supervosr's capital for tomorrow
-        $sql = "
-            INSERT INTO jspence_daily (daily_capital, daily_date, daily_to, daily_id) 
-            VALUES (?, ?, ?, ?)
-        ";
-        if ($findTomorrowCapital) {
-            // update supervosr's capital for tomorrow
+            // insert into supervosr's capital for tomorrow
             $sql = "
-                UPDATE `jspence_daily` 
-                SET `daily_capital` = ? 
-                WHERE `daily_date` = ? AND `daily_to` = ? AND `daily_id` = ?
+                INSERT INTO jspence_daily (daily_capital, daily_date, daily_to, daily_id) 
+                VALUES (?, ?, ?, ?)
             ";
+            if ($findTomorrowCapital) {
+                // update supervosr's capital for tomorrow
+                $sql = "
+                    UPDATE `jspence_daily` 
+                    SET `daily_capital` = ? 
+                    WHERE `daily_date` = ? AND `daily_to` = ? AND `daily_id` = ?
+                ";
+            }
+            $message = "end-trade, remaining balance " . $capital_bal . ' sent to supervisor id: ' . $push_to;
+            $statement = $conn->prepare($sql);
+            $daily_result = $statement->execute($data);
         }
-        $message = "end-trade, remaining balance " . $capital_bal . ' sent to supervisor id: ' . $push_to;
-        $statement = $conn->prepare($sql);
-        $daily_result = $statement->execute($data);
 
         // send cash balance or cash accumulated to the coffers
         $coffers_id = guidv4();
