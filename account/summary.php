@@ -244,7 +244,7 @@
                                             <h4 class="fs-base fw-normal text-body-secondary mb-1">Total Pushes (Gold/Money)</h4>
 
                                             <!-- Text -->
-                                            <div class="fs-5 fw-semibold" id="total-trades"></div>
+                                            <div class="fs-5 fw-semibold" id="total-trades">0.00</div>
                                             <p class="mt-1">
                                                 <span class="text-success text-xs"><i class="fas fa-arrow-up me-1"></i>Count: </span>
                                                 <span class="text-muted text-xs text-opacity-75" id="">0</span>
@@ -270,7 +270,7 @@
                                             <h4 class="fs-base fw-normal text-body-secondary mb-1">Send Pushes (Gold/Money)</h4>
 
                                             <!-- Text -->
-                                            <div class="fs-5 fw-semibold" id="total-trades"></div>
+                                            <div class="fs-5 fw-semibold" id="total-trades">0.00</div>
                                             <p class="mt-1">
                                                 <span class="text-success text-xs"><i class="fas fa-arrow-up me-1"></i>Count: </span>
                                                 <span class="text-muted text-xs text-opacity-75" id="">0</span>
@@ -480,88 +480,6 @@
 
 <?php include ("../includes/footer.inc.php"); ?>
 <script type="text/javascript" src="<?= PROOT; ?>assets/js/Chart.min.js"></script>
-<script>
-    $(document).ready(function() {
-        $('#submitExpenditure').on('click', function() {
-            if (confirm("By clicking on ok, this expenditure will be recorded!")) {
-                expenditureForm.submit()
-            }
-            return false
-        });
-
-        var dater = null;
-        var action = '';
-        
-        $('#dater').on('change', function() {
-            dater = this.value;
-            action = 'with_date'
-            $('#use-month').val("");
-            analytics(dater, action)
-        });
-
-        $('#use-month').change(function(){
-            dater = $(this).val();
-            action = "with_month"
-            $('#dater').val("");
-            analytics(dater, action)
-        });
-
-        function analytics(dater, action) {
-            $.ajax({
-                method: "POST",
-                url: "<?= PROOT; ?>auth/analytics.info.php",
-                data: {
-                    dater : dater,
-                    action : action
-                },
-                beforeSend: function() {
-                    $('#sup-capital').text('loading ...');
-                    $('#sup-balance').text('loading ...');
-                    $('#sal-capital').text('loading ...');
-                    $('#sal-balance').text('loading ...');
-                    $('#expenses').text('loading ...');
-                    $('#total-trades').text('loading ...');
-                    $('#profit-loss').text('loading ...');
-                    $('#incoming').text('loading ...');
-                    $('#outgoing').text('loading ...');
-                    $('#total-pushes').text('loading ...');
-                    $('#total-gram').text('loading ...');
-                    $('#total-volume').text('loading ...');
-                    $('#total-density').text('loading ...');
-                    $('#total-pounds').text('loading ...');
-                    $('#total-carat').text('loading ...');
-                },
-                success: function(data) {
-                    const response = JSON.parse(data);
-
-                    $('#sup-capital').text(response["supervisor_capital"]);
-                    $('#sup-balance').text(response["supervisor_balance"]);
-                    $('#sal-capital').text(response["sales_capital"]);
-                    $('#sal-balance').text(response["sales_balance"]);
-                    $('#expenses').text(response["expenses"]);
-                    $('#total-trades').text(response["trades"]);
-                    $('#profit-loss').text(response["gained_or_loss"]);
-                    $('#incoming').text(response["in"]);
-                    $('#outgoing').text(response["out"]);
-                    $('#total-pushes').text(response["pushes"]);
-                    $('#total-gram').text(response["gram"]);
-                    $('#total-volume').text(response["volume"]);
-                    $('#total-density').text(response["density"]);
-                    $('#total-pounds').text(response["pounds"]);
-                    $('#total-carat').text(response["carat"]);
-
-                    console.log(data);
-                },
-                error: function() {
-
-                }
-            })
-        }
-        //
-        analytics(dater);
-
-    });
-</script>
 
 <script type="text/javascript">
     /* globals Chart:false, feather:false */
