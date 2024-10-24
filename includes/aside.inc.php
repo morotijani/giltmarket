@@ -71,6 +71,11 @@
                 </a>
               <?php endif; ?>
             </div>
+            <div class="nav-item" data-bs-toggle="tooltip" data-bs-title="Current Gold Proce">
+              <a class="nav-link" href="" target="_blank">
+                  CGP 
+                </a>
+            </div>
             <?php if (!admin_has_permission()): ?>
             <div class="nav-item" data-bs-toggle="tooltip" data-bs-title="End trade">
               <a class="nav-link text-danger" href="<?= PROOT; ?>account/end-trade">
