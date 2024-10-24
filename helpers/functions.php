@@ -217,6 +217,7 @@ function _gained_calculation($balance, $capital, $admin) {
 		$output = $balance;
 	}
 
+	// incase gold balance is 0 then calculate the actual earnings/gained amount
 	if ($gb <= 0) {
 		$output = (float)($balance - $capital);
 	}
