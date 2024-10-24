@@ -80,7 +80,6 @@ if (array_key_exists('postdata', $_SESSION)) {
         $message = "ended trade, denomination id: " . $denomination_id . ", and total amount of " . money($denomination_total);
         add_to_log($message, $admin_id);
     
-        // allow only salepersonnels to perform only this action
         $push_to = '986785d8-7b98-4747-a0b2-8b4f4b239e06'; // get supervisors id
         $push_id = guidv4();
         $today = date('Y-m-d');
@@ -129,32 +128,6 @@ if (array_key_exists('postdata', $_SESSION)) {
         $message = "end-trade, remaining balance " . $capital_bal . ' sent to supervisor id: ' . $push_to;
         $statement = $conn->prepare($sql);
         $daily_result = $statement->execute($data);
-
-        // find the just enetered capital id
-        // if (!$findTomorrowCapital) {
-        //     $LID = $conn->lastInsertId();
-        //     $q = $conn->query("SELECT * FROM jspence_daily WHERE id = '" . $LID . "' LIMIT 1")->fetchAll();
-        //     $findTomorrowCapital = $q[0]['daily_id'];
-        // }
-        
-        // if (admin_has_permission('salesperson')) {
-        //     if (isset($daily_result)) {
-        //         // insert into push table
-        //         $push_data = [$push_id, $findTomorrowCapital, _capital($admin_id)['today_balance'], $admin_id, 'coffers', $tomorrow, 'coffers'];
-        //         $sql = "
-        //             INSERT INTO jspence_pushes (push_id, push_daily, push_amount, push_from, push_to, push_date, push_on) 
-        //             VALUES (?, ?, ?, ?, ?, ?, ?)
-        //         ";
-        //         $statement = $conn->prepare($sql);
-        //         $push_result = $statement->execute($push_data);
-
-        //         if (isset($push_result)) {
-        //             $push_message = "end-trade-push made on " . $tomorrow . ", of an amount of " . $capital_bal . ' to supervisor id: ' . $push_to;
-        //             add_to_log($push_message, $admin_id);
-        //         }
-        //         add_to_log($message, $admin_id);
-        //     }
-        // }
 
         // send cash balance or cash accumulated to the coffers
         $coffers_id = guidv4();
