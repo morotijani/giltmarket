@@ -150,7 +150,7 @@
 						</div>
 						<div class="">
 							<label class="form-label">Amount</label> 
-							<input class="form-control" placeholder="0.00" name="add_amount" id="add_amount" type="number" min="0.00" step="0.01" required>
+							<input type="number" class="form-control" placeholder="0.00" name="add_amount" id="add_amount" autocomplete="off" min="0.00" step="0.01" required />
 						</div>
 					</div>
 					<div class="modal-footer">
