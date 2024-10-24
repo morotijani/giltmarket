@@ -472,51 +472,10 @@
                         </div>
                     </div>
 
-                    <div class="card">
-                        <div class="card-body">
-                            <div class="d-flex justify-content-between align-items-center mb-5">
-                                <div>
-                                    <h5>Accumulated earnings by months and years</h5>
-                                </div>
-                                <div class="hstack align-items-center">
-                                    <a href="<?= PROOT; ?>acc/trades" class="text-muted">
-                                        <i class="bi bi-arrow-repeat"></i>
-                                    </a>
-                                </div>
-                            </div>
-                            <div class="vstack gap-6">
-                                <table class="table table-bordered table-lg">
-                                    <thead>
-                                        <tr>
-                                            <th scope="col"></th>
-                                            <th scope="col" style="font-family: Roboto Mono, monospace;"><?= $lastYr; ?></th>
-                                            <th scope="col" style="font-family: Roboto Mono, monospace;"><?= $thisYr; ?></th>
-                                        </tr>
-                                    </thead>
-                                        <tbody>
-                                        <?php for ($i = 1; $i <= 12; $i++):
-                                            $dt = dateTime::createFromFormat('!m',$i);
-                                        ?>
-                                            <tr>
-                                                <td <?= (date('m') == $i) ? ' class="bg-danger"' : ''; ?>><?= $dt->format("F"); ?></td>
-                                                <td <?= (date('m') == $i) ? ' class="bg-danger"' : ''; ?> style="font-family: Roboto Mono, monospace;"><?= ((array_key_exists($i, $last)) ? money($last[$i]) : money(0)); ?></td>
-                                                <td <?= (date('m') == $i) ? ' class="bg-danger"' : ''; ?> style="font-family: Roboto Mono, monospace;"><?=  ((array_key_exists($i, $current)) ? money($current[$i]) : money(0)); ?></td>
-                                            </tr>
-                                        <?php endfor; ?>
-                                        <tr>
-                                            <td>Total</td>
-                                            <td style="font-family: Roboto Mono, monospace;"><?= money($lastTotal); ?></td>
-                                            <td style="font-family: Roboto Mono, monospace;"><?= money($currentTotal); ?></td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-                    </div>
-                </div>
                 </div>
             </div>
         </div>
+    </div>
 
 
 <?php include ("../includes/footer.inc.php"); ?>
