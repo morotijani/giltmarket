@@ -215,6 +215,32 @@
                                     <div class="row align-items-center">
                                         <div class="col">
                                             <!-- Heading -->
+                                            <h4 class="fs-base fw-normal text-body-secondary mb-1">Trades</h4>
+
+                                            <!-- Text -->
+                                            <div class="fs-5 fw-semibold" id="expenses">0.00</div>
+                                            <p class="mt-1">
+                                                <span class="text-success text-xs"><i class="fas fa-arrow-up me-1"></i>Count: </span>
+                                                <span class="text-muted text-xs text-opacity-75" id="sup-balance">0</span>
+                                            </p>
+                                        </div>
+                                        <div class="col-auto">
+                                            <!-- Avatar -->
+                                            <div class="avatar avatar-lg bg-body text-warning">
+                                                <i class="fs-4" data-duoicon="clipboard"></i>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-12 col-md-6 col-xxl-3 mb-4 mb-xxl-0">
+                            <div class="card bg-body-tertiary border-transparent">
+                                <div class="card-body">
+                                    <div class="row align-items-center">
+                                        <div class="col">
+                                            <!-- Heading -->
                                             <h4 class="fs-base fw-normal text-body-secondary mb-1">Expenses</h4>
 
                                             <!-- Text -->
