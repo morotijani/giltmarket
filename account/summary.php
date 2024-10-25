@@ -161,7 +161,7 @@
                 <div class="col">
                 <div class="vstack gap-3 gap-xl-6">
                     <div class="row g-3">
-                        <div class="col-12 col-md-6 col-xxl-3 mb-4 mb-xxl-0">
+                        <div class="col-12 col-md-6 mb-4 mb-xxl-0">
                             <div class="card bg-body-tertiary border-transparent">
                                 <div class="card-body">
                                     <div class="row align-items-center">
@@ -187,7 +187,7 @@
                             </div>
                         </div>
 
-                        <div class="col-12 col-md-6 col-xxl-3 mb-4 mb-xxl-0">
+                        <div class="col-12 col-md-6 mb-4 mb-xxl-0">
                             <div class="card bg-body-tertiary border-transparent">
                                 <div class="card-body">
                                     <div class="row align-items-center">
@@ -209,7 +209,7 @@
                             </div>
                         </div>
 
-                        <div class="col-12 col-md-6 col-xxl-3 mb-4 mb-xxl-0">
+                        <div class="col-12 col-md-6 mb-4 mb-xxl-0">
                             <div class="card bg-body-tertiary border-transparent">
                                 <div class="card-body">
                                     <div class="row align-items-center">
@@ -235,7 +235,33 @@
                             </div>
                         </div>
 
-                        <div class="col-12 col-md-6 col-xxl-3 mb-4 mb-xxl-0">
+                        <div class="col-12 col-md-6 mb-4 mb-xxl-0">
+                            <div class="card bg-body-tertiary border-transparent">
+                                <div class="card-body">
+                                    <div class="row align-items-center">
+                                        <div class="col">
+                                            <!-- Heading -->
+                                            <h4 class="fs-base fw-normal text-body-secondary mb-1">Deleted Trades</h4>
+
+                                            <!-- Text -->
+                                            <div class="fs-5 fw-semibold" id="expenses">0.00</div>
+                                            <p class="mt-1">
+                                                <span class="text-success text-xs"><i class="fas fa-arrow-up me-1"></i>Count: </span>
+                                                <span class="text-muted text-xs text-opacity-75" id="sup-balance">0</span>
+                                            </p>
+                                        </div>
+                                        <div class="col-auto">
+                                            <!-- Avatar -->
+                                            <div class="avatar avatar-lg bg-body text-warning">
+                                                <i class="fs-4" data-duoicon="clipboard"></i>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-12 col-md-6 mb-4 mb-xxl-0">
                             <div class="card bg-body-tertiary border-transparent">
                                 <div class="card-body">
                                     <div class="row align-items-center">
@@ -261,7 +287,33 @@
                             </div>
                         </div>
 
-                        <div class="col-12 col-md-6 col-xxl-3 mb-4 mb-xxl-0">
+                        <div class="col-12 col-md-6 mb-4 mb-xxl-0">
+                            <div class="card bg-body-tertiary border-transparent">
+                                <div class="card-body">
+                                    <div class="row align-items-center">
+                                        <div class="col">
+                                            <!-- Heading -->
+                                            <h4 class="fs-base fw-normal text-body-secondary mb-1">Deleted Expenses</h4>
+
+                                            <!-- Text -->
+                                            <div class="fs-5 fw-semibold" id="expenses">0.00</div>
+                                            <p class="mt-1">
+                                                <span class="text-success text-xs"><i class="fas fa-arrow-up me-1"></i>Count: </span>
+                                                <span class="text-muted text-xs text-opacity-75" id="sup-balance">0</span>
+                                            </p>
+                                        </div>
+                                        <div class="col-auto">
+                                            <!-- Avatar -->
+                                            <div class="avatar avatar-lg bg-body text-warning">
+                                                <i class="fs-4" data-duoicon="clipboard"></i>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-12 col-md-6 col-xxl-4 mb-4 mb-xxl-0">
                             <div class="card bg-body-tertiary border-transparent">
                                 <div class="card-body">
                                     <div class="row align-items-center">
@@ -287,7 +339,7 @@
                             </div>
                         </div>
 
-                        <div class="col-12 col-md-6 col-xxl-3 mb-4 mb-xxl-0">
+                        <div class="col-12 col-md-6 col-xxl-4 mb-4 mb-xxl-0">
                             <div class="card bg-body-tertiary border-transparent">
                                 <div class="card-body">
                                     <div class="row align-items-center">
@@ -313,7 +365,7 @@
                             </div>
                         </div>
 
-                        <div class="col-12 col-md-6 col-xxl-3 mb-4 mb-xxl-0">
+                        <div class="col-12 col-md-6 col-xxl-4 mb-4 mb-xxl-0">
                             <div class="card bg-body-tertiary border-transparent">
                                 <div class="card-body">
                                     <div class="row align-items-center">
@@ -332,70 +384,6 @@
                                             <!-- Avatar -->
                                             <div class="avatar avatar-lg bg-body text-warning">
                                                 <i class="fs-4" data-duoicon="bell-badge"></i>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    
-                    <div class="row g-3">
-                        <div class="col-6 col-md-8 col-xxl-10 mb-4 mb-xxl-0">
-                            <div class="card bg-body-tertiary border-transparent">
-                                <div class="card-body">
-                                    <div class="row align-items-center">
-                                        <div class="col">
-                                            <!-- Heading -->
-                                            <h4 class="fs-base fw-normal text-body-secondary mb-1">Earnings</h4>
-
-                                            <!-- Text -->
-                                            <div class="fs-5 fw-semibold" id="profit-loss">0.00</div>
-                                        </div>
-                                        <div class="col-auto">
-                                            <!-- Avatar -->
-                                            <div class="avatar avatar-lg bg-body text-warning">
-                                                <i class="fs-4" data-duoicon="credit-card"></i>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="d-flex align-items-center justify-content-between mt-8">
-                                        <div class="">
-                                            <div class="d-flex gap-3 align-items-center">
-                                                <span class="text-success text-xs">Incoming (supervisor)</span>
-                                            </div>
-                                            <div class="text-muted text-xs text-opacity-75 mt-3" id="incoming">0.00 GHS</div>
-                                        </div>
-                                        <div class="">
-                                            <div class="d-flex gap-3 align-items-center">
-                                                <span class="text-danger text-xs">Outgoing (salesperson)</span>
-                                            </div>
-                                            <div class="text-muted text-xs text-opacity-75 mt-3" id="outgoing">0.00 GHS</div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-6 col-md-4 col-xxl-2 mb-4 mb-xxl-0">
-                            <div class="card bg-body-tertiary border-transparent">
-                                <div class="card-body">
-                                    <div class="row align-items-center">
-                                        <div class="col">
-                                            <!-- Heading -->
-                                            <h4 class="fs-base fw-normal text-body-secondary mb-1">Total pushes</h4>
-
-                                            <!-- Text -->
-                                            <div class="fs-5 fw-semibold" id="total-pushes"></div>
-                                            <p class="mt-1">
-                                                <span class="text-success text-xs"><i class="fas fa-arrow-up me-1"></i> </span>
-                                                <span class="text-muted text-xs text-opacity-75" id=""></span>
-                                            </p>
-                                        </div>
-                                        <div class="col-auto">
-                                            <!-- Avatar -->
-                                            <div class="avatar avatar-lg bg-body text-warning">
-                                                <i class="fs-4" data-duoicon="align-bottom"></i>
                                             </div>
                                         </div>
                                     </div>
