@@ -258,7 +258,7 @@
                             <h6>Need help?</h6>
                 
                             <!-- Text -->
-                            <p class="text-body-secondary mb-0">Feel free to reach out to us, should you have any questions or suggestions.</p>
+                            <p class="text-body-secondary mb-0">Feel free to reach out to the IT department, should you have any questions or suggestions.</p>
                         </div>
                         </div>
                     </div>
