@@ -127,8 +127,10 @@
                             <div class="col-12 col-lg">
                                 <div class="row gx-3">
                                     <div class="col col-lg-auto ms-auto">
+                                        <?= date('l, F jS, Y', strtotime(date("Y-m-d"))); ?>
                                     </div>
                                     <div class="col-auto">
+                                        Ghana, GH –&nbsp;<time datetime="20:00" id="time_span"></time>
                                     </div>
                                     <div class="col-auto ms-n2">
                                         <a href="<?= PROOT . 'account/analytics' ?>" class="btn btn-dark px-3">
@@ -524,78 +526,30 @@
 
 <?php include ("../includes/footer.inc.php"); ?>
 <script type="text/javascript" src="<?= PROOT; ?>assets/js/Chart.min.js"></script>
+<script>
+	$(document).ready(function() {
 
-<script type="text/javascript">
-    /* globals Chart:false, feather:false */
+		// fetch current time.
+		function updateTime() {
+			var currentTime = new Date()
+			var hours = currentTime.getHours()
+			var seconds = currentTime.getSeconds();
+			var minutes = currentTime.getMinutes()
+			if (minutes < 10){
+				minutes = "0" + minutes
+			}
+			if (seconds < 10){
+				seconds = "0" + seconds
+			}
+			var t_str = hours + ":" + minutes + " " + seconds + " ";
+			if(hours > 11){
+				t_str += "PM";
+			} else {
+				t_str += "AM";
+			}
+			document.getElementById('time_span').innerHTML = t_str;
+		}
+		setInterval(updateTime, 1000);
+	});
 
-	(function () {
-	    'use strict'
-
-	      // Graphs
-	    var ctx = document.getElementById('myChart')
-	      // eslint-disable-next-line no-unused-vars
-	    var myChart = new Chart(ctx, {
-	        type: 'line',
-	        data: {
-	            labels: [
-	                <?php 
-	                    for ($i = 1; $i <= 12; $i++) {
-	                        $dt = dateTime::createFromFormat('!m',$i);
-	                        $m = $dt->format("F");
-	                        echo json_encode($m).',';
-	                    }
-	                ?>
-	            ],
-	            datasets: [{
-	                label: '<?= $thisYr; ?>, Amount ₵',
-	                data: [
-	                    <?php 
-	                        for ($i = 1; $i <= 12; $i++) {
-	                            $mn = (array_key_exists($i, $current)) ? $current[$i] : 0;
-	                            echo json_encode($mn).',';
-	                        }
-	                    ?>
-	                ],
-	                lineTension: 0,
-	                backgroundColor: 'rgba(225, 0.1, 0.3, 0.1)',
-	                borderColor: 'tomato',
-	                borderWidth: 3,
-	                pointBackgroundColor: 'red'
-	            },{
-	                label: '<?= $lastYr; ?>, Amount ₵',
-	                data : [
-	                    <?php 
-	                        for ($i = 1; $i <= 12; $i++) {
-	                            $mn = (array_key_exists($i, $last)) ? $last[$i] : 0;
-	                            echo json_encode($mn).',';
-	                        }
-	                    ?>
-	                ],
-	                backgroundColor: 'rgba(0, 225, 0, 0.1)',
-	                borderColor: 'gold',
-	                pointBackgroundColor: 'brown',
-	                borderWidth: 3
-	            }]
-	        },
-	        options: {
-	            responsive: true,
-	            scales: {
-	                yAxes: [{
-	                    ticks: {
-	                        beginAtZero: false
-	                    }
-	                }]
-	            },
-	            legend: {
-	                display: true,
-	                position: 'top',
-	            },
-	            title: {
-	                display: true,
-	                text: 'Earnings By Month - J-Spence LTD.'
-	            }
-	        }
-	    })
-	})()
 </script>
-
