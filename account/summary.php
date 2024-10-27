@@ -1,6 +1,7 @@
 <?php 
 
-    // expenditure
+    // Summary page
+
     require_once ("../db_connection/conn.php");
 
     if (!admin_is_logged_in()) {
@@ -15,69 +16,7 @@
     include ("../includes/left.nav.inc.php");
     include ("../includes/top.nav.inc.php");
 
-    $thisYr = date("Y");
-	$lastYr = $thisYr - 1;
-
-    $thisYrQ = "
-        SELECT SUM(daily_capital) AS dc, SUM(daily_balance) AS db, jspence_daily.daily_date
-        FROM `jspence_daily` 
-        INNER JOIN jspence_admin
-        ON admin_id = jspence_daily.daily_to
-        WHERE jspence_admin.admin_permissions = ?
-        AND YEAR(jspence_daily.daily_date) = ? 
-        AND jspence_daily.status = ? 
-    ";
-    $statement = $conn->prepare($thisYrQ);
-    $statement->execute(['supervisor', $thisYr, 0]);
-    $thisYr_result = $statement->fetchAll();
     
-
-    $lastYrQ = "
-        SELECT SUM(daily_capital) AS dc, SUM(daily_balance) AS db, jspence_daily.daily_date
-        FROM `jspence_daily` 
-        INNER JOIN jspence_admin
-        ON admin_id = jspence_daily.daily_to
-        WHERE jspence_admin.admin_permissions = ?
-        AND YEAR(jspence_daily.daily_date) = ? 
-        AND jspence_daily.status = ? 
-    ";
-    $statement = $conn->prepare($lastYrQ);
-    $statement->execute(['supervisor', $lastYr, 0]);
-    $lastYr_result = $statement->fetchAll();
-
-    $current = array();
-    $last = array();
-
-    $currentTotal = 0;
-    $lastTotal = 0;
-
-    foreach ($thisYr_result as $thisYr_row) {
-        $this_year_profit_amount = (float)($thisYr_row['db'] - $thisYr_row['dc']);
-        if ($thisYr_row['db'] == null) {
-            $this_year_profit_amount = 0;
-        }
-        $month = date("m", strtotime($thisYr_row['daily_date'] ?? ""));
-        if (!array_key_exists((int)$month, $current)) {
-            $current[(int)$month] = $this_year_profit_amount;
-        } else {
-            $current[(int)$month] += $this_year_profit_amount;
-        }
-        $currentTotal += $this_year_profit_amount;
-    }
-
-    foreach ($lastYr_result as $lastYr_row) {
-        $last_year_profit_amount = (float)($lastYr_row['db'] - $lastYr_row['dc']);
-        if ($lastYr_row['db'] == null) {
-            $last_year_profit_amount = 0;
-        }
-        $month = date("m", strtotime($lastYr_row['daily_date'] ?? ""));
-        if (!array_key_exists((int)$month, $last)) {
-            $last[(int)$month] = $last_year_profit_amount;
-        } else {
-            $last[(int)$month] += $last_year_profit_amount;
-        }
-        $currentTotal += $last_year_profit_amount;
-    }
 
 ?>
 
@@ -159,7 +98,7 @@
                                             <h4 class="fs-base fw-normal text-body-secondary mb-1">Capital</h4>
 
                                             <!-- Text -->
-                                            <div class="fs-5 fw-semibold" id="sup-capital">0.00</div>
+                                            <div class="fs-5 fw-semibold" id="sup-capital"><?= money(_capital($admin_id)['today_capital']); ?></div>
                                         </div>
                                         <div class="col-auto">
                                             <!-- Avatar -->
@@ -178,10 +117,10 @@
                                     <div class="row align-items-center">
                                         <div class="col">
                                             <!-- Heading -->
-                                            <h4 class="fs-base fw-normal text-body-secondary mb-1">Balance</h4>
+                                            <h4 class="fs-base fw-normal text-body-secondary mb-1"><?= ((admin_has_permission('supervisor')) ? 'Gold' : 'Cash'); ?> Balance</h4>
 
                                             <!-- Text -->
-                                            <div class="fs-5 fw-semibold" id="sal-capital">0.00</div>
+                                            <div class="fs-5 fw-semibold" id="sal-capital"><?= ((admin_has_permission('supervisor')) ? money(remaining_gold_balance($admin_id)) : money(_capital($admin_id)['today_balance'])); ?></div>
                                         </div>
                                         <div class="col-auto">
                                             <!-- Avatar -->
