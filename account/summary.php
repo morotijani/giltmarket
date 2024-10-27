@@ -108,6 +108,9 @@
                 <!-- Action -->
                 <a class="btn btn-light d-block" href="<?= PROOT; ?>"> <span class="material-symbols-outlined me-1">dashboard</span> Go to dashboard </a>
             </div>
+            <div class="col-6 col-sm-auto">
+                <a class="btn btn-light d-block" href="#"> <span class="material-symbols-outlined me-1">money_off</span> Print page </a>
+            </div>
         </div>
 
         <!-- Page content -->
@@ -498,22 +501,6 @@
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="card">
-                        <div class="card-body pb-0">
-                            <div class="d-flex justify-content-between align-items-center">
-                                <div>
-                                    <h5>Earnings chart</h5>
-                                </div>
-                                <div class="hstack align-items-center">
-                                    <a href="<?= PROOT; ?>acc/analytics" class="text-muted"><i class="bi bi-arrow-repeat"></i></a>
-                                </div>
-                            </div>
-                            <div class="mx-n4">
-                                <canvas class="my-4 w-100" id="myChart" width="900" height="380"></canvas>
                             </div>
                         </div>
                     </div>
