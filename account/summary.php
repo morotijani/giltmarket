@@ -127,10 +127,10 @@
                             <div class="col-12 col-lg">
                                 <div class="row gx-3">
                                     <div class="col col-lg-auto ms-auto">
-                                        <?= date('l, F jS, Y', strtotime(date("Y-m-d"))); ?>
+                                        <button class="btn"><?= date('l, F jS, Y', strtotime(date("Y-m-d"))); ?></button>
                                     </div>
                                     <div class="col-auto">
-                                        Ghana, GH –&nbsp;<time datetime="20:00" id="time_span"></time>
+                                        <button class="btn">Ghana, GH –&nbsp;<time datetime="20:00" id="time_span"></time></button>
                                     </div>
                                     <div class="col-auto ms-n2">
                                         <a href="<?= PROOT . 'account/analytics' ?>" class="btn btn-dark px-3">
