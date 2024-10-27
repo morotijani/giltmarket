@@ -160,10 +160,6 @@
 
                                             <!-- Text -->
                                             <div class="fs-5 fw-semibold" id="sup-capital">0.00</div>
-                                            <p class="mt-1">
-                                                <span class="text-success text-xs"><i class="fas fa-arrow-up me-1"></i>Balance: </span>
-                                                <span class="text-muted text-xs text-opacity-75" id="sup-balance">0.00</span>
-                                            </p>
                                         </div>
                                         <div class="col-auto">
                                             <!-- Avatar -->
@@ -241,7 +237,7 @@
                                         </div>
                                         <div class="col-auto">
                                             <!-- Avatar -->
-                                            <div class="avatar avatar-lg bg-body text-warning">
+                                            <div class="avatar avatar-lg bg-body text-danger">
                                                 <i class="fs-4" data-duoicon="clipboard"></i>
                                             </div>
                                         </div>
@@ -293,7 +289,7 @@
                                         </div>
                                         <div class="col-auto">
                                             <!-- Avatar -->
-                                            <div class="avatar avatar-lg bg-body text-warning">
+                                            <div class="avatar avatar-lg bg-body text-danger">
                                                 <i class="fs-4" data-duoicon="clipboard"></i>
                                             </div>
                                         </div>
