@@ -14,7 +14,7 @@
     $today = date("Y-m-d");
     $where = '';
     if (!admin_has_permission()) {
-        $where = ' AND sale_by = "'.$admin_data["admin_id"].'" AND CAST(jspence_sales.createdAt AS date) = "' . $today . '" ';
+        $where = ' AND sale_by = "' . $admin_id . '" AND CAST(jspence_sales.createdAt AS date) = "' . $today . '" ';
     }
     $total_exp = $conn->query("SELECT * FROM jspence_sales INNER JOIN jspence_admin ON jspence_admin.admin_id = jspence_sales.sale_by WHERE jspence_sales.sale_status = 0 AND jspence_sales.sale_type = 'exp' $where")->rowCount();
     $count_exp = '';

@@ -345,10 +345,10 @@
                                     <div class="row align-items-center">
                                         <div class="col">
                                             <!-- Heading -->
-                                            <h4 class="fs-base fw-normal text-body-secondary mb-1">Logged In datetime</h4>
+                                            <h4 class="fs-base fw-normal text-body-secondary mb-1">Last logged in</h4>
 
                                             <!-- Text -->
-                                            <div class="fs-5 fw-semibold" id="total-pushes">12:11 9 PM</div>
+                                            <div class="fs-5 fw-semibold" id="total-pushes"><?= pretty_date($admin_data["admin_last_login"]); ?></div>
                                         </div>
                                         <div class="col-auto">
                                             <!-- Avatar -->
