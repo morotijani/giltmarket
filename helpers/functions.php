@@ -936,6 +936,28 @@ function get_logs($admin) {
 	return $output;
 }
 
+// count logs
+function count_logs() {
+	global $conn;
+	$today = date("Y-m-d");
+
+    $where = '';
+    if (!admin_has_permission()) {
+        $where = ' WHERE jspence_admin.admin_id = "' . $admin_id . '" AND CAST(jspence_logs.createdAt AS date) = "' . $today . '" ';
+    }
+
+    $sql = "
+        SELECT * FROM jspence_logs 
+        INNER JOIN jspence_admin 
+        ON jspence_admin.admin_id = jspence_logs.log_admin
+        $where 
+        ORDER BY jspence_logs.createdAt DESC
+    ";
+    $statement = $conn->prepare($sql);
+    $statement->execute();
+	
+    return $statement->rowCount();
+}
 
 // get recent trades
 function get_recent_trades($admin) {
