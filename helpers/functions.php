@@ -937,13 +937,13 @@ function get_logs($admin) {
 }
 
 // count logs
-function count_logs() {
+function count_logs($admin) {
 	global $conn;
 	$today = date("Y-m-d");
 
     $where = '';
     if (!admin_has_permission()) {
-        $where = ' WHERE jspence_admin.admin_id = "' . $admin_id . '" AND CAST(jspence_logs.createdAt AS date) = "' . $today . '" ';
+        $where = ' WHERE jspence_admin.admin_id = "' . $admin . '" AND CAST(jspence_logs.createdAt AS date) = "' . $today . '" ';
     }
 
     $sql = "
@@ -955,7 +955,7 @@ function count_logs() {
     ";
     $statement = $conn->prepare($sql);
     $statement->execute();
-	
+
     return $statement->rowCount();
 }
 

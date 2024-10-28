@@ -106,7 +106,7 @@
                                 <h4 class="fs-sm fw-normal text-body-secondary mb-1">Gram</h4>
 
                                 <!-- Text -->
-                                <div class="fs-4 fw-semibold"><?= sum_up_grams($conn, $admin_data['admin_id']); ?></div>
+                                <div class="fs-4 fw-semibold"><?= sum_up_grams($conn, $admin_id); ?></div>
                             </div>
                         </div>
                     </div>
@@ -121,7 +121,7 @@
                                 <h4 class="fs-sm fw-normal text-body-secondary mb-1">Volume</h4>
 
                                 <!-- Text -->
-                                <div class="fs-4 fw-semibold"><?= sum_up_volume($conn, $admin_data['admin_id']); ?></div>
+                                <div class="fs-4 fw-semibold"><?= sum_up_volume($conn, $admin_id); ?></div>
                             </div>
                         </div>
                     </div>
@@ -136,7 +136,7 @@
                                 <h4 class="fs-sm fw-normal text-body-secondary mb-1">Density</h4>
 
                                 <!-- Text -->
-                                <div class="fs-4 fw-semibold"><?= sum_up_density($conn, $admin_data['admin_id']); ?></div>
+                                <div class="fs-4 fw-semibold"><?= sum_up_density($conn, $admin_id); ?></div>
                             </div>
                         </div>
                     </div>
@@ -151,7 +151,7 @@
                                 <h4 class="fs-sm fw-normal text-body-secondary mb-1">Pounds</h4>
 
                                 <!-- Text -->
-                                <div class="fs-4 fw-semibold"><?= sum_up_pounds($conn, $admin_data['admin_id']); ?></div>
+                                <div class="fs-4 fw-semibold"><?= sum_up_pounds($conn, $admin_id); ?></div>
                             </div>
                         </div>
                     </div>
@@ -166,7 +166,7 @@
                                 <h4 class="fs-sm fw-normal text-body-secondary mb-1">Carat</h4>
 
                                 <!-- Text -->
-                                <div class="fs-4 fw-semibold"><?= sum_up_carat($conn, $admin_data['admin_id']); ?></div>
+                                <div class="fs-4 fw-semibold"><?= sum_up_carat($conn, $admin_id); ?></div>
                             </div>
                         </div>
                     </div>

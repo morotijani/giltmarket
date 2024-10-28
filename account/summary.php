@@ -327,7 +327,7 @@
                                             <h4 class="fs-base fw-normal text-body-secondary mb-1">Logs</h4>
 
                                             <!-- Text -->
-                                            <div class="fs-5 fw-semibold" id="profit-loss">0</div>
+                                            <div class="fs-5 fw-semibold" id="profit-loss"><?= count_logs($admin_id); ?></div>
                                         </div>
                                         <div class="col-auto">
                                             <!-- Avatar -->
@@ -372,7 +372,7 @@
                                             <h4 class="fs-sm fw-normal text-body-secondary mb-1">Gram</h4>
 
                                             <!-- Text -->
-                                            <div class="fs-4 fw-semibold" id="total-gram">0</div>
+                                            <div class="fs-4 fw-semibold" id="total-gram"><?= sum_up_grams($conn, $admin_id); ?></div>
                                         </div>
                                     </div>
                                 </div>
@@ -387,7 +387,7 @@
                                             <h4 class="fs-sm fw-normal text-body-secondary mb-1">Volume</h4>
 
                                             <!-- Text -->
-                                            <div class="fs-4 fw-semibold" id="total-volume">0</div>
+                                            <div class="fs-4 fw-semibold" id="total-volume"><?= sum_up_volume($conn, $admin_id); ?></div>
                                         </div>
                                     </div>
                                 </div>
@@ -402,7 +402,7 @@
                                             <h4 class="fs-sm fw-normal text-body-secondary mb-1">Density</h4>
 
                                             <!-- Text -->
-                                            <div class="fs-4 fw-semibold" id="total-density">0</div>
+                                            <div class="fs-4 fw-semibold" id="total-density"><?= sum_up_density($conn, $admin_id); ?></div>
                                         </div>
                                     </div>
                                 </div>
@@ -417,7 +417,7 @@
                                             <h4 class="fs-sm fw-normal text-body-secondary mb-1">Pounds</h4>
 
                                             <!-- Text -->
-                                            <div class="fs-4 fw-semibold" id="total-pounds">0</div>
+                                            <div class="fs-4 fw-semibold" id="total-pounds"><?= sum_up_pounds($conn, $admin_id); ?></div>
                                         </div>
                                     </div>
                                 </div>
@@ -432,7 +432,7 @@
                                             <h4 class="fs-sm fw-normal text-body-secondary mb-1">Carat</h4>
 
                                             <!-- Text -->
-                                            <div class="fs-4 fw-semibold" id="total-carat">0</div>
+                                            <div class="fs-4 fw-semibold" id="total-carat"><?= sum_up_carat($conn, $admin_id); ?></div>
                                         </div>
                                     </div>
                                 </div>
