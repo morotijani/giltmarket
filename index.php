@@ -351,7 +351,7 @@
 				<div class="card-header">
 					<div class="row align-items-center">
 						<div class="col">
-							<h3 class="fs-6 mb-0">Trades (<?= money(total_sale_amount_today($admin_id)); ?>)</h3>
+							<h3 class="fs-6 mb-0">Trades (<?php $tst = total_sale_amount_today($admin_id); echo money($tst["sum"]); ?>)</h3>
 							<span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
 								<?= count_today_orders($admin_id); ?>
 								<span class="visually-hidden">unread messages</span>
