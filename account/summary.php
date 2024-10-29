@@ -220,7 +220,7 @@
                                                     <h4 class="fs-base fw-normal text-body-secondary mb-1">Trades</h4>
 
                                                     <!-- Text -->
-                                                    <div class="fs-5 fw-semibold" id="expenses"><?php $tst = total_sale_amount_today($admin_id, 'exp'); echo $tst["sum"]; ?></div>
+                                                    <div class="fs-5 fw-semibold" id="expenses"><?php $tst = total_sale_amount_today($admin_id, null, 'exp'); echo money($tst["sum"]); ?></div>
                                                     <p class="mt-1">
                                                         <span class="text-success text-xs"><i class="fas fa-arrow-up me-1"></i>Count: </span>
                                                         <span class="text-muted text-xs text-opacity-75" id="sup-balance"><?= $tst["count"]; ?></span>
@@ -246,7 +246,7 @@
                                                     <h4 class="fs-base fw-normal text-body-secondary mb-1">Deleted Trades</h4>
 
                                                     <!-- Text -->
-                                                    <div class="fs-5 fw-semibold" id="expenses"><?php $dtst = total_sale_amount_today($admin_id, 'delete', 'exp'); echo $dtst["sum"]; ?></div>
+                                                    <div class="fs-5 fw-semibold" id="expenses"><?php $dtst = total_sale_amount_today($admin_id, 'delete', 'exp'); echo money($dtst["sum"]); ?></div>
                                                     <p class="mt-1">
                                                         <span class="text-success text-xs"><i class="fas fa-arrow-up me-1"></i>Count: </span>
                                                         <span class="text-muted text-xs text-opacity-75" id="sup-balance"><?= $dtst["count"]; ?></span>
@@ -272,7 +272,7 @@
                                                     <h4 class="fs-base fw-normal text-body-secondary mb-1">Expenses</h4>
 
                                                     <!-- Text -->
-                                                    <div class="fs-5 fw-semibold"><?php $exp = total_expenditure_today($admin_id); echo $exp["sum"]; ?></div>
+                                                    <div class="fs-5 fw-semibold"><?php $exp = total_expenditure_today($admin_id); echo money($exp["sum"]); ?></div>
                                                     <p class="mt-1">
                                                         <span class="text-success text-xs"><i class="fas fa-arrow-up me-1"></i>Count: </span>
                                                         <span class="text-muted text-xs text-opacity-75"><?= $exp["count"]; ?></span>
@@ -298,7 +298,7 @@
                                                     <h4 class="fs-base fw-normal text-body-secondary mb-1">Deleted Expenses</h4>
 
                                                     <!-- Text -->
-                                                    <div class="fs-5 fw-semibold" id="expenses"><?php $del_exp = total_expenditure_today($admin_id, $option = 'delete'); echo $del_exp["sum"]; ?></div>
+                                                    <div class="fs-5 fw-semibold" id="expenses"><?php $del_exp = total_expenditure_today($admin_id, $option = 'delete'); echo money($del_exp["sum"]); ?></div>
                                                     <p class="mt-1">
                                                         <span class="text-success text-xs"><i class="fas fa-arrow-up me-1"></i>Count: </span>
                                                         <span class="text-muted text-xs text-opacity-75" id="sup-balance"><?= $del_exp["count"]; ?></span>
