@@ -351,7 +351,7 @@ function get_total_receive_push($conn, $admin, $d) {
 }
 
 // 
-function get_total_push($conn, $admin, $d) {
+function get_total_pushes($conn, $admin, $d) {
 
 	$s = get_total_send_push($conn, $admin, $d);
 	$r = get_total_receive_push($conn, $admin, $d);
@@ -363,6 +363,8 @@ function get_total_push($conn, $admin, $d) {
 		"sum" => $sum, 
 		"count" => $count
 	];
+
+	return $array;
 }
 
 

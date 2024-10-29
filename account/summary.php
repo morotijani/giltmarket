@@ -246,10 +246,10 @@
                                             <h4 class="fs-base fw-normal text-body-secondary mb-1">Total Pushes <?= ((admin_has_permission("supervisor")) ? '' : '(Money)'); ?></h4>
 
                                             <!-- Text -->
-                                            <div class="fs-5 fw-semibold" id="total-trades"><?php $p = get_total_push($conn, $admin_id, date("Y-m-d")); echo money($p["sum"]); ?></div>
+                                            <div class="fs-5 fw-semibold" id="total-trades"><?php $tp = get_total_pushes($conn, $admin_id, date("Y-m-d")); echo money($tp["sum"]); ?></div>
                                             <p class="mt-1">
                                                 <span class="text-success text-xs"><i class="fas fa-arrow-up me-1"></i>Count: </span>
-                                                <span class="text-muted text-xs text-opacity-75" id=""><?= $p["count"]; ?></span>
+                                                <span class="text-muted text-xs text-opacity-75" id=""><?= $tp["count"]; ?></span>
                                             </p>
                                         </div>
                                         <div class="col-auto">
@@ -272,10 +272,10 @@
                                             <h4 class="fs-base fw-normal text-body-secondary mb-1">Send Pushes (<?= ((admin_has_permission("supervisor")) ? 'Money' : 'Gold'); ?>)</h4>
 
                                             <!-- Text -->
-                                            <div class="fs-5 fw-semibold" id="total-trades">0.00</div>
+                                            <div class="fs-5 fw-semibold" id="total-trades"><?php $ps = get_total_send_push($conn, $admin_id, date("Y-m-d")); echo money($ps["sum"]); ?></div>
                                             <p class="mt-1">
                                                 <span class="text-success text-xs"><i class="fas fa-arrow-up me-1"></i>Count: </span>
-                                                <span class="text-muted text-xs text-opacity-75" id="">0</span>
+                                                <span class="text-muted text-xs text-opacity-75" id=""><?= $ps["count"]; ?></span>
                                             </p>
                                         </div>
                                         <div class="col-auto">
@@ -298,7 +298,7 @@
                                             <h4 class="fs-base fw-normal text-body-secondary mb-1">Receive Pushes (<?= ((admin_has_permission("supervisor")) ? 'Gold' : 'Money'); ?>)</h4>
 
                                             <!-- Text -->
-                                            <div class="fs-5 fw-semibold" id="total-trades"><?php $pr = get_total_push($conn, $admin_id, date("Y-m-d")); echo money($pr["sum"]); ?></div>
+                                            <div class="fs-5 fw-semibold" id="total-trades"><?php $pr = get_total_receive_push($conn, $admin_id, date("Y-m-d")); echo money($pr["sum"]); ?></div>
                                             <p class="mt-1">
                                                 <span class="text-success text-xs"><i class="fas fa-arrow-up me-1"></i>Count: </span>
                                                 <span class="text-muted text-xs text-opacity-75" id=""><?= $pr['count']; ?></span>
