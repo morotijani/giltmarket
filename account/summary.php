@@ -142,10 +142,10 @@
                                             <h4 class="fs-base fw-normal text-body-secondary mb-1">Trades</h4>
 
                                             <!-- Text -->
-                                            <div class="fs-5 fw-semibold" id="expenses">0.00</div>
+                                            <div class="fs-5 fw-semibold" id="expenses"><?php $tst = total_sale_amount_today($admin_id, 'exp'); echo $tst["sum"]; ?></div>
                                             <p class="mt-1">
                                                 <span class="text-success text-xs"><i class="fas fa-arrow-up me-1"></i>Count: </span>
-                                                <span class="text-muted text-xs text-opacity-75" id="sup-balance">0</span>
+                                                <span class="text-muted text-xs text-opacity-75" id="sup-balance"><?= $tst["count"]; ?></span>
                                             </p>
                                         </div>
                                         <div class="col-auto">
@@ -168,10 +168,10 @@
                                             <h4 class="fs-base fw-normal text-body-secondary mb-1">Deleted Trades</h4>
 
                                             <!-- Text -->
-                                            <div class="fs-5 fw-semibold" id="expenses">0.00</div>
+                                            <div class="fs-5 fw-semibold" id="expenses"><?php $dtst = total_sale_amount_today($admin_id, 'delete', 'exp'); echo $dtst["sum"]; ?></div>
                                             <p class="mt-1">
                                                 <span class="text-success text-xs"><i class="fas fa-arrow-up me-1"></i>Count: </span>
-                                                <span class="text-muted text-xs text-opacity-75" id="sup-balance">0</span>
+                                                <span class="text-muted text-xs text-opacity-75" id="sup-balance"><?= $dtst["count"]; ?></span>
                                             </p>
                                         </div>
                                         <div class="col-auto">

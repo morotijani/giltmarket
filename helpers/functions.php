@@ -797,7 +797,7 @@ function total_expenditure_today($admin, $option = null) {
 }
 
 // get total amount of sales with "expenditure" today
-function total_sale_amount_today($admin, $option = null) {
+function total_sale_amount_today($admin, $del = null, $option = null) {
 	global $conn;
 	$today = date('Y-m-d');
 
@@ -811,7 +811,7 @@ function total_sale_amount_today($admin, $option = null) {
 		WHERE jspence_sales.sale_status = ? 
 		-- AND jspence_daily.daily_capital_status = ?
 	";
-	
+
 	if (!admin_has_permission()) {
 		$sql .= " AND sale_by = '" . $admin . "' AND CAST(jspence_sales.createdAt AS date) = '" . $today . "' ";
 	}
@@ -821,10 +821,10 @@ function total_sale_amount_today($admin, $option = null) {
 	}
 
 	$statement = $conn->prepare($sql);
-	$statement->execute([0]);
+	$statement->execute([(($del == 'delete') ? 1 : 0)]);
 	$thisDayrow = $statement->fetchAll();
 
-	$array = [		
+	$array = [
 		"sum" => $thisDayrow[0]['total'] ?? 0,
 		"count" => $thisDayrow[0]['c']
 	];
