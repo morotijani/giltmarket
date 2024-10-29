@@ -21,8 +21,8 @@
 ?>
 
 
-<!-- Content -->
-<div class="container-lg">
+    <!-- Content -->
+    <div class="container-lg">
         <!-- Page header -->
         <div class="row align-items-center mb-7">
             <div class="col-auto">
@@ -84,361 +84,363 @@
                         </div>
                     </div>
                 </div>
+
+                <div class="row mb-4">
+                    <div class="col-12 col-md-6 col-xxl mb-4 mb-xxl-0">
+                        <div class="card bg-body-tertiary border-transparent">
+                            <div class="card-body">
+                                <div class="row align-items-center">
+                                    <div class="col">
+                                        <!-- Heading -->
+                                        <h4 class="fs-sm fw-normal text-body-secondary mb-1">Gram</h4>
+
+                                        <!-- Text -->
+                                        <div class="fs-4 fw-semibold" id="total-gram"><?= sum_up_grams($conn, $admin_id); ?></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12 col-md-6 col-xxl mb-4 mb-xxl-0">
+                        <div class="card bg-body-tertiary border-transparent">
+                            <div class="card-body">
+                                <div class="row align-items-center">
+                                    <div class="col">
+                                        <!-- Heading -->
+                                        <h4 class="fs-sm fw-normal text-body-secondary mb-1">Volume</h4>
+
+                                        <!-- Text -->
+                                        <div class="fs-4 fw-semibold" id="total-volume"><?= sum_up_volume($conn, $admin_id); ?></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12 col-md-6 col-xxl mb-4 mb-xxl-0">
+                        <div class="card bg-body-tertiary border-transparent">
+                            <div class="card-body">
+                                <div class="row align-items-center">
+                                    <div class="col">
+                                        <!-- Heading -->
+                                        <h4 class="fs-sm fw-normal text-body-secondary mb-1">Density</h4>
+
+                                        <!-- Text -->
+                                        <div class="fs-4 fw-semibold" id="total-density"><?= sum_up_density($conn, $admin_id); ?></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12 col-md-6 col-xxl mb-4 mb-xxl-0">
+                        <div class="card bg-body-tertiary border-transparent">
+                            <div class="card-body">
+                                <div class="row align-items-center">
+                                    <div class="col">
+                                        <!-- Heading -->
+                                        <h4 class="fs-sm fw-normal text-body-secondary mb-1">Pounds</h4>
+
+                                        <!-- Text -->
+                                        <div class="fs-4 fw-semibold" id="total-pounds"><?= sum_up_pounds($conn, $admin_id); ?></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12 col-md-6 col-xxl mb-md-0">
+                        <div class="card bg-body-tertiary border-transparent">
+                            <div class="card-body">
+                                <div class="row align-items-center">
+                                    <div class="col">
+                                        <!-- Heading -->
+                                        <h4 class="fs-sm fw-normal text-body-secondary mb-1">Carat</h4>
+
+                                        <!-- Text -->
+                                        <div class="fs-4 fw-semibold" id="total-carat"><?= sum_up_carat($conn, $admin_id); ?></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             
-            <div class="row">
-                <div class="col">
-                <div class="vstack gap-3 gap-xl-6">
-                    <div class="row g-3">
-                        <div class="col-12 col-md-6 mb-4 mb-xxl-0">
-                            <div class="card bg-body-tertiary border-transparent">
-                                <div class="card-body">
-                                    <div class="row align-items-center">
-                                        <div class="col">
-                                            <!-- Heading -->
-                                            <h4 class="fs-base fw-normal text-body-secondary mb-1">Capital</h4>
+                <div class="row">
+                    <div class="col">
+                        <div class="vstack gap-3 gap-xl-6">
+                            <div class="row g-3">
+                                <div class="col-12 col-md-6 mb-4 mb-xxl-0">
+                                    <div class="card bg-body-tertiary border-transparent">
+                                        <div class="card-body">
+                                            <div class="row align-items-center">
+                                                <div class="col">
+                                                    <!-- Heading -->
+                                                    <h4 class="fs-base fw-normal text-body-secondary mb-1">Capital</h4>
 
-                                            <!-- Text -->
-                                            <div class="fs-5 fw-semibold" id="sup-capital"><?= money(_capital($admin_id)['today_capital']); ?></div>
+                                                    <!-- Text -->
+                                                    <div class="fs-5 fw-semibold" id="sup-capital"><?= money(_capital($admin_id)['today_capital']); ?></div>
+                                                </div>
+                                                <div class="col-auto">
+                                                    <!-- Avatar -->
+                                                    <div class="avatar avatar-lg bg-body text-warning">
+                                                        <i class="fs-4" data-duoicon="briefcase"></i>
+                                                    </div>
+                                                </div>
+                                            </div>
                                         </div>
-                                        <div class="col-auto">
-                                            <!-- Avatar -->
-                                            <div class="avatar avatar-lg bg-body text-warning">
-                                                <i class="fs-4" data-duoicon="briefcase"></i>
+                                    </div>
+                                </div>
+
+                                <div class="col-12 col-md-6 mb-4 mb-xxl-0">
+                                    <div class="card bg-body-tertiary border-transparent">
+                                        <div class="card-body">
+                                            <div class="row align-items-center">
+                                                <div class="col">
+                                                    <!-- Heading -->
+                                                    <h4 class="fs-base fw-normal text-body-secondary mb-1"><?= ((admin_has_permission('supervisor')) ? 'Gold' : 'Cash'); ?> Balance</h4>
+
+                                                    <!-- Text -->
+                                                    <div class="fs-5 fw-semibold" id="sal-capital"><?= ((admin_has_permission('supervisor')) ? money(remaining_gold_balance($admin_id)) : money(_capital($admin_id)['today_balance'])); ?></div>
+                                                </div>
+                                                <div class="col-auto">
+                                                    <!-- Avatar -->
+                                                    <div class="avatar avatar-lg bg-body text-warning">
+                                                        <i class="fs-4" data-duoicon="credit-card"></i>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-12 col-md-6 mb-4 mb-xxl-0">
+                                    <div class="card bg-body-tertiary border-transparent">
+                                        <div class="card-body">
+                                            <div class="row align-items-center">
+                                                <div class="col">
+                                                    <!-- Heading -->
+                                                    <h4 class="fs-base fw-normal text-body-secondary mb-1">Trades</h4>
+
+                                                    <!-- Text -->
+                                                    <div class="fs-5 fw-semibold" id="expenses"><?php $tst = total_sale_amount_today($admin_id, 'exp'); echo $tst["sum"]; ?></div>
+                                                    <p class="mt-1">
+                                                        <span class="text-success text-xs"><i class="fas fa-arrow-up me-1"></i>Count: </span>
+                                                        <span class="text-muted text-xs text-opacity-75" id="sup-balance"><?= $tst["count"]; ?></span>
+                                                    </p>
+                                                </div>
+                                                <div class="col-auto">
+                                                    <!-- Avatar -->
+                                                    <div class="avatar avatar-lg bg-body text-warning">
+                                                        <i class="fs-4" data-duoicon="clipboard"></i>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-12 col-md-6 mb-4 mb-xxl-0">
+                                    <div class="card bg-body-tertiary border-transparent">
+                                        <div class="card-body">
+                                            <div class="row align-items-center">
+                                                <div class="col">
+                                                    <!-- Heading -->
+                                                    <h4 class="fs-base fw-normal text-body-secondary mb-1">Deleted Trades</h4>
+
+                                                    <!-- Text -->
+                                                    <div class="fs-5 fw-semibold" id="expenses"><?php $dtst = total_sale_amount_today($admin_id, 'delete', 'exp'); echo $dtst["sum"]; ?></div>
+                                                    <p class="mt-1">
+                                                        <span class="text-success text-xs"><i class="fas fa-arrow-up me-1"></i>Count: </span>
+                                                        <span class="text-muted text-xs text-opacity-75" id="sup-balance"><?= $dtst["count"]; ?></span>
+                                                    </p>
+                                                </div>
+                                                <div class="col-auto">
+                                                    <!-- Avatar -->
+                                                    <div class="avatar avatar-lg bg-body text-danger">
+                                                        <i class="fs-4" data-duoicon="clipboard"></i>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <?php if (admin_has_permission("salesperson")): ?>
+                                <div class="col-12 col-md-6 mb-4 mb-xxl-0">
+                                    <div class="card bg-body-tertiary border-transparent">
+                                        <div class="card-body">
+                                            <div class="row align-items-center">
+                                                <div class="col">
+                                                    <!-- Heading -->
+                                                    <h4 class="fs-base fw-normal text-body-secondary mb-1">Expenses</h4>
+
+                                                    <!-- Text -->
+                                                    <div class="fs-5 fw-semibold"><?php $exp = total_expenditure_today($admin_id); echo $exp["sum"]; ?></div>
+                                                    <p class="mt-1">
+                                                        <span class="text-success text-xs"><i class="fas fa-arrow-up me-1"></i>Count: </span>
+                                                        <span class="text-muted text-xs text-opacity-75"><?= $exp["count"]; ?></span>
+                                                    </p>
+                                                </div>
+                                                <div class="col-auto">
+                                                    <!-- Avatar -->
+                                                    <div class="avatar avatar-lg bg-body text-warning">
+                                                        <i class="fs-4" data-duoicon="clipboard"></i>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-12 col-md-6 mb-4 mb-xxl-0">
+                                    <div class="card bg-body-tertiary border-transparent">
+                                        <div class="card-body">
+                                            <div class="row align-items-center">
+                                                <div class="col">
+                                                    <!-- Heading -->
+                                                    <h4 class="fs-base fw-normal text-body-secondary mb-1">Deleted Expenses</h4>
+
+                                                    <!-- Text -->
+                                                    <div class="fs-5 fw-semibold" id="expenses"><?php $del_exp = total_expenditure_today($admin_id, $option = 'delete'); echo $del_exp["sum"]; ?></div>
+                                                    <p class="mt-1">
+                                                        <span class="text-success text-xs"><i class="fas fa-arrow-up me-1"></i>Count: </span>
+                                                        <span class="text-muted text-xs text-opacity-75" id="sup-balance"><?= $del_exp["count"]; ?></span>
+                                                    </p>
+                                                </div>
+                                                <div class="col-auto">
+                                                    <!-- Avatar -->
+                                                    <div class="avatar avatar-lg bg-body text-danger">
+                                                        <i class="fs-4" data-duoicon="clipboard"></i>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <?php endif; ?>
+                                <div class="col-12 col-md-6 col-xxl-4 mb-4 mb-xxl-0">
+                                    <div class="card bg-body-tertiary border-transparent">
+                                        <div class="card-body">
+                                            <div class="row align-items-center">
+                                                <div class="col">
+                                                    <!-- Heading -->
+                                                    <h4 class="fs-base fw-normal text-body-secondary mb-1">Total Pushes</h4>
+
+                                                    <!-- Text -->
+                                                    <div class="fs-5 fw-semibold" id="total-trades"><?php $tp = get_total_pushes($conn, $admin_id, date("Y-m-d")); echo money($tp["sum"]); ?></div>
+                                                    <p class="mt-1">
+                                                        <span class="text-success text-xs"><i class="fas fa-arrow-up me-1"></i>Count: </span>
+                                                        <span class="text-muted text-xs text-opacity-75" id=""><?= $tp["count"]; ?></span>
+                                                    </p>
+                                                </div>
+                                                <div class="col-auto">
+                                                    <!-- Avatar -->
+                                                    <div class="avatar avatar-lg bg-body text-warning">
+                                                        <i class="fs-4" data-duoicon="bell-badge"></i>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-12 col-md-6 col-xxl-4 mb-4 mb-xxl-0">
+                                    <div class="card bg-body-tertiary border-transparent">
+                                        <div class="card-body">
+                                            <div class="row align-items-center">
+                                                <div class="col">
+                                                    <!-- Heading -->
+                                                    <h4 class="fs-base fw-normal text-body-secondary mb-1">Send Pushes (<?= ((admin_has_permission("supervisor")) ? 'Money' : 'Gold'); ?>)</h4>
+
+                                                    <!-- Text -->
+                                                    <div class="fs-5 fw-semibold" id="total-trades"><?php $ps = get_total_send_push($conn, $admin_id, date("Y-m-d")); echo money($ps["sum"]); ?></div>
+                                                    <p class="mt-1">
+                                                        <span class="text-success text-xs"><i class="fas fa-arrow-up me-1"></i>Count: </span>
+                                                        <span class="text-muted text-xs text-opacity-75" id=""><?= $ps["count"]; ?></span>
+                                                    </p>
+                                                </div>
+                                                <div class="col-auto">
+                                                    <!-- Avatar -->
+                                                    <div class="avatar avatar-lg bg-body text-warning">
+                                                        <i class="fs-4" data-duoicon="bell-badge"></i>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-12 col-md-6 col-xxl-4 mb-4 mb-xxl-0">
+                                    <div class="card bg-body-tertiary border-transparent">
+                                        <div class="card-body">
+                                            <div class="row align-items-center">
+                                                <div class="col">
+                                                    <!-- Heading -->
+                                                    <h4 class="fs-base fw-normal text-body-secondary mb-1">Receive Pushes (<?= ((admin_has_permission("supervisor")) ? 'Gold' : 'Money'); ?>)</h4>
+
+                                                    <!-- Text -->
+                                                    <div class="fs-5 fw-semibold" id="total-trades"><?php $pr = get_total_receive_push($conn, $admin_id, date("Y-m-d")); echo money($pr["sum"]); ?></div>
+                                                    <p class="mt-1">
+                                                        <span class="text-success text-xs"><i class="fas fa-arrow-up me-1"></i>Count: </span>
+                                                        <span class="text-muted text-xs text-opacity-75" id=""><?= $pr['count']; ?></span>
+                                                    </p>
+                                                </div>
+                                                <div class="col-auto">
+                                                    <!-- Avatar -->
+                                                    <div class="avatar avatar-lg bg-body text-warning">
+                                                        <i class="fs-4" data-duoicon="bell-badge"></i>
+                                                    </div>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
 
-                        <div class="col-12 col-md-6 mb-4 mb-xxl-0">
-                            <div class="card bg-body-tertiary border-transparent">
-                                <div class="card-body">
-                                    <div class="row align-items-center">
-                                        <div class="col">
-                                            <!-- Heading -->
-                                            <h4 class="fs-base fw-normal text-body-secondary mb-1"><?= ((admin_has_permission('supervisor')) ? 'Gold' : 'Cash'); ?> Balance</h4>
+                            <div class="row g-3">
+                                <div class="col-6 col-md-6 mb-4 mb-xxl-0">
+                                    <div class="card bg-body-tertiary border-transparent">
+                                        <div class="card-body">
+                                            <div class="row align-items-center">
+                                                <div class="col">
+                                                    <!-- Heading -->
+                                                    <h4 class="fs-base fw-normal text-body-secondary mb-1">Logs</h4>
 
-                                            <!-- Text -->
-                                            <div class="fs-5 fw-semibold" id="sal-capital"><?= ((admin_has_permission('supervisor')) ? money(remaining_gold_balance($admin_id)) : money(_capital($admin_id)['today_balance'])); ?></div>
+                                                    <!-- Text -->
+                                                    <div class="fs-5 fw-semibold" id="profit-loss"><?= count_logs($admin_id); ?></div>
+                                                </div>
+                                                <div class="col-auto">
+                                                    <!-- Avatar -->
+                                                    <div class="avatar avatar-lg bg-body text-warning">
+                                                        <i class="fs-4" data-duoicon="align-bottom"></i>
+                                                    </div>
+                                                </div>
+                                            </div>
                                         </div>
-                                        <div class="col-auto">
-                                            <!-- Avatar -->
-                                            <div class="avatar avatar-lg bg-body text-warning">
-                                                <i class="fs-4" data-duoicon="credit-card"></i>
+                                    </div>
+                                </div>
+                                <div class="col-6 col-md-6 mb-4 mb-xxl-0">
+                                    <div class="card bg-body-tertiary border-transparent">
+                                        <div class="card-body">
+                                            <div class="row align-items-center">
+                                                <div class="col">
+                                                    <!-- Heading -->
+                                                    <h4 class="fs-base fw-normal text-body-secondary mb-1">Last logged in</h4>
+
+                                                    <!-- Text -->
+                                                    <div class="fs-5 fw-semibold" id="total-pushes"><?= pretty_date($admin_data["admin_last_login"]); ?></div>
+                                                </div>
+                                                <div class="col-auto">
+                                                    <!-- Avatar -->
+                                                    <div class="avatar avatar-lg bg-body text-warning">
+                                                        <i class="fs-4" data-duoicon="align-bottom"></i>
+                                                    </div>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
 
-                        <div class="col-12 col-md-6 mb-4 mb-xxl-0">
-                            <div class="card bg-body-tertiary border-transparent">
-                                <div class="card-body">
-                                    <div class="row align-items-center">
-                                        <div class="col">
-                                            <!-- Heading -->
-                                            <h4 class="fs-base fw-normal text-body-secondary mb-1">Trades</h4>
-
-                                            <!-- Text -->
-                                            <div class="fs-5 fw-semibold" id="expenses"><?php $tst = total_sale_amount_today($admin_id, 'exp'); echo $tst["sum"]; ?></div>
-                                            <p class="mt-1">
-                                                <span class="text-success text-xs"><i class="fas fa-arrow-up me-1"></i>Count: </span>
-                                                <span class="text-muted text-xs text-opacity-75" id="sup-balance"><?= $tst["count"]; ?></span>
-                                            </p>
-                                        </div>
-                                        <div class="col-auto">
-                                            <!-- Avatar -->
-                                            <div class="avatar avatar-lg bg-body text-warning">
-                                                <i class="fs-4" data-duoicon="clipboard"></i>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="col-12 col-md-6 mb-4 mb-xxl-0">
-                            <div class="card bg-body-tertiary border-transparent">
-                                <div class="card-body">
-                                    <div class="row align-items-center">
-                                        <div class="col">
-                                            <!-- Heading -->
-                                            <h4 class="fs-base fw-normal text-body-secondary mb-1">Deleted Trades</h4>
-
-                                            <!-- Text -->
-                                            <div class="fs-5 fw-semibold" id="expenses"><?php $dtst = total_sale_amount_today($admin_id, 'delete', 'exp'); echo $dtst["sum"]; ?></div>
-                                            <p class="mt-1">
-                                                <span class="text-success text-xs"><i class="fas fa-arrow-up me-1"></i>Count: </span>
-                                                <span class="text-muted text-xs text-opacity-75" id="sup-balance"><?= $dtst["count"]; ?></span>
-                                            </p>
-                                        </div>
-                                        <div class="col-auto">
-                                            <!-- Avatar -->
-                                            <div class="avatar avatar-lg bg-body text-danger">
-                                                <i class="fs-4" data-duoicon="clipboard"></i>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <?php if (admin_has_permission("salesperson")): ?>
-                        <div class="col-12 col-md-6 mb-4 mb-xxl-0">
-                            <div class="card bg-body-tertiary border-transparent">
-                                <div class="card-body">
-                                    <div class="row align-items-center">
-                                        <div class="col">
-                                            <!-- Heading -->
-                                            <h4 class="fs-base fw-normal text-body-secondary mb-1">Expenses</h4>
-
-                                            <!-- Text -->
-                                            <div class="fs-5 fw-semibold"><?php $exp = total_expenditure_today($admin_id); echo $exp["sum"]; ?></div>
-                                            <p class="mt-1">
-                                                <span class="text-success text-xs"><i class="fas fa-arrow-up me-1"></i>Count: </span>
-                                                <span class="text-muted text-xs text-opacity-75"><?= $exp["count"]; ?></span>
-                                            </p>
-                                        </div>
-                                        <div class="col-auto">
-                                            <!-- Avatar -->
-                                            <div class="avatar avatar-lg bg-body text-warning">
-                                                <i class="fs-4" data-duoicon="clipboard"></i>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="col-12 col-md-6 mb-4 mb-xxl-0">
-                            <div class="card bg-body-tertiary border-transparent">
-                                <div class="card-body">
-                                    <div class="row align-items-center">
-                                        <div class="col">
-                                            <!-- Heading -->
-                                            <h4 class="fs-base fw-normal text-body-secondary mb-1">Deleted Expenses</h4>
-
-                                            <!-- Text -->
-                                            <div class="fs-5 fw-semibold" id="expenses"><?php $del_exp = total_expenditure_today($admin_id, $option = 'delete'); echo $del_exp["sum"]; ?></div>
-                                            <p class="mt-1">
-                                                <span class="text-success text-xs"><i class="fas fa-arrow-up me-1"></i>Count: </span>
-                                                <span class="text-muted text-xs text-opacity-75" id="sup-balance"><?= $del_exp["count"]; ?></span>
-                                            </p>
-                                        </div>
-                                        <div class="col-auto">
-                                            <!-- Avatar -->
-                                            <div class="avatar avatar-lg bg-body text-danger">
-                                                <i class="fs-4" data-duoicon="clipboard"></i>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <?php endif; ?>
-                        <div class="col-12 col-md-6 col-xxl-4 mb-4 mb-xxl-0">
-                            <div class="card bg-body-tertiary border-transparent">
-                                <div class="card-body">
-                                    <div class="row align-items-center">
-                                        <div class="col">
-                                            <!-- Heading -->
-                                            <h4 class="fs-base fw-normal text-body-secondary mb-1">Total Pushes</h4>
-
-                                            <!-- Text -->
-                                            <div class="fs-5 fw-semibold" id="total-trades"><?php $tp = get_total_pushes($conn, $admin_id, date("Y-m-d")); echo money($tp["sum"]); ?></div>
-                                            <p class="mt-1">
-                                                <span class="text-success text-xs"><i class="fas fa-arrow-up me-1"></i>Count: </span>
-                                                <span class="text-muted text-xs text-opacity-75" id=""><?= $tp["count"]; ?></span>
-                                            </p>
-                                        </div>
-                                        <div class="col-auto">
-                                            <!-- Avatar -->
-                                            <div class="avatar avatar-lg bg-body text-warning">
-                                                <i class="fs-4" data-duoicon="bell-badge"></i>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="col-12 col-md-6 col-xxl-4 mb-4 mb-xxl-0">
-                            <div class="card bg-body-tertiary border-transparent">
-                                <div class="card-body">
-                                    <div class="row align-items-center">
-                                        <div class="col">
-                                            <!-- Heading -->
-                                            <h4 class="fs-base fw-normal text-body-secondary mb-1">Send Pushes (<?= ((admin_has_permission("supervisor")) ? 'Money' : 'Gold'); ?>)</h4>
-
-                                            <!-- Text -->
-                                            <div class="fs-5 fw-semibold" id="total-trades"><?php $ps = get_total_send_push($conn, $admin_id, date("Y-m-d")); echo money($ps["sum"]); ?></div>
-                                            <p class="mt-1">
-                                                <span class="text-success text-xs"><i class="fas fa-arrow-up me-1"></i>Count: </span>
-                                                <span class="text-muted text-xs text-opacity-75" id=""><?= $ps["count"]; ?></span>
-                                            </p>
-                                        </div>
-                                        <div class="col-auto">
-                                            <!-- Avatar -->
-                                            <div class="avatar avatar-lg bg-body text-warning">
-                                                <i class="fs-4" data-duoicon="bell-badge"></i>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="col-12 col-md-6 col-xxl-4 mb-4 mb-xxl-0">
-                            <div class="card bg-body-tertiary border-transparent">
-                                <div class="card-body">
-                                    <div class="row align-items-center">
-                                        <div class="col">
-                                            <!-- Heading -->
-                                            <h4 class="fs-base fw-normal text-body-secondary mb-1">Receive Pushes (<?= ((admin_has_permission("supervisor")) ? 'Gold' : 'Money'); ?>)</h4>
-
-                                            <!-- Text -->
-                                            <div class="fs-5 fw-semibold" id="total-trades"><?php $pr = get_total_receive_push($conn, $admin_id, date("Y-m-d")); echo money($pr["sum"]); ?></div>
-                                            <p class="mt-1">
-                                                <span class="text-success text-xs"><i class="fas fa-arrow-up me-1"></i>Count: </span>
-                                                <span class="text-muted text-xs text-opacity-75" id=""><?= $pr['count']; ?></span>
-                                            </p>
-                                        </div>
-                                        <div class="col-auto">
-                                            <!-- Avatar -->
-                                            <div class="avatar avatar-lg bg-body text-warning">
-                                                <i class="fs-4" data-duoicon="bell-badge"></i>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
                         </div>
                     </div>
-
-                    <div class="row g-3">
-                        <div class="col-6 col-md-6 mb-4 mb-xxl-0">
-                            <div class="card bg-body-tertiary border-transparent">
-                                <div class="card-body">
-                                    <div class="row align-items-center">
-                                        <div class="col">
-                                            <!-- Heading -->
-                                            <h4 class="fs-base fw-normal text-body-secondary mb-1">Logs</h4>
-
-                                            <!-- Text -->
-                                            <div class="fs-5 fw-semibold" id="profit-loss"><?= count_logs($admin_id); ?></div>
-                                        </div>
-                                        <div class="col-auto">
-                                            <!-- Avatar -->
-                                            <div class="avatar avatar-lg bg-body text-warning">
-                                                <i class="fs-4" data-duoicon="align-bottom"></i>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-6 col-md-6 mb-4 mb-xxl-0">
-                            <div class="card bg-body-tertiary border-transparent">
-                                <div class="card-body">
-                                    <div class="row align-items-center">
-                                        <div class="col">
-                                            <!-- Heading -->
-                                            <h4 class="fs-base fw-normal text-body-secondary mb-1">Last logged in</h4>
-
-                                            <!-- Text -->
-                                            <div class="fs-5 fw-semibold" id="total-pushes"><?= pretty_date($admin_data["admin_last_login"]); ?></div>
-                                        </div>
-                                        <div class="col-auto">
-                                            <!-- Avatar -->
-                                            <div class="avatar avatar-lg bg-body text-warning">
-                                                <i class="fs-4" data-duoicon="align-bottom"></i>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <div class="row mb-8">
-                        <div class="col-12 col-md-6 col-xxl mb-4 mb-xxl-0">
-                            <div class="card bg-body-tertiary border-transparent">
-                                <div class="card-body">
-                                    <div class="row align-items-center">
-                                        <div class="col">
-                                            <!-- Heading -->
-                                            <h4 class="fs-sm fw-normal text-body-secondary mb-1">Gram</h4>
-
-                                            <!-- Text -->
-                                            <div class="fs-4 fw-semibold" id="total-gram"><?= sum_up_grams($conn, $admin_id); ?></div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-12 col-md-6 col-xxl mb-4 mb-xxl-0">
-                            <div class="card bg-body-tertiary border-transparent">
-                                <div class="card-body">
-                                    <div class="row align-items-center">
-                                        <div class="col">
-                                            <!-- Heading -->
-                                            <h4 class="fs-sm fw-normal text-body-secondary mb-1">Volume</h4>
-
-                                            <!-- Text -->
-                                            <div class="fs-4 fw-semibold" id="total-volume"><?= sum_up_volume($conn, $admin_id); ?></div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-12 col-md-6 col-xxl mb-4 mb-xxl-0">
-                            <div class="card bg-body-tertiary border-transparent">
-                                <div class="card-body">
-                                    <div class="row align-items-center">
-                                        <div class="col">
-                                            <!-- Heading -->
-                                            <h4 class="fs-sm fw-normal text-body-secondary mb-1">Density</h4>
-
-                                            <!-- Text -->
-                                            <div class="fs-4 fw-semibold" id="total-density"><?= sum_up_density($conn, $admin_id); ?></div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-12 col-md-6 col-xxl mb-4 mb-xxl-0">
-                            <div class="card bg-body-tertiary border-transparent">
-                                <div class="card-body">
-                                    <div class="row align-items-center">
-                                        <div class="col">
-                                            <!-- Heading -->
-                                            <h4 class="fs-sm fw-normal text-body-secondary mb-1">Pounds</h4>
-
-                                            <!-- Text -->
-                                            <div class="fs-4 fw-semibold" id="total-pounds"><?= sum_up_pounds($conn, $admin_id); ?></div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-12 col-md-6 col-xxl mb-md-0">
-                            <div class="card bg-body-tertiary border-transparent">
-                                <div class="card-body">
-                                    <div class="row align-items-center">
-                                        <div class="col">
-                                            <!-- Heading -->
-                                            <h4 class="fs-sm fw-normal text-body-secondary mb-1">Carat</h4>
-
-                                            <!-- Text -->
-                                            <div class="fs-4 fw-semibold" id="total-carat"><?= sum_up_carat($conn, $admin_id); ?></div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
                 </div>
             </div>
         </div>
