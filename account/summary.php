@@ -194,10 +194,10 @@
                                             <h4 class="fs-base fw-normal text-body-secondary mb-1">Expenses</h4>
 
                                             <!-- Text -->
-                                            <div class="fs-5 fw-semibold" id="expenses">0.00</div>
+                                            <div class="fs-5 fw-semibold"><?php $exp = total_expenditure_today($admin_id); echo $exp["sum"]; ?></div>
                                             <p class="mt-1">
                                                 <span class="text-success text-xs"><i class="fas fa-arrow-up me-1"></i>Count: </span>
-                                                <span class="text-muted text-xs text-opacity-75" id="sup-balance">0</span>
+                                                <span class="text-muted text-xs text-opacity-75"><?= $exp["count"]; ?></span>
                                             </p>
                                         </div>
                                         <div class="col-auto">
@@ -220,10 +220,10 @@
                                             <h4 class="fs-base fw-normal text-body-secondary mb-1">Deleted Expenses</h4>
 
                                             <!-- Text -->
-                                            <div class="fs-5 fw-semibold" id="expenses">0.00</div>
+                                            <div class="fs-5 fw-semibold" id="expenses"><?php $del_exp = total_expenditure_today($admin_id, $option = 'delete'); echo $del_exp["sum"]; ?></div>
                                             <p class="mt-1">
                                                 <span class="text-success text-xs"><i class="fas fa-arrow-up me-1"></i>Count: </span>
-                                                <span class="text-muted text-xs text-opacity-75" id="sup-balance">0</span>
+                                                <span class="text-muted text-xs text-opacity-75" id="sup-balance"><?= $del_exp["count"]; ?></span>
                                             </p>
                                         </div>
                                         <div class="col-auto">

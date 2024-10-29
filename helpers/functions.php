@@ -771,7 +771,7 @@ function total_expenditure_today($admin, $option = null) {
 	$sql = "
 		SELECT 
 			SUM(sale_total_amount) AS total,
-			COUNT(id) AS c
+			COUNT(jspence_daily.id) AS c
 		FROM `jspence_sales` 
 		INNER JOIN jspence_daily
 		ON jspence_daily.daily_id = jspence_sales.sale_daily
@@ -785,7 +785,7 @@ function total_expenditure_today($admin, $option = null) {
 	}
 
 	$statement = $conn->prepare($sql);
-	$statement->execute(['exp', (($option != null) ? 1 : 0), 0]);
+	$statement->execute(['exp', (($option == 'delete') ? 1 : 0), 0]);
 	$row = $statement->fetchAll();
 
 	$array = [
