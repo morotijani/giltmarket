@@ -48,12 +48,12 @@
                 <a class="btn btn-light d-block" href="<?= PROOT; ?>"> <span class="material-symbols-outlined me-1">dashboard</span> Go to dashboard </a>
             </div>
             <div class="col-6 col-sm-auto">
-                <a class="btn btn-light d-block" href="#"> <span class="material-symbols-outlined me-1">money_off</span> Print page </a>
+                <a class="btn btn-light d-block" href="javascript:;" onclick="printPageArea('printableArea')"> <span class="material-symbols-outlined me-1">money_off</span> Print page </a>
             </div>
         </div>
 
         <!-- Page content -->
-        <div class="row">
+        <div class="row" id="printableArea">
             <div class="col-12">
                 <!-- Filters -->
                 <div class="card card-line bg-body-tertiary border-transparent mb-7">
@@ -475,4 +475,11 @@
 		setInterval(updateTime, 1000);
 	});
 
+    function printPageArea(areaID){
+        var printContent = document.getElementById(areaID).innerHTML;
+        var originalContent = document.body.innerHTML;
+        document.body.innerHTML = printContent;
+        window.print();
+        document.body.innerHTML = originalContent;
+    }
 </script>
