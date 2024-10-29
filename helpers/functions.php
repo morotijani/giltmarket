@@ -796,14 +796,14 @@ function total_expenditure_today($admin, $option = null) {
 	return $array;
 }
 
-// get total amount of orders today
+// get total amount of orders with "expenditure" today
 function total_sale_amount_today($admin) {
 	global $conn;
 	$today = date('Y-m-d');
 
 	$where = '';
 	if (!admin_has_permission()) {
-		$where = ' AND sale_by = "' . $admin . '" ';
+		$where = ' AND sale_by = "' . $admin . '" AND CAST(jspence_sales.createdAt AS date) = "' . $today . '" ';
 	}
 
 	// fetch today total amount
@@ -813,12 +813,11 @@ function total_sale_amount_today($admin) {
 		INNER JOIN jspence_daily
 		ON jspence_daily.daily_id = jspence_sales.sale_daily
 		WHERE jspence_sales.sale_status = ? 
-		AND CAST(jspence_sales.createdAt AS date) = ? 
 		-- AND jspence_daily.daily_capital_status = ?
 		$where
 	";
 	$statement = $conn->prepare($thisDaySql);
-	$statement->execute([0, $today]);
+	$statement->execute([0]);
 	$thisDayrow = $statement->fetchAll();
 
 	return $thisDayrow[0]['total'] ?? 0;

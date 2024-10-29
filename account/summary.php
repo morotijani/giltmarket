@@ -243,7 +243,7 @@
                                     <div class="row align-items-center">
                                         <div class="col">
                                             <!-- Heading -->
-                                            <h4 class="fs-base fw-normal text-body-secondary mb-1">Total Pushes <?= ((admin_has_permission("supervisor")) ? '' : '(Money)'); ?></h4>
+                                            <h4 class="fs-base fw-normal text-body-secondary mb-1">Total Pushes</h4>
 
                                             <!-- Text -->
                                             <div class="fs-5 fw-semibold" id="total-trades"><?php $tp = get_total_pushes($conn, $admin_id, date("Y-m-d")); echo money($tp["sum"]); ?></div>
