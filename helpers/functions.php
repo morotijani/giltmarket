@@ -811,12 +811,13 @@ function total_sale_amount_today($admin, $option = null) {
 		WHERE jspence_sales.sale_status = ? 
 		-- AND jspence_daily.daily_capital_status = ?
 	";
+	
 	if (!admin_has_permission()) {
 		$sql .= " AND sale_by = '" . $admin . "' AND CAST(jspence_sales.createdAt AS date) = '" . $today . "' ";
 	}
 
-	if ($option != null) {
-		$sql .= " AND sale_type != 'exp'";
+	if ($option == 'exp') {
+		$sql .= " AND sale_type != '" . $option . "'";
 	}
 
 	$statement = $conn->prepare($sql);
