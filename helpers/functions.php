@@ -796,31 +796,39 @@ function total_expenditure_today($admin, $option = null) {
 	return $array;
 }
 
-// get total amount of orders with "expenditure" today
-function total_sale_amount_today($admin) {
+// get total amount of sales with "expenditure" today
+function total_sale_amount_today($admin, $option = null) {
 	global $conn;
 	$today = date('Y-m-d');
 
-	$where = '';
-	if (!admin_has_permission()) {
-		$where = ' AND sale_by = "' . $admin . '" AND CAST(jspence_sales.createdAt AS date) = "' . $today . '" ';
-	}
-
-	// fetch today total amount
-	$thisDaySql = "
-		SELECT SUM(sale_total_amount) AS total
+	$sql = "
+		SELECT 
+			SUM(sale_total_amount) AS total, 
+			COUNT(jspence_sales.id) AS c
 		FROM `jspence_sales` 
 		INNER JOIN jspence_daily
 		ON jspence_daily.daily_id = jspence_sales.sale_daily
 		WHERE jspence_sales.sale_status = ? 
 		-- AND jspence_daily.daily_capital_status = ?
-		$where
 	";
-	$statement = $conn->prepare($thisDaySql);
+	if (!admin_has_permission()) {
+		$sql .= " AND sale_by = '" . $admin . "' AND CAST(jspence_sales.createdAt AS date) = '" . $today . "' ";
+	}
+
+	if ($option != null) {
+		$sql .= " AND sale_type != 'exp'";
+	}
+
+	$statement = $conn->prepare($sql);
 	$statement->execute([0]);
 	$thisDayrow = $statement->fetchAll();
 
-	return $thisDayrow[0]['total'] ?? 0;
+	$array = [		
+		"sum" => $thisDayrow[0]['total'] ?? 0,
+		"count" => $thisDayrow[0]['c']
+	];
+
+	return $array;
 }
 
 // get total amount of orders in current month
