@@ -74,7 +74,7 @@
                             </a>
                             <div class="collapse" id="dashboard">
                                 <nav class="nav nav-pills">
-                                    <a class="nav-link nav-child" href="<?= PROOT; ?>index"><?= _admin_position($admin_data['admin_permissions']); ?></a>
+                                    <a class="nav-link nav-child" href="<?= PROOT; ?>index"><?= ucwords(_admin_position($admin_data['admin_permissions'])); ?></a>
                                     <?php if (admin_has_permission()): ?>
                                     <a class="nav-link nav-child" href="<?= PROOT; ?>account/analytics">Analytics</a>
                                     <?php else: ?>

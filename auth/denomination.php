@@ -259,7 +259,7 @@ if (array_key_exists('postdata', $_SESSION)) {
                             <p class="text-end text-body-secondary mb-0">
                             <span class="fw-bold text-body">From:</span> <br />
                                 <span class="text-body"><?= ucwords($admin_data['admin_fullname']); ?></span> <br />
-                                Title: <?= _admin_position($admin_data['admin_permissions']); ?> <br />
+                                Title: <?= strtoupper(_admin_position($admin_data['admin_permissions'])); ?> <br />
                                 Admin ID: <?= $admin_id; ?> <br />
                                 Last Login: <?= pretty_date($admin_data['admin_last_login']); ?> <br />
                                 Denomination ID: <?= $denomination_id; ?>
