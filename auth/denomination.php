@@ -127,7 +127,7 @@ if (array_key_exists('postdata', $_SESSION)) {
             }
             $statement = $conn->prepare($sql);
             $daily_result = $statement->execute($data);
-            
+
             $message = "end-trade, remaining balance " . $capital_bal . ' sent to supervisor id: ' . $push_to;
             add_to_log($message, $admin_id);
         }
@@ -250,7 +250,7 @@ if (array_key_exists('postdata', $_SESSION)) {
                                 <?= ((admin_has_permission('salesperson')) ? 'Balance: ' . $capital_bal . '<br />' : ''); ?>
                                 <?= $brought_in_amount; ?><br />
                                 <?= $gained; ?>
-                                Total Push made: <?= money(get_total_push($conn, $admin_id, date("Y-m-d"))); ?>
+                                Total Push made: <?php $p = get_total_push($conn, $admin_id, date("Y-m-d")); echo money($p["sum"]); ?>
                             </p>
                         </div>
                         <div class="col-auto">

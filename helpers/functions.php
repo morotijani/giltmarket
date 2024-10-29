@@ -291,8 +291,59 @@ function get_pushes_made($admin, $today = null) {
 	return $output;
 }
 
+// fetch total push made
+function get_total_push($conn, $admin, $d) {
+	$query = "
+		SELECT 
+			SUM(push_amount) AS pamt, 
+			COUNT(id) AS c 
+		FROM jspence_pushes 
+		WHERE push_from = ? 
+		AND push_date = ?
+	";
+	$statement = $conn->prepare($query);
+	$result = $statement->execute([$admin, $d]);
+	$row = $statement->fetchAll();
 
+	$output = [];
+	if ($result) {
+		$a = (($row[0]['pamt'] == null || $row[0]['pamt'] == '0.00' || $row[0]['pamt'] == 0) ? 0 : $row[0]['pamt']);
+		$output = [
+			"sum" => $a, 
+			"count" => $row[0]["c"]
+		];
+	}
 
+	return $output;
+}
+
+// fetch total receive push
+function get_total_receive_push($conn, $admin, $d) {
+	$query = "
+		SELECT 
+			SUM(push_amount) AS pamt, 
+			COUNT(id) AS c 
+		FROM jspence_pushes 
+		WHERE push_to = ? 
+		AND push_date = ?
+	";
+	$statement = $conn->prepare($query);
+	$result = $statement->execute([$admin, $d]);
+	$row = $statement->fetchAll();
+
+	$output = [];
+	if ($result) {
+		$a = (($row[0]['pamt'] == null || $row[0]['pamt'] == '0.00' || $row[0]['pamt'] == 0) ? 0 : $row[0]['pamt']);
+		$output = [
+			"sum" => $a, 
+			"count" => $row[0]["c"]
+		];
+	}
+
+	return $output;
+}
+
+////////////////////////////////////////////////////////////////////////////////////
 
 function truncate($val, $f = "0") {
     if(($p = strpos($val, '.')) !== false) {
@@ -1357,21 +1408,4 @@ function get_admin_coffers_send($conn, $admin) {
 		return (($row['sum_send'] == null || $row['sum_send'] == '0.00') ? 0 : $row['sum_send']);
 	}
 	return 0;
-}
-
-// fetch total push made
-function get_total_push($conn, $admin, $d) {
-	$query = "
-		SELECT SUM(push_amount) AS pamt FROM jspence_pushes 
-		WHERE push_from = ? 
-		AND push_date = ?
-	";
-	$statement = $conn->prepare($query);
-	$result = $statement->execute([$admin, $d]);
-	$row = $statement->fetchAll();
-	$output = 0;
-	if ($result) {
-		$output = (($row[0]['pamt'] == null || $row[0]['pamt'] == '0.00' || $row[0]['pamt'] == 0) ? 0 : $row[0]['pamt']);
-	}
-	return $output;
 }
