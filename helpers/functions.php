@@ -291,8 +291,8 @@ function get_pushes_made($admin, $today = null) {
 	return $output;
 }
 
-// fetch total push made
-function get_total_push($conn, $admin, $d) {
+// fetch total send push made
+function get_total_send_push($conn, $admin, $d) {
 	$query = "
 		SELECT 
 			SUM(push_amount) AS pamt, 
@@ -319,14 +319,21 @@ function get_total_push($conn, $admin, $d) {
 
 // fetch total receive push
 function get_total_receive_push($conn, $admin, $d) {
+
+	$type = (admin_has_permission('supervisor') ? "gold" : "money");
+
 	$query = "
 		SELECT 
 			SUM(push_amount) AS pamt, 
 			COUNT(id) AS c 
 		FROM jspence_pushes 
 		WHERE push_to = ? 
-		AND push_date = ?
+		AND push_date = ? 
 	";
+	if  (!admin_has_permission()) {
+		$query .= " AND push_type = '" . $type . "'";
+	}
+
 	$statement = $conn->prepare($query);
 	$result = $statement->execute([$admin, $d]);
 	$row = $statement->fetchAll();
@@ -342,6 +349,22 @@ function get_total_receive_push($conn, $admin, $d) {
 
 	return $output;
 }
+
+// 
+function get_total_push($conn, $admin, $d) {
+
+	$s = get_total_send_push($conn, $admin, $d);
+	$r = get_total_receive_push($conn, $admin, $d);
+
+	$sum = ((float)$s["sum"] + $r["sum"]);
+	$count = ((int)$s["count"] + $r["count"]);
+
+	$array = [
+		"sum" => $sum, 
+		"count" => $count
+	];
+}
+
 
 ////////////////////////////////////////////////////////////////////////////////////
 
