@@ -1266,16 +1266,16 @@ function sum_up_grams($conn, $admin) {
 	$output = '';
 	$today = date("Y-m-d");
 
-	$where = '';
-	if (!admin_has_permission()) {
-		$where = " AND jspence_sales.sale_by = '" . $admin . "' AND CAST(createdAt AS date) = '" . $today . "'";
-	}
-	
 	$sql = "
 		SELECT SUM(sale_gram) AS g 
 		FROM jspence_sales 
 		WHERE sale_status = ?
 	";
+
+	if (!admin_has_permission()) {
+		$sql .= " AND jspence_sales.sale_by = '" . $admin . "' AND CAST(createdAt AS date) = '" . $today . "'";
+	}
+
 	$statement = $conn->prepare($sql);
 	$statement->execute([0]);
 	$row = $statement->fetchAll();
@@ -1288,16 +1288,16 @@ function sum_up_volume($conn, $admin) {
 	$output = '';
 	$today = date("Y-m-d");
 
-	$where = '';
-	if (!admin_has_permission()) {
-		$where = " AND jspence_sales.sale_by = '" . $admin . "' AND CAST(createdAt AS date) = '" . $today . "'";
-	}
-	
 	$sql = "
 		SELECT SUM(sale_volume) AS v 
 		FROM jspence_sales 
 		WHERE sale_status = ? 
 	";
+
+	if (!admin_has_permission()) {
+		$sql .= " AND jspence_sales.sale_by = '" . $admin . "' AND CAST(createdAt AS date) = '" . $today . "'";
+	}
+
 	$statement = $conn->prepare($sql);
 	$statement->execute([0]);
 	$row = $statement->fetchAll();
