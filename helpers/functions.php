@@ -151,7 +151,7 @@ function remaining_gold_balance($admin) {
 
 	// check if there is balance remain from the capital given
 
-
+	dnd($b);
 	return (($b >= 0) ? $b : 0);
 }
 

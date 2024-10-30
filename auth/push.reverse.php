@@ -32,12 +32,12 @@
 					if ($pin == $admin_data['admin_pin']) {
 
 						// check the balance of the person we are reversing from
-						if ($find[0]['push_to'] == 'coffers' || admin_has_permission('supervisor')) {
+						
+						if (admin_has_permission('salesperson')) {
+							$from_balance = remaining_gold_balance($find[0]["push_to"]); // get receivers balance _capital($find[0]['push_to'])['today_balance'];
+						} else if ($find[0]['push_to'] == 'coffers' || admin_has_permission('supervisor')) {
 							$from_balance = get_admin_coffers($conn, $admin_id); // find amount in coffers
-						} else {
-							if (admin_has_permission('salesperson')) {
-								$from_balance = remaining_gold_balance($admin_id); // get receivers balance _capital($find[0]['push_to'])['today_balance'];
-							}
+
 						}
 						dnd($from_balance);
 
