@@ -167,29 +167,30 @@
                     <div class="col">
                         <div class="vstack gap-3 gap-xl-6">
                             <div class="row g-3">
-                                <div class="col-12 col-md-6 mb-4 mb-xxl-0">
+
+                                <div class="col-12 col-md-4 mb-4 mb-xxl-0">
                                     <div class="card bg-body-tertiary border-transparent">
                                         <div class="card-body">
                                             <div class="row align-items-center">
                                                 <div class="col">
                                                     <!-- Heading -->
-                                                    <h4 class="fs-base fw-normal text-body-secondary mb-1">Capital</h4>
+                                                    <h4 class="fs-base fw-normal text-body-secondary mb-1"><?= ((admin_has_permission('supervisor')) ? 'Cash' : 'Gold'); ?> Acummulated</h4>
 
                                                     <!-- Text -->
-                                                    <div class="fs-5 fw-semibold" id="sup-capital"><?= money(_capital($admin_id)['today_capital']); ?></div>
+                                                    <div class="fs-5 fw-semibold" id="sal-capital"><?= money(total_amount_today($admin_id)); ?></div>
                                                 </div>
                                                 <div class="col-auto">
                                                     <!-- Avatar -->
                                                     <div class="avatar avatar-lg bg-body text-warning">
-                                                        <i class="fs-4" data-duoicon="briefcase"></i>
+                                                        <i class="fs-4" data-duoicon="credit-card"></i>
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-
-                                <div class="col-12 col-md-6 mb-4 mb-xxl-0">
+                                
+                                <div class="col-12 col-md-4 mb-4 mb-xxl-0">
                                     <div class="card bg-body-tertiary border-transparent">
                                         <div class="card-body">
                                             <div class="row align-items-center">
@@ -204,6 +205,28 @@
                                                     <!-- Avatar -->
                                                     <div class="avatar avatar-lg bg-body text-warning">
                                                         <i class="fs-4" data-duoicon="credit-card"></i>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-12 col-md-4 mb-4 mb-xxl-0">
+                                    <div class="card bg-body-tertiary border-transparent">
+                                        <div class="card-body">
+                                            <div class="row align-items-center">
+                                                <div class="col">
+                                                    <!-- Heading -->
+                                                    <h4 class="fs-base fw-normal text-body-secondary mb-1">Capital</h4>
+
+                                                    <!-- Text -->
+                                                    <div class="fs-5 fw-semibold" id="sup-capital"><?= money(_capital($admin_id)['today_capital']); ?></div>
+                                                </div>
+                                                <div class="col-auto">
+                                                    <!-- Avatar -->
+                                                    <div class="avatar avatar-lg bg-body text-warning">
+                                                        <i class="fs-4" data-duoicon="briefcase"></i>
                                                     </div>
                                                 </div>
                                             </div>
