@@ -87,15 +87,18 @@ function _capital($admin, $d = null) {
 		SELECT daily_id, daily_capital, daily_balance, daily_capital_status, jspence_admin.admin_permissions
 		FROM jspence_daily 
 		INNER JOIN jspence_admin 
-		ON jspence_admin.admin_id = jspence_daily.daily_to
+		ON jspence_admin.admin_id = jspence_daily.daily_to 
+		INNER JOIN jspence_pushes 
+		ON jspence_pushes.push_daily = jspence_daily.daily_id
 		WHERE jspence_daily.daily_date = ? 
 		AND jspence_daily.daily_to = ? 
 		AND jspence_admin.admin_id = ? 
 		AND jspence_daily.daily_capital_status = ? 
+		AND jspence_pushes.push_status = ?
 		LIMIT 1
 	";
 	$statement = $conn->prepare($sql);
-	$statement->execute([$today, $admin, $admin, 0]);
+	$statement->execute([$today, $admin, $admin, 0, 0]);
 	$rows = $statement->fetchAll();
 
 	$balance = null;
@@ -140,6 +143,7 @@ function remaining_gold_balance($admin) {
 		AND push_to != 'coffers' 
 		AND push_status = 0 
 		AND push_on = 'dialy' 
+		AND push_type = 'gold' 
 		AND push_date = '" . date("Y-m-d") . "'"
 	)->fetchAll();
 	

@@ -48,15 +48,19 @@
 							";
 							$statement = $conn->prepare($query);
 							$result = $statement->execute([1, $reason, $id]);
+							dnd($find[0]['push_daily']);
 							if ($result) {
 								if (admin_has_permission('salesperson')) {
+									// subtract from supervisor gold balance
 									$sql = "
 										UPDATE jspence_daily 
-										SET daily_balance = daily_balance + '" . $find[0]['push_amount'] . "' 
+										SET daily_balance = daily_balance - '" . $find[0]['push_amount'] . "' 
 										WHERE daily_id = ? 
 									";
 									$statement = $conn->prepare($sql);
 									$statement->execute([$find[0]['push_daily']]);
+
+									// add to salepersonnel gold accumulated
 								}
 
 								$_SESSION['flash_success'] = 'Push reversed successfully!';
