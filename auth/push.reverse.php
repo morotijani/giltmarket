@@ -32,14 +32,12 @@
 					if ($pin == $admin_data['admin_pin']) {
 
 						// check the balance of the person we are reversing from
-						
 						if (admin_has_permission('salesperson')) {
 							$from_balance = remaining_gold_balance($find[0]["push_to"]); // get receivers balance _capital($find[0]['push_to'])['today_balance'];
 						} else if ($find[0]['push_to'] == 'coffers' || admin_has_permission('supervisor')) {
 							$from_balance = get_admin_coffers($conn, $admin_id); // find amount in coffers
 
 						}
-						dnd($from_balance);
 
 						// incase the revesal amount is greater or equal to the remaining balance of the person we are reversing from, then we prevent reversal
 						if ($find[0]['push_amount'] <= $from_balance) {
@@ -54,7 +52,7 @@
 								if (admin_has_permission('salesperson')) {
 									$sql = "
 										UPDATE jspence_daily 
-										SET daily_balance = daily_balance - '" . $find[0]['push_amount'] . "' // do we subtract or add and the balance in the database is null
+										SET daily_balance = daily_balance + '" . $find[0]['push_amount'] . "' 
 										WHERE daily_id = ? 
 									";
 									$statement = $conn->prepare($sql);
