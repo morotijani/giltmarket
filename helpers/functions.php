@@ -821,7 +821,7 @@ function total_sale_amount_today($admin, $del = null, $option = null) {
 	}
 
 	$statement = $conn->prepare($sql);
-	$statement->execute([(($del == 'delete') ? 1 : 0)]);
+	$statement->execute([(($del == 'delete') ? 2 : 0)]);
 	$thisDayrow = $statement->fetchAll();
 
 	$array = [
