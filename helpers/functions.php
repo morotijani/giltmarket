@@ -804,24 +804,29 @@ function total_sale_amount_today($admin, $del = null, $option = null) {
 	$sql = "
 		SELECT 
 			SUM(sale_total_amount) AS total, 
-			COUNT(jspence_sales.id) AS c
+			COUNT(jspence_sales.id) AS c 
 		FROM `jspence_sales` 
 		INNER JOIN jspence_daily
 		ON jspence_daily.daily_id = jspence_sales.sale_daily
-		WHERE jspence_sales.sale_status = ? 
-		-- AND jspence_daily.daily_capital_status = ?
+		WHERE jspence_daily.daily_capital_status = ? 
 	";
+
+	if ($del == 'delete') {
+		$sql .= " AND jspence_sales.sale_status = 2 ";
+	} else {
+		$sql .= " AND (jspence_sales.sale_status = 0 OR  jspence_sales.sale_status = 1) ";
+	}
 
 	if (!admin_has_permission()) {
 		$sql .= " AND sale_by = '" . $admin . "' AND CAST(jspence_sales.createdAt AS date) = '" . $today . "' ";
 	}
 
 	if ($option == 'exp') {
-		$sql .= " AND sale_type != '" . $option . "'";
+		$sql .= " AND sale_type != 'exp' ";
 	}
 
 	$statement = $conn->prepare($sql);
-	$statement->execute([(($del == 'delete') ? 2 : 0)]);
+	$statement->execute([0]);
 	$thisDayrow = $statement->fetchAll();
 
 	$array = [
