@@ -33,10 +33,9 @@
 
 						// check the balance of the person we are reversing from
 						if (admin_has_permission('salesperson')) {
-							$from_balance = remaining_gold_balance($find[0]["push_to"]); // get receivers balance _capital($find[0]['push_to'])['today_balance'];
+							$from_balance = remaining_gold_balance($find[0]["push_to"]); // get receivers gold balance 
 						} else if ($find[0]['push_to'] == 'coffers' || admin_has_permission('supervisor')) {
 							$from_balance = get_admin_coffers($conn, $admin_id); // find amount in coffers
-
 						}
 
 						// incase the revesal amount is greater or equal to the remaining balance of the person we are reversing from, then we prevent reversal
@@ -48,19 +47,19 @@
 							";
 							$statement = $conn->prepare($query);
 							$result = $statement->execute([1, $reason, $id]);
-							dnd($find[0]['push_daily']);
 							if ($result) {
 								if (admin_has_permission('salesperson')) {
-									// subtract from supervisor gold balance
+									// add gold back to salepersonnel accummulated gold ..question mark look at total_amount_today()
 									$sql = "
 										UPDATE jspence_daily 
-										SET daily_balance = daily_balance - '" . $find[0]['push_amount'] . "' 
-										WHERE daily_id = ? 
+										SET daily_balance = daily_balance + '" . $find[0]['push_amount'] . "' 
+										WHERE daily_to = ? 
 									";
 									$statement = $conn->prepare($sql);
-									$statement->execute([$find[0]['push_daily']]);
+									$statement->execute([$admin_id]);
 
-									// add to salepersonnel gold accumulated
+
+
 								}
 
 								$_SESSION['flash_success'] = 'Push reversed successfully!';

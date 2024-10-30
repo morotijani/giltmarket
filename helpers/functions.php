@@ -94,7 +94,7 @@ function _capital($admin, $d = null) {
 		AND jspence_daily.daily_to = ? 
 		AND jspence_admin.admin_id = ? 
 		AND jspence_daily.daily_capital_status = ? 
-		AND jspence_pushes.push_status = ?
+		AND jspence_pushes.push_status = ? 
 		LIMIT 1
 	";
 	$statement = $conn->prepare($sql);
