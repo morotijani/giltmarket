@@ -1438,19 +1438,22 @@ function get_admin_coffers_received($conn, $admin) {
 }
 
 function get_admin_coffers_send($conn, $admin) {
-	$where = '';
-	if (!admin_has_permission()) {
-		$where = " AND jspence_coffers.coffers_for = '" . $admin . "' ";
-	}
 	$query = "
-		SELECT jspence_admin.admin_id, jspence_coffers.coffers_for, jspence_admin.admin_permissions, coffers_status, SUM(coffers_amount) AS sum_send 
+		SELECT 
+			jspence_admin.admin_id, 
+			jspence_coffers.coffers_for, 
+			jspence_admin.admin_permissions, 
+			coffers_status, 
+			SUM(coffers_amount) AS sum_send 
 		FROM jspence_coffers 
 		INNER JOIN jspence_admin 
 		ON jspence_admin.admin_id = jspence_coffers.coffers_for 
 		WHERE (jspence_admin.admin_permissions = 'admin,salesperson,supervisor' OR jspence_admin.admin_permissions = 'supervisor') 
-		$where 
 		AND coffers_status = ?
 	";
+	if (!admin_has_permission()) {
+		$query .= " AND jspence_coffers.coffers_for = '" . $admin . "' ";
+	}
 	$statement = $conn->prepare($query);
 	$statement->execute(['send']);
 	$rows = $statement->fetchAll();
