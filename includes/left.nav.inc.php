@@ -63,7 +63,7 @@
                         <div class="nav-item">
                             <a
                             class="nav-link nav-dashboard"
-                            href="<?= PROOT; ?>index#"
+                            href="javascript:;"
                             data-bs-toggle="collapse"
                             data-bs-target="#dashboard"
                             rol="button"
@@ -86,7 +86,7 @@
                         <div class="nav-item">
                             <a
                             class="nav-link nav-market"
-                            href="#"
+                            href="javascript:;"
                             data-bs-toggle="collapse"
                             data-bs-target="#market"
                             rol="button"
@@ -112,7 +112,7 @@
                         <div class="nav-item">
                             <a
                             class="nav-link nav-expenditure"
-                            href="#"
+                            href="javascript:;"
                             data-bs-toggle="collapse"
                             data-bs-target="#expenditure"
                             rol="button"
@@ -134,7 +134,7 @@
                         <div class="nav-item">
                             <a
                             class="nav-link nav-pushes"
-                            href="#"
+                            href="javascript:;"
                             data-bs-toggle="collapse"
                             data-bs-target="#pushes"
                             rol="button"
@@ -153,7 +153,7 @@
                         <div class="nav-item">
                             <a
                             class="nav-link nav-admins"
-                            href="#"
+                            href="javascript:;"
                             data-bs-toggle="collapse"
                             data-bs-target="#admins"
                             rol="button"
@@ -173,7 +173,7 @@
                         <div class="nav-item">
                             <a
                             class="nav-link nav-account"
-                            href="#"
+                            href="javascript:;"
                             data-bs-toggle="collapse"
                             data-bs-target="#account"
                             rol="button"
@@ -192,7 +192,7 @@
                         <div class="nav-item">
                             <a
                             class="nav-link nav-logs"
-                            href="#"
+                            href="javascript:;"
                             data-bs-toggle="collapse"
                             data-bs-target="#logs"
                             rol="button"
@@ -217,7 +217,7 @@
                             <div class="nav-item">
                                 <a class="nav-link nav-child" href="javascript:;">
                                     <span class="material-symbols-outlined me-3">sticky_note_2</span> Getting started
-                                    <span class="badge text-bg-primary ms-auto">v1.0.0</span>
+                                    <span class="badge text-bg-primary ms-auto">v0.0.6</span>
                                 </a>
                             </div>
                             <div class="nav-item">
