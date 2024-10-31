@@ -35,7 +35,9 @@
 						$from_balance = 0;
 						if (admin_has_permission('salesperson')) {
 							$from_balance = remaining_gold_balance($find[0]['push_to']);
-						} else if ($find[0]['push_to'] == 'coffers' || admin_has_permission('supervisor')) {
+						} else if (admin_has_permission('supervisor')) {
+							$from_balance = _capital($admin_id)['capital_balance'];
+						} else if ($find[0]['push_to'] == 'coffers' && admin_has_permission('supervisor')) {
 							$from_balance = get_admin_coffers($conn, $admin_id);
 						}
 						dnd($from_balance);

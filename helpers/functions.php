@@ -79,9 +79,7 @@ function find_capital_given_to($to, $today) {
 function _capital($admin, $d = null) {
 	global $conn;
 	$today = date('Y-m-d');
-	if ($d != null) {
-		$today = $d;
-	}
+	$today = (($d != null) ? $d : $today);
 
 	$sql = "
 		SELECT daily_id, daily_capital, daily_balance, daily_capital_status, jspence_admin.admin_permissions
