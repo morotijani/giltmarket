@@ -8,7 +8,7 @@
         admn_login_redirect();
     }
 
-	if (admin_has_permission()) {
+	if (!admin_has_permission('supervisor')) {
 		$_SESSION['flash_error'] = "What do you want?";
 		redirect(goBack());
 	}
@@ -32,11 +32,14 @@
 					if ($pin == $admin_data['admin_pin']) {
 
 						// check the balance of the person we are reversing from
-						if (admin_has_permission('salesperson')) {
-							$from_balance = remaining_gold_balance($find[0]["push_to"]); // get receivers gold balance 
-						} else if ($find[0]['push_to'] == 'coffers' || admin_has_permission('supervisor')) {
-							$from_balance = get_admin_coffers($conn, $admin_id); // find amount in coffers
+						if ($find[0]['push_to'] == 'coffers' || admin_has_permission('supervisor')) {
+							$from_balance = get_admin_coffers($conn, $admin_id);
+						} else {
+							if (admin_has_permission('salesperson')) {
+								$from_balance = _capital($find[0]['push_to'])['today_balance'];
+							}
 						}
+						dnd($from_balance);
 
 						// incase the revesal amount is greater or equal to the remaining balance of the person we are reversing from, then we prevent reversal
 						if ($find[0]['push_amount'] <= $from_balance) {
@@ -49,17 +52,13 @@
 							$result = $statement->execute([1, $reason, $id]);
 							if ($result) {
 								if (admin_has_permission('salesperson')) {
-									// add gold back to salepersonnel accummulated gold ..question mark look at total_amount_today()
 									$sql = "
 										UPDATE jspence_daily 
-										SET daily_balance = daily_balance + '" . $find[0]['push_amount'] . "' 
-										WHERE daily_to = ? 
+										SET daily_balance = daily_balance - '" . $find[0]['push_amount'] . "' // do we subtract or add and the balance in the database is null
+										WHERE daily_id = ? 
 									";
 									$statement = $conn->prepare($sql);
-									$statement->execute([$admin_id]);
-
-
-
+									$statement->execute([$find[0]['push_daily']]);
 								}
 
 								$_SESSION['flash_success'] = 'Push reversed successfully!';
