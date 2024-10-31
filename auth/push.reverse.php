@@ -54,7 +54,7 @@
 								if (admin_has_permission('salesperson')) {
 									$sql = "
 										UPDATE jspence_daily 
-										SET daily_balance = daily_balance - '" . $find[0]['push_amount'] . "' // do we subtract or add and the balance in the database is null
+										SET daily_balance = daily_balance + '" . $find[0]['push_amount'] . "' 
 										WHERE daily_id = ? 
 									";
 									$statement = $conn->prepare($sql);

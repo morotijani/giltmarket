@@ -754,6 +754,11 @@ function total_amount_today($admin) {
 	$get_pushed = $conn->query("SELECT SUM(push_amount) AS pamt FROM jspence_pushes WHERE push_from = '" . $admin . "' AND push_date = '" . $today . "' AND jspence_pushes.push_on = 'dialy'")->fetchAll();
 	$total_amount_pushed = $get_pushed[0]['pamt'] ?? 0;
 
+	// fetch all revese pushes
+	$reverse_pushes = $conn->query("SELECT SUM(push_amount) AS pamt FROM jspence_pushes WHERE push_from = '" . $admin . "' AND push_date = '" . $today . "' AND jspence_pushes.push_on = 'dialy' AND push_status = 1")->fetchAll();
+	$r_total_amount_pushed = $reverse_pushes[0]['pamt'] ?? 0;
+
+
 	if (admin_has_permission('salesperson') && $total_amount_traded <= 0) {
 		$total_amount_pushed = $total_amount_traded;
 	}
@@ -762,8 +767,8 @@ function total_amount_today($admin) {
 		$total_amount_traded = $total_amount_pushed;
 	}
 
-	// subtract send from today total amount
-	$total = (float)($total_amount_traded - $total_amount_pushed);
+	// sum total amount traded and subtrach pushes and add back reverse pushes
+	$total = (float)($total_amount_traded - $total_amount_pushed + $r_total_amount_pushed);
 	return $total;
 }
 
