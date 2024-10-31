@@ -8,7 +8,7 @@
         admn_login_redirect();
     }
 
-	if (!admin_has_permission('supervisor')) {
+	if (admin_has_permission()) {
 		$_SESSION['flash_error'] = "What do you want?";
 		redirect(goBack());
 	}
@@ -32,12 +32,11 @@
 					if ($pin == $admin_data['admin_pin']) {
 
 						// check the balance of the person we are reversing from
-						if ($find[0]['push_to'] == 'coffers' || admin_has_permission('supervisor')) {
+						$from_balance = 0;
+						if (admin_has_permission('salesperson')) {
+							$from_balance = remaining_gold_balance($find[0]['push_to']);
+						} else if ($find[0]['push_to'] == 'coffers' || admin_has_permission('supervisor')) {
 							$from_balance = get_admin_coffers($conn, $admin_id);
-						} else {
-							if (admin_has_permission('salesperson')) {
-								$from_balance = _capital($find[0]['push_to'])['today_balance'];
-							}
 						}
 						dnd($from_balance);
 
