@@ -1439,9 +1439,6 @@ function get_admin_coffers_send($conn, $admin) {
 		WHERE coffers_status = ? 
 		AND jspence_pushes.push_status = ?
 	";
-	if (!admin_has_permission()) {
-		$query .= " AND jspence_coffers.coffers_for = '" . $admin . "' ";
-	}
 	$statement = $conn->prepare($query);
 	$statement->execute(['send', 0]);
 	$rows = $statement->fetchAll();
