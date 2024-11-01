@@ -1436,7 +1436,8 @@ function get_admin_coffers_send($conn, $admin) {
 		FROM jspence_coffers 
 		INNER JOIN jspence_admin 
 		ON jspence_admin.admin_id = jspence_coffers.coffers_for 
-		WHERE coffers_status = ?
+		WHERE coffers_status = ? 
+		AND jspence_pushes.push_status = ?
 	";
 	if (!admin_has_permission()) {
 		$query .= " AND jspence_coffers.coffers_for = '" . $admin . "' ";
