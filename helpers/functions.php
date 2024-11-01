@@ -1443,7 +1443,7 @@ function get_admin_coffers_send($conn, $admin) {
 		$query .= " AND jspence_coffers.coffers_for = '" . $admin . "' ";
 	}
 	$statement = $conn->prepare($query);
-	$statement->execute(['send']);
+	$statement->execute(['send', 0]);
 	$rows = $statement->fetchAll();
 	$row = $rows[0];
 
