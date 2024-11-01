@@ -1435,7 +1435,7 @@ function get_admin_coffers_send($conn, $admin) {
 			SUM(coffers_amount) AS sum_send 
 		FROM jspence_coffers 
 		INNER JOIN jspence_pushes 
-		ON jspence_pushes.push_daily = jspence_coffers.coffers_for 
+		ON jspence_pushes.push_daily = jspence_coffers.coffers_id 
 		WHERE coffers_status = ? 
 		AND jspence_pushes.push_status = ?
 	";
