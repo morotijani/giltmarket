@@ -1416,8 +1416,8 @@ function get_admin_coffers_received($conn, $admin) {
 			jspence_coffers.coffers_for, 
 			jspence_admin.admin_permissions, 
 			coffers_status, 
-			SUM(coffers_amount) AS sum_received, 
-			SUB() 
+			SUM(coffers_amount) AS sum_received 
+			-- SUB() 
 		FROM jspence_coffers 
 		INNER JOIN jspence_admin 
 		ON jspence_admin.admin_id = jspence_coffers.coffers_for 
