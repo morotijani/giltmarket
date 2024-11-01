@@ -1434,8 +1434,6 @@ function get_admin_coffers_send($conn, $admin) {
 		SELECT 
 			jspence_admin.admin_id, 
 			jspence_coffers.coffers_for, 
-			jspence_admin.admin_permissions, 
-			coffers_status, 
 			SUM(coffers_amount) AS sum_send 
 		FROM jspence_coffers 
 		INNER JOIN jspence_admin 
