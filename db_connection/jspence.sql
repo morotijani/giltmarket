@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Oct 23, 2024 at 06:57 AM
+-- Generation Time: Nov 02, 2024 at 10:04 PM
 -- Server version: 10.4.28-MariaDB
 -- PHP Version: 8.2.4
 
@@ -67,12 +67,12 @@ CREATE TABLE `jspence_admin` (
 --
 
 INSERT INTO `jspence_admin` (`id`, `admin_id`, `admin_fullname`, `admin_email`, `admin_phone`, `admin_password`, `admin_pin`, `admin_profile`, `admin_joined_date`, `admin_last_login`, `admin_permissions`, `admin_status`) VALUES
-(1, 'c454b2bf-9b1e-409a-8b0d-d84ab82cf22d', 'alhaji priest babson', 'admin@jspence.com', NULL, '$2y$10$dHoeddyBK4Z23jqePowDO.JPAeXDugtyZN6.Zwc8hy.033Z1/5vbq', 1234, 'assets/media/admin-profiles/971aaa4a3274e711f35f7201d56d19c9.png', '2020-02-21 21:01:31', '2024-10-19 11:22:11', 'admin,salesperson,supervisor', 0),
+(1, 'c454b2bf-9b1e-409a-8b0d-d84ab82cf22d', 'alhaji priest babson', 'admin@jspence.com', NULL, '$2y$10$dHoeddyBK4Z23jqePowDO.JPAeXDugtyZN6.Zwc8hy.033Z1/5vbq', 1234, 'assets/media/admin-profiles/971aaa4a3274e711f35f7201d56d19c9.png', '2020-02-21 21:01:31', '2024-10-24 19:20:17', 'admin,salesperson,supervisor', 0),
 (11, '16acd24f-0ad7-42d9-a565-a8863f4a8fa2', 'tijani moro', 'tijani@jspence.com', NULL, '$2y$10$6VM4wWjd3Ts2snR4KDRS9On2bRxzXJ0V/TXplZHs0ZL93y.G/RqWu', 1234, NULL, '2024-06-28 05:48:12', '2024-09-15 22:49:51', 'salesperson', 1),
 (12, 'e01de4bc-10e7-47cc-b2df-c2e1bdd8997f', 'inuwa mohammed umar', 'inuwa@jspence.com', NULL, '$2y$10$7mg6BRD9UXqQL8wxUiCkQe5IqceroHPGvq8wMgiiTCpFEOYsUdcNq', 2222, NULL, '2024-06-28 05:49:20', '2024-10-19 10:17:58', 'salesperson', 0),
 (13, '404d51db-6533-4586-b8d5-17c27c2f0607', 'henry asamoah', 'henry@email.com', NULL, '$2y$10$.pYicI6NOTj8Rd8S878EB.Hn6uoxCQXkix7uJgXlvxx1eR8iV1dLq', 1234, NULL, '2024-07-01 14:21:26', '2024-09-10 15:12:58', 'salesperson', 0),
 (14, '59e29767-cc32-4b2b-9abf-8422e2e45dcd', 'Adiza husein', 'adiza@email.com', NULL, '$2y$10$cC84GJNvi4Tq/6gm.r.ft.G9YEZ267sz3JQ/B/b.Nl5Cz6Fa64z9S', 1234, NULL, '2024-07-01 22:33:16', NULL, 'admin,salesperson,supervisor', 0),
-(15, '986785d8-7b98-4747-a0b2-8b4f4b239e06', 'emmanuel atim', 'emma@jspence.com', NULL, '$2y$10$lwzmqYK9BHTWrHL0FNxoju1FCQQfOY78T8nb9kEeH0dTzvRCannvW', 1234, NULL, '2024-09-09 17:19:05', '2024-10-19 11:43:45', 'supervisor', 0);
+(15, '986785d8-7b98-4747-a0b2-8b4f4b239e06', 'emmanuel atim', 'emma@jspence.com', NULL, '$2y$10$lwzmqYK9BHTWrHL0FNxoju1FCQQfOY78T8nb9kEeH0dTzvRCannvW', 1234, NULL, '2024-09-09 17:19:05', '2024-10-24 19:19:14', 'supervisor', 0);
 
 -- --------------------------------------------------------
 
@@ -85,7 +85,7 @@ CREATE TABLE `jspence_coffers` (
   `coffers_id` varchar(100) DEFAULT NULL,
   `coffers_amount` double(10,2) DEFAULT NULL,
   `coffers_for` varchar(100) DEFAULT NULL,
-  `coffers_status` enum('receive','send') DEFAULT NULL,
+  `coffers_status` enum('receive','send','reverse') DEFAULT NULL,
   `coffers_receive_through` enum('cash','trades','end_trade_balance') DEFAULT NULL,
   `createdAt` timestamp NULL DEFAULT current_timestamp(),
   `updatedAt` datetime DEFAULT NULL ON UPDATE current_timestamp()
@@ -243,7 +243,9 @@ ALTER TABLE `jspence_coffers`
   ADD PRIMARY KEY (`id`),
   ADD KEY `coffer_id` (`coffers_id`),
   ADD KEY `coffers_send_to` (`coffers_for`),
-  ADD KEY `createdAt` (`createdAt`);
+  ADD KEY `createdAt` (`createdAt`),
+  ADD KEY `coffers_status` (`coffers_status`),
+  ADD KEY `coffers_receive_through` (`coffers_receive_through`);
 
 --
 -- Indexes for table `jspence_daily`
