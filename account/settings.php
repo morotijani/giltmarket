@@ -89,7 +89,7 @@
                 <!-- Nav -->
                 <nav class="nav nav-pills position-sticky flex-column mb-8" id="accountNav" style="top: 2rem">
                     <a class="nav-link" href="<?= PROOT; ?>account/profile">General</a>
-                    <a class="nav-link" href="javascript:;" name="work">Work</a>
+                    <a class="nav-link" href="#perfomance">Performance</a>
                     <a class="nav-link" href="<?= PROOT; ?>account/settings">Update account</a>
                     <a class="nav-link" href="<?= PROOT; ?>account/change-password">Change password</a>
                     <a class="nav-link text-danger" href="<?= PROOT; ?>auth/logout">Logout</a>
@@ -153,6 +153,39 @@
                         </form>
                     </div>
                 </section>
+
+                <!-- Security -->
+                    <section class="card bg-body-tertiary border-transparent" id="perfomance">
+                    <div class="card-body">
+                        <h2 class="fs-5 mb-1">Security</h2>
+                        <p class="text-body-secondary">Secure your account with a strong password and two-factor authentication.</p>
+                        <div class="card border-transparent mb-4">
+                        <div class="card-body py-0">
+                            <ul class="list-group list-group-flush">
+                            <li class="list-group-item px-0">
+                                <div class="row align-items-center">
+                                <div class="col-auto">
+                                    <span class="material-symbols-outlined text-body-tertiary">phone_iphone</span>
+                                </div>
+                                <div class="col">iPhone 15 <small class="text-body-secondary ms-1">Seattle, Washington · 2 hours ago</small></div>
+                                </div>
+                            </li>
+                            <li class="list-group-item px-0">
+                                <div class="row align-items-center">
+                                <div class="col-auto">
+                                    <span class="material-symbols-outlined text-body-tertiary">laptop_mac</span>
+                                </div>
+                                <div class="col">MacBook Pro <small class="text-body-secondary ms-1">San Francisco, California · 1 day ago</small></div>
+                                </div>
+                            </li>
+                            </ul>
+                        </div>
+                        </div>
+                        <button class="btn btn-dark">Sign out from all devices</button>
+                    </div>
+                    </section>
+
+
              </div>
         </div>
     </div>
