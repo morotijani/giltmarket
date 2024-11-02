@@ -136,6 +136,11 @@
                                 <div class="text-sm text-muted">Change your full name in this field</div>
                             </div>
                             <div class="mb-4">
+                                <label for="admin_fullname" class="form-label">Position / Title</label>
+                                <input type="text" class="form-control bg-body" disabled value="<?= strtoupper(_admin_position($admin_data['admin_permissions'])); ?>">
+                                <div class="text-sm text-muted">Change your full name in this field</div>
+                            </div>
+                            <div class="mb-4">
                                 <label for="admin_email" class="form-label">Email</label>
                                 <input type="email" class="form-control bg-body" name="admin_email" id="admin_email" value="<?= $admin_email; ?>" required>
                                 <div class="text-sm text-muted">Change your email in this field</div>
