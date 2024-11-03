@@ -7,13 +7,15 @@
 
     $query = "
 		UPDATE jspence_admin_login_details 
-		SET updatedAt = ? 
-		WHERE login_details_admin_id = ?
+		SET updateAt = ? 
+		WHERE login_details_admin_id = ? 
+        AND login_details_id = ?
 	";
 	$statement = $conn->prepare($query);
 	$statement->execute([
         date("Y-m-d H:i:s"), 
-        $_SESSION['JSAdmin']
+        $_SESSION['JSAdmin'], 
+        $admin_data['login_details_id']
     ]);
 
     unset($_SESSION['JSAdmin']);

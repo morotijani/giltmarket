@@ -130,7 +130,7 @@
                                 </ul>
                             </div>
                         </div>
-                        <a href="<?= PROOT . 'auth/logout'; ?>" class="btn btn-dark">Sign out from all devices</a>
+                        <a href="<?= PROOT . 'auth/logout'; ?>" class="btn btn-dark">Sign out from this devices</a>
                     </div>
                 </section>
 
