@@ -84,7 +84,7 @@
                                             <div class="col-auto">
                                                 <span class="material-symbols-outlined text-body-tertiary">bring_your_own_ip</span>
                                             </div>
-                                            <div class="col"><?= $admin_data['admin_ip']; ?> <small class="text-body-secondary ms-1">IP</small></div>
+                                            <div class="col"><?= $admin_data['admin_ip']; ?> <small class="text-body-secondary ms-1">I.P</small></div>
                                         </div>
                                     </li>
                                     <li class="list-group-item px-0">
@@ -130,7 +130,7 @@
                                 </ul>
                             </div>
                         </div>
-                        <button class="btn btn-dark">Sign out from all devices</button>
+                        <a href="<?= PROOT . 'auth/logout'; ?>" class="btn btn-dark">Sign out from all devices</a>
                     </div>
                 </section>
 

@@ -26,14 +26,11 @@
 
  		$sql = "
  			SELECT * FROM jspence_admin 
-			INNER JOIN jspence_admin_login_details 
-			ON jspence_admin_login_details.login_details_admin_id = jspence_admin.admin_id 
  			WHERE jspence_admin.admin_id = ? 
-			AND jspence_admin_login_details.login_details_admin_id = ? 
  			LIMIT 1
  		";
  		$statement = $conn->prepare($sql);
- 		$statement->execute([$admin_id, $admin_id]);
+ 		$statement->execute([$admin_id]);
  		$admin_dt = $statement->fetchAll();
 		if ($statement->rowCount() > 0) {
 			$admin_data = $admin_dt[0];
