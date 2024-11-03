@@ -26,22 +26,37 @@
 
  		$sql = "
  			SELECT * FROM jspence_admin 
- 			WHERE admin_id = ? 
+			INNER JOIN jspence_admin_login_details 
+			ON jspence_admin_login_details.login_details_admin_id = jspence_admin.admin_id 
+ 			WHERE jspence_admin.admin_id = ? 
+			AND jspence_admin_login_details.login_details_admin_id = ? 
  			LIMIT 1
  		";
  		$statement = $conn->prepare($sql);
- 		$statement->execute([$admin_id]);
+ 		$statement->execute([$admin_id, $admin_id]);
  		$admin_dt = $statement->fetchAll();
-		$admin_data = $admin_dt[0];
+		if ($statement->rowCount() > 0) {
+			$admin_data = $admin_dt[0];
 
-		$fn = explode(' ', $admin_data['admin_fullname']);
-		$admin_data['first'] = ucwords($fn[0]);
-		$admin_data['last'] = '';
-		if (count($fn) > 1) {
-			$admin_data['last'] = ucwords($fn[1]);
+			$details_data = $conn->query("SELECT * FROM jspence_admin_login_details WHERE jspence_admin_login_details.login_details_admin_id = '".$admin_id."' ORDER BY id DESC LIMIT 1")->fetchAll();
+			
+			if (is_array($details_data) && count($details_data) > 0) {
+				$admin_data = array_merge($admin_data, $details_data[0]);
+			}
+			dnd($admin_data);
+
+			$fn = explode(' ', $admin_data['admin_fullname']);
+			$admin_data['first'] = ucwords($fn[0]);
+			$admin_data['last'] = '';
+			if (count($fn) > 1) {
+				$admin_data['last'] = ucwords($fn[1]);
+			}
+			// $admin_persmission 
+			$admin_permission = $admin_data['admin_permissions']; // get admin's permission
+		} else {
+
 		}
-		// $admin_persmission 
-		$admin_permission = $admin_data['admin_permissions']; // get admin's permission
+		
  	}
 
  	// Display on Messages on Errors And Success
