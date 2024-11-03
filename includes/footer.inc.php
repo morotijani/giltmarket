@@ -242,7 +242,7 @@
         var childpath = window.location.href;
         $('nav a.nav-child').each(function() {
             if (this.href === childpath) {
-               $(this).addClass('active');
+                $(this).addClass('active');
             }
         });
 
@@ -251,6 +251,11 @@
 
             // Fade out messages
             $("#temporary").fadeOut(5000);
+
+            // prevent enter key on form
+            $(document).on("keydown", "form :input:not(textarea)", function(event) {
+                return event.key != "Enter";
+            });
 
             // make a push
             $('#close-fund-coffers-form').on('click', function() {

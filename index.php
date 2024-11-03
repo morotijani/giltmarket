@@ -524,6 +524,7 @@
 	
 </script>
 <?php endif; ?>
+
 <script>
 	$(document).ready(function() {
 
@@ -542,13 +543,8 @@
 				alert("The <?= ((admin_has_permission('supervisor')) ? 'cash in coffers' : 'gold at hand'); ?> is not enough to make this push!");
 				return false;
 			}
-		})
-
-		// prevent enter key on trade form
-		$(document).on("keydown", "form :input:not(textarea)", function(event) {
-			return event.key != "Enter";
 		});
-
+		
 		// submit trade form
 		$('#submitSendMG').on('click', function() {
 			if ($('#push_pin').val() == '') {
