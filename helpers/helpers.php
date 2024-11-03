@@ -277,6 +277,28 @@ function adminLogin($admin_id) {
 		$message = "logged into the system";
 		add_to_log($message, $admin_id);
 
+		$a = getBrowserAndOs();
+		$a = json_decode($a);
+
+		$browser = $a->browser;
+		$operatingSystem = $a->operatingSystem;
+		$refferer = $a->refferer;
+
+		// insert into login details table
+		$SQL = "
+			INSERT INTO `jspence_admin_login_details`(`login_details_id`, `login_details_admin_id`, `admin_device`, `admin_browser`, `admin_ip`, `createdAt`) 
+			VALUE (?, ?, ?, ?, ?, ?)
+		";
+		$statement = $conn->prepare($SQL);
+		$statement->execute([
+			guidv4(), 
+			$admin_id, 
+			getDeviceType(), 
+			getBrowserAndOs(),
+			getIPAddress(),
+			date("Y-m-d H:i:s")
+		]);
+
 		$_SESSION['flash_success'] = 'You are now logged in!';
 		redirect(PROOT . 'index');
 	}
