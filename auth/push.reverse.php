@@ -83,7 +83,8 @@
 								} else if ($find[0]['push_type'] == 'money' && admin_has_permission('supervisor') && $find[0]['push_on'] == 'dialy') {
 									
 								} else if ($find[0]['push_type'] == 'money' && admin_has_permission('supervisor') && $find[0]['push_on'] == 'coffers') {
-									$q = $conn->query("UPDATE coffers set  ")->execute();
+									// reversing money send to supervisor back to coffers
+									$q = $conn->query("UPDATE jsepnce_coffers SET coffers_status = 'reverse' WHERE coffers_id = '" . $find[0]['push_daily'] . "'")->execute();
 								}
 
 								$log_message = "reversed " . money($find[0]['push_amount']) . $and . " !";

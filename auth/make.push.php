@@ -82,7 +82,7 @@
 
 								$LID = $conn->lastInsertId();
 								$q = $conn->query("SELECT * FROM jspence_coffers WHERE id = '" . $LID . "' LIMIT 1")->fetchAll();
-								$findCapital = $q[0]['coffer_id'];
+								$findCapital = $q[0]['coffers_id'];
 							}
 
 							// insert into push table
