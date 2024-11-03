@@ -277,6 +277,7 @@ function adminLogin($admin_id) {
 		$message = "logged into the system";
 		add_to_log($message, $admin_id);
 
+		// get other details
 		$a = getBrowserAndOs();
 		$a = json_decode($a);
 
@@ -286,15 +287,17 @@ function adminLogin($admin_id) {
 
 		// insert into login details table
 		$SQL = "
-			INSERT INTO `jspence_admin_login_details`(`login_details_id`, `login_details_admin_id`, `admin_device`, `admin_browser`, `admin_ip`, `createdAt`) 
-			VALUE (?, ?, ?, ?, ?, ?)
+			INSERT INTO `jspence_admin_login_details`(`login_details_id`, `login_details_admin_id`, `admin_device`, `admin_os`, `admin_refferer`, `admin_browser`, `admin_ip`, `createdAt`) 
+			VALUE (?, ?, ?, ?, ?, ?, ?, ?)
 		";
 		$statement = $conn->prepare($SQL);
 		$statement->execute([
 			guidv4(), 
 			$admin_id, 
 			getDeviceType(), 
-			getBrowserAndOs(),
+			$operatingSystem, 
+			$refferer, 
+			$browser, 
 			getIPAddress(),
 			date("Y-m-d H:i:s")
 		]);
