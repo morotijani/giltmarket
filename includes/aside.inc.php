@@ -71,8 +71,8 @@
                 </a>
               <?php endif; ?>
             </div>
-            <div class="nav-item" data-bs-toggle="tooltip" data-bs-title="Current Gold Proce">
-              <a class="nav-link" href="" target="_blank">
+            <div class="nav-item" data-bs-toggle="tooltip" data-bs-title="Current Gold Price">
+              <a class="nav-link" href="https://goldprice.org" target="_blank">
                   CGP 
                 </a>
             </div>
