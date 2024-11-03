@@ -64,7 +64,27 @@
 							$findCapital = $q[0]['daily_id'];
 						}
 
+						
+
 						if (isset($daily_result)) {
+
+							// update coffers
+							if (admin_has_permission('supervisor')) {
+								$coffers_id = guidv4();
+								$createdAt = date("Y-m-d H:i:s");
+							
+								$coffersSQL = "
+									INSERT INTO jspence_coffers (coffers_id, coffers_amount, coffers_for, coffers_status, createdAt) 
+									VALUES (?, ?, ?, ?, ?)
+								";
+								$statement = $conn->prepare($coffersSQL);
+								$statement->execute([$coffers_id, $given, $admin_id, 'send', $createdAt]);
+
+								$LID = $conn->lastInsertId();
+								$q = $conn->query("SELECT * FROM jspence_coffers WHERE id = '" . $LID . "' LIMIT 1")->fetchAll();
+								$findCapital = $q[0]['coffer_id'];
+							}
+
 							// insert into push table
 							$push_data = [$push_id, $findCapital, $given, ((admin_has_permission('supervisor')) ? 'money' : 'gold'), $push_from, $push_to, $today, ((admin_has_permission('supervisor')) ? 'coffers' : 'dialy')];
 							$sql = "
@@ -80,18 +100,7 @@
 							}
 							add_to_log($message, $admin_id);
 
-							// update coffers
-							if (admin_has_permission('supervisor')) {
-								$coffers_id = guidv4();
-								$createdAt = date("Y-m-d H:i:s");
-							
-								$coffersSQL = "
-									INSERT INTO jspence_coffers (coffers_id, coffers_amount, coffers_for, coffers_status, createdAt) 
-									VALUES (?, ?, ?, ?, ?)
-								";
-								$statement = $conn->prepare($coffersSQL);
-								$statement->execute([$coffers_id, $given, $admin_id, 'send', $createdAt]);
-							}
+
 			
 							$_SESSION['flash_success'] = money($given) . ((admin_has_permission('salesperson')) ? ' Gold push to supervisor' : ' Money pushed to saleperson'). ' successfully!';
 						} else {	
