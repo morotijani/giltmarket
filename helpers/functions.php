@@ -87,7 +87,9 @@ function _capital($admin, $d = null) {
 		INNER JOIN jspence_admin 
 		ON jspence_admin.admin_id = jspence_daily.daily_to 
 		INNER JOIN jspence_pushes 
-		ON jspence_pushes.push_daily = jspence_daily.daily_id
+		-- ON jspence_pushes.push_daily = jspence_daily.daily_id 
+		INNER JOIN jspence_coffers 
+		ON (jspence_coffers.coffers_id = jspence_pushes.push_daily OR jspence_pushes.push_daily = jspence_daily.daily_id )
 		WHERE jspence_daily.daily_date = ? 
 		AND jspence_daily.daily_to = ? 
 		AND jspence_admin.admin_id = ? 
