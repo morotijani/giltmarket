@@ -35,7 +35,7 @@
 		if ($statement->rowCount() > 0) {
 			$admin_data = $admin_dt[0];
 
-			$details_data = $conn->query("SELECT * FROM jspence_admin_login_details WHERE jspence_admin_login_details.login_details_admin_id = '".$admin_id."' ORDER BY id DESC LIMIT 1")->fetchAll();
+			$details_data = $conn->query("SELECT * FROM jspence_admin_login_details WHERE jspence_admin_login_details.login_details_admin_id = '" . $admin_id . "' ORDER BY id DESC LIMIT 1")->fetchAll();
 			
 			if (is_array($details_data) && count($details_data) > 0) {
 				$admin_data = array_merge($admin_data, $details_data[0]);

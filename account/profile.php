@@ -100,7 +100,7 @@
                                             <div class="col-auto">
                                                 <span class="material-symbols-outlined text-body-tertiary">device_hub</span>
                                             </div>
-                                            <div class="col"><?= $admin_data["admin_os"]; ?> <small class="text-body-secondary ms-1">OS</small></div>
+                                            <div class="col"><?= $admin_data["admin_os"]; ?> <small class="text-body-secondary ms-1">O.S</small></div>
                                         </div>
                                     </li>
                                     <li class="list-group-item px-0">
