@@ -43,7 +43,6 @@
 			if (is_array($details_data) && count($details_data) > 0) {
 				$admin_data = array_merge($admin_data, $details_data[0]);
 			}
-			dnd($admin_data);
 
 			$fn = explode(' ', $admin_data['admin_fullname']);
 			$admin_data['first'] = ucwords($fn[0]);
