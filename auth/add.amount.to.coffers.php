@@ -37,19 +37,21 @@
                 $statement = $conn->prepare($coffersSQL);
                 $result = $statement->execute([$coffers_id, $add_amount, $admin_id, 'receive', $coffers_receive_through, $createdAt]);
                 if ($result) {
-                    if ($add_from == 'trades') {
-                        $LID = $conn->lastInsertId();
-                        $q = $conn->query("SELECT * FROM jspence_coffers WHERE id = '" . $LID . "' LIMIT 1")->fetchAll();
-                        $coffers_id = $q[0]['coffers_id'];
+                    
+                    $push_on = (($add_from == 'trades') ? 'dialy' : 'coffers'); // look up
 
-                        $push_data = [$push_id, $coffers_id, $add_amount, $admin_id, 'coffers', $today, 'dialy'];
-                        $sql = "
-                            INSERT INTO jspence_pushes (push_id, push_daily, push_amount, push_from, push_to, push_date, push_on) 
-                            VALUES (?, ?, ?, ?, ?, ?, ?)
-                        ";
-                        $statement = $conn->prepare($sql);
-                        $statement->execute($push_data);
-                    }
+                    $LID = $conn->lastInsertId();
+                    $q = $conn->query("SELECT * FROM jspence_coffers WHERE id = '" . $LID . "' LIMIT 1")->fetchAll();
+                    $coffers_id = $q[0]['coffers_id'];
+
+                    $push_data = [$push_id, $coffers_id, $add_amount, $admin_id, 'coffers', $today, $push_on]; // look up
+                    $sql = "
+                        INSERT INTO jspence_pushes (push_id, push_daily, push_amount, push_from, push_to, push_date, push_on) 
+                        VALUES (?, ?, ?, ?, ?, ?, ?)
+                    ";
+                    $statement = $conn->prepare($sql);
+                    $statement->execute($push_data);
+                    
 
                     // add to log message
                     $message = money($add_amount) . " from " . strtoupper($add_from) . " has been add to coffers";
