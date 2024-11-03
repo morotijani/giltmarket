@@ -33,14 +33,19 @@
 
 						// check the balance of the person we are reversing from
 						$from_balance = 0;
+						$and = "";
 						if (admin_has_permission('salesperson')) {
 							$from_balance = remaining_gold_balance($find[0]['push_to']); // get supervisor remaining gold balance and reverse to saleperson accumulated gold
+							$and = " to accumulated gold balance";
 						} else if ($find[0]['push_to'] == 'coffers' && admin_has_permission('supervisor') && $find[0]['push_on'] == 'coffers') {
 							$from_balance = get_admin_coffers($conn, $admin_id); // get coffers balance and reverse physical cash
+							$and = " back to physical cash";
 						} else if ($find[0]['push_to'] == 'coffers' && admin_has_permission('supervisor') && $find[0]['push_on'] == 'dialy') {
 							$from_balance = get_admin_coffers($conn, $admin_id); // get coffers balance and reverse to supervisor accumulated cash
+							$and = " to accumulated cash balance";
 						} else if ($find[0]['push_type'] == 'money' && admin_has_permission('supervisor') && $find[0]['push_on'] == 'dialy') {
 							$from_balance = _capital($find[0]['push_to'])['today_balance']; // get salespersonnel cash balance and reverse to coffers
+							$and = " to coffers";
 						}
 
 						// incase the revesal amount is greater or equal to the remaining balance of the person we are reversing from, then we prevent reversal
@@ -54,7 +59,7 @@
 							$result = $statement->execute([1, $reason, $id]);
 
 
-							dnd($from_balance);
+							// dnd($from_balance);
 
 							if ($result) {
 								if (admin_has_permission('salesperson')) {
@@ -67,6 +72,9 @@
 									$statement->execute([$find[0]['push_daily']]);
 								}
 
+								$log_message = "reversed " . money($find[0]['push_amount']) . $and . " !";
+								add_to_log($log_message, $admin_id);
+								
 								$_SESSION['flash_success'] = 'Push reversed successfully!';
 								redirect(PROOT . 'account/pushes');
 							}
