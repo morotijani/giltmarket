@@ -44,14 +44,14 @@
 							$from_balance = get_admin_coffers($conn, $admin_id); // get coffers balance and reverse to supervisor accumulated cash
 							$and = " to accumulated cash balance";
 						} else if ($find[0]['push_type'] == 'money' && admin_has_permission('supervisor') && $find[0]['push_on'] == 'dialy') {
-							$from_balance = _capital($find[0]['push_to'])['today_balance']; // get salespersonnel cash balance and reverse to coffers
+							$from_balance = _capital($find[0]['push_to'], NULL, 'reversal')['today_balance']; // get salespersonnel cash balance and reverse to coffers
 							$and = " to coffers";
 						} else if ($find[0]['push_type'] == 'money' && admin_has_permission('supervisor') && $find[0]['push_on'] == 'coffers') {
-							$from_balance = _capital($find[0]['push_to'])['today_balance']; // get salespersonnel cash balance and reverse to coffers
+							$from_balance = _capital($find[0]['push_to'], NULL, 'reversal')['today_balance']; // get salespersonnel cash balance and reverse to coffers
 							$and = " to coffers";
 						}
 
-						// dnd($from_balance);
+						//dnd($from_balance);
 
 						// incase the revesal amount is greater or equal to the remaining balance of the person we are reversing from, then we prevent reversal
 						if ($find[0]['push_amount'] <= $from_balance) {
@@ -84,7 +84,7 @@
 									
 								} else if ($find[0]['push_type'] == 'money' && admin_has_permission('supervisor') && $find[0]['push_on'] == 'coffers') {
 									// reversing money send to supervisor back to coffers
-									$q = $conn->query("UPDATE jsepnce_coffers SET coffers_status = 'reverse' WHERE coffers_id = '" . $find[0]['push_daily'] . "'")->execute();
+									$q = $conn->query("UPDATE jspence_coffers SET coffers_status = 'reverse' WHERE coffers_id = '" . $find[0]['push_daily'] . "'")->execute();
 								}
 
 								$log_message = "reversed " . money($find[0]['push_amount']) . $and . " !";

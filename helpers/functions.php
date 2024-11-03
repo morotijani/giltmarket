@@ -76,29 +76,30 @@ function find_capital_given_to($to, $today) {
 }
 
 // Amount given to trade
-function _capital($admin, $d = null) {
+function _capital($admin, $d = null, $for = null) {
 	global $conn;
 	$today = date('Y-m-d');
 	$today = (($d != null) ? $d : $today);
 
 	$sql = "
-		SELECT daily_id, daily_capital, daily_balance, daily_capital_status, jspence_admin.admin_permissions
+		SELECT daily_id, daily_capital, daily_balance, daily_capital_status, push_status, push_daily , daily_to 
 		FROM jspence_daily 
-		INNER JOIN jspence_admin 
-		ON jspence_admin.admin_id = jspence_daily.daily_to 
 		INNER JOIN jspence_pushes 
 		-- ON jspence_pushes.push_daily = jspence_daily.daily_id 
 		INNER JOIN jspence_coffers 
-		ON (jspence_coffers.coffers_id = jspence_pushes.push_daily OR jspence_pushes.push_daily = jspence_daily.daily_id )
+		ON (
+			jspence_coffers.coffers_id = jspence_pushes.push_daily 
+			OR jspence_pushes.push_daily = jspence_daily.daily_id
+		) 
 		WHERE jspence_daily.daily_date = ? 
 		AND jspence_daily.daily_to = ? 
-		AND jspence_admin.admin_id = ? 
 		AND jspence_daily.daily_capital_status = ? 
 		AND jspence_pushes.push_status = ? 
+		AND jspence_coffers.coffers_status = ?
 		LIMIT 1
 	";
 	$statement = $conn->prepare($sql);
-	$statement->execute([$today, $admin, $admin, 0, 0]);
+	$statement->execute([$today, $admin, 0, 0, 'send']);
 	$rows = $statement->fetchAll();
 
 	$balance = null;
@@ -112,14 +113,20 @@ function _capital($admin, $d = null) {
 		$row = $rows[0];
 		$balance = $row['daily_balance'];
 
-		if ($row["admin_permissions"] == 'supervisor' && ($row['daily_balance'] == null || $row['daily_balance'] == '0.00')) {
+		if (admin_has_permission('supervisor') && ($row['daily_balance'] == null || $row['daily_balance'] == '0.00')) {
 			$balance = $row['daily_balance'];
-		} else if ($row["admin_permissions"] == 'salesperson') {
-			$balance = (($row['daily_balance'] == null || $row['daily_balance'] == '0.00') ? $row['daily_capital'] : $row['daily_balance']);
+		} else if (admin_has_permission('salesperson')) {
+			$balance = (($row['daily_balance'] == null || $row['daily_balance'] == '0.00' || $row['daily_balance'] == 0) ? $row['daily_capital'] : $row['daily_balance']);
 			// if ($row["daily_capital_status"] == 1) {
 			// 	$balance = null;
 			// }
 		}
+
+		if ($for == 'reversal') {
+			$balance = (($row['daily_balance'] == null || $row['daily_balance'] == '0.00' || $row['daily_balance'] == 0) ? $row['daily_capital'] : $row['daily_balance']);
+		}
+
+
 		
 		$output = [
 			'today_capital' => $row['daily_capital'],
