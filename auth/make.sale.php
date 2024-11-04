@@ -84,6 +84,7 @@ if (isset($_POST['gram-amount'])) {
 				$message = "added new sale with gram of " . $gram . " and volume of " . $volume . " and total amount of " . money($total_amount) ." and price of " . money($current_price) . " on id " . $sale_id . "";
 				add_to_log($message, $log_admin);
 
+				$createdAt = strtotime($createdAt);
 				$arrayOutput = array('reference' => $sale_id, 'customername' => $customer_name, 'date' => $createdAt, 'gram' => $gram, 'volume' => $volume, 'density' => $density, 'pounds' => $pounds, 'carat' => $carat, 'total_amount' => $total_amount, 'current_price' => $current_price, 'by' => $log_admin, 'message' => '',);
 				$ouput = json_encode($arrayOutput);
 					

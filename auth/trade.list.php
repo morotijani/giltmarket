@@ -103,7 +103,7 @@ if ($total_data > 0) {
 
 		$option1 = '
 			&nbsp;
-			<a href=' . PROOT . 'auth/print?data=' . $outputData . ' title="Print receipt" class="btn btn-sm btn-light">
+			<a href=' . PROOT . 'auth/print?data=' . $outputData . ' title="Print receipt" target="_blank" class="btn btn-sm btn-light">
 				<span class="material-symbols-outlined"> print </span>
 			</a>
 		';

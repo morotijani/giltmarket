@@ -129,6 +129,14 @@
 	<script>
 		window.print();
 
+		window.onafterprint = function() {
+			setTimeout(function() {
+				window.close();
+			}, 500);
+
+			return false;
+		}
+
 		var ajax = new XMLHttpRequest();
 
 		ajax.addEventListener('readystatechange',function() {
