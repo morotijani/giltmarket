@@ -172,7 +172,7 @@
                                             <!-- Text -->
                                             <div class="fs-5 fw-semibold" id="sup-capital"></div>
                                             <p class="mt-1">
-                                                <span class="text-success text-xs"><i class="fas fa-arrow-up me-1"></i>Balance: </span>
+                                                <span class="text-success text-xs"><i class="fas fa-arrow-up me-1"></i>Money: </span>
                                                 <span class="text-muted text-xs text-opacity-75" id="sup-balance">0.00</span>
                                             </p>
                                         </div>
@@ -198,7 +198,7 @@
                                             <!-- Text -->
                                             <div class="fs-5 fw-semibold" id="sal-capital"></div>
                                             <p class="mt-1">
-                                                <span class="text-success text-xs"><i class="fas fa-arrow-up me-1"></i>Balance: </span>
+                                                <span class="text-success text-xs"><i class="fas fa-arrow-up me-1"></i>Gold: </span>
                                                 <span class="text-muted text-xs text-opacity-75" id="sal-balance">0.00</span>
                                             </p>
                                         </div>
@@ -289,13 +289,13 @@
                                     <div class="d-flex align-items-center justify-content-between mt-8">
                                         <div class="">
                                             <div class="d-flex gap-3 align-items-center">
-                                                <span class="text-success text-xs">Incoming (supervisor)</span>
+                                                <span class="text-success text-xs">Money accumulated (supervisor)</span>
                                             </div>
                                             <div class="text-muted text-xs text-opacity-75 mt-3" id="incoming">0.00 GHS</div>
                                         </div>
                                         <div class="">
                                             <div class="d-flex gap-3 align-items-center">
-                                                <span class="text-danger text-xs">Outgoing (salesperson)</span>
+                                                <span class="text-danger text-xs">Gold accumulated (salesperson)</span>
                                             </div>
                                             <div class="text-muted text-xs text-opacity-75 mt-3" id="outgoing">0.00 GHS</div>
                                         </div>

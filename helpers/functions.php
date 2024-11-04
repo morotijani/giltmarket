@@ -95,7 +95,7 @@ function _capital($admin, $d = null, $for = null) {
 		AND jspence_daily.daily_to = ? 
 		AND jspence_daily.daily_capital_status = ? 
 		AND jspence_pushes.push_status = ? 
-		AND jspence_coffers.coffers_status = ?
+		AND jspence_coffers.coffers_status = ? 
 		LIMIT 1
 	";
 	$statement = $conn->prepare($sql);
@@ -125,8 +125,6 @@ function _capital($admin, $d = null, $for = null) {
 		if ($for == 'reversal') {
 			$balance = (($row['daily_balance'] == null || $row['daily_balance'] == '0.00' || $row['daily_balance'] == 0) ? $row['daily_capital'] : $row['daily_balance']);
 		}
-
-
 		
 		$output = [
 			'today_capital' => $row['daily_capital'],

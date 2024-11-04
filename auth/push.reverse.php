@@ -70,9 +70,16 @@
 										SET daily_balance = daily_balance + '" . $find[0]['push_amount'] . "' 
 										WHERE daily_id = ? 
 									";
-									$statement = $conn->prepare($sql);
-									$statement->execute([$find[0]['push_daily']]);
+								} else {
+									$sql = "
+										UPDATE jspence_daily 
+										SET daily_capital = daily_capital - '" . $find[0]['push_amount'] . "' 
+										WHERE daily_id = ? 
+									";
 								}
+								$statement = $conn->prepare($sql);
+								$e = $statement->execute([$find[0]['push_to']]);
+								dnd($find);
 
 								if (admin_has_permission('salesperson')) {
 									
