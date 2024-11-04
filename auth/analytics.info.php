@@ -24,14 +24,27 @@ if (isset($_POST['dater'])) {
         $andPush = ' AND MONTH(jspence_pushes.createdAt) = "' . $dater . '"';
     }
 
+    // $supervisorQuery = "
+    //     SELECT SUM(daily_capital) AS capital, SUM(daily_balance) AS balance 
+    //     FROM jspence_daily 
+    //     INNER JOIN jspence_admin 
+    //     ON jspence_admin.admin_id = jspence_daily.daily_to
+    //     WHERE jspence_daily.status = ? 
+    //     AND jspence_admin.admin_permissions = ?
+    //     $andDaily
+    // ";
     $supervisorQuery = "
-        SELECT SUM(daily_capital) AS capital, SUM(daily_balance) AS balance 
+        SELECT 
+            daily_capital AS capital, 
+            daily_balance AS balance 
         FROM jspence_daily 
         INNER JOIN jspence_admin 
         ON jspence_admin.admin_id = jspence_daily.daily_to
         WHERE jspence_daily.status = ? 
         AND jspence_admin.admin_permissions = ?
-        $andDaily
+        $andDaily 
+        ORDER BY daily_date DESC 
+        LIMIT 1
     ";
     $statement = $conn->prepare($supervisorQuery);
     $result = $statement->execute([0, 'supervisor']);
