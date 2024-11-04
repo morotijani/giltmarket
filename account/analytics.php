@@ -268,7 +268,7 @@
 
                     
                     <div class="row g-3">
-                        <div class="col-6 col-md-8 col-xxl-10 mb-4 mb-xxl-0">
+                        <div class="col-6 col-md-8 col-xxl-8 mb-4 mb-xxl-0">
                             <div class="card bg-body-tertiary border-transparent">
                                 <div class="card-body">
                                     <div class="row align-items-center">
@@ -277,7 +277,7 @@
                                             <h4 class="fs-base fw-normal text-body-secondary mb-1">Earnings</h4>
 
                                             <!-- Text -->
-                                            <div class="fs-5 fw-semibold" id="profit-loss">0.00</div>
+                                            <div class="fs-1 fw-semibold" id="profit-loss">0.00</div>
                                         </div>
                                         <div class="col-auto">
                                             <!-- Avatar -->
@@ -295,7 +295,7 @@
                                         </div>
                                         <div class="">
                                             <div class="d-flex gap-3 align-items-center">
-                                                <span class="text-danger text-xs">Gold accumulated (salesperson)</span>
+                                                <span class="text-warning text-xs">Gold accumulated (salesperson)</span>
                                             </div>
                                             <div class="text-muted text-xs text-opacity-75 mt-3" id="outgoing">0.00 GHS</div>
                                         </div>
@@ -303,30 +303,64 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-6 col-md-4 col-xxl-2 mb-4 mb-xxl-0">
-                            <div class="card bg-body-tertiary border-transparent">
-                                <div class="card-body">
-                                    <div class="row align-items-center">
-                                        <div class="col">
-                                            <!-- Heading -->
-                                            <h4 class="fs-base fw-normal text-body-secondary mb-1">Total pushes</h4>
+                        <div class="col-6 col-md-4 col-xxl-4 mb-4 mb-xxl-0">
 
-                                            <!-- Text -->
-                                            <div class="fs-5 fw-semibold" id="total-pushes"></div>
-                                            <p class="mt-1">
-                                                <span class="text-success text-xs"><i class="fas fa-arrow-up me-1"></i> </span>
-                                                <span class="text-muted text-xs text-opacity-75" id=""></span>
-                                            </p>
+                            <div class="row">
+
+                                <div class="col-12 mb-2">
+                                    <div class="card bg-body-tertiary border-transparent">
+                                        <div class="card-body">
+                                            <div class="row align-items-center">
+                                                <div class="col">
+                                                    <!-- Heading -->
+                                                    <h4 class="fs-sm fw-normal text-body-secondary mb-1">Total pushes</h4>
+
+                                                    <!-- Text -->
+                                                    <div class="fs-4 fw-semibold" id="total-pushes">0.00</div>
+                                                </div>
+                                                <div class="col-auto">
+                                                    <!-- Avatar -->
+                                                    <div class="avatar avatar-lg bg-body text-warning">
+                                                        <i class="fs-4" data-duoicon="align-bottom"></i>
+                                                    </div>
+                                                </div>
+                                            </div>
                                         </div>
-                                        <div class="col-auto">
-                                            <!-- Avatar -->
-                                            <div class="avatar avatar-lg bg-body text-warning">
-                                                <i class="fs-4" data-duoicon="align-bottom"></i>
+                                    </div>
+                                </div>
+                                <div class="col">
+                                    <div class="card bg-body-tertiary border-transparent">
+                                        <div class="card-body">
+                                            <div class="row align-items-center">
+                                                <div class="col">
+                                                    <!-- Heading -->
+                                                    <h4 class="fs-sm fw-normal text-body-secondary mb-1">Send</h4>
+
+                                                    <!-- Text -->
+                                                    <div class="fs-4 fw-semibold" id="push-send">0.00</div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col">
+                                    <div class="card bg-body-tertiary border-transparent">
+                                        <div class="card-body">
+                                            <div class="row align-items-center">
+                                                <div class="col">
+                                                    <!-- Heading -->
+                                                    <h4 class="fs-sm fw-normal text-body-secondary mb-1">Receive</h4>
+
+                                                    <!-- Text -->
+                                                    <div class="fs-4 fw-semibold" id="push-receive">0.00</div>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
+
+                           
                         </div>
                     </div>
                     
