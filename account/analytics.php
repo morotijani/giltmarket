@@ -557,6 +557,8 @@
                     $('#total-density').text('loading ...');
                     $('#total-pounds').text('loading ...');
                     $('#total-carat').text('loading ...');
+                    $('#push-send').text('loading ...');
+                    $('#push-receive').text('loading ...');
                 },
                 success: function(data) {
                     const response = JSON.parse(data);
@@ -576,6 +578,8 @@
                     $('#total-density').text(response["density"]);
                     $('#total-pounds').text(response["pounds"]);
                     $('#total-carat').text(response["carat"]);
+                    $('#push-send').text(response["push_send"]);
+                    $('#push-receive').text(response["push_receive"]);
 
                     console.log(data);
                 },
