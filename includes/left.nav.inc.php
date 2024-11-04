@@ -4,7 +4,7 @@
             <div class="container-fluid">
                     <!-- Brand -->
                     <a class="navbar-brand fs-5 fw-bold px-xl-3 mb-xl-4" href="<?= PROOT; ?>">
-                        <i class="fs-4 text-secondary me-1" data-duoicon="box-2"></i> JSpence
+                        <!-- <i class="fs-4 text-secondary me-1" data-duoicon="box-2"></i> --> <img src="<?= PROOT; ?>assets/media/logo-no-bg.png" width="20" height="25" /> JSpence
                     </a>
                 
                     <!-- User -->
