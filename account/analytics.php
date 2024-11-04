@@ -334,10 +334,10 @@
                                             <div class="row align-items-center">
                                                 <div class="col">
                                                     <!-- Heading -->
-                                                    <h4 class="fs-sm fw-normal text-body-secondary mb-1">Send</h4>
+                                                    <h4 class="fs-sm fw-normal text-body-secondary mb-1">Money</h4>
 
                                                     <!-- Text -->
-                                                    <div class="fs-4 fw-semibold" id="push-send">0.00</div>
+                                                    <div class="fs-4 fw-semibold" id="push-money">0.00</div>
                                                 </div>
                                             </div>
                                         </div>
@@ -349,10 +349,10 @@
                                             <div class="row align-items-center">
                                                 <div class="col">
                                                     <!-- Heading -->
-                                                    <h4 class="fs-sm fw-normal text-body-secondary mb-1">Receive</h4>
+                                                    <h4 class="fs-sm fw-normal text-body-secondary mb-1">Gold</h4>
 
                                                     <!-- Text -->
-                                                    <div class="fs-4 fw-semibold" id="push-receive">0.00</div>
+                                                    <div class="fs-4 fw-semibold" id="push-gold">0.00</div>
                                                 </div>
                                             </div>
                                         </div>
@@ -578,8 +578,8 @@
                     $('#total-density').text(response["density"]);
                     $('#total-pounds').text(response["pounds"]);
                     $('#total-carat').text(response["carat"]);
-                    $('#push-send').text(response["push_send"]);
-                    $('#push-receive').text(response["push_receive"]);
+                    $('#push-money').text(response["push_money"]);
+                    $('#push-gold').text(response["push_gold"]);
 
                     console.log(data);
                 },
