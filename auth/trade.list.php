@@ -87,12 +87,23 @@ if ($total_data > 0) {
 			';
 		}
 
-		$arrayOutput = array('reference' => $row['sale_id'], 'customername' => $row['sale_customer_name'], 'gram' => $row['sale_gram'], 'volume' => $row['sale_volume'], 'density' => $row['sale_density'], 'pounds' => $row['sale_pounds'], 'carat' => $row['sale_carat'], 'total_amount' => $row['sale_total_amount'], 'current_price' => $row['sale_price'], 'by' => $row['sale_by'], 'message' => '');
+		$d = strtotime($row['sca']);
+		$arrayOutput = array(
+			'reference' => $row['sale_id'], 
+			'customername' => $row['sale_customer_name'], 
+			'gram' => $row['sale_gram'], 
+			'volume' => $row['sale_volume'], 
+			'density' => $row['sale_density'], 'pounds' => $row['sale_pounds'], 'carat' => $row['sale_carat'], 'total_amount' => $row['sale_total_amount'], 
+			'current_price' => $row['sale_price'], 
+			'by' => $row['sale_by'], 
+			'date' => $d, 
+			'message' => ''
+		);
 		$outputData = json_encode($arrayOutput);
 
 		$option1 = '
 			&nbsp;
-			<a href=' . PROOT . 'account/print-reciept?data=' . $outputData .'&date=' . $row['sca'] . '" title="Print receipt" class="btn btn-sm btn-light">
+			<a href=' . PROOT . 'auth/print?data=' . $outputData . ' title="Print receipt" class="btn btn-sm btn-light">
 				<span class="material-symbols-outlined"> print </span>
 			</a>
 		';

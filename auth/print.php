@@ -6,12 +6,12 @@
 	if ($_SERVER['REQUEST_METHOD'] == "POST") {
 
  		$WshShell = new COM("WScript.Shell");
- 		///$obj = $WshShell->Run("cmd /c wscript.exe www/public/file.vbs",0, true); 
- 		$obj = $WshShell->Run("cmd /c wscript.exe ".BASEURL."/pressenter.vbs",0, true); 
+ 		// $obj = $WshShell->Run("cmd /c wscript.exe www/public/file.vbs",0, true); 
+ 		$obj = $WshShell->Run("cmd /c wscript.exe " . BASEURL . "/pressenter.vbs",0, true); 
  		
  		$WshShell = new COM("WScript.Shell");
- 		///$obj = $WshShell->Run("cmd /c wscript.exe www/public/file.vbs",0, true); 
- 		$obj = $WshShell->Run("cmd /c wscript.exe ".BASEURL."/pressenter.vbs",0, true); 
+ 		// $obj = $WshShell->Run("cmd /c wscript.exe www/public/file.vbs",0, true); 
+ 		$obj = $WshShell->Run("cmd /c wscript.exe " . BASEURL . "/pressenter.vbs",0, true); 
  	 
 	}
 
@@ -19,7 +19,9 @@
 	$data = $_GET['data'] ?? "";
 	$obj = json_decode($data, true);
 
+	$d = date('Y-m-d h:i:s', $obj['date']);
 ?>
+
 		<div class="card">
 			<div class="card-header pb-0 border-0">
 				<h1 class="modal-title h4 text-center" id="connectWalletModalLabel">
@@ -106,13 +108,15 @@
 							<td>
 								<?= ucwords($obj['by']); ?>
 								<br>
-								<?= $obj['date']; ?>
+								<?= pretty_date($d); ?>
 							</td>
 						</tr>
 					</tbody>
 				</table>
 
-				<div class="text-xs text-muted mt-6"><em>Thank you for your purchase.<a href="#" class="fw-bold"> J-Spence LTD.</a></em></div>
+				<div class="text-xs text-muted mt-6">
+					<em>Thank you for your purchase.<a href="#" class="fw-bold"> J-Spence LTD.</a></em>
+				</div>
 			</div>
 				<div class="card-footer">
 					<!-- bar code; -->
