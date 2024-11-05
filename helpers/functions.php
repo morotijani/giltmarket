@@ -1407,7 +1407,14 @@ function get_admin_coffers_send($conn, $admin) {
 function capital_mover($admin) {
 	global $conn;
 
-	$a = "SELECT * FROM jspence_daily WHERE daily_to = ? ORDER BY daily_date DESC LIMIT 1";
+	$a = "
+		SELECT * FROM jspence_daily 
+		WHERE jspence_daily.daily_to = ? 
+		AND jspence_daily.daily_capital_status = ? 
+		AND jspence_daily.status = ? 
+		ORDER BY daily_date DESC 
+		LIMIT 1
+	";
 	$statement = $conn->prepare($a);
 	$statement->execute([$admin]);
 	$row = $statement->fetchAll();
