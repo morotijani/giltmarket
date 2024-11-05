@@ -1419,14 +1419,14 @@ function capital_mover($admin) {
 		// check if admin entered denomination
 		$c = $conn->query("SELECT * FROM jspence_denomination WHERE denomination_capital = '" . $row[0]['daily_id'] . "' AND denomination_by = '" . $admin . "' LIMIT 1")->rowCount();
 		if ($b == NULL && $c == 0) { // capital not touch, denomination not entered
-			
+
 			// update capital date to the following day 
 			$sql = "
 				UPDATE jspence_daily SET createdAt = ?, daily_date = ? 
 				WHERE daily_id = ?
 			";
 			$statement = $conn->prepare($sql);
-			$result = $statement->execute([]);
+			$result = $statement->execute([date(), date(), $row[0]["daily_id"]]);
 			return $result;
 
 		} else if ($b != NULL && $c == 0) { // capital touched, denomination not entered
