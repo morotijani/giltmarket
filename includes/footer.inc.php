@@ -330,7 +330,7 @@
                                     //}
                                     $('#density').text(response["density"] + ' Density');
                                     $('#pounds').text(response["pounds"] + ' Pounds');
-                                    $('#carat').text(response["carat"] + ' Karat');
+                                    $('#carat').text(response["carat"] + ' Carat');
                                     $('#total-amount').val(response["total_amount"]);
 
                                     if (response['continue'] == 'no') {
@@ -398,7 +398,7 @@
                                     //}
                                     $('#density').text(response["density"] + ' Density');
                                     $('#pounds').text(response["pounds"] + ' Pounds');
-                                    $('#carat').text(response["carat"] + ' Karat');
+                                    $('#carat').text(response["carat"] + ' Carat');
                                     $('#total-amount').val(response["total_amount"]);
 
                                     if (response['continue'] == 'no') {
@@ -465,7 +465,7 @@
                                     //}
                                     $('#density').text(response["density"] + ' Density');
                                     $('#pounds').text(response["pounds"] + ' Pounds');
-                                    $('#carat').text(response["carat"] + ' Karat');
+                                    $('#carat').text(response["carat"] + ' Carat');
                                     $('#total-amount').val(response["total_amount"]);
 
                                     if (response['continue'] == 'no') {
@@ -571,7 +571,7 @@
                         <p>` + $("#pounds").text() + `</p>
                     </li>
                     <li class="list-group-item" style="padding: 0.1rem 1rem;">
-                        <small class="text-muted">Karat</small>
+                        <small class="text-muted">Carat</small>
                         <p id="send-amount">` + $("#carat").text() + `</p>
                     </li>
                     <li class="list-group-item" style="padding: 0.1rem 1rem;">
@@ -624,7 +624,7 @@
 
                 $('#density').text('0.00 Density');
                 $('#pounds').text('0.00 Pounds');
-                $('#carat').text('0.00 Karat');
+                $('#carat').text('0.00 Carat');
                 $('#total-amount').val('');
 
                 $('#buyForm')[0].reset();

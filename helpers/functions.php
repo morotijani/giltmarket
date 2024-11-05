@@ -380,7 +380,7 @@ function get_total_pushes($conn, $admin, $d) {
 ////////////////////////////////////////////////////////////////////////////////////
 
 function truncate($val, $f = "0") {
-    if(($p = strpos($val, '.')) !== false) {
+    if (($p = strpos($val, '.')) !== false) {
         $val = floatval(substr($val, 0, $p + 1 + $f));
     }
     return $val;

@@ -56,7 +56,7 @@
             $sheet->setCellValue('C1', 'VOLUME');
             $sheet->setCellValue('D1', 'DENSITY');
             $sheet->setCellValue('E1', 'POUNDS');
-            $sheet->setCellValue('F1', 'KARAT');
+            $sheet->setCellValue('F1', 'CARAT');
             $sheet->setCellValue('G1', 'PRICE');
             $sheet->setCellValue('H1', 'TOTAL AMOUNT');
             $sheet->setCellValue('I1', 'CUSTOMER NAME');
