@@ -1426,7 +1426,13 @@ function capital_mover($admin) {
 				WHERE daily_id = ?
 			";
 			$statement = $conn->prepare($sql);
-			$result = $statement->execute([date(), date(), $row[0]["daily_id"]]);
+			$result = $statement->execute(
+				[
+					date("Y-m-d H:m:s"), 
+					date("Y-m-d"), 
+					$row[0]["daily_id"]
+				]
+			);
 			return $result;
 
 		} else if ($b != NULL && $c == 0) { // capital touched, denomination not entered
