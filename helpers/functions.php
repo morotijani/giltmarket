@@ -1428,7 +1428,7 @@ function capital_mover($admin) {
 			$statement = $conn->prepare($sql);
 			$result = $statement->execute(
 				[
-					date("Y-m-d H:m:s"), 
+					date("Y-m-d H:i:s"), 
 					date("Y-m-d"), 
 					$row[0]["daily_id"]
 				]
