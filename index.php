@@ -5,8 +5,9 @@
 		admn_login_redirect();
 	}
 
-	$d = "2024-11-05"; //date("2024-11-05");
-	dnd(move_to_new_date($admin_id, $d));
+	$yesterday = new DateTime('yesterday');
+    $yesterday = $yesterday->format('Y-m-d');
+	dnd(move_to_new_date($admin_id, $yesterday));
 
     include ("includes/header.inc.php");
     include ("includes/aside.inc.php");
