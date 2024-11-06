@@ -1456,3 +1456,32 @@ function get_admin_coffers_send($conn, $admin) {
 	}
 	return 0;
 }
+
+// check if capital was never touch and change it date to the next day
+function move_to_new_date($admin, $d) {
+	$a = "SELECT * FROM jspence_daily WHERE daily_to = ? AND createdAt = ? ORDER BY daily_date DESC LIMIT 1";
+	$statement = $conn->prepare();
+	$statement->execute([$admin, $d]);
+
+	if ($statement->rowCount() > 0) {
+		// check if admin entered denomination
+		$b = $conn->query("SELECT * FROM jspence_denomination WHERE denomination_by = ? AND createdAt = '" . $d . "'")->rowCount();
+		if ($b > 0) {
+			return true
+		} else {
+			// check if capital was ever touched
+			$c = $conn->query("SELECT * FROM jspence_daily WHERE daily_balance IS NULL AND daily_date = '" . $d . "'")->rowCount();
+			if ($b > 0) {
+				// update capital date to the following day
+
+			} else {
+				// update capital date to the following day
+			}
+		}
+
+		
+	} else {
+
+	}
+}
+
