@@ -1468,20 +1468,20 @@ function move_to_new_date($admin, $d) {
 
 		// check if capital was ever touched
 		$c = $conn->query("SELECT * FROM jspence_daily WHERE daily_balance IS NULL AND daily_date = '" . $d . "'")->rowCount();
-		if ($b > 0) {
+		
 
-			// check if admin entered denomination
-			$b = $conn->query("SELECT * FROM jspence_denomination WHERE denomination_by = ? AND createdAt = '" . $d . "' ORDER BY  createdAt DESC LIMIT 1")->rowCount();
-			if ($b > 0) {
-				return true
-			} else {
-				// update capital date to the following day
-
-			}
-
-		} else {
+		// check if admin entered denomination
+		$b = $conn->query("SELECT * FROM jspence_denomination WHERE denomination_by = ? AND createdAt = '" . $d . "' ORDER BY  createdAt DESC LIMIT 1")->rowCount();
+		
+		// capital not touch, denomination not entered too
+		if ($c > 0 && $b < 0) {
 			// update capital date to the following day
+
+		} else if ($c < 0 && $b < 0) { // capital touched and denomination not touch
+			// auto enter denomination
+			
 		}
+		
 
 		
 	} else {
