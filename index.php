@@ -5,6 +5,9 @@
 		admn_login_redirect();
 	}
 
+	$d = date("2024-11-5");
+	dnd(move_to_new_date($admin_id, $d));
+
     include ("includes/header.inc.php");
     include ("includes/aside.inc.php");
     include ("includes/left.nav.inc.php");
