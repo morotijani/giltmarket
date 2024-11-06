@@ -5,8 +5,7 @@
 		admn_login_redirect();
 	}
 
-	$yesterday = new DateTime('yesterday');
-    $yesterday = $yesterday->format('Y-m-d');
+	// 
 	dnd(move_to_new_date($admin_id, $yesterday));
 
     include ("includes/header.inc.php");
