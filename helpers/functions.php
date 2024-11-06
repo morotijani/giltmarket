@@ -1458,7 +1458,7 @@ function get_admin_coffers_send($conn, $admin) {
 }
 
 // check if capital was never touch and change it date to the next day
-function move_to_new_date($admin, $d) {
+function move_to_new_date($admin) {
 	global $conn;
 
 	$a = "SELECT * FROM jspence_daily WHERE daily_to = ? ORDER BY daily_date DESC LIMIT 1";
@@ -1471,19 +1471,17 @@ function move_to_new_date($admin, $d) {
 		$b = $row[0]["daily_balance"];
 
 		// check if admin entered denomination
-		$c = $conn->query("SELECT * FROM jspence_denomination WHERE denomination_capital = '" . $row[0]['daily_id'] . "' AND denomination_by = '" . $admin . "' AND CAST(createdAt as date) = '" . $d . "' ORDER BY  createdAt DESC LIMIT 1")->rowCount();
-		
-		// capital not touch, denomination not entered too
-		if ($b == NULL && $c < 0) {
+		$c = $conn->query("SELECT * FROM jspence_denomination WHERE denomination_capital = '" . $row[0]['daily_id'] . "' AND denomination_by = '" . $admin . "' LIMIT 1")->rowCount();
+		if ($b == NULL && $c == 0) { // capital not touch, denomination not entered
 			// update capital date to the following day 
-			
+			$output = "update capital date to the following day ";
 
-		} else if ($b != NULL && $c < 0) { // capital touched and denomination not entered
+		} else if ($b != NULL && $c == 0) { // capital touched, denomination not entered
 			// auto enter denomination
-			
+			$output = "auto enter denomination";
 		}
 
-		return ['da' => $b, 'de' => $c];
+		return $output;
 	}
 
 	return false;
