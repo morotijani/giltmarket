@@ -147,11 +147,11 @@ if (array_key_exists('postdata', $_SESSION)) {
         }
 
         $insertSql = "
-            INSERT INTO jspence_coffers (coffers_amount, coffers_for, coffers_status, coffers_receive_through, createdAt, coffers_id) 
-            VALUES (?, ?, ?, ?, ?, ?)
+            INSERT INTO jspence_coffers (coffers_amount, coffers_status, coffers_receive_through, createdAt, coffers_id) 
+            VALUES (?, ?, ?, ?, ?)
         ";
         $statement = $conn->prepare($insertSql);
-        $coffers_result = $statement->execute([$cash, $push_to, 'receive', 'end_trade_balance', $createdAt, $coffers_id]);
+        $coffers_result = $statement->execute([$cash, 'receive', 'end_trade_balance', $createdAt, $coffers_id]);
 
         // insert all money into pushes and link with coffers id
         if ($coffers_result) {
