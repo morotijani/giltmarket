@@ -1458,7 +1458,7 @@ function get_admin_coffers_send($conn, $admin) {
 }
 
 // check if capital was never touch and change it date to the next day
-function move_to_new_date($admin) {
+function capital_mover($admin) {
 	global $conn;
 
 	$a = "SELECT * FROM jspence_daily WHERE daily_to = ? ORDER BY daily_date DESC LIMIT 1";
