@@ -1460,7 +1460,6 @@ function capital_mover($admin) {
 				]);
 			}
 			return $result;
-
 		}
 	}
 	return false;
