@@ -1424,12 +1424,14 @@ function capital_mover($admin) {
 		$b = $row[0]["daily_balance"];
 
 		// check if admin entered denomination
-		$c = $conn->query("SELECT * FROM jspence_denomination WHERE denomination_capital = '" . $row[0]['daily_id'] . "' AND denomination_by = '" . $admin . "' LIMIT 1")->rowCount();
+		$c = $conn->query("SELECT * FROM jspence_denomination WHERE denomination_capital = '" . $row[0]['daily_id'] . "' AND denomination_by = '" . $admin . "' AND status = 0 LIMIT 1")->rowCount();
+		
 		if ($b == NULL && $c == 0) { // capital not touch, denomination not entered
 
 			// update capital date to the following day 
 			$sql = "
-				UPDATE jspence_daily SET createdAt = ?, daily_date = ? 
+				UPDATE jspence_daily 
+				SET createdAt = ?, daily_date = ? 
 				WHERE daily_id = ?
 			";
 			$statement = $conn->prepare($sql);
@@ -1444,10 +1446,16 @@ function capital_mover($admin) {
 
 		} else if ($b != NULL && $c == 0) { // capital touched, denomination not entered
 			// auto enter denomination
+			 // save end trade records into denomination table
+			 $sql = "
+				INSERT INTO `jspence_denomination`(`denominations_id`, `denomination_capital`, `denomination_by`, ) 
+				VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+			";
+			$statement = $conn->prepare($sql);
+			$result = $statement->execute($data);
 		}
 
 	}
 
-	return false;
 }
 
