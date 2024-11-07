@@ -1351,18 +1351,12 @@ function sum_up_carat($conn, $admin) {
 // get admin coffers balance (balance, receive or send)
 function get_admin_coffers($conn, $admin, $action = null) {
 	$output = 0;
-	// if ($action == 'receive') {
-	// 	$output = get_admin_coffers_received($conn, $admin);
-	// } else if ($action == 'send') {
-	// 	$output = get_admin_coffers_send($conn, $admin);
-	// } else {
-	// 	$output = (float)(get_admin_coffers_received($conn, $admin) - get_admin_coffers_send($conn, $admin));
-	// }
-
 	if ($action == 'receive') {
 		$output = get_admin_coffers_received($conn, $admin);
 	} else if ($action == 'send') {
 		$output = get_admin_coffers_send($conn, $admin);
+	} else {
+		$output = (float)(get_admin_coffers_received($conn, $admin) - get_admin_coffers_send($conn, $admin));
 	}
 
 	return $output;
