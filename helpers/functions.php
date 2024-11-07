@@ -1421,10 +1421,8 @@ function capital_mover($admin) {
 	$row = $statement->fetchAll();
 
 	if ($statement->rowCount() > 0) {
-		// check to see if that day is equal to our current date
-		if ($today != $row[0]["daily_date"]) {
-
 		
+		if ($today != $row[0]["daily_date"]) { // check to see if that day is equal to our current date
 
 			$b = $row[0]["daily_balance"];
 
@@ -1447,11 +1445,8 @@ function capital_mover($admin) {
 						$row[0]["daily_id"]
 					]
 				);
-				return $result;
-
 			} else if ($b != NULL && $c == 0) { // capital touched, denomination not entered
 				// auto enter denomination
-				// save end trade records into denomination table
 				$sql = "
 					INSERT INTO `jspence_denomination`(`denominations_id`, `denomination_capital`, `denomination_by`, ) 
 					VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
@@ -1461,9 +1456,10 @@ function capital_mover($admin) {
 					
 				]);
 			}
+			return $result;
 
 		}
 	}
-
+	return false;
 }
 
