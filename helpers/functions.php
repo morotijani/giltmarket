@@ -1416,7 +1416,7 @@ function capital_mover($admin) {
 		LIMIT 1
 	";
 	$statement = $conn->prepare($a);
-	$statement->execute([$admin]);
+	$statement->execute([$admin, 0, 0]);
 	$row = $statement->fetchAll();
 
 	if ($statement->rowCount() > 0) {
