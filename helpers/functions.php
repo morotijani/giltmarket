@@ -1449,7 +1449,7 @@ function capital_mover($admin) {
 				// auto enter denomination
 				$sql = "
 					INSERT INTO `jspence_denomination`(`denominations_id`, `denomination_capital`, `denomination_by`, `denomination_checker`) 
-					VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+					VALUES (?, ?, ?, ?)
 				";
 				$statement = $conn->prepare($sql);
 				$result = $statement->execute([
