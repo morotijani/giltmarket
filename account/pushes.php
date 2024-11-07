@@ -58,8 +58,8 @@
 
         <?php if (admin_has_permission('supervisor')): ?>
         <div class="row mb-8">
-            <div class="col-12 col-md-6 col-xxl-4 mb-4 mb-xxl-0">
-                <div class="card bg-body-tertiary border-transparent">
+            <div class="col-12 col-md-6 col-xxl-6 mb-4 mb-xxl-0">
+                <div class="card bg-warning-subtle border-transparent">
                     <div class="card-body">
                         <div class="row align-items-center">
                             <div class="col">
@@ -73,23 +73,8 @@
                     </div>
                 </div>
             </div>
-            <div class="col-12 col-md-6 col-xxl-4 mb-4 mb-xxl-0">
-                <div class="card bg-body-tertiary border-transparent">
-                    <div class="card-body">
-                        <div class="row align-items-center">
-                            <div class="col">
-                                <!-- Heading -->
-                                <h4 class="fs-sm fw-normal text-body-secondary mb-1">Cash-in coffers</h4>
-
-                                <!-- Text -->
-                                <div class="fs-4 fw-semibold"><?= money(get_admin_coffers($conn, $admin_id, 'receive')); ?></div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-12 col-md-6 col-xxl-4 mb-4 mb-xxl-0">
-                <div class="card bg-body-tertiary border-transparent">
+            <div class="col-12 col-md-6 col-xxl-6 mb-4 mb-xxl-0">
+                <div class="card bg-danger-subtle border-transparent">
                     <div class="card-body">
                         <div class="row align-items-center">
                             <div class="col">
