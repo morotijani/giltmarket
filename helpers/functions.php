@@ -1406,6 +1406,7 @@ function get_admin_coffers_send($conn, $admin) {
 // check if capital was never touch and change it date to the next day
 function capital_mover($admin) {
 	global $conn;
+	$today = date("Y-m-d");
 
 	$a = "
 		SELECT * FROM jspence_daily 
@@ -1420,41 +1421,48 @@ function capital_mover($admin) {
 	$row = $statement->fetchAll();
 
 	if ($statement->rowCount() > 0) {
+		// check to see if that day is equal to our current date
+		if ($today != $row[0]["daily_date"]) {
 
-		$b = $row[0]["daily_balance"];
-
-		// check if admin entered denomination
-		$c = $conn->query("SELECT * FROM jspence_denomination WHERE denomination_capital = '" . $row[0]['daily_id'] . "' AND denomination_by = '" . $admin . "' AND status = 0 LIMIT 1")->rowCount();
 		
-		if ($b == NULL && $c == 0) { // capital not touch, denomination not entered
 
-			// update capital date to the following day 
-			$sql = "
-				UPDATE jspence_daily 
-				SET createdAt = ?, daily_date = ? 
-				WHERE daily_id = ?
-			";
-			$statement = $conn->prepare($sql);
-			$result = $statement->execute(
-				[
-					date("Y-m-d H:i:s"), 
-					date("Y-m-d"), 
-					$row[0]["daily_id"]
-				]
-			);
-			return $result;
+			$b = $row[0]["daily_balance"];
 
-		} else if ($b != NULL && $c == 0) { // capital touched, denomination not entered
-			// auto enter denomination
-			 // save end trade records into denomination table
-			 $sql = "
-				INSERT INTO `jspence_denomination`(`denominations_id`, `denomination_capital`, `denomination_by`, ) 
-				VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
-			";
-			$statement = $conn->prepare($sql);
-			$result = $statement->execute($data);
+			// check if admin entered denomination
+			$c = $conn->query("SELECT * FROM jspence_denomination WHERE denomination_capital = '" . $row[0]['daily_id'] . "' AND denomination_by = '" . $admin . "' AND status = 0 LIMIT 1")->rowCount();
+			
+			if ($b == NULL && $c == 0) { // capital not touch, denomination not entered
+
+				// update capital date to the following day 
+				$sql = "
+					UPDATE jspence_daily 
+					SET createdAt = ?, daily_date = ? 
+					WHERE daily_id = ?
+				";
+				$statement = $conn->prepare($sql);
+				$result = $statement->execute(
+					[
+						date("Y-m-d H:i:s"), 
+						$today, 
+						$row[0]["daily_id"]
+					]
+				);
+				return $result;
+
+			} else if ($b != NULL && $c == 0) { // capital touched, denomination not entered
+				// auto enter denomination
+				// save end trade records into denomination table
+				$sql = "
+					INSERT INTO `jspence_denomination`(`denominations_id`, `denomination_capital`, `denomination_by`, ) 
+					VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+				";
+				$statement = $conn->prepare($sql);
+				$result = $statement->execute([
+					
+				]);
+			}
+
 		}
-
 	}
 
 }
