@@ -252,6 +252,7 @@ if (array_key_exists('postdata', $_SESSION)) {
                                 <?= ((admin_has_permission('salesperson')) ? 'Balance: ' . $capital_bal . '<br />' : ''); ?>
                                 <?= $brought_in_amount; ?><br />
                                 <?= $gained; ?>
+                                <?= $expenditure; ?>
                                 Total Push made: <?php $p = get_total_send_push($conn, $admin_id, date("Y-m-d")); echo money($p["sum"]); ?>
                             </p>
                         </div>
