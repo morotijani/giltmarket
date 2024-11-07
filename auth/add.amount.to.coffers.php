@@ -31,11 +31,11 @@
                 }
 
                 $coffersSQL = "
-                    INSERT INTO jspence_coffers (coffers_id, coffers_amount, coffers_for, coffers_status, coffers_receive_through, createdAt) 
-                    VALUES (?, ?, ?, ?, ?, ?)
+                    INSERT INTO jspence_coffers (coffers_id, coffers_amount, coffers_status, coffers_receive_through, createdAt) 
+                    VALUES (?, ?, ?, ?, ?)
                 ";
                 $statement = $conn->prepare($coffersSQL);
-                $result = $statement->execute([$coffers_id, $add_amount, $admin_id, 'receive', $coffers_receive_through, $createdAt]);
+                $result = $statement->execute([$coffers_id, $add_amount, 'receive', $coffers_receive_through, $createdAt]);
                 if ($result) {
                     
                     $push_on = (($add_from == 'trades') ? 'dialy' : 'coffers'); // look up
