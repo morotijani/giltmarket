@@ -127,7 +127,13 @@
 	</div>
 
 	<script>
+		// first print
 		window.print();
+
+		setTimeout(function() {
+			// second print
+			window.print();
+		}, 1000);
 
 		window.onafterprint = function() {
 			setTimeout(function() {
