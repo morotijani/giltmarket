@@ -5,14 +5,14 @@
 		admn_login_redirect();
 	}
 
-	dnd(capital_mover($admin_id, $yesterday));
+	dnd(capital_mover($admin_id));
 
     include ("includes/header.inc.php");
     include ("includes/aside.inc.php");
     include ("includes/left.nav.inc.php");
     include ("includes/top.nav.inc.php");
 
-	// statisticall calculations
+	// statistical calculations
 	$thisYr = date("Y");
 	$lastYr = $thisYr - 1;
 
