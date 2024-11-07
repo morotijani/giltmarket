@@ -63,8 +63,10 @@ if (array_key_exists('postdata', $_SESSION)) {
     if (admin_has_permission('supervisor')) {
         $gained = 'Earned: ' . _gained_calculation(_capital($admin_id)['today_balance'], _capital($admin_id)['today_capital'], $admin_id) . '<br />';
     }
-    
+
     $exp_amt = ((admin_has_permission('supervisor')) ? '' : total_expenditure_today($admin_id));
+    $expenditure = ((admin_has_permission('salesperson')) ? 'Expenditure: ' . money($exp_amt) . '<br>' : '');
+
     $tst = total_sale_amount_today($admin_id); // total sale today
     $brought_in_amount = ((admin_has_permission('supervisor')) ? 'Cash' : 'Gold') . ' accumulated: ' . ((admin_has_permission('supervisor')) ? money($tst["sum"]) : money((float)($tst["sum"] - $exp_amt["sum"])));
 
