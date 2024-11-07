@@ -1448,12 +1448,15 @@ function capital_mover($admin) {
 			} else if ($b != NULL && $c == 0) { // capital touched, denomination not entered
 				// auto enter denomination
 				$sql = "
-					INSERT INTO `jspence_denomination`(`denominations_id`, `denomination_capital`, `denomination_by`, ) 
+					INSERT INTO `jspence_denomination`(`denominations_id`, `denomination_capital`, `denomination_by`, `denomination_checker`) 
 					VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
 				";
 				$statement = $conn->prepare($sql);
 				$result = $statement->execute([
-					
+					guidv4(),
+					$row[0]["daily_id"], 
+					$admin,
+					'forgot',
 				]);
 			}
 			return $result;
