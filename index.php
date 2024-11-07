@@ -5,8 +5,7 @@
 		admn_login_redirect();
 	}
 
-	// 
-	// dnd(move_to_new_date($admin_id, $yesterday));
+	dnd(capital_mover($admin_id, $yesterday));
 
     include ("includes/header.inc.php");
     include ("includes/aside.inc.php");
