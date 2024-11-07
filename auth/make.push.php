@@ -64,8 +64,6 @@
 							$findCapital = $q[0]['daily_id'];
 						}
 
-						
-
 						if (isset($daily_result)) {
 
 							// update coffers
@@ -74,11 +72,11 @@
 								$createdAt = date("Y-m-d H:i:s");
 							
 								$coffersSQL = "
-									INSERT INTO jspence_coffers (coffers_id, coffers_amount, coffers_for, coffers_status, createdAt) 
-									VALUES (?, ?, ?, ?, ?)
+									INSERT INTO jspence_coffers (coffers_id, coffers_amount, coffers_status, createdAt) 
+									VALUES (?, ?, ?, ?)
 								";
 								$statement = $conn->prepare($coffersSQL);
-								$statement->execute([$coffers_id, $given, $admin_id, 'send', $createdAt]);
+								$statement->execute([$coffers_id, $given, 'send', $createdAt]);
 
 								$LID = $conn->lastInsertId();
 								$q = $conn->query("SELECT * FROM jspence_coffers WHERE id = '" . $LID . "' LIMIT 1")->fetchAll();
