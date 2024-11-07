@@ -67,7 +67,7 @@ if (isset($_POST['gram-amount'])) {
 				$statement->execute([$today, $t, $_t, $admin_data['admin_id'], 0]);
 				$r = $statement->fetchAll();
 				
-				$trade_status = 'out-trade';
+				$trade_status = 'bought'; // out-trade
 				if (admin_has_permission('salesperson')) {
 					if ($r[0]['ttsa'] > 0) {
 						$today_total_balance = (float)(_capital($admin_data['admin_id'])['today_capital'] - $r[0]['ttsa']);
@@ -75,7 +75,7 @@ if (isset($_POST['gram-amount'])) {
 				}
 
 				if (admin_has_permission('supervisor')) {
-					$trade_status = 'in-trade';
+					$trade_status = 'sold'; // in-trade
 					$today_total_balance = $r[0]['ttsa'];
 				}
 
