@@ -1428,6 +1428,7 @@ function capital_mover($admin) {
 
 			// check if admin entered denomination
 			$c = $conn->query("SELECT * FROM jspence_denomination WHERE denomination_capital = '" . $row[0]['daily_id'] . "' AND denomination_by = '" . $admin . "' AND status = 0 LIMIT 1")->rowCount();
+			dnd($c);
 			
 			if ($b == NULL && $c == 0) { // capital not touch, denomination not entered
 
@@ -1447,17 +1448,18 @@ function capital_mover($admin) {
 				);
 			} else if ($b != NULL && $c == 0) { // capital touched, denomination not entered
 				// auto enter denomination
-				$sql = "
-					INSERT INTO `jspence_denomination`(`denominations_id`, `denomination_capital`, `denomination_by`, `denomination_checker`) 
-					VALUES (?, ?, ?, ?)
-				";
-				$statement = $conn->prepare($sql);
-				$result = $statement->execute([
-					guidv4(),
-					$row[0]["daily_id"], 
-					$admin,
-					'forgot',
-				]);
+				$result = "forgot";
+				// $sql = "
+				// 	INSERT INTO `jspence_denomination`(`denominations_id`, `denomination_capital`, `denomination_by`, `denomination_checker`) 
+				// 	VALUES (?, ?, ?, ?)
+				// ";
+				// $statement = $conn->prepare($sql);
+				// $result = $statement->execute([
+				// 	guidv4(),
+				// 	$row[0]["daily_id"], 
+				// 	$admin,
+				// 	'forgot',
+				// ]);
 			}
 			return $result;
 		}

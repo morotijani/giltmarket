@@ -5,7 +5,7 @@
 		admn_login_redirect();
 	}
 
-	dnd(capital_mover($admin_id));
+	// dnd(capital_mover($admin_id));
 
     include ("includes/header.inc.php");
     include ("includes/aside.inc.php");
