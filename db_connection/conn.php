@@ -54,6 +54,11 @@
 		
  	}
 
+	//
+	if (capital_mover($admin_id) == "touched") {
+		redirect(PROOT . 'auth/end-trade-checker');
+	}
+
  	// Display on Messages on Errors And Success
  	$flash = '';
  	if (isset($_SESSION['flash_success'])) {
