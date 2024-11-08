@@ -7,12 +7,10 @@
 	}
 
     //
-	if (capital_mover($admin_id) != "touched") {
+    $capital_mover = capital_mover($admin_id);
+	if (is_array($capital_mover) && $capital_mover["msg"] != "touched") {
 		redirect(PROOT);
 	}
-
-    $error = '';
-
 ?>
 
 

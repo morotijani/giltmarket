@@ -1447,6 +1447,7 @@ function capital_mover($admin) {
 			// check if admin entered denomination
 			$c = $conn->query("SELECT * FROM jspence_denomination WHERE denomination_capital = '" . $row[0]['daily_id'] . "' AND denomination_by = '" . $admin . "' AND status = 0 ORDER BY id DESC LIMIT 1")->rowCount();
 
+			$result = "";
 			if ($b == NULL && $c == 0) { // capital not touch, denomination not entered
 
 				// update capital date to the following day 
@@ -1463,10 +1464,18 @@ function capital_mover($admin) {
 				// 		$row[0]["daily_id"]
 				// 	]
 				// );
-				$result = "not-touched";
+				$result = [
+							"msg" => "not-touched"
+						];
 			} else if ($b != NULL && $c == 0) { // capital touched, denomination not entered
 				// auto enter denomination
-				$result = "touched";
+
+				$result = [
+							"msg" => "touched", 
+							"capital" => $row[0]["daily_capital"], 
+							"balance" => $row[0]["daily_balance"], 
+							"date" => $row[0]["daily_date"]
+						];
 				// $sql = "
 				// 	INSERT INTO `jspence_denomination`(`denominations_id`, `denomination_capital`, `denomination_by`, `denomination_checker`) 
 				// 	VALUES (?, ?, ?, ?)
