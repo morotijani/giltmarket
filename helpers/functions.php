@@ -1446,24 +1446,23 @@ function capital_mover($admin) {
 
 			// check if admin entered denomination
 			$c = $conn->query("SELECT * FROM jspence_denomination WHERE denomination_capital = '" . $row[0]['daily_id'] . "' AND denomination_by = '" . $admin . "' AND status = 0 LIMIT 1")->rowCount();
-			dnd($c);
-			
+						
 			if ($b == NULL && $c == 0) { // capital not touch, denomination not entered
 
 				// update capital date to the following day 
-				$sql = "
-					UPDATE jspence_daily 
-					SET createdAt = ?, daily_date = ? 
-					WHERE daily_id = ?
-				";
-				$statement = $conn->prepare($sql);
-				$result = $statement->execute(
-					[
-						date("Y-m-d H:i:s"), 
-						$today, 
-						$row[0]["daily_id"]
-					]
-				);
+				// $sql = "
+				// 	UPDATE jspence_daily 
+				// 	SET createdAt = ?, daily_date = ? 
+				// 	WHERE daily_id = ?
+				// ";
+				// $statement = $conn->prepare($sql);
+				// $result = $statement->execute(
+				// 	[
+				// 		date("Y-m-d H:i:s"), 
+				// 		$today, 
+				// 		$row[0]["daily_id"]
+				// 	]
+				// );
 			} else if ($b != NULL && $c == 0) { // capital touched, denomination not entered
 				// auto enter denomination
 				$result = "forgot";
@@ -1480,7 +1479,7 @@ function capital_mover($admin) {
 				// ]);
 				redirect(PROOT . 'account/end-trade');
 			}
-			return $result;
+			// return $result;
 		}
 	}
 	return false;
