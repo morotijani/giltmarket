@@ -52,19 +52,6 @@
                 <!-- Subheading -->
                 <p class="lead text-center text-body-secondary">Access our dashboard and start tracking your tasks.</p>
 
-                <!-- Form -->
-                <form class="mb-5" method="POST">
-                    <div class="mb-4">
-                        <label class="visually-hidden" for="email">Email Address</label>
-                        <input class="form-control" autofocus autocomplete="off" name="admin_email" id="admin_email" type="email" placeholder="Enter your email address..." reguired />
-                    </div>
-                    <div class="mb-4">
-                        <label class="visually-hidden" for="email">Email Address</label>
-                        <input class="form-control" id="admin_password" name="admin_password" type="password" placeholder="***" required />
-                    </div>
-                    <button name="submit_login" class="btn btn-secondary w-100" type="submit">Sign in</button>
-                </form>
-
                 <!-- Text -->
                 <p class="text-center text-body-secondary mb-0">Missing password? <a href="javascript:;">Recover here</a>.</p>
 				<p class="text-center text-body-secondary">By connecting, know that we save all actions into logs for future references. You agree to J-Spence <a href="#">Terms of Service</a></p>
