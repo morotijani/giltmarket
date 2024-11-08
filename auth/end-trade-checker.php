@@ -37,7 +37,7 @@
     <link rel="stylesheet" href="<?= PROOT; ?>assets/css/theme.bundle.css" />
     
     <!-- Title -->
-    <title>Dashbrd . JSPENCE</title>
+    <title>JSPENCE</title>
 
     <style>
     </style>
@@ -48,13 +48,13 @@
       <div class="row justify-content-center">
         <div class="col-12" style="max-width: 25rem">
           <!-- Heading -->
-          <h1 class="fs-1 text-center">😅</h1>
+          <h1 class="fs-1 text-center">😞</h1>
 
           <!-- Subheading -->
-          <p class="lead text-center text-body-secondary">Oops! Something went wrong, but we'll get you back on track.</p>
+          <p class="lead text-center text-body-secondary">Oops! You did not end your trade the last time you started trade. click on the button below to end that trade to start new trade for this day.</p>
 
           <!-- Button -->
-          <button class="btn btn-secondary w-100">Return to dashboard</button>
+          <button class="btn btn-secondary w-100">Go to End trade</button>
         </div>
       </div>
     </div>
