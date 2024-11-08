@@ -12,7 +12,6 @@
 		redirect(PROOT);
 	}
 
-    dnd($capital_mover);
 ?>
 
 
@@ -51,13 +50,15 @@
     <body class="d-flex align-items-center">
         <div class="container">
             <div class="row justify-content-center">
-                <div class="col-12" style="max-width: 25rem">
+                <div class="col-12" style="max-width: 30rem">
                     <!-- Heading -->
                     <h1 class="fs-1 text-center">😞</h1>
 
                     <!-- Subheading -->
                     <p class="lead text-center text-body-secondary">Oops! You did not end your trade the last time you started trade. click on the button below to end that trade to start new trade for this day.</p>
                     <br>
+                </div>
+                <div class="col-12" style="">
                     <div class="row mb-8">
                         <div class="col-12 col-md-6 col-xxl-3 mb-4 mb-xxl-0">
                             <div class="card bg-body-tertiary border-transparent">
@@ -122,7 +123,32 @@
                                 </div>
                             </div>
                         </div>
+                        <div class="col-12 col-md-6 col-xxl-3">
+                            <div class="card bg-body-tertiary border-transparent">
+                                <div class="card-body">
+                                    <div class="row align-items-center">
+                                        <div class="col">
+                                            <!-- Heading -->
+                                            <h4 class="fs-sm fw-normal text-body-secondary mb-1">Total trades</h4>
+
+                                            <!-- Text -->
+                                            <div class="fs-4 fw-semibold"><?= 0; ?></div>
+                                        </div>
+                                        <div class="col-auto">
+                                            <!-- Avatar -->
+                                            <div class="avatar avatar-lg bg-body text-primary">
+                                            <i class="fs-4" data-duoicon="discount"></i>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
                     </div>
+                </div>
+                <div class="col-12" style="max-width: 25rem">
                     <!-- Button -->
                     <button class="btn btn-secondary w-100">Go to End trade</button>
                 </div>
