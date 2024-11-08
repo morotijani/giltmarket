@@ -305,7 +305,7 @@
             })
 
             // Calculation made with current price input
-            $('#current_price').on('keyup', function(e) {
+            $('#current_price').on('keyup', delay(function(e) {
                 e.preventDefault();
                 
                 var current_price = $('#current_price').val();
@@ -366,7 +366,7 @@
                     }
                 }
 
-            })
+            }, 500));
 
 
             // Calculation made with gram input
