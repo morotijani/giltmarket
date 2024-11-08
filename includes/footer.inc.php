@@ -250,6 +250,7 @@
         // 
         $(document).ready(function() {
 
+            // executing a function after the user has stopped typing for a specified amount of time or in events that fire at a high rate
             function delay(callback, ms) {
                 var timer = 0;
                 return function() {
