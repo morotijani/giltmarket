@@ -49,7 +49,7 @@ if (isset($_POST['dater'])) {
     $statement = $conn->prepare($supervisorQuery);
     $result = $statement->execute([0, 'supervisor']);
     $sup_rows = $statement->fetchAll();
-    $sup_row = $sup_rows[0];
+    $sup_row = $sup_rows[0] ?? $sup_rows;
 
     $sales = $conn->query(
         "SELECT SUM(daily_capital) AS capital, SUM(daily_balance) AS balance 
