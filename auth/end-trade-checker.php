@@ -12,11 +12,13 @@
 
 
 <!DOCTYPE html>
-<html lang="en" data-bs-theme="">
+<html lang="en">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="description" content="A fully featured admin theme which can be used to build CRM, CMS, etc." />
+    <script src="<?= PROOT; ?>assets/js/switcher.js"></script>
+
     
     <!-- Favicon -->
     <link rel="shortcut icon" href="<?= PROOT; ?>assets/media/logo.jpeg" type="image/x-icon" />
@@ -41,35 +43,6 @@
     </style>
   </head>
 
-  <!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="description" content="A fully featured admin theme which can be used to build CRM, CMS, etc." />
-    
-    <!-- Light/dark mode -->
-    <script></script>
-    
-    <!-- Favicon -->
-    <link rel="shortcut icon" href="../assets/favicon/favicon.ico" type="image/x-icon" />
-    
-    <!-- Fonts and icons -->
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap" rel="stylesheet" />
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,1,0" />
-    
-    <!-- Libs CSS -->
-    <link rel="stylesheet" href="../assets/css/libs.bundle.css" />
-    
-    <!-- Theme CSS -->
-    <link rel="stylesheet" href="../assets/css/theme.bundle.css" />
-    
-    <!-- Title -->
-    <title>Dashbrd</title>
-  </head>
-
   <body class="d-flex align-items-center">
     <div class="container">
       <div class="row justify-content-center">
@@ -92,8 +65,6 @@
 
     <!-- Map JS -->
     <script src='https://api.mapbox.com/mapbox-gl-js/v0.53.0/mapbox-gl.js'></script>
-    <script src="<?= PROOT; ?>assets/js/switcher.js"></script>
-
     
     <!-- Vendor JS -->
     <script src="<?= PROOT; ?>assets/js/vendor.bundle.js"></script>
