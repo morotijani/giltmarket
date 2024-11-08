@@ -81,6 +81,24 @@ function _capital($admin, $d = null, $for = null) {
 	$today = date('Y-m-d');
 	$today = (($d != null) ? $d : $today);
 
+	// $sql = "
+	// 	SELECT daily_id, daily_capital, daily_balance, daily_capital_status, push_status, push_daily , daily_to 
+	// 	FROM jspence_daily 
+	// 	INNER JOIN jspence_pushes 
+	// 	-- ON jspence_pushes.push_daily = jspence_daily.daily_id 
+	// 	INNER JOIN jspence_coffers 
+	// 	ON (
+	// 		jspence_coffers.coffers_id = jspence_pushes.push_daily 
+	// 		OR jspence_pushes.push_daily = jspence_daily.daily_id
+	// 	) 
+	// 	WHERE jspence_daily.daily_date = ? 
+	// 	AND jspence_daily.daily_to = ? 
+	// 	AND jspence_daily.daily_capital_status = ? 
+	// 	AND jspence_pushes.push_status = ? 
+	// 	AND jspence_coffers.coffers_status = ? 
+	// 	ORDER BY jspence_daily.daily_date DESC
+	// 	LIMIT 1
+	// ";
 	$sql = "
 		SELECT daily_id, daily_capital, daily_balance, daily_capital_status, push_status, push_daily , daily_to 
 		FROM jspence_daily 
@@ -91,15 +109,15 @@ function _capital($admin, $d = null, $for = null) {
 			jspence_coffers.coffers_id = jspence_pushes.push_daily 
 			OR jspence_pushes.push_daily = jspence_daily.daily_id
 		) 
-		WHERE jspence_daily.daily_date = ? 
-		AND jspence_daily.daily_to = ? 
+		WHERE jspence_daily.daily_to = ? 
 		AND jspence_daily.daily_capital_status = ? 
 		AND jspence_pushes.push_status = ? 
 		AND jspence_coffers.coffers_status = ? 
+		ORDER BY jspence_daily.daily_date DESC
 		LIMIT 1
 	";
 	$statement = $conn->prepare($sql);
-	$statement->execute([$today, $admin, 0, 0, 'send']);
+	$statement->execute([$admin, 0, 0, 'send']);
 	$rows = $statement->fetchAll();
 
 	$balance = null;
