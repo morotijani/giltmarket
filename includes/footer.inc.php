@@ -371,7 +371,7 @@
 
 
             // Calculation made with gram input
-            $('#gram-amount').on('keyup', function(e) {
+            $('#gram-amount').on('keyup', delay(function(e) {
                 e.preventDefault();
 
                 // var step = this.getAttribute('data-step');
@@ -437,10 +437,10 @@
                     }
                 }
 
-            })
+            }, 500))
 
             // Calculation made with volume input
-            $('#volume-amount').on('keyup', function(e) {
+            $('#volume-amount').on('keyup', delay(function(e) {
                 e.preventDefault();
 
                 var current_price = $('#current_price').val();
@@ -504,7 +504,7 @@
                         }
                     }
                 }
-            });
+            }, 500));
 
             // Next to 1
             $('#next-1').click(function(e) {
