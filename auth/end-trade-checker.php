@@ -11,6 +11,8 @@
 	if (is_array($capital_mover) && $capital_mover["msg"] != "touched") {
 		redirect(PROOT);
 	}
+
+    dnd($capital_mover);
 ?>
 
 
@@ -44,35 +46,99 @@
 
     <style>
     </style>
-  </head>
+</head>
 
-  <body class="d-flex align-items-center">
-    <div class="container">
-      <div class="row justify-content-center">
-        <div class="col-12" style="max-width: 25rem">
-          <!-- Heading -->
-          <h1 class="fs-1 text-center">😞</h1>
+    <body class="d-flex align-items-center">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-12" style="max-width: 25rem">
+                    <!-- Heading -->
+                    <h1 class="fs-1 text-center">😞</h1>
 
-          <!-- Subheading -->
-          <p class="lead text-center text-body-secondary">Oops! You did not end your trade the last time you started trade. click on the button below to end that trade to start new trade for this day.</p>
+                    <!-- Subheading -->
+                    <p class="lead text-center text-body-secondary">Oops! You did not end your trade the last time you started trade. click on the button below to end that trade to start new trade for this day.</p>
+                    <br>
+                    <div class="row mb-8">
+                        <div class="col-12 col-md-6 col-xxl-3 mb-4 mb-xxl-0">
+                            <div class="card bg-body-tertiary border-transparent">
+                                <div class="card-body">
+                                    <div class="row align-items-center">
+                                    <div class="col">
+                                        <!-- Heading -->
+                                        <h4 class="fs-sm fw-normal text-body-secondary mb-1">Money given</h4>
 
-          <!-- Button -->
-          <button class="btn btn-secondary w-100">Go to End trade</button>
+                                        <!-- Text -->
+                                        <div class="fs-4 fw-semibold"><?= money($capital_mover["capital"]); ?></div>
+                                    </div>
+                                    <div class="col-auto">
+                                        <!-- Avatar -->
+                                        <div class="avatar avatar-lg bg-body text-primary">
+                                        <i class="fs-4" data-duoicon="credit-card"></i>
+                                        </div>
+                                    </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-12 col-md-6 col-xxl-3 mb-4 mb-xxl-0">
+                            <div class="card bg-body-tertiary border-transparent">
+                                <div class="card-body">
+                                    <div class="row align-items-center">
+                                        <div class="col">
+                                            <!-- Heading -->
+                                            <h4 class="fs-sm fw-normal text-body-secondary mb-1">Hours logged</h4>
+
+                                            <!-- Text -->
+                                            <div class="fs-4 fw-semibold"><?= money($capital_mover["balance"]); ?></div>
+                                        </div>
+                                        <div class="col-auto">
+                                            <!-- Avatar -->
+                                            <div class="avatar avatar-lg bg-body text-primary">
+                                            <i class="fs-4" data-duoicon="clock"></i>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-12 col-md-6 col-xxl-3 mb-4 mb-md-0">
+                            <div class="card bg-body-tertiary border-transparent">
+                                <div class="card-body">
+                                    <div class="row align-items-center">
+                                        <div class="col">
+                                            <!-- Heading -->
+                                            <h4 class="fs-sm fw-normal text-body-secondary mb-1">Avg. time</h4>
+
+                                            <!-- Text -->
+                                            <div class="fs-4 fw-semibold"><?= $capital_mover["date"]; ?></div>
+                                        </div>
+                                        <div class="col-auto">
+                                            <!-- Avatar -->
+                                            <div class="avatar avatar-lg bg-body text-primary">
+                                            <i class="fs-4" data-duoicon="slideshow"></i>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Button -->
+                    <button class="btn btn-secondary w-100">Go to End trade</button>
+                </div>
+            </div>
         </div>
-      </div>
-    </div>
 
+        <!-- JAVASCRIPT -->
+        <script src="<?= PROOT; ?>assets/js/jquery-3.7.1.min.js"></script>
 
-    <!-- JAVASCRIPT -->
-    <script src="<?= PROOT; ?>assets/js/jquery-3.7.1.min.js"></script>
-
-    <!-- Map JS -->
-    <script src='https://api.mapbox.com/mapbox-gl-js/v0.53.0/mapbox-gl.js'></script>
-    
-    <!-- Vendor JS -->
-    <script src="<?= PROOT; ?>assets/js/vendor.bundle.js"></script>
-    
-    <!-- Theme JS -->
-    <script src="<?= PROOT; ?>assets/js/theme.bundle.js"></script>
+        <!-- Map JS -->
+        <script src='https://api.mapbox.com/mapbox-gl-js/v0.53.0/mapbox-gl.js'></script>
+        
+        <!-- Vendor JS -->
+        <script src="<?= PROOT; ?>assets/js/vendor.bundle.js"></script>
+        
+        <!-- Theme JS -->
+        <script src="<?= PROOT; ?>assets/js/theme.bundle.js"></script>
 </body>
 </html>
