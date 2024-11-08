@@ -54,12 +54,6 @@
     
     <!-- Theme JS -->
     <script src="<?= PROOT; ?>assets/js/theme.bundle.js"></script>
-    <script type="text/javascript">
-        $(document).ready(function() {
 
-            // Fade out messages
-            $("#temporary").fadeOut(5000);
-        });
-    </script>
 </body>
 </html>
