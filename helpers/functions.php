@@ -1463,9 +1463,10 @@ function capital_mover($admin) {
 				// 		$row[0]["daily_id"]
 				// 	]
 				// );
+				$result = "not-touched";
 			} else if ($b != NULL && $c == 0) { // capital touched, denomination not entered
 				// auto enter denomination
-				$result = "forgot";
+				$result = "touched";
 				// $sql = "
 				// 	INSERT INTO `jspence_denomination`(`denominations_id`, `denomination_capital`, `denomination_by`, `denomination_checker`) 
 				// 	VALUES (?, ?, ?, ?)
@@ -1477,9 +1478,8 @@ function capital_mover($admin) {
 				// 	$admin,
 				// 	'forgot',
 				// ]);
-				redirect(PROOT . 'account/end-trade');
 			}
-			// return $result;
+			return $result;
 		}
 	}
 	return false;
