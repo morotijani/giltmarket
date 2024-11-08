@@ -1478,6 +1478,7 @@ function capital_mover($admin) {
 				// 	$admin,
 				// 	'forgot',
 				// ]);
+				redirect(PROOT . 'account/end-trade');
 			}
 			return $result;
 		}
