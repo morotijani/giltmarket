@@ -1445,8 +1445,8 @@ function capital_mover($admin) {
 			$b = $row[0]["daily_balance"];
 
 			// check if admin entered denomination
-			$c = $conn->query("SELECT * FROM jspence_denomination WHERE denomination_capital = '" . $row[0]['daily_id'] . "' AND denomination_by = '" . $admin . "' AND status = 0 LIMIT 1")->rowCount();
-						
+			$c = $conn->query("SELECT * FROM jspence_denomination WHERE denomination_capital = '" . $row[0]['daily_id'] . "' AND denomination_by = '" . $admin . "' AND status = 0 ORDER BY id DESC LIMIT 1")->rowCount();
+
 			if ($b == NULL && $c == 0) { // capital not touch, denomination not entered
 
 				// update capital date to the following day 
