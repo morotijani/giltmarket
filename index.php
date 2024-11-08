@@ -5,6 +5,11 @@
 		admn_login_redirect();
 	}
 
+	//
+	if (capital_mover($admin_id) == "touched") {
+		redirect(PROOT . 'auth/end-trade-checker');
+	}
+
     include ("includes/header.inc.php");
     include ("includes/aside.inc.php");
     include ("includes/left.nav.inc.php");

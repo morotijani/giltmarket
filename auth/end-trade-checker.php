@@ -6,6 +6,11 @@
 		admn_login_redirect();
 	}
 
+    //
+	if (capital_mover($admin_id) != "touched") {
+		redirect(PROOT);
+	}
+
     $error = '';
 
 ?>
