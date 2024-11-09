@@ -366,6 +366,13 @@
         $('#denomination-total').val(sum);
     }
 
+    $("#no-cash").change(function() {
+        if(this.checked) {
+            // Do stuff
+            alert('checked');
+        }
+    });
+
     $('#submitDenomination').on('click', function() {
         $('#submitDenomination').attr('disabled', true);
         $('#submitDenomination').text('Processing ...');
