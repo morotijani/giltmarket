@@ -110,39 +110,35 @@ if (array_key_exists('postdata', $_SESSION)) {
         $new_capital = $gold_balance;
 
         // check if supervisor has already recieved tomorrow capital from other salepersonels
-        $findTomorrowCapital = find_capital_given_to($push_to, $tomorrow);
-        if ($findTomorrowCapital) {
+        $findActiveCapital = find_capital_given_to($push_to);
+        if (is_array($findActiveCapital)) {
             $new_capital = (float)($supervisor_tomorrow_capital + $gold_balance);
-            $daily_id = $findTomorrowCapital;
+            $daily_id = $findActiveCapital["daily_id"];
         }
 
         // prevent adding negative balance
         if ($gold_balance > 0) {
-            $data = [$new_capital, $tomorrow, $push_to, $daily_id];
+            $data = [$new_capital, $push_to, $daily_id];
 
             // insert into supervosr's capital for tomorrow
             $sql = "
-                INSERT INTO jspence_daily (daily_capital, daily_date, daily_to, daily_id) 
-                VALUES (?, ?, ?, ?)
+                INSERT INTO jspence_daily (daily_capital, daily_to, daily_id) 
+                VALUES (?, ?, ?)
             ";
-            if ($findTomorrowCapital) {
+            if (is_array($findActiveCapital)) {
                 // update supervosr's capital for tomorrow
                 $sql = "
                     UPDATE `jspence_daily` 
                     SET `daily_capital` = ? 
-                    WHERE `daily_date` = ? AND `daily_to` = ? AND `daily_id` = ?
+                    WHERE `daily_to` = ? AND `daily_id` = ?
                 ";
             }
             $statement = $conn->prepare($sql);
             $daily_result = $statement->execute($data);
-
-            $message = "end-trade, remaining balance " . $capital_bal . ' sent to supervisor id: ' . $push_to;
-            add_to_log($message, $admin_id);
         }
 
         // send cash balance or cash accumulated to the coffers
         $coffers_id = guidv4();
-        $createdAt = date("Y-m-d H:i:s");
 
         if (admin_has_permission('salesperson')) {
             $cash = _capital($admin_id)['today_balance']; // cash remaining from saleperson
@@ -151,11 +147,11 @@ if (array_key_exists('postdata', $_SESSION)) {
         }
 
         $insertSql = "
-            INSERT INTO jspence_coffers (coffers_amount, coffers_status, coffers_receive_through, createdAt, coffers_id) 
-            VALUES (?, ?, ?, ?, ?)
+            INSERT INTO jspence_coffers (coffers_amount, coffers_status, coffers_receive_through, coffers_id) 
+            VALUES (?, ?, ?, ?)
         ";
         $statement = $conn->prepare($insertSql);
-        $coffers_result = $statement->execute([$cash, 'receive', 'end_trade_balance', $createdAt, $coffers_id]);
+        $coffers_result = $statement->execute([$cash, 'receive', 'end_trade_balance', $coffers_id]);
 
         // insert all money into pushes and link with coffers id
         if ($coffers_result) {
@@ -169,12 +165,7 @@ if (array_key_exists('postdata', $_SESSION)) {
                 VALUES (?, ?, ?, ?, ?, ?, ?, ?)
             ";
             $statement = $conn->prepare($sql);
-            $push_result = $statement->execute($push_data);
-
-            if (isset($push_result)) {
-                $push_message = "end-trade-push made on " . $today . ", of an amount of " . money($cash) . ' to supervisor id: ' . $push_to;
-                add_to_log($push_message, $admin_id);
-            }
+            $statement->execute($push_data);
         }
 
         // update today trade table so it does not accepts any trades anymore
@@ -188,7 +179,6 @@ if (array_key_exists('postdata', $_SESSION)) {
             $message = "market capital ended, capital id: " . $capital_id;
             add_to_log($message, $admin_id);
         }
-
 
 ?>
 

@@ -54,23 +54,24 @@ function is_capital_given() {
 }
 
 //
-function find_capital_given_to($to, $today) {
+function find_capital_given_to($to) {
 	global $conn;
 
 	$sql = "
 		SELECT *
 		FROM jspence_daily 
-		WHERE daily_date = ? 
-		AND daily_to = ? 
-		AND daily_capital_status = ?
+		WHERE daily_to = ? 
+		AND daily_capital_status = ? 
+		ORDER BY daily_date DESC 
+		LIMIT 1
 	";
 	$statement = $conn->prepare($sql);
-	$statement->execute([$today, $to, 0]);
+	$statement->execute([$to, 0]);
 	$count_row = $statement->rowCount();
 	$row = $statement->fetchAll();
 
 	if ($count_row > 0) {
-		return $row[0]['daily_id'];
+		return $row[0];
 	}
 	return false;
 }
