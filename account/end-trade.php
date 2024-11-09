@@ -172,6 +172,12 @@
                             </tbody>
                         </table>
                     </div>
+                    <div class="form-check">
+                        <input class="form-check-input" name="no-cash" type="checkbox" id="no-cash">
+                        <label class="form-check-label" for="no-cash">
+                            No cash in hand
+                        </label>
+                    </div>
                     <button type="button" class="btn btn-secondary w-100" data-bs-target="#endModal" data-bs-toggle="modal">
                         <span class="material-symbols-outlined me-1">money_off</span> Save and End trade 
                     </button>
