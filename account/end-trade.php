@@ -173,7 +173,7 @@
                         </table>
                     </div>
                     <div class="form-check mb-4">
-                        <input class="form-check-input" name="no-cash" type="checkbox" id="no-cash">
+                        <input class="form-check-input" name="no-cash" type="checkbox" id="no-cash" value="no-cash">
                         <label class="form-check-label" for="no-cash">
                             No cash
                         </label>
@@ -414,11 +414,10 @@
                 $('#submitDenomination').attr('disabled', false);
                 return false
             }
-        } else {
-            $('#submitDenomination').text('Submit');
-            $('#submitDenomination').attr('disabled', false);
-            return false
         }
+        $('#submitDenomination').text('Submit');
+        $('#submitDenomination').attr('disabled', false);
+        return false
         
     });
 </script>
