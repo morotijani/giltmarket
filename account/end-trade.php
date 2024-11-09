@@ -236,113 +236,113 @@
     // The formated version of 14340 is $14,340.00
 
     // denomination_200c
-    $('#denomination_200c').keyup(function() {
+    $('#denomination_200c').keyup(delay(function() {
         var a = (200 * +$('#denomination_200c').val())
         $('#denomination_200c_amt').val(a);
 
         denomination_total()
-    });
+    }, 500));
 
     // denomination_100c
-    $('#denomination_100c').keyup(function() {
+    $('#denomination_100c').keyup(delay(function() {
         var a = (100 * +$('#denomination_100c').val())
         $('#denomination_100c_amt').val(a);
 
         denomination_total()
-    });
+    }, 500));
 
     // denomination_50c
-    $('#denomination_50c').keyup(function() {
+    $('#denomination_50c').keyup(delay(function() {
         var a = (50 * +$('#denomination_50c').val())
         $('#denomination_50c_amt').val(a);
 
         denomination_total()
-    });
+    }, 500));
 
     // denomination_20c
-    $('#denomination_20c').keyup(function() {
+    $('#denomination_20c').keyup(delay(function() {
         var a = (20 * +$('#denomination_20c').val())
         $('#denomination_20c_amt').val(a)
 
         denomination_total()
-    });
+    }, 500));
 
     // denomination_10c
-    $('#denomination_10c').keyup(function() {
+    $('#denomination_10c').keyup(delay(function() {
         var a = (10 * +$('#denomination_10c').val())
         $('#denomination_10c_amt').val(a);
 
         denomination_total()
-    });
+    }, 500));
 
     // denomination_5c
-    $('#denomination_5c').keyup(function() {
+    $('#denomination_5c').keyup(delay(function() {
         var a = (5 * +$('#denomination_5c').val())
         $('#denomination_5c_amt').val(a);
 
         denomination_total()
-    });
+    }, 500));
 
     // denomination_2c
-    $('#denomination_2c').keyup(function() {
+    $('#denomination_2c').keyup(delay(function() {
         var a = (2 * +$('#denomination_2c').val())
         $('#denomination_2c_amt').val(a);
 
         denomination_total()
-    });
+    }, 500));
 
     // denomination_1c
-    $('#denomination_1c').keyup(function() {
+    $('#denomination_1c').keyup(delay(function() {
         var a = (1 * +$('#denomination_1c').val())
         $('#denomination_1c_amt').val(a);
 
         denomination_total()
-    });
+    }, 500));
 
     // denomination_50p
-    $('#denomination_50p').keyup(function() {
+    $('#denomination_50p').keyup(delay(function() {
         var a = (parseFloat(+0.50) * +$('#denomination_50p').val())
         a = a.toFixed(2)
         $('#denomination_50p_amt').val(a);
 
         denomination_total()
-    });
+    }, 500));
 
     // denomination_20p
-    $('#denomination_20p').keyup(function() {
+    $('#denomination_20p').keyup(delay(function() {
         var a = (parseFloat(0.20) * $('#denomination_20p').val())
         a = a.toFixed(2)
         $('#denomination_20p_amt').val(a);
 
         denomination_total()
-    });
+    }, 500));
 
     // denomination_10p
-    $('#denomination_10p').keyup(function() {
+    $('#denomination_10p').keyup(delay(function() {
         var a = (parseFloat(0.10) * $('#denomination_10p').val())
         a = a.toFixed(2)
         $('#denomination_10p_amt').val(a);
 
         denomination_total()
-    });
+    }, 500));
 
     // denomination_5p
-    $('#denomination_5p').keyup(function() {
+    $('#denomination_5p').keyup(delay(function() {
         var a = (parseFloat(0.05) * $('#denomination_5p').val())
         a = a.toFixed(2)
         $('#denomination_5p_amt').val(a);
 
         denomination_total()
-    });
+    }, 500));
 
     // denomination_1p
-    $('#denomination_1p').keyup(function() {
+    $('#denomination_1p').keyup(delay(function() {
         var a = (parseFloat(0.01) * $('#denomination_1p').val())
         a = a.toFixed(2)
         $('#denomination_1p_amt').val(a);
 
         denomination_total()
-    });
+    }, 500));
 
     function denomination_total() {
         var sum = (
