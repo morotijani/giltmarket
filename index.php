@@ -6,7 +6,7 @@
 	}
 
 	//
-	if (capital_mover($admin_id) == "touched") {
+	if (capital_mover($admin_id)["msg"] == "touched") {
 		redirect(PROOT . 'auth/end-trade-checker');
 	}
 

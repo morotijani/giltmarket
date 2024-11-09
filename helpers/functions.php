@@ -829,9 +829,9 @@ function total_expenditure_today($admin, $option = null) {
 }
 
 // get total amount of sales with "expenditure" today
-function total_sale_amount_today($admin, $del = null, $option = null) {
+function total_sale_amount_today($admin, $del = null, $option = null, $DT = null) {
 	global $conn;
-	$today = date('Y-m-d');
+	$today = (($DT == null) ? date('Y-m-d') : $DT);
 
 	$sql = "
 		SELECT 
@@ -1470,11 +1470,13 @@ function capital_mover($admin) {
 			} else if ($b != NULL && $c == 0) { // capital touched, denomination not entered
 				// auto enter denomination
 
+				$tst = total_sale_amount_today($admin, null, null, $row[0]["daily_date"]); 
 				$result = [
 							"msg" => "touched", 
 							"capital" => $row[0]["daily_capital"], 
 							"balance" => $row[0]["daily_balance"], 
-							"date" => $row[0]["daily_date"]
+							"date" => $row[0]["daily_date"],
+							"tt" =>  $tst["sum"]
 						];
 				// $sql = "
 				// 	INSERT INTO `jspence_denomination`(`denominations_id`, `denomination_capital`, `denomination_by`, `denomination_checker`) 
