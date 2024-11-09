@@ -123,7 +123,7 @@
                                 <tr>
                                     <td>TEN Ghana cedis (10 GHS) X </td>
                                     <td><input type="number" inputmode="numeric" min="0" step="1" class="form-control" name="denomination_10c" id="denomination_10c" placeholder="0" /></td>
-                                    <td><input type="number" class="form-control" name="denomination_10c_amt" id="denomination_10c_amt" placeholder="0" readonly /></td>
+                                    <td><input type="number" class="form-control" name="denomination_10c_amt" id="denomination_10c_amt" placeholder="0.00" readonly /></td>
                                 </tr>
                                 <tr>
                                     <td>FIVE Ghana cedis (5 GHS) X </td>
@@ -181,7 +181,7 @@
                     <button type="button" class="btn btn-secondary w-100" data-bs-target="#endModal" data-bs-toggle="modal">
                         <span class="material-symbols-outlined me-1">money_off</span> Save and End trade 
                     </button>
-                    <a href="<?= PROOT; ?>account/end-trade" class="btn btn-link w-100 mt-3">
+                    <a href="javascript:;" id="reset-form" class="btn btn-link w-100 mt-3">
                         Reset form
                     </a>
                     <div class="modal fade" id="endModal" tabindex="-1" aria-labelledby="endModalLabel" data-bs-backdrop="static" data-bs-keyboard="false" aria-hidden="true" style="backdrop-filter: blur(5px);">
@@ -369,11 +369,17 @@
     $("#no-cash").change(function() {
         if(this.checked) {
             // Do stuff
-            alert('checked');
             $('#denominationForm')[0].reset();
 
+            // re check checkbox
             $( this ).prop( "checked", true );
         }
+    });
+
+    // reset form
+    $("#reset-form").on('click', function() {
+        $('#denominationForm')[0].reset();
+        $('#denomination_200c').focus() 
     });
 
     $('#submitDenomination').on('click', function() {
