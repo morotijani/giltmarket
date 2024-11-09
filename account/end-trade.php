@@ -235,6 +235,17 @@
     console.log(`The formated version of ${price} is ${USDollar.format(price)}`);
     // The formated version of 14340 is $14,340.00
 
+    function delay(callback, ms) {
+        var timer = 0;
+        return function() {
+            var context = this, args = arguments;
+            clearTimeout(timer);
+            timer = setTimeout(function () {
+            callback.apply(context, args);
+            }, ms || 0);
+        };
+    }
+
     // denomination_200c
     $('#denomination_200c').keyup(delay(function() {
         var a = (200 * +$('#denomination_200c').val())
@@ -366,12 +377,13 @@
         $('#denomination-total').val(sum);
     }
 
+    // no cash checkbox
     $("#no-cash").change(function() {
-        if(this.checked) {
+        if (this.checked) {
             // Do stuff
             $('#denominationForm')[0].reset();
 
-            // re check checkbox
+            // re-check checkbox
             $( this ).prop( "checked", true );
         }
     });

@@ -260,7 +260,7 @@
                     callback.apply(context, args);
                     }, ms || 0);
                 };
-                }
+            }
 
             // Fade out messages
             $("#temporary").fadeOut(5000);
