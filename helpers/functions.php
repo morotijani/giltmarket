@@ -1465,19 +1465,19 @@ function capital_mover($admin) {
 				// 	]
 				// );
 				$result = [
-							"msg" => "not-touched"
-						];
+					"msg" => "not-touched"
+				];
 			} else if ($b != NULL && $c == 0) { // capital touched, denomination not entered
 				// auto enter denomination
 
 				$tst = total_sale_amount_today($admin, null, null, $row[0]["daily_date"]); 
 				$result = [
-							"msg" => "touched", 
-							"capital" => $row[0]["daily_capital"], 
-							"balance" => $row[0]["daily_balance"], 
-							"date" => $row[0]["daily_date"],
-							"tt" =>  $tst["sum"]
-						];
+					"msg" => "touched", 
+					"capital" => $row[0]["daily_capital"], 
+					"balance" => $row[0]["daily_balance"], 
+					"date" => $row[0]["daily_date"],
+					"tt" =>  $tst["sum"]
+				];
 				// $sql = "
 				// 	INSERT INTO `jspence_denomination`(`denominations_id`, `denomination_capital`, `denomination_by`, `denomination_checker`) 
 				// 	VALUES (?, ?, ?, ?)

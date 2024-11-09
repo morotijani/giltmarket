@@ -22,38 +22,41 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     
 // issetElse
 if (array_key_exists('postdata', $_SESSION)) {
-
     $_POST = $_SESSION['postdata'];
 
-    $noCash = ((isset($_POST['no-cash']) && $_POST['no-cash'] == 'no-cash') ? sanitize($_POST['no-cash']) : null);
+    $capital_mover = capital_mover($admin_id);
+	$denomination_checker = ((is_array($capital_mover) && $capital_mover["msg"] == "touched") ? 'forgot' : '');
 
-    $denomination_200c = ((isset($_POST['denomination_200c']) && $noCash == null && !empty($_POST['denomination_200c'])) ? sanitize($_POST['denomination_200c']) : NULL);
-    $denomination_200c_amt = ((isset($_POST['denomination_200c_amt']) && $noCash == null && !empty($_POST['denomination_200c_amt'])) ? sanitize($_POST['denomination_200c_amt']) : NULL);
-    $denomination_100c = ((isset($_POST['denomination_100c']) && $noCash == null && !empty($_POST['denomination_100c'])) ? sanitize($_POST['denomination_100c']) : NULL);
-    $denomination_100c_amt = ((isset($_POST['denomination_100c_amt']) && $noCash == null && !empty($_POST['denomination_100c_amt'])) ? sanitize($_POST['denomination_100c_amt']) : NULL);
-    $denomination_50c = ((isset($_POST['denomination_50c']) && $noCash == null && !empty($_POST['denomination_50c'])) ? sanitize($_POST['denomination_50c']) : NULL);
-    $denomination_50c_amt = ((isset($_POST['denomination_50c_amt']) && $noCash == null && !empty($_POST['denomination_50c_amt'])) ? sanitize($_POST['denomination_50c_amt']) : NULL);
-    $denomination_20c = ((isset($_POST['denomination_20c']) && $noCash == null && !empty($_POST['denomination_20c'])) ? sanitize($_POST['denomination_20c']) : NULL);
-    $denomination_20c_amt = ((isset($_POST['denomination_20c_amt']) && $noCash == null && !empty($_POST['denomination_20c_amt'])) ? sanitize($_POST['denomination_20c_amt']) : NULL);
-    $denomination_10c = ((isset($_POST['denomination_10c']) && $noCash == null && !empty($_POST['denomination_10c'])) ? sanitize($_POST['denomination_10c']) : NULL);
-    $denomination_10c_amt = ((isset($_POST['denomination_10c_amt']) && $noCash == null && !empty($_POST['denomination_10c_amt'])) ? sanitize($_POST['denomination_10c_amt']) : NULL);
-    $denomination_5c = ((isset($_POST['denomination_5c']) && $noCash == null && !empty($_POST['denomination_5c'])) ? sanitize($_POST['denomination_5c']) : NULL);
-    $denomination_5c_amt = ((isset($_POST['denomination_5c_amt']) && $noCash == null && !empty($_POST['denomination_5c_amt'])) ? sanitize($_POST['denomination_5c_amt']) : NULL);
-    $denomination_2c = ((isset($_POST['denomination_2c']) && $noCash == null && !empty($_POST['denomination_2c'])) ? sanitize($_POST['denomination_2c']) : NULL);
-    $denomination_2c_amt = ((isset($_POST['denomination_2c_amt']) && $noCash == null && !empty($_POST['denomination_2c_amt'])) ? sanitize($_POST['denomination_2c_amt']) : NULL);
-    $denomination_1c = ((isset($_POST['denomination_1c']) && $noCash == null && !empty($_POST['denomination_1c'])) ? sanitize($_POST['denomination_1c']) : NULL);
-    $denomination_1c_amt = ((isset($_POST['denomination_1c_amt']) && $noCash == null && !empty($_POST['denomination_1c_amt'])) ? sanitize($_POST['denomination_1c_amt']) : NULL);
-    $denomination_50p = ((isset($_POST['denomination_50p']) && $noCash == null && !empty($_POST['denomination_50p'])) ? sanitize($_POST['denomination_50p']) : NULL);
-    $denomination_50p_amt = ((isset($_POST['denomination_50p_amt']) && $noCash == null && !empty($_POST['denomination_50p_amt'])) ? sanitize($_POST['denomination_50p_amt']) : NULL);
-    $denomination_20p = ((isset($_POST['denomination_20p']) && $noCash == null && !empty($_POST['denomination_20p'])) ? sanitize($_POST['denomination_20p']) : NULL);
-    $denomination_20p_amt = ((isset($_POST['denomination_20p_amt']) && $noCash == null && !empty($_POST['denomination_20p_amt'])) ? sanitize($_POST['denomination_20p_amt']) : NULL);
-    $denomination_10p = ((isset($_POST['denomination_10p']) && $noCash == null && !empty($_POST['denomination_10p'])) ? sanitize($_POST['denomination_10p']) : NULL);
-    $denomination_10p_amt = ((isset($_POST['denomination_10p_amt']) && $noCash == null && !empty($_POST['denomination_10p_amt'])) ? sanitize($_POST['denomination_10p_amt']) : NULL);
-    $denomination_5p = ((isset($_POST['denomination_5p']) && $noCash == null && !empty($_POST['denomination_5p'])) ? sanitize($_POST['denomination_5p']) : NULL);
-    $denomination_5p_amt = ((isset($_POST['denomination_5p_amt']) && $noCash == null && !empty($_POST['denomination_5p_amt'])) ? sanitize($_POST['denomination_5p_amt']) : NULL);
-    $denomination_1p = ((isset($_POST['denomination_1p']) && $noCash == null && !empty($_POST['denomination_1p'])) ? sanitize($_POST['denomination_1p']) : NULL);
-    $denomination_1p_amt = ((isset($_POST['denomination_1p_amt']) && $noCash == null && !empty($_POST['denomination_1p_amt'])) ? sanitize($_POST['denomination_1p_amt']) : NULL);
-    $denomination_total = ((isset($_POST['denomination_total']) && $noCash == null && !empty($_POST['denomination_total'])) ? sanitize($_POST['denomination_total']) : NULL);
+    $noCash = ((isset($_POST['no-cash']) && $_POST['no-cash'] == 'no-cash') ? 'no' : 'yes');
+    $denomination_have_cash = $noCash;
+
+    $denomination_200c = ((isset($_POST['denomination_200c']) && $noCash == 'yes' && !empty($_POST['denomination_200c'])) ? sanitize($_POST['denomination_200c']) : NULL);
+    $denomination_200c_amt = ((isset($_POST['denomination_200c_amt']) && $noCash == 'yes' && !empty($_POST['denomination_200c_amt'])) ? sanitize($_POST['denomination_200c_amt']) : NULL);
+    $denomination_100c = ((isset($_POST['denomination_100c']) && $noCash == 'yes' && !empty($_POST['denomination_100c'])) ? sanitize($_POST['denomination_100c']) : NULL);
+    $denomination_100c_amt = ((isset($_POST['denomination_100c_amt']) && $noCash == 'yes' && !empty($_POST['denomination_100c_amt'])) ? sanitize($_POST['denomination_100c_amt']) : NULL);
+    $denomination_50c = ((isset($_POST['denomination_50c']) && $noCash == 'yes' && !empty($_POST['denomination_50c'])) ? sanitize($_POST['denomination_50c']) : NULL);
+    $denomination_50c_amt = ((isset($_POST['denomination_50c_amt']) && $noCash == 'yes' && !empty($_POST['denomination_50c_amt'])) ? sanitize($_POST['denomination_50c_amt']) : NULL);
+    $denomination_20c = ((isset($_POST['denomination_20c']) && $noCash == 'yes' && !empty($_POST['denomination_20c'])) ? sanitize($_POST['denomination_20c']) : NULL);
+    $denomination_20c_amt = ((isset($_POST['denomination_20c_amt']) && $noCash == 'yes' && !empty($_POST['denomination_20c_amt'])) ? sanitize($_POST['denomination_20c_amt']) : NULL);
+    $denomination_10c = ((isset($_POST['denomination_10c']) && $noCash == 'yes' && !empty($_POST['denomination_10c'])) ? sanitize($_POST['denomination_10c']) : NULL);
+    $denomination_10c_amt = ((isset($_POST['denomination_10c_amt']) && $noCash == 'yes' && !empty($_POST['denomination_10c_amt'])) ? sanitize($_POST['denomination_10c_amt']) : NULL);
+    $denomination_5c = ((isset($_POST['denomination_5c']) && $noCash == 'yes' && !empty($_POST['denomination_5c'])) ? sanitize($_POST['denomination_5c']) : NULL);
+    $denomination_5c_amt = ((isset($_POST['denomination_5c_amt']) && $noCash == 'yes' && !empty($_POST['denomination_5c_amt'])) ? sanitize($_POST['denomination_5c_amt']) : NULL);
+    $denomination_2c = ((isset($_POST['denomination_2c']) && $noCash == 'yes' && !empty($_POST['denomination_2c'])) ? sanitize($_POST['denomination_2c']) : NULL);
+    $denomination_2c_amt = ((isset($_POST['denomination_2c_amt']) && $noCash == 'yes' && !empty($_POST['denomination_2c_amt'])) ? sanitize($_POST['denomination_2c_amt']) : NULL);
+    $denomination_1c = ((isset($_POST['denomination_1c']) && $noCash == 'yes' && !empty($_POST['denomination_1c'])) ? sanitize($_POST['denomination_1c']) : NULL);
+    $denomination_1c_amt = ((isset($_POST['denomination_1c_amt']) && $noCash == 'yes' && !empty($_POST['denomination_1c_amt'])) ? sanitize($_POST['denomination_1c_amt']) : NULL);
+    $denomination_50p = ((isset($_POST['denomination_50p']) && $noCash == 'yes' && !empty($_POST['denomination_50p'])) ? sanitize($_POST['denomination_50p']) : NULL);
+    $denomination_50p_amt = ((isset($_POST['denomination_50p_amt']) && $noCash == 'yes' && !empty($_POST['denomination_50p_amt'])) ? sanitize($_POST['denomination_50p_amt']) : NULL);
+    $denomination_20p = ((isset($_POST['denomination_20p']) && $noCash == 'yes' && !empty($_POST['denomination_20p'])) ? sanitize($_POST['denomination_20p']) : NULL);
+    $denomination_20p_amt = ((isset($_POST['denomination_20p_amt']) && $noCash == 'yes' && !empty($_POST['denomination_20p_amt'])) ? sanitize($_POST['denomination_20p_amt']) : NULL);
+    $denomination_10p = ((isset($_POST['denomination_10p']) && $noCash == 'yes' && !empty($_POST['denomination_10p'])) ? sanitize($_POST['denomination_10p']) : NULL);
+    $denomination_10p_amt = ((isset($_POST['denomination_10p_amt']) && $noCash == 'yes' && !empty($_POST['denomination_10p_amt'])) ? sanitize($_POST['denomination_10p_amt']) : NULL);
+    $denomination_5p = ((isset($_POST['denomination_5p']) && $noCash == 'yes' && !empty($_POST['denomination_5p'])) ? sanitize($_POST['denomination_5p']) : NULL);
+    $denomination_5p_amt = ((isset($_POST['denomination_5p_amt']) && $noCash == 'yes' && !empty($_POST['denomination_5p_amt'])) ? sanitize($_POST['denomination_5p_amt']) : NULL);
+    $denomination_1p = ((isset($_POST['denomination_1p']) && $noCash == 'yes' && !empty($_POST['denomination_1p'])) ? sanitize($_POST['denomination_1p']) : NULL);
+    $denomination_1p_amt = ((isset($_POST['denomination_1p_amt']) && $noCash == 'yes' && !empty($_POST['denomination_1p_amt'])) ? sanitize($_POST['denomination_1p_amt']) : NULL);
+    $denomination_total = ((isset($_POST['denomination_total']) && $noCash == 'yes' && !empty($_POST['denomination_total'])) ? sanitize($_POST['denomination_total']) : NULL);
 
     $denomination_id = guidv4();
     $capital_id = _capital($admin_id)['today_capital_id'];
@@ -72,11 +75,11 @@ if (array_key_exists('postdata', $_SESSION)) {
     $tst = total_sale_amount_today($admin_id); // total sale today
     $brought_in_amount = ((admin_has_permission('supervisor')) ? 'Cash' : 'Gold') . ' accumulated: ' . ((admin_has_permission('supervisor')) ? money($tst["sum"]) : money((float)($tst["sum"] - $exp_amt["sum"])));
 
-    $data = [$denomination_id, $capital_id, $admin_id, $denomination_200c, $denomination_200c_amt, $denomination_100c, $denomination_100c_amt, $denomination_50c, $denomination_50c_amt, $denomination_20c, $denomination_20c_amt, $denomination_10c, $denomination_10c_amt, $denomination_5c, $denomination_5c_amt, $denomination_2c, $denomination_2c_amt, $denomination_1c, $denomination_1c_amt, $denomination_50p, $denomination_50p_amt, $denomination_20p, $denomination_20p_amt, $denomination_10p, $denomination_10p_amt, $denomination_5p, $denomination_5p_amt, $denomination_1p, $denomination_1p_amt];
+    $data = [$denomination_id, $capital_id, $admin_id, $denomination_200c, $denomination_200c_amt, $denomination_100c, $denomination_100c_amt, $denomination_50c, $denomination_50c_amt, $denomination_20c, $denomination_20c_amt, $denomination_10c, $denomination_10c_amt, $denomination_5c, $denomination_5c_amt, $denomination_2c, $denomination_2c_amt, $denomination_1c, $denomination_1c_amt, $denomination_50p, $denomination_50p_amt, $denomination_20p, $denomination_20p_amt, $denomination_10p, $denomination_10p_amt, $denomination_5p, $denomination_5p_amt, $denomination_1p, $denomination_1p_amt, $denomination_checker];
     // save end trade records into denomination table
     $sql = "
-        INSERT INTO `jspence_denomination`(`denominations_id`, `denomination_capital`, `denomination_by`, `denomination_200c`, `denomination_200c_amt`, `denomination_100c`, `denomination_100c_amt`, `denomination_50c`, `denomination_50c_amt`, `denomination_20c`, `denomination_20c_amt`, `denomination_10c`, `denomination_10c_amt`, `denomination_5c`, `denomination_5c_amt`, `denomination_2c`, `denomination_2c_amt`, `denomination_1c`, `denomination_1c_amt`, `denomination_50p`, `denomination_50p_amt`, `denomination_20p`, `denomination_20p_amt`, `denomination_10p`, `denomination_10p_amt`, `denomination_5p`, `denomination_5p_amt`, `denomination_1p`, `denomination_1p_amt`) 
-        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+        INSERT INTO `jspence_denomination`(`denominations_id`, `denomination_capital`, `denomination_by`, `denomination_200c`, `denomination_200c_amt`, `denomination_100c`, `denomination_100c_amt`, `denomination_50c`, `denomination_50c_amt`, `denomination_20c`, `denomination_20c_amt`, `denomination_10c`, `denomination_10c_amt`, `denomination_5c`, `denomination_5c_amt`, `denomination_2c`, `denomination_2c_amt`, `denomination_1c`, `denomination_1c_amt`, `denomination_50p`, `denomination_50p_amt`, `denomination_20p`, `denomination_20p_amt`, `denomination_10p`, `denomination_10p_amt`, `denomination_5p`, `denomination_5p_amt`, `denomination_1p`, `denomination_1p_amt`, `denomination_have_cash`, `denomination_checker`) 
+        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
     ";
     $statement = $conn->prepare($sql);
     $result = $statement->execute($data);

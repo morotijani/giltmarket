@@ -15,9 +15,9 @@
 
     //
     $capital_mover = capital_mover($admin_id);
-	if (is_array($capital_mover) && $capital_mover["msg"] != "touched") {
-		redirect(PROOT);
-	}
+	// if (is_array($capital_mover) && $capital_mover["msg"] != "touched") {
+	// 	redirect(PROOT);
+	// }
 
     // check if capital is given
     if ((is_array($capital_mover) && $capital_mover["msg"] != "touched") && !is_capital_given()) {
@@ -405,7 +405,7 @@
                     $('#submitDenomination').attr('disabled', false);
 
                     $('#denominationForm').submit();
-                }, 2000)
+                }, 1000)
             } else {
                 alert("Invalid PIN provided");
                 $('#pin').val('');
