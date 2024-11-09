@@ -172,10 +172,10 @@
                             </tbody>
                         </table>
                     </div>
-                    <div class="form-check">
+                    <div class="form-check mb-4">
                         <input class="form-check-input" name="no-cash" type="checkbox" id="no-cash">
                         <label class="form-check-label" for="no-cash">
-                            No cash in hand
+                            No cash
                         </label>
                     </div>
                     <button type="button" class="btn btn-secondary w-100" data-bs-target="#endModal" data-bs-toggle="modal">
