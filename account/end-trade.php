@@ -2,17 +2,22 @@
 
     // view admin profile details
     require_once ("../db_connection/conn.php");
+
+    // check if admin is ligged in
     if (!admin_is_logged_in()) {
-        admn_login_redirect();
+        admin_login_redirect();
     }
 
+    // check if admin has permisison
     if (admin_has_permission()) {
         redirect(PROOT . 'accounts/trades');
     }
 
+    // check if capital is given
     if (!is_capital_given()) {
         redirect(PROOT);
     }
+
     include ("../includes/header.inc.php");
     include ("../includes/aside.inc.php");
     include ("../includes/left.nav.inc.php");

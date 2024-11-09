@@ -315,7 +315,7 @@ function admin_is_logged_in(){
 }
 
 // Redirect admin if !logged in
-function admn_login_redirect($url = 'auth/login') {
+function admin_login_redirect($url = 'auth/login') {
 	$_SESSION['flash_error'] = 'You must be logged in to access that page.';
 	redirect(PROOT . $url);
 }

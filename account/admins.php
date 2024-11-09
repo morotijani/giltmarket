@@ -6,7 +6,7 @@ require_once ("../db_connection/conn.php");
 
 // if not logged in
 if (!admin_is_logged_in()) {
-    admn_login_redirect();
+    admin_login_redirect();
 }
 
 // check for permissions

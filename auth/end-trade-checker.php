@@ -3,7 +3,7 @@
     require_once ("../db_connection/conn.php");
 
     if (!admin_is_logged_in()) {
-		admn_login_redirect();
+		admin_login_redirect();
 	}
 
     //
@@ -151,7 +151,7 @@
                 </div>
                 <div class="col-12" style="max-width: 25rem">
                     <!-- Button -->
-                    <button class="btn btn-secondary w-100">Go to End trade</button>
+                    <a href="<?= PROOT; ?>account/end-trade" class="btn btn-outline-secondary w-100">Go to End trade</a>
                 </div>
             </div>
         </div>

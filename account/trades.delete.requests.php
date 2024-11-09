@@ -3,7 +3,7 @@
     // view admin profile details
     require_once ("../db_connection/conn.php");
     if (!admin_is_logged_in()) {
-        admn_login_redirect();
+        admin_login_redirect();
     }
     include ("../includes/header.inc.php");
     include ("../includes/aside.inc.php");
