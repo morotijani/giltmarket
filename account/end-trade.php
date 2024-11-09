@@ -396,7 +396,7 @@
 
     $('#submitDenomination').on('click', function() {
         $('#submitDenomination').attr('disabled', true);
-        $('#submitDenomination').text('Processing ...');
+        $('#submitDenomination').html('<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span><span> Processing ...</span>');
         if (confirm("By clicking on ok, trade capital will be ended!")) {
 
             if ($('#pin').val() == <?= $admin_data['admin_pin']; ?>) {
@@ -421,5 +421,4 @@
         }
         
     });
-
 </script>
