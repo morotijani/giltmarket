@@ -370,6 +370,9 @@
         if(this.checked) {
             // Do stuff
             alert('checked');
+            $('#denominationForm')[0].reset();
+
+            $( this ).prop( "checked", true );
         }
     });
 
