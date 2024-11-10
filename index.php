@@ -556,12 +556,11 @@
 
 		// make a push
 		$('#show-sendMGModal').on('click', function() {
-			// if ($("input[name='push_to'][value='saleperson']").prop("checked")) {
-				if ($("#push_to").val() == '') {
-					alert("You will have to select a sale person to proceed!");
-					return false;
-				}
-			// }
+			if ($("#push_to").val() == '') {
+				alert("You will have to select a sale person to proceed!");
+				return false;
+			}
+			
 			var balance = '<?= ((admin_has_permission('supervisor')) ? get_admin_coffers($conn, $admin_id, 'balance') : total_amount_today($admin_id)); ?>';
 			if ($("#today_given").val() <= +balance) {
 				$('#sendMGModal').modal('show');
