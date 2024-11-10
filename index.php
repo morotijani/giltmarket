@@ -569,6 +569,17 @@
 <script>
 	$(document).ready(function() {
 
+		function delay(callback, ms) {
+			var timer = 0;
+			return function() {
+				var context = this, args = arguments;
+				clearTimeout(timer);
+				timer = setTimeout(function () {
+				callback.apply(context, args);
+				}, ms || 0);
+			};
+		}
+
 		//
 		$("#push-all").change(function() {
 			if (this.checked) {
@@ -591,45 +602,42 @@
 			var gram = $('#push_gram').val();
 			var volume = $('#push_volume').val();
 
-			if (current_price != '' && current_price > 0) {
-				if (gram != '' && gram > 0) {
-					if (volume != '' && volume > 0) {
-						$('#push_msg').text('');
-						$('#show-sendMGModal').attr('disabled', false);
+			if (gram != '' && gram > 0) {
+				if (volume != '' && volume > 0) {
+					$('#push_msg').text('');
+					$('#show-sendMGModal').attr('disabled', false);
 
-						$.ajax({
-							url : '<?= PROOT; ?>auth/gold.calculation.php',
-							method : 'POST',
-							data : {
-								gram : gram,
-								volume : volume,
-							},
-							beforeSend : function () {
-								// body...
-								$('#push_msg').text('typing ...');
-								$('#show-sendMGModal').attr('disabled', true);
-							},
-							success: function(data) {
-								console.log(data)
-								const response = JSON.parse(data);
-								
-								$('#push_density').val(response["density"] + ' Density');
-								$('#push_pounds').val(response["pounds"] + ' Pounds');
-								$('#push_carat').val(response["carat"] + ' Carat');
+					$.ajax({
+						url : '<?= PROOT; ?>auth/gold.calculation.php',
+						method : 'POST',
+						data : {
+							gram : gram,
+							volume : volume,
+						},
+						beforeSend : function () {
+							// body...
+							$('#push_msg').text('typing ...');
+							$('#show-sendMGModal').attr('disabled', true);
+						},
+						success: function(data) {
+							console.log(data)
+							const response = JSON.parse(data);
+							
+							$('#push_density').val(response["density"] + ' Density');
+							$('#push_pounds').val(response["pounds"] + ' Pounds');
+							$('#push_carat').val(response["carat"] + ' Carat');
 
-								$('#push_msg').text('');
-								$('#show-sendMGModal').attr('disabled', false);
-							},
-							error: function() {
-								return false;
-							}
-						})
-					} else {
-						$('#push_msg').text('');
-					}
+							$('#push_msg').text('');
+							$('#show-sendMGModal').attr('disabled', false);
+						},
+						error: function() {
+							return false;
+						}
+					})
+				} else {
+					$('#push_msg').text('');
 				}
 			}
-
 		}, 500))
 		
 
@@ -640,42 +648,40 @@
 			var gram = $('#push_gram').val();
 			var volume = $('#push_volume').val();
 
-			if (current_price != '' && current_price > 0) {
-				if (volume != '' && volume > 0) {
-					if (gram != '' && gram > 0) {
-						$('#push_msg').text('');
-						$('#show-sendMGModal').attr('disabled', false);
+			if (volume != '' && volume > 0) {
+				if (gram != '' && gram > 0) {
+					$('#push_msg').text('');
+					$('#show-sendMGModal').attr('disabled', false);
 
-						$.ajax ({
-							url : '<?= PROOT; ?>auth/gold.calculation.php',
-							method : 'POST',
-							data : {
-								gram : gram,
-								volume : volume,
-							},
-							beforeSend : function () {
-								// body...
-								$('#push_msg').text('typing ...');
-								$('#show-sendMGModal').attr('disabled', true);
-							},
-							success: function(data) {
-								console.log(data)
-								const response = JSON.parse(data);
+					$.ajax ({
+						url : '<?= PROOT; ?>auth/gold.calculation.php',
+						method : 'POST',
+						data : {
+							gram : gram,
+							volume : volume,
+						},
+						beforeSend : function () {
+							// body...
+							$('#push_msg').text('typing ...');
+							$('#show-sendMGModal').attr('disabled', true);
+						},
+						success: function(data) {
+							console.log(data)
+							const response = JSON.parse(data);
 
-								$('#push_density').val(response["density"] + ' Density');
-								$('#push_pounds').val(response["pounds"] + ' Pounds');
-								$('#push_carat').val(response["carat"] + ' Carat');
-								
-								$('#push_msg').text('');
-								$('#show-sendMGModal').attr('disabled', false);
-							},
-							error: function() {
-								return false;
-							}
-						})
-					} else {
-						$('#push_msg').text('');
-					}
+							$('#push_density').val(response["density"] + ' Density');
+							$('#push_pounds').val(response["pounds"] + ' Pounds');
+							$('#push_carat').val(response["carat"] + ' Carat');
+							
+							$('#push_msg').text('');
+							$('#show-sendMGModal').attr('disabled', false);
+						},
+						error: function() {
+							return false;
+						}
+					})
+				} else {
+					$('#push_msg').text('');
 				}
 			}
 		}, 500));
