@@ -542,18 +542,17 @@
 
 		//
 		$("#push-all").change(function() {
-        if (this.checked) {
-            // Do stuff
-			var inHand = $('#in-hand').val()
-            $('#today_given').val(inHand);
+			if (this.checked) {
+				// Do stuff
+				var inHand = $('#in-hand').val()
+				$('#today_given').val(inHand);
 
-            // re-check checkbox
-            $( this ).prop( "checked", true );
-        } else {
-            $('#today_given').val('');
-		}
-    });
-
+				// re-check checkbox
+				$( this ).prop( "checked", true );
+			} else {
+				$('#today_given').val('');
+			}
+		});
 
 		// make a push
 		$('#show-sendMGModal').on('click', function() {
