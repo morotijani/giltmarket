@@ -582,6 +582,143 @@
 			}
 		});
 
+		
+
+		// Calculation made with gram input
+		$('#push_gram').on('keyup', delay(function(e) {
+            e.preventDefault();
+
+			var current_price = $('#current_price').val();
+			var gram = $('#push_gram').val();
+			var volume = $('#push_volume').val();
+
+			if (current_price != '' && current_price > 0) {
+				if (gram != '' && gram > 0) {
+					if (volume != '' && volume > 0) {
+						$('.volumeMsg').text('');
+						$('.gramMsg').text('...');
+						$('#next-1').attr('disabled', false);
+
+						$.ajax({
+							url : '<?= PROOT; ?>auth/gold.calculation.php',
+							method : 'POST',
+							data : {
+								gram : gram,
+								volume : volume,
+								current_price : current_price,
+							},
+							beforeSend : function () {
+								// body...
+								$('#calculation-result').html('<img class="img-fluid" src="<?= PROOT; ?>assets/media/loading_v2.gif"/>');
+								$('#next-1').attr('disabled', true);
+								$('#result-view').addClass('d-none');
+							},
+							success: function(data) {
+								console.log(data)
+								const response = JSON.parse(data);
+								//if (response["message"] != '') {
+									$('.toast-body').html(response["message"]);
+									$('.toast').toast('show');
+								//}
+								$('#density').text(response["density"] + ' Density');
+								$('#pounds').text(response["pounds"] + ' Pounds');
+								$('#carat').text(response["carat"] + ' Carat');
+								$('#total-amount').val(response["total_amount"]);
+
+								if (response['continue'] == 'no') {
+									$('#next-1').attr('disabled', true);
+								} else if (response['continue'] == 'yes') {
+									$('#next-1').attr('disabled', false);
+								}
+
+								$('#calculation-result').html('')
+								$('#calculation-result').addClass('d-none');
+								$('#result-view').removeClass('d-none');
+
+								$('.gramMsg').text('...');
+								$('.volumeMsg').text('...');
+							},
+							error: function() {
+								return false;
+							}
+						})
+					} else {
+						$('.volumeMsg').text('typing ...');
+						$('.gramMsg').text('');
+					}
+				}
+			}
+
+		}, 500))
+		
+
+		// Calculation made with volume input
+		$('#push_volume').on('keyup', delay(function(e) {
+            e.preventDefault();
+
+			var current_price = $('#current_price').val();
+			var gram = $('#push_gram').val();
+			var volume = $('#push_volume').val();
+
+			if (current_price != '' && current_price > 0) {
+				if (volume != '' && volume > 0) {
+					if (gram != '' && gram > 0) {
+						$('.volumeMsg').text('...');
+						$('.gramMsg').text('');
+						$('#next-1').attr('disabled', false);
+
+						$.ajax ({
+							url : '<?= PROOT; ?>auth/gold.calculation.php',
+							method : 'POST',
+							data : {
+								current_price : current_price,
+								gram : gram,
+								volume : volume,
+							},
+							beforeSend : function () {
+								// body...
+								$('#calculation-result').html('<img class="img-fluid" src="<?= PROOT; ?>assets/media/loading_v2.gif"/>');
+								$('#next-1').attr('disabled', true);
+								$('#result-view').addClass('d-none');
+							},
+							success: function(data) {
+								console.log(data)
+								const response = JSON.parse(data);
+								//if (response["message"] != '') {
+									$('.toast-body').html(response["message"]);
+									$('.toast').toast('show');
+								//}
+								$('#density').text(response["density"] + ' Density');
+								$('#pounds').text(response["pounds"] + ' Pounds');
+								$('#carat').text(response["carat"] + ' Carat');
+								$('#total-amount').val(response["total_amount"]);
+
+								if (response['continue'] == 'no') {
+									$('#next-1').attr('disabled', true);
+								} else if (response['continue'] == 'yes') {
+									$('#next-1').attr('disabled', false);
+								}
+
+								$('#calculation-result').html('')
+								$('#calculation-result').addClass('d-none');
+								$('#result-view').removeClass('d-none');
+
+
+								$('.gramMsg').text('...');
+								$('.volumeMsg').text('...');
+							},
+							error: function() {
+								return false;
+							}
+						})
+					} else {
+						$('.gramMsg').text('typing ...');
+						$('.volumeMsg').text('...');
+					}
+				}
+			}
+		}, 500));
+
 		// make a push
 		$('#show-sendMGModal').on('click', function() {
 			if ($("#push_to").val() == '') {
