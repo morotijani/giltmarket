@@ -287,8 +287,8 @@
 									<input class="form-control" name="today_date" id="today_date" readonly type="date" value="<?php echo date('Y-m-d'); ?>" required>
 								</div>
 								<div class="form-check">
-									<input class="form-check-input" name="no-cash" type="checkbox" id="no-cash" value="no-cash">
-									<label class="form-check-label" for="no-cash">
+									<input class="form-check-input" name="push-all" type="checkbox" id="push-all" value="push-all">
+									<label class="form-check-label" for="push-all">
 										Push all <?= ((admin_has_permission('supervisor')) ? 'money' : 'gold'); ?>
 									</label>
 								</div>
@@ -301,6 +301,7 @@
                                     </div>
                                 </div>
 								<div class="text-center text-sm text-muted text-underline"><?= ((admin_has_permission('supervisor')) ? 'Cash in coffers' : 'Gold at Hand'); ?> ≈ <?= ((admin_has_permission('supervisor')) ? money(get_admin_coffers($conn, $admin_id, 'balance')) : money(total_amount_today($admin_id))); ?> GHS</div>
+								<input type="hidden" id="in-hand" value="<?= ((admin_has_permission('supervisor')) ? get_admin_coffers($conn, $admin_id, 'balance') : total_amount_today($admin_id)); ?>">
 								<div>
 									<label class="form-label">Pick a <?= ((admin_has_permission('supervisor')) ? 'sales person' : 'supervisor'); ?></label>
 									<div>
@@ -538,6 +539,21 @@
 
 <script>
 	$(document).ready(function() {
+
+		//
+		$("#push-all").change(function() {
+        if (this.checked) {
+            // Do stuff
+			var inHand = $('#in-hand').val()
+            $('#today_given').val(inHand);
+
+            // re-check checkbox
+            $( this ).prop( "checked", true );
+        } else {
+            $('#today_given').val('');
+		}
+    });
+
 
 		// make a push
 		$('#show-sendMGModal').on('click', function() {
