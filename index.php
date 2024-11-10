@@ -283,8 +283,14 @@
 					<form class="vstack gap-6" method="POST" id="sendMGForm" action="<?= PROOT; ?>auth/make.push.php">
                         <div id="">
                             <div class="vstack gap-2">
-								<div class="mb-4">
+								<div class="mb-2">
 									<input class="form-control" name="today_date" id="today_date" readonly type="date" value="<?php echo date('Y-m-d'); ?>" required>
+								</div>
+								<div class="form-check">
+									<input class="form-check-input" name="no-cash" type="checkbox" id="no-cash" value="no-cash">
+									<label class="form-check-label" for="no-cash">
+										Push all <?= ((admin_has_permission('supervisor')) ? 'money' : 'gold'); ?>
+									</label>
 								</div>
                                 <div class="bg-body-secondary rounded-3 p-4">
                                     <div class="d-flex justify-content-between text-xs text-muted">

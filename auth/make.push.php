@@ -20,7 +20,7 @@
 					$push_from = $admin_id;
 
 					if ($today_date == $today) {
-						$findCapital = find_capital_given_to($push_to, $today);
+						$findCapital = find_capital_given_to($push_to);
 
 						// get today capital from whom we are pushing to
 						$c = _capital($push_to)['today_capital'];
