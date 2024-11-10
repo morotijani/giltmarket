@@ -579,7 +579,7 @@
 			}
 
 			$('#submitSendMG').attr('disabled', true);
-			$('#submitSendMG').text('Pushing ...');
+			$('#submitSendMG').html('<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span><span> Pushing ...</span>');
 
 			setInterval(function () {
 				$('#sendMGForm').submit();
