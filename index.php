@@ -319,13 +319,13 @@
 								</div>
 								<div class="row">
 									<div class="col">
-										<input type="text" class="form-control" readonly placeholder="Density">
+										<input type="text" class="form-control" readonly name="push_density" id="push_density" placeholder="Density">
 									</div>
 									<div class="col">
-										<input type="text" class="form-control" readonly placeholder="Pounds">
+										<input type="text" class="form-control" readonly name="push_pounds" id="push_pounds" placeholder="Pounds">
 									</div>
 									<div class="col">
-										<input type="text" class="form-control" readonly placeholder="Carat">
+										<input type="text" class="form-control" readonly name="push_carat" id="push_carat" placeholder="Carat">
 									</div>
 								</div>
 								<div class="row">
@@ -345,6 +345,7 @@
 										</select>
 									</div>
 								</div>
+								<div><small class="text-muted" id="push_msg"></small></div>
 								<button type="button" class="btn btn-lg w-100" id="show-sendMGModal">Proceed</button>
                             </div>
 						</div>
@@ -583,21 +584,18 @@
 		});
 
 		
-
 		// Calculation made with gram input
 		$('#push_gram').on('keyup', delay(function(e) {
             e.preventDefault();
 
-			var current_price = $('#current_price').val();
 			var gram = $('#push_gram').val();
 			var volume = $('#push_volume').val();
 
 			if (current_price != '' && current_price > 0) {
 				if (gram != '' && gram > 0) {
 					if (volume != '' && volume > 0) {
-						$('.volumeMsg').text('');
-						$('.gramMsg').text('...');
-						$('#next-1').attr('disabled', false);
+						$('#push_msg').text('');
+						$('#show-sendMGModal').attr('disabled', false);
 
 						$.ajax({
 							url : '<?= PROOT; ?>auth/gold.calculation.php',
@@ -605,46 +603,29 @@
 							data : {
 								gram : gram,
 								volume : volume,
-								current_price : current_price,
 							},
 							beforeSend : function () {
 								// body...
-								$('#calculation-result').html('<img class="img-fluid" src="<?= PROOT; ?>assets/media/loading_v2.gif"/>');
-								$('#next-1').attr('disabled', true);
-								$('#result-view').addClass('d-none');
+								$('#push_msg').text('typing ...');
+								$('#show-sendMGModal').attr('disabled', true);
 							},
 							success: function(data) {
 								console.log(data)
 								const response = JSON.parse(data);
-								//if (response["message"] != '') {
-									$('.toast-body').html(response["message"]);
-									$('.toast').toast('show');
-								//}
-								$('#density').text(response["density"] + ' Density');
-								$('#pounds').text(response["pounds"] + ' Pounds');
-								$('#carat').text(response["carat"] + ' Carat');
-								$('#total-amount').val(response["total_amount"]);
+								
+								$('#push_density').val(response["density"] + ' Density');
+								$('#push_pounds').val(response["pounds"] + ' Pounds');
+								$('#push_carat').val(response["carat"] + ' Carat');
 
-								if (response['continue'] == 'no') {
-									$('#next-1').attr('disabled', true);
-								} else if (response['continue'] == 'yes') {
-									$('#next-1').attr('disabled', false);
-								}
-
-								$('#calculation-result').html('')
-								$('#calculation-result').addClass('d-none');
-								$('#result-view').removeClass('d-none');
-
-								$('.gramMsg').text('...');
-								$('.volumeMsg').text('...');
+								$('#push_msg').text('');
+								$('#show-sendMGModal').attr('disabled', false);
 							},
 							error: function() {
 								return false;
 							}
 						})
 					} else {
-						$('.volumeMsg').text('typing ...');
-						$('.gramMsg').text('');
+						$('#push_msg').text('');
 					}
 				}
 			}
@@ -656,30 +637,26 @@
 		$('#push_volume').on('keyup', delay(function(e) {
             e.preventDefault();
 
-			var current_price = $('#current_price').val();
 			var gram = $('#push_gram').val();
 			var volume = $('#push_volume').val();
 
 			if (current_price != '' && current_price > 0) {
 				if (volume != '' && volume > 0) {
 					if (gram != '' && gram > 0) {
-						$('.volumeMsg').text('...');
-						$('.gramMsg').text('');
-						$('#next-1').attr('disabled', false);
+						$('#push_msg').text('');
+						$('#show-sendMGModal').attr('disabled', false);
 
 						$.ajax ({
 							url : '<?= PROOT; ?>auth/gold.calculation.php',
 							method : 'POST',
 							data : {
-								current_price : current_price,
 								gram : gram,
 								volume : volume,
 							},
 							beforeSend : function () {
 								// body...
-								$('#calculation-result').html('<img class="img-fluid" src="<?= PROOT; ?>assets/media/loading_v2.gif"/>');
-								$('#next-1').attr('disabled', true);
-								$('#result-view').addClass('d-none');
+								$('#push_msg').text('typing ...');
+								$('#show-sendMGModal').attr('disabled', true);
 							},
 							success: function(data) {
 								console.log(data)
@@ -704,16 +681,15 @@
 								$('#result-view').removeClass('d-none');
 
 
-								$('.gramMsg').text('...');
-								$('.volumeMsg').text('...');
+								
+								$('#push_msg').text('typing ...');
 							},
 							error: function() {
 								return false;
 							}
 						})
 					} else {
-						$('.gramMsg').text('typing ...');
-						$('.volumeMsg').text('...');
+						$('#push_msg').text('');
 					}
 				}
 			}
