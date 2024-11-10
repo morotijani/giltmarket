@@ -41,16 +41,17 @@ function is_capital_given() {
 		FROM jspence_daily 
 		WHERE daily_date = ? 
 		AND daily_to = ? 
-		AND daily_capital_status = ?
+		AND daily_capital_status = ? 
+		ORDER BY daily_date DESC 
+		LIMIT 1
 	";
 	$statement = $conn->prepare($sql);
 	$statement->execute([$today, $admin_data['admin_id'], 0]);
 	$count_row = $statement->rowCount();
+	$rows = $statement->fetchAll();
 
-	if ($count_row > 0) {
-		return true;
-	}
-	return false;
+	return ((is_array($rows) && $count_row > 0) ? true : false);
+
 }
 
 //
@@ -320,17 +321,20 @@ function get_pushes_made($admin, $today = null) {
 }
 
 // fetch total send push made
-function get_total_send_push($conn, $admin, $d) {
+function get_total_send_push($conn, $admin, $d = null) {
+	$d = (($d == null) ? null : $d);
 	$query = "
 		SELECT 
-			SUM(push_amount) AS pamt, 
-			COUNT(id) AS c 
+			SUM(jspence_pushes.push_amount) AS pamt, 
+			COUNT(jspence_pushes.id) AS c 
 		FROM jspence_pushes 
-		WHERE push_from = ? 
-		AND push_date = ?
+		INNER JOIN jspence_daily 
+		ON jspence_daily.daily_id = jspence_pushes.push_daily 
+		WHERE jspence_pushes.push_from = ? 
+		AND jspence_daily.daily_capital_status = ?
 	";
 	$statement = $conn->prepare($query);
-	$result = $statement->execute([$admin, $d]);
+	$result = $statement->execute([$admin, 0]);
 	$row = $statement->fetchAll();
 
 	$output = [];

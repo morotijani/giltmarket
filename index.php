@@ -4,9 +4,9 @@
 	if (!admin_is_logged_in()) {
 		admin_login_redirect();
 	}
-
+	
 	//
-	if (capital_mover($admin_id)["msg"] == "touched") {
+	if (is_array(capital_mover($admin_id)) && capital_mover($admin_id)["msg"] == "touched") {
 		redirect(PROOT . 'auth/end-trade-checker');
 	}
 

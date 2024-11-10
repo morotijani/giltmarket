@@ -8,6 +8,7 @@
 
     //
     $capital_mover = capital_mover($admin_id);
+    dnd($capital_mover);
 	if (is_array($capital_mover) && $capital_mover["msg"] != "touched") {
 		redirect(PROOT);
 	}

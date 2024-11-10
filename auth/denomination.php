@@ -75,7 +75,7 @@ if (array_key_exists('postdata', $_SESSION)) {
     $tst = total_sale_amount_today($admin_id); // total sale today
     $brought_in_amount = ((admin_has_permission('supervisor')) ? 'Cash' : 'Gold') . ' accumulated: ' . ((admin_has_permission('supervisor')) ? money($tst["sum"]) : money((float)($tst["sum"] - $exp_amt["sum"])));
 
-    $data = [$denomination_id, $capital_id, $admin_id, $denomination_200c, $denomination_200c_amt, $denomination_100c, $denomination_100c_amt, $denomination_50c, $denomination_50c_amt, $denomination_20c, $denomination_20c_amt, $denomination_10c, $denomination_10c_amt, $denomination_5c, $denomination_5c_amt, $denomination_2c, $denomination_2c_amt, $denomination_1c, $denomination_1c_amt, $denomination_50p, $denomination_50p_amt, $denomination_20p, $denomination_20p_amt, $denomination_10p, $denomination_10p_amt, $denomination_5p, $denomination_5p_amt, $denomination_1p, $denomination_1p_amt, $denomination_checker];
+    $data = [$denomination_id, $capital_id, $admin_id, $denomination_200c, $denomination_200c_amt, $denomination_100c, $denomination_100c_amt, $denomination_50c, $denomination_50c_amt, $denomination_20c, $denomination_20c_amt, $denomination_10c, $denomination_10c_amt, $denomination_5c, $denomination_5c_amt, $denomination_2c, $denomination_2c_amt, $denomination_1c, $denomination_1c_amt, $denomination_50p, $denomination_50p_amt, $denomination_20p, $denomination_20p_amt, $denomination_10p, $denomination_10p_amt, $denomination_5p, $denomination_5p_amt, $denomination_1p, $denomination_1p_amt, $denomination_have_cash, $denomination_checker];
     // save end trade records into denomination table
     $sql = "
         INSERT INTO `jspence_denomination`(`denominations_id`, `denomination_capital`, `denomination_by`, `denomination_200c`, `denomination_200c_amt`, `denomination_100c`, `denomination_100c_amt`, `denomination_50c`, `denomination_50c_amt`, `denomination_20c`, `denomination_20c_amt`, `denomination_10c`, `denomination_10c_amt`, `denomination_5c`, `denomination_5c_amt`, `denomination_2c`, `denomination_2c_amt`, `denomination_1c`, `denomination_1c_amt`, `denomination_50p`, `denomination_50p_amt`, `denomination_20p`, `denomination_20p_amt`, `denomination_10p`, `denomination_10p_amt`, `denomination_5p`, `denomination_5p_amt`, `denomination_1p`, `denomination_1p_amt`, `denomination_have_cash`, `denomination_checker`) 
@@ -249,7 +249,7 @@ if (array_key_exists('postdata', $_SESSION)) {
                                 <?= $brought_in_amount; ?><br />
                                 <?= $gained; ?>
                                 <?= $expenditure; ?>
-                                Total Push made: <?php $p = get_total_send_push($conn, $admin_id, date("Y-m-d")); echo money($p["sum"]); ?>
+                                Total Push made: <?php $p = get_total_send_push($conn, $admin_id); echo money($p["sum"]); ?>
                             </p>
                         </div>
                         <div class="col-auto">
@@ -390,7 +390,7 @@ include ("../includes/footer.inc.php");
 ?>
 
 <script>
-    function printPageArea(areaID){
+    function printPageArea(areaID) {
         var printContent = document.getElementById(areaID).innerHTML;
         var originalContent = document.body.innerHTML;
         document.body.innerHTML = printContent;
