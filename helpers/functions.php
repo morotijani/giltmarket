@@ -1499,6 +1499,7 @@ function capital_mover($admin) {
 			}
 			return $result;
 		}
+		return "same-date";
 	}
 	return false;
 }

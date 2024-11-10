@@ -9,7 +9,7 @@ $ouput = '';
 if (isset($_POST['gram'])) {
 	$gram = (isset($_POST['gram']) ? $_POST['gram'] : '');
 	$volume = (isset($_POST['volume']) ? $_POST['volume'] : '');
-	$current_price = (isset($_POST['current_price']) ? $_POST['current_price'] : '');
+	$current_price = (isset($_POST['current_price']) ? $_POST['current_price'] : null);
 
 	$density = calculateDensity($gram, $volume);
 	$pounds = calculatePounds($gram);

@@ -8,7 +8,8 @@
 
     //
     $capital_mover = capital_mover($admin_id);
-	if (is_array($capital_mover) && $capital_mover["msg"] != "touched") {
+   // dnd($capital_mover);
+	if ((is_array($capital_mover) && $capital_mover["msg"] != "touched") || $capital_mover == 'same-date') {
 		redirect(PROOT);
 	}
 
