@@ -1,11 +1,23 @@
 <?php 
-    // make a daily push
+    // make a push
 
     require_once ("../db_connection/conn.php");
 
 	if (isset($_POST['today_given'])) {
 		if (!empty($_POST['today_given']) || $_POST['today_given'] != '') {
 			if (!empty($_POST['push_to']) || $_POST['push_to'] != '') {
+
+				if (admin_has_permission('salesperson')) {
+					$push_gram = ((isset($_POST['push_gram'])) ? sanitize($_POST["push_gram"]) : null);
+					$push_volume = ((isset($_POST['push_volume'])) ? sanitize($_POST["push_volume"]) : null);
+
+					$push_density = calculateDensity($push_gram, $push_volume);
+					$push_pounds = calculatePounds($push_gram);
+					$push_carat = calculateCarat($push_gram, $push_volume);
+
+					$pushData = array('gram' => $push_gram, 'volume' => $push_volume, 'density' => $push_density, 'pounds' => $push_pounds, 'carat' => $push_carat);
+					$push_data = json_encode($pushData);
+				}
 
 				$given = sanitize($_POST['today_given']);
 				$today_date = sanitize($_POST['today_date']);				
@@ -44,12 +56,12 @@
 							$daily_data = [$c, $bal, $today, $push_to];
 							$message = "on this day " . $today . ", capital updated of an amount " . money($c) . ', added amount ' . money($given) .  'for a ' .((admin_has_permission()) ? ' supervisor' : 'saleperson') . ' id: ' . $push_to;
 						} else {
-							$daily_data = [$daily_id, $given, $today, $push_to];
+							$daily_data = [$daily_id, $given, $push_to];
 							
 							// insert into daily
 							$dailyQ = "
-								INSERT INTO jspence_daily (daily_id, daily_capital, daily_date, daily_to) 
-								VALUES (?, ?, ?, ?)
+								INSERT INTO jspence_daily (daily_id, daily_capital, daily_to) 
+								VALUES (?, ?, ?)
 							";
 							$message = "on this day " . $today . ", capital entered of an amount of " . money($c) . ' to a ' . ((admin_has_permission()) ? ' supervisor' : 'saleperson') . ' id: ' . $push_to;
 						}
@@ -69,24 +81,34 @@
 							// update coffers
 							if (admin_has_permission('supervisor')) {
 								$coffers_id = guidv4();
-								$createdAt = date("Y-m-d H:i:s");
 							
 								$coffersSQL = "
-									INSERT INTO jspence_coffers (coffers_id, coffers_amount, coffers_status, createdAt) 
-									VALUES (?, ?, ?, ?)
+									INSERT INTO jspence_coffers (coffers_id, coffers_amount, coffers_status) 
+									VALUES (?, ?, ?)
 								";
 								$statement = $conn->prepare($coffersSQL);
-								$statement->execute([$coffers_id, $given, 'send', $createdAt]);
+								$statement->execute([$coffers_id, $given, 'send']);
 
 								$LID = $conn->lastInsertId();
 								$q = $conn->query("SELECT * FROM jspence_coffers WHERE id = '" . $LID . "' LIMIT 1")->fetchAll();
 								$findCapital = $q[0]['coffers_id'];
+
+								$pushData = null;
 							}
 
 							// insert into push table
-							$push_data = [$push_id, $findCapital, $given, ((admin_has_permission('supervisor')) ? 'money' : 'gold'), $push_from, $push_to, $today, ((admin_has_permission('supervisor')) ? 'coffers' : 'dialy')];
+							$push_data = [
+								$push_id, 
+								$findCapital, 
+								$given, 
+								((admin_has_permission('supervisor')) ? 'money' : 'gold'), 
+								$push_from, 
+								$push_to, 
+								((admin_has_permission('supervisor')) ? 'coffers' : 'dialy'), 
+								$pushData
+							];
 							$sql = "
-								INSERT INTO jspence_pushes (push_id, push_daily, push_amount, push_type, push_from, push_to, push_date, push_on) 
+								INSERT INTO jspence_pushes (push_id, push_daily, push_amount, push_type, push_from, push_to, push_on, push_data) 
 								VALUES (?, ?, ?, ?, ?, ?, ?, ?)
 							";
 							$statement = $conn->prepare($sql);
@@ -98,8 +120,6 @@
 							}
 							add_to_log($message, $admin_id);
 
-
-			
 							$_SESSION['flash_success'] = money($given) . ((admin_has_permission('salesperson')) ? ' Gold push to supervisor' : ' Money pushed to saleperson'). ' successfully!';
 						} else {	
 							echo js_alert('Something went wrong, please refresh and try agin!');

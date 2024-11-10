@@ -1458,22 +1458,19 @@ function capital_mover($admin) {
 			if ($b == NULL && $c == 0) { // capital not touch, denomination not entered
 
 				// update capital date to the following day 
-				// $sql = "
-				// 	UPDATE jspence_daily 
-				// 	SET createdAt = ?, daily_date = ? 
-				// 	WHERE daily_id = ?
-				// ";
-				// $statement = $conn->prepare($sql);
-				// $result = $statement->execute(
-				// 	[
-				// 		date("Y-m-d H:i:s"), 
-				// 		$today, 
-				// 		$row[0]["daily_id"]
-				// 	]
-				// );
-				$result = [
-					"msg" => "not-touched"
-				];
+				$sql = "
+					UPDATE jspence_daily 
+					SET daily_date = ? 
+					WHERE daily_id = ?
+				";
+				$statement = $conn->prepare($sql);
+				$result = $statement->execute(
+					[
+						$today, 
+						$row[0]["daily_id"]
+					]
+				);
+				$result = "not-touched-updated";
 			} else if ($b != NULL && $c == 0) { // capital touched, denomination not entered
 				// auto enter denomination
 
