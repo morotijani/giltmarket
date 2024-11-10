@@ -661,28 +661,13 @@
 							success: function(data) {
 								console.log(data)
 								const response = JSON.parse(data);
-								//if (response["message"] != '') {
-									$('.toast-body').html(response["message"]);
-									$('.toast').toast('show');
-								//}
-								$('#density').text(response["density"] + ' Density');
-								$('#pounds').text(response["pounds"] + ' Pounds');
-								$('#carat').text(response["carat"] + ' Carat');
-								$('#total-amount').val(response["total_amount"]);
 
-								if (response['continue'] == 'no') {
-									$('#next-1').attr('disabled', true);
-								} else if (response['continue'] == 'yes') {
-									$('#next-1').attr('disabled', false);
-								}
-
-								$('#calculation-result').html('')
-								$('#calculation-result').addClass('d-none');
-								$('#result-view').removeClass('d-none');
-
-
+								$('#push_density').val(response["density"] + ' Density');
+								$('#push_pounds').val(response["pounds"] + ' Pounds');
+								$('#push_carat').val(response["carat"] + ' Carat');
 								
-								$('#push_msg').text('typing ...');
+								$('#push_msg').text('');
+								$('#show-sendMGModal').attr('disabled', false);
 							},
 							error: function() {
 								return false;
