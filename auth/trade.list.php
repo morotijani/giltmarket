@@ -93,7 +93,10 @@ if ($total_data > 0) {
 			'customername' => $row['sale_customer_name'], 
 			'gram' => $row['sale_gram'], 
 			'volume' => $row['sale_volume'], 
-			'density' => $row['sale_density'], 'pounds' => $row['sale_pounds'], 'carat' => $row['sale_carat'], 'total_amount' => $row['sale_total_amount'], 
+			'density' => $row['sale_density'], 
+			'pounds' => $row['sale_pounds'], 
+			'carat' => $row['sale_carat'], 
+			'total_amount' => $row['sale_total_amount'], 
 			'current_price' => $row['sale_price'], 
 			'by' => $row['sale_by'], 
 			'date' => $d, 
@@ -101,12 +104,16 @@ if ($total_data > 0) {
 		);
 		$outputData = json_encode($arrayOutput);
 
-		$option1 = '
-			&nbsp;
-			<a href=' . PROOT . 'auth/print?data=' . $outputData . ' title="Print receipt" target="_blank" class="btn btn-sm btn-light">
-				<span class="material-symbols-outlined"> print </span>
-			</a>
-		';
+		$option1 = '';
+		if ($row['sale_type'] != 'exp') {
+			$option1 = '
+				&nbsp;
+				<a href=' . PROOT . 'auth/print?data=' . $outputData . ' title="Print receipt" target="_blank" class="btn btn-sm btn-light">
+					<span class="material-symbols-outlined"> print </span>
+				</a>
+			';
+		}
+		
         $option2 =  '
 			<div class="p-2"></div>
 			<div class="d-flex justify-content-center">

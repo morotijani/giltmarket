@@ -16,8 +16,6 @@
     include ("../includes/left.nav.inc.php");
     include ("../includes/top.nav.inc.php");
 
-    
-
 ?>
 
 

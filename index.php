@@ -309,6 +309,7 @@
 								</div>
 								<div class="text-center text-sm text-muted text-underline"><?= ((admin_has_permission('supervisor')) ? 'Cash in coffers' : 'Gold at Hand'); ?> ≈ <?= ((admin_has_permission('supervisor')) ? money(get_admin_coffers($conn, $admin_id, 'balance')) : money(total_amount_today($admin_id))); ?> GHS</div>
 								<input type="hidden" id="in-hand" value="<?= ((admin_has_permission('supervisor')) ? get_admin_coffers($conn, $admin_id, 'balance') : total_amount_today($admin_id)); ?>">
+								<?php if (admin_has_permission('salesperson')) : ?>
 								<div class="row">
 									<div class="col">
 										<input type="number" inputmode="numeric" class="form-control" name="push_gram" id="push_gram" autocomplete="off" min="0.00" step="0.01" placeholder="Gram" required>
@@ -328,6 +329,7 @@
 										<input type="text" class="form-control" readonly name="push_carat" id="push_carat" placeholder="Carat">
 									</div>
 								</div>
+								<?php endif; ?>
 								<div class="row">
 									<div class="col">
 										<input class="form-control" name="today_date" id="today_date" readonly type="date" value="<?php echo date('Y-m-d'); ?>" required>
