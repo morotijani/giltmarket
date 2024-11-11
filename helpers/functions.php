@@ -141,10 +141,12 @@ function _capital($admin, $d = null, $for = null) {
 			// }
 		}
 
+		// get balance on make push
 		if ($for == 'push') {
 			$balance = (($row['daily_balance'] == null || $row['daily_balance'] == '0.00' || $row['daily_balance'] == 0) ? null : $row['daily_balance']);
 		}
 
+		// get balance on push reversal
 		if ($for == 'reversal') {
 			$balance = (($row['daily_balance'] == null || $row['daily_balance'] == '0.00' || $row['daily_balance'] == 0) ? $row['daily_capital'] : $row['daily_balance']);
 		}
