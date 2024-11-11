@@ -25,7 +25,7 @@ if (array_key_exists('postdata', $_SESSION)) {
     $_POST = $_SESSION['postdata'];
 
     $capital_mover = capital_mover($admin_id);
-	$denomination_checker = ((is_array($capital_mover) && $capital_mover["msg"] == "touched") ? 'forgot' : '');
+	$denomination_checker = ((is_array($capital_mover) && $capital_mover["msg"] == "touched") ? 'forgot' : null);
 
     $noCash = ((isset($_POST['no-cash']) && $_POST['no-cash'] == 'no-cash') ? 'no' : 'yes');
     $denomination_have_cash = $noCash;
