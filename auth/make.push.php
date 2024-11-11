@@ -57,8 +57,6 @@
 								$bal = ((_capital($push_to)['today_balance'] == null || _capital($push_to)['today_balance'] == 0 || _capital($push_to)['today_balance'] == '0.00') ? null : (float)($given + _capital($push_to)['today_balance']));
 							}
 
-							dnd($bal);
-
 							// update daily capital and balance
 							$dailyQ = "
 								UPDATE `jspence_daily` 
