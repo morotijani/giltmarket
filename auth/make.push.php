@@ -11,14 +11,24 @@
 					$push_gram = ((isset($_POST['push_gram'])) ? sanitize($_POST["push_gram"]) : null);
 					$push_volume = ((isset($_POST['push_volume'])) ? sanitize($_POST["push_volume"]) : null);
 
-					$push_density = calculateDensity($push_gram, $push_volume);
-					$push_pounds = calculatePounds($push_gram);
-					$push_carat = calculateCarat($push_gram, $push_volume);
+					if ($push_gram != null || !empty($push_gram)) {
+						if ($push_volume != null || !empty($push_volume)) {
+							$push_density = calculateDensity($push_gram, $push_volume);
+							$push_pounds = calculatePounds($push_gram);
+							$push_carat = calculateCarat($push_gram, $push_volume);
 
-					$pushData = array('gram' => $push_gram, 'volume' => $push_volume, 'density' => $push_density, 'pounds' => $push_pounds, 'carat' => $push_carat);
-					$push_data = json_encode($pushData);
+							$pushData = array('gram' => $push_gram, 'volume' => $push_volume, 'density' => $push_density, 'pounds' => $push_pounds, 'carat' => $push_carat);
+							$pushData = json_encode($pushData);
+						} else {
+							echo js_alert('Something went wrong, please refresh and try agin!');
+							redirect(goBack());
+						}
+					} else {
+						echo js_alert('Something went wrong, please refresh and try agin!');
+						redirect(goBack());
+					}
 				}
-
+				
 				$given = sanitize($_POST['today_given']);
 				$today_date = sanitize($_POST['today_date']);				
 				$push_to = ((isset($_POST['push_to']) && !empty($_POST['push_to'])) ? sanitize($_POST['push_to']) : '');
@@ -121,7 +131,7 @@
 							add_to_log($message, $admin_id);
 
 							$_SESSION['flash_success'] = money($given) . ((admin_has_permission('salesperson')) ? ' Gold push to supervisor' : ' Money pushed to saleperson'). ' successfully!';
-						} else {	
+						} else {
 							echo js_alert('Something went wrong, please refresh and try agin!');
 						}
 						redirect(PROOT);

@@ -51,7 +51,6 @@ function is_capital_given() {
 	$rows = $statement->fetchAll();
 
 	return ((is_array($rows) && $count_row > 0) ? true : false);
-
 }
 
 //
@@ -1482,17 +1481,6 @@ function capital_mover($admin) {
 					"date" => $row[0]["daily_date"],
 					"tt" =>  $tst["sum"]
 				];
-				// $sql = "
-				// 	INSERT INTO `jspence_denomination`(`denominations_id`, `denomination_capital`, `denomination_by`, `denomination_checker`) 
-				// 	VALUES (?, ?, ?, ?)
-				// ";
-				// $statement = $conn->prepare($sql);
-				// $result = $statement->execute([
-				// 	guidv4(),
-				// 	$row[0]["daily_id"], 
-				// 	$admin,
-				// 	'forgot',
-				// ]);
 			}
 			return $result;
 		}
