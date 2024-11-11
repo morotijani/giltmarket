@@ -81,8 +81,8 @@ if (array_key_exists('postdata', $_SESSION)) {
         INSERT INTO `jspence_denomination`(`denominations_id`, `denomination_capital`, `denomination_by`, `denomination_200c`, `denomination_200c_amt`, `denomination_100c`, `denomination_100c_amt`, `denomination_50c`, `denomination_50c_amt`, `denomination_20c`, `denomination_20c_amt`, `denomination_10c`, `denomination_10c_amt`, `denomination_5c`, `denomination_5c_amt`, `denomination_2c`, `denomination_2c_amt`, `denomination_1c`, `denomination_1c_amt`, `denomination_50p`, `denomination_50p_amt`, `denomination_20p`, `denomination_20p_amt`, `denomination_10p`, `denomination_10p_amt`, `denomination_5p`, `denomination_5p_amt`, `denomination_1p`, `denomination_1p_amt`, `denomination_have_cash`, `denomination_checker`) 
         VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
     ";
-    $statement = $conn->prepare($sql);
-    $result = $statement->execute($data);
+    // $statement = $conn->prepare($sql);
+    $result = true; //$statement->execute($data);
     if (isset($result)) {
 
         $message = "ended trade, denomination id: " . $denomination_id . ", and total amount of " . money($denomination_total);
@@ -115,6 +115,8 @@ if (array_key_exists('postdata', $_SESSION)) {
             $new_capital = (float)($supervisor_tomorrow_capital + $gold_balance);
             $daily_id = $findActiveCapital["daily_id"];
         }
+
+        dnd($gold_balance);
 
         // prevent adding negative balance
         if ($gold_balance > 0) {

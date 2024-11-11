@@ -760,6 +760,17 @@ function total_amount_today($admin) {
 	}
 
 	// fetch today total amount
+	// $thisDaySql = "
+	// 	SELECT SUM(sale_total_amount) AS total
+	// 	FROM `jspence_sales` 
+	// 	INNER JOIN jspence_daily
+	// 	ON jspence_daily.daily_id = jspence_sales.sale_daily
+	// 	WHERE jspence_sales.sale_status = ? 
+	// 	AND sale_type != ?
+	// 	AND CAST(jspence_sales.createdAt AS date) = '{$today}' 
+	// 	AND jspence_daily.daily_capital_status = ?
+	// 	$where
+	// ";
 	$thisDaySql = "
 		SELECT SUM(sale_total_amount) AS total
 		FROM `jspence_sales` 
@@ -767,7 +778,7 @@ function total_amount_today($admin) {
 		ON jspence_daily.daily_id = jspence_sales.sale_daily
 		WHERE jspence_sales.sale_status = ? 
 		AND sale_type != ?
-		AND CAST(jspence_sales.createdAt AS date) = '{$today}' 
+		AND CAST(jspence_sales.createdAt AS date) = jspence_daily.daily_date 
 		AND jspence_daily.daily_capital_status = ?
 		$where
 	";
@@ -854,7 +865,8 @@ function total_sale_amount_today($admin, $del = null, $option = null, $DT = null
 	}
 
 	if (!admin_has_permission()) {
-		$sql .= " AND sale_by = '" . $admin . "' AND CAST(jspence_sales.createdAt AS date) = '" . $today . "' ";
+		// $sql .= " AND sale_by = '" . $admin . "' AND CAST(jspence_sales.createdAt AS date) = '" . $today . "' ";
+		$sql .= " AND sale_by = '" . $admin . "'";
 	}
 
 	if ($option == 'exp') {

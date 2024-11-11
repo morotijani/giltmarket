@@ -15,13 +15,11 @@
 
     // check if capital is given
     $capital_mover = capital_mover($admin_id);
-    if ((is_array($capital_mover) && $capital_mover["msg"] != "touched") || is_capital_given() == false) {
-        //redirect(PROOT);
-        echo 'go to index';
-    } else {
-        echo 'should open';
+    if ((is_array($capital_mover) && $capital_mover["msg"] != "touched") && !is_capital_given()) {
+        redirect(PROOT);
+    } elseif (is_capital_given()) {
+        redirect(PROOT);
     }
-    die;
 
     include ("../includes/header.inc.php");
     include ("../includes/aside.inc.php");
