@@ -28,7 +28,7 @@
 						redirect(goBack());
 					}
 				}
-				
+
 				$given = sanitize($_POST['today_given']);
 				$today_date = sanitize($_POST['today_date']);				
 				$push_to = ((isset($_POST['push_to']) && !empty($_POST['push_to'])) ? sanitize($_POST['push_to']) : '');
@@ -48,14 +48,16 @@
 						$c = _capital($push_to)['today_capital'];
 
 						// check if capital has been given
-						if ($findCapital) {
+						if (is_array($findCapital)) {
 							$c = (float)($given + $c);
 
-							$bal = _capital($push_to)['today_balance'];
+							$bal = _capital($push_to, null, 'push')['today_balance'];
 							// check if we are sending to salepersonnel from supervisor
 							if (admin_has_permission('supervisor')) {
 								$bal = ((_capital($push_to)['today_balance'] == null || _capital($push_to)['today_balance'] == 0 || _capital($push_to)['today_balance'] == '0.00') ? null : (float)($given + _capital($push_to)['today_balance']));
 							}
+
+							dnd($bal);
 
 							// update daily capital and balance
 							$dailyQ = "
@@ -79,14 +81,16 @@
 						$statement = $conn->prepare($dailyQ);
 						$daily_result = $statement->execute($daily_data);
 
-						// find the just enetered capital id
-						if (!$findCapital) {
-							$LID = $conn->lastInsertId();
-							$q = $conn->query("SELECT * FROM jspence_daily WHERE id = '" . $LID . "' LIMIT 1")->fetchAll();
-							$findCapital = $q[0]['daily_id'];
-						}
-
 						if (isset($daily_result)) {
+
+							// find the just enetered capital id
+							if (!is_array($findCapital)) {
+								$LID = $conn->lastInsertId();
+								$q = $conn->query("SELECT * FROM jspence_daily WHERE id = '" . $LID . "' LIMIT 1")->fetchAll();
+								$findCapital = $q[0]['daily_id'];
+							} else {
+								$findCapital = $findCapital['daily_id'];
+							}
 
 							// update coffers
 							if (admin_has_permission('supervisor')) {

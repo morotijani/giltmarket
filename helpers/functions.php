@@ -141,6 +141,10 @@ function _capital($admin, $d = null, $for = null) {
 			// }
 		}
 
+		if ($for == 'push') {
+			$balance = (($row['daily_balance'] == null || $row['daily_balance'] == '0.00' || $row['daily_balance'] == 0) ? null : $row['daily_balance']);
+		}
+
 		if ($for == 'reversal') {
 			$balance = (($row['daily_balance'] == null || $row['daily_balance'] == '0.00' || $row['daily_balance'] == 0) ? $row['daily_capital'] : $row['daily_balance']);
 		}
