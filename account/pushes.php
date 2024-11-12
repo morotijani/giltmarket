@@ -208,8 +208,138 @@
                 </div>
             </div>
         
-            <?php if (isset($_GET['data']) && $_GET['data'] == 'salesperson') : ?>
-                Lorem ipsum dolor, sit amet consectetur adipisicing elit. Impedit odit, laborum dolor praesentium optio vel earum totam modi ex ea beatae ab necessitatibus nulla doloribus voluptates iure eligendi vero delectus.
+            <?php 
+                if ((isset($_GET['data']) && $_GET['data'] == 'salesperson') && admin_has_permission('supervisor')): 
+                    // all salepersonnles that received a push from supervisor
+                    $sp_query = "
+                        SELECT * FROM jspence_daily 
+                        INNER JOIN jspence_admin 
+                        ON jspence_admin.admin_id = jspence_daily.daily_to 
+                        INNER JOIN jspence_pushes 
+                        ON jspence_pushes.push_to = jspence_daily.daily_to
+                        WHERE jspence_pushes.push_from = ? 
+                        AND jspence_daily.daily_date = ? 
+                        AND jspence_admin.admin_permissions = ? 
+                    ";
+                    $statement = $conn->prepare($sp_query);
+                    $statement->execute([
+                        $admin_id, date("Y-m-d"), 'salesperson'
+                    ]);
+                    $sp_count = $statement->rowCount();
+                    $sps = $statement->fetchAll();
+
+                    if ($sp_count > 0) {
+                        foreach ($sps as $sp) {
+                            $QUERY = "
+                                SELECT * FROM jspence_pushes 
+                                WHERE push_to = ? 
+                            ";
+                            $statement = $conn->prepare($QUERY);
+                            $statement->execute([$sp['push_to']]);
+                            $pss = $statement->fetchAll();
+                        }
+                    }
+
+                    // find_admin_with_id($id)
+
+            
+            ?>
+
+                <!-- Page content -->
+                <div class="row">
+                    <?php if ($sp_count > 0): ?>
+                        <?php foreach ($sps as $sp): ?>
+                            <div class="col-12 col-xxl-4">
+                                <div class="position-sticky mb-8" style="top: 40px">
+                                    <!-- Card -->
+                                    <div class="card bg-body mb-3">
+                                        <!-- Image -->
+                                        <div
+                                        class="card-img-top pb-13"
+                                        style="background: no-repeat url(../assets/img/backgrounds/background-1.jpg) center center / cover"
+                                        ></div>
+
+                                        <!-- Avatar -->
+                                        <div class="avatar avatar-xl rounded-circle mt-n7 mx-auto">
+                                            <img class="avatar-img border border-white border-3" src="../assets/img/photos/photo-6.jpg" alt="..." />
+                                        </div>
+
+                                        <!-- Body -->
+                                        <div class="card-body text-center">
+                                            <!-- Heading -->
+                                            <h1 class="card-title fs-5"><?= ucwords($sp["admin_fullname"]); ?></h1>
+
+                                            <!-- Text -->
+                                            <p class="text-body-secondary mb-6">James is a long-standing customer with a passion for technology.</p>
+
+                                            <!-- List -->
+                                            <ul class="list-group list-group-flush mb-0">
+                                                <li class="list-group-item d-flex align-items-center justify-content-between bg-body px-0">
+                                                <span class="text-body-secondary">Title / Role</span>
+                                                <span><?= ucwords(_admin_position($sp["admin_permissions"])); ?></span>
+                                                </li>
+                                                <li class="list-group-item d-flex align-items-center justify-content-between bg-body px-0">
+                                                <span class="text-body-secondary">Phone</span>
+                                                <a class="text-body" href="tel:<?= $sp["admin_phone"]; ?>"><?= $sp["admin_phone"]; ?></a>
+                                                </li>
+                                                <li class="list-group-item d-flex align-items-center justify-content-between bg-body px-0">
+                                                <span class="text-body-secondary">Login datetime</span>
+                                                <span><?= pretty_date($sp["admin_last_login"]); ?></span>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+
+                                    <!-- Buttons -->
+                                    <div class="row gx-3">
+                                        <div class="col">
+                                            <button class="btn btn-light w-100">Money given:<br /> <?= money($sp["daily_capital"]); ?></button>
+                                        </div>
+                                        <div class="col">
+                                            <button class="btn btn-light w-100">Balance:<br /> <?= money($sp["daily_balance"]); ?></button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-12 col-xxl">
+                                <section class="mb-8">
+                                    <!-- Header -->
+                                    <div class="d-flex align-items-center justify-content-between mb-5">
+                                        <h2 class="fs-5 mb-0">Recent pushes</h2>
+                                    </div>
+
+                                    <!-- Table -->
+                                    <div class="table-responsive">
+                                        <table class="table mb-0">
+                                            <thead>
+                                                <th>ID</th>
+                                                <th>Product</th>
+                                                <th>Date</th>
+                                                <th>Status</th>
+                                                <th>Price</th>
+                                            </thead>
+                                            <tbody>
+                                                <?php foreach ($pss as $ps): ?>
+                                                <tr>
+                                                    <td class="text-body-secondary">#3456</td>
+                                                    <td>Apple MacBook Pro</td>
+                                                    <td>2021-08-12</td>
+                                                    <td><span class="badge bg-success-subtle text-success">Completed</span></td>
+                                                    <td>$2,499</td>
+                                                </tr>
+                                                <?php endforeach; ?>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </section>
+                            </div>
+                        <?php endforeach; ?>
+                    <?php else: ?>
+                        no data
+                    <?php endif; ?>
+                </div>
+
+
             <?php else: ?>
             <div id="load-content"></div>
             <?php endif; ?>
