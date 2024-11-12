@@ -10,15 +10,22 @@
 				if (admin_has_permission('salesperson')) {
 					$push_gram = ((isset($_POST['push_gram'])) ? sanitize($_POST["push_gram"]) : null);
 					$push_volume = ((isset($_POST['push_volume'])) ? sanitize($_POST["push_volume"]) : null);
+					$current_price = (isset($_POST['push_price']) ? $_POST['push_price'] : null);
 
 					if ($push_gram != null || !empty($push_gram)) {
 						if ($push_volume != null || !empty($push_volume)) {
-							$push_density = calculateDensity($push_gram, $push_volume);
-							$push_pounds = calculatePounds($push_gram);
-							$push_carat = calculateCarat($push_gram, $push_volume);
+							if ($current_price != null || !empty($current_price)) {
+								$push_density = calculateDensity($push_gram, $push_volume);
+								$push_pounds = calculatePounds($push_gram);
+								$push_carat = calculateCarat($push_gram, $push_volume);
+								$push_amount = calculateTotalAmount($push_gram, $push_volume, $current_price);
 
-							$pushData = array('gram' => $push_gram, 'volume' => $push_volume, 'density' => $push_density, 'pounds' => $push_pounds, 'carat' => $push_carat);
-							$pushData = json_encode($pushData);
+								$pushData = array('gram' => $push_gram, 'volume' => $push_volume, 'density' => $push_density, 'pounds' => $push_pounds, 'carat' => $push_carat, 'push_amount' => $push_amount);
+								$pushData = json_encode($pushData);
+							} else {
+								echo js_alert('Something went wrong, please refresh and try agin!');
+								redirect(goBack());
+							}
 						} else {
 							echo js_alert('Something went wrong, please refresh and try agin!');
 							redirect(goBack());
