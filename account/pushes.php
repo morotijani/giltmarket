@@ -101,13 +101,13 @@
                             <div class="col-12 col-lg-auto mb-3 mb-lg-0">
                                 <ul class="nav nav-pills">
                                     <li class="nav-item">
-                                        <a class="nav-link bg-dark" aria-current="page" href="<?= PROOT; ?>account/pushes">All data<?= $count_push; ?></a>
+                                        <a class="nav-link <?= ((!isset($_GET['data']) || !$_GET['data']) ? 'bg-dark active' : ''); ?>" aria-current="page" href="<?= PROOT; ?>account/pushes">All data<?= $count_push; ?></a>
                                     </li>
                                     <li class="nav-item">
-                                        <a class="nav-link <?= ((isset($_GET['data']) && $_GET['data'] == 'salesperson') ? 'bg-dark active' : ''); ?>" aria-current="page" href="<?= PROOT; ?>account/pushes/salesperson">To sales persons<?= $count_push; ?></a>
+                                        <a class="nav-link <?= ((isset($_GET['data']) && $_GET['data'] == 'salesperson') ? 'bg-dark active' : ''); ?>" aria-current="page" href="<?= PROOT; ?>account/pushes/salesperson">To sales persons</a>
                                     </li>
                                     <li class="nav-item">
-                                        <a class="nav-link <?= ((isset($_GET['data']) && $_GET['data'] == 'gold-receive') ? 'bg-dark active' : ''); ?>" aria-current="page" href="<?= PROOT; ?>account/pushes/goldreceive">Gold received</a>
+                                        <a class="nav-link <?= ((isset($_GET['data']) && $_GET['data'] == 'gold-receive') ? 'bg-dark active' : ''); ?>" aria-current="page" href="<?= PROOT; ?>account/pushes/gold-receive">Gold received</a>
                                     </li>
                                 </ul>
                             </div>
@@ -339,7 +339,8 @@
                     <?php endif; ?>
                 </div>
 
-
+            <?php elseif ((isset($_GET['data']) && $_GET['data'] == 'gold-receive') && admin_has_permission('supervisor')): ?>
+                Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptate nulla doloremque deserunt possimus odit laboriosam sed ea quidem nisi explicabo temporibus sint provident deleniti dolores suscipit, optio impedit sequi ratione.
             <?php else: ?>
             <div id="load-content"></div>
             <?php endif; ?>
