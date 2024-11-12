@@ -329,28 +329,29 @@ function get_pushes_made($admin, $today = null) {
 function get_total_send_push($conn, $admin, $d = null) {
 	$d = (($d == null) ? null : $d);
 	$runningCapital = find_capital_given_to($admin);
-	
-	$query = "
-		SELECT 
-			SUM(jspence_pushes.push_amount) AS pamt, 
-			COUNT(jspence_pushes.id) AS c 
-		FROM jspence_pushes 
-		WHERE jspence_pushes.push_from = ? 
-		AND jspence_pushes.push_daily = ?
-	";
-	$statement = $conn->prepare($query);
-	$result = $statement->execute([$admin, $runningCapital['daily_id']]);
-	$row = $statement->fetchAll();
-
 	$output = [];
-	if ($result) {
-		$a = (($row[0]['pamt'] == null || $row[0]['pamt'] == '0.00' || $row[0]['pamt'] == 0) ? 0 : $row[0]['pamt']);
-		$output = [
-			"sum" => $a, 
-			"count" => $row[0]["c"]
-		];
-	}
 
+	if (is_array($runningCapital)) {
+		$query = "
+			SELECT 
+				SUM(jspence_pushes.push_amount) AS pamt, 
+				COUNT(jspence_pushes.id) AS c 
+			FROM jspence_pushes 
+			WHERE jspence_pushes.push_from = ? 
+			AND jspence_pushes.push_daily = ?
+		";
+		$statement = $conn->prepare($query);
+		$result = $statement->execute([$admin, $runningCapital['daily_id']]);
+		$row = $statement->fetchAll();
+
+		if ($result) {
+			$a = (($row[0]['pamt'] == null || $row[0]['pamt'] == '0.00' || $row[0]['pamt'] == 0) ? 0 : $row[0]['pamt']);
+			$output = [
+				"sum" => $a, 
+				"count" => $row[0]["c"]
+			];
+		}
+	}
 	return $output;
 }
 
@@ -784,41 +785,44 @@ function total_amount_today($admin) {
 	// 	AND CAST(jspence_sales.createdAt AS date) = jspence_daily.daily_date 
 	// 	AND jspence_daily.daily_capital_status = ?
 	// ";
+	$total = 0;
+	if (is_array($runningCapital)) {
+		$sql = "
+			SELECT SUM(sale_total_amount) AS total
+			FROM `jspence_sales` 
+			WHERE jspence_sales.sale_status = ? 
+			AND sale_type != ? 
+			AND jspence_sales.sale_daily = ?
+		";
+		if (!admin_has_permission()) {
+			$sql .= ' AND sale_by = "' . $admin . '" ';
+		}
+		$statement = $conn->prepare($sql);
+		$statement->execute([0, 'exp', $runningCapital['daily_id']]);
+		$thisDayrow = $statement->fetchAll();
 
-	$sql = "
-		SELECT SUM(sale_total_amount) AS total
-		FROM `jspence_sales` 
-		WHERE jspence_sales.sale_status = ? 
-		AND sale_type != ? 
-		AND jspence_sales.sale_daily = ?
-	";
-	if (!admin_has_permission()) {
-		$sql .= ' AND sale_by = "' . $admin . '" ';
+		$total_amount_traded = $thisDayrow[0]['total'] ?? 0;
+
+		// get all pushed amout
+		$get_pushed = $conn->query("SELECT SUM(push_amount) AS pamt FROM jspence_pushes WHERE push_from = '" . $admin . "' AND push_daily = '" . $runningCapital['daily_id'] . "' AND jspence_pushes.push_on = 'dialy'")->fetchAll();
+		$total_amount_pushed = $get_pushed[0]['pamt'] ?? 0;
+
+		// fetch all revese pushes
+		$reverse_pushes = $conn->query("SELECT SUM(push_amount) AS pamt FROM jspence_pushes WHERE push_from = '" . $admin . "' AND push_daily = '" . $runningCapital['daily_id'] . "' AND jspence_pushes.push_on = 'dialy' AND push_status = 1")->fetchAll();
+		$r_total_amount_pushed = $reverse_pushes[0]['pamt'] ?? 0;
+
+		if (admin_has_permission('salesperson') && $total_amount_traded <= 0) {
+			$total_amount_pushed = $total_amount_traded;
+		}
+
+		if (admin_has_permission('supervisor') && $total_amount_traded < 0) {
+			$total_amount_traded = $total_amount_pushed;
+		}
+
+		// sum total amount traded and subtrach pushes and add back reverse pushes
+		$total = (float)($total_amount_traded - $total_amount_pushed + $r_total_amount_pushed);
 	}
-	$statement = $conn->prepare($sql);
-	$statement->execute([0, 'exp', $runningCapital['daily_id']]);
-	$thisDayrow = $statement->fetchAll();
-
-	$total_amount_traded = $thisDayrow[0]['total'] ?? 0;
-
-	// get all pushed amout
-	$get_pushed = $conn->query("SELECT SUM(push_amount) AS pamt FROM jspence_pushes WHERE push_from = '" . $admin . "' AND push_daily = '" . $runningCapital['daily_id'] . "' AND jspence_pushes.push_on = 'dialy'")->fetchAll();
-	$total_amount_pushed = $get_pushed[0]['pamt'] ?? 0;
-
-	// fetch all revese pushes
-	$reverse_pushes = $conn->query("SELECT SUM(push_amount) AS pamt FROM jspence_pushes WHERE push_from = '" . $admin . "' AND push_daily = '" . $runningCapital['daily_id'] . "' AND jspence_pushes.push_on = 'dialy' AND push_status = 1")->fetchAll();
-	$r_total_amount_pushed = $reverse_pushes[0]['pamt'] ?? 0;
-
-	if (admin_has_permission('salesperson') && $total_amount_traded <= 0) {
-		$total_amount_pushed = $total_amount_traded;
-	}
-
-	if (admin_has_permission('supervisor') && $total_amount_traded < 0) {
-		$total_amount_traded = $total_amount_pushed;
-	}
-
-	// sum total amount traded and subtrach pushes and add back reverse pushes
-	$total = (float)($total_amount_traded - $total_amount_pushed + $r_total_amount_pushed); 
+	
 	return $total;
 }
 
@@ -827,33 +831,39 @@ function total_expenditure_today($admin, $option = null) {
 	global $conn;
 	$runningCapital = find_capital_given_to($admin);
 
-	$sql = "
-		SELECT 
-			SUM(sale_total_amount) AS total,
-			COUNT(id) AS c
-		FROM `jspence_sales` 
-		WHERE jspence_sales.sale_type = ? 
-		AND jspence_sales.sale_status = ?
-		AND sale_daily = ?
-	";
-
-	if (!admin_has_permission()) {
-		$sql .= " AND sale_by = '" . $admin . "'";
-	}
-
-	$statement = $conn->prepare($sql);
-	$statement->execute([
-		'exp', 
-		(($option == 'delete') ? 1 : 0), 
-		$runningCapital['daily_id']
-	]);
-	$row = $statement->fetchAll();
-
 	$array = [
-		"sum" => $row[0]['total'] ?? 0,
-		"count" => $row[0]['c']
+		"sum" => 0,
+		"count" => 0
 	];
+	if (is_array($runningCapital)) {
+	
+		$sql = "
+			SELECT 
+				SUM(sale_total_amount) AS total,
+				COUNT(id) AS c
+			FROM `jspence_sales` 
+			WHERE jspence_sales.sale_type = ? 
+			AND jspence_sales.sale_status = ?
+			AND sale_daily = ?
+		";
 
+		if (!admin_has_permission()) {
+			$sql .= " AND sale_by = '" . $admin . "'";
+		}
+
+		$statement = $conn->prepare($sql);
+		$statement->execute([
+			'exp', 
+			(($option == 'delete') ? 1 : 0), 
+			$runningCapital['daily_id']
+		]);
+		$row = $statement->fetchAll();
+
+		$array = [
+			"sum" => $row[0]['total'] ?? 0,
+			"count" => $row[0]['c']
+		];
+	}
 	return $array;
 }
 
