@@ -779,7 +779,7 @@
 			}
 		});
 		
-		// submit trade form
+		// submit send push form
 		$('#submitSendMG').on('click', function() {
 			if ($('#push_pin').val() == '') {
 				alert("PIN is required!");
@@ -789,7 +789,7 @@
 			$('#submitSendMG').attr('disabled', true);
 			$('#submitSendMG').html('<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span><span> Pushing ...</span>');
 
-			setInterval(function () {
+			setTimeout(function () {
 				$('#sendMGForm').submit();
 			}, 2000)
 		})

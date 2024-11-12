@@ -300,7 +300,7 @@
                 $('#submitFundCoffers').attr('disabled', true);
                 $('#submitFundCoffers').text('Adding ...');
                 
-                setInterval(function () {
+                setTimeout(function () {
                     $('#fundCoffersForm').submit();
                 }, 2000)
             })

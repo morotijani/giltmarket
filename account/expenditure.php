@@ -432,9 +432,8 @@
                     $('#submitExpenditure').attr('disabled', true);
                     $('#submitExpenditure').html('<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span><span> Adding ...</span>');
 
-                    setInterval(function () {
-                        // expenditureForm.submit()
-                        alert("required!");
+                    setTimeout(function () {
+                        $('#expenditureForm').submit()
                     }, 2000)
                 }
 
