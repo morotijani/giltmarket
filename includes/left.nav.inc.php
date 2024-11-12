@@ -143,10 +143,11 @@
                             >
                                 <span class="material-symbols-outlined me-3">compare_arrows</span> Pushes
                             </a>
-                            <div class="collapse " id="pushes">
+                            <div class="collapse" id="pushes">
                                 <nav class="nav nav-pills">
                                     <a class="nav-link nav-child" href="<?= PROOT; ?>account/pushes">Pushes</a>
-                                    <a class="nav-link nav-child" href="<?= PROOT; ?>account/pushes/salesperson">To salepersonnels</a>
+                                    <a class="nav-link nav-child" href="<?= PROOT; ?>account/pushes/salesperson">Sales persons</a>
+                                    <a class="nav-link nav-child" href="<?= PROOT; ?>account/pushes/gold-receive">Received</a>
                                 </nav>
                             </div>
                         </div>
@@ -163,7 +164,7 @@
                             >
                             <span class="material-symbols-outlined me-3">group</span> Admins
                             </a>
-                            <div class="collapse " id="admins">
+                            <div class="collapse" id="admins">
                             <nav class="nav nav-pills">
                                 <a class="nav-link nav-child" href="<?= PROOT; ?>account/admins">Admins</a>
                                 <a class="nav-link nav-child" href="<?= PROOT; ?>account/admins?add=1">New admin</a>

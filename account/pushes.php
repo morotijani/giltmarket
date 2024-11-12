@@ -101,7 +101,13 @@
                             <div class="col-12 col-lg-auto mb-3 mb-lg-0">
                                 <ul class="nav nav-pills">
                                     <li class="nav-item">
-                                        <a class="nav-link bg-dark active" aria-current="page" href="<?= PROOT; ?>account/pushes">All data<?= $count_push; ?></a>
+                                        <a class="nav-link bg-dark" aria-current="page" href="<?= PROOT; ?>account/pushes">All data<?= $count_push; ?></a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link <?= ((isset($_GET['data']) && $_GET['data'] == 'salesperson') ? 'bg-dark active' : ''); ?>" aria-current="page" href="<?= PROOT; ?>account/pushes/salesperson">To sales persons<?= $count_push; ?></a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link <?= ((isset($_GET['data']) && $_GET['data'] == 'gold-receive') ? 'bg-dark active' : ''); ?>" aria-current="page" href="<?= PROOT; ?>account/pushes/goldreceive">Gold received</a>
                                     </li>
                                 </ul>
                             </div>
@@ -319,7 +325,7 @@
                                                     <td class="text-body-secondary"><?= $ps["push_id"]; ?></td>
                                                     <td><?= money($ps["push_amount"]); ?></td>
                                                     <td><?= pretty_date($ps["createdAt"]); ?></td>
-                                                    <td>reverse</td>
+                                                    <!-- <td>reverse</td> -->
                                                 </tr>
                                                 <?php endforeach; ?>
                                             </tbody>
