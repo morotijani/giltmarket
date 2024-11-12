@@ -151,18 +151,18 @@ if (array_key_exists('postdata', $_SESSION)) {
 
             $push_data = array(
                 'expenditure' => money($exp_amt["sum"]), 
-                'total pushes' => money($p["sum"]), 
-                'accumulated cash' => money((float)($tst["sum"] - $exp_amt["sum"])), 
-                'total sales' => money($tst["sum"])
+                'total_pushes' => money($p["sum"]), 
+                'accumulated_cash' => money((float)($tst["sum"] - $exp_amt["sum"])), 
+                'total_sales' => money($tst["sum"])
             );
         } else {
             $cash = total_amount_today($admin_id); // cash gained from supervisor
 
             $pushData = array(
                 'balance' => $capital_bal,
-                'total pushes' => money($p["sum"]), 
+                'total_pushes' => money($p["sum"]), 
                 'accumulated gold' => money($tst["sum"]), 
-                'total sales' => money($tst["sum"]), 
+                'total_sales' => money($tst["sum"]), 
                 'earned' => money($g),
                 'sold' => money(_capital($admin_id)['today_balance'])
             );
