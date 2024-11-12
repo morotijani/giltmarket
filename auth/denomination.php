@@ -139,12 +139,27 @@ if (array_key_exists('postdata', $_SESSION)) {
 
         // send cash balance or cash accumulated to the coffers
         $coffers_id = guidv4();
-
+        $push_data = array();
         if (admin_has_permission('salesperson')) {
             $cash = _capital($admin_id)['today_balance']; // cash remaining from saleperson
+
+            $push_data = array(
+                'expenditure', 
+                'total pushes', 
+                'accumulated gold', 
+                'total trades'
+            );
         } else {
             $cash = total_amount_today($admin_id); // cash gained from supervisor
+
+            $push_data = array(
+                'total pushes', 
+                'accumulated gold', 
+                'earned',
+                'sold'
+            );
         }
+        $push_data = json_encode($push_data);
 
         $insertSql = "
             INSERT INTO jspence_coffers (coffers_amount, coffers_status, coffers_receive_through, coffers_id) 
@@ -159,10 +174,12 @@ if (array_key_exists('postdata', $_SESSION)) {
             $q = $conn->query("SELECT * FROM jspence_coffers WHERE id = '" . $LID . "' LIMIT 1")->fetchAll();
             $coffers_id = $q[0]['coffers_id'];
 
-            $push_data = [$push_id, $coffers_id, $cash, 'money', $admin_id, 'coffers', $today, 'coffers'];
+            
+
+            $push_data = [$push_id, $coffers_id, $cash, 'money', $admin_id, 'coffers', $today, 'coffers', $push_data];
             $sql = "
-                INSERT INTO jspence_pushes (push_id, push_daily, push_amount, push_type, push_from, push_to, push_date, push_on) 
-                VALUES (?, ?, ?, ?, ?, ?, ?, ?)
+                INSERT INTO jspence_pushes (push_id, push_daily, push_amount, push_type, push_from, push_to, push_date, push_on, push_data) 
+                VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
             ";
             $statement = $conn->prepare($sql);
             $statement->execute($push_data);
