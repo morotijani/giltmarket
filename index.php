@@ -293,7 +293,7 @@
 					<form class="vstack gap-6" method="POST" id="sendMGForm" action="<?= PROOT; ?>auth/make.push.php">
                         <div id="">
                             <div class="vstack gap-2">
-								<?= admin_has_permission('salesperson'); ?>
+								<?php if (admin_has_permission('salesperson')): ?>
 								<div class="form-check">
 									<input class="form-check-input" name="push-all" type="checkbox" id="push-all" value="push-all">
 									<label class="form-check-label" for="push-all">
@@ -635,6 +635,7 @@
 								$('#push_density').val(response["density"] + ' Density');
 								$('#push_pounds').val(response["pounds"] + ' Pounds');
 								$('#push_carat').val(response["carat"] + ' Carat');
+								$('#today_given').val(response["total_amount"]);
 
 								$('#push_msg').text('');
 								$('#show-sendMGModal').attr('disabled', false);
@@ -684,6 +685,7 @@
 								$('#push_density').val(response["density"] + ' Density');
 								$('#push_pounds').val(response["pounds"] + ' Pounds');
 								$('#push_carat').val(response["carat"] + ' Carat');
+								$('#today_given').val(response["total_amount"]);
 
 								$('#push_msg').text('');
 								$('#show-sendMGModal').attr('disabled', false);
@@ -731,6 +733,7 @@
 								$('#push_density').val(response["density"] + ' Density');
 								$('#push_pounds').val(response["pounds"] + ' Pounds');
 								$('#push_carat').val(response["carat"] + ' Carat');
+								$('#today_given').val(response["total_amount"]);
 								
 								$('#push_msg').text('');
 								$('#show-sendMGModal').attr('disabled', false);
