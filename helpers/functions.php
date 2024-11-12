@@ -338,10 +338,10 @@ function get_total_send_push($conn, $admin, $d = null) {
 				COUNT(jspence_pushes.id) AS c 
 			FROM jspence_pushes 
 			WHERE jspence_pushes.push_from = ? 
-			AND jspence_pushes.push_daily = ?
+			AND jspence_pushes.push_date = ?
 		";
 		$statement = $conn->prepare($query);
-		$result = $statement->execute([$admin, $runningCapital['daily_id']]);
+		$result = $statement->execute([$admin, $runningCapital['daily_date']]);
 		$row = $statement->fetchAll();
 
 		if ($result) {
@@ -359,32 +359,33 @@ function get_total_send_push($conn, $admin, $d = null) {
 function get_total_receive_push($conn, $admin, $d) {
 
 	$type = (admin_has_permission('supervisor') ? "gold" : "money");
-
-	$query = "
-		SELECT 
-			SUM(push_amount) AS pamt, 
-			COUNT(id) AS c 
-		FROM jspence_pushes 
-		WHERE push_to = ? 
-		AND push_date = ? 
-	";
-	if  (!admin_has_permission()) {
-		$query .= " AND push_type = '" . $type . "'";
-	}
-
-	$statement = $conn->prepare($query);
-	$result = $statement->execute([$admin, $d]);
-	$row = $statement->fetchAll();
-
 	$output = [];
-	if ($result) {
-		$a = (($row[0]['pamt'] == null || $row[0]['pamt'] == '0.00' || $row[0]['pamt'] == 0) ? 0 : $row[0]['pamt']);
-		$output = [
-			"sum" => $a, 
-			"count" => $row[0]["c"]
-		];
-	}
 
+	if (is_array($runningCapital)) {
+		$query = "
+			SELECT 
+				SUM(jspence_pushes.push_amount) AS pamt, 
+				COUNT(jspence_pushes.id) AS c 
+			FROM jspence_pushes 
+			WHERE jspence_pushes.push_to = ? 
+			AND jspence_pushes.push_date = ?
+		";
+		if  (!admin_has_permission()) {
+			$query .= " AND push_type = '" . $type . "'";
+		}
+
+		$statement = $conn->prepare($query);
+		$result = $statement->execute([$admin, $runningCapital['daily_date']]);
+		$row = $statement->fetchAll();
+
+		if ($result) {
+			$a = (($row[0]['pamt'] == null || $row[0]['pamt'] == '0.00' || $row[0]['pamt'] == 0) ? 0 : $row[0]['pamt']);
+			$output = [
+				"sum" => $a, 
+				"count" => $row[0]["c"]
+			];
+		}
+	}
 	return $output;
 }
 
@@ -804,11 +805,12 @@ function total_amount_today($admin) {
 		$total_amount_traded = $thisDayrow[0]['total'] ?? 0;
 
 		// get all pushed amout
-		$get_pushed = $conn->query("SELECT SUM(push_amount) AS pamt FROM jspence_pushes WHERE push_from = '" . $admin . "' AND push_daily = '" . $runningCapital['daily_id'] . "' AND jspence_pushes.push_on = 'dialy'")->fetchAll();
+		$get_pushed = $conn->query("SELECT SUM(push_amount) AS pamt FROM jspence_pushes WHERE push_from = '" . $admin . "' AND push_date = '" . $runningCapital['daily_date'] . "' AND jspence_pushes.push_on = 'dialy'")->fetchAll();
 		$total_amount_pushed = $get_pushed[0]['pamt'] ?? 0;
 
+
 		// fetch all revese pushes
-		$reverse_pushes = $conn->query("SELECT SUM(push_amount) AS pamt FROM jspence_pushes WHERE push_from = '" . $admin . "' AND push_daily = '" . $runningCapital['daily_id'] . "' AND jspence_pushes.push_on = 'dialy' AND push_status = 1")->fetchAll();
+		$reverse_pushes = $conn->query("SELECT SUM(push_amount) AS pamt FROM jspence_pushes WHERE push_from = '" . $admin . "' AND push_date = '" . $runningCapital['daily_date'] . "' AND jspence_pushes.push_on = 'dialy' AND push_status = 1")->fetchAll();
 		$r_total_amount_pushed = $reverse_pushes[0]['pamt'] ?? 0;
 
 		if (admin_has_permission('salesperson') && $total_amount_traded <= 0) {
