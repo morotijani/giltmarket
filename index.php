@@ -784,14 +784,17 @@
 			if ($('#push_pin').val() == '') {
 				alert("PIN is required!");
 				return false;
+			} else {
+				$('#submitSendMG').attr('disabled', true);
+				$('#submitSendMG').html('<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span><span> Pushing ...</span>');
+
+				setTimeout(function () {
+					$('#sendMGForm').submit();
+				}, 2000)
+
+				$('#sendMGForm')[0].reset();
+				return false;
 			}
-
-			$('#submitSendMG').attr('disabled', true);
-			$('#submitSendMG').html('<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span><span> Pushing ...</span>');
-
-			setTimeout(function () {
-				$('#sendMGForm').submit();
-			}, 2000)
 		})
 	})
 </script>
