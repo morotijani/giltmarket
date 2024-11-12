@@ -323,7 +323,7 @@
 										<input type="number" inputmode="numeric" class="form-control" name="push_volume" id="push_volume" autocomplete="off" min="0.00" step="0.01" placeholder="Volume" required>
 									</div>
 								</div>
-								<div class="row">
+								<div class="row d-none" id="push-result">
 									<div class="col">
 										<input type="text" class="form-control" readonly name="push_density" id="push_density" placeholder="Density">
 									</div>
@@ -632,6 +632,8 @@
 							success: function(data) {
 								console.log(data)
 								const response = JSON.parse(data);
+
+								$("#push-result").removeClass('d-none');
 								
 								$('#push_density').val(response["density"] + ' Density');
 								$('#push_pounds').val(response["pounds"] + ' Pounds');
@@ -682,6 +684,8 @@
 							success: function(data) {
 								console.log(data)
 								const response = JSON.parse(data);
+
+								$("#push-result").removeClass('d-none');
 								
 								$('#push_density').val(response["density"] + ' Density');
 								$('#push_pounds').val(response["pounds"] + ' Pounds');
@@ -730,6 +734,8 @@
 							success: function(data) {
 								console.log(data)
 								const response = JSON.parse(data);
+								
+								$("#push-result").removeClass('d-none');
 
 								$('#push_density').val(response["density"] + ' Density');
 								$('#push_pounds').val(response["pounds"] + ' Pounds');
