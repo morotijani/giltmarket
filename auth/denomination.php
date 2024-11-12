@@ -144,19 +144,26 @@ if (array_key_exists('postdata', $_SESSION)) {
             $cash = _capital($admin_id)['today_balance']; // cash remaining from saleperson
 
             $push_data = array(
-                'expenditure', 
-                'total pushes', 
-                'accumulated gold', 
-                'total trades'
+                'id' => , 
+                'money given' => ,
+                'balance' => ,
+                'expenditure' => , 
+                'total pushes' => , 
+                'accumulated gold' => , 
+                'total trades' => 
             );
         } else {
             $cash = total_amount_today($admin_id); // cash gained from supervisor
 
             $push_data = array(
-                'total pushes', 
-                'accumulated gold', 
-                'earned',
-                'sold'
+                'id' => , 
+                'gold given' => , 
+                'balance' => ,
+                'total pushes' => , 
+                'accumulated gold' => , 
+                'total trades'
+                'earned' => ,
+                'sold' => 
             );
         }
         $push_data = json_encode($push_data);
