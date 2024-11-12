@@ -17,7 +17,7 @@
     $capital_mover = capital_mover($admin_id);
     if ((is_array($capital_mover) && $capital_mover["msg"] != "touched") && !is_capital_given()) {
         redirect(PROOT);
-    } elseif (!is_capital_given()) {
+    } elseif (!is_array($capital_mover) && !is_capital_given()) {
         redirect(PROOT);
     }
 

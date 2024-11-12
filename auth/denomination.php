@@ -61,15 +61,15 @@ if (array_key_exists('postdata', $_SESSION)) {
     $denomination_id = guidv4();
     $capital_id = _capital($admin_id)['today_capital_id'];
     $capital_amt = money(_capital($admin_id)['today_capital']);
-    $capital_bal = money(_capital($admin_id)['today_balance']);
+    $capital_bal = _capital($admin_id)['today_balance'];
 
     // include gain amount to supervor details
-    $gained = null;
-    $g = null;
+    $gained = '';
+    $g = '';
     if (admin_has_permission('supervisor')) {
         $g = _gained_calculation(_capital($admin_id)['today_balance'], _capital($admin_id)['today_capital'], $admin_id);
         $gained = 'Earned: ' . money($g) . '<br />';
-        $capital_bal = money(remaining_gold_balance($admin_id));
+        $capital_bal = remaining_gold_balance($admin_id);
     }
 
     $exp_amt = ((admin_has_permission('supervisor')) ? '' : total_expenditure_today($admin_id));
@@ -145,26 +145,26 @@ if (array_key_exists('postdata', $_SESSION)) {
 
         // send cash balance or cash accumulated to the coffers
         $coffers_id = guidv4();
-        $push_data = array();
+        $pushData = array();
         if (admin_has_permission('salesperson')) {
             $cash = _capital($admin_id)['today_balance']; // cash remaining from saleperson
 
-            $push_data = array(
-                'expenditure' => money($exp_amt["sum"]), 
-                'total_pushes' => money($p["sum"]), 
-                'accumulated_cash' => money((float)($tst["sum"] - $exp_amt["sum"])), 
-                'total_sales' => money($tst["sum"])
+            $pushData = array(
+                'expenditure' => $exp_amt["sum"], 
+                'total_pushes' => $p["sum"], 
+                'accumulated_gold' => (float)($tst["sum"] - $exp_amt["sum"]), 
+                'total_sales' => $tst["sum"]
             );
         } else {
             $cash = total_amount_today($admin_id); // cash gained from supervisor
 
             $pushData = array(
                 'balance' => $capital_bal,
-                'total_pushes' => money($p["sum"]), 
-                'accumulated gold' => money($tst["sum"]), 
-                'total_sales' => money($tst["sum"]), 
-                'earned' => money($g),
-                'sold' => money(_capital($admin_id)['today_balance'])
+                'total_pushes' => $p["sum"], 
+                'accumulated_money' => $tst["sum"], 
+                'total_sales' => $tst["sum"], 
+                'earned' => $g,
+                'sold' => _capital($admin_id)['today_balance']
             );
         }
         $pushData = json_encode($pushData);
@@ -270,7 +270,7 @@ if (array_key_exists('postdata', $_SESSION)) {
                                 <span class="text-body">System summary</span> <br />
                                 Capital ID: <?= $capital_id; ?><br />
                                 Amount Given: <?= $capital_amt; ?><br />
-                                Balance: <?= $capital_bal; ?>
+                                Balance: <?= money($capital_bal); ?><br />
                                 <?= $brought_in_amount; ?><br />
                                 <?= $gained; ?>
                                 <?= $expenditure; ?>
@@ -288,6 +288,7 @@ if (array_key_exists('postdata', $_SESSION)) {
                             </p>
                         </div>
                     </div>
+                    <?php if ($noCash == 'yes'): ?>
                     <div class="list-group mb-7">
                         <div class="list-group-item bg-body">
                             <div class="row">
@@ -391,6 +392,9 @@ if (array_key_exists('postdata', $_SESSION)) {
                             </div>
                         </div>
                     </div>
+                    <?php else: ?>
+                    <p>No cash.</p>
+                    <?php endif; ?>
                     <h3 class="fs-base">Notes:</h3>
                     <p class="text-body-secondary mb-0">
                     Thank you for todays sales! <br />
