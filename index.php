@@ -95,6 +95,9 @@
         <hr class="my-8" />
 
 		<!-- Stats -->
+		<?php if (admin_has_permission('supervisor')): ?>
+			<p class="lead text-danger">Gold given: <?= money(_capital($admin_id)['today_capital']); ?></p>
+		<?php endif; ?>
 		<div class="row mb-8">
         	<div class="col-12 col-md-6 col-xxl-3 mb-4 mb-xxl-0">
             	<div class="card bg-success-subtle border-transparent">
@@ -107,7 +110,7 @@
 										if (admin_has_permission()) {
 											echo 'Today';
 										} else if (admin_has_permission('supervisor')) {
-											echo 'Gold given';
+											echo 'Gold balance';
 										} else {
 											echo 'Money given';
 										}
@@ -116,10 +119,15 @@
 
 								<!-- Text -->
 								<div class="fs-5 fw-semibold">
-									<?= ((admin_has_permission()) ? money(total_amount_today($admin_id)) : money(_capital($admin_id)['today_capital'])); ?>
-									<?php if (admin_has_permission('supervisor')): ?>
-										<sub class="fw-normal fs-sm"><?= money(remaining_gold_balance($admin_id)); ?></sub>
-									<?php endif; ?>
+									<?php 
+										if (admin_has_permission()) {
+											echo money(total_amount_today($admin_id));
+										} else if (admin_has_permission('supervisor')) {
+											echo money(remaining_gold_balance($admin_id));
+										} else {
+											echo  money(_capital($admin_id)['today_capital']);
+										}
+									?>
 								</div>
 							</div>
 							<div class="col-auto">
