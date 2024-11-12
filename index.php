@@ -96,7 +96,7 @@
 
 		<!-- Stats -->
 		<?php if (admin_has_permission('supervisor')): ?>
-			<div class="text-info">Gold given: <?= money(_capital($admin_id)['today_capital']); ?></div>
+			<div class="text-info">&nbsp;&nbsp;Gold given: <?= money(_capital($admin_id)['today_capital']); ?></div>
 		<?php endif; ?>
 		<div class="row mb-8">
         	<div class="col-12 col-md-6 col-xxl-3 mb-4 mb-xxl-0">

@@ -423,10 +423,24 @@
 <script>
     $(document).ready(function() {
         $('#submitExpenditure').on('click', function() {
-            if (confirm("By clicking on ok, this expenditure will be recorded!")) {
-                expenditureForm.submit()
+            if ($('#pin').val() == '') {
+				alert("PIN is required!");
+                $('#pin').focus()
+				return false;
+			} else {
+                if (confirm("By clicking on ok, this expenditure will be recorded!")) {
+                    $('#submitExpenditure').attr('disabled', true);
+                    $('#submitExpenditure').html('<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span><span> Adding ...</span>');
+
+                    setInterval(function () {
+                        // expenditureForm.submit()
+                        alert("required!");
+                    }, 2000)
+                }
+
+                $('#expenditureForm')[0].reset()
+                return false
             }
-            return false
         });
 
         $(".export_class").change(function(e) {
@@ -495,26 +509,6 @@
                     $("#export-year").focus();
                     return false;
                 }
-
-                // var formData = $('#exportForm');
-                // $.ajax({
-                //     method : "GET",
-                //     url : "<?= PROOT; ?>auth/export",
-                //     data : formData.serialize(),
-                //     beforeSend : function() {
-                //         $('#submit-export').attr('disabled', true);
-                //         $('#submit-export').text('Exporting ...');
-                //     },
-                //     success : function (data) {
-                //         console.log(data)
-                //         $('#submit-export').attr('disabled', false);
-                //         $('#submit-export').text('Export');
-                //         location.reload();
-                //     },
-                //     error : function () {
-
-                //     }
-                // })
 
                 $('#submit-export').attr('disabled', true);
                 $('#submit-export').text('Exporting ...');

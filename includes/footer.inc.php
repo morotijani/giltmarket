@@ -40,7 +40,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <div id="calculation-result" class="d-flex justify-content-center"></div>
+                            <div id="calculation-result"></div><!-- class="d-flex justify-content-center" -->
                             <br>
                             <div id="result-view">
                                 <label class="form-label">Total Amount</label>
@@ -329,7 +329,8 @@
                                 },
                                 beforeSend : function () {
                                     // body...
-                                    $('#calculation-result').html('<img class="img-fluid" src="<?= PROOT; ?>assets/media/loading_v2.gif"/>');
+                                    // $('#calculation-result').html('<img class="img-fluid" src="<?= PROOT; ?>assets/media/loading_v2.gif"/>');
+                                    $('#calculation-result').html('<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span><span> calculating ...</span>');
                                     $('#next-1').attr('disabled', true);
                                     $('#result-view').addClass('d-none');
                                 },
@@ -397,7 +398,7 @@
                                 },
                                 beforeSend : function () {
                                     // body...
-                                    $('#calculation-result').html('<img class="img-fluid" src="<?= PROOT; ?>assets/media/loading_v2.gif"/>');
+                                    $('#calculation-result').html('<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span><span> calculating ...</span>');
                                     $('#next-1').attr('disabled', true);
                                     $('#result-view').addClass('d-none');
                                 },
@@ -464,7 +465,7 @@
                                 },
                                 beforeSend : function () {
                                     // body...
-                                    $('#calculation-result').html('<img class="img-fluid" src="<?= PROOT; ?>assets/media/loading_v2.gif"/>');
+                                    $('#calculation-result').html('<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span><span> calculating ...</span>');
                                     $('#next-1').attr('disabled', true);
                                     $('#result-view').addClass('d-none');
                                 },
