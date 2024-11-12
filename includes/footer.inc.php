@@ -114,7 +114,7 @@
         </div>
     </div>
 
-    <!-- Coffers modal -->
+    <!-- Fund Coffers modal -->
     <?php if (admin_has_permission('supervisor')): ?>
 	<div class="modal fade" id="modalCapital" tabindex="-1" aria-labelledby="modalCapital" aria-hidden="true" style="backdrop-filter: blur(5px);">
 		<div class="modal-dialog modal-dialog-centered">

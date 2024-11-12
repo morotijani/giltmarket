@@ -228,13 +228,16 @@
                         <hr />
                         <div class="mb-4">
                             <label class="form-label" for="projectTitle">Reason</label>
-                            <textarea class="form-control bg-body" type="text" name="what_for" rows="3" id="what_for" placeholder="Enter description" value="<?= $what_for; ?>" required></textarea>
+                            <textarea class="form-control bg-body" type="text" name="what_for" rows="3" id="what_for" placeholder="Enter description" required><?= $what_for; ?></textarea>
                         </div>
                         <div class="mb-4">
                             <label class="form-label" for="projectTitle">Amount</label>
                             <input class="form-control bg-body" name="for_amount" id="for_amount" type="number" min="0.00" step="0.01" value="<?= $for_amount; ?>" placeholder="0.00" required />
                         </div>
-                        <button type="button" data-bs-target="#expenditureModal" data-bs-toggle="modal" class="btn btn-dark">Add expenditure</button>
+                        <button type="button" data-bs-target="#expenditureModal" data-bs-toggle="modal" class="btn btn-dark"><?=((isset($_GET['add'])) ? 'Add' : 'Edit'); ?> expenditure</button>
+                        <?php if (isset($_GET['edit'])): ?>
+                            <a href="<?= PROOT; ?>account/expenditure" class="btn">Cancel</a>
+                        <?php endif; ?>
                     </div>
                 </section>
                 <div class="modal fade" id="expenditureModal" tabindex="-1" aria-labelledby="expenditureModalLabel" data-bs-backdrop="static" data-bs-keyboard="false" aria-hidden="true" style="backdrop-filter: blur(5px);">

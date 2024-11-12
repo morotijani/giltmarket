@@ -390,8 +390,9 @@
 												<?php endif; ?>
 											</div>
 										</div>
-										<?php if ((admin_has_permission('supervisor') && get_admin_coffers($conn, $admin_id, 'balance') > 0) || (admin_has_permission('salesperson') && total_amount_today($admin_id) > 0)): ?>
-										<button type="button" id="submitSendMG" class="btn btn-warning mt-4">Send <?= ((admin_has_permission('supervisor')) ? 'money' : 'gold'); ?></button>
+										<?php 
+											if ((admin_has_permission('supervisor') && get_admin_coffers($conn, $admin_id, 'balance') > 0) || (admin_has_permission('salesperson') && total_amount_today($admin_id) > 0)): ?>
+												<button type="button" id="submitSendMG" class="btn btn-warning mt-4">Send <?= ((admin_has_permission('supervisor')) ? 'money' : 'gold'); ?></button>
 										<?php endif; ?>
 									</div>
 								</div>
@@ -783,6 +784,7 @@
 		$('#submitSendMG').on('click', function() {
 			if ($('#push_pin').val() == '') {
 				alert("PIN is required!");
+				$('#push_pin').focus()
 				return false;
 			} else {
 				$('#submitSendMG').attr('disabled', true);
@@ -791,9 +793,6 @@
 				setTimeout(function () {
 					$('#sendMGForm').submit();
 				}, 2000)
-
-				$('#sendMGForm')[0].reset();
-				return false;
 			}
 		})
 	})
