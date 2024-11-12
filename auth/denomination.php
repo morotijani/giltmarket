@@ -64,9 +64,12 @@ if (array_key_exists('postdata', $_SESSION)) {
     $capital_bal = money(_capital($admin_id)['today_balance']);
 
     // include gain amount to supervor details
-    $gained = '';
+    $gained = null;
+    $g = null;
     if (admin_has_permission('supervisor')) {
-        $gained = 'Earned: ' . _gained_calculation(_capital($admin_id)['today_balance'], _capital($admin_id)['today_capital'], $admin_id) . '<br />';
+        $g = _gained_calculation(_capital($admin_id)['today_balance'], _capital($admin_id)['today_capital'], $admin_id);
+        $gained = 'Earned: ' . money($g) . '<br />';
+        $capital_bal = money(remaining_gold_balance($admin_id));
     }
 
     $exp_amt = ((admin_has_permission('supervisor')) ? '' : total_expenditure_today($admin_id));
@@ -74,6 +77,9 @@ if (array_key_exists('postdata', $_SESSION)) {
 
     $tst = total_sale_amount_today($admin_id); // total sale today
     $brought_in_amount = ((admin_has_permission('supervisor')) ? 'Cash' : 'Gold') . ' accumulated: ' . ((admin_has_permission('supervisor')) ? money($tst["sum"]) : money((float)($tst["sum"] - $exp_amt["sum"])));
+
+    //
+    $p = get_total_send_push($conn, $admin_id);
 
     $data = [$denomination_id, $capital_id, $admin_id, $denomination_200c, $denomination_200c_amt, $denomination_100c, $denomination_100c_amt, $denomination_50c, $denomination_50c_amt, $denomination_20c, $denomination_20c_amt, $denomination_10c, $denomination_10c_amt, $denomination_5c, $denomination_5c_amt, $denomination_2c, $denomination_2c_amt, $denomination_1c, $denomination_1c_amt, $denomination_50p, $denomination_50p_amt, $denomination_20p, $denomination_20p_amt, $denomination_10p, $denomination_10p_amt, $denomination_5p, $denomination_5p_amt, $denomination_1p, $denomination_1p_amt, $denomination_have_cash, $denomination_checker];
     // save end trade records into denomination table
@@ -144,29 +150,24 @@ if (array_key_exists('postdata', $_SESSION)) {
             $cash = _capital($admin_id)['today_balance']; // cash remaining from saleperson
 
             $push_data = array(
-                'id' => , 
-                'money given' => ,
-                'balance' => ,
-                'expenditure' => , 
-                'total pushes' => , 
-                'accumulated gold' => , 
-                'total trades' => 
+                'expenditure' => money($exp_amt["sum"]), 
+                'total pushes' => money($p["sum"]), 
+                'accumulated cash' => money((float)($tst["sum"] - $exp_amt["sum"])), 
+                'total sales' => money($tst["sum"])
             );
         } else {
             $cash = total_amount_today($admin_id); // cash gained from supervisor
 
-            $push_data = array(
-                'id' => , 
-                'gold given' => , 
-                'balance' => ,
-                'total pushes' => , 
-                'accumulated gold' => , 
-                'total trades'
-                'earned' => ,
-                'sold' => 
+            $pushData = array(
+                'balance' => $capital_bal,
+                'total pushes' => money($p["sum"]), 
+                'accumulated gold' => money($tst["sum"]), 
+                'total sales' => money($tst["sum"]), 
+                'earned' => money($g),
+                'sold' => money(_capital($admin_id)['today_balance'])
             );
         }
-        $push_data = json_encode($push_data);
+        $pushData = json_encode($pushData);
 
         $insertSql = "
             INSERT INTO jspence_coffers (coffers_amount, coffers_status, coffers_receive_through, coffers_id) 
@@ -183,7 +184,7 @@ if (array_key_exists('postdata', $_SESSION)) {
 
             
 
-            $push_data = [$push_id, $coffers_id, $cash, 'money', $admin_id, 'coffers', $today, 'coffers', $push_data];
+            $push_data = [$push_id, $coffers_id, $cash, 'money', $admin_id, 'coffers', $today, 'coffers', $pushData];
             $sql = "
                 INSERT INTO jspence_pushes (push_id, push_daily, push_amount, push_type, push_from, push_to, push_date, push_on, push_data) 
                 VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
@@ -269,11 +270,11 @@ if (array_key_exists('postdata', $_SESSION)) {
                                 <span class="text-body">System summary</span> <br />
                                 Capital ID: <?= $capital_id; ?><br />
                                 Amount Given: <?= $capital_amt; ?><br />
-                                <?= ((admin_has_permission('salesperson')) ? 'Balance: ' . $capital_bal . '<br />' : ''); ?>
+                                Balance: <?= $capital_bal; ?>
                                 <?= $brought_in_amount; ?><br />
                                 <?= $gained; ?>
                                 <?= $expenditure; ?>
-                                Total Push made: <?php $p = get_total_send_push($conn, $admin_id); echo money($p["sum"]); ?>
+                                Total Push made: <?= money($p["sum"]); ?>
                             </p>
                         </div>
                         <div class="col-auto">
