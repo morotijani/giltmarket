@@ -339,8 +339,50 @@
                     <?php endif; ?>
                 </div>
 
-            <?php elseif ((isset($_GET['data']) && $_GET['data'] == 'gold-receive') && admin_has_permission('supervisor')): ?>
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptate nulla doloremque deserunt possimus odit laboriosam sed ea quidem nisi explicabo temporibus sint provident deleniti dolores suscipit, optio impedit sequi ratione.
+            <?php elseif ((isset($_GET['data']) && $_GET['data'] == 'gold-receive') && admin_has_permission('supervisor')): 
+                $q = "
+                    SELECT * FROM jspence_pushes 
+                    WHERE push_to = ? 
+                    AND push_type = ? 
+                    AND push_date = ?
+                ";
+                $statement = $conn->prepare($q);
+                $statement->execute([
+                    $admin_id, 
+                    'gold', 
+                    date("Y-m-d")
+                ]);
+                $rows = $statement->fetchAll();
+                
+            ?>
+                <div class="table-responsive mb-7">
+                    <table class="table align-middle mb-0">
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>Push ID</span></th>
+                                <th>Amount</th>
+                                <th>From</th>
+                                <th>Data</th>
+                                <th>Date</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <?php $i = 1; foreach ($rows as $row): $ad = find_admin_with_id($row["push_from"]); ?>
+                                <tr>
+                                    <td><?= $i; ?></td>
+                                    <td><?= $row["push_id"]; ?></td>
+                                    <td><?= money($row["push_amount"]); ?></td>
+                                    <td><?= ucwords($ad["admin_fullname"]); ?></td>
+                                    <td><?= $row["push_data"]; ?></td>
+                                    <td><?= pretty_date($row["createdAt"]); ?>
+                                    <td></td>
+                                </tr>
+                            <?php $i++; endforeach; ?>
+                        </tbody>
+                    </table>
+                </div>
             <?php else: ?>
             <div id="load-content"></div>
             <?php endif; ?>
