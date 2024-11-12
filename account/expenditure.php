@@ -228,7 +228,7 @@
                         <hr />
                         <div class="mb-4">
                             <label class="form-label" for="projectTitle">Reason</label>
-                            <input class="form-control bg-body" type="text" name="what_for" id="what_for" placeholder="Enter description" value="<?= $what_for; ?>" required />
+                            <textarea class="form-control bg-body" type="text" name="what_for" rows="3" id="what_for" placeholder="Enter description" value="<?= $what_for; ?>" required></textarea>
                         </div>
                         <div class="mb-4">
                             <label class="form-label" for="projectTitle">Amount</label>
@@ -436,8 +436,7 @@
                         $('#expenditureForm').submit()
                     }, 2000)
                 }
-
-                $('#expenditureForm')[0].reset()
+                $('#expenditureModal').modal('hide');
                 return false
             }
         });

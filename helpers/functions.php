@@ -1135,12 +1135,14 @@ function get_recent_trades($admin) {
 		foreach ($rows as $row) {
 			$type = "";
 			if ($row["sale_type"] == 'out') {
+				// out-trade
 				$type = '
-					<span class="badge bg-danger-subtle text-danger">out-trade</span>
+					<span class="badge bg-danger-subtle text-danger">buy-gold</span>
 				';
-			} else if ($row["sale_type"] == 'in') {
+			} else if ($row["sale_type"] == 'in') { 
+				// in-trade
 				$type = '
-					<span class="badge bg-success-subtle text-success">in-trade</span>
+					<span class="badge bg-success-subtle text-success">sell-gold</span>
 				';
 			} else if ($row["sale_type"] == 'exp') {
 				$type = '
