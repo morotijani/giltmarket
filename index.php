@@ -293,7 +293,7 @@
 					<form class="vstack gap-6" method="POST" id="sendMGForm" action="<?= PROOT; ?>auth/make.push.php">
                         <div id="">
                             <div class="vstack gap-2">
-								<?php if (admin_has_permission('salesperson')): ?>
+								<?php if (admin_has_permission('supervisor')): ?>
 								<div class="form-check">
 									<input class="form-check-input" name="push-all" type="checkbox" id="push-all" value="push-all">
 									<label class="form-check-label" for="push-all">
@@ -627,6 +627,7 @@
 								// body...
 								$('#push_msg').text('typing ...');
 								$('#show-sendMGModal').attr('disabled', true);
+								
 							},
 							success: function(data) {
 								console.log(data)
