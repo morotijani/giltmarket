@@ -208,7 +208,11 @@
                 </div>
             </div>
         
+            <?php if (isset($_GET['data']) && $_GET['data'] == 'salesperson') : ?>
+                Lorem ipsum dolor, sit amet consectetur adipisicing elit. Impedit odit, laborum dolor praesentium optio vel earum totam modi ex ea beatae ab necessitatibus nulla doloribus voluptates iure eligendi vero delectus.
+            <?php else: ?>
             <div id="load-content"></div>
+            <?php endif; ?>
         </div>
     </div>
 

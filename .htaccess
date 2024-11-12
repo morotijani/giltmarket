@@ -8,6 +8,9 @@ RewriteRule ^acc/export/([0-9a-zA-Z_-]+)/([0-9a-zA-Z_-]+)$ acc/export.php?data=$
 # reverse push get link
 RewriteRule ^auth/push.reverse/([0-9a-zA-Z_-]+)$ auth/push.reverse.php?data=$1 [NC,L]
 
+#
+RewriteRule ^account/pushes/([0-9a-zA-Z_-]+)$ account/pushes.php?data=$1 [NC,L]
+
 
 
 RewriteCond %{REQUEST_FILENAME} !-d

@@ -146,6 +146,7 @@
                             <div class="collapse " id="pushes">
                                 <nav class="nav nav-pills">
                                     <a class="nav-link nav-child" href="<?= PROOT; ?>account/pushes">Pushes</a>
+                                    <a class="nav-link nav-child" href="<?= PROOT; ?>account/pushes/salesperson">To salepersonnels</a>
                                 </nav>
                             </div>
                         </div>
