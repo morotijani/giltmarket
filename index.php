@@ -293,12 +293,14 @@
 					<form class="vstack gap-6" method="POST" id="sendMGForm" action="<?= PROOT; ?>auth/make.push.php">
                         <div id="">
                             <div class="vstack gap-2">
+								<?= admin_has_permission('salesperson'); ?>
 								<div class="form-check">
 									<input class="form-check-input" name="push-all" type="checkbox" id="push-all" value="push-all">
 									<label class="form-check-label" for="push-all">
 										Push all <?= ((admin_has_permission('supervisor')) ? 'money' : 'gold'); ?>
 									</label>
 								</div>
+								<?php endif; ?>
 								<div class="bg-body-secondary rounded-3 p-4">
 									<div class="d-flex justify-content-between text-xs text-muted">
 										<span class="fw-semibold"><?= ((admin_has_permission('supervisor')) ? 'Money' : 'Gold'); ?></span>
