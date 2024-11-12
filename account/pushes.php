@@ -220,6 +220,7 @@
                         WHERE jspence_pushes.push_from = ? 
                         AND jspence_daily.daily_date = ? 
                         AND jspence_admin.admin_permissions = ? 
+                        GROUP BY jspence_pushes.push_to
                     ";
                     $statement = $conn->prepare($sp_query);
                     $statement->execute([
@@ -227,28 +228,23 @@
                     ]);
                     $sp_count = $statement->rowCount();
                     $sps = $statement->fetchAll();
-
-                    if ($sp_count > 0) {
-                        foreach ($sps as $sp) {
-                            $QUERY = "
-                                SELECT * FROM jspence_pushes 
-                                WHERE push_to = ? 
-                            ";
-                            $statement = $conn->prepare($QUERY);
-                            $statement->execute([$sp['push_to']]);
-                            $pss = $statement->fetchAll();
-                        }
-                    }
-
-                    // find_admin_with_id($id)
-
-            
             ?>
 
                 <!-- Page content -->
                 <div class="row">
                     <?php if ($sp_count > 0): ?>
-                        <?php foreach ($sps as $sp): ?>
+                        <?php 
+                        
+                            foreach ($sps as $sp): 
+                                $QUERY = "
+                                    SELECT * FROM jspence_pushes 
+                                    WHERE push_to = ? 
+                                ";
+                                $statement = $conn->prepare($QUERY);
+                                $statement->execute([$sp['push_to']]);
+                                $pss = $statement->fetchAll();
+                        
+                        ?>
                             <div class="col-12 col-xxl-4">
                                 <div class="position-sticky mb-8" style="top: 40px">
                                     <!-- Card -->
@@ -270,7 +266,7 @@
                                             <h1 class="card-title fs-5"><?= ucwords($sp["admin_fullname"]); ?></h1>
 
                                             <!-- Text -->
-                                            <p class="text-body-secondary mb-6">James is a long-standing customer with a passion for technology.</p>
+                                            <!-- <p class="text-body-secondary mb-6">James is a long-standing customer with a passion for technology.</p> -->
 
                                             <!-- List -->
                                             <ul class="list-group list-group-flush mb-0">
@@ -313,19 +309,17 @@
                                         <table class="table mb-0">
                                             <thead>
                                                 <th>ID</th>
-                                                <th>Product</th>
+                                                <th>Amount</th>
                                                 <th>Date</th>
-                                                <th>Status</th>
-                                                <th>Price</th>
+                                                <th></th>
                                             </thead>
                                             <tbody>
                                                 <?php foreach ($pss as $ps): ?>
                                                 <tr>
-                                                    <td class="text-body-secondary">#3456</td>
-                                                    <td>Apple MacBook Pro</td>
-                                                    <td>2021-08-12</td>
-                                                    <td><span class="badge bg-success-subtle text-success">Completed</span></td>
-                                                    <td>$2,499</td>
+                                                    <td class="text-body-secondary"><?= $ps["push_id"]; ?></td>
+                                                    <td><?= money($ps["push_amount"]); ?></td>
+                                                    <td><?= pretty_date($ps["createdAt"]); ?></td>
+                                                    <td>reverse</td>
                                                 </tr>
                                                 <?php endforeach; ?>
                                             </tbody>
