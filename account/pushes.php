@@ -252,12 +252,12 @@
                                         <!-- Image -->
                                         <div
                                         class="card-img-top pb-13"
-                                        style="background: no-repeat url(../assets/img/backgrounds/background-1.jpg) center center / cover"
+                                        style="background: no-repeat url(<?= PROOT; ?>assets/media/background-2.jpg) center center / cover"
                                         ></div>
 
                                         <!-- Avatar -->
                                         <div class="avatar avatar-xl rounded-circle mt-n7 mx-auto">
-                                            <img class="avatar-img border border-white border-3" src="../assets/img/photos/photo-6.jpg" alt="..." />
+                                            <img class="avatar-img border border-white border-3" src="<?= PROOT .  (($sp["admin_profile"] == NULL) ? 'assets/media/avatar.png' : $sp["admin_profile"]); ?>" alt="..." />
                                         </div>
 
                                         <!-- Body -->

@@ -429,8 +429,7 @@ function get_admin_profile($id) {
 		<div class="mb-4">
 			<div class="form-label">Bio</div>
 			<div>
-				Hi! I\'m Michael Johnson, a software engineer from San Francisco, California. I\'m passionate about technology, design, and startups. I\'m
-					currently working at Quantum Dynamics as a front-end developer.
+				Hi! I\'m ...
 			</div>
 		</div>
 		<div class="mb-4">
