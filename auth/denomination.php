@@ -75,8 +75,8 @@ if (array_key_exists('postdata', $_SESSION)) {
     $exp_amt = ((admin_has_permission('supervisor')) ? '' : total_expenditure_today($admin_id));
     $expenditure = ((admin_has_permission('salesperson')) ? 'Expenditure: ' . money($exp_amt["sum"]) . '<br />' : '');
 
-    $tst = total_sale_amount_today($admin_id); // total sale today
-    $brought_in_amount = ((admin_has_permission('supervisor')) ? 'Cash' : 'Gold') . ' accumulated: ' . ((admin_has_permission('supervisor')) ? money($tst["sum"]) : money((float)($tst["sum"] - $exp_amt["sum"])));
+    $tst = total_sale_amount_today($admin_id); // total sale 
+    $brought_in_amount = ((admin_has_permission('supervisor')) ? 'Cash' : 'Gold') . ' accumulated: ' . total_amount_today($admin_id);
 
     //
     $p = get_total_send_push($conn, $admin_id);
@@ -151,8 +151,8 @@ if (array_key_exists('postdata', $_SESSION)) {
 
             $pushData = array(
                 'expenditure' => $exp_amt["sum"], 
-                'total_pushes' => $p["sum"], 
-                'accumulated_gold' => (float)($tst["sum"] - $exp_amt["sum"]), 
+                'send_pushes' => $p["sum"], 
+                'accumulated_gold' => total_amount_today($admin_id), 
                 'total_sales' => $tst["sum"]
             );
         } else {
@@ -160,8 +160,8 @@ if (array_key_exists('postdata', $_SESSION)) {
 
             $pushData = array(
                 'balance' => $capital_bal,
-                'total_pushes' => $p["sum"], 
-                'accumulated_money' => $tst["sum"], 
+                'send_pushes' => $p["sum"], 
+                'accumulated_money' => total_amount_today($admin_id), 
                 'total_sales' => $tst["sum"], 
                 'earned' => $g,
                 'sold' => _capital($admin_id)['today_balance']
@@ -271,10 +271,10 @@ if (array_key_exists('postdata', $_SESSION)) {
                                 Capital ID: <?= $capital_id; ?><br />
                                 Amount Given: <?= $capital_amt; ?><br />
                                 Balance: <?= money($capital_bal); ?><br />
-                                <?= $brought_in_amount; ?><br />
+                                <?= money($brought_in_amount); ?><br />
                                 <?= $gained; ?>
                                 <?= $expenditure; ?>
-                                Total Push made: <?= money($p["sum"]); ?>
+                                Send Push made: <?= money($p["sum"]); ?>
                             </p>
                         </div>
                         <div class="col-auto">

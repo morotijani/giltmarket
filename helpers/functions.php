@@ -336,7 +336,8 @@ function get_total_send_push($conn, $admin, $d = null) {
 		INNER JOIN jspence_daily 
 		ON jspence_daily.daily_id = jspence_pushes.push_daily 
 		WHERE jspence_pushes.push_from = ? 
-		AND jspence_daily.daily_capital_status = ?
+		AND jspence_daily.daily_capital_status = ? 
+		AND jspence_daily.daily_date = jspence_pushes.push_date
 	";
 	$statement = $conn->prepare($query);
 	$result = $statement->execute([$admin, 0]);
