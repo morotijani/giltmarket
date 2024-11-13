@@ -26,7 +26,17 @@
     include ("../includes/top.nav.inc.php");
     
 ?>
+<style>
+@media print {
+    @page {
+        margin: 0 !important;
+    }
 
+    body {
+        padding: 75px; /* This will act as your margin. Originally, the margin will hide the header and footer text. */
+    }
+}
+</style>
     <div class="container-lg">
         <!-- Page header -->
         <div class="row align-items-center mb-7">
@@ -375,10 +385,129 @@
                                     <td><?= $row["push_id"]; ?></td>
                                     <td><?= money($row["push_amount"]); ?></td>
                                     <td><?= ucwords($ad["admin_fullname"]); ?></td>
-                                    <td><?= $row["push_data"]; ?></td>
+                                    <td>
+                                        <?php $p_data = json_decode($row["push_data"]); ?>
+                                        Gram: <?= $p_data->gram; ?> <br>
+                                        Volume: <?= $p_data->volume; ?> <br>
+                                        Density: <?= $p_data->density; ?> <br>
+                                        Pounds: <?= $p_data->pounds; ?> <br>
+                                        Carat: <?= $p_data->carat; ?>
+                                    </td>
                                     <td><?= pretty_date($row["createdAt"]); ?>
-                                    <td></td>
+                                    <td>
+                                        <a href="#viewModal_<?= $i; ?>" data-bs-toggle="modal" class="badge bg-warning-subtle">view</a>
+                                    </td>
                                 </tr>
+
+                                <!-- view recieve gold details -->
+                                <div class="modal fade" id="viewModal_<?= $i; ?>" tabindex="-1" aria-labelledby="viewModalLabel_<?= $i; ?>" data-bs-backdrop="static" data-bs-keyboard="false" aria-hidden="true" style="backdrop-filter: blur(5px);">
+                                    <div class="modal-dialog modal-dialog-centered" id="printableArea_<?= $i; ?>">
+                                        <div class="modal-content overflow-hidden">
+                                            <div class="modal-header pb-0 border-0">
+                                                <h1 class="modal-title h4" id="viewModalLabel_<?= $i; ?>">Recieved gold details!</h1>
+                                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                            </div>
+                                            <div class="modal-body p-5">
+                                                <ul class="list-group list-group-flush">
+                                                    <div class="list-group-item px-0">
+                                                        <div class="row align-items-center">
+                                                            <div class="col ms-n2">
+                                                                <h6 class="fs-base fw-normal mb-1">Push ID,</h6>
+                                                            </div>
+                                                            <div class="col-auto">
+                                                                <time class="text-body-secondary" datetime="01/01/2025"><?= $row["push_id"]; ?></time>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="list-group-item px-0">
+                                                        <div class="row align-items-center">
+                                                            <div class="col ms-n2">
+                                                                <h6 class="fs-base fw-normal mb-1">Total amount,</h6>
+                                                            </div>
+                                                            <div class="col-auto">
+                                                                <time class="text-body-secondary" datetime="01/01/2025"><?= money($row["push_amount"]); ?></time>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="list-group-item px-0">
+                                                        <div class="row align-items-center">
+                                                            <div class="col ms-n2">
+                                                                <h6 class="fs-base fw-normal mb-1">Gram,</h6>
+                                                            </div>
+                                                            <div class="col-auto">
+                                                                <time class="text-body-secondary" datetime="01/01/2025"><?= $p_data->gram; ?> </time>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="list-group-item px-0">
+                                                        <div class="row align-items-center">
+                                                            <div class="col ms-n2">
+                                                                <h6 class="fs-base fw-normal mb-1">Volume,</h6>
+                                                            </div>
+                                                            <div class="col-auto">
+                                                                <time class="text-body-secondary" datetime="01/01/2025"><?= $p_data->volume; ?> </time>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="list-group-item px-0">
+                                                        <div class="row align-items-center">
+                                                            <div class="col ms-n2">
+                                                                <h6 class="fs-base fw-normal mb-1">Density,</h6>
+                                                            </div>
+                                                            <div class="col-auto">
+                                                                <time class="text-body-secondary" datetime="01/01/2025"><?= $p_data->density; ?> </time>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="list-group-item px-0">
+                                                        <div class="row align-items-center">
+                                                            <div class="col ms-n2">
+                                                                <h6 class="fs-base fw-normal mb-1">Pounds,</h6>
+                                                            </div>
+                                                            <div class="col-auto">
+                                                                <time class="text-body-secondary" datetime="01/01/2025"><?= $p_data->pounds; ?> </time>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="list-group-item px-0">
+                                                        <div class="row align-items-center">
+                                                            <div class="col ms-n2">
+                                                                <h6 class="fs-base fw-normal mb-1">Carat,</h6>
+                                                            </div>
+                                                            <div class="col-auto">
+                                                                <time class="text-body-secondary" datetime="01/01/2025"><?= $p_data->carat; ?> </time>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="list-group-item px-0">
+                                                        <div class="row align-items-center">
+                                                            <div class="col ms-n2">
+                                                                <h6 class="fs-base fw-normal mb-1">From,</h6>
+                                                            </div>
+                                                            <div class="col-auto">
+                                                                <time class="text-body-secondary" datetime="01/01/2025"><?= ucwords($ad["admin_fullname"]); ?> </time>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="list-group-item px-0">
+                                                        <div class="row align-items-center">
+                                                            <div class="col ms-n2">
+                                                                <h6 class="fs-base fw-normal mb-1">Date,</h6>
+                                                            </div>
+                                                            <div class="col-auto">
+                                                                <time class="text-body-secondary" datetime="01/01/2025"><?= $row["push_date"]; ?> </time>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </ul>
+                                                <div class="px-6 py-5 d-flex justify-content-center">
+                                                    <a href="javascript:;" class="btn btn-sm btn-dark" onclick="printPageArea('printableArea_<?= $i; ?>')"><i class="bi bi-trash me-2"></i>Print</a>&nbsp;&nbsp;
+                                                    <a href="javascript:;" class="btn btn-sm btn-danger"><i class="bi bi-trash me-2"></i>Reverse</a>&nbsp;&nbsp;
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                             <?php $i++; endforeach; ?>
                         </tbody>
                     </table>
@@ -392,6 +521,14 @@
 <?php include ("../includes/footer.inc.php"); ?>
 
 <script>
+    function printPageArea(areaID) {
+        var printContent = document.getElementById(areaID).innerHTML;
+        var originalContent = document.body.innerHTML;
+        document.body.innerHTML = printContent;
+        window.print();
+        document.body.innerHTML = originalContent;
+    }
+
     $(document).ready(function() {
 
         $(".export_class").change(function(e) {
