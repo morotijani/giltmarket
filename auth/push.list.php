@@ -60,7 +60,7 @@ $output = '
                 <thead>
                     <tr>
                         <th>#</th>
-                        <th>Push ID</span></th>
+                        <th>Push ID</th>
                         <th>Capital ID</th>
                         <th>Amount</th>
                         <th>From</th>

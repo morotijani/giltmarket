@@ -255,6 +255,7 @@
                                 ";
                                 $statement = $conn->prepare($QUERY);
                                 $statement->execute([$sp['push_to']]);
+                                $pss_count = $statement->rowCount();
                                 $pss = $statement->fetchAll();
                         
                         ?>
@@ -327,6 +328,7 @@
                                                 <th></th>
                                             </thead>
                                             <tbody>
+                                                <?php if ($pss_count > 0): ?>
                                                 <?php foreach ($pss as $ps): ?>
                                                 <tr>
                                                     <td class="text-body-secondary"><?= $ps["push_id"]; ?></td>
@@ -335,6 +337,11 @@
                                                     <!-- <td>reverse</td> -->
                                                 </tr>
                                                 <?php endforeach; ?>
+                                                <?php else: ?>
+                                                    <tr>
+                                                        <td  colspan="4"class="bg-info-subtle">No data found!</td>
+                                                    </tr>
+                                                <?php endif; ?>
                                             </tbody>
                                         </table>
                                     </div>
@@ -342,7 +349,7 @@
                             </div>
                         <?php endforeach; ?>
                     <?php else: ?>
-                        no data
+                        <div class="alert alert-info">No data found!</div>
                     <?php endif; ?>
                 </div>
 
@@ -360,6 +367,7 @@
                     date("Y-m-d")
                 ]);
                 $rows = $statement->fetchAll();
+                $rows_count = $statement->rowCount();
                 
             ?>
                 <div class="table-responsive mb-7">
@@ -367,7 +375,7 @@
                         <thead>
                             <tr>
                                 <th>#</th>
-                                <th>Push ID</span></th>
+                                <th>Push ID</th>
                                 <th>Amount</th>
                                 <th>From</th>
                                 <th>Data</th>
@@ -376,6 +384,7 @@
                             </tr>
                         </thead>
                         <tbody>
+                            <?php if ($rows_count > 0): ?>
                             <?php 
                                 $i = 1; 
                                 foreach ($rows as $row): 
@@ -511,6 +520,11 @@
                                     </div>
                                 </div>
                             <?php $i++; endforeach; ?>
+                            <?php else: ?>
+                                <tr>
+                                    <td colspan="7" class="bg-info-subtle">No data found!</td>
+                                </tr>
+                            <?php endif; ?>
                         </tbody>
                     </table>
                 </div>

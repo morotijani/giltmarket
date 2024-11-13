@@ -19,17 +19,11 @@
 	$thisYr = date("Y");
 	$lastYr = $thisYr - 1;
 
-	$where = '';
-	if (!admin_has_permission()) {
-		$where = ' AND sale_by = "' . $admin_id . '"';
-	}
-
 	$thisYrQ = "
 		SELECT sale_total_amount, createdAt 
 		FROM jspence_sales 
 		WHERE YEAR(createdAt) = '{$thisYr}' 
 		AND sale_status = 0 
-		$where
 	";
 	$statement = $conn->prepare($thisYrQ);
 	$statement->execute();
@@ -41,7 +35,6 @@
 		FROM jspence_sales 
 		WHERE YEAR(createdAt) = '{$lastYr}' 
 		AND sale_status = 0 
-		$where
 	";
 	$statement = $conn->prepare($lastYrQ);
 	$statement->execute();
@@ -270,7 +263,7 @@
 					<div class="card-header">
 						<div class="row align-items-center">
 							<div class="col">
-								<h3 class="fs-6 mb-0">Accumulated trades by months and years</h3>
+								<h3 class="fs-6 mb-0">Trades by months and years</h3>
 							</div>
 							<div class="col-auto my-n3 me-n3">
 								<a class="btn btn-link" href="<?= PROOT; ?>account/analytics">
