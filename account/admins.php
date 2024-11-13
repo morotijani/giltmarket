@@ -132,7 +132,9 @@ if (isset($_GET['add'])) {
                 <!-- Action -->
                 <div class="row gx-2">
                     <div class="col-6 col-sm-auto">
+                        <?php if (!isset($_GET['add']) || !$_GET['add']): ?>
                         <a class="btn btn-secondary d-block" href="<?= PROOT; ?>account/admins?add=1"> <span class="material-symbols-outlined me-1">add</span> New admin </a>
+                        <?php endif; ?>
                     </div>
                     <div class="col-6 col-sm-auto">
                         <a class="btn btn-light d-block" href="<?= goBack(); ?>"> Go back </a>

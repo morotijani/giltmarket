@@ -20,7 +20,7 @@
 								$push_carat = calculateCarat($push_gram, $push_volume);
 								$push_amount = calculateTotalAmount($push_gram, $push_volume, $current_price);
 
-								$pushData = array('gram' => $push_gram, 'volume' => $push_volume, 'density' => $push_density, 'pounds' => $push_pounds, 'carat' => $push_carat, 'push_amount' => $push_amount);
+								$pushData = array('price' => $current_price, 'gram' => $push_gram, 'volume' => $push_volume, 'density' => $push_density, 'pounds' => $push_pounds, 'carat' => $push_carat, 'push_amount' => $push_amount);
 								$pushData = json_encode($pushData);
 							} else {
 								echo js_alert('Something went wrong, please refresh and try agin!');

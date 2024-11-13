@@ -118,6 +118,7 @@
                                     <?php endif; ?>
                                 </ul>
                             </div>
+                            <?php if ((!isset($_GET['data']) || !$_GET['data']) ? 'bg-dark active' : ''): ?>
                             <div class="col-12 col-lg">
                                 <div class="row gx-3">
                                     <div class="col col-lg-auto ms-auto">
@@ -130,14 +131,14 @@
                                     </div>
                                     <div class="col-auto ms-n2">
                                         <div class="dropdown">
-                                        <button class="btn btn-dark px-3" data-bs-toggle="dropdown" data-bs-auto-close="outside" aria-expanded="false">
-                                            <span class="material-symbols-outlined">export_notes</span>
-                                        </button>
-                                        <div class="dropdown-menu rounded-3 p-6">
-                                            <h4 class="fs-lg mb-4">Export push</h4>
-                                            <form style="width: 350px" id="exportForm" action="<?= PROOT; ?>auth/export.pushes.php">
-                                                <div class="row gx-3">
-                                                    <div class="col-sm-12 mb-3">
+                                            <button class="btn btn-dark px-3" data-bs-toggle="dropdown" data-bs-auto-close="outside" aria-expanded="false">
+                                                <span class="material-symbols-outlined">export_notes</span>
+                                            </button>
+                                            <div class="dropdown-menu rounded-3 p-6">
+                                                <h4 class="fs-lg mb-4">Export push</h4>
+                                                <form style="width: 350px" id="exportForm" action="<?= PROOT; ?>auth/export.pushes.php">
+                                                    <div class="row gx-3">
+                                                        <div class="col-sm-12 mb-3">
                                                         <div class="form-check form-check-inline">
                                                             <input class="form-check-input export_type" type="radio" name="export-status" id="inlineRadioStatus1" required value="zero" checked>
                                                             <label class="form-check-label" for="inlineRadioStatus1">All</label>
@@ -216,6 +217,7 @@
                                     </div>
                                 </div>
                             </div>
+                            <?php endif; ?>
                         </div>
                     </div>
                 </div>
@@ -426,6 +428,16 @@
                                                             </div>
                                                             <div class="col-auto">
                                                                 <time class="text-body-secondary" datetime="01/01/2025"><?= $row["push_id"]; ?></time>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="list-group-item px-0">
+                                                        <div class="row align-items-center">
+                                                            <div class="col ms-n2">
+                                                                <h6 class="fs-base fw-normal mb-1">Price,</h6>
+                                                            </div>
+                                                            <div class="col-auto">
+                                                                <time class="text-body-secondary" datetime="01/01/2025"><?= $p_data->price; ?></time>
                                                             </div>
                                                         </div>
                                                     </div>
