@@ -232,14 +232,16 @@
                         ON jspence_admin.admin_id = jspence_daily.daily_to 
                         INNER JOIN jspence_pushes 
                         ON jspence_pushes.push_to = jspence_daily.daily_to
-                        WHERE jspence_pushes.push_from = ? 
-                        AND jspence_daily.daily_date = ? 
-                        AND jspence_admin.admin_permissions = ? 
-                        GROUP BY jspence_pushes.push_to
+                        WHERE jspence_daily.daily_date = ? 
+                        AND jspence_admin.admin_permissions = 'salesperson' 
                     ";
+                    if (!admin_has_permission()) {
+                        $sp_query .= " AND jspence_pushes.push_from = '" . $admin_id . "' ";
+                    }
+                    $sp_query .= " GROUP BY jspence_pushes.push_to";
                     $statement = $conn->prepare($sp_query);
                     $statement->execute([
-                        $admin_id, date("Y-m-d"), 'salesperson'
+                        date("Y-m-d")
                     ]);
                     $sp_count = $statement->rowCount();
                     $sps = $statement->fetchAll();
@@ -349,6 +351,7 @@
                                     </div>
                                 </section>
                             </div>
+                        </div>
                         <?php endforeach; ?>
                     <?php else: ?>
                         <div class="alert alert-info">No data found!</div>
@@ -358,13 +361,14 @@
             <?php elseif ((isset($_GET['data']) && $_GET['data'] == 'gold-receive') && admin_has_permission('supervisor')): 
                 $q = "
                     SELECT * FROM jspence_pushes 
-                    WHERE push_to = ? 
-                    AND push_type = ? 
-                    AND push_date = ?
+                    WHERE push_type = ? 
+                    AND push_date = ? 
                 ";
+                if (!admin_has_permission()) {
+                    $q .= " AND push_to = '" . $admin_id . "'";
+                }
                 $statement = $conn->prepare($q);
                 $statement->execute([
-                    $admin_id, 
                     'gold', 
                     date("Y-m-d")
                 ]);
@@ -407,7 +411,7 @@
                                     </td>
                                     <td><?= pretty_date($row["createdAt"]); ?>
                                     <td>
-                                        <a href="#viewModal_<?= $i; ?>" data-bs-toggle="modal" class="badge bg-warning-subtle">view</a>
+                                        <a href="#viewModal_<?= $i; ?>" data-bs-toggle="modal" class="badge bg-primary">view</a>
                                     </td>
                                 </tr>
 
@@ -524,7 +528,7 @@
                                                 </ul>
                                                 <div class="px-6 py-5 d-flex justify-content-center">
                                                     <a href="javascript:;" class="btn btn-sm btn-dark" onclick="printPageArea('printableArea_<?= $i; ?>')"><i class="bi bi-trash me-2"></i>Print</a>&nbsp;&nbsp;
-                                                    <a href="javascript:;" class="btn btn-sm btn-danger"><i class="bi bi-trash me-2"></i>Reverse</a>&nbsp;&nbsp;
+                                                    <!-- <a href="javascript:;" class="btn btn-sm btn-danger"><i class="bi bi-trash me-2"></i>Reverse</a>&nbsp;&nbsp; -->
                                                     <button type="button" class="btn btn-sm btn-dark" data-bs-dismiss="modal">Close</button>
                                                 </div>
                                             </div>

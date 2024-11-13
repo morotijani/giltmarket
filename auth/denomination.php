@@ -152,7 +152,7 @@ if (array_key_exists('postdata', $_SESSION)) {
             $daily_result = $statement->execute($data);
 
             if ($daily_result) {
-                $pushGoldData = array('gram' => $push_gram, 'volume' => $push_volume, 'density' => $push_density, 'pounds' => $push_pounds, 'carat' => $push_carat, 'push_amount' => $gold_balance);
+                $pushGoldData = array('price' => 0, 'gram' => $push_gram, 'volume' => $push_volume, 'density' => $push_density, 'pounds' => $push_pounds, 'carat' => $push_carat, 'push_amount' => $gold_balance);
 				$pushGoldData = json_encode($pushGoldData);
 
                 // insert gold to pushes
