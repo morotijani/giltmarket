@@ -328,19 +328,18 @@ function get_pushes_made($admin, $today = null) {
 // fetch total send push made
 function get_total_send_push($conn, $admin, $d = null) {
 	$d = (($d == null) ? null : $d);
+	$runningCapital = find_capital_given_to($admin);
+	
 	$query = "
 		SELECT 
 			SUM(jspence_pushes.push_amount) AS pamt, 
 			COUNT(jspence_pushes.id) AS c 
 		FROM jspence_pushes 
-		INNER JOIN jspence_daily 
-		ON jspence_daily.daily_id = jspence_pushes.push_daily 
 		WHERE jspence_pushes.push_from = ? 
-		AND jspence_daily.daily_capital_status = ? 
-		AND jspence_daily.daily_date = jspence_pushes.push_date
+		AND jspence_pushes.push_daily = ?
 	";
 	$statement = $conn->prepare($query);
-	$result = $statement->execute([$admin, 0]);
+	$result = $statement->execute([$admin, $runningCapital['daily_id']]);
 	$row = $statement->fetchAll();
 
 	$output = [];
@@ -823,29 +822,31 @@ function total_amount_today($admin) {
 	return $total;
 }
 
-// get total expenditure today
+// get total expenditure 
 function total_expenditure_today($admin, $option = null) {
 	global $conn;
-	$today = date('Y-m-d');
+	$runningCapital = find_capital_given_to($admin);
 
 	$sql = "
 		SELECT 
 			SUM(sale_total_amount) AS total,
-			COUNT(jspence_daily.id) AS c
+			COUNT(id) AS c
 		FROM `jspence_sales` 
-		INNER JOIN jspence_daily
-		ON jspence_daily.daily_id = jspence_sales.sale_daily
 		WHERE jspence_sales.sale_type = ? 
 		AND jspence_sales.sale_status = ?
-		AND jspence_daily.daily_capital_status = ?
+		AND sale_daily = ?
 	";
 
 	if (!admin_has_permission()) {
-		$sql .= " AND sale_by = '" . $admin . "' AND CAST(jspence_sales.createdAt AS date) = '" . $today . "' ";
+		$sql .= " AND sale_by = '" . $admin . "'";
 	}
 
 	$statement = $conn->prepare($sql);
-	$statement->execute(['exp', (($option == 'delete') ? 1 : 0), 0]);
+	$statement->execute([
+		'exp', 
+		(($option == 'delete') ? 1 : 0), 
+		$runningCapital['daily_id']
+	]);
 	$row = $statement->fetchAll();
 
 	$array = [
