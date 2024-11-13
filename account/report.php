@@ -107,14 +107,14 @@
                         </select>
                     </div>
                     <div class="mb-4">
-                        <label class="form-label" for="name">From:</label>
-                        <input class="form-control" id="name" type="date">
+                        <label class="form-label" for="from">From:</label>
+                        <input class="form-control" name="from" id="from" type="date">
                     </div>
                     <div class="mb-4">
-                        <label class="form-label" for="name">To:</label>
-                        <input class="form-control" id="name" type="date">
+                        <label class="form-label" for="to">To:</label>
+                        <input class="form-control" name="to" id="to" type="date">
                     </div>
-                    <button class="btn btn-dark" id="submitReport">Submit</button>
+                    <button type="button" class="btn btn-dark" id="submitReport">Submit</button>
                     <button type="button" class="btn clear">Clear</button>
                 </form>
             </div>
@@ -157,7 +157,7 @@
 
             $('.sal').addClass('d-none')
             $('.sup').addClass('d-none')
-            
+
             $('#reportForm')[0].reset();
         })
 
@@ -177,7 +177,30 @@
             }
         });
         
-        $('#submitForm').on('click', function() {
+        $('#submitReport').on('click', function() {
+
+            var from = $('#from').val();
+            var to = $('#to').val();
+            var role = $('input[name="role"]:checked').val();
+
+            const firstDate = new Date(from)
+            const secondDate = new Date(to)
+
+            if ($('input[name="role"]').is(':checked')) {
+                if (from != '' && to != '') {
+                    if (firstDate > secondDate) {
+                        alert('From date is later than To date!');
+                        return false;
+                    }
+                } else {
+                    $.ajax({
+                        
+                    });
+                }
+            } else {
+                alert('Select role!');
+                return false;
+            }
 
             $('#submitForm').attr('disabled', true);
             $('#submitForm').text('Changing ...');
