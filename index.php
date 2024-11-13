@@ -153,7 +153,7 @@
 								<?php endif; ?>
 
 								<!-- Text -->
-								<div class="fs-5 fw-semibold"><?= ((admin_has_permission()) ? total_amount_thismonth($admin_id) : money(_capital($admin_id)['today_balance'])); ?></div>
+								<div class="fs-5 fw-semibold"><?= ((admin_has_permission()) ? total_amount_thismonth() : money(_capital($admin_id)['today_balance'])); ?></div>
 							</div>
 							<div class="col-auto">
 								<!-- Avatar -->

@@ -214,7 +214,7 @@
                         <?php if (admin_has_permission()): ?>
                         <div class="nav-item">
                             <a class="nav-link nav-child" href="<?= PROOT; ?>account/report">
-                                <span class="material-symbols-outlined me-3">face</span> Report
+                                <span class="material-symbols-outlined me-3">lab_profile</span> Report
                             </a>
                         </div>
                         <?php endif; ?>

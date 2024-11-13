@@ -913,20 +913,16 @@ function total_sale_amount_today($admin, $del = null, $option = null, $DT = null
 }
 
 // get total amount of orders in current month
-function total_amount_thismonth($admin) {
+function total_amount_thismonth() {
 	global $conn;
 	$thisMonth = date("m");
-
-	$where = '';
-	if (!admin_has_permission()) {
-		$where = ' sale_by = "'.$admin.'" AND ';
-	}
+	$thisYear = date("Y");
 
 	$thisSql = "
 		SELECT SUM(sale_total_amount) AS total 
 		FROM `jspence_sales` 
-		WHERE $where 
-		MONTH(createdAt) = '{$thisMonth}' 
+		WHERE MONTH(createdAt) = '{$thisMonth}' 
+		AND YEAR(createdAt) = '{$thisYear}'
 	    AND sale_status = 0 
 	";
 	$statement = $conn->prepare($thisSql);
