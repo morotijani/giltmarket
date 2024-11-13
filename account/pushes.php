@@ -7,6 +7,11 @@
         admin_login_redirect();
     }
 
+    //
+	if (is_array(capital_mover($admin_id)) && capital_mover($admin_id)["msg"] == "touched") {
+		redirect(PROOT . 'auth/end-trade-checker');
+	}
+
     $today = date("Y-m-d");
     $where = '';
     if ($admin_data['admin_permissions'] == 'supervisor') {
@@ -26,17 +31,7 @@
     include ("../includes/top.nav.inc.php");
     
 ?>
-<style>
-@media print {
-    @page {
-        margin: 0 !important;
-    }
 
-    body {
-        padding: 75px; /* This will act as your margin. Originally, the margin will hide the header and footer text. */
-    }
-}
-</style>
     <div class="container-lg">
         <!-- Page header -->
         <div class="row align-items-center mb-7">
@@ -379,7 +374,11 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <?php $i = 1; foreach ($rows as $row): $ad = find_admin_with_id($row["push_from"]); ?>
+                            <?php 
+                                $i = 1; 
+                                foreach ($rows as $row): 
+                                    $ad = find_admin_with_id($row["push_from"]); 
+                            ?>
                                 <tr>
                                     <td><?= $i; ?></td>
                                     <td><?= $row["push_id"]; ?></td>
@@ -405,7 +404,7 @@
                                         <div class="modal-content overflow-hidden">
                                             <div class="modal-header pb-0 border-0">
                                                 <h1 class="modal-title h4" id="viewModalLabel_<?= $i; ?>">Recieved gold details!</h1>
-                                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                <button type="button" class="btn-close view-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                             </div>
                                             <div class="modal-body p-5">
                                                 <ul class="list-group list-group-flush">
@@ -503,6 +502,7 @@
                                                 <div class="px-6 py-5 d-flex justify-content-center">
                                                     <a href="javascript:;" class="btn btn-sm btn-dark" onclick="printPageArea('printableArea_<?= $i; ?>')"><i class="bi bi-trash me-2"></i>Print</a>&nbsp;&nbsp;
                                                     <a href="javascript:;" class="btn btn-sm btn-danger"><i class="bi bi-trash me-2"></i>Reverse</a>&nbsp;&nbsp;
+                                                    <button type="button" class="btn btn-sm btn-dark" data-bs-dismiss="modal">Close</button>
                                                 </div>
                                             </div>
                                         </div>
@@ -525,8 +525,26 @@
         var printContent = document.getElementById(areaID).innerHTML;
         var originalContent = document.body.innerHTML;
         document.body.innerHTML = printContent;
+        $('head').append(`
+            <style>
+                @page {
+                    size: landscape;
+                }
+
+                @media print {
+                    @page {
+                        margin: 0 !important;
+                    }
+
+                    body {
+                        padding: 75px; /* This will act as your margin. Originally, the margin will hide the header and footer text. */
+                    }
+                }
+            </style>
+        `);
         window.print();
         document.body.innerHTML = originalContent;
+        location.reload();
     }
 
     $(document).ready(function() {
