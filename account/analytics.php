@@ -264,26 +264,24 @@
                                 </div>
                             </div>
                         </div>
-                    </div>
-
                     
-                    <div class="row g-3">
-                        <div class="col-6 col-md-8 col-xxl-8 mb-4 mb-xxl-0">
-                            <div class="card bg-body-tertiary border-transparent">
-                                <div class="card-body">
-                                    <div class="row align-items-center">
-                                        <div class="col">
-                                            <!-- Heading -->
-                                            <h4 class="fs-base fw-normal text-body-secondary mb-1">Earnings</h4>
 
-                                            <!-- Text -->
-                                            <div class="fs-1 fw-semibold" id="profit-loss">0.00</div>
+                    <div class="col-12 mb-4 mb-xxl-0">
+                        <div class="card bg-body-tertiary border-transparent">
+                            <div class="card-body">
+                                <div class="row align-items-center">
+                                    <div class="col">
+                                        <!-- Heading -->
+                                        <h4 class="fs-base fw-normal text-body-secondary mb-1">Earnings</h4>
+
+                                        <!-- Text -->
+                                        <div class="fs-1 fw-semibold" id="profit-loss">0.00</div>
+                                    </div>
+                                    <div class="col-auto">
+                                        <!-- Avatar -->
+                                        <div class="avatar avatar-lg bg-body text-warning">
+                                            <i class="fs-4" data-duoicon="credit-card"></i>
                                         </div>
-                                        <div class="col-auto">
-                                            <!-- Avatar -->
-                                            <div class="avatar avatar-lg bg-body text-warning">
-                                                <i class="fs-4" data-duoicon="credit-card"></i>
-                                            </div>
                                         </div>
                                     </div>
                                     <div class="d-flex align-items-center justify-content-between mt-8">
@@ -304,65 +302,61 @@
                             </div>
                         </div>
                         <div class="col-6 col-md-4 col-xxl-4 mb-4 mb-xxl-0">
+                            <div class="card bg-body-tertiary border-transparent">
+                                <div class="card-body">
+                                    <div class="row align-items-center">
+                                        <div class="col">
+                                            <!-- Heading -->
+                                            <h4 class="fs-sm fw-normal text-body-secondary mb-1">Total pushes</h4>
 
-                            <div class="row">
-
-                                <div class="col-12 mb-2">
-                                    <div class="card bg-body-tertiary border-transparent">
-                                        <div class="card-body">
-                                            <div class="row align-items-center">
-                                                <div class="col">
-                                                    <!-- Heading -->
-                                                    <h4 class="fs-sm fw-normal text-body-secondary mb-1">Total pushes</h4>
-
-                                                    <!-- Text -->
-                                                    <div class="fs-4 fw-semibold" id="total-pushes">0.00</div>
-                                                </div>
-                                                <div class="col-auto">
-                                                    <!-- Avatar -->
-                                                    <div class="avatar avatar-lg bg-body text-warning">
-                                                        <i class="fs-4" data-duoicon="align-bottom"></i>
-                                                    </div>
-                                                </div>
-                                            </div>
+                                            <!-- Text -->
+                                            <div class="fs-4 fw-semibold" id="total-pushes">0.00</div>
                                         </div>
-                                    </div>
-                                </div>
-                                <div class="col">
-                                    <div class="card bg-body-tertiary border-transparent">
-                                        <div class="card-body">
-                                            <div class="row align-items-center">
-                                                <div class="col">
-                                                    <!-- Heading -->
-                                                    <h4 class="fs-sm fw-normal text-body-secondary mb-1">Money</h4>
-
-                                                    <!-- Text -->
-                                                    <div class="fs-4 fw-semibold" id="push-money">0.00</div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col">
-                                    <div class="card bg-body-tertiary border-transparent">
-                                        <div class="card-body">
-                                            <div class="row align-items-center">
-                                                <div class="col">
-                                                    <!-- Heading -->
-                                                    <h4 class="fs-sm fw-normal text-body-secondary mb-1">Gold</h4>
-
-                                                    <!-- Text -->
-                                                    <div class="fs-4 fw-semibold" id="push-gold">0.00</div>
-                                                </div>
+                                        <div class="col-auto">
+                                            <!-- Avatar -->
+                                            <div class="avatar avatar-lg bg-body text-warning">
+                                                <i class="fs-4" data-duoicon="align-bottom"></i>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
+                        </div>
+                        <div class="col-6 col-md-4 col-xxl-4 mb-4 mb-xxl-0">
+                            <div class="card bg-body-tertiary border-transparent">
+                                <div class="card-body">
+                                    <div class="row align-items-center">
+                                        <div class="col">
+                                            <!-- Heading -->
+                                            <h4 class="fs-sm fw-normal text-body-secondary mb-1">Money</h4>
+
+                                            <!-- Text -->
+                                            <div class="fs-4 fw-semibold" id="push-money">0.00</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-6 col-md-4 col-xxl-4 mb-4 mb-xxl-0">
+                            <div class="card bg-body-tertiary border-transparent">
+                                <div class="card-body">
+                                    <div class="row align-items-center">
+                                        <div class="col">
+                                            <!-- Heading -->
+                                            <h4 class="fs-sm fw-normal text-body-secondary mb-1">Gold</h4>
+
+                                            <!-- Text -->
+                                            <div class="fs-4 fw-semibold" id="push-gold">0.00</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                            
 
                            
                         </div>
-                    </div>
+                  
                     
                     <div class="row mb-8">
                         <div class="col-12 col-md-6 col-xxl mb-4 mb-xxl-0">
