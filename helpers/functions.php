@@ -820,7 +820,6 @@ function total_amount_today($admin) {
 
 	// sum total amount traded and subtrach pushes and add back reverse pushes
 	$total = (float)($total_amount_traded - $total_amount_pushed + $r_total_amount_pushed); 
-	dnd($total);
 	return $total;
 }
 
