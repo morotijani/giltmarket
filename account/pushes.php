@@ -108,12 +108,14 @@
                                     <li class="nav-item">
                                         <a class="nav-link <?= ((!isset($_GET['data']) || !$_GET['data']) ? 'bg-dark active' : ''); ?>" aria-current="page" href="<?= PROOT; ?>account/pushes">All data<?= $count_push; ?></a>
                                     </li>
+                                    <?php if (admin_has_permission('supervisor')): ?>
                                     <li class="nav-item">
                                         <a class="nav-link <?= ((isset($_GET['data']) && $_GET['data'] == 'salesperson') ? 'bg-dark active' : ''); ?>" aria-current="page" href="<?= PROOT; ?>account/pushes/salesperson">To sales persons</a>
                                     </li>
                                     <li class="nav-item">
                                         <a class="nav-link <?= ((isset($_GET['data']) && $_GET['data'] == 'gold-receive') ? 'bg-dark active' : ''); ?>" aria-current="page" href="<?= PROOT; ?>account/pushes/gold-receive">Gold received</a>
                                     </li>
+                                    <?php endif; ?>
                                 </ul>
                             </div>
                             <div class="col-12 col-lg">

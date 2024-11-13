@@ -146,8 +146,10 @@
                             <div class="collapse" id="pushes">
                                 <nav class="nav nav-pills">
                                     <a class="nav-link nav-child" href="<?= PROOT; ?>account/pushes">Pushes</a>
+                                    <?php if (admin_has_permission('supervisor')): ?>
                                     <a class="nav-link nav-child" href="<?= PROOT; ?>account/pushes/salesperson">Sales persons</a>
                                     <a class="nav-link nav-child" href="<?= PROOT; ?>account/pushes/gold-receive">Received</a>
+                                    <?php endif; ?>
                                 </nav>
                             </div>
                         </div>
@@ -209,7 +211,14 @@
                                 </nav>
                             </div>
                         </div>
-                        </nav>
+                        <?php if (admin_has_permission()): ?>
+                        <div class="nav-item">
+                            <a class="nav-link nav-child" href="<?= PROOT; ?>account/report">
+                                <span class="material-symbols-outlined me-3">face</span> Report
+                            </a>
+                        </div>
+                        <?php endif; ?>
+                    </nav>
                 
                         <!-- Heading -->
                         <h3 class="fs-base px-3 mb-4">Documentation</h3>
