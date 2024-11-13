@@ -13,45 +13,35 @@
     include ("../includes/top.nav.inc.php");
 
     // get all supervisors
-    $supQuery = "SELECT * FROM jspence_admin where admin_permission = ?";
+    $supQuery = "SELECT * FROM jspence_admin where admin_permissions = ? AND admin_id != ?";
     $satement = $conn->prepare($supQuery);
-    $satement->execute(['supervisor']);
+    $satement->execute(['supervisor', $admin_id]);
     $sup_count = $satement->rowCount();
     $sup_rows = $satement->fetchAll();
-    $output = '';
+    $sup_output = '';
     if ($sup_count > 0) {
         foreach ($sup_rows as $sup_row) {
-            $output .= '
-                <option value="' . $sup_row["admin_id"] . '">"' . ucwords($sup_row["admin_fullname"]) . '"</option>
+            $sup_output .= '
+                <option value="' . $sup_row["admin_id"] . '">' . ucwords($sup_row["admin_fullname"]) . '</option>
             ';
         }
     }
 
     // get all supervisors
-    $salQuery = "SELECT * FROM jspence_admin where admin_permission = ?";
+    $salQuery = "SELECT * FROM jspence_admin where admin_permissions = ? AND admin_id != ?";
     $satement = $conn->prepare($salQuery);
-    $satement->execute(['salesperson']);
+    $satement->execute(['salesperson', $admin_id]);
     $sal_count = $satement->rowCount();
     $sal_rows = $satement->fetchAll();
+    $sal_output = '';
     if ($sal_count > 0) {
         foreach ($sal_rows as $sal_row) {
-            $output .= '
-                <option value="' . $sal_row["admin_id"] . '">"' . ucwords($sal_row["admin_fullname"]) . '"</option>
+            $sal_output .= '
+                <option value="' . $sal_row["admin_id"] . '">' . ucwords($sal_row["admin_fullname"]) . '</option>
             ';
         }
     }
 
-
-    $errors = '';
-    $hashed = $admin_data['admin_password'];
-    $old_password = ((isset($_POST['old_password'])) ? sanitize($_POST['old_password']) : '');
-    $old_password = trim($old_password);
-    $password = ((isset($_POST['password'])) ? sanitize($_POST['password']) : '');
-    $password = trim($password);
-    $confirm = ((isset($_POST['confirm'])) ? sanitize($_POST['confirm']) : '');
-    $confirm = trim($confirm);
-    $new_hashed = password_hash($password, PASSWORD_BCRYPT);
-    $admin_id = $admin_data['admin_id'];
 
     if (isset($_POST['old_password'])) {
         
@@ -106,10 +96,14 @@
                         </label>
                     </div>
                     <div class="mb-4">
-                        <label class="form-label" for="name">Admin:</label>
-                        <select class="form-control" id="name" type="text">
+                        <label class="form-label" for="admin">Admin:</label>
+                        <select class="form-control sup d-none" id="admin" type="text">
                             <option value=""></option>
-                            <?= $output; ?>
+                            <?= $sup_output; ?>
+                        </select>
+                        <select class="form-control sal d-none" id="admin" type="text">
+                            <option value=""></option>
+                            <?= $sal_output; ?>
                         </select>
                     </div>
                     <div class="mb-4">
@@ -158,24 +152,28 @@
 <script type="text/javascript">
     $(document).ready(function() {
         // sclear form
-        $('.clear').on('click', function() {
+        $('.clear').on('click', function(event) {
+            event.preventDefault()
+
+            $('.sal').addClass('d-none')
+            $('.sup').addClass('d-none')
+            
             $('#reportForm')[0].reset();
         })
 
-        // 
-        $(".role").change(function() {
-            if (this.checked) {
-                // Do stuff
-                var role = $(".role").val()
 
+        $('input[name="role"]').click(function(event) {
+            var role = $('input[name="role"]:checked').val();
+            if ($('input[name="role"]').is(':checked')) {
                 if (role == 'supervisor') {
-
+                    $('.sup').removeClass('d-none')
+                    $('.sal').addClass('d-none')
                 } else if (role == 'salesperson') {
-
+                    $('.sal').removeClass('d-none')
+                    $('.sup').addClass('d-none')
                 }
-
-                // re-check checkbox
-                $( this ).prop( "checked", true );
+            } else {
+                return false;
             }
         });
         
