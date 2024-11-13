@@ -95,7 +95,7 @@
         <hr class="my-8" />
 
 		<!-- Stats -->
-		<?php if (admin_has_permission('supervisor')): ?>
+		<?php if ($admin_permission == 'supervisor'): ?>
 			<div class="text-info">&nbsp;&nbsp;Gold given: <?= money(_capital($admin_id)['today_capital']); ?></div>
 		<?php endif; ?>
 		<div class="row mb-8">
@@ -108,7 +108,7 @@
 								<h4 class="fs-base fw-normal text-body-secondary mb-1">
 									<?php 
 										if (admin_has_permission()) {
-											echo 'Today';
+											echo 'Capital';
 										} else if (admin_has_permission('supervisor')) {
 											echo 'Gold balance';
 										} else {
@@ -121,11 +121,11 @@
 								<div class="fs-5 fw-semibold">
 									<?php 
 										if (admin_has_permission()) {
-											echo money(total_amount_today($admin_id));
+											echo money(sum_capital_given_for_day());
 										} else if (admin_has_permission('supervisor')) {
 											echo money(remaining_gold_balance($admin_id));
 										} else {
-											echo  money(_capital($admin_id)['today_capital']);
+											echo money(_capital($admin_id)['today_capital']);
 										}
 									?>
 								</div>
@@ -147,13 +147,13 @@
 							<div class="col">
 								<!-- Heading -->
 								<?php if (admin_has_permission()) : ?>
-									<h4 class="fs-base fw-normal text-body-secondary mb-1"> <?= date("F"); ?> </h4>
+									<h4 class="fs-base fw-normal text-body-secondary mb-1"> Trades </h4>
 								<?php else: ?>
 									<h4 class="fs-base fw-normal text-body-secondary mb-1"><?= ((admin_has_permission('supervisor')) ? 'Sold' : 'Balance'); ?></h4>
 								<?php endif; ?>
 
 								<!-- Text -->
-								<div class="fs-5 fw-semibold"><?= ((admin_has_permission()) ? total_amount_thismonth() : money(_capital($admin_id)['today_balance'])); ?></div>
+								<div class="fs-5 fw-semibold"><?= ((admin_has_permission()) ? total_trades_amount_today() : money(_capital($admin_id)['today_balance'])); ?></div>
 							</div>
 							<div class="col-auto">
 								<!-- Avatar -->
@@ -215,10 +215,23 @@
 							<div class="row align-items-center">
 								<div class="col">
 									<!-- Heading -->
-									<h4 class="fs-base fw-normal text-body-secondary mb-1"><?= (($admin_data['admin_permissions'] == 'salesperson') ? 'Gold' : 'Money'); ?> accumulated</h4>
+									<?php if (admin_has_permission()) : ?>
+										<h4 class="fs-base fw-normal text-body-secondary mb-1"> Expenditure </h4>
+									<?php else: ?>
+										<h4 class="fs-base fw-normal text-body-secondary mb-1"> <?= (($admin_data['admin_permissions'] == 'salesperson') ? 'Gold' : 'Money'); ?> accumulated </h4>
+									<?php endif; ?>
 
 									<!-- Text -->
-									<div class="fs-5 fw-semibold"><?= money(total_amount_today($admin_id)); ?></div>
+									<div class="fs-5 fw-semibold">
+										<?php 
+											if (admin_has_permission()) {
+												$e = total_expenditure_today($admin_id);
+												echo money($e["sum"]);
+											} else {
+												echo money(total_amount_today($admin_id));
+											}
+										?>
+									</div>
 								</div>
 								<div class="col-auto">
 									<!-- Avatar -->

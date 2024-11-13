@@ -225,6 +225,28 @@ function is_capital_exhausted($conn, $admin) {
 	
 	return $return;	
 }
+
+// sum all capital of today for super admin
+function sum_capital_given_for_day() {
+	global $conn;
+
+	$sql = "
+		SELECT SUM(daily_capital) AS sum
+		FROM jspence_daily 
+		WHERE daily_capital_status = ? 
+		AND status = ? 
+		AND daily_date = ? 
+	";
+	$statement = $conn->prepare($sql);
+	$statement->execute([0, 0, date("Y-m-d")]);
+	$count_row = $statement->rowCount();
+	$row = $statement->fetchAll();
+
+	if ($count_row > 0) {
+		return $row[0]['sum'];
+	}
+	return false;
+}
  
 // get today capital given balance
 function update_today_capital_given_balance($type, $today_total_balance, $today, $log_admin) {
@@ -757,7 +779,7 @@ function fetch_all_sales($status, $admin, $type = null) {
 }
 
 
-// get total amount of orders today
+// get total accumulated amount for today
 function total_amount_today($admin) {
 	global $conn;
 	$today = date('Y-m-d');
@@ -821,7 +843,7 @@ function total_amount_today($admin) {
 			$total_amount_traded = $total_amount_pushed;
 		}
 
-		// sum total amount traded and subtrach pushes and add back reverse pushes
+		// sum total amount traded and subtract pushes and add back reverse pushes
 		$total = (float)($total_amount_traded - $total_amount_pushed + $r_total_amount_pushed);
 	}
 	
@@ -912,21 +934,18 @@ function total_sale_amount_today($admin, $del = null, $option = null, $DT = null
 	return $array;
 }
 
-// get total amount of orders in current month
-function total_amount_thismonth() {
+// get total amount of trades today
+function total_trades_amount_today() {
 	global $conn;
-	$thisMonth = date("m");
-	$thisYear = date("Y");
 
 	$thisSql = "
 		SELECT SUM(sale_total_amount) AS total 
 		FROM `jspence_sales` 
-		WHERE MONTH(createdAt) = '{$thisMonth}' 
-		AND YEAR(createdAt) = '{$thisYear}'
-	    AND sale_status = 0 
+		WHERE CAST(createdAt as date) = ? 
+	    AND sale_status = ? 
 	";
 	$statement = $conn->prepare($thisSql);
-	$statement->execute();
+	$statement->execute([date("Y-m-d"), 0]);
 	$thisRow = $statement->fetchAll();
 
 	return money($thisRow[0]['total']);
