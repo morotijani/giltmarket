@@ -82,8 +82,8 @@
 ?>
 
 
-<!-- Content -->
-<div class="container-lg">
+    <!-- Content -->
+    <div class="container-lg">
         <!-- Page header -->
         <div class="row align-items-center mb-7">
             <div class="col-auto">
@@ -159,344 +159,353 @@
             
             <div class="row">
                 <div class="col">
-                <div class="vstack gap-3 gap-xl-6">
-                    <div class="row g-3">
-                        <div class="col-12 col-md-6 col-xxl-3 mb-4 mb-xxl-0">
-                            <div class="card bg-body-tertiary border-transparent">
-                                <div class="card-body">
-                                    <div class="row align-items-center">
-                                        <div class="col">
-                                            <!-- Heading -->
-                                            <h4 class="fs-base fw-normal text-body-secondary mb-1">Supervisor</h4>
+                    <div class="vstack gap-3 gap-xl-6">
+                        <div class="row g-3">
+                            <div class="col-12 col-md-6 col-xxl-3 mb-4 mb-xxl-0">
+                                <div class="card bg-body-tertiary border-transparent">
+                                    <div class="card-body">
+                                        <div class="row align-items-center">
+                                            <div class="col">
+                                                <!-- Heading -->
+                                                <h4 class="fs-base fw-normal text-body-secondary mb-1">Supervisor</h4>
 
-                                            <!-- Text -->
-                                            <div class="fs-5 fw-semibold" id="sup-capital"></div>
-                                            <p class="mt-1">
-                                                <span class="text-success text-xs"><i class="fas fa-arrow-up me-1"></i>Money: </span>
-                                                <span class="text-muted text-xs text-opacity-75" id="sup-balance">0.00</span>
-                                            </p>
-                                        </div>
-                                        <div class="col-auto">
-                                            <!-- Avatar -->
-                                            <div class="avatar avatar-lg bg-body text-warning">
-                                                <i class="fs-4" data-duoicon="briefcase"></i>
+                                                    <!-- Text -->
+                                                <div class="fs-5 fw-semibold" id="sup-capital"></div>
+                                                <p class="mt-1">
+                                                    <span class="text-success text-xs"><i class="fas fa-arrow-up me-1"></i>Money: </span>
+                                                    <span class="text-muted text-xs text-opacity-75" id="sup-balance">0.00</span>
+                                                </p>
+                                            </div>
+                                            <div class="col-auto">
+                                                <!-- Avatar -->
+                                                <div class="avatar avatar-lg bg-body text-warning">
+                                                    <i class="fs-4" data-duoicon="briefcase"></i>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
 
-                        <div class="col-12 col-md-6 col-xxl-3 mb-4 mb-xxl-0">
-                            <div class="card bg-body-tertiary border-transparent">
-                                <div class="card-body">
-                                    <div class="row align-items-center">
-                                        <div class="col">
-                                            <!-- Heading -->
-                                            <h4 class="fs-base fw-normal text-body-secondary mb-1">Salespersonnel</h4>
+                            <div class="col-12 col-md-6 col-xxl-3 mb-4 mb-xxl-0">
+                                <div class="card bg-body-tertiary border-transparent">
+                                    <div class="card-body">
+                                        <div class="row align-items-center">
+                                            <div class="col">
+                                                <!-- Heading -->
+                                                <h4 class="fs-base fw-normal text-body-secondary mb-1">Salespersonnel</h4>
 
-                                            <!-- Text -->
-                                            <div class="fs-5 fw-semibold" id="sal-capital"></div>
-                                            <p class="mt-1">
-                                                <span class="text-success text-xs"><i class="fas fa-arrow-up me-1"></i>Gold: </span>
-                                                <span class="text-muted text-xs text-opacity-75" id="sal-balance">0.00</span>
-                                            </p>
-                                        </div>
-                                        <div class="col-auto">
-                                            <!-- Avatar -->
-                                            <div class="avatar avatar-lg bg-body text-warning">
-                                                <i class="fs-4" data-duoicon="credit-card"></i>
+                                                <!-- Text -->
+                                                <div class="fs-5 fw-semibold" id="sal-capital"></div>
+                                                <p class="mt-1">
+                                                    <span class="text-success text-xs"><i class="fas fa-arrow-up me-1"></i>Gold: </span>
+                                                    <span class="text-muted text-xs text-opacity-75" id="sal-balance">0.00</span>
+                                                </p>
+                                            </div>
+                                            <div class="col-auto">
+                                                    <!-- Avatar -->
+                                                <div class="avatar avatar-lg bg-body text-warning">
+                                                    <i class="fs-4" data-duoicon="credit-card"></i>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
 
-                        <div class="col-12 col-md-6 col-xxl-3 mb-4 mb-xxl-0">
-                            <div class="card bg-body-tertiary border-transparent">
-                                <div class="card-body">
-                                    <div class="row align-items-center">
-                                        <div class="col">
-                                            <!-- Heading -->
-                                            <h4 class="fs-base fw-normal text-body-secondary mb-1">Expenses</h4>
+                            <div class="col-12 col-md-6 col-xxl-3 mb-4 mb-xxl-0">
+                                <div class="card bg-body-tertiary border-transparent">
+                                    <div class="card-body">
+                                        <div class="row align-items-center">
+                                            <div class="col">
+                                                <!-- Heading -->
+                                                <h4 class="fs-base fw-normal text-body-secondary mb-1">Expenses</h4>
 
-                                            <!-- Text -->
-                                            <div class="fs-5 fw-semibold" id="expenses"></div>
-                                            <p class="mt-1">
-                                                <span class="text-success text-xs"><i class="fas fa-arrow-up me-1"></i> </span>
-                                                <span class="text-muted text-xs text-opacity-75" id=""></span>
-                                            </p>
-                                        </div>
-                                        <div class="col-auto">
-                                            <!-- Avatar -->
-                                            <div class="avatar avatar-lg bg-body text-warning">
-                                                <i class="fs-4" data-duoicon="clipboard"></i>
+                                                <!-- Text -->
+                                                <div class="fs-5 fw-semibold" id="expenses"></div>
+                                                <p class="mt-1">
+                                                    <span class="text-success text-xs"><i class="fas fa-arrow-up me-1"></i> </span>
+                                                    <span class="text-muted text-xs text-opacity-75" id=""></span>
+                                                </p>
+                                            </div>
+                                            <div class="col-auto">
+                                                <!-- Avatar -->
+                                                <div class="avatar avatar-lg bg-body text-warning">
+                                                    <i class="fs-4" data-duoicon="clipboard"></i>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
 
-                        <div class="col-12 col-md-6 col-xxl-3 mb-4 mb-xxl-0">
-                            <div class="card bg-body-tertiary border-transparent">
-                                <div class="card-body">
-                                    <div class="row align-items-center">
-                                        <div class="col">
-                                            <!-- Heading -->
-                                            <h4 class="fs-base fw-normal text-body-secondary mb-1">Total trades</h4>
+                            <div class="col-12 col-md-6 col-xxl-3 mb-4 mb-xxl-0">
+                                <div class="card bg-body-tertiary border-transparent">
+                                    <div class="card-body">
+                                        <div class="row align-items-center">
+                                            <div class="col">
+                                                <!-- Heading -->
+                                                <h4 class="fs-base fw-normal text-body-secondary mb-1">Total trades</h4>
 
-                                            <!-- Text -->
-                                            <div class="fs-5 fw-semibold" id="total-trades"></div>
-                                            <p class="mt-1">
-                                                <span class="text-success text-xs"><i class="fas fa-arrow-up me-1"></i> </span>
-                                                <span class="text-muted text-xs text-opacity-75" id=""></span>
-                                            </p>
-                                        </div>
-                                        <div class="col-auto">
-                                            <!-- Avatar -->
-                                            <div class="avatar avatar-lg bg-body text-warning">
-                                                <i class="fs-4" data-duoicon="bell-badge"></i>
+                                                <!-- Text -->
+                                                <div class="fs-5 fw-semibold" id="total-trades"></div>
+                                                <p class="mt-1">
+                                                    <span class="text-success text-xs"><i class="fas fa-arrow-up me-1"></i> </span>
+                                                    <span class="text-muted text-xs text-opacity-75" id=""></span>
+                                                </p>
+                                            </div>
+                                            <div class="col-auto">
+                                                <!-- Avatar -->
+                                                <div class="avatar avatar-lg bg-body text-warning">
+                                                    <i class="fs-4" data-duoicon="bell-badge"></i>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
                     
 
-                    <div class="col-12 mb-4 mb-xxl-0">
-                        <div class="card bg-body-tertiary border-transparent">
+                            <div class="col-12 mb-4 mb-xxl-0">
+                                <div class="card bg-body-tertiary border-transparent">
+                                    <div class="card-body">
+                                        <div class="row align-items-center">
+                                            <div class="col">
+                                                <!-- Heading -->
+                                                <h4 class="fs-base fw-normal text-body-secondary mb-1">Earnings</h4>
+
+                                                <!-- Text -->
+                                                <div class="fs-1 fw-semibold" id="profit-loss">0.00</div>
+                                            </div>
+                                            <div class="col-auto">
+                                                <!-- Avatar -->
+                                                <div class="avatar avatar-lg bg-body text-warning">
+                                                    <i class="fs-4" data-duoicon="credit-card"></i>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="d-flex align-items-center justify-content-between mt-8">
+                                            <div class="">
+                                                <div class="d-flex gap-3 align-items-center">
+                                                    <span class="text-success text-xs">Money accumulated (supervisor)</span>
+                                                </div>
+                                                <div class="text-muted text-xs text-opacity-75 mt-3" id="incoming">0.00 GHS</div>
+                                            </div>
+                                            <div class="">
+                                                <div class="d-flex gap-3 align-items-center">
+                                                    <span class="text-warning text-xs">Gold accumulated (salesperson)</span>
+                                                </div>
+                                                <div class="text-muted text-xs text-opacity-75 mt-3" id="outgoing">0.00 GHS</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-6 col-md-4 col-xxl-4 mb-4 mb-xxl-0">
+                                <div class="card bg-body-tertiary border-transparent">
+                                    <div class="card-body">
+                                        <div class="row align-items-center">
+                                            <div class="col">
+                                                <!-- Heading -->
+                                                <h4 class="fs-sm fw-normal text-body-secondary mb-1">Total pushes</h4>
+
+                                                <!-- Text -->
+                                                <div class="fs-4 fw-semibold" id="total-pushes">0.00</div>
+                                            </div>
+                                            <div class="col-auto">
+                                                <!-- Avatar -->
+                                                <div class="avatar avatar-lg bg-body text-warning">
+                                                    <i class="fs-4" data-duoicon="align-bottom"></i>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-6 col-md-4 col-xxl-4 mb-4 mb-xxl-0">
+                                <div class="card bg-body-tertiary border-transparent">
+                                    <div class="card-body">
+                                        <div class="row align-items-center">
+                                            <div class="col">
+                                                <!-- Heading -->
+                                                <h4 class="fs-sm fw-normal text-body-secondary mb-1">Money</h4>
+
+                                                <!-- Text -->
+                                                <div class="fs-4 fw-semibold" id="push-money">0.00</div>
+                                            </div>
+                                            <div class="col-auto">
+                                                <!-- Avatar -->
+                                                <div class="avatar avatar-lg bg-body text-warning">
+                                                    <i class="fs-4" data-duoicon="align-bottom"></i>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-6 col-md-4 col-xxl-4 mb-4 mb-xxl-0">
+                                <div class="card bg-body-tertiary border-transparent">
+                                    <div class="card-body">
+                                        <div class="row align-items-center">
+                                            <div class="col">
+                                                    <!-- Heading -->
+                                                <h4 class="fs-sm fw-normal text-body-secondary mb-1">Gold</h4>
+
+                                                <!-- Text -->
+                                                <div class="fs-4 fw-semibold" id="push-gold">0.00</div>
+                                            </div>
+                                            <div class="col-auto">
+                                                <!-- Avatar -->
+                                                <div class="avatar avatar-lg bg-body text-warning">
+                                                    <i class="fs-4" data-duoicon="align-bottom"></i>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row mb-8">
+                            <div class="col-12 col-md-6 col-xxl mb-4 mb-xxl-0">
+                                <div class="card bg-body-tertiary border-transparent">
+                                    <div class="card-body">
+                                        <div class="row align-items-center">
+                                            <div class="col">
+                                                <!-- Heading -->
+                                                <h4 class="fs-sm fw-normal text-body-secondary mb-1">Gram</h4>
+
+                                                <!-- Text -->
+                                                <div class="fs-4 fw-semibold" id="total-gram">0</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-12 col-md-6 col-xxl mb-4 mb-xxl-0">
+                                <div class="card bg-body-tertiary border-transparent">
+                                    <div class="card-body">
+                                        <div class="row align-items-center">
+                                            <div class="col">
+                                                <!-- Heading -->
+                                                <h4 class="fs-sm fw-normal text-body-secondary mb-1">Volume</h4>
+
+                                                <!-- Text -->
+                                                <div class="fs-4 fw-semibold" id="total-volume">0</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-12 col-md-6 col-xxl mb-4 mb-xxl-0">
+                                <div class="card bg-body-tertiary border-transparent">
+                                    <div class="card-body">
+                                        <div class="row align-items-center">
+                                            <div class="col">
+                                                <!-- Heading -->
+                                                <h4 class="fs-sm fw-normal text-body-secondary mb-1">Density</h4>
+
+                                                <!-- Text -->
+                                                <div class="fs-4 fw-semibold" id="total-density">0</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-12 col-md-6 col-xxl mb-4 mb-xxl-0">
+                                <div class="card bg-body-tertiary border-transparent">
+                                    <div class="card-body">
+                                        <div class="row align-items-center">
+                                            <div class="col">
+                                                <!-- Heading -->
+                                                <h4 class="fs-sm fw-normal text-body-secondary mb-1">Pounds</h4>
+
+                                                <!-- Text -->
+                                                <div class="fs-4 fw-semibold" id="total-pounds">0</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-12 col-md-6 col-xxl mb-md-0">
+                                <div class="card bg-body-tertiary border-transparent">
+                                    <div class="card-body">
+                                        <div class="row align-items-center">
+                                            <div class="col">
+                                                <!-- Heading -->
+                                                <h4 class="fs-sm fw-normal text-body-secondary mb-1">Carat</h4>
+
+                                                <!-- Text -->
+                                                <div class="fs-4 fw-semibold" id="total-carat">0</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="card">
+                            <div class="card-body pb-0">
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <div>
+                                        <h5>Earnings chart</h5>
+                                    </div>
+                                    <div class="hstack align-items-center">
+                                        <a href="<?= PROOT; ?>acc/analytics" class="text-muted"><i class="bi bi-arrow-repeat"></i></a>
+                                    </div>
+                                </div>
+                                <div class="mx-n4">
+                                    <canvas class="my-4 w-100" id="myChart" width="900" height="380"></canvas>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="card">
                             <div class="card-body">
-                                <div class="row align-items-center">
-                                    <div class="col">
-                                        <!-- Heading -->
-                                        <h4 class="fs-base fw-normal text-body-secondary mb-1">Earnings</h4>
-
-                                        <!-- Text -->
-                                        <div class="fs-1 fw-semibold" id="profit-loss">0.00</div>
+                                <div class="d-flex justify-content-between align-items-center mb-5">
+                                    <div>
+                                        <h5>Accumulated earnings by months and years</h5>
                                     </div>
-                                    <div class="col-auto">
-                                        <!-- Avatar -->
-                                        <div class="avatar avatar-lg bg-body text-warning">
-                                            <i class="fs-4" data-duoicon="credit-card"></i>
-                                        </div>
-                                        </div>
-                                    </div>
-                                    <div class="d-flex align-items-center justify-content-between mt-8">
-                                        <div class="">
-                                            <div class="d-flex gap-3 align-items-center">
-                                                <span class="text-success text-xs">Money accumulated (supervisor)</span>
-                                            </div>
-                                            <div class="text-muted text-xs text-opacity-75 mt-3" id="incoming">0.00 GHS</div>
-                                        </div>
-                                        <div class="">
-                                            <div class="d-flex gap-3 align-items-center">
-                                                <span class="text-warning text-xs">Gold accumulated (salesperson)</span>
-                                            </div>
-                                            <div class="text-muted text-xs text-opacity-75 mt-3" id="outgoing">0.00 GHS</div>
-                                        </div>
+                                    <div class="hstack align-items-center">
+                                        <a href="<?= PROOT; ?>acc/trades" class="text-muted">
+                                            <i class="bi bi-arrow-repeat"></i>
+                                        </a>
                                     </div>
                                 </div>
-                            </div>
-                        </div>
-                        <div class="col-6 col-md-4 col-xxl-4 mb-4 mb-xxl-0">
-                            <div class="card bg-body-tertiary border-transparent">
-                                <div class="card-body">
-                                    <div class="row align-items-center">
-                                        <div class="col">
-                                            <!-- Heading -->
-                                            <h4 class="fs-sm fw-normal text-body-secondary mb-1">Total pushes</h4>
-
-                                            <!-- Text -->
-                                            <div class="fs-4 fw-semibold" id="total-pushes">0.00</div>
-                                        </div>
-                                        <div class="col-auto">
-                                            <!-- Avatar -->
-                                            <div class="avatar avatar-lg bg-body text-warning">
-                                                <i class="fs-4" data-duoicon="align-bottom"></i>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-6 col-md-4 col-xxl-4 mb-4 mb-xxl-0">
-                            <div class="card bg-body-tertiary border-transparent">
-                                <div class="card-body">
-                                    <div class="row align-items-center">
-                                        <div class="col">
-                                            <!-- Heading -->
-                                            <h4 class="fs-sm fw-normal text-body-secondary mb-1">Money</h4>
-
-                                            <!-- Text -->
-                                            <div class="fs-4 fw-semibold" id="push-money">0.00</div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-6 col-md-4 col-xxl-4 mb-4 mb-xxl-0">
-                            <div class="card bg-body-tertiary border-transparent">
-                                <div class="card-body">
-                                    <div class="row align-items-center">
-                                        <div class="col">
-                                            <!-- Heading -->
-                                            <h4 class="fs-sm fw-normal text-body-secondary mb-1">Gold</h4>
-
-                                            <!-- Text -->
-                                            <div class="fs-4 fw-semibold" id="push-gold">0.00</div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                            
-
-                           
-                        </div>
-                  
-                    
-                    <div class="row mb-8">
-                        <div class="col-12 col-md-6 col-xxl mb-4 mb-xxl-0">
-                            <div class="card bg-body-tertiary border-transparent">
-                                <div class="card-body">
-                                    <div class="row align-items-center">
-                                        <div class="col">
-                                            <!-- Heading -->
-                                            <h4 class="fs-sm fw-normal text-body-secondary mb-1">Gram</h4>
-
-                                            <!-- Text -->
-                                            <div class="fs-4 fw-semibold" id="total-gram">0</div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-12 col-md-6 col-xxl mb-4 mb-xxl-0">
-                            <div class="card bg-body-tertiary border-transparent">
-                                <div class="card-body">
-                                    <div class="row align-items-center">
-                                        <div class="col">
-                                            <!-- Heading -->
-                                            <h4 class="fs-sm fw-normal text-body-secondary mb-1">Volume</h4>
-
-                                            <!-- Text -->
-                                            <div class="fs-4 fw-semibold" id="total-volume">0</div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-12 col-md-6 col-xxl mb-4 mb-xxl-0">
-                            <div class="card bg-body-tertiary border-transparent">
-                                <div class="card-body">
-                                    <div class="row align-items-center">
-                                        <div class="col">
-                                            <!-- Heading -->
-                                            <h4 class="fs-sm fw-normal text-body-secondary mb-1">Density</h4>
-
-                                            <!-- Text -->
-                                            <div class="fs-4 fw-semibold" id="total-density">0</div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-12 col-md-6 col-xxl mb-4 mb-xxl-0">
-                            <div class="card bg-body-tertiary border-transparent">
-                                <div class="card-body">
-                                    <div class="row align-items-center">
-                                        <div class="col">
-                                            <!-- Heading -->
-                                            <h4 class="fs-sm fw-normal text-body-secondary mb-1">Pounds</h4>
-
-                                            <!-- Text -->
-                                            <div class="fs-4 fw-semibold" id="total-pounds">0</div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-12 col-md-6 col-xxl mb-md-0">
-                            <div class="card bg-body-tertiary border-transparent">
-                                <div class="card-body">
-                                    <div class="row align-items-center">
-                                        <div class="col">
-                                            <!-- Heading -->
-                                            <h4 class="fs-sm fw-normal text-body-secondary mb-1">Carat</h4>
-
-                                            <!-- Text -->
-                                            <div class="fs-4 fw-semibold" id="total-carat">0</div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="card">
-                        <div class="card-body pb-0">
-                            <div class="d-flex justify-content-between align-items-center">
-                                <div>
-                                    <h5>Earnings chart</h5>
-                                </div>
-                                <div class="hstack align-items-center">
-                                    <a href="<?= PROOT; ?>acc/analytics" class="text-muted"><i class="bi bi-arrow-repeat"></i></a>
-                                </div>
-                            </div>
-                            <div class="mx-n4">
-                                <canvas class="my-4 w-100" id="myChart" width="900" height="380"></canvas>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="card">
-                        <div class="card-body">
-                            <div class="d-flex justify-content-between align-items-center mb-5">
-                                <div>
-                                    <h5>Accumulated earnings by months and years</h5>
-                                </div>
-                                <div class="hstack align-items-center">
-                                    <a href="<?= PROOT; ?>acc/trades" class="text-muted">
-                                        <i class="bi bi-arrow-repeat"></i>
-                                    </a>
-                                </div>
-                            </div>
-                            <div class="vstack gap-6">
-                                <table class="table table-bordered table-lg">
-                                    <thead>
-                                        <tr>
-                                            <th scope="col"></th>
-                                            <th scope="col" style="font-family: Roboto Mono, monospace;"><?= $lastYr; ?></th>
-                                            <th scope="col" style="font-family: Roboto Mono, monospace;"><?= $thisYr; ?></th>
-                                        </tr>
-                                    </thead>
-                                        <tbody>
-                                        <?php for ($i = 1; $i <= 12; $i++):
-                                            $dt = dateTime::createFromFormat('!m',$i);
-                                        ?>
+                                <div class="vstack gap-6">
+                                    <table class="table table-bordered table-lg">
+                                        <thead>
                                             <tr>
-                                                <td <?= (date('m') == $i) ? ' class="bg-danger"' : ''; ?>><?= $dt->format("F"); ?></td>
-                                                <td <?= (date('m') == $i) ? ' class="bg-danger"' : ''; ?> style="font-family: Roboto Mono, monospace;"><?= ((array_key_exists($i, $last)) ? money($last[$i]) : money(0)); ?></td>
-                                                <td <?= (date('m') == $i) ? ' class="bg-danger"' : ''; ?> style="font-family: Roboto Mono, monospace;"><?=  ((array_key_exists($i, $current)) ? money($current[$i]) : money(0)); ?></td>
+                                                <th scope="col"></th>
+                                                <th scope="col" style="font-family: Roboto Mono, monospace;"><?= $lastYr; ?></th>
+                                                <th scope="col" style="font-family: Roboto Mono, monospace;"><?= $thisYr; ?></th>
                                             </tr>
-                                        <?php endfor; ?>
-                                        <tr>
-                                            <td>Total</td>
-                                            <td style="font-family: Roboto Mono, monospace;"><?= money($lastTotal); ?></td>
-                                            <td style="font-family: Roboto Mono, monospace;"><?= money($currentTotal); ?></td>
-                                        </tr>
-                                    </tbody>
-                                </table>
+                                        </thead>
+                                            <tbody>
+                                            <?php for ($i = 1; $i <= 12; $i++):
+                                                $dt = dateTime::createFromFormat('!m',$i);
+                                            ?>
+                                                <tr>
+                                                    <td <?= (date('m') == $i) ? ' class="bg-danger"' : ''; ?>><?= $dt->format("F"); ?></td>
+                                                    <td <?= (date('m') == $i) ? ' class="bg-danger"' : ''; ?> style="font-family: Roboto Mono, monospace;"><?= ((array_key_exists($i, $last)) ? money($last[$i]) : money(0)); ?></td>
+                                                    <td <?= (date('m') == $i) ? ' class="bg-danger"' : ''; ?> style="font-family: Roboto Mono, monospace;"><?=  ((array_key_exists($i, $current)) ? money($current[$i]) : money(0)); ?></td>
+                                                </tr>
+                                            <?php endfor; ?>
+                                            <tr>
+                                                <td>Total</td>
+                                                <td style="font-family: Roboto Mono, monospace;"><?= money($lastTotal); ?></td>
+                                                <td style="font-family: Roboto Mono, monospace;"><?= money($currentTotal); ?></td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
                 </div>
             </div>
         </div>
+    </div>
 
 
 <?php include ("../includes/footer.inc.php"); ?>
