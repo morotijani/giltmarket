@@ -761,10 +761,7 @@ function total_amount_today($admin) {
 	global $conn;
 	$today = date('Y-m-d');
 
-	$where = '';
-	if (!admin_has_permission()) {
-		$where = ' AND sale_by = "' . $admin . '" ';
-	}
+	$runningCapital = find_capital_given_to($admin);
 
 	// fetch today total amount
 	// $thisDaySql = "
@@ -778,31 +775,40 @@ function total_amount_today($admin) {
 	// 	AND jspence_daily.daily_capital_status = ?
 	// 	$where
 	// ";
-	$thisDaySql = "
+	// $sql = "
+	// 	SELECT SUM(sale_total_amount) AS total
+	// 	FROM `jspence_sales` 
+	// 	INNER JOIN jspence_daily
+	// 	ON jspence_daily.daily_id = jspence_sales.sale_daily
+	// 	WHERE jspence_sales.sale_status = ? 
+	// 	AND sale_type != ? 
+	// 	AND CAST(jspence_sales.createdAt AS date) = jspence_daily.daily_date 
+	// 	AND jspence_daily.daily_capital_status = ?
+	// ";
+
+	$sql = "
 		SELECT SUM(sale_total_amount) AS total
 		FROM `jspence_sales` 
-		INNER JOIN jspence_daily
-		ON jspence_daily.daily_id = jspence_sales.sale_daily
 		WHERE jspence_sales.sale_status = ? 
-		AND sale_type != ?
-		AND CAST(jspence_sales.createdAt AS date) = jspence_daily.daily_date 
-		AND jspence_daily.daily_capital_status = ?
-		$where
+		AND sale_type != ? 
+		AND jspence_sales.sale_daily = ?
 	";
-	$statement = $conn->prepare($thisDaySql);
-	$statement->execute([0, 'exp', 0]);
+	if (!admin_has_permission()) {
+		$sql .= ' AND sale_by = "' . $admin . '" ';
+	}
+	$statement = $conn->prepare($sql);
+	$statement->execute([0, 'exp', $runningCapital['daily_id']]);
 	$thisDayrow = $statement->fetchAll();
 
 	$total_amount_traded = $thisDayrow[0]['total'] ?? 0;
 
 	// get all pushed amout
-	$get_pushed = $conn->query("SELECT SUM(push_amount) AS pamt FROM jspence_pushes WHERE push_from = '" . $admin . "' AND push_date = '" . $today . "' AND jspence_pushes.push_on = 'dialy'")->fetchAll();
+	$get_pushed = $conn->query("SELECT SUM(push_amount) AS pamt FROM jspence_pushes WHERE push_from = '" . $admin . "' AND push_daily = '" . $runningCapital['daily_id'] . "' AND jspence_pushes.push_on = 'dialy'")->fetchAll();
 	$total_amount_pushed = $get_pushed[0]['pamt'] ?? 0;
 
 	// fetch all revese pushes
-	$reverse_pushes = $conn->query("SELECT SUM(push_amount) AS pamt FROM jspence_pushes WHERE push_from = '" . $admin . "' AND push_date = '" . $today . "' AND jspence_pushes.push_on = 'dialy' AND push_status = 1")->fetchAll();
+	$reverse_pushes = $conn->query("SELECT SUM(push_amount) AS pamt FROM jspence_pushes WHERE push_from = '" . $admin . "' AND push_daily = '" . $runningCapital['daily_id'] . "' AND jspence_pushes.push_on = 'dialy' AND push_status = 1")->fetchAll();
 	$r_total_amount_pushed = $reverse_pushes[0]['pamt'] ?? 0;
-
 
 	if (admin_has_permission('salesperson') && $total_amount_traded <= 0) {
 		$total_amount_pushed = $total_amount_traded;
@@ -813,7 +819,8 @@ function total_amount_today($admin) {
 	}
 
 	// sum total amount traded and subtrach pushes and add back reverse pushes
-	$total = (float)($total_amount_traded - $total_amount_pushed + $r_total_amount_pushed);
+	$total = (float)($total_amount_traded - $total_amount_pushed + $r_total_amount_pushed); 
+	dnd($total);
 	return $total;
 }
 
@@ -863,6 +870,7 @@ function total_sale_amount_today($admin, $del = null, $option = null, $DT = null
 		INNER JOIN jspence_daily
 		ON jspence_daily.daily_id = jspence_sales.sale_daily
 		WHERE jspence_daily.daily_capital_status = ? 
+		AND CAST(jspence_sales.createdAt AS date) = jspence_daily.daily_date 
 	";
 
 	if ($del == 'delete') {

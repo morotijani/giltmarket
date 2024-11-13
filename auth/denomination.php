@@ -76,7 +76,7 @@ if (array_key_exists('postdata', $_SESSION)) {
     $expenditure = ((admin_has_permission('salesperson')) ? 'Expenditure: ' . money($exp_amt["sum"]) . '<br />' : '');
 
     $tst = total_sale_amount_today($admin_id); // total sale 
-    $brought_in_amount = ((admin_has_permission('supervisor')) ? 'Cash' : 'Gold') . ' accumulated: ' . total_amount_today($admin_id);
+    $brought_in_amount = ((admin_has_permission('supervisor')) ? 'Cash' : 'Gold') . ' accumulated: ' . money(total_amount_today($admin_id));
 
     //
     $p = get_total_send_push($conn, $admin_id);
@@ -271,7 +271,7 @@ if (array_key_exists('postdata', $_SESSION)) {
                                 Capital ID: <?= $capital_id; ?><br />
                                 Amount Given: <?= $capital_amt; ?><br />
                                 Balance: <?= money($capital_bal); ?><br />
-                                <?= money($brought_in_amount); ?><br />
+                                <?= $brought_in_amount; ?><br />
                                 <?= $gained; ?>
                                 <?= $expenditure; ?>
                                 Send Push made: <?= money($p["sum"]); ?>
