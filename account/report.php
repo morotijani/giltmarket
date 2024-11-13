@@ -97,11 +97,11 @@
                     </div>
                     <div class="mb-4">
                         <label class="form-label" for="admin">Admin:</label>
-                        <select class="form-control sup d-none" id="admin" type="text">
+                        <select class="form-control sup d-none" id="sup_admin" name="sup_admin" type="text">
                             <option value=""></option>
                             <?= $sup_output; ?>
                         </select>
-                        <select class="form-control sal d-none" id="admin" type="text">
+                        <select class="form-control sal d-none" id="sal_admin" name="sal_admin" type="text">
                             <option value=""></option>
                             <?= $sal_output; ?>
                         </select>
@@ -124,23 +124,7 @@
                 <section class="card bg-body-tertiary border-transparent mb-5" id="general">
                     <div class="card-body">
                         <h2 class="fs-5 mb-1">Report view</h2>
-                        <p class="text-body-secondary">From and To</p>
-                        <hr>
-                        <table class="table">
-                            <thead>
-                                <tr>
-                                    <th>Price</th>
-                                    <th>Gram</th>
-                                    <th>Volume</th>
-                                    <th>Density</th>
-                                    <th>Pounds</th>
-                                    <th>Carat</th>
-                                    <th>Total Amount</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                            </tbody>
-                        </table>
+                        <div id="load-data"></div>
                     </div>
                 </section>
              </div>
@@ -179,6 +163,7 @@
         
         $('#submitReport').on('click', function() {
 
+            var formData = $('#reportForm');
             var from = $('#from').val();
             var to = $('#to').val();
             var role = $('input[name="role"]:checked').val();
@@ -192,25 +177,36 @@
                         alert('From date is later than To date!');
                         return false;
                     }
-                } else {
-                    $.ajax({
-                        
-                    });
                 }
+                
+                $.ajax({
+                    method : "POST",
+                    url : "<?= PROOT; ?>auth/generate.report.php",
+                    data : formData.serialize(),
+                    beforeSend : function() {
+                        $('#submitReport').attr('disabled', true);
+                        $('#submitReport').html('<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span><span> Loading ...</span>');;
+                    },
+                    success : function (data) {
+                        console.log(data)
+                        $('#load-data').html(data);
+
+                        $('#submitReport').attr('disabled', false);
+                        $('#submitReport').text('Submit');
+
+                        // $('#reportForm')[0].reset();
+
+                        // location.reload();
+                    },
+                    error : function () {
+
+                    }
+                })
+                
             } else {
                 alert('Select role!');
                 return false;
             }
-
-            $('#submitForm').attr('disabled', true);
-            $('#submitForm').text('Changing ...');
-
-            setTimeout(function () {
-                $('#changePasswordForm').submit();
-
-                $('#submitForm').attr('disabled', false);
-                $('#submitForm').text('Save');
-            }, 2000)
 
         })
 
