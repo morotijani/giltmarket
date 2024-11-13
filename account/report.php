@@ -12,6 +12,35 @@
     include ("../includes/left.nav.inc.php");
     include ("../includes/top.nav.inc.php");
 
+    // get all supervisors
+    $supQuery = "SELECT * FROM jspence_admin where admin_permission = ?";
+    $satement = $conn->prepare($supQuery);
+    $satement->execute(['supervisor']);
+    $sup_count = $satement->rowCount();
+    $sup_rows = $satement->fetchAll();
+    $output = '';
+    if ($sup_count > 0) {
+        foreach ($sup_rows as $sup_row) {
+            $output .= '
+                <option value="' . $sup_row["admin_id"] . '">"' . ucwords($sup_row["admin_fullname"]) . '"</option>
+            ';
+        }
+    }
+
+    // get all supervisors
+    $salQuery = "SELECT * FROM jspence_admin where admin_permission = ?";
+    $satement = $conn->prepare($salQuery);
+    $satement->execute(['salesperson']);
+    $sal_count = $satement->rowCount();
+    $sal_rows = $satement->fetchAll();
+    if ($sal_count > 0) {
+        foreach ($sal_rows as $sal_row) {
+            $output .= '
+                <option value="' . $sal_row["admin_id"] . '">"' . ucwords($sal_row["admin_fullname"]) . '"</option>
+            ';
+        }
+    }
+
 
     $errors = '';
     $hashed = $admin_data['admin_password'];
@@ -25,95 +54,7 @@
     $admin_id = $admin_data['admin_id'];
 
     if (isset($_POST['old_password'])) {
-        if (empty($_POST['old_password']) || empty($_POST['password']) || empty($_POST['confirm'])) {
-            $errors = 'You must fill out all fields';
-        } else {
-
-            if (strlen($password) < 6) {
-                $errors = 'Password must be at least 6 characters';
-            }
-
-            if ($password != $confirm) {
-                $errors = 'The new password and confirm new password does not match.';
-            }
-
-            if (!password_verify($old_password, $hashed)) {
-                $errors = 'Your old password does not our records.';
-            }
-        }
-
-        if (!empty($errors)) {
-            $errors;
-        } else {
-            $query = '
-                UPDATE jspence_admin 
-                SET admin_password = ? 
-                WHERE admin_id = ?
-            ';
-            $satement = $conn->prepare($query);
-            $result = $satement->execute(array($new_hashed, $admin_id));
-            if (isset($result)) {
-
-                $message = "changed password";
-                add_to_log($message, $admin_id);
-
-                $_SESSION['flash_success'] = 'Password successfully updated!';
-                redirect(PROOT . "account/profile");
-            } else {
-                echo js_alert('Something went wrong');
-                redirect(PROOT . "account/change-password");
-            }
-        }
-    }
-
-    // change pin
-    if (isset($_GET['pin']) && !empty($_GET['pin'])) {
-        if (isset($_POST['pin_submit'])) {
-            $msg = '';
-
-            if (empty($_POST['oldpin']) || empty($_POST['newpin']) || empty($_POST['confirmpin'])) {
-                $msg = 'You must fill out all fields!';
-            } else {
-
-                if ($_POST['oldpin'] != $admin_data['admin_pin']) {
-                    $msg = 'Incorrect Old PIN provided!';
-                }
-
-                if (strlen($_POST['newpin']) < 4) {
-                    $msg = 'PIN must be 4 characters!';
-                }
-
-                if ($_POST['newpin'] != $_POST['confirmpin']) {
-                    $msg = 'The new PIN and confirm new PIN does not match!';
-                    //
-                }
-
-                if ($msg != '') {
-                    // code...
-                    echo js_alert($msg);
-                } else {
-                    $query = '
-                        UPDATE jspence_admin 
-                        SET admin_pin = ? 
-                        WHERE admin_id = ?
-                    ';
-                    $satement = $conn->prepare($query);
-                    $result = $satement->execute(array(sanitize($_POST['newpin']), $admin_id));
-                    if (isset($result)) {
-
-                        $message = "changed PIN";
-                        add_to_log($message, $admin_id);
-
-                        $_SESSION['flash_success'] = 'New PIN successfully set!';
-                        redirect(PROOT . "account/profile");
-                    } else {
-                        echo js_alert('Something went wrong');
-                    }
-                }
-
-            }
-
-        }
+        
     }
 
 
@@ -150,16 +91,37 @@
         <!-- Page content -->
         <div class="row">
             <div class="col-12 col-lg-3">
-                <form class="">
+                <form class="" id="reportForm">
+
+                    <div class="form-check">
+                        <input class="form-check-input role" name="role" type="radio" id="role-1" value="supervisor">
+                        <label class="form-check-label" for="no-cash">
+                            Supervisor
+                        </label>
+                    </div>
+                    <div class="form-check mb-4">
+                        <input class="form-check-input role" name="role" type="radio" id="role-2" value="salesperson">
+                        <label class="form-check-label" for="no-cash">
+                            Salespersonnel
+                        </label>
+                    </div>
+                    <div class="mb-4">
+                        <label class="form-label" for="name">Admin:</label>
+                        <select class="form-control" id="name" type="text">
+                            <option value=""></option>
+                            <?= $output; ?>
+                        </select>
+                    </div>
                     <div class="mb-4">
                         <label class="form-label" for="name">From:</label>
-                        <input class="form-control" id="name" type="text">
+                        <input class="form-control" id="name" type="date">
                     </div>
                     <div class="mb-4">
                         <label class="form-label" for="name">To:</label>
-                        <input class="form-control" id="name" type="text">
+                        <input class="form-control" id="name" type="date">
                     </div>
-                    <button class="btn btn-dark">Submit</button>
+                    <button class="btn btn-dark" id="submitReport">Submit</button>
+                    <button type="button" class="btn clear">Clear</button>
                 </form>
             </div>
 
@@ -170,11 +132,21 @@
                         <h2 class="fs-5 mb-1">Report view</h2>
                         <p class="text-body-secondary">From and To</p>
                         <hr>
-                        <form method="POST" id="changePasswordForm">
-                            <table class="table">
-
-                            </table>
-                        </form>
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>Price</th>
+                                    <th>Gram</th>
+                                    <th>Volume</th>
+                                    <th>Density</th>
+                                    <th>Pounds</th>
+                                    <th>Carat</th>
+                                    <th>Total Amount</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                            </tbody>
+                        </table>
                     </div>
                 </section>
              </div>
@@ -185,7 +157,28 @@
 
 <script type="text/javascript">
     $(document).ready(function() {
-        // save password changes
+        // sclear form
+        $('.clear').on('click', function() {
+            $('#reportForm')[0].reset();
+        })
+
+        // 
+        $(".role").change(function() {
+            if (this.checked) {
+                // Do stuff
+                var role = $(".role").val()
+
+                if (role == 'supervisor') {
+
+                } else if (role == 'salesperson') {
+
+                }
+
+                // re-check checkbox
+                $( this ).prop( "checked", true );
+            }
+        });
+        
         $('#submitForm').on('click', function() {
 
             $('#submitForm').attr('disabled', true);
