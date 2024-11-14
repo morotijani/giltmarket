@@ -11,16 +11,20 @@
         $from = ((isset($_POST['from']) && !empty($_POST['from'])) ? sanitize($_POST['from']) : '');
         $to = ((isset($_POST['to']) && !empty($_POST['to'])) ? sanitize($_POST['to']) : '');
 
+        $th = '';
         if ($role == "supervisor") {
             $admin = ((isset($_POST['sup_admin']) && !empty($_POST['sup_admin'])) ? sanitize($_POST['sup_admin']) : '');
-            $th = '<th></th>'
+            $th = '<th>Earned</th>';
         } else if ($role == "salesperson") {
             $admin = ((isset($_POST['sal_admin']) && !empty($_POST['sal_admin'])) ? sanitize($_POST['sal_admin']) : '');
+            $th = '<th>Expenditure</th>';
         }
 
         $sql = "
             SELECT *,
                 SUM(sale_total_amount) AS ta, 
+                SUM(daily_balance) AS cb, 
+                SUM(daily_capital) AS c
                 SUM(sale_gram) AS tg, 
                 SUM(sale_volume) AS tv, 
             FROM jspence_daily 
@@ -48,7 +52,6 @@
         $row_count = $statement->rowCount();
 
 
-
         $output = '
             <p class="text-body-secondary">From: ' . $from . ' and To: ' . $to . '</p>
             <hr>
@@ -62,9 +65,7 @@
                         <th>Pounds</th>
                         <th>Carat</th>
                         <th>Total trades</th>
-                        <th>Expenditure</th>
-                        <th>Accumulated Money/Gold</th>
-                        <th>Earned</th>
+                        ' . $th . '
                     </tr>
                 </thead>
                 <tbody>
@@ -78,30 +79,26 @@
                 $carat = calculateCarat($row["sg"], $row["sv"]);
 
                 // accumulated
-                $accumulated = 0;
-                if ($role == "supervisor") {
-                    $accumulated = money($row["ta"]);
-                } else if ($role == "salesperson") {
-                    $accumulated = $row["ta"] - $ex;
-                }
-
-                // accumulated
                 $earned = 0;
                 if ($role == "supervisor") {
-                    $earned = $row["daily_capital"] - $row["ta"];
-                    $earned = money($row["ta"]);
+                    $earned = (float)($row['cb'] - $row['c']);
+                    if ($row['cb'] == null) {
+                        $earned = 0;
+                    }
+                } else if ($role == "salesperson") {
+                    $earned = $row["ta"] - $ex; //expenditure made by salepersonnel
                 }
 
                 $output .= '
                     <tr>
-                        <td>' . money($row["daily_capital"]) . '</td>
+                        <td>' . money($row["c"]) . '</td>
                         <td>' . $row["sg"] . '</td>
                         <td>' . $row["sv"] . '</td>
                         <td>' . $density . '</td>
                         <td>' . $pounds . '</td>
                         <td>' . $carat . '</td>
                         <td>' . money($row["ta"]) . '</td>
-                        <td>' . $accumulated . '</td>
+                        <td>' . money($earned) . '</td>
                     </tr>
                 ';
             }
