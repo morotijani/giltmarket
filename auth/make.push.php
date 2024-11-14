@@ -38,12 +38,11 @@
 				// }
 
 
-				$gram = sum_up_grams;
-				$volume = sum_up_volume;
-				$push_density = sum_up_density($push_gram, $push_volume);
-				$push_pounds = sum_up_pounds($push_gram);
+				$push_gram = sum_up_grams($conn, $admin);
+				$push_volume = sum_up_volume($conn, $admin);
+				$push_density = sum_up_density($conn, $admin);
+				$push_pounds = sum_up_pounds($conn, $admin);
 				$push_carat = sum_up_carat($conn, $admin);
-				$push_amount = calculateTotalAmount($push_gram, $push_volume, $current_price);
 
 				$pushData = array('gram' => $push_gram, 'volume' => $push_volume, 'density' => $push_density, 'pounds' => $push_pounds, 'carat' => $push_carat);
 				$pushData = json_encode($pushData);
