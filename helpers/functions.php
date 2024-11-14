@@ -440,24 +440,72 @@ function truncate($val, $f = "0") {
 
 // Density calculation
 function calculateDensity($gram, $volume) {
-	$density = ($gram / $volume);
-	return truncate($density, 2);
+	if ($gram != NULL || $gram != '') {
+		if ($volume != NULL || $volume != '') {
+			$density = ($gram / $volume);
+
+			return truncate($density, 2);
+		}
+	}
+	
+	return false;
 }
 
 // Density calculation
 function calculatePounds($gram) {
-	$pounds = ($gram / FIXED_POUNDS_FIGURE);
-	return truncate($pounds, 2);
+	if ($gram != NULL || $gram != '') {
+		$pounds = ($gram / FIXED_POUNDS_FIGURE);
+		
+		return truncate($pounds, 2);
+		
+	}
+
+	return false;
 }
 
 // Carat calculation
 function calculateCarat($gram, $volume) {
 	$density = calculateDensity($gram, $volume);
-	$a = $density - 10.51;
-	$b = $a * 52.838;
-	$c = $b / $density;
-	return truncate($c, 2);
+	if ($density) {
+		$a = $density - 10.51;
+		$b = $a * 52.838;
+		$c = $b / $density;
+		
+		return truncate($c, 2);
+	}
+	
+	return false;
 }
+
+
+
+
+// // Density calculation
+// function calculateDensity($gram, $volume) {
+// 	$density = ($gram / $volume);
+// 	return truncate($density, 2);
+// }
+
+// // Density calculation
+// function calculatePounds($gram) {
+// 	$pounds = ($gram / FIXED_POUNDS_FIGURE);
+// 	return truncate($pounds, 2);
+// }
+
+// // Carat calculation
+// function calculateCarat($gram, $volume) {
+// 	$density = calculateDensity($gram, $volume);
+// 	$a = $density - 10.51;
+// 	$b = $a * 52.838;
+// 	$c = $b / $density;
+// 	return truncate($c, 2);
+// }
+
+
+
+
+
+
 
 // Total amount calculation
 function calculateTotalAmount($gram, $volume, $current_price) {

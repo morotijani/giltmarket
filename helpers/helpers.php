@@ -10,12 +10,18 @@ function dnd($data) {
 
 // Make Date Readable
 function pretty_date($date) {
-	return date("M d, Y h:i A", strtotime($date));
+	if ($date != null ||$date != '') 
+		return date("M d, Y h:i A", strtotime($date));
+
+	return false;
 }
 
 // get only date from full datetime
 function pretty_date_only($date) {
-	return date("F j, Y", strtotime($date));
+	if ($date != null ||$date != '') 
+		return date("F j, Y", strtotime($date));
+
+	return false;
 }
 
 // extract time from full date
