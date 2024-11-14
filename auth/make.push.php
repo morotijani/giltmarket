@@ -37,20 +37,21 @@
 				// 	}
 				// }
 
-
-				$push_gram = sum_up_grams($conn, $admin);
-				$push_volume = sum_up_volume($conn, $admin);
-				$push_density = sum_up_density($conn, $admin);
-				$push_pounds = sum_up_pounds($conn, $admin);
-				$push_carat = sum_up_carat($conn, $admin);
-
-				$pushData = array('gram' => $push_gram, 'volume' => $push_volume, 'density' => $push_density, 'pounds' => $push_pounds, 'carat' => $push_carat);
-				$pushData = json_encode($pushData);
-
 				$given = sanitize($_POST['today_given']);
 				$today_date = sanitize($_POST['today_date']);				
 				$push_to = ((isset($_POST['push_to']) && !empty($_POST['push_to'])) ? sanitize($_POST['push_to']) : '');
 				$pin = ((isset($_POST['pin']) && !empty($_POST['pin'])) ? sanitize($_POST['pin']) : '');
+
+				if (admin_has_permission('salesperson')) {
+					$push_gram = sum_up_grams($conn, $admin);
+					$push_volume = sum_up_volume($conn, $admin);
+					$push_density = sum_up_density($conn, $admin);
+					$push_pounds = sum_up_pounds($conn, $admin);
+					$push_carat = sum_up_carat($conn, $admin);
+
+					$pushData = array('gram' => $push_gram, 'volume' => $push_volume, 'density' => $push_density, 'pounds' => $push_pounds, 'carat' => $push_carat);
+					$pushData = json_encode($pushData);
+				}
 
 				if ($pin == $admin_data['admin_pin']) {
 
