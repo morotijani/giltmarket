@@ -1388,45 +1388,57 @@ function sum_up_given_units($conn, $admin) {
 // summ all gram per admin for today
 function sum_up_grams($conn, $admin) {
 	$output = '';
-	$today = date("Y-m-d");
+	$runningCapital = find_capital_given_to($admin);
 
-	$sql = "
-		SELECT SUM(sale_gram) AS g 
-		FROM jspence_sales 
-		WHERE sale_status = ?
-	";
+	if (is_array($runningCapital)) {
+		$sql = "
+			SELECT SUM(sale_gram) AS g 
+			FROM jspence_sales 
+			WHERE sale_status = ? 
+			AND sale_pushed = ?
+		";
 
-	if (!admin_has_permission()) {
-		$sql .= " AND jspence_sales.sale_by = '" . $admin . "' AND CAST(createdAt AS date) = '" . $today . "'";
+		if (!admin_has_permission()) {
+			// $sql .= " AND jspence_sales.sale_by = '" . $admin . "' AND CAST(createdAt AS date) = '" . $today . "'";
+			$sql .= " AND jspence_sales.sale_by = '" . $admin . "'";
+		}
+
+		$statement = $conn->prepare($sql);
+		$statement->execute([0, 0]);
+		$row = $statement->fetchAll();
+
+		return (($row[0]['g'] == null || $row[0]['g'] == '') ? 0 : $row[0]['g']);
 	}
 
-	$statement = $conn->prepare($sql);
-	$statement->execute([0]);
-	$row = $statement->fetchAll();
-
-	return (($row[0]['g'] == null) ? 0 : $row[0]['g']);
+	return false;
 }
 
 // summ all volume per admin for today
 function sum_up_volume($conn, $admin) {
 	$output = '';
-	$today = date("Y-m-d");
+	$runningCapital = find_capital_given_to($admin);
 
-	$sql = "
-		SELECT SUM(sale_volume) AS v 
-		FROM jspence_sales 
-		WHERE sale_status = ? 
-	";
+	if (is_array($runningCapital)) {
+		$sql = "
+			SELECT SUM(sale_volume) AS v 
+			FROM jspence_sales 
+			WHERE sale_status = ? 
+			AND sale_pushed = ?
+		";
 
-	if (!admin_has_permission()) {
-		$sql .= " AND jspence_sales.sale_by = '" . $admin . "' AND CAST(createdAt AS date) = '" . $today . "'";
+		if (!admin_has_permission()) {
+			// $sql .= " AND jspence_sales.sale_by = '" . $admin . "' AND CAST(createdAt AS date) = '" . $today . "'";
+			$sql .= " AND jspence_sales.sale_by = '" . $admin . "'";
+		}
+
+		$statement = $conn->prepare($sql);
+		$statement->execute([0, 0]);
+		$row = $statement->fetchAll();
+
+		return (($row[0]['v'] == null) ? 0 : $row[0]['v']);
 	}
 
-	$statement = $conn->prepare($sql);
-	$statement->execute([0]);
-	$row = $statement->fetchAll();
-
-	return (($row[0]['v'] == null) ? 0 : $row[0]['v']);
+	return false;
 }
 
 // summ all density per admin for today

@@ -391,26 +391,6 @@
                 return false;
             }
 
-            // var formData = $('#exportForm');
-            // $.ajax({
-            //     method : "GET",
-            //     url : "<?= PROOT; ?>auth/export",
-            //     data : formData.serialize(),
-            //     beforeSend : function() {
-            //         $('#submit-export').attr('disabled', true);
-            //         $('#submit-export').text('Exporting ...');
-            //     },
-            //     success : function (data) {
-            //         console.log(data)
-            //         $('#submit-export').attr('disabled', false);
-            //         $('#submit-export').text('Export');
-            //         location.reload();
-            //     },
-            //     error : function () {
-
-            //     }
-            // })
-
             $('#submit-export').attr('disabled', true);
             $('#submit-export').text('Exporting ...');
             setTimeout(function () {
