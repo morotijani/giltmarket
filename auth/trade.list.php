@@ -154,7 +154,7 @@ if ($total_data > 0) {
 					</td>
 	                <td>' . $row["sale_gram"] . '</td>
 	                <td>' . $row["sale_volume"] . '</td>
-	                <td>' . money($row["sale_price"]) . '</td>
+	                <td>' . (($row['sale_type'] == 'exp') ? '' : money($row["sale_price"])) . '</td>
 	                <td>' . money($row["sale_total_amount"]) . '</td>
 	                <td>' . $type . '</td>
 	                <td>' . pretty_date($row["sca"]) . '</td>

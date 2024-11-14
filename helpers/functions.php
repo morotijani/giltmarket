@@ -835,27 +835,7 @@ function total_amount_today($admin) {
 	$runningCapital = find_capital_given_to($admin);
 
 	// fetch today total amount
-	// $thisDaySql = "
-	// 	SELECT SUM(sale_total_amount) AS total
-	// 	FROM `jspence_sales` 
-	// 	INNER JOIN jspence_daily
-	// 	ON jspence_daily.daily_id = jspence_sales.sale_daily
-	// 	WHERE jspence_sales.sale_status = ? 
-	// 	AND sale_type != ?
-	// 	AND CAST(jspence_sales.createdAt AS date) = '{$today}' 
-	// 	AND jspence_daily.daily_capital_status = ?
-	// 	$where
-	// ";
-	// $sql = "
-	// 	SELECT SUM(sale_total_amount) AS total
-	// 	FROM `jspence_sales` 
-	// 	INNER JOIN jspence_daily
-	// 	ON jspence_daily.daily_id = jspence_sales.sale_daily
-	// 	WHERE jspence_sales.sale_status = ? 
-	// 	AND sale_type != ? 
-	// 	AND CAST(jspence_sales.createdAt AS date) = jspence_daily.daily_date 
-	// 	AND jspence_daily.daily_capital_status = ?
-	// ";
+
 	$total = 0;
 	if (is_array($runningCapital)) {
 		$sql = "
@@ -867,7 +847,11 @@ function total_amount_today($admin) {
 		";
 		if (!admin_has_permission()) {
 			$sql .= ' AND sale_by = "' . $admin . '" ';
+			if (admin_has_permission('salesperson')) {
+				$sql .= ' AND sale_pushed = 0 ';
+			}
 		}
+
 		$statement = $conn->prepare($sql);
 		$statement->execute([0, 'exp', $runningCapital['daily_id']]);
 		$thisDayrow = $statement->fetchAll();
