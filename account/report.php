@@ -50,14 +50,14 @@
 
 ?>
 
-     <!-- Content -->
-     <div class="container-lg">
+    <!-- Content -->
+    <div class="container-lg">
         <!-- Page header -->
         <div class="row align-items-center mb-7">
             <div class="col-auto">
                 <!-- Avatar -->
                 <div class="avatar avatar-xl rounded text-warning">
-                    <i class="fs-2" data-duoicon="user"></i>
+                    <i class="fs-2" data-duoicon="clipboard"></i>
                 </div>
             </div>
             <div class="col">
@@ -141,6 +141,9 @@
 
             $('.sal').addClass('d-none')
             $('.sup').addClass('d-none')
+
+            $('#submitReport').attr('disabled', false);
+            $('#submitReport').text('Submit');
 
             $('#reportForm')[0].reset();
         })
