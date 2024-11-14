@@ -53,6 +53,8 @@
 	
 						$pushData = array('gram' => $push_gram, 'volume' => $push_volume, 'density' => $push_density, 'pounds' => $push_pounds, 'carat' => $push_carat);
 						$pushData = json_encode($pushData);
+
+						dnd($pushData);
 					}
 
 					$today = date("Y-m-d");

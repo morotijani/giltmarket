@@ -369,6 +369,115 @@
                             </div>
 						</div>
 
+						<!-- Push summary -->
+						<div class="modal fade" id="pushSummaryModal" tabindex="-1" aria-labelledby="pushSummaryModalLabel" aria-hidden="true" style="backdrop-filter: blur(5px);">
+							<div class="modal-dialog modal-sm modal-dialog-centered">
+								<div class="modal-content overflow-hidden">
+									<div class="modal-header pb-0 border-0">
+										<h1 class="modal-title h4" id="pushSummaryModalLabel">Gold push summary</h1>
+										<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+									</div>
+									<div class="modal-body">
+										<ul class="list-group list-group-flush">
+											<div class="list-group-item px-0">
+												<div class="row align-items-center">
+													<div class="col ms-n2">
+														<h6 class="fs-base fw-normal mb-1">Total amount,</h6>
+													</div>
+													<div class="col-auto">
+														<time class="text-body-secondary"></time>
+													</div>
+												</div>
+											</div>
+											<div class="list-group-item px-0">
+												<div class="row align-items-center">
+													<div class="col ms-n2">
+														<h6 class="fs-base fw-normal mb-1">Gram,</h6>
+													</div>
+													<div class="col-auto">
+														<time class="text-body-secondary"><?= ; ?></time>
+													</div>
+												</div>
+											</div>
+											<div class="list-group-item px-0">
+												<div class="row align-items-center">
+													<div class="col ms-n2">
+														<h6 class="fs-base fw-normal mb-1">Volume,</h6>
+													</div>
+													<div class="col-auto">
+														<time class="text-body-secondary"><?= ; ?></time>
+													</div>
+												</div>
+											</div>
+											<div class="list-group-item px-0">
+												<div class="row align-items-center">
+													<div class="col ms-n2">
+														<h6 class="fs-base fw-normal mb-1">Density,</h6>
+													</div>
+													<div class="col-auto">
+														<time class="text-body-secondary"><?= ; ?></time>
+													</div>
+												</div>
+											</div>
+											<div class="list-group-item px-0">
+												<div class="row align-items-center">
+													<div class="col ms-n2">
+														<h6 class="fs-base fw-normal mb-1">Pounds,</h6>
+													</div>
+													<div class="col-auto">
+														<time class="text-body-secondary"><?= ; ?></time>
+													</div>
+												</div>
+											</div>
+											<div class="list-group-item px-0">
+												<div class="row align-items-center">
+													<div class="col ms-n2">
+														<h6 class="fs-base fw-normal mb-1">Carat,</h6>
+													</div>
+													<div class="col-auto">
+														<time class="text-body-secondary"><?= ; ?></time>
+													</div>
+												</div>
+											</div>
+											<div class="list-group-item px-0">
+												<div class="row align-items-center">
+													<div class="col ms-n2">
+														<h6 class="fs-base fw-normal mb-1">To,</h6>
+													</div>
+													<div class="col-auto">
+														<time class="text-body-secondary" id="push-to"></time>
+													</div>
+												</div>
+											</div>
+											<div class="list-group-item px-0">
+												<div class="row align-items-center">
+													<div class="col ms-n2">
+														<h6 class="fs-base fw-normal mb-1">Note,</h6>
+													</div>
+													<div class="col-auto">
+														<time class="text-body-secondary" id="push-note"></time>
+													</div>
+												</div>
+											</div>
+											<div class="list-group-item px-0">
+												<div class="row align-items-center">
+													<div class="col ms-n2">
+														<h6 class="fs-base fw-normal mb-1">Date,</h6>
+													</div>
+													<div class="col-auto">
+														<time class="text-body-secondary"><?= date("Y-m-d"); ?></time>
+													</div>
+												</div>
+											</div>
+										</ul>
+										<button class="btn btn-sm btn-danger mt-2 mb-2" id="push-next-1"><span class="material-symbols-outlined me-2"> delete </span> Push now</a>
+										<button class="btn btn-dark" id="push-go-back"><< Go back</button>
+									</div>
+								</div>
+							</div>
+						</div>
+						
+						<!-- Enter pin on push -->
 						<div class="modal fade" id="sendMGModal" tabindex="-1" aria-labelledby="sendMGModalLabel" data-bs-backdrop="static" data-bs-keyboard="false" aria-hidden="true" style="backdrop-filter: blur(5px);">
 							<div class="modal-dialog modal-dialog-centered">
 								<div class="modal-content overflow-hidden">
@@ -777,7 +886,8 @@
 			
 			var balance = '<?= ((admin_has_permission('supervisor')) ? get_admin_coffers($conn, $admin_id, 'balance') : total_amount_today($admin_id)); ?>';
 			if ($("#today_given").val() <= +balance) {
-				$('#sendMGModal').modal('show');
+				// $('#sendMGModal').modal('show');
+				$('#pushSummaryModal').modal('show');
 			} else {
 				alert("The <?= ((admin_has_permission('supervisor')) ? 'cash in coffers' : 'gold at hand'); ?> is not enough to make this push!");
 				return false;
