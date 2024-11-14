@@ -42,18 +42,18 @@
 				$push_to = ((isset($_POST['push_to']) && !empty($_POST['push_to'])) ? sanitize($_POST['push_to']) : '');
 				$pin = ((isset($_POST['pin']) && !empty($_POST['pin'])) ? sanitize($_POST['pin']) : '');
 
-				if (admin_has_permission('salesperson')) {
-					$push_gram = sum_up_grams($conn, $admin);
-					$push_volume = sum_up_volume($conn, $admin);
-					$push_density = sum_up_density($conn, $admin);
-					$push_pounds = sum_up_pounds($conn, $admin);
-					$push_carat = sum_up_carat($conn, $admin);
-
-					$pushData = array('gram' => $push_gram, 'volume' => $push_volume, 'density' => $push_density, 'pounds' => $push_pounds, 'carat' => $push_carat);
-					$pushData = json_encode($pushData);
-				}
-
 				if ($pin == $admin_data['admin_pin']) {
+
+					if (admin_has_permission('salesperson')) {
+						$push_gram = sum_up_grams($conn, $admin);
+						$push_volume = sum_up_volume($conn, $admin);
+						$push_density = sum_up_density($conn, $admin);
+						$push_pounds = sum_up_pounds($conn, $admin);
+						$push_carat = sum_up_carat($conn, $admin);
+	
+						$pushData = array('gram' => $push_gram, 'volume' => $push_volume, 'density' => $push_density, 'pounds' => $push_pounds, 'carat' => $push_carat);
+						$pushData = json_encode($pushData);
+					}
 
 					$today = date("Y-m-d");
 					$daily_id = guidv4();
@@ -80,9 +80,9 @@
 							$dailyQ = "
 								UPDATE `jspence_daily` 
 								SET `daily_capital` = ?, `daily_balance` = ? 
-								WHERE `daily_date` = ? AND `daily_to` = ?
+								WHERE `daily_id` = ? AND `daily_to` = ?
 							";
-							$daily_data = [$c, $bal, $today, $push_to];
+							$daily_data = [$c, $bal, $findCapital['daily_id'], $push_to];
 							$message = "on this day " . $today . ", capital updated of an amount " . money($c) . ', added amount ' . money($given) .  'for a ' .((admin_has_permission()) ? ' supervisor' : 'saleperson') . ' id: ' . $push_to;
 						} else {
 							$daily_data = [$daily_id, $given, $push_to];
@@ -146,6 +146,19 @@
 							$push_result = $statement->execute($push_data);
 
 							if (isset($push_result)) {
+								// update sales to pushed
+								$runningCapital = find_capital_given_to($admin);
+								if (is_array($runningCapital) && admin_has_permission('saleperson')) {
+									$updateQ = "
+										UPDATE jspence_sales 
+										SET sale_pushed = ?
+										WHERE sale_daily = ? 
+										AND sale_pushed = ? 
+									";
+									$statement = $conn->prepare($updateQ);
+									$statement->execute([1, $runningCapital['daily_id'], 0]);
+								}
+
 								$push_message = "push made on " . $today . ", of an amount of " . money($given) . ' to a ' . ((admin_has_permission()) ? ' supervisor' : 'saleperson') . ' id: ' . $push_to;
 								add_to_log($push_message, $admin_id);
 							}
@@ -155,6 +168,10 @@
 						} else {
 							echo js_alert('Something went wrong, please refresh and try agin!');
 						}
+						redirect(PROOT);
+					} else {
+						// device date wrong of choosed date not matching
+						$_SESSION['flash_error'] = 'Check your device date!';
 						redirect(PROOT);
 					}
 				} else {
