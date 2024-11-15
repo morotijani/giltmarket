@@ -367,6 +367,8 @@
                 if (!admin_has_permission()) {
                     $q .= " AND push_to = '" . $admin_id . "'";
                 }
+                $q .= " ORDER BY push_date DESC";
+                
                 $statement = $conn->prepare($q);
                 $statement->execute([
                     'gold', 
