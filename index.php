@@ -364,18 +364,21 @@
 										</select>
 									</div>
 								</div>
+								<div class="">
+									<input class="form-control" name="push_note" id="push_note" placeholder="Note ..." type="text">
+								</div>
 								<div><small class="text-muted" id="push_msg"></small></div>
-								<button type="button" class="btn btn-lg w-100" id="show-sendMGModal">Proceed</button>
+								<button type="button" class="btn btn-lg w-100" id="push-next-1">Proceed</button>
                             </div>
 						</div>
 
 						<!-- Push summary -->
-						<div class="modal fade" id="pushSummaryModal" tabindex="-1" aria-labelledby="pushSummaryModalLabel" aria-hidden="true" style="backdrop-filter: blur(5px);">
-							<div class="modal-dialog modal-dialog-centered">
+						<div class="modal fade" id="pushSummaryModal" tabindex="-1" aria-labelledby="pushSummaryModalLabel" aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="false" style="backdrop-filter: blur(5px);">
+							<div class="modal-dialog modal-sm modal-dialog-centered">
 								<div class="modal-content overflow-hidden">
 									<div class="modal-header pb-0 border-0">
-										<h1 class="modal-title h4" id="pushSummaryModalLabel">Gold push summary</h1>
-										<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+										<h1 class="modal-title h4" id="pushSummaryModalLabel">Summary</h1>
+										<button type="button" class="btn-close btn-close-push-modal" data-bs-dismiss="modal" aria-label="Close"></button>
 									</div>
 									<div class="modal-body">
 										<ul class="list-group list-group-flush">
@@ -385,7 +388,7 @@
 														<h6 class="fs-base fw-normal mb-1">Total amount,</h6>
 													</div>
 													<div class="col-auto">
-														<time class="text-body-secondary"></time>
+														<time class="text-body-secondary" id="push-amount"></time>
 													</div>
 												</div>
 											</div>
@@ -396,7 +399,7 @@
 														<h6 class="fs-base fw-normal mb-1">Gram,</h6>
 													</div>
 													<div class="col-auto">
-														<time class="text-body-secondary"><?= um_up_grams($conn, $admin_id); ?></time>
+														<time class="text-body-secondary"><?= sum_up_grams($conn, $admin_id); ?></time>
 													</div>
 												</div>
 											</div>
@@ -473,8 +476,8 @@
 											</div>
 										</ul>
 										<div class="d-flex justify-content-between">
-											<button type="button" id="push-next-button" class="btn btn-sm btn-warning" id="push-next-1"> Next </button>
-											<button type="button" class="btn btn-sm" id="push-go-back"><< Go back</button>
+											<button type="button" class="btn btn-sm btn-warning" id="push-next-2"> Next </button>
+											<button type="button" class="btn btn-sm" id="push-back-1"><< Go back</button>
 										</div>
 									</div>
 								</div>
@@ -509,7 +512,11 @@
 										</div>
 										<?php 
 											if ((admin_has_permission('supervisor') && get_admin_coffers($conn, $admin_id, 'balance') > 0) || (admin_has_permission('salesperson') && total_amount_today($admin_id) > 0)): ?>
-												<button type="button" id="submitSendMG" class="btn btn-warning mt-4">Send <?= ((admin_has_permission('supervisor')) ? 'money' : 'gold'); ?></button>
+
+											<div class="d-flex justify-content-between">
+												<button type="button" id="submitSendMG" class="btn btn-warning">Send <?= ((admin_has_permission('supervisor')) ? 'money' : 'gold'); ?></button>
+												<button type="button" class="btn btn-sm" id="push-back-2"><< Go back</button>
+											</div>
 										<?php endif; ?>
 									</div>
 								</div>
@@ -880,23 +887,49 @@
 			}
 		}, 500));
 
-		// make a pushs
-		$('#show-sendMGModal').on('click', function() {
-			if ($("#push_to").val() == '') {
+		// make a push
+		$('#push-next-1').on('click', function() {
+		
+
+			var push_to = $("#push_to").val();
+			var amount_given = $("#today_given").val();
+			var balance = '<?= ((admin_has_permission('supervisor')) ? get_admin_coffers($conn, $admin_id, 'balance') : total_amount_today($admin_id)); ?>';
+			var push_note = $("#push_note").val();
+
+			if (push_to == '') {
 				alert("You will have to select a <?= ((admin_has_permission('supervisor') ? 'sale person' : 'supervisor')) ;?> to proceed!");
 				$("#push_to").focus()
 				return false;
 			}
-			
-			var balance = '<?= ((admin_has_permission('supervisor')) ? get_admin_coffers($conn, $admin_id, 'balance') : total_amount_today($admin_id)); ?>';
-			if ($("#today_given").val() <= +balance) {
-				// $('#sendMGModal').modal('show');
+
+			if (amount_given <= +balance) {
+
+				$('#push-amount').text(amount_given);
+				$('#push-to').text(push_to);
+				$('#push-note').text(push_note);
+				
 				$('#pushSummaryModal').modal('show');
+
 			} else {
 				alert("The <?= ((admin_has_permission('supervisor')) ? 'cash in coffers' : 'gold at hand'); ?> is not enough to make this push!");
 				return false;
 			}
 		});
+		
+		$('#push-next-2').on('click', function() {
+			$('#pushSummaryModal').modal('hide')
+			$('#sendMGModal').modal('show');
+		})
+		
+		$('#push-back-1').on('click', function() {
+			$('#pushSummaryModal').modal('hide')
+			$('#sendMGModal').modal('hide');
+		})
+		
+		$('#push-back-2').on('click', function() {
+			$('#pushSummaryModal').modal('show')
+			$('#sendMGModal').modal('hide');
+		})
 		
 		// submit send push form
 		$('#submitSendMG').on('click', function() {

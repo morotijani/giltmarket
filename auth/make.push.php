@@ -41,6 +41,7 @@
 				$today_date = sanitize($_POST['today_date']);				
 				$push_to = ((isset($_POST['push_to']) && !empty($_POST['push_to'])) ? sanitize($_POST['push_to']) : '');
 				$pin = ((isset($_POST['pin']) && !empty($_POST['pin'])) ? sanitize($_POST['pin']) : '');
+				$push_note = ((isset($_POST['push_note']) && !empty($_POST['push_note'])) ? sanitize($_POST['push_note']) : '');
 
 				if ($pin == $admin_data['admin_pin']) {
 
@@ -53,8 +54,6 @@
 	
 						$pushData = array('gram' => $push_gram, 'volume' => $push_volume, 'density' => $push_density, 'pounds' => $push_pounds, 'carat' => $push_carat);
 						$pushData = json_encode($pushData);
-
-						dnd($pushData);
 					}
 
 					$today = date("Y-m-d");
@@ -138,18 +137,19 @@
 								$push_from, 
 								$push_to, 
 								((admin_has_permission('supervisor')) ? 'coffers' : 'dialy'), 
-								$pushData
+								$pushData, 
+								$push_note
 							];
 							$sql = "
-								INSERT INTO jspence_pushes (push_id, push_daily, push_amount, push_type, push_from, push_to, push_on, push_data) 
-								VALUES (?, ?, ?, ?, ?, ?, ?, ?)
+								INSERT INTO jspence_pushes (push_id, push_daily, push_amount, push_type, push_from, push_to, push_on, push_data, push_note) 
+								VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
 							";
 							$statement = $conn->prepare($sql);
 							$push_result = $statement->execute($push_data);
 
 							if (isset($push_result)) {
 								// update sales to pushed
-								$runningCapital = find_capital_given_to($admin);
+								$runningCapital = find_capital_given_to($admin_id);
 								if (is_array($runningCapital) && admin_has_permission('salesperson')) {
 									$updateQ = "
 										UPDATE jspence_sales 
