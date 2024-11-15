@@ -45,11 +45,11 @@
 				if ($pin == $admin_data['admin_pin']) {
 
 					if (admin_has_permission('salesperson')) {
-						$push_gram = sum_up_grams($conn, $admin);
-						$push_volume = sum_up_volume($conn, $admin);
-						$push_density = sum_up_density($conn, $admin);
-						$push_pounds = sum_up_pounds($conn, $admin);
-						$push_carat = sum_up_carat($conn, $admin);
+						$push_gram = sum_up_grams($conn, $admin_id);
+						$push_volume = sum_up_volume($conn, $admin_id);
+						$push_density = sum_up_density($conn, $admin_id);
+						$push_pounds = sum_up_pounds($conn, $admin_id);
+						$push_carat = sum_up_carat($conn, $admin_id);
 	
 						$pushData = array('gram' => $push_gram, 'volume' => $push_volume, 'density' => $push_density, 'pounds' => $push_pounds, 'carat' => $push_carat);
 						$pushData = json_encode($pushData);
@@ -150,7 +150,7 @@
 							if (isset($push_result)) {
 								// update sales to pushed
 								$runningCapital = find_capital_given_to($admin);
-								if (is_array($runningCapital) && admin_has_permission('saleperson')) {
+								if (is_array($runningCapital) && admin_has_permission('salesperson')) {
 									$updateQ = "
 										UPDATE jspence_sales 
 										SET sale_pushed = ?

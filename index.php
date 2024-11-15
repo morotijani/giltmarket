@@ -395,7 +395,7 @@
 														<h6 class="fs-base fw-normal mb-1">Gram,</h6>
 													</div>
 													<div class="col-auto">
-														<time class="text-body-secondary"><?= ; ?></time>
+														<time class="text-body-secondary"><?= um_up_grams($conn, $admin_id); ?></time>
 													</div>
 												</div>
 											</div>
@@ -405,7 +405,7 @@
 														<h6 class="fs-base fw-normal mb-1">Volume,</h6>
 													</div>
 													<div class="col-auto">
-														<time class="text-body-secondary"><?= ; ?></time>
+														<time class="text-body-secondary"><?= sum_up_volume($conn, $admin_id); ?></time>
 													</div>
 												</div>
 											</div>
@@ -415,7 +415,7 @@
 														<h6 class="fs-base fw-normal mb-1">Density,</h6>
 													</div>
 													<div class="col-auto">
-														<time class="text-body-secondary"><?= ; ?></time>
+														<time class="text-body-secondary"><?= sum_up_density($conn, $admin_id); ?></time>
 													</div>
 												</div>
 											</div>
@@ -425,7 +425,7 @@
 														<h6 class="fs-base fw-normal mb-1">Pounds,</h6>
 													</div>
 													<div class="col-auto">
-														<time class="text-body-secondary"><?= ; ?></time>
+														<time class="text-body-secondary"><?= sum_up_pounds($conn, $admin_id); ?></time>
 													</div>
 												</div>
 											</div>
@@ -435,7 +435,7 @@
 														<h6 class="fs-base fw-normal mb-1">Carat,</h6>
 													</div>
 													<div class="col-auto">
-														<time class="text-body-secondary"><?= ; ?></time>
+														<time class="text-body-secondary"><?= sum_up_carat($conn, $admin_id); ?></time>
 													</div>
 												</div>
 											</div>
@@ -470,7 +470,7 @@
 												</div>
 											</div>
 										</ul>
-										<button class="btn btn-sm btn-danger mt-2 mb-2" id="push-next-1"><span class="material-symbols-outlined me-2"> delete </span> Push now</a>
+										<button class="btn btn-sm btn-danger mt-2 mb-2" id="push-next-1"><span class="material-symbols-outlined me-2"> delete </span> Push now </button>
 										<button class="btn btn-dark" id="push-go-back"><< Go back</button>
 									</div>
 								</div>
