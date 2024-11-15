@@ -858,10 +858,12 @@ function total_amount_today($admin) {
 
 		$total_amount_traded = $thisDayrow[0]['total'] ?? 0;
 
-		// get all pushed amout
+		// get all pushed amout 
 		$get_pushed = $conn->query("SELECT SUM(push_amount) AS pamt FROM jspence_pushes WHERE push_from = '" . $admin . "' AND push_date = '" . $runningCapital['daily_date'] . "' AND jspence_pushes.push_on = 'dialy'")->fetchAll();
 		$total_amount_pushed = $get_pushed[0]['pamt'] ?? 0;
-
+		if (admin_has_permission('salesperson')) {
+			$total_amount_pushed = 0;
+		}
 
 		// fetch all revese pushes
 		$reverse_pushes = $conn->query("SELECT SUM(push_amount) AS pamt FROM jspence_pushes WHERE push_from = '" . $admin . "' AND push_date = '" . $runningCapital['daily_date'] . "' AND jspence_pushes.push_on = 'dialy' AND push_status = 1")->fetchAll();
@@ -1008,25 +1010,27 @@ function count_total_orders($admin) {
 // count total orders
 function count_today_orders($admin) {
 	global $conn;
-	$today = date("Y-m-d");
+	$runningCapital = find_capital_given_to($admin);
+	$a = 0;
 
-	$where = '';
-	if (!admin_has_permission()) {
-		$where = ' AND sale_by = "'.$admin.'"';
+	if (is_array($runningCapital)) {	
+
+		$sql = "
+			SELECT COUNT(sale_id) AS total_number 
+			FROM `jspence_sales` 
+			WHERE sale_status = ? 
+			AND sale_daily = ? 
+		";
+		if (!admin_has_permission()) {
+			$sql .= ' AND sale_by = "'.$admin.'"';
+		}
+		$statement = $conn->prepare($sql);
+		$statement->execute([0, $runningCapital['daily_id']]);
+		$row = $statement->fetchAll();
+		$a = $row[0]['total_number'] ?? 0;
 	}
-
-	$sql = "
-		SELECT COUNT(sale_id) AS total_number 
-		FROM `jspence_sales` 
-		WHERE sale_status = ? 
-		AND CAST(jspence_sales.createdAt AS date) = ?
-		$where 
-	";
-	$statement = $conn->prepare($sql);
-	$statement->execute([0, $today]);
-	$row = $statement->fetchAll();
 	
-	return $row[0]['total_number'];
+	return $a;
 }
 
 // get grand amount of orders
@@ -1178,81 +1182,81 @@ function count_logs($admin) {
 function get_recent_trades($admin) {
 	global $conn;
 	$output = '';
+	$runningCapital = find_capital_given_to($admin);
 
-	$today = date('d');
+	if (is_array($runningCapital)) {	
 
-	$where = '';
-	if (!admin_has_permission()) {
-		$where = ' sale_by = "'.$admin.'" AND ';
-	}
+		$sql = "
+			SELECT * FROM jspence_sales 
+			WHERE sale_daily = ? 
+			AND sale_status = ? 
+		";
+		if (!admin_has_permission()) {
+			$sql .= ' AND sale_by = "' . $admin . '" ';
+		}
+		$sql .= " ORDER BY createdAt DESC";
 
-	$sql = "
-		SELECT * FROM jspence_sales 
-		WHERE $where 
-		DAY(createdAt) = ? 
-	    AND sale_status = 0 
-		ORDER BY createdAt DESC
-	";
-	$statement = $conn->prepare($sql);
-	$statement->execute([$today]);
-	$rows = $statement->fetchAll();
-	$counts = $statement->rowCount();
+		$statement = $conn->prepare($sql);
+		$statement->execute([$runningCapital["daily_id"], 0]);
+		$rows = $statement->fetchAll();
+		$counts = $statement->rowCount();
 
-	if ($counts > 0) {
-		// code...
-		foreach ($rows as $row) {
-			$type = "";
-			if ($row["sale_type"] == 'out') {
-				// out-trade
-				$type = '
-					<span class="badge bg-danger-subtle text-danger">buy-gold</span>
-				';
-			} else if ($row["sale_type"] == 'in') { 
-				// in-trade
-				$type = '
-					<span class="badge bg-success-subtle text-success">sell-gold</span>
-				';
-			} else if ($row["sale_type"] == 'exp') {
-				$type = '
-					<span class="badge bg-secondary-subtle text-secondary">expenditure</span>
+		if ($counts > 0) {
+			// code...
+			foreach ($rows as $row) {
+				$type = "";
+				if ($row["sale_type"] == 'out') {
+					// out-trade
+					$type = '
+						<span class="badge bg-danger-subtle text-danger">buy-gold</span>
+					';
+				} else if ($row["sale_type"] == 'in') { 
+					// in-trade
+					$type = '
+						<span class="badge bg-success-subtle text-success">sell-gold</span>
+					';
+				} else if ($row["sale_type"] == 'exp') {
+					$type = '
+						<span class="badge bg-secondary-subtle text-secondary">expenditure</span>
+					';
+				}
+				$output .= '
+					<tr>
+						<td>
+							<div class="d-flex align-items-center">
+								<div class="avatar text-primary">
+								<i class="fs-4" data-duoicon="book-3"></i>
+								</div>
+								<div class="ms-4">
+								<div>' . $row["sale_id"] . '</div>
+								<div class="fs-sm text-body-secondary">Created on ' . pretty_date($row["createdAt"]) . '</div>
+								</div>
+							</div>
+						</td>
+						<td>
+							' . $type . '
+						</td>
+						<td>
+							' . money($row["sale_total_amount"]) . '
+						</td>
+						<td>
+							' . (($row["sale_customer_name"] != null) ? ucwords($row["sale_customer_name"]) : '') . '
+						</td>
+					</tr>
 				';
 			}
-			$output .= '
+		} else {
+			$output = '
 				<tr>
-					<td>
-						<div class="d-flex align-items-center">
-							<div class="avatar text-primary">
-							<i class="fs-4" data-duoicon="book-3"></i>
-							</div>
-							<div class="ms-4">
-							<div>' . $row["sale_id"] . '</div>
-							<div class="fs-sm text-body-secondary">Created on ' . pretty_date($row["createdAt"]) . '</div>
-							</div>
+					<td colspan="4">
+						<div class="alert alert-warning">
+							<h6 class="progress-text mb-1 d-block">No trades found today!</h6>
+							<p class="text-muted text-xs">Current date time: ' . date("l jS \of F Y h:i:s A") . '</p>
 						</div>
-					</td>
-					<td>
-						' . $type . '
-					</td>
-					<td>
-						' . money($row["sale_total_amount"]) . '
-					</td>
-					<td>
-						' . (($row["sale_customer_name"] != null) ? ucwords($row["sale_customer_name"]) : '') . '
 					</td>
 				</tr>
 			';
 		}
-	} else {
-		$output = '
-			<tr>
-				<td colspan="4">
-					<div class="alert alert-warning">
-						<h6 class="progress-text mb-1 d-block">No trades found today!</h6>
-						<p class="text-muted text-xs">Current date time: ' . date("l jS \of F Y h:i:s A") . '</p>
-					</div>
-				</td>
-			</tr>
-		';
 	}
 
 	return $output;

@@ -512,7 +512,6 @@
 										</div>
 										<?php 
 											if ((admin_has_permission('supervisor') && get_admin_coffers($conn, $admin_id, 'balance') > 0) || (admin_has_permission('salesperson') && total_amount_today($admin_id) > 0)): ?>
-
 											<div class="d-flex justify-content-between">
 												<button type="button" id="submitSendMG" class="btn btn-warning">Send <?= ((admin_has_permission('supervisor')) ? 'money' : 'gold'); ?></button>
 												<button type="button" class="btn btn-sm" id="push-back-2"><< Go back</button>
@@ -928,6 +927,8 @@
 		
 		$('#push-back-2').on('click', function() {
 			$('#pushSummaryModal').modal('show')
+			$('#push_pin').val('');
+
 			$('#sendMGModal').modal('hide');
 		})
 		
