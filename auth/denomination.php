@@ -152,7 +152,14 @@ if (array_key_exists('postdata', $_SESSION)) {
             $daily_result = $statement->execute($data);
 
             if ($daily_result) {
-                $pushGoldData = array('price' => 0, 'gram' => $push_gram, 'volume' => $push_volume, 'density' => $push_density, 'pounds' => $push_pounds, 'carat' => $push_carat, 'push_amount' => $gold_balance);
+
+                $push_gram = sum_up_grams($conn, $admin_id);
+                $push_volume = sum_up_volume($conn, $admin_id);
+                $push_density = sum_up_density($conn, $admin_id);
+                $push_pounds = sum_up_pounds($conn, $admin_id);
+                $push_carat = sum_up_carat($conn, $admin_id);
+
+                $pushGoldData = array('gram' => $push_gram, 'volume' => $push_volume, 'density' => $push_density, 'pounds' => $push_pounds, 'carat' => $push_carat);
 				$pushGoldData = json_encode($pushGoldData);
 
                 // insert gold to pushes
@@ -162,7 +169,18 @@ if (array_key_exists('postdata', $_SESSION)) {
                     VALUES (?, ?, ?, ?, ?, ?, ?, ?)
                 ";
                 $statement = $conn->prepare($SQL);
-                $statement->execute($push_Data);
+                $SQLRESULT = $statement->execute($push_Data);
+
+                if ($SQLRESULT) {
+                    $updateQ = "
+                        UPDATE jspence_sales 
+                        SET sale_pushed = ?
+                        WHERE sale_daily = ? 
+                        AND sale_pushed = ? 
+                    ";
+                    $statement = $conn->prepare($updateQ);
+                    $statement->execute([1, $daily_id, 0]);
+                }
             }
    
         }
