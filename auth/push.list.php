@@ -61,7 +61,6 @@ $output = '
                     <tr>
                         <th>#</th>
                         <th>Push ID</th>
-                        <th>Capital ID</th>
                         <th>Amount</th>
                         <th>From</th>
                         <th>To</th>
@@ -101,7 +100,6 @@ if ($total_data > 0) {
             <tr class="' . ((admin_has_permission() && $row["push_date"] == date("Y-m-d")) ? 'table-info' : '') . '">
                 <td>' . $i . '</td>
                 <td>' . $row["push_id"] . '</td>
-                <td>' . $row["push_daily"] . '</td>
                 <td>' . money($row["push_amount"]) .'</td>
                 <td>' . ucwords($_from['admin_fullname']) . '</a></td>
                 <td>' . ucwords($__to) . '</td>

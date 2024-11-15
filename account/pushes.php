@@ -438,16 +438,6 @@
                                                     <div class="list-group-item px-0">
                                                         <div class="row align-items-center">
                                                             <div class="col ms-n2">
-                                                                <h6 class="fs-base fw-normal mb-1">Price,</h6>
-                                                            </div>
-                                                            <div class="col-auto">
-                                                                <time class="text-body-secondary" datetime="01/01/2025"><?= $p_data->price; ?></time>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="list-group-item px-0">
-                                                        <div class="row align-items-center">
-                                                            <div class="col ms-n2">
                                                                 <h6 class="fs-base fw-normal mb-1">Total amount,</h6>
                                                             </div>
                                                             <div class="col-auto">
@@ -512,6 +502,16 @@
                                                             </div>
                                                             <div class="col-auto">
                                                                 <time class="text-body-secondary" datetime="01/01/2025"><?= ucwords($ad["admin_fullname"]); ?> </time>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="list-group-item px-0">
+                                                        <div class="row align-items-center">
+                                                            <div class="col ms-n2">
+                                                                <h6 class="fs-base fw-normal mb-1">Note,</h6>
+                                                            </div>
+                                                            <div class="col-auto">
+                                                                <time class="text-body-secondary" datetime="01/01/2025"><?= $row["push_note"]; ?></time>
                                                             </div>
                                                         </div>
                                                     </div>

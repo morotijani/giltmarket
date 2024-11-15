@@ -1399,7 +1399,8 @@ function sum_up_grams($conn, $admin) {
 			SELECT SUM(sale_gram) AS g 
 			FROM jspence_sales 
 			WHERE sale_status = ? 
-			AND sale_pushed = ?
+			AND sale_pushed = ? 
+			AND sale_daily = ?
 		";
 
 		if (!admin_has_permission()) {
@@ -1408,7 +1409,7 @@ function sum_up_grams($conn, $admin) {
 		}
 
 		$statement = $conn->prepare($sql);
-		$statement->execute([0, 0]);
+		$statement->execute([0, 0, $runningCapital["daily_id"]]);
 		$row = $statement->fetchAll();
 
 		return (($row[0]['g'] == null || $row[0]['g'] == '') ? 0 : $row[0]['g']);
@@ -1427,7 +1428,8 @@ function sum_up_volume($conn, $admin) {
 			SELECT SUM(sale_volume) AS v 
 			FROM jspence_sales 
 			WHERE sale_status = ? 
-			AND sale_pushed = ?
+			AND sale_pushed = ? 
+			AND sale_daily = ?
 		";
 
 		if (!admin_has_permission()) {
@@ -1436,7 +1438,7 @@ function sum_up_volume($conn, $admin) {
 		}
 
 		$statement = $conn->prepare($sql);
-		$statement->execute([0, 0]);
+		$statement->execute([0, 0, $runningCapital["daily_id"]]);
 		$row = $statement->fetchAll();
 
 		return (($row[0]['v'] == null) ? 0 : $row[0]['v']);
