@@ -371,7 +371,7 @@
 
 						<!-- Push summary -->
 						<div class="modal fade" id="pushSummaryModal" tabindex="-1" aria-labelledby="pushSummaryModalLabel" aria-hidden="true" style="backdrop-filter: blur(5px);">
-							<div class="modal-dialog modal-sm modal-dialog-centered">
+							<div class="modal-dialog modal-dialog-centered">
 								<div class="modal-content overflow-hidden">
 									<div class="modal-header pb-0 border-0">
 										<h1 class="modal-title h4" id="pushSummaryModalLabel">Gold push summary</h1>
@@ -389,6 +389,7 @@
 													</div>
 												</div>
 											</div>
+											<?php if (admin_has_permission('salesperson')) : ?>
 											<div class="list-group-item px-0">
 												<div class="row align-items-center">
 													<div class="col ms-n2">
@@ -439,6 +440,7 @@
 													</div>
 												</div>
 											</div>
+											<?php endif; ?>
 											<div class="list-group-item px-0">
 												<div class="row align-items-center">
 													<div class="col ms-n2">
@@ -470,8 +472,10 @@
 												</div>
 											</div>
 										</ul>
-										<button class="btn btn-sm btn-danger mt-2 mb-2" id="push-next-1"><span class="material-symbols-outlined me-2"> delete </span> Push now </button>
-										<button class="btn btn-dark" id="push-go-back"><< Go back</button>
+										<div class="d-flex justify-content-between">
+											<button type="button" id="push-next-button" class="btn btn-sm btn-warning" id="push-next-1"> Next </button>
+											<button type="button" class="btn btn-sm" id="push-go-back"><< Go back</button>
+										</div>
 									</div>
 								</div>
 							</div>
