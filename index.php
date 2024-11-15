@@ -374,10 +374,10 @@
 
 						<!-- Push summary -->
 						<div class="modal fade" id="pushSummaryModal" tabindex="-1" aria-labelledby="pushSummaryModalLabel" aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="false" style="backdrop-filter: blur(5px);">
-							<div class="modal-dialog modal-sm modal-dialog-centered">
+							<div class="modal-dialog modal-dialog-centered">
 								<div class="modal-content overflow-hidden">
 									<div class="modal-header pb-0 border-0">
-										<h1 class="modal-title h4" id="pushSummaryModalLabel">Summary</h1>
+										<h1 class="modal-title h4" id="pushSummaryModalLabel">Push summary</h1>
 										<button type="button" class="btn-close btn-close-push-modal" data-bs-dismiss="modal" aria-label="Close"></button>
 									</div>
 									<div class="modal-body">
@@ -889,7 +889,6 @@
 		// make a push
 		$('#push-next-1').on('click', function() {
 		
-
 			var push_to = $("#push_to").val();
 			var amount_given = $("#today_given").val();
 			var balance = '<?= ((admin_has_permission('supervisor')) ? get_admin_coffers($conn, $admin_id, 'balance') : total_amount_today($admin_id)); ?>';
@@ -898,6 +897,12 @@
 			if (push_to == '') {
 				alert("You will have to select a <?= ((admin_has_permission('supervisor') ? 'sale person' : 'supervisor')) ;?> to proceed!");
 				$("#push_to").focus()
+				return false;
+			}
+
+			if (amount_given == '' || amount_given == 0) {
+				alert("Invalid push amount provided");
+				$("#today_given").focus()
 				return false;
 			}
 
