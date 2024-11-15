@@ -182,7 +182,6 @@ if (array_key_exists('postdata', $_SESSION)) {
                     $statement->execute([1, $daily_id, 0]);
                 }
             }
-   
         }
 
         // send cash balance or cash accumulated to the coffers
