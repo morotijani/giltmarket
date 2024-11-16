@@ -42,8 +42,6 @@
                             if (isset($result)) {      
 
                                 // update sale capital balance
-                                $saleAmt = $find[0]['sale_total_amount'];
-                
                                 $updateQuery = "
                                     UPDATE jspence_daily 
                                     SET daily_balance = daily_balance + ? 
@@ -58,7 +56,10 @@
                                 }
                                 
                                 $statement = $conn->prepare($updateQuery);
-                                $statement->execute([$saleAmt, $id]);
+                                $statement->execute([
+                                    $find[0]['sale_total_amount'], 
+                                    $find[0]["sale_daily"]
+                                ]);
                                 
                                 $message = "deleted sale from sale requests";
                                 add_to_log($message, $admin_data['admin_id']);
