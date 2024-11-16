@@ -22,8 +22,8 @@
 		$id = sanitize($_GET['data']);
 
 		// find push id
-		$find = $conn->query("SELECT * FROM jspence_sales WHERE sale_id = '" . $id . "'")->rowCount();
-		if ($find > 0) {
+		$find = $conn->query("SELECT * FROM jspence_sales WHERE sale_id = '" . $id . "'")->fetchAll();
+		if (count($find) > 0) {
 			if (isset($_POST['admin_pin'])) {
 				if (!empty($_POST['admin_pin']) || $_POST['admin_pin'] != '') {
 
@@ -107,8 +107,8 @@
 				<!-- General -->
 				<section class="card bg-body-tertiary border-transparent mb-5" id="general">
 					<div class="card-body">
-						<h2 class="fs-5 mb-1">Reverse <?= money($find[0]['push_amount']); ?></h2>
-						<p class="text-body-secondary">You are to reverse delete a trade you made, provide reason and pin to complete the deletion.</p>
+						<h2 class="fs-5 mb-1">Delete trade with an amount equivallent to <?= money($find[0]['sale_total_amount']); ?></h2>
+						<p class="text-body-secondary">You are to delete a trade you made, provide reason and pin to complete the deletion.</p>
 						<form id="DeleteForm" method="POST">
 							<div class="mb-3">
 								<label class="form-label" for="fullName">Reason</label>
