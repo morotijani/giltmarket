@@ -11,6 +11,9 @@ RewriteRule ^auth/push.reverse/([0-9a-zA-Z_-]+)$ auth/push.reverse.php?data=$1 [
 #
 RewriteRule ^account/pushes/([0-9a-zA-Z_-]+)$ account/pushes.php?data=$1 [NC,L]
 
+# delete trade get link
+RewriteRule ^auth/trade.delete/([0-9a-zA-Z_-]+)$ auth/trade.delete.php?data=$1 [NC,L]
+
 
 
 RewriteCond %{REQUEST_FILENAME} !-d

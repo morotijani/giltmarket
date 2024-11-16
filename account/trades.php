@@ -28,29 +28,29 @@
         // code...
         $id = sanitize($_GET['delete_request']);
 
-        $findSale = $conn->query("SELECT * FROM jspence_sales WHERE sale_id = '".$id."'")->rowCount();
-        if ($findSale > 0) {
-            // code...
-            $sql = "
-                UPDATE jspence_sales 
-                SET sale_status = ?, sale_delete_request_status = ?
-                WHERE sale_id = ?
-            ";
-            $statement = $conn->prepare($sql);
-            $result = $statement->execute([1, 1, $id]);
-            if (isset($result)) {                
-                $message = "delete request for trade id: '".$id."'";
-                add_to_log($message, $admin_data['admin_id']);
+        // $findSale = $conn->query("SELECT * FROM jspence_sales WHERE sale_id = '".$id."'")->rowCount();
+        // if ($findSale > 0) {
+        //     // code...
+        //     $sql = "
+        //         UPDATE jspence_sales 
+        //         SET sale_status = ?, sale_delete_request_status = ?
+        //         WHERE sale_id = ?
+        //     ";
+        //     $statement = $conn->prepare($sql);
+        //     $result = $statement->execute([1, 1, $id]);
+        //     if (isset($result)) {                
+        //         $message = "delete request for trade id: '".$id."'";
+        //         add_to_log($message, $admin_data['admin_id']);
 
-                $_SESSION['flash_success'] = ' Sale delete request successfully sent!';
-                redirect(PROOT . 'account/trades');
-            } else {
-                echo js_alert("Something went wrong, please try again!");
-            }
-        } else {
-            $_SESSION['flash_error'] = ' Could not find sale to send a delete request!';
-            redirect(PROOT . 'account/trades');
-        }
+        //         $_SESSION['flash_success'] = ' Sale delete request successfully sent!';
+        //         redirect(PROOT . 'account/trades');
+        //     } else {
+        //         echo js_alert("Something went wrong, please try again!");
+        //     }
+        // } else {
+        //     $_SESSION['flash_error'] = ' Could not find sale to send a delete request!';
+        //     redirect(PROOT . 'account/trades');
+        // }
 
     }
 

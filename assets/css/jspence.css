@@ -85,16 +85,6 @@ input[type=number] {
     width: 1.5rem !important;
 }
 
-.hide {
-    display: none;
-    font-size: x-small;
-}
-
-.des:hover + .hide {
-    display: block;
-    color: tomato;
-}
-
 .form-control-flush:focus {
     box-shadow: none;
     background-color: transparent;
@@ -177,5 +167,3 @@ input[type=number] {
 #pin:focus {
     box-shadow: none;
 }
-
-
