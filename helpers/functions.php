@@ -540,26 +540,20 @@ function fetch_all_sales($status, $admin, $type = null) {
 	global $conn;
 	$output = '';
 
-	$where = '';
-	if (!admin_has_permission()) {
-		$where = ' AND sale_by = "'.$admin.'" ';
-	}
-
-	$a = '';
-	if ($type == 'no_exp') {
-		$a = " AND sale_type != 'exp'";
-	}
-
-
 	$sql = "
 		SELECT *, jspence_sales.id AS sid, jspence_sales.createdAt AS sca, jspence_sales.updatedAt AS sua, jspence_admin.id AS aid 
 		FROM jspence_sales 
 		INNER JOIN jspence_admin 
 		ON jspence_admin.admin_id = jspence_sales.sale_by 
 		WHERE sale_status = ? 
-		$where
 	";
-	$sql .= $a . " ORDER BY createdAt DESC";
+	if (!admin_has_permission()) {
+		$sql .= ' AND sale_by = "' . $admin . '" ';
+	}
+	if ($type == 'no_exp') {
+		$sql .= " AND sale_type != 'exp' ";
+	}
+	$sql .= " ORDER BY createdAt DESC";
 	
 	$statement = $conn->prepare($sql);
 	$statement->execute([$status]);
@@ -591,19 +585,9 @@ function fetch_all_sales($status, $admin, $type = null) {
 					<button class="btn btn-dark"><i class="bi bi-receipt me-2"></i>Print receipt</button>&nbsp<a href="#deleteModal_'. $row["sid"] . '" data-bs-toggle="modal" class="btn btn-danger"><span class="material-symbols-outlined me-2"> delete </span> Delete</a>
 				</div>
 	        ';
-	        $option3 = '';
 			if ($row['sale_status'] == 1) {
 				$option1 = '';
 				$option2 = '';
-				if (admin_has_permission()) {
-					$option3 = '
-						<a href="' . PROOT . 'account/trades.delete.requests?pd=' . $row["sale_id"] . '" class="btn btn-danger mt-2 mb-2"><span class="material-symbols-outlined me-2"> delete </span> Delete</a>
-					';
-				}
-			} else if ($row['sale_status'] == 2) {
-				$option1 = '';
-				$option2 = '';
-				$option3 = '';
 			}
 			
 			$output .= '
@@ -736,7 +720,6 @@ function fetch_all_sales($status, $admin, $type = null) {
 									</div>
 								</ul>
 								' . $option2 . '
-								' . $option3 . '
 							</div>
 						</div>
 					</div>
