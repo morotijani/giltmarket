@@ -190,10 +190,11 @@
     <script type="text/javascript">
 
         // check if browser is online or offline
-        var x = "Is the browser online? " + navigator.onLine
-        alert(x);
-
-       
+        if (!navigator.onLine) {
+            alert('Your are offline, make sure you are connected internet!')
+        }
+        // var x = "Is the browser online? " + navigator.onLine
+        // alert(x);
 
         // activate left nav link upon url
 

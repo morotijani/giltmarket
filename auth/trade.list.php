@@ -304,7 +304,7 @@ if ($total_data > 0) {
 			                       </p>
 			                    </div>
 			                    <div class="px-6 py-5 d-flex justify-content-center">
-			                        <a href="'.PROOT.'account/trades?delete_request='.$row["sale_id"].'" class="btn btn-sm btn-danger"><i class="bi bi-trash me-2"></i>Yes, Confirm delete</a>&nbsp;&nbsp;
+			                        <a href="' . PROOT . 'auth/trade.delete/' . $row["sale_id"] . '" class="btn btn-sm btn-danger"><i class="bi bi-trash me-2"></i>Yes, Confirm delete</a>&nbsp;&nbsp;
 			                        <button type="button" class="btn btn-sm btn-dark" data-bs-dismiss="modal">No, cancel</button>
 			                    </div>
 				            </div>
