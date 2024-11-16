@@ -58,7 +58,7 @@
  	$flash = '';
  	if (isset($_SESSION['flash_success'])) {
  	 	$flash = '
- 	 		<div class="alert alert-success" id="temporary">
+ 	 		<div class="alert alert-success" id="temporary" style="border-left: 6px solid gold;">
  	 			' . $_SESSION['flash_success'] . '
  	 		</div>';
  	 	unset($_SESSION['flash_success']);
@@ -66,7 +66,7 @@
 
  	if (isset($_SESSION['flash_error'])) {
  	 	$flash = '
- 	 		<div class="alert alert-danger" id="temporary">
+ 	 		<div class="alert alert-danger" id="temporary" style="border-left: 6px solid gold;">
  	 			' . $_SESSION['flash_error'] . '
  	 		</div>';
  	 	unset($_SESSION['flash_error']);
