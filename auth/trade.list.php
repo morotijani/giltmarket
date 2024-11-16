@@ -294,7 +294,7 @@ if ($total_data > 0) {
 				            <div class="modal-body p-0">
 			                    <div class="px-6 py-5 border-bottom">
 			                       <p>
-			                       Trade of Volume '.$row["sale_volume"].', Gram ' . $row["sale_gram"] . ', Price ' . money($row["sale_price"]) . ' and Amount ' . money($row["sale_total_amount"]) . ' from customer ' . (($row["sale_customer_name"] != null) ? ucwords($row["sale_customer_name"]) : '') . ' will be notified to the main admin to complete the deletion!
+			                       Trade of Volume '.$row["sale_volume"].', Gram ' . $row["sale_gram"] . ', Price ' . money($row["sale_price"]) . ' and Amount ' . money($row["sale_total_amount"]) . ' from customer ' . (($row["sale_customer_name"] != null) ? ucwords($row["sale_customer_name"]) : '') . ' will be deleted!
 			                       </p>
 			                       <br>
 			                       Trade ID: ' . $row["sale_id"] . '

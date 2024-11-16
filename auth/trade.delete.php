@@ -108,7 +108,9 @@
 				<section class="card bg-body-tertiary border-transparent mb-5" id="general">
 					<div class="card-body">
 						<h2 class="fs-5 mb-1">Delete trade with an amount equivallent to <?= money($find[0]['sale_total_amount']); ?></h2>
-						<p class="text-body-secondary">You are to delete a trade you made, provide reason and pin to complete the deletion.</p>
+						<p class="text-body-secondary">You are to delete a trade you made; 
+                        <br> Gram: <?= $find[0]['sale_gram']; ?>, Volume: <?= $find[0]['sale_volume']; ?>, Density: <?= $find[0]['sale_density']; ?>, Pounds: <?= $find[0]['sale_pounds']; ?>, Carat: <?= $find[0]['sale_carat']; ?>
+                        <br />Provide reason and pin to complete the deletion.</p>
 						<form id="DeleteForm" method="POST">
 							<div class="mb-3">
 								<label class="form-label" for="fullName">Reason</label>
