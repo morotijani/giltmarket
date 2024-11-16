@@ -12,7 +12,7 @@
                 </div>
                 <div class="modal-body undefined">
                     <div class="buy-msg p-1 small"></div>
-                    <form class="vstack gap-6" id="buyForm">
+                    <form class="vstack gap-6" id="buyForm" autocomplete="off">
                         <div id="step-1">
                             <div class="mb-3">
                                 <input type="number" name="current_price" id="current_price" class="form-control fw-semibold" placeholder="Current price" style="border: none;" required autocomplete="off" inputmode="numeric" min="0.00" step="0.01" autofocus>
@@ -128,7 +128,7 @@
 						<small class="d-block text-xs text-muted">Add an amount from trades or other options to fund coffers.</small>
 					</div>
 				</div>
-				<form method="POST" id="fundCoffersForm" action="<?= PROOT; ?>auth/add.amount.to.coffers.php">
+				<form method="POST" id="fundCoffersForm" action="<?= PROOT; ?>auth/add.amount.to.coffers.php" autocomplete="off">
 					<div class="modal-body">
 						<div class="mb-4">
 							<label class="form-label">Today's Date</label> 
@@ -188,6 +188,10 @@
     <script src="<?= PROOT; ?>assets/js/theme.bundle.js"></script>
 
     <script type="text/javascript">
+
+        // check if browser is online
+        var x = "Is the browser online? " + navigator.onLine;
+        alert(x);
 
         // activate left nav link upon url
 

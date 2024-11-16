@@ -97,8 +97,18 @@
               		<div class="card-body">
                 		<div class="row align-items-center">
 							<div class="col">
+								<style>
+									.hide {
+									display: none;
+									}
+
+									.myDIV:hover + .hide {
+									display: block;
+									color: red;
+									}
+								</style>
 								<!-- Heading -->
-								<h4 class="fs-base fw-normal text-body-secondary mb-1">
+								<h4 class="myDIV fs-base fw-normal text-body-secondary mb-1">
 									<?php 
 										if (admin_has_permission()) {
 											echo 'Capital';
@@ -109,6 +119,8 @@
 										}
 									?>
 								</h4>
+								<div class="hide">I am shown when someone hovers over the div above.</div>
+
 
 								<!-- Text -->
 								<div class="fs-5 fw-semibold">
@@ -304,7 +316,7 @@
 					<div class="d-flex gap-8 justify-content-center mb-5">
 						<a href="javascript:;" class="text-lg fw-bold text-heading">Push</a> <span class="opacity-10">~></span> <a href="javascript:;" class="text-lg fw-bold text-muted"><?= ((admin_has_permission('supervisor')) ? 'Money' : 'Gold'); ?></a>
 					</div>
-					<form class="vstack gap-6" method="POST" id="sendMGForm" action="<?= PROOT; ?>auth/make.push.php">
+					<form class="vstack gap-6" method="POST" id="sendMGForm" action="<?= PROOT; ?>auth/make.push.php" autocomplete="off">
                         <div id="">
                             <div class="vstack gap-2">
 								<div class="form-check">
