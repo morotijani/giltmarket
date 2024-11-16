@@ -1184,8 +1184,7 @@ function get_recent_trades($admin) {
 	$output = '';
 	$runningCapital = find_capital_given_to($admin);
 
-	if (is_array($runningCapital)) {	
-
+	if (is_array($runningCapital)) { 
 		$sql = "
 			SELECT * FROM jspence_sales 
 			WHERE sale_daily = ? 
@@ -1260,20 +1259,6 @@ function get_recent_trades($admin) {
 	}
 
 	return $output;
-}
-
-
-// 
-function count_new_delete_requests($conn) {
-	 // Get new delete requests
-    $requestNumber = $conn->query("SELECT * FROM jspence_sales WHERE sale_delete_request_status = 1")->rowCount();
-
-    if (admin_has_permission()) {
-	    return '
-	    	<span class="badge badge-sm rounded-pill me-n2 bg-danger-subtle text-danger ms-auto">' . $requestNumber . '</span>
-	    ';
-    }
-	return '';
 }
 
 //

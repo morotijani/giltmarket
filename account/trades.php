@@ -187,13 +187,8 @@
                                         <a class="nav-link bg-dark active" aria-current="page" href="<?= PROOT; ?>account/trades">All trades <?= $trades_count; ?></a>
                                     </li>
                                     <li class="nav-item">
-                                        <a class="nav-link" href="<?= PROOT; ?>account/trades.delete.requests">Delete request <?= count_new_delete_requests($conn); ?></a>
-                                    </li>
-                                    <?php if (admin_has_permission()) { ?>
-                                    <li class="nav-item">
                                         <a class="nav-link" href="<?= PROOT; ?>account/trades.archive">Archive</a>
                                     </li>
-                                    <?php } ?>
                                 </ul>
                             </div>
                             <div class="col-12 col-lg">

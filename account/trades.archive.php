@@ -2,57 +2,15 @@
 
     // view admin profile details
     require_once ("../db_connection/conn.php");
-
     if (!admin_is_logged_in()) {
         admin_login_redirect();
-    }
-    // check for permissions
-    if (!admin_has_permission()) {
-        admin_permission_redirect('index');
     }
     include ("../includes/header.inc.php");
     include ("../includes/aside.inc.php");
     include ("../includes/left.nav.inc.php");
     include ("../includes/top.nav.inc.php");
 
-    // delete sale
-    if (isset($_GET['pd']) && !empty($_GET['pd'])) {
-        $id = sanitize($_GET['pd']);
-
-        $check = $conn->query("SELECT * FROM jspence_sales WHERE sale_id = '".$id."' AND sale_status = 1")->rowCount();
-        if ($check > 0) {
-            // code...
-            $query = "
-                UPDATE jspence_sales 
-                SET sale_status = ?, sale_delete_request_status = ?
-                WHERE sale_id = ?
-            ";
-            $statement = $conn->prepare($query);
-            $result = $statement->execute([2, 0, $id]);
-            if (isset($result)) {
-                $message = "deleted sale from sale requests";
-                add_to_log($message, $admin_data['admin_id']);
-
-                $_SESSION['flash_success'] = "Sale deleted successfully!";
-                redirect(PROOT . 'acc/trades.delete.requests');
-            } else {
-                $message = "tried to delete a sale from sale requests but 'Something went wrong.'";
-                add_to_log($message, $admin_data['admin_id']);
-                echo js_alert("Something went wrong, please try again!");
-            }
-        } else {
-            $message = "tried to delete a sale from sale requests but 'Could not find trade to delete.'";
-            add_to_log($message, $admin_data['admin_id']);
-
-            $_SESSION['flash_error'] = "Could not find trade to delete!";
-            redirect(PROOT . 'acc/trades.delete.requests');
-        }
-    }
-
-
-
 ?>
-
 
     <!-- Content -->
     <div class="container-lg">
@@ -69,12 +27,12 @@
                 <nav aria-label="breadcrumb">
                     <ol class="breadcrumb mb-2">
                         <li class="breadcrumb-item"><a class="text-body-secondary" href="#">Market</a></li>
-                        <li class="breadcrumb-item active" aria-current="page">Archived</li>
+                        <li class="breadcrumb-item active" aria-current="page">Trades</li>
                     </ol>
                 </nav>
 
                 <!-- Heading -->
-                <h1 class="fs-4 mb-0">Trades</h1>
+                <h1 class="fs-4 mb-0">Delete trade request(s)</h1>
             </div>
             <div class="col-12 col-sm-auto mt-4 mt-sm-0">
                 <!-- Action -->
@@ -94,13 +52,8 @@
                                         <a class="nav-link" href="<?= PROOT; ?>account/trades">All trades</a>
                                     </li>
                                     <li class="nav-item">
-                                        <a class="nav-link" aria-current="page" href="<?= PROOT; ?>account/trades.delete.requests">Delete request <?= count_new_delete_requests($conn); ?></a>
+                                        <a class="nav-link bg-dark active" aria-current="page" href="<?= PROOT; ?>account/trades.archive">Archive trades</a>
                                     </li>
-                                    <?php if (admin_has_permission()) { ?>
-                                    <li class="nav-item">
-                                        <a class="nav-link bg-dark active" href="<?= PROOT; ?>account/trades.archive">Archive</a>
-                                    </li>
-                                    <?php } ?>
                                 </ul>
                             </div>
                             <div class="col-12 col-lg">
@@ -132,7 +85,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <?= fetch_all_sales(2, $admin_data['admin_permissions'], $admin_data['admin_id'], 'no_exp'); ?>
+                    <?= fetch_all_sales(1, $admin_data['admin_id'], 'no_exp'); ?>
                 </tbody>
             </table>
         </div>

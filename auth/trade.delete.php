@@ -39,14 +39,35 @@
                             ";
                             $statement = $conn->prepare($sql);
                             $result = $statement->execute([1, $reason, $id]);
-                            if (isset($result)) {                
-                                $message = "delete request for trade id: '".$id."'";
+                            if (isset($result)) {      
+
+                                // update sale capital balance
+                                $saleAmt = $find[0]['sale_total_amount'];
+                
+                                $updateQuery = "
+                                    UPDATE jspence_daily 
+                                    SET daily_balance = daily_balance + ? 
+                                    WHERE daily_id = ?
+                                ";
+                                if ($find[0]['sale_type'] == 'in') {
+                                    $updateQuery = "
+                                        UPDATE jspence_daily 
+                                        SET daily_balance = daily_balance - ? 
+                                        WHERE daily_id = ?
+                                    ";
+                                }
+                                
+                                $statement = $conn->prepare($updateQuery);
+                                $statement->execute([$saleAmt, $id]);
+                                
+                                $message = "deleted sale from sale requests";
                                 add_to_log($message, $admin_data['admin_id']);
 
-                                $_SESSION['flash_success'] = ' Sale delete request successfully sent!';
+                                $_SESSION['flash_success'] = ' Sale delete request successfully!';
                                 redirect(PROOT . 'account/trades');
                             } else {
                                 echo js_alert("Something went wrong, please try again!");
+                                redirect(PROOT . 'account/trades');
                             }
                             
                         } else {
