@@ -278,7 +278,7 @@ function _gained_calculation($balance, $capital, $admin) {
 		$output = (float)($balance - $capital);
 	}
 
-	return money($output);
+	return $output;
 }
 
 // get pushes
