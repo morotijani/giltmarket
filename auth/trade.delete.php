@@ -26,32 +26,37 @@
 		if (count($find) > 0) {
 			if (isset($_POST['admin_pin'])) {
 				if (!empty($_POST['admin_pin']) || $_POST['admin_pin'] != '') {
+                    if (!empty($_POST['reason']) || $_POST['reason'] != '') {
 
-					$reason = ((isset($_POST['reason']) && !empty($_POST['reason'])) ? sanitize($_POST['reason']) : '');
-					$pin = ((isset($_POST['admin_pin']) && !empty($_POST['admin_pin'])) ? sanitize($_POST['admin_pin']) : '');
-					if ($pin == $admin_data['admin_pin']) {
-                        
-                        $sql = "
-                            UPDATE jspence_sales 
-                            SET sale_status = ?, sale_delete_request_reason = ?
-                            WHERE sale_id = ?
-                        ";
-                        $statement = $conn->prepare($sql);
-                        $result = $statement->execute([1, $reason, $id]);
-                        if (isset($result)) {                
-                            $message = "delete request for trade id: '".$id."'";
-                            add_to_log($message, $admin_data['admin_id']);
+                        $reason = ((isset($_POST['reason']) && !empty($_POST['reason'])) ? sanitize($_POST['reason']) : '');
+                        $pin = ((isset($_POST['admin_pin']) && !empty($_POST['admin_pin'])) ? sanitize($_POST['admin_pin']) : '');
+                        if ($pin == $admin_data['admin_pin']) {
+                            
+                            $sql = "
+                                UPDATE jspence_sales 
+                                SET sale_status = ?, sale_delete_request_reason = ?
+                                WHERE sale_id = ?
+                            ";
+                            $statement = $conn->prepare($sql);
+                            $result = $statement->execute([1, $reason, $id]);
+                            if (isset($result)) {                
+                                $message = "delete request for trade id: '".$id."'";
+                                add_to_log($message, $admin_data['admin_id']);
 
-                            $_SESSION['flash_success'] = ' Sale delete request successfully sent!';
-                            redirect(PROOT . 'account/trades');
+                                $_SESSION['flash_success'] = ' Sale delete request successfully sent!';
+                                redirect(PROOT . 'account/trades');
+                            } else {
+                                echo js_alert("Something went wrong, please try again!");
+                            }
+                            
                         } else {
-                            echo js_alert("Something went wrong, please try again!");
+                            $_SESSION['flash_error'] = 'Invalid admin pin provided!';
+                            redirect(PROOT . 'auth/trade.delete/' . $id);
                         }
-						
-					} else {
-						$_SESSION['flash_error'] = 'Invalid admin pin provided!';
-						redirect(PROOT . 'auth/trade.delete/' . $id);
-					}
+                    } else {
+                        $_SESSION['flash_error'] = 'Provide reason why you are to delete this trade!';
+                        redirect(PROOT . 'auth/trade.delete/' . $id);
+                    }
 					
 				} else {
 					$_SESSION['flash_error'] = 'Provide admin pin to verify this deletion!';
@@ -105,7 +110,7 @@
           	</div>
           	<div class="col-12 col-lg-9" data-bs-spy="scroll" data-bs-target="#accountNav" data-bs-smooth-scroll="true" tabindex="0">
 				<!-- General -->
-				<section class="card bg-body-tertiary border-transparent mb-5" id="general">
+				<section class="card bg-body-tertiary border-transparent mb-5">
 					<div class="card-body">
 						<h2 class="fs-5 mb-1">Delete trade with an amount equivallent to <?= money($find[0]['sale_total_amount']); ?></h2>
 						<p class="text-body-secondary">You are to delete a trade you made; 
