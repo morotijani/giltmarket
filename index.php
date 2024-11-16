@@ -97,16 +97,6 @@
               		<div class="card-body">
                 		<div class="row align-items-center">
 							<div class="col">
-								<style>
-									.hide {
-									display: none;
-									}
-
-									.myDIV:hover + .hide {
-									display: block;
-									color: red;
-									}
-								</style>
 								<!-- Heading -->
 								<h4 class="myDIV fs-base fw-normal text-body-secondary mb-1">
 									<?php 
