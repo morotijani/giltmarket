@@ -98,7 +98,7 @@
                 		<div class="row align-items-center">
 							<div class="col">
 								<!-- Heading -->
-								<h4 class="myDIV fs-base fw-normal text-body-secondary mb-1">
+								<h4 class="des fs-base fw-normal text-body-secondary mb-1">
 									<?php 
 										if (admin_has_permission()) {
 											echo 'Capital';
@@ -109,7 +109,17 @@
 										}
 									?>
 								</h4>
-								<div class="hide">I am shown when someone hovers over the div above.</div>
+								<div class="hide">
+								<?php 
+										if (admin_has_permission()) {
+											echo 'Sum of all capital given to admins to trade (both gold and cash).';
+										} else if (admin_has_permission('supervisor')) {
+											echo 'The remaining amount of gold you\'ve sold so far.';
+										} else {
+											echo 'The total amount of cash given to make trades for today.';
+										}
+									?>
+								</div>
 
 
 								<!-- Text -->
@@ -142,10 +152,22 @@
 							<div class="col">
 								<!-- Heading -->
 								<?php if (admin_has_permission()) : ?>
-									<h4 class="fs-base fw-normal text-body-secondary mb-1"> Trades </h4>
+									<h4 class="fs-base fw-normal text-body-secondary mb-1 des"> Trades </h4>
 								<?php else: ?>
-									<h4 class="fs-base fw-normal text-body-secondary mb-1"><?= ((admin_has_permission('supervisor')) ? 'Sold' : 'Balance'); ?></h4>
+									<h4 class="fs-base fw-normal text-body-secondary mb-1 des"><?= ((admin_has_permission('supervisor')) ? 'Sold' : 'Balance'); ?></h4>
 								<?php endif; ?>
+
+								<div class="hide">
+								<?php 
+										if (admin_has_permission()) {
+											echo 'Total amount of trades made today.';
+										} else if (admin_has_permission('supervisor')) {
+											echo 'Sum of gold that has been sold to customers.';
+										} else {
+											echo 'The remaining amount of money left to trade.';
+										}
+									?>
+								</div>
 
 								<!-- Text -->
 								<div class="fs-5 fw-semibold"><?= ((admin_has_permission()) ? total_trades_amount_today() : money(_capital($admin_id)['today_balance'])); ?></div>
