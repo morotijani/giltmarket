@@ -121,7 +121,7 @@ if ($total_data > 0) {
 			<div class="d-flex justify-content-center">
 				<!-- <button class="btn btn-sm btn-dark"><i class="bi bi-receipt me-2"></i>Print receipt</button>&nbsp -->
 
-				' . (($row["sdate"] == date("Y-m-d")) ? '<a href="#deleteModal_'. $row["sid"] . '" data-bs-toggle="modal" class="btn btn-danger"><span class="material-symbols-outlined me-2"> delete </span> Delete</a>' : '') . '
+				' . (($row["sdate"] == date("Y-m-d") && $row["sale_pushed"] == 0) ? '<a href="#deleteModal_'. $row["sid"] . '" data-bs-toggle="modal" class="btn btn-danger"><span class="material-symbols-outlined me-2"> delete </span> Delete</a>' : '') . '
 			</div>
         ';
 		if ($row['sale_type'] == 'exp') {
