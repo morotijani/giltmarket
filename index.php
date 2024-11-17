@@ -8,7 +8,7 @@
 		admin_login_redirect();
 	}
 	// check if user is iddle 
-	idle_user();
+	dnd(idle_user());
 	
 	//
 	if (is_array(capital_mover($admin_id)) && capital_mover($admin_id)["msg"] == "touched") {

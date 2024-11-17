@@ -327,14 +327,14 @@ function adminLogin($admin_id) {
 			date("Y-m-d H:i:s")
 		]);
 
-		$_SESSION['last_activity'] = strtotime($admin_data['admin_last_login']);
+		$_SESSION['last_activity'] = time();
 		$_SESSION['flash_success'] = 'You are now logged in!';
 		redirect(PROOT . 'index');
 	}
 }
 
 function admin_is_logged_in() {
-	if (isset($_SESSION['JSAdmin']) && $_SESSION['JSAdmin'] > 0 && $_SESSION['JSAdmin'] === true) {
+	if (isset($_SESSION['JSAdmin']) && $_SESSION['JSAdmin'] > 0) {
 		return true;
 	}
 	return false;
