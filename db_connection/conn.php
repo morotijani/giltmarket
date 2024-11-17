@@ -54,40 +54,9 @@
 		
  	}
 
-	// check if user is iddle 
-
 	// Check if the user is logged in
-	// if (isset($_SESSION['JSAdmin']) && $_SESSION['JSAdmin'] === true) {
-	// 	// Check the last activity time
-	// 	if (isset($_SESSION['last_activity'])) {
-	// 		$idleTime = time() - $_SESSION['last_activity'];
 
-	// 		// If the idle time exceeds the timeout period
-	// 		if ($idleTime > IDLE_TIMEOUT) {
-
-	// 			//
-	// 			$log_msg = "Session expired.";
-	// 			add_to_log($log_msg, $admin_id);
-
-	// 			// Destroy the session and log out the user
-	// 			session_unset();
-	// 			session_destroy();
-
-	// 			// Redirect to the login page or show a message
-	// 			$_SESSION['flash_error'] = 'Session expired. Please log in again!';
-	// 			redirect(PROOT . 'auth/login');
-	// 			exit;
-	// 		}
-	// 	}
-
-	// 	// Update the last activity timestamp
-	// 	$_SESSION['last_activity'] = time();
-	// } else {
-	// 	// If not logged in, redirect to login page
-	// 	header("Location: login.php");
-	// 	exit;
-	// }
-
+	
  	// Display on Messages on Errors And Success
  	$flash = '';
  	if (isset($_SESSION['flash_success'])) {

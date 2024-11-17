@@ -334,7 +334,7 @@ function adminLogin($admin_id) {
 }
 
 function admin_is_logged_in() {
-	if (isset($_SESSION['JSAdmin']) && $_SESSION['JSAdmin'] > 0) {
+	if (isset($_SESSION['JSAdmin']) && $_SESSION['JSAdmin'] > 0 && $_SESSION['JSAdmin'] === true) {
 		return true;
 	}
 	return false;
