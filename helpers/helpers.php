@@ -71,7 +71,6 @@ function php_url_slug($string) {
  	return $slug;
 }
 
-
 // REDIRECT PAGE
 function redirect($url) {
     if(!headers_sent()) {
@@ -173,7 +172,6 @@ function send_email($name, $to, $subject, $body) {
     }
 }
 
-
 // Generate UUID VERSION 4
 function guidv4($data = null) {
     // Generate 16 bytes (128 bits) of random data or use the data passed into the function.
@@ -258,6 +256,38 @@ function goBack() {
 }
 
 
+function idle_user() {
+
+// Check if the user is logged in
+if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] === true) {
+    // Check the last activity time
+    if (isset($_SESSION['last_activity'])) {
+        $idleTime = time() - $_SESSION['last_activity'];
+
+        // If the idle time exceeds the timeout period
+        if ($idleTime > IDLE_TIMEOUT) {
+            // Destroy the session and log out the user
+            session_unset();
+            session_destroy();
+
+            // Redirect to the login page or show a message
+            header("Location: login.php?message=Session expired. Please log in again.");
+            exit;
+        }
+    }
+
+    // Update the last activity timestamp
+    $_SESSION['last_activity'] = time();
+} else {
+    // If not logged in, redirect to login page
+    header("Location: login.php");
+    exit;
+}
+
+// Rest of your protected page code goes here
+echo "Welcome! You are logged in.";
+}
+
 
 
 
@@ -269,6 +299,7 @@ function goBack() {
 // Sessions For login
 function adminLogin($admin_id) {
 	$_SESSION['JSAdmin'] = $admin_id;
+	$_SESSION['last_activity'] = strtotime("now");
 	global $conn;
 
 	$data = array(date("Y-m-d H:i:s"), $admin_id);
