@@ -1,6 +1,9 @@
 <?php 
+	// index page
+	
     require_once ("db_connection/conn.php");
 
+	// Check if the user is logged in
 	if (!admin_is_logged_in()) {
 		admin_login_redirect();
 	}

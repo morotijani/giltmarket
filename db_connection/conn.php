@@ -52,10 +52,7 @@
 			redirect(PROOT);
 		}
 		
- 	}
-
-	// Check if the user is logged in
-
+	}
 	
  	// Display on Messages on Errors And Success
  	$flash = '';
