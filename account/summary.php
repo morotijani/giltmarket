@@ -350,11 +350,11 @@
                                                             $tp = get_total_pushes($conn, $admin_id, date("Y-m-d"));
                                                             $tp_count = 0;
                                                             if (is_array($tp)) {
+                                                                $tp_count = $tp["count"];
                                                                 echo money($tp["sum"]);
                                                             } else {
                                                                 echo money(0);
                                                             }
-                                                            
                                                         ?>
                                                         </div>
                                                     <p class="mt-1">
@@ -382,10 +382,21 @@
                                                     <h4 class="fs-base fw-normal text-body-secondary mb-1">Send Pushes (<?= ((admin_has_permission("supervisor")) ? 'Money' : 'Gold'); ?>)</h4>
 
                                                     <!-- Text -->
-                                                    <div class="fs-5 fw-semibold" id="total-trades"><?php $ps = get_total_send_push($conn, $admin_id, date("Y-m-d")); echo money($ps["sum"]); ?></div>
+                                                    <div class="fs-5 fw-semibold" id="total-trades">
+                                                        <?php 
+                                                            $ps = get_total_send_push($conn, $admin_id, date("Y-m-d"));
+                                                            $ps_count = 0;
+                                                            if (is_array($tp)) {
+                                                                $ps_count = $ps["count"];
+                                                                echo money($ps["sum"]);
+                                                            } else {
+                                                                echo money(0);
+                                                            }
+                                                        ?>
+                                                    </div>
                                                     <p class="mt-1">
                                                         <span class="text-success text-xs"><i class="fas fa-arrow-up me-1"></i>Count: </span>
-                                                        <span class="text-muted text-xs text-opacity-75" id=""><?= $ps["count"]; ?></span>
+                                                        <span class="text-muted text-xs text-opacity-75" id=""><?= $ps_count; ?></span>
                                                     </p>
                                                 </div>
                                                 <div class="col-auto">
@@ -408,10 +419,21 @@
                                                     <h4 class="fs-base fw-normal text-body-secondary mb-1">Receive Pushes (<?= ((admin_has_permission("supervisor")) ? 'Gold' : 'Money'); ?>)</h4>
 
                                                     <!-- Text -->
-                                                    <div class="fs-5 fw-semibold" id="total-trades"><?php $pr = get_total_receive_push($conn, $admin_id, date("Y-m-d")); echo money($pr["sum"]); ?></div>
+                                                    <div class="fs-5 fw-semibold" id="total-trades">
+                                                        <?php 
+                                                            $pr = get_total_receive_push($conn, $admin_id, date("Y-m-d"));
+                                                            $pr_count = 0;
+                                                            if (is_array($tp)) {
+                                                                $pr_count = $pr["count"];
+                                                                echo money($pr["sum"]);
+                                                            } else {
+                                                                echo money(0);
+                                                            }
+                                                        ?>
+                                                        </div>
                                                     <p class="mt-1">
                                                         <span class="text-success text-xs"><i class="fas fa-arrow-up me-1"></i>Count: </span>
-                                                        <span class="text-muted text-xs text-opacity-75" id=""><?= $pr['count']; ?></span>
+                                                        <span class="text-muted text-xs text-opacity-75" id=""><?= $pr_count; ?></span>
                                                     </p>
                                                 </div>
                                                 <div class="col-auto">
