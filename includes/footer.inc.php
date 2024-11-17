@@ -259,7 +259,7 @@
 
             // check user iddleness
             function is_idle() {
-                var type = 'iddle';
+                var type = 'idle';
 
                 $.ajax ({
                     method : "POST",
@@ -276,8 +276,8 @@
             // setInterval(updateTime, 1000);
 
             setInterval(() => {
-                // is_idle()
-            }, 1000);
+                is_idle()
+            }, 30000); // referesh after every 30sec
 
             // executing a function after the user has stopped typing for a specified amount of time or in events that fire at a high rate
             function delay(callback, ms) {

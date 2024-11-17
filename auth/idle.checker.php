@@ -5,15 +5,12 @@
 
     if (isset($_POST['type'])) 
         if ($_POST['type'] == 'idle') {
-            
-            $a = idle_user();
-            if (!$a) {
-                echo 'idle';
-
+            if (!idle_user()) {
+                
                 session_unset();
                 session_destroy();
 
-                
+                echo 'idle';
     
                 // Redirect to the login page or show a message
                 // $_SESSION['flash_error'] = 'Session expired. Please log in again!';
@@ -21,6 +18,4 @@
                 // exit;
             }
         }
-        
-        
     
