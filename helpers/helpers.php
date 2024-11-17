@@ -258,8 +258,6 @@ function goBack() {
 
 function idle_user() {
 
-// Check if the user is logged in
-if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] === true) {
     // Check the last activity time
     if (isset($_SESSION['last_activity'])) {
         $idleTime = time() - $_SESSION['last_activity'];
@@ -271,25 +269,16 @@ if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] === true) {
             session_destroy();
 
             // Redirect to the login page or show a message
-            header("Location: login.php?message=Session expired. Please log in again.");
+			$_SESSION['flash_error'] = 'Session expired. Please log in again!';
+			redirect(PROOT . 'auth/login');
             exit;
         }
     }
 
     // Update the last activity timestamp
     $_SESSION['last_activity'] = time();
-} else {
-    // If not logged in, redirect to login page
-    header("Location: login.php");
-    exit;
+	return true;
 }
-
-// Rest of your protected page code goes here
-echo "Welcome! You are logged in.";
-}
-
-
-
 
 /////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -299,7 +288,6 @@ echo "Welcome! You are logged in.";
 // Sessions For login
 function adminLogin($admin_id) {
 	$_SESSION['JSAdmin'] = $admin_id;
-	$_SESSION['last_activity'] = strtotime("now");
 	global $conn;
 
 	$data = array(date("Y-m-d H:i:s"), $admin_id);
@@ -339,12 +327,13 @@ function adminLogin($admin_id) {
 			date("Y-m-d H:i:s")
 		]);
 
+		$_SESSION['last_activity'] = time();
 		$_SESSION['flash_success'] = 'You are now logged in!';
 		redirect(PROOT . 'index');
 	}
 }
 
-function admin_is_logged_in(){
+function admin_is_logged_in() {
 	if (isset($_SESSION['JSAdmin']) && $_SESSION['JSAdmin'] > 0) {
 		return true;
 	}
