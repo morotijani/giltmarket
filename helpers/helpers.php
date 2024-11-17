@@ -265,13 +265,14 @@ function idle_user() {
         // If the idle time exceeds the timeout period
         if ($idleTime > IDLE_TIMEOUT) {
             // Destroy the session and log out the user
-            session_unset();
-            session_destroy();
+            //session_unset();
+            //session_destroy();
 
             // Redirect to the login page or show a message
 			// $_SESSION['flash_error'] = 'Session expired. Please log in again!';
-			redirect(PROOT . 'auth/login');
-            exit;
+			//redirect(PROOT . 'auth/login');
+            //exit;
+			return false;
         }
     }
 
