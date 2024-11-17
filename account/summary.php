@@ -345,10 +345,21 @@
                                                     <h4 class="fs-base fw-normal text-body-secondary mb-1">Total Pushes</h4>
 
                                                     <!-- Text -->
-                                                    <div class="fs-5 fw-semibold" id="total-trades"><?php $tp = get_total_pushes($conn, $admin_id, date("Y-m-d")); echo money($tp["sum"]); ?></div>
+                                                    <div class="fs-5 fw-semibold" id="total-trades">
+                                                        <?php 
+                                                            $tp = get_total_pushes($conn, $admin_id, date("Y-m-d"));
+                                                            $tp_count = 0;
+                                                            if (is_array($tp)) {
+                                                                echo money($tp["sum"]);
+                                                            } else {
+                                                                echo money(0);
+                                                            }
+                                                            
+                                                        ?>
+                                                        </div>
                                                     <p class="mt-1">
                                                         <span class="text-success text-xs"><i class="fas fa-arrow-up me-1"></i>Count: </span>
-                                                        <span class="text-muted text-xs text-opacity-75" id=""><?= $tp["count"]; ?></span>
+                                                        <span class="text-muted text-xs text-opacity-75" id=""><?= $tp_count; ?></span>
                                                     </p>
                                                 </div>
                                                 <div class="col-auto">

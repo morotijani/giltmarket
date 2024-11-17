@@ -381,6 +381,7 @@ function get_total_send_push($conn, $admin, $d = null) {
 function get_total_receive_push($conn, $admin, $d) {
 
 	$type = (admin_has_permission('supervisor') ? "gold" : "money");
+	$runningCapital = find_capital_given_to($admin);
 	$output = [];
 
 	if (is_array($runningCapital)) {
@@ -416,16 +417,20 @@ function get_total_pushes($conn, $admin, $d) {
 
 	$s = get_total_send_push($conn, $admin, $d);
 	$r = get_total_receive_push($conn, $admin, $d);
+	
+	if (count($s) > 0 && count($r) > 0) {
 
-	$sum = ((float)$s["sum"] + $r["sum"]);
-	$count = ((int)$s["count"] + $r["count"]);
+		$sum = ((float)$s["sum"] + $r["sum"]);
+		$count = ((int)$s["count"] + $r["count"]);
 
-	$array = [
-		"sum" => $sum, 
-		"count" => $count
-	];
+		$array = [
+			"sum" => $sum, 
+			"count" => $count
+		];
 
-	return $array;
+		return $array;
+	}
+	return false;
 }
 
 
