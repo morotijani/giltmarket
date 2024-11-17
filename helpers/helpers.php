@@ -269,7 +269,7 @@ function idle_user() {
             session_destroy();
 
             // Redirect to the login page or show a message
-			$_SESSION['flash_error'] = 'Session expired. Please log in again!';
+			// $_SESSION['flash_error'] = 'Session expired. Please log in again!';
 			redirect(PROOT . 'auth/login');
             exit;
         }
