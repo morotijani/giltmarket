@@ -7,6 +7,7 @@
 	if (!admin_is_logged_in()) {
 		admin_login_redirect();
 	}
+	// check if user is iddle 
 	idle_user();
 	
 	//
