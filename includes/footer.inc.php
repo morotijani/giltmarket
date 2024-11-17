@@ -258,14 +258,15 @@
         $(document).ready(function() {
 
             // check user iddleness
-            function is_iddle() {
+            function is_idle() {
                 var type = 'iddle';
 
                 $.ajax ({
                     method : "POST",
-                    url : "<?= PROOT; ?>auth/iddle.checker.php",
+                    url : "<?= PROOT; ?>auth/idle.checker.php",
                     data : { type : type},
                     success : function (data) {
+                        console.log(data);
                         if (data != '') {
                             window.location.href = "<?= PROOT; ?>auth/login"
                         }
@@ -275,7 +276,7 @@
             // setInterval(updateTime, 1000);
 
             setInterval(() => {
-                is_iddle()
+                // is_idle()
             }, 1000);
 
             // executing a function after the user has stopped typing for a specified amount of time or in events that fire at a high rate
