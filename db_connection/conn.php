@@ -94,7 +94,8 @@
  	 	$flash = '
  	 		<div class="alert alert-success" id="temporary" style="border-left: 6px solid gold;">
  	 			' . $_SESSION['flash_success'] . '
- 	 		</div>';
+ 	 		</div>
+		';
  	 	unset($_SESSION['flash_success']);
  	}
 
@@ -102,6 +103,7 @@
  	 	$flash = '
  	 		<div class="alert alert-danger" id="temporary" style="border-left: 6px solid gold;">
  	 			' . $_SESSION['flash_error'] . '
- 	 		</div>';
+ 	 		</div>
+		';
  	 	unset($_SESSION['flash_error']);
  	}
