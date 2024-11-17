@@ -64,7 +64,12 @@ input[type=number] {
   -moz-appearance: textfield;
 }
 
+
+
+
 /*  */
+
+
 .w-rem-40 {
     width: 10rem !important;
 }
@@ -147,6 +152,21 @@ input[type=number] {
     --x-btn-hover-border-color: var(--x-gray-700);
 }
 
+
+.hide {
+    display: none;
+}
+
+.des:hover + .hide {
+    display: block;
+    color: red;
+}
+
+
+
+
+
+
 #buyForm input, #buyForm textarea {
     box-shadow: none;
     border-color: none;
@@ -167,3 +187,4 @@ input[type=number] {
 #pin:focus {
     box-shadow: none;
 }
+
