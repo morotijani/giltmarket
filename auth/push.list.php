@@ -101,7 +101,9 @@ if ($total_data > 0) {
                 <td>' . $i . '</td>
                 <td>' . $row["push_id"] . '</td>
                 <td>' . money($row["push_amount"]) .'</td>
-                <td>' . ucwords($_from['admin_fullname']) . '</a></td>
+                <td>
+					' . ucwords($_from['admin_fullname']) . ' ' . (($row["push_from_where"] == 'physical-cash') ? '<small class="text-muted"><br>using, Physical cash.</small>' : '') . '
+				</td>
                 <td>' . ucwords($__to) . '</td>
                 <td>' . $s . '</td>
                 <td>'. pretty_date($row["pca"]) .'</td>
