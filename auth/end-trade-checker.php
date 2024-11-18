@@ -110,7 +110,15 @@
                                             <h4 class="fs-sm fw-normal text-body-secondary mb-1">Balance</h4>
 
                                             <!-- Text -->
-                                            <div class="fs-4 fw-semibold"><?= money($capital_mover["balance"]); ?></div>
+                                            <div class="fs-4 fw-semibold">
+                                                <?php 
+                                                    if (admin_has_permission('supervisor')) {
+                                                        echo money(remaining_gold_balance($admin_id));
+                                                    } elseif (admin_has_permission('salesperson')) {
+                                                        echo money($capital_mover["balance"]);
+                                                    }
+                                                ?>
+                                            </div>
                                         </div>
                                         <div class="col-auto">
                                             <!-- Avatar -->
