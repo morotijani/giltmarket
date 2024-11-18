@@ -141,7 +141,7 @@
 								$push_note
 							];
 							$sql = "
-								INSERT INTO jspence_pushes (push_id, push_daily, push_amount, push_type, push_from, push_to, push_on, push_data, push_note) 
+								INSERT INTO jspence_pushes (push_id, push_daily, push_amount, push_type, push_from, push_to, push_from_where, push_data, push_note) 
 								VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
 							";
 							$statement = $conn->prepare($sql);
