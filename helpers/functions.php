@@ -362,6 +362,9 @@ function get_total_send_push($conn, $admin, $d = null) {
 			WHERE jspence_pushes.push_from = ? 
 			AND jspence_pushes.push_date = ?
 		";
+		if (admin_has_permission('supervisor')) {
+			$query .= " AND push_from_where != 'physical-cash'";
+		}
 		$statement = $conn->prepare($query);
 		$result = $statement->execute([$admin, $runningCapital['daily_date']]);
 		$row = $statement->fetchAll();
