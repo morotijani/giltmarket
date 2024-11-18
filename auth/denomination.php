@@ -165,7 +165,7 @@ if (array_key_exists('postdata', $_SESSION)) {
                 // insert gold to pushes
                 $push_Data = [$push_id, $daily_id, $gold_balance, 'gold', $admin_id, $push_to, 'end-trade', $pushGoldData];
                 $SQL = "
-                    INSERT INTO jspence_pushes (push_id, push_daily, push_amount, push_type, push_from, push_to, push_on, push_data) 
+                    INSERT INTO jspence_pushes (push_id, push_daily, push_amount, push_type, push_from, push_to, push_from_where, push_data) 
                     VALUES (?, ?, ?, ?, ?, ?, ?, ?)
                 ";
                 $statement = $conn->prepare($SQL);
@@ -227,7 +227,7 @@ if (array_key_exists('postdata', $_SESSION)) {
 
                 $push_data = [$push_id, $coffers_id, $cash, 'money', $admin_id, 'coffers', 'end-trade', $pushData];
                 $sql = "
-                    INSERT INTO jspence_pushes (push_id, push_daily, push_amount, push_type, push_from, push_to, push_on, push_data) 
+                    INSERT INTO jspence_pushes (push_id, push_daily, push_amount, push_type, push_from, push_to, push_from_where, push_data) 
                     VALUES (?, ?, ?, ?, ?, ?, ?, ?)
                 ";
                 $statement = $conn->prepare($sql);

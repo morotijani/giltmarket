@@ -83,7 +83,7 @@
                 $sheet->setCellValue('C' . $rowCount, money($row['push_amount']));
                 $sheet->setCellValue('D' . $rowCount, ucwords($__from['admin_fullname']));
                 $sheet->setCellValue('E' . $rowCount, ucwords($__to));
-                $sheet->setCellValue('F' . $rowCount, ucwords($row["push_on"]));
+                $sheet->setCellValue('F' . $rowCount, strtoupper($row["push_from_where"]));
                 $sheet->setCellValue('G' . $rowCount, $s);
                 $sheet->setCellValue('H' . $rowCount, $row['createdAt']);
                 $rowCount++;
