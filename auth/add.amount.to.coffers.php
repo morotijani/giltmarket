@@ -44,10 +44,10 @@
                     $q = $conn->query("SELECT * FROM jspence_coffers WHERE id = '" . $LID . "' LIMIT 1")->fetchAll();
                     $coffers_id = $q[0]['coffers_id'];
 
-                    $push_data = [$push_id, $coffers_id, $add_amount, $admin_id, 'coffers', $today, $push_from_where];
+                    $push_data = [$push_id, $coffers_id, $add_amount, 'money', $admin_id, 'coffers', $today, $push_from_where];
                     $sql = "
-                        INSERT INTO jspence_pushes (push_id, push_daily, push_amount, push_from, push_to, push_date, push_from_where) 
-                        VALUES (?, ?, ?, ?, ?, ?, ?)
+                        INSERT INTO jspence_pushes (push_id, push_daily, push_amount, push_type, push_from, push_to, push_date, push_from_where) 
+                        VALUES (?, ?, ?, ?, ?, ?, ?, ?)
                     ";
                     $statement = $conn->prepare($sql);
                     $statement->execute($push_data);
