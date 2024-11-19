@@ -18,6 +18,7 @@
     $thisYr = date("Y");
 	$lastYr = $thisYr - 1;
 
+    //
     $thisYrQ = "
         SELECT SUM(daily_capital) AS dc, SUM(daily_balance) AS db, jspence_daily.daily_date
         FROM `jspence_daily` 
@@ -31,7 +32,7 @@
     $statement->execute(['supervisor', $thisYr, 0]);
     $thisYr_result = $statement->fetchAll();
     
-
+    //
     $lastYrQ = "
         SELECT SUM(daily_capital) AS dc, SUM(daily_balance) AS db, jspence_daily.daily_date
         FROM `jspence_daily` 

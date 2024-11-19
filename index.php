@@ -22,25 +22,26 @@
 	$thisYr = date("Y");
 	$lastYr = $thisYr - 1;
 
+	// 
 	$thisYrQ = "
 		SELECT sale_total_amount, createdAt 
 		FROM jspence_sales 
-		WHERE YEAR(createdAt) = '{$thisYr}' 
+		WHERE YEAR(createdAt) = ? 
 		AND sale_status = 0 
 	";
 	$statement = $conn->prepare($thisYrQ);
-	$statement->execute();
+	$statement->execute([$thisYr]);
 	$thisYr_result = $statement->fetchAll();
 	
-
+	//
 	$lastYrQ = "
 		SELECT sale_total_amount, createdAt 
 		FROM jspence_sales 
-		WHERE YEAR(createdAt) = '{$lastYr}' 
+		WHERE YEAR(createdAt) = ? 
 		AND sale_status = 0 
 	";
 	$statement = $conn->prepare($lastYrQ);
-	$statement->execute();
+	$statement->execute([$lastYr]);
 	$lastYr_result = $statement->fetchAll();
 
 	$current = array();
