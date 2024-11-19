@@ -1184,12 +1184,12 @@ function get_recent_trades($admin) {
 					<tr>
 						<td>
 							<div class="d-flex align-items-center">
-								<div class="avatar text-primary">
-								<i class="fs-4" data-duoicon="book-3"></i>
+								<div class="avatar text-info">
+									<i class="fs-4" data-duoicon="align-bottom"></i>
 								</div>
 								<div class="ms-4">
-								<div>' . $row["sale_id"] . '</div>
-								<div class="fs-sm text-body-secondary">Created on ' . pretty_date($row["createdAt"]) . '</div>
+									<div>' . $row["sale_id"] . '</div>
+									<div class="fs-sm text-body-secondary">Created on ' . pretty_date($row["createdAt"]) . '</div>
 								</div>
 							</div>
 						</td>

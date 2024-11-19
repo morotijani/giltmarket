@@ -48,9 +48,12 @@ $statement->execute();
 $result = $statement->fetchAll();
 $count_filter = $statement->rowCount();
 
-$output = ' 
+$output = '
+	<div class="card">
     <div class="table-responsive mb-7">
-        <table class="table align-middle mb-0">
+        <table class="table table-flush align-middle mb-0">
+		<tbody>
+                    </tbody>
             <thead>
                 <tr>
                    <th>#</th>
@@ -394,6 +397,7 @@ $output .= '
 			</tbody>
         </table>
     </div>
+	</div>
 	<div class="row align-items-center">
         <div class="col">
             <!-- Text -->
