@@ -50,25 +50,23 @@ $count_filter = $statement->rowCount();
 
 $output = '
 	<div class="card">
-    <div class="table-responsive mb-7">
-        <table class="table table-flush align-middle mb-0">
-		<tbody>
-                    </tbody>
-            <thead>
-                <tr>
-                   <th>#</th>
-                    ' .  ((admin_has_permission()) ? '<th scope="col">Handler</th>' : '') . '
-                    <th>Customer</th>
-                    <th>Gram</th>
-                    <th>Volume</th>
-                    <th>Price</th>
-                    <th>Amount</th>
-                    <th></th>
-                    <th>Date</th>
-                    <th></th>
-                </tr>
-            </thead>
-            <tbody>
+		<div class="table-responsive mb-7">
+			<table class="table table-flush align-middle mb-0">
+				<thead>
+					<tr>
+						<th>#</th>
+						' .  ((admin_has_permission()) ? '<th scope="col">Handler</th>' : '') . '
+						<th>Customer</th>
+						<th>Gram</th>
+						<th>Volume</th>
+						<th>Price</th>
+						<th>Amount</th>
+						<th></th>
+						<th>Date</th>
+						<th></th>
+					</tr>
+				</thead>
+				<tbody>
 ';
 
 if ($total_data > 0) {
@@ -124,12 +122,12 @@ if ($total_data > 0) {
 			<div class="d-flex justify-content-center">
 				<!-- <button class="btn btn-sm btn-dark"><i class="bi bi-receipt me-2"></i>Print receipt</button>&nbsp -->
 
-				' . (($row["sdate"] == date("Y-m-d") && $row["sale_pushed"] == 0) ? '<a href="#deleteModal_'. $row["sid"] . '" data-bs-toggle="modal" class="btn btn-danger"><span class="material-symbols-outlined me-2"> delete </span> Delete</a>' : '') . '
+				' . (($row["sdate"] == date("Y-m-d") && $row["sale_pushed"] == 0) ? '<a href="#deleteModal_'. $row["sid"] . '" data-bs-toggle="modal" class="btn btn-sm btn-danger"><span class="material-symbols-outlined me-2"> delete </span> Delete</a>' : '') . '
 			</div>
         ';
 		if ($row['sale_type'] == 'exp') {
 			$option2 = '<div class="d-flex  justify-content-center">' . 
-				(($row["sdate"] == date("Y-m-d")) ? '<a href="#deleteExpModal_'. $row["sid"] . '" data-bs-toggle="modal" class="btn btn-danger"><span class="material-symbols-outlined me-2"> delete </span> Delete</a>' : '')
+				(($row["sdate"] == date("Y-m-d")) ? '<a href="#deleteExpModal_'. $row["sid"] . '" data-bs-toggle="modal" class="btn btn-sm btn-danger"><span class="material-symbols-outlined me-2"> delete </span> Delete</a>' : '')
 				. '</div>'
 			;
 		}
@@ -163,8 +161,8 @@ if ($total_data > 0) {
 	                <td>' . pretty_date($row["sca"]) . '</td>
 	                <td class="text-end">
 	                    <button type="button" class="btn btn-sm btn-dark" title="More" data-bs-target="#saleModal_' . $row["sid"] . '" data-bs-toggle="modal">
-	                       <span class="material-symbols-outlined"> table_eye </span>
-	                    </button> '.$option1.'
+	                       <span class="material-symbols-outlined"> table_eye </span> View
+	                    </button> ' . $option1 . '
 	                </td>
 	            </tr>
 
@@ -378,7 +376,6 @@ if ($total_data > 0) {
 						</div>
 					</div>
 				</div>
-		
 		';
 		$i++;
 	}
@@ -394,9 +391,9 @@ if ($total_data > 0) {
 }
 
 $output .= '
-			</tbody>
-        </table>
-    </div>
+				</tbody>
+			</table>
+		</div>
 	</div>
 	<div class="row align-items-center">
         <div class="col">

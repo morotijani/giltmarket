@@ -425,6 +425,8 @@
 
 <script>
     $(document).ready(function() {
+
+        // submit expenditure to db
         $('#submitExpenditure').on('click', function() {
             if ($('#pin').val() == '') {
 				alert("PIN is required!");
@@ -438,9 +440,10 @@
                     setTimeout(function () {
                         $('#expenditureForm').submit()
                     }, 2000)
+                } else {
+                    $('#expenditureModal').modal('hide');
+                    return false
                 }
-                $('#expenditureModal').modal('hide');
-                return false
             }
         });
 
