@@ -195,8 +195,20 @@
 									<h4 class="fs-base fw-normal text-body-secondary mb-1">Amount of Gold pushed</h4>
 
 									<!-- Text -->
-									<?php $p = get_total_send_push($conn, $admin_id); ?>
-									<div class="fs-5 fw-semibold"><?= money($p['sum']); ?></div>
+									<?php 
+										$p = '1';
+										if (admin_has_permission()) {
+											$p = get_total_pushes($conn, $admin_id, $admin_data["admin_permissions"]);
+										} else {
+											$p = get_total_send_push($conn, $admin_id);
+										}
+										dnd($p);
+										$M = 0;
+										if (is_array($p)) {
+											$M = $p['sum'];
+										}
+									?>
+									<div class="fs-5 fw-semibold"><?= money($M); ?></div>
 								</div>
 								<div class="col-auto">
 									<!-- Avatar -->

@@ -347,7 +347,7 @@
                                                     <!-- Text -->
                                                     <div class="fs-5 fw-semibold" id="total-trades">
                                                         <?php 
-                                                            $tp = get_total_pushes($conn, $admin_id, date("Y-m-d"));
+                                                            $tp = get_total_pushes($conn, $admin_id);
                                                             $tp_count = 0;
                                                             if (is_array($tp)) {
                                                                 $tp_count = $tp["count"];
@@ -533,6 +533,23 @@
         var printContent = document.getElementById(areaID).innerHTML;
         var originalContent = document.body.innerHTML;
         document.body.innerHTML = printContent;
+        $('head').append(`
+            <style>
+                @page {
+                    size: landscape;
+                }
+
+                @media print {
+                    @page {
+                        margin: 0 !important;
+                    }
+
+                    body {
+                        padding: 75px; /* This will act as your margin. Originally, the margin will hide the header and footer text. */
+                    }
+                }
+            </style>
+        `);
         window.print();
         document.body.innerHTML = originalContent;
     }

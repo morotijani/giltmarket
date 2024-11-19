@@ -348,8 +348,8 @@ function get_pushes_made($admin, $today = null) {
 }
 
 // fetch total send push made
-function get_total_send_push($conn, $admin, $d = null) {
-	$d = (($d == null) ? null : $d);
+function get_total_send_push($conn, $admin, $p = null) {
+	$permission = (($p != null) ?? $p);
 	$runningCapital = find_capital_given_to($admin);
 	$output = [];
 
@@ -362,7 +362,7 @@ function get_total_send_push($conn, $admin, $d = null) {
 			WHERE jspence_pushes.push_from = ? 
 			AND jspence_pushes.push_date = ?
 		";
-		if (admin_has_permission('supervisor')) {
+		if ($p == 'supervisor') {
 			$query .= " AND push_from_where != 'physical-cash'";
 		}
 		$statement = $conn->prepare($query);
@@ -381,8 +381,7 @@ function get_total_send_push($conn, $admin, $d = null) {
 }
 
 // fetch total receive push
-function get_total_receive_push($conn, $admin, $d) {
-
+function get_total_receive_push($conn, $admin) {
 	$type = (admin_has_permission('supervisor') ? "gold" : "money");
 	$runningCapital = find_capital_given_to($admin);
 	$output = [];
@@ -416,10 +415,10 @@ function get_total_receive_push($conn, $admin, $d) {
 }
 
 // 
-function get_total_pushes($conn, $admin, $d) {
-
-	$s = get_total_send_push($conn, $admin, $d);
-	$r = get_total_receive_push($conn, $admin, $d);
+function get_total_pushes($conn, $admin, $p = null) {
+	$permission = (($p != null) ?? $p);
+	$s = get_total_send_push($conn, $admin, $permission);
+	$r = get_total_receive_push($conn, $admin);
 	
 	if (count($s) > 0 && count($r) > 0) {
 
