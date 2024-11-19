@@ -28,9 +28,10 @@
 
         $sql = "
             SELECT 
-                SUM(jspence_daily.daily_capital) AS capital, 
-                SUM(jspence_daily.daily_balance) AS balance_sold, 
-                jspence_daily.daily_date 
+                jspence_daily.daily_capital AS capital, 
+                jspence_daily.daily_balance AS balance_sold, 
+                jspence_daily.daily_date, 
+                jspence_daily.daily_id  
             FROM jspence_daily 
             INNER JOIN jspence_admin 
             ON jspence_admin.admin_id = jspence_daily.daily_to
@@ -98,14 +99,20 @@
 
                     // accumulated
                     $earned = 0;
-                    // if ($role == "supervisor") {
-                    //     $earned = (float)($row['cb'] - $row['c']);
-                    //     if ($row['cb'] == null) {
-                    //         $earned = 0;
-                    //     }
-                    // } else if ($role == "salesperson") {
-                    //     $earned = $row["ta"] - 0; //expenditure made by salepersonnel
-                    // }
+                    if ($role == "supervisor") {
+                        $earned = (float)($row['balance_sold'] - $row['capital']);
+                        if ($row['balance_sold'] == null) {
+                            $earned = 0;
+                        }
+                    } else if ($role == "salesperson") {
+                        $exp = $conn->query("SELECT SUM(jspence_sales.sale_total_amount) AS exp_amount FROM jspence_sales WHERE jspence_sales.sale_type = 'exp' AND jspence_sales.sale_status = 0")->fetchAll();
+                        $expenditure = 0;
+                        if (is_array($exp)) {
+                            $expenditure = $exp[0]['exp_amount'];
+                        }
+
+                        $earned = ((float)$sub_row["amount"] - $expenditure); //expenditure made by salepersonnel
+                    }
 
                     $output .= '
                         <tr>
