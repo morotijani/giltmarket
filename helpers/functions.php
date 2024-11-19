@@ -851,12 +851,14 @@ function total_amount_today($admin) {
 function total_expenditure_today($admin, $option = null) {
 	global $conn;
 	$runningCapital = find_capital_given_to($admin);
+	$d = ((admin_has_permission())? null : $runningCapital['daily_id']); 
+	$date = ((admin_has_permission())? date("Y-m-d") : $runningCapital['daily_date']); 
 
 	$array = [
 		"sum" => 0,
 		"count" => 0
 	];
-	if (is_array($runningCapital)) {
+	if (is_array($runningCapital) || admin_has_permission()) {
 	
 		$sql = "
 			SELECT 
@@ -864,19 +866,19 @@ function total_expenditure_today($admin, $option = null) {
 				COUNT(id) AS c
 			FROM `jspence_sales` 
 			WHERE jspence_sales.sale_type = ? 
-			AND jspence_sales.sale_status = ?
-			AND sale_daily = ?
+			AND jspence_sales.sale_status = ? 
+			AND CAST(CreatedAt AS date) = ? 
 		";
 
 		if (!admin_has_permission()) {
-			$sql .= " AND sale_by = '" . $admin . "'";
+			$sql .= " AND sale_daily = '" . $d . "' AND sale_by = '" . $admin . "'";
 		}
 
 		$statement = $conn->prepare($sql);
 		$statement->execute([
 			'exp', 
 			(($option == 'delete') ? 1 : 0), 
-			$runningCapital['daily_id']
+			$date
 		]);
 		$row = $statement->fetchAll();
 
