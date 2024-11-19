@@ -276,7 +276,7 @@
             // setInterval(updateTime, 1000);
 
             setInterval(() => {
-                is_idle()
+               // is_idle()
             }, 300000); // referesh after every 30sec
 
             // executing a function after the user has stopped typing for a specified amount of time or in events that fire at a high rate

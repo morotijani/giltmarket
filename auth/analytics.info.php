@@ -54,13 +54,13 @@ if (isset($_POST['dater'])) {
     )->fetchAll();
 
 
-    $ins = $conn->query("SELECT SUM(sale_total_amount) AS ins_amt, CAST(jspence_sales.createdAt AS date) AS in_d FROM jspence_sales WHERE sale_type = 'in' AND sale_status = 0 $and")->fetchAll();
-    $outs = $conn->query("SELECT SUM(sale_total_amount) AS outs_amt, CAST(jspence_sales.createdAt AS date) AS out_d FROM jspence_sales WHERE sale_type = 'out' AND sale_status = 0 $and")->fetchAll();
-    $expense = $conn->query("SELECT SUM(sale_total_amount) AS exp_amt, CAST(jspence_sales.createdAt AS date) AS exp_d FROM jspence_sales WHERE sale_type = 'exp' AND sale_status = 0 $andExpenditure")->fetchAll();
-    $push = $conn->query("SELECT SUM(push_amount) AS push_amt, CAST(jspence_pushes.createdAt AS date) AS push_d FROM jspence_pushes WHERE push_status = 0 $andPush")->fetchAll();
-    $push_moneys = $conn->query("SELECT SUM(push_amount) AS money_amt, CAST(jspence_pushes.createdAt AS date) AS push_d FROM jspence_pushes WHERE push_status = 0 AND (push_type = 'money' OR push_type is NULL) $andPush")->fetchAll();
-    $push_golds = $conn->query("SELECT SUM(push_amount) AS gold_amt, CAST(jspence_pushes.createdAt AS date) AS push_d FROM jspence_pushes WHERE push_status = 0 AND push_type = 'gold' $andPush")->fetchAll();
-    $count_trades = $conn->query("SELECT *, CAST(jspence_sales.createdAt AS date) AS c_d FROM jspence_sales WHERE sale_status = 0 $and")->rowCount();
+    $ins = $conn->query("SELECT SUM(sale_total_amount) AS ins_amt FROM jspence_sales WHERE sale_type = 'in' AND sale_status = 0 $and")->fetchAll();
+    $outs = $conn->query("SELECT SUM(sale_total_amount) AS outs_amt FROM jspence_sales WHERE sale_type = 'out' AND sale_status = 0 $and")->fetchAll();
+    $expense = $conn->query("SELECT SUM(sale_total_amount) AS exp_amt FROM jspence_sales WHERE sale_type = 'exp' AND sale_status = 0 $andExpenditure")->fetchAll();
+    $push = $conn->query("SELECT SUM(push_amount) AS push_amt FROM jspence_pushes WHERE push_status = 0 $andPush")->fetchAll();
+    $push_moneys = $conn->query("SELECT SUM(push_amount) AS money_amt FROM jspence_pushes WHERE push_status = 0 AND (push_type = 'money' OR push_type is NULL) $andPush")->fetchAll();
+    $push_golds = $conn->query("SELECT SUM(push_amount) AS gold_amt FROM jspence_pushes WHERE push_status = 0 AND push_type = 'gold' $andPush")->fetchAll();
+    $count_trades = $conn->query("SELECT * FROM jspence_sales WHERE sale_status = 0 $and")->rowCount();
     
     $grams = $conn->query("SELECT SUM(sale_gram) AS gram FROM jspence_sales WHERE sale_status = 0 $and")->fetchAll();
     $volumes = $conn->query("SELECT SUM(sale_volume) AS volume FROM jspence_sales WHERE sale_status = 0 $and")->fetchAll();
@@ -88,7 +88,7 @@ if (isset($_POST['dater'])) {
     $total_supervisor_capital = $sup_row['capital'] ?? 0;
     $total_supervisor_balance = $sup_row['balance'] ?? 0;
 
-    $out = (float)($out + $expenses);
+    // $out = (float)($out + $expenses);
 
     $arrayOutput = [
         'supervisor_capital' => $total_supervisor_capital,
