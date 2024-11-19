@@ -413,7 +413,7 @@
                                     </td>
                                     <td><?= pretty_date($row["createdAt"]); ?>
                                     <td>
-                                        <a href="#viewModal_<?= $i; ?>" data-bs-toggle="modal" class="badge bg-primary">view</a>
+                                        <a href="#viewModal_<?= $i; ?>" data-bs-toggle="modal" class="btn btn-sm bg-light">View</a>
                                     </td>
                                 </tr>
 
@@ -531,7 +531,7 @@
                                                 <div class="px-6 py-5 d-flex justify-content-center">
                                                     <a href="javascript:;" class="btn btn-sm btn-dark" onclick="printPageArea('printableArea_<?= $i; ?>')"><i class="bi bi-trash me-2"></i>Print</a>&nbsp;&nbsp;
                                                     <!-- <a href="javascript:;" class="btn btn-sm btn-danger"><i class="bi bi-trash me-2"></i>Reverse</a>&nbsp;&nbsp; -->
-                                                    <button type="button" class="btn btn-sm btn-dark" data-bs-dismiss="modal">Close</button>
+                                                    <button type="button" class="btn btn-sm btn-light" data-bs-dismiss="modal">Close</button>
                                                 </div>
                                             </div>
                                         </div>
