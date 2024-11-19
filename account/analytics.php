@@ -167,12 +167,12 @@
                                         <div class="row align-items-center">
                                             <div class="col">
                                                 <!-- Heading -->
-                                                <h4 class="fs-base fw-normal text-body-secondary mb-1">Supervisor</h4>
-
-                                                    <!-- Text -->
+                                                <h4 class="fs-base fw-normal text-body-secondary mb-1 des">Supervisor</h4>
+                                                <div class="hide">Total amount of gold given to supervisor and total amount of gold sold.</div>
+                                                <!-- Text -->
                                                 <div class="fs-5 fw-semibold" id="sup-capital"></div>
                                                 <p class="mt-1">
-                                                    <span class="text-success text-xs"><i class="fas fa-arrow-up me-1"></i>Money: </span>
+                                                    <span class="text-success text-xs"><i class="fas fa-arrow-up me-1"></i>Gold: </span>
                                                     <span class="text-muted text-xs text-opacity-75" id="sup-balance">0.00</span>
                                                 </p>
                                             </div>
@@ -193,12 +193,12 @@
                                         <div class="row align-items-center">
                                             <div class="col">
                                                 <!-- Heading -->
-                                                <h4 class="fs-base fw-normal text-body-secondary mb-1">Salespersonnel</h4>
-
+                                                <h4 class="fs-base fw-normal text-body-secondary mb-1 des">Salespersonnel</h4>
+                                                <div class="hide">Total amount of cash given to salespersonnels and total balance remaining.</div>
                                                 <!-- Text -->
                                                 <div class="fs-5 fw-semibold" id="sal-capital"></div>
                                                 <p class="mt-1">
-                                                    <span class="text-success text-xs"><i class="fas fa-arrow-up me-1"></i>Gold: </span>
+                                                    <span class="text-success text-xs"><i class="fas fa-arrow-up me-1"></i>Money: </span>
                                                     <span class="text-muted text-xs text-opacity-75" id="sal-balance">0.00</span>
                                                 </p>
                                             </div>
