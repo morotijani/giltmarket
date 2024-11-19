@@ -196,7 +196,7 @@
 
 									<!-- Text -->
 									<?php 
-										$p = '1';
+										$p = '';
 										if (admin_has_permission()) {
 											$p = get_total_pushes($conn, $admin_id, $admin_data["admin_permissions"]);
 										} else {

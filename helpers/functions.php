@@ -419,6 +419,8 @@ function get_total_pushes($conn, $admin, $p = null) {
 	$permission = (($p != null) ?? $p);
 	$s = get_total_send_push($conn, $admin, $permission);
 	$r = get_total_receive_push($conn, $admin);
+
+	dnd($r);
 	
 	if (count($s) > 0 && count($r) > 0) {
 
