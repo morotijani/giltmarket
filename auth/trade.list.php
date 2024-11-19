@@ -49,8 +49,8 @@ $result = $statement->fetchAll();
 $count_filter = $statement->rowCount();
 
 $output = '
-	<div class="card">
-		<div class="table-responsive mb-7">
+	<div class="card mb-6">
+		<div class="table-responsive">
 			<table class="table table-flush align-middle mb-0">
 				<thead>
 					<tr>

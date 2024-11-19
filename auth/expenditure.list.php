@@ -51,8 +51,9 @@ $statement->execute();
 $result = $statement->fetchAll();
 $count_filter = $statement->rowCount();
 
-$output = ' 
-        <div class="table-responsive mb-7">
+$output = '
+    <div class="card mb-6">
+        <div class="table-responsive">
             <table class="table align-middle mb-0">
                 <thead>
                     <tr>
@@ -75,7 +76,7 @@ if ($total_data > 0) {
            $option = '
                 <td class="text-end">
                     <a href="'. PROOT .'account/expenditure?edit=' . $row["sale_id"] . '" class="btn btn-sm btn-light">Edit </a>
-                    <a href="javascript:;" data-bs-target="#deleteModal_' . $row["eid"] . '" data-bs-toggle="modal" class="btn btn-sm btn-danger">Delete </a>
+                    <a href="javascript:;" data-bs-target="#deleteModal_' . $row["eid"] . '" data-bs-toggle="modal" class="btn btn-sm btn-dark">Delete </a>
                 </td>
            '; 
         }
@@ -178,8 +179,9 @@ if ($total_data > 0) {
 }
 
 $output .= '
-			</tbody>
-        </table>
+                </tbody>
+            </table>
+        </div>
     </div>
 	<div class="row align-items-center">
         <div class="col">

@@ -201,7 +201,7 @@
                 <nav aria-label="breadcrumb">
                     <ol class="breadcrumb mb-2">
                         <li class="breadcrumb-item"><a class="text-body-secondary" href="javascript:;">Trade</a></li>
-                        <li class="breadcrumb-item active" aria-current="page"><?= ((isset($_GET['add']) && !empty($_GET['add'])) ? 'New' : ''); ?> expenditure</li>
+                        <li class="breadcrumb-item active" aria-current="page"><?= ((isset($_GET['add']) && !empty($_GET['add'])) ? 'New e' : 'E'); ?>xpenditure</li>
                     </ol>
                 </nav>
 
@@ -441,11 +441,17 @@
                         $('#expenditureForm').submit()
                     }, 2000)
                 } else {
+                    $('#expenditureForm')[0].reset()
                     $('#expenditureModal').modal('hide');
                     return false
                 }
             }
         });
+
+        //
+        $('.btn-close').on('click', function() {
+			$('#expenditureForm')[0].reset()
+		})
 
         $(".export_class").change(function(e) {
             event.preventDefault()

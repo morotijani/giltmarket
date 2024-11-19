@@ -54,8 +54,9 @@ $statement->execute();
 $result = $statement->fetchAll();
 $count_filter = $statement->rowCount();
 
-$output = ' 
-        <div class="table-responsive mb-7">
+$output = '
+	<div class="card mb-6">
+        <div class="table-responsive">
             <table class="table align-middle mb-0">
                 <thead>
                     <tr>
@@ -150,9 +151,10 @@ if ($total_data > 0) {
 }
 
 $output .= '
-			</tbody>
-        </table>
-    </div>
+				</tbody>
+			</table>
+		</div>
+	</div>
 	<div class="row align-items-center">
         <div class="col">
             <!-- Text -->

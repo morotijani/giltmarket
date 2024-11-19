@@ -192,17 +192,11 @@
 								<?php if (admin_has_permission('salesperson')) : ?>
 								<div class="col">
 									<!-- Heading -->
-									<h4 class="fs-base fw-normal text-body-secondary mb-1">Number of requests</h4>
+									<h4 class="fs-base fw-normal text-body-secondary mb-1">Amount of Gold pushed</h4>
 
 									<!-- Text -->
-									<?php
-										$where = '';
-										if (!admin_has_permission()) {
-											$where = ' AND push_to = "' . $admin_data["admin_id"] . '" ';
-										}
-										$p = $conn->query("SELECT * FROM jspence_pushes WHERE push_date = '" . date('Y-m-d') . "' $where AND push_status = 0")->rowCount()
-									?>
-									<div class="fs-5 fw-semibold"><?= $p; ?></div>
+									<?php $p = get_total_send_push($conn, $admin_id); ?>
+									<div class="fs-5 fw-semibold"><?= money($p['sum']); ?></div>
 								</div>
 								<div class="col-auto">
 									<!-- Avatar -->
