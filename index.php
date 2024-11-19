@@ -192,18 +192,12 @@
 								<?php if (admin_has_permission('salesperson')) : ?>
 								<div class="col">
 									<!-- Heading -->
-									<h4 class="fs-base fw-normal text-body-secondary mb-1">Amount of Gold pushed</h4>
+									<h4 class="fs-base fw-normal text-body-secondary mb-1">Amount <?= ((admin_has_permission()) ? '' : 'of Gold'); ?> pushed</h4>
 
 									<!-- Text -->
 									<?php 
-										$p = '';
-										if (admin_has_permission()) {
-											$p = get_total_pushes($conn, $admin_id, $admin_data["admin_permissions"]);
-										} else {
-											$p = get_total_send_push($conn, $admin_id);
-										}
-										dnd($p);
 										$M = 0;
+										$p = get_total_send_push($conn, $admin_id, $admin_data["admin_permissions"]);
 										if (is_array($p)) {
 											$M = $p['sum'];
 										}

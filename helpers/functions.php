@@ -351,22 +351,25 @@ function get_pushes_made($admin, $today = null) {
 function get_total_send_push($conn, $admin, $p = null) {
 	$permission = (($p != null) ?? $p);
 	$runningCapital = find_capital_given_to($admin);
+	$date = ((admin_has_permission()) ? date("Y-m-d") : $runningCapital['daily_date']);
 	$output = [];
 
-	if (is_array($runningCapital)) {
+	if (is_array($runningCapital) || admin_has_permission()) {
 		$query = "
 			SELECT 
 				SUM(jspence_pushes.push_amount) AS pamt, 
 				COUNT(jspence_pushes.id) AS c 
 			FROM jspence_pushes 
-			WHERE jspence_pushes.push_from = ? 
-			AND jspence_pushes.push_date = ?
+			WHERE jspence_pushes.push_date = ?
 		";
 		if ($p == 'supervisor') {
 			$query .= " AND push_from_where != 'physical-cash'";
 		}
+		if  (!admin_has_permission()) {
+			$query .= " AND jspence_pushes.push_from = '" . $admin . "' AND push_type = '" . $type . "'";
+		}
 		$statement = $conn->prepare($query);
-		$result = $statement->execute([$admin, $runningCapital['daily_date']]);
+		$result = $statement->execute([$date]);
 		$row = $statement->fetchAll();
 
 		if ($result) {
@@ -384,23 +387,23 @@ function get_total_send_push($conn, $admin, $p = null) {
 function get_total_receive_push($conn, $admin) {
 	$type = (admin_has_permission('supervisor') ? "gold" : "money");
 	$runningCapital = find_capital_given_to($admin);
+	$date = ((admin_has_permission()) ? date("Y-m-d") : $runningCapital['daily_date']);
 	$output = [];
 
-	if (is_array($runningCapital)) {
+	if (is_array($runningCapital) || admin_has_permission()) {
 		$query = "
 			SELECT 
 				SUM(jspence_pushes.push_amount) AS pamt, 
 				COUNT(jspence_pushes.id) AS c 
 			FROM jspence_pushes 
-			WHERE jspence_pushes.push_to = ? 
-			AND jspence_pushes.push_date = ?
+			WHERE jspence_pushes.push_date = ?
 		";
 		if  (!admin_has_permission()) {
-			$query .= " AND push_type = '" . $type . "'";
+			$query .= " AND jspence_pushes.push_to = '" . $admin . "' AND push_type = '" . $type . "'";
 		}
 
 		$statement = $conn->prepare($query);
-		$result = $statement->execute([$admin, $runningCapital['daily_date']]);
+		$result = $statement->execute([$date]);
 		$row = $statement->fetchAll();
 
 		if ($result) {
@@ -419,8 +422,6 @@ function get_total_pushes($conn, $admin, $p = null) {
 	$permission = (($p != null) ?? $p);
 	$s = get_total_send_push($conn, $admin, $permission);
 	$r = get_total_receive_push($conn, $admin);
-
-	dnd($r);
 	
 	if (count($s) > 0 && count($r) > 0) {
 
