@@ -347,7 +347,7 @@
                                                     <!-- Text -->
                                                     <div class="fs-5 fw-semibold" id="total-trades">
                                                         <?php 
-                                                            $tp = get_total_pushes($conn, $admin_id);
+                                                            $tp = get_total_pushes($conn, $admin_id, $admin_data["admin_permissions"]);
                                                             $tp_count = 0;
                                                             if (is_array($tp)) {
                                                                 $tp_count = $tp["count"];
@@ -384,7 +384,7 @@
                                                     <!-- Text -->
                                                     <div class="fs-5 fw-semibold" id="total-trades">
                                                         <?php 
-                                                            $ps = get_total_send_push($conn, $admin_id, date("Y-m-d"));
+                                                            $ps = get_total_send_push($conn, $admin_id, $admin_data["admin_permissions"]);
                                                             $ps_count = 0;
                                                             if (is_array($tp)) {
                                                                 $ps_count = $ps["count"];

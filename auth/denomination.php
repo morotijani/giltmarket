@@ -81,7 +81,7 @@ if (array_key_exists('postdata', $_SESSION)) {
     $brought_in_amount = ((admin_has_permission('supervisor')) ? 'Cash' : 'Gold') . ' accumulated: ' . money(total_amount_today($admin_id));
 
     // get all send push
-    $p = get_total_send_push($conn, $admin_id);
+    $p = get_total_send_push($conn, $admin_id, $admin_data["admin_permissions"]);
 
     // 
     $push_gram = 0;
