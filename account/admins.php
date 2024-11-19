@@ -215,23 +215,24 @@ if (isset($_GET['add'])) {
         </div>
 
     <?php else: ?>
-
-        <div class="table-responsive mb-7">
-            <table class="table table-selectable align-middle mb-0">
-                <thead>
-                    <tr>
-                        <th></th>
-                        <th>Admin</th>
-                        <th>Permission</th>
-                        <th>Phone</th>
-                        <th>Joined Date</th>
-                        <th>Last Login</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <?= get_all_admins(); ?>
-                </tbody>
-            </table>
+        <div class="card mb-6">
+            <div class="table-responsive">
+                <table class="table table-selectable align-middle mb-0">
+                    <thead>
+                        <tr>
+                            <th></th>
+                            <th>Admin</th>
+                            <th>Permission</th>
+                            <th>Phone</th>
+                            <th>Joined Date</th>
+                            <th>Last Login</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <?= get_all_admins(); ?>
+                    </tbody>
+                </table>
+            </div>
         </div>
     <?php endif ?>
 

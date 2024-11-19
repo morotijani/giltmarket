@@ -27,42 +27,32 @@
         }
 
         $sql = "
-            SELECT
-                SUM(jspence_sales.sale_total_amount) AS ta, 
-                SUM(jspence_daily.daily_balance) AS cb, 
-                SUM(jspence_daily.daily_capital) AS c, 
-                SUM(jspence_sales.sale_gram) AS tg, 
-                SUM(jspence_sales.sale_volume) AS tv, 
-                daily_date
+            SELECT 
+                SUM(jspence_daily.daily_capital) AS capital, 
+                SUM(jspence_daily.daily_balance) AS balance_sold, 
+                jspence_daily.daily_date 
             FROM jspence_daily 
-            INNER JOIN jspence_sales 
-            ON jspence_sales.sale_daily = jspence_daily.daily_id 
             INNER JOIN jspence_admin 
             ON jspence_admin.admin_id = jspence_daily.daily_to
             WHERE jspence_daily.status = ? 
-            AND jspence_sales.sale_status = ? 
         ";
-
         if ($admin != '') {
-            $sql .= " AND jspence_daily.daily_to = '" . $admin . "' AND jspence_sales.sale_by = '" . $admin . "' AND jspence_admin.admin_id = '" . $admin . "' ";
+            $sql .= " AND jspence_daily.daily_to = '" . $admin . "' ";
         }
 
         if ((!empty($from) || $from != '') && (!empty($to) || $to != '')) {
-            $sql .= " AND CAST(jspence_sales.createdAt AS date) BETWEEN '" . $from . "' AND '" . $to . "' ";
+            $sql .= " AND CAST(jspence_daily.createdAt AS date) BETWEEN '" . $from . "' AND '" . $to . "' ";
         } else if ((!empty($from) || $from != '') && (empty($to) || $to == '')) {
-            $sql .= " AND CAST(jspence_sales.createdAt AS date) = '" . $from . "' ";
+            $sql .= " AND CAST(jspence_daily.createdAt AS date) = '" . $from . "' ";
         } else if ((!empty($to) || $to != '') && (empty($from) || $from == '')) {
-            $sql .= " AND CAST(jspence_sales.createdAt AS date) = '" . $to . "' ";
+            $sql .= " AND CAST(jspence_daily.createdAt AS date) = '" . $to . "' ";
         }
-        $sql .= " AND admin_permissions = '" . $permission . "'";
+        $sql .= " AND jspence_admin.admin_permissions = '" . $permission . "'";
 
         $statement = $conn->prepare($sql);
-        $statement->execute([0, 0]);
+        $statement->execute([0]);
         $rows = $statement->fetchAll();
         $row_count = $statement->rowCount();
-
-        dnd($rows);
-
 
         $output = '
             <p class="text-body-secondary">From: ' . $from . ' and To: ' . $to . '</p>
@@ -88,34 +78,49 @@
         if ($row_count > 0) {
             foreach ($rows as $row) {
 
-                $density = calculateDensity($row["tg"], $row["tv"]);
-                $pounds = calculatePounds($row["tg"]);
-                $carat = calculateCarat($row["tg"], $row["tv"]);
+                $sql2 = "
+                    SELECT 
+                        SUM(jspence_sales.sale_total_amount) AS amount, 
+                        SUM(jspence_sales.sale_gram) AS gram, 
+                        SUM(jspence_sales.sale_volume) AS volume 
+                    FROM jspence_sales 
+                    WHERE jspence_sales.sale_daily = ? 
+                    AND jspence_sales.sale_status = ? 
+                ";
+                $statement = $conn->prepare($sql2);
+                $statement->execute([$row["daily_id"], 0]);
+                $sub_rows = $statement->fetchAll();
 
-                // accumulated
-                $earned = 0;
-                if ($role == "supervisor") {
-                    $earned = (float)($row['cb'] - $row['c']);
-                    if ($row['cb'] == null) {
-                        $earned = 0;
-                    }
-                } else if ($role == "salesperson") {
-                    $earned = $row["ta"] - 0; //expenditure made by salepersonnel
+                foreach ($sub_rows as $sub_row) {
+                    $density = calculateDensity($sub_row["gram"], $sub_row["volume"]);
+                    $pounds = calculatePounds($sub_row["gram"]);
+                    $carat = calculateCarat($sub_row["gram"], $sub_row["volume"]);
+
+                    // accumulated
+                    $earned = 0;
+                    // if ($role == "supervisor") {
+                    //     $earned = (float)($row['cb'] - $row['c']);
+                    //     if ($row['cb'] == null) {
+                    //         $earned = 0;
+                    //     }
+                    // } else if ($role == "salesperson") {
+                    //     $earned = $row["ta"] - 0; //expenditure made by salepersonnel
+                    // }
+
+                    $output .= '
+                        <tr>
+                            <td>' . pretty_date_only($row["daily_date"]) . '</td>
+                            <td>' . money($row["capital"]) . '</td>
+                            <td>' . $sub_row["gram"] . '</td>
+                            <td>' . $sub_row["volume"] . '</td>
+                            <td>' . $density . '</td>
+                            <td>' . $pounds . '</td>
+                            <td>' . $carat . '</td>
+                            <td>' . money($sub_row["amount"]) . '</td>
+                            <td>' . money($earned) . '</td>
+                        </tr>
+                    ';
                 }
-
-                $output .= '
-                    <tr>
-                        <td>' . pretty_date_only($row["daily_date"]) . '</td>
-                        <td>' . money($row["c"]) . '</td>
-                        <td>' . $row["tg"] . '</td>
-                        <td>' . $row["tv"] . '</td>
-                        <td>' . $density . '</td>
-                        <td>' . $pounds . '</td>
-                        <td>' . $carat . '</td>
-                        <td>' . money($row["ta"]) . '</td>
-                        <td>' . money($earned) . '</td>
-                    </tr>
-                ';
             }
         } else {
             $output .= '
