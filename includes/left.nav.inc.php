@@ -147,8 +147,8 @@
                                 <nav class="nav nav-pills">
                                     <a class="nav-link nav-child" href="<?= PROOT; ?>account/pushes">Pushes</a>
                                     <?php if (admin_has_permission('supervisor')): ?>
-                                    <a class="nav-link nav-child" href="<?= PROOT; ?>account/pushes/salesperson">Sales persons</a>
-                                    <a class="nav-link nav-child" href="<?= PROOT; ?>account/pushes/gold-receive">Received</a>
+                                    <a class="nav-link nav-child" href="<?= PROOT; ?>account/pushes/salesperson">Salepersonnels</a>
+                                    <a class="nav-link nav-child" href="<?= PROOT; ?>account/pushes/gold-receive"><?= ((admin_has_permission()) ? 'Supervisors' : 'Gold received'); ?></a>
                                     <?php endif; ?>
                                 </nav>
                             </div>

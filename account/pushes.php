@@ -110,10 +110,10 @@
                                     </li>
                                     <?php if (admin_has_permission('supervisor')): ?>
                                     <li class="nav-item">
-                                        <a class="nav-link <?= ((isset($_GET['data']) && $_GET['data'] == 'salesperson') ? 'bg-dark active' : ''); ?>" aria-current="page" href="<?= PROOT; ?>account/pushes/salesperson">To sales persons</a>
+                                        <a class="nav-link <?= ((isset($_GET['data']) && $_GET['data'] == 'salesperson') ? 'bg-dark active' : ''); ?>" aria-current="page" href="<?= PROOT; ?>account/pushes/salesperson">Money to salepersonnels</a>
                                     </li>
                                     <li class="nav-item">
-                                        <a class="nav-link <?= ((isset($_GET['data']) && $_GET['data'] == 'gold-receive') ? 'bg-dark active' : ''); ?>" aria-current="page" href="<?= PROOT; ?>account/pushes/gold-receive">Gold received</a>
+                                        <a class="nav-link <?= ((isset($_GET['data']) && $_GET['data'] == 'gold-receive') ? 'bg-dark active' : ''); ?>" aria-current="page" href="<?= PROOT; ?>account/pushes/gold-receive"><?= ((admin_has_permission()) ? 'Gold to supervisors' : 'Gold received'); ?></a>
                                     </li>
                                     <?php endif; ?>
                                 </ul>
