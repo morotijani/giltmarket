@@ -40,7 +40,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <div id="calculation-result"></div><!-- class="d-flex justify-content-center" -->
+                            <div id="calculation-result" class="mt-1"></div>
                             <br>
                             <div id="result-view">
                                 <label class="form-label">Total Amount</label>
