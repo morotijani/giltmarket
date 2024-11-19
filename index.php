@@ -405,7 +405,7 @@
 								<div class="modal-content overflow-hidden">
 									<div class="modal-header pb-0 border-0">
 										<h1 class="modal-title h4" id="pushSummaryModalLabel">Push summary</h1>
-										<button type="button" class="btn-close btn-close-push-modal" data-bs-dismiss="modal" aria-label="Close"></button>
+										<button type="button" class="btn-close btn-close-push-modal-summary" data-bs-dismiss="modal" aria-label="Close"></button>
 									</div>
 									<div class="modal-body">
 										<ul class="list-group list-group-flush">
@@ -517,7 +517,7 @@
 								<div class="modal-content overflow-hidden">
 									<div class="modal-header pb-0 border-0">
 										<h1 class="modal-title h4" id="sendMGModalLabel">Verify push!</h1>
-										<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+										<button type="button" class="btn-close btn-close-push-modal" data-bs-dismiss="modal" aria-label="Close"></button>
 									</div>
 									<div class="modal-body">
 										<div class="inputpin mb-3">
@@ -978,6 +978,16 @@
 					$('#sendMGForm').submit();
 				}, 2000)
 			}
+		})
+
+		//
+		$('.btn-close-push-modal').on('click', function() {
+			$('#sendMGForm')[0].reset()
+		})
+		
+		//
+		$('.btn-close-push-modal-summary').on('click', function() {
+			$('#sendMGForm')[0].reset()
 		})
 	})
 </script>
