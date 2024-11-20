@@ -43,11 +43,6 @@
     }
 
 
-    if (isset($_POST['old_password'])) {
-        
-    }
-
-
 ?>
 
     <!-- Content -->
@@ -74,7 +69,7 @@
             </div>
             <div class="col-12 col-sm-auto mt-4 mt-sm-0">
                 <!-- Action -->
-                <button class="btn btn-warning d-block" id="submitForm"> Print </button>
+                <button class="btn btn-warning d-block" onclick="printPageArea('printableArea')"> Print </button>
             </div>
         </div>
 
@@ -125,7 +120,7 @@
                 </form>
             </div>
 
-            <div class="col-12 col-lg-9" data-bs-spy="scroll" data-bs-target="#accountNav" data-bs-smooth-scroll="true" tabindex="0">
+            <div class="col-12 col-lg-9" id="printableArea">
                 <!-- General -->
                 <section class="card bg-body-tertiary border-transparent mb-5" id="general">
                     <div class="card-body">
@@ -140,6 +135,33 @@
 <?php include ("../includes/footer.inc.php"); ?>
 
 <script type="text/javascript">
+
+    function printPageArea(areaID) {
+        var printContent = document.getElementById(areaID).innerHTML;
+        var originalContent = document.body.innerHTML;
+        document.body.innerHTML = printContent;
+        $('head').append(`
+            <style>
+                @page {
+                    size: landscape;
+                }
+
+                @media print {
+                    @page {
+                        margin: 0 !important;
+                    }
+
+                    body {
+                        /* padding: 75px;  This will act as your margin. Originally, the margin will hide the header and footer text. */
+                    }
+                }
+            </style>
+        `);
+        window.print();
+        document.body.innerHTML = originalContent;
+        location.reload();
+    }
+
     $(document).ready(function() {
         // sclear form
         $('.clear').on('click', function(event) {
