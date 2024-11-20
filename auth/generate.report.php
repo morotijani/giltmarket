@@ -120,32 +120,29 @@
                         if ($row['balance_sold'] == null) {
                             $earned = 0;
                         }
-
-                        
                     }
 
                     // get expenditure
                     $expenditure = 0;
-
                     if ($row['admin_permissions'] == 'salesperson') {
                         $exp = $conn->query("SELECT SUM(jspence_sales.sale_total_amount) AS exp_amount FROM jspence_sales WHERE jspence_sales.sale_type = 'exp' AND jspence_sales.sale_daily = '" .$row["daily_id"] . "' AND jspence_sales.sale_status = 0")->fetchAll();
                         if (is_array($exp)) {
                             $expenditure = $exp[0]['exp_amount'];
                         }
-                       
-                    } 
+                    }
+
+                    //
                     $td .= '
-                        <td>' . $earned . '</td>
-                        <td>' . $expenditure . '</td>
+                        <td>' . money($earned) . '</td>
+                        <td>' . money($expenditure) . '</td>
                     ';
 
                     //
                     if ($role == "supervisor") {
-                        $td = '<td>' . $earned . '</td>';
+                        $td = '<td>' . money($earned) . '</td>';
                     } else if ($role == "salesperson") {
-                        
-                        $td = ((float)$sub_row["amount"] - $expenditure); //expenditure made by salepersonnel
-                        $td = '<td>' . $expenditure . '</td>';
+                        // $td = ((float)$sub_row["amount"] - $expenditure); //expenditure made by salepersonnel
+                        $td = '<td>' . money($expenditure) . '</td>';
                     }
 
 
