@@ -15,7 +15,8 @@
         $sal_admin = ((isset($_POST['sal_admin']) && !empty($_POST['sal_admin'])) ? sanitize($_POST['sal_admin']) : '');
 
         $th = '';
-        $admin = '1';
+        $admin = '';
+        $permission = '';
         if ($role == "supervisor") {
             $admin = $sup_admin;
             $th = '<th>Earned</th>';
@@ -37,10 +38,13 @@
             ON jspence_admin.admin_id = jspence_daily.daily_to
             WHERE jspence_daily.status = ? 
         ";
+
+        // checking on admin selected
         if ($admin != '') {
             $sql .= " AND jspence_daily.daily_to = '" . $admin . "' ";
         }
-
+        
+        // checking on dates from and to 
         if ((!empty($from) || $from != '') && (!empty($to) || $to != '')) {
             $sql .= " AND CAST(jspence_daily.createdAt AS date) BETWEEN '" . $from . "' AND '" . $to . "' ";
         } else if ((!empty($from) || $from != '') && (empty($to) || $to == '')) {
@@ -48,7 +52,11 @@
         } else if ((!empty($to) || $to != '') && (empty($from) || $from == '')) {
             $sql .= " AND CAST(jspence_daily.createdAt AS date) = '" . $to . "' ";
         }
-        $sql .= " AND jspence_admin.admin_permissions = '" . $permission . "'";
+
+        // checking of role permission
+        if ($permission != '') {
+            $sql .= " AND jspence_admin.admin_permissions = '" . $permission . "'";
+        }
 
         $statement = $conn->prepare($sql);
         $statement->execute([0]);
@@ -59,7 +67,7 @@
             <p class="text-body-secondary">From: ' . $from . ' and To: ' . $to . '</p>
             <hr>
             <div class="table-responsive">
-                <table class="table">
+                <table class="table table-flush align-middle mb-0">
                     <thead>
                         <tr>
                             <th></td>
