@@ -90,13 +90,23 @@
         ';
 
         if ($row_count > 0) {
+            $total_capital = 0;
+            $total_amount = 0;
+            $total_gram = 0;
+            $total_volume = 0;
+            $total_density = 0;
+            $total_pounds = 0;
+            $total_carat = 0;
+            $total_expenditure = 0;
+            $total_earned = 0;
             foreach ($rows as $row) {
-
+                $total_capital += $row["capital"];
                 $sql2 = "
                     SELECT 
                         SUM(jspence_sales.sale_total_amount) AS amount, 
                         SUM(jspence_sales.sale_gram) AS gram, 
-                        SUM(jspence_sales.sale_volume) AS volume 
+                        SUM(jspence_sales.sale_volume) AS volume, 
+                        sale_total_amount 
                     FROM jspence_sales 
                     WHERE jspence_sales.sale_daily = ? 
                     AND jspence_sales.sale_status = ? 
@@ -106,17 +116,27 @@
                 $sub_rows = $statement->fetchAll();
 
                 foreach ($sub_rows as $sub_row) {
+
                     $density = calculateDensity($sub_row["gram"], $sub_row["volume"]);
                     $pounds = calculatePounds($sub_row["gram"]);
                     $carat = calculateCarat($sub_row["gram"], $sub_row["volume"]);
 
+                    $total_amount += $sub_row["amount"];
+                    $total_gram += $sub_row["gram"];
+                    $total_volume += $sub_row["volume"];
+                    $total_density += $density;
+                    $total_pounds += $pounds;
+                    $total_carat += $carat;
+
                     // accumulated
                     $td = '';
+                    $ttd = '';
 
                     // get earned
                     $earned = 0;
                     if ($row['admin_permissions'] == 'supervisor') {
                         $earned = (float)($row['balance_sold'] - $row['capital']);
+                        $total_earned += $earned;
                         if ($row['balance_sold'] == null) {
                             $earned = 0;
                         }
@@ -128,6 +148,7 @@
                         $exp = $conn->query("SELECT SUM(jspence_sales.sale_total_amount) AS exp_amount FROM jspence_sales WHERE jspence_sales.sale_type = 'exp' AND jspence_sales.sale_daily = '" .$row["daily_id"] . "' AND jspence_sales.sale_status = 0")->fetchAll();
                         if (is_array($exp)) {
                             $expenditure = $exp[0]['exp_amount'];
+                            $total_expenditure += $expenditure;
                         }
                     }
 
@@ -138,13 +159,20 @@
                     ';
 
                     //
+                    $ttd .= '
+                        <td>' . money($total_earned) . '</td>
+                        <td>' . money($total_expenditure) . '</td>
+                    ';
+
+                    //
                     if ($role == "supervisor") {
                         $td = '<td>' . money($earned) . '</td>';
+                        $ttd = '<td>' . money($total_earned) . '</td>';
                     } else if ($role == "salesperson") {
                         // $td = ((float)$sub_row["amount"] - $expenditure); //expenditure made by salepersonnel
                         $td = '<td>' . money($expenditure) . '</td>';
+                        $ttd = '<td>' . money($total_expenditure) . '</td>';
                     }
-
 
                     $output .= '
                         <tr>
@@ -169,6 +197,17 @@
                 ';
         }
         $output .= '
+                        <tr class="bg-danger">
+                            <td>Total</td>
+                            <td>' . money($total_capital) . '</td>
+                            <td>' . $total_gram . '</td>
+                            <td>' . $total_volume . '</td>
+                            <td>' . $total_density . '</td>
+                            <td>' . $total_pounds . '</td>
+                            <td>' . $total_carat . '</td>
+                            <td>' . money($total_amount) . '</td>
+                            ' . $ttd . '
+                        </tr>
                     </tbody>
                 </table>
             </div>
