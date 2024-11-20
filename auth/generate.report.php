@@ -36,7 +36,8 @@
                 jspence_daily.daily_balance AS balance_sold, 
                 jspence_daily.daily_date, 
                 jspence_daily.daily_id, 
-                jspence_admin.admin_permissions 
+                jspence_admin.admin_permissions, 
+                jspence_daily.daily_date 
             FROM jspence_daily 
             INNER JOIN jspence_admin 
             ON jspence_admin.admin_id = jspence_daily.daily_to
@@ -127,7 +128,7 @@
                     $expenditure = 0;
 
                     if ($row['admin_permissions'] == 'salesperson') {
-                        $exp = $conn->query("SELECT SUM(jspence_sales.sale_total_amount) AS exp_amount FROM jspence_sales WHERE jspence_sales.sale_type = 'exp' AND jspence_sales.sale_status = 0")->fetchAll();
+                        $exp = $conn->query("SELECT SUM(jspence_sales.sale_total_amount) AS exp_amount FROM jspence_sales WHERE jspence_sales.sale_type = 'exp' AND jspence_sales.sale_daily = '" .$row["daily_id"] . "' AND jspence_sales.sale_status = 0")->fetchAll();
                         if (is_array($exp)) {
                             $expenditure = $exp[0]['exp_amount'];
                         }
@@ -144,7 +145,7 @@
                     } else if ($role == "salesperson") {
                         
                         $td = ((float)$sub_row["amount"] - $expenditure); //expenditure made by salepersonnel
-                        $td = '<td>' . $td . '</td>';
+                        $td = '<td>' . $expenditure . '</td>';
                     }
 
 
