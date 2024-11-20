@@ -89,7 +89,7 @@
                             Supervisor
                         </label>
                     </div>
-                    <div class="form-check mb-4">
+                    <div class="form-check">
                         <input class="form-check-input role" name="role" type="radio" id="role-2" value="salesperson">
                         <label class="form-check-label" for="role">
                             Salespersonnel
