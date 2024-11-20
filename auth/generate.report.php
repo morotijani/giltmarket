@@ -14,7 +14,10 @@
         $sup_admin = ((isset($_POST['sup_admin']) && !empty($_POST['sup_admin'])) ? sanitize($_POST['sup_admin']) : '');
         $sal_admin = ((isset($_POST['sal_admin']) && !empty($_POST['sal_admin'])) ? sanitize($_POST['sal_admin']) : '');
 
-        $th = '';
+        $th = '
+            <th>Earned</th>
+            <th>Expenditure</th>
+        ';
         $admin = '';
         $permission = '';
         if ($role == "supervisor") {
@@ -32,7 +35,8 @@
                 jspence_daily.daily_capital AS capital, 
                 jspence_daily.daily_balance AS balance_sold, 
                 jspence_daily.daily_date, 
-                jspence_daily.daily_id  
+                jspence_daily.daily_id, 
+                jspence_admin.admin_permissions 
             FROM jspence_daily 
             INNER JOIN jspence_admin 
             ON jspence_admin.admin_id = jspence_daily.daily_to
@@ -106,21 +110,43 @@
                     $carat = calculateCarat($sub_row["gram"], $sub_row["volume"]);
 
                     // accumulated
+                    $td = '';
+
+                    // get earned
                     $earned = 0;
-                    if ($role == "supervisor") {
+                    if ($row['admin_permissions'] == 'supervisor') {
                         $earned = (float)($row['balance_sold'] - $row['capital']);
                         if ($row['balance_sold'] == null) {
                             $earned = 0;
                         }
-                    } else if ($role == "salesperson") {
+
+                        
+                    }
+
+                    // get expenditure
+                    $expenditure = 0;
+
+                    if ($row['admin_permissions'] == 'salesperson') {
                         $exp = $conn->query("SELECT SUM(jspence_sales.sale_total_amount) AS exp_amount FROM jspence_sales WHERE jspence_sales.sale_type = 'exp' AND jspence_sales.sale_status = 0")->fetchAll();
-                        $expenditure = 0;
                         if (is_array($exp)) {
                             $expenditure = $exp[0]['exp_amount'];
                         }
+                       
+                    } 
+                    $td .= '
+                        <td>' . $earned . '</td>
+                        <td>' . $expenditure . '</td>
+                    ';
 
-                        $earned = ((float)$sub_row["amount"] - $expenditure); //expenditure made by salepersonnel
+                    //
+                    if ($role == "supervisor") {
+                        $td = '<td>' . $earned . '</td>';
+                    } else if ($role == "salesperson") {
+                        
+                        $td = ((float)$sub_row["amount"] - $expenditure); //expenditure made by salepersonnel
+                        $td = '<td>' . $td . '</td>';
                     }
+
 
                     $output .= '
                         <tr>
@@ -132,7 +158,7 @@
                             <td>' . $pounds . '</td>
                             <td>' . $carat . '</td>
                             <td>' . money($sub_row["amount"]) . '</td>
-                            <td>' . money($earned) . '</td>
+                            ' . $td . '
                         </tr>
                     ';
                 }

@@ -85,14 +85,20 @@
 
                     <div class="form-check">
                         <input class="form-check-input role" name="role" type="radio" id="role-1" value="supervisor">
-                        <label class="form-check-label" for="no-cash">
+                        <label class="form-check-label" for="role">
                             Supervisor
                         </label>
                     </div>
                     <div class="form-check mb-4">
                         <input class="form-check-input role" name="role" type="radio" id="role-2" value="salesperson">
-                        <label class="form-check-label" for="no-cash">
+                        <label class="form-check-label" for="role">
                             Salespersonnel
+                        </label>
+                    </div>
+                    <div class="form-check mb-4">
+                        <input class="form-check-input role" name="role" type="radio" id="role-3" value="all">
+                        <label class="form-check-label" for="role">
+                            All
                         </label>
                     </div>
                     <div class="mb-4">
