@@ -92,14 +92,14 @@ if (array_key_exists('postdata', $_SESSION)) {
 
     // 
     $denomination_data = array(
-        'amount_given' => $capital_amt, 
+        'amount_given' => _capital($admin_id)['today_capital'], 
         'balance' => $capital_bal, 
         'brought_in' => total_amount_today($admin_id), 
         'send_push' => $p["sum"]
     );
     $new_Array = [];
     if (admin_has_permission('salesperson')) {
-        $new_Array = array('expenditure' => $expenditure);
+        $new_Array = array('expenditure' => $exp_amt["sum"]);
     } else if (admin_has_permission('supervisor')) {
         $new_Array = array('gained' => $g);
     }

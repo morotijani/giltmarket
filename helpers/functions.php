@@ -352,6 +352,7 @@ function get_total_send_push($conn, $admin, $p = null) {
 	$permission = (($p != null) ?? $p);
 	$runningCapital = find_capital_given_to($admin);
 	$date = ((admin_has_permission()) ? date("Y-m-d") : $runningCapital['daily_date']);
+	$type = (admin_has_permission('supervisor') ? "gold" : "money");
 	$output = [];
 
 	if (is_array($runningCapital) || admin_has_permission()) {

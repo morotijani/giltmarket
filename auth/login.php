@@ -81,7 +81,7 @@
                 <h1 class="fs-1 text-center">Sign in</h1>
 
                 <!-- Subheading -->
-                <p class="lead text-center text-body-secondary">Access our dashboard and start tracking your tasks.</p>
+                <p class="lead text-center text-body-secondary">Access J.Spence dashboard and start tracking your tasks.</p>
 
                 <!-- Form -->
                 <form class="mb-5" method="POST">
