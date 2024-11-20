@@ -232,17 +232,14 @@
                         ON jspence_admin.admin_id = jspence_daily.daily_to 
                         INNER JOIN jspence_pushes 
                         ON jspence_pushes.push_to = jspence_daily.daily_to
-                        WHERE jspence_daily.daily_date = ? 
-                        AND jspence_admin.admin_permissions = 'salesperson' 
+                        WHERE jspence_admin.admin_permissions = 'salesperson' 
                     ";
                     if (!admin_has_permission()) {
-                        $sp_query .= " AND jspence_pushes.push_from = '" . $admin_id . "' ";
+                        $sp_query .= " AND jspence_pushes.push_from = '" . $admin_id . "' AND jspence_daily.daily_date = '" . date("Y-m-d") . "' ";
                     }
                     $sp_query .= " GROUP BY jspence_pushes.push_to";
                     $statement = $conn->prepare($sp_query);
-                    $statement->execute([
-                        date("Y-m-d")
-                    ]);
+                    $statement->execute();
                     $sp_count = $statement->rowCount();
                     $sps = $statement->fetchAll();
             ?>
@@ -362,23 +359,23 @@
                 $q = "
                     SELECT * FROM jspence_pushes 
                     WHERE push_type = ? 
-                    AND push_date = ? 
                 ";
                 if (!admin_has_permission()) {
-                    $q .= " AND push_to = '" . $admin_id . "'";
+                    $q .= " AND push_to = '" . $admin_id . "' AND push_date = '" . date("Y-m-d") . "' ";
                 }
                 $q .= " ORDER BY push_date DESC";
                 
                 $statement = $conn->prepare($q);
                 $statement->execute([
                     'gold', 
-                    date("Y-m-d")
+                    
                 ]);
                 $rows = $statement->fetchAll();
                 $rows_count = $statement->rowCount();
                 
             ?>
-                <div class="table-responsive mb-7">
+            <div class="card mb-7">
+                <div class="table-responsive">
                     <table class="table align-middle mb-0">
                         <thead>
                             <tr>
@@ -546,6 +543,7 @@
                         </tbody>
                     </table>
                 </div>
+            </div>
             <?php else: ?>
             <div id="load-content"></div>
             <?php endif; ?>

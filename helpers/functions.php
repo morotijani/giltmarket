@@ -1399,7 +1399,7 @@ function sum_up_volume($conn, $admin) {
 
 // summ all density per admin for today
 function sum_up_density($conn, $admin) {
-	$density = 0;
+	$density = '';
 	if (sum_up_grams($conn, $admin) > 0) {
 		if (sum_up_volume($conn, $admin) > 0) {
 			$density = calculateDensity(sum_up_grams($conn, $admin), sum_up_volume($conn, $admin));
@@ -1416,7 +1416,7 @@ function sum_up_pounds($conn, $admin) {
 
 // summ all carat per admin for today
 function sum_up_carat($conn, $admin) {
-	$carat = 0;
+	$carat = '';
 	if (sum_up_grams($conn, $admin) > 0) {
 		if (sum_up_volume($conn, $admin) > 0) {
 			$carat = calculateCarat(sum_up_grams($conn, $admin), sum_up_volume($conn, $admin));
