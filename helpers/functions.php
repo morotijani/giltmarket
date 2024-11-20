@@ -351,11 +351,15 @@ function get_pushes_made($admin, $today = null) {
 function get_total_send_push($conn, $admin, $p = null) {
 	$permission = (($p != null) ?? $p);
 	$runningCapital = find_capital_given_to($admin);
-	$date = ((admin_has_permission()) ? date("Y-m-d") : $runningCapital['daily_date']);
 	$type = (admin_has_permission('supervisor') ? "gold" : "money");
-	$output = [];
+	$output = [
+		"sum" => 0, 
+		"count" => 0
+	];
 
 	if (is_array($runningCapital) || admin_has_permission()) {
+		$date = ((admin_has_permission()) ? date("Y-m-d") : $runningCapital['daily_date']);
+
 		$query = "
 			SELECT 
 				SUM(jspence_pushes.push_amount) AS pamt, 
@@ -388,10 +392,14 @@ function get_total_send_push($conn, $admin, $p = null) {
 function get_total_receive_push($conn, $admin) {
 	$type = (admin_has_permission('supervisor') ? "gold" : "money");
 	$runningCapital = find_capital_given_to($admin);
-	$date = ((admin_has_permission()) ? date("Y-m-d") : $runningCapital['daily_date']);
-	$output = [];
+	$output = [
+		"sum" => 0, 
+		"count" => 0
+	];
 
 	if (is_array($runningCapital) || admin_has_permission()) {
+		$date = ((admin_has_permission()) ? date("Y-m-d") : $runningCapital['daily_date']);
+
 		$query = "
 			SELECT 
 				SUM(jspence_pushes.push_amount) AS pamt, 
