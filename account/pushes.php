@@ -254,6 +254,9 @@
                                     SELECT * FROM jspence_pushes 
                                     WHERE push_to = ? 
                                 ";
+                                if (!admin_has_permission()) {
+                                    $QUERY .= " AND push_date = ' " . date("Y-m-d") . "' ";
+                                }
                                 $statement = $conn->prepare($QUERY);
                                 $statement->execute([$sp['push_to']]);
                                 $pss_count = $statement->rowCount();
