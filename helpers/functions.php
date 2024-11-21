@@ -351,7 +351,7 @@ function get_pushes_made($admin, $today = null) {
 function get_total_send_push($conn, $admin, $p = null) {
 	$permission = (($p != null) ?? $p);
 	$runningCapital = find_capital_given_to($admin);
-	$type = (admin_has_permission('supervisor') ? "gold" : "money");
+	$type = (admin_has_permission('supervisor') ? "money" : "gold");
 	$output = [
 		"sum" => 0, 
 		"count" => 0
@@ -390,7 +390,7 @@ function get_total_send_push($conn, $admin, $p = null) {
 
 // fetch total receive push
 function get_total_receive_push($conn, $admin) {
-	$type = (admin_has_permission('supervisor') ? "gold" : "money");
+	$type = (admin_has_permission('supervisor') ? "money" : "gold");
 	$runningCapital = find_capital_given_to($admin);
 	$output = [
 		"sum" => 0, 
