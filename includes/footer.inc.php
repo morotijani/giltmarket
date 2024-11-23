@@ -326,12 +326,17 @@
                     return false;
                 }
                 
-                $('#submitFundCoffers').attr('disabled', true);
-                $('#submitFundCoffers').text('Adding ...');
+                if (confirm("By clicking on 'Ok', the amount of " + $('#add_amount').val() + " will be added to the coffers")) {
+                    $('#submitFundCoffers').attr('disabled', true);
+                    $('#submitFundCoffers').text('Adding ...');submitFundCoffers
+                    
+                    setTimeout(function () {
+                        $('#fundCoffersForm').submit();
+                    }, 2000)
+                } else {
+                    return false;
+                }
                 
-                setTimeout(function () {
-                    $('#fundCoffersForm').submit();
-                }, 2000)
             })
 
             // Calculation made with current price input

@@ -815,7 +815,7 @@
 		}, 500))
 		
 		// Calculation made with gram input
-		$('#push_gram').on('keyup', delay(function(e) {
+		$('#push_gram').on('keydown', delay(function(e) {
             e.preventDefault();
 
 			// var current_price = $('#push_price').val();
@@ -865,7 +865,7 @@
 		}, 500))
 		
 		// Calculation made with volume input
-		$('#push_volume').on('keyup', delay(function(e) {
+		$('#push_volume').on('keydown', delay(function(e) {
             e.preventDefault();
 
 			// var current_price = $('#push_price').val();
@@ -922,7 +922,7 @@
 			var balance = '<?= ((admin_has_permission('supervisor')) ? get_admin_coffers($conn, $admin_id, 'balance') : total_amount_today($admin_id)); ?>';
 			var push_note = $("#push_note").val();
 			var g = $('#push_gram').val()
-			var v = $('#	push_volume').val()
+			var v = $('#push_volume').val()
 
 			<?php if (admin_has_permission('salesperson')): ?>
 				if (g == '' || g <= 0) {

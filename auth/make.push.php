@@ -7,35 +7,35 @@
 		if (!empty($_POST['pin']) || $_POST['pin'] != '') {
 			if (!empty($_POST['push_to']) || $_POST['push_to'] != '') {
 
-				// if (admin_has_permission('salesperson')) {
-				// 	$push_gram = ((isset($_POST['push_gram'])) ? sanitize($_POST["push_gram"]) : null);
-				// 	$push_volume = ((isset($_POST['push_volume'])) ? sanitize($_POST["push_volume"]) : null);
-				// 	$current_price = (isset($_POST['push_price']) ? $_POST['push_price'] : null);
+				if (admin_has_permission('salesperson')) {
+					$push_gram = ((isset($_POST['push_gram'])) ? sanitize($_POST["push_gram"]) : null);
+					$push_volume = ((isset($_POST['push_volume'])) ? sanitize($_POST["push_volume"]) : null);
+					$current_price = (isset($_POST['push_price']) ? $_POST['push_price'] : null);
 
-				// 	if ($push_gram != null || !empty($push_gram)) {
-				// 		if ($push_volume != null || !empty($push_volume)) {
-				// 			if ($current_price != null || !empty($current_price)) {
+					if ($push_gram != null || !empty($push_gram)) {
+						if ($push_volume != null || !empty($push_volume)) {
+							if ($current_price != null || !empty($current_price)) {
 
-				// 				$push_density = calculateDensity($push_gram, $push_volume);
-				// 				$push_pounds = calculatePounds($push_gram);
-				// 				$push_carat = calculateCarat($push_gram, $push_volume);
-				// 				$push_amount = calculateTotalAmount($push_gram, $push_volume, $current_price);
+								$push_density = calculateDensity($push_gram, $push_volume);
+								$push_pounds = calculatePounds($push_gram);
+								$push_carat = calculateCarat($push_gram, $push_volume);
+								$push_amount = calculateTotalAmount($push_gram, $push_volume, $current_price);
 
-				// 				$pushData = array('price' => $current_price, 'gram' => $push_gram, 'volume' => $push_volume, 'density' => $push_density, 'pounds' => $push_pounds, 'carat' => $push_carat, 'push_amount' => $push_amount);
-				// 				$pushData = json_encode($pushData);
-				// 			} else {
-				// 				echo js_alert('Something went wrong, please refresh and try agin!');
-				// 				redirect(goBack());
-				// 			}
-				// 		} else {
-				// 			echo js_alert('Something went wrong, please refresh and try agin!');
-				// 			redirect(goBack());
-				// 		}
-				// 	} else {
-				// 		echo js_alert('Something went wrong, please refresh and try agin!');
-				// 		redirect(goBack());
-				// 	}
-				// }
+								$pushData = array('price' => $current_price, 'gram' => $push_gram, 'volume' => $push_volume, 'density' => $push_density, 'pounds' => $push_pounds, 'carat' => $push_carat, 'push_amount' => $push_amount);
+								$pushData = json_encode($pushData);
+							} else {
+								echo js_alert('Something went wrong, please refresh and try agin!');
+								redirect(goBack());
+							}
+						} else {
+							echo js_alert('Something went wrong, please refresh and try agin!');
+							redirect(goBack());
+						}
+					} else {
+						echo js_alert('Something went wrong, please refresh and try agin!');
+						redirect(goBack());
+					}
+				}
 
 				$given = sanitize($_POST['today_given']);
 				$today_date = sanitize($_POST['today_date']);				
@@ -45,16 +45,16 @@
 
 				if ($pin == $admin_data['admin_pin']) {
 
-					if (admin_has_permission('salesperson')) {
-						$push_gram = sum_up_grams($conn, $admin_id);
-						$push_volume = sum_up_volume($conn, $admin_id);
-						$push_density = sum_up_density($conn, $admin_id);
-						$push_pounds = sum_up_pounds($conn, $admin_id);
-						$push_carat = sum_up_carat($conn, $admin_id);
+					// if (admin_has_permission('salesperson')) {
+					// 	$push_gram = sum_up_grams($conn, $admin_id);
+					// 	$push_volume = sum_up_volume($conn, $admin_id);
+					// 	$push_density = sum_up_density($conn, $admin_id);
+					// 	$push_pounds = sum_up_pounds($conn, $admin_id);
+					// 	$push_carat = sum_up_carat($conn, $admin_id);
 	
-						$pushData = array('gram' => $push_gram, 'volume' => $push_volume, 'density' => $push_density, 'pounds' => $push_pounds, 'carat' => $push_carat);
-						$pushData = json_encode($pushData);
-					}
+					// 	$pushData = array('gram' => $push_gram, 'volume' => $push_volume, 'density' => $push_density, 'pounds' => $push_pounds, 'carat' => $push_carat);
+					// 	$pushData = json_encode($pushData);
+					// }
 
 					$today = date("Y-m-d");
 					$daily_id = guidv4();
