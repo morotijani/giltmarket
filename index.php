@@ -921,6 +921,21 @@
 			var amount_given = $("#today_given").val();
 			var balance = '<?= ((admin_has_permission('supervisor')) ? get_admin_coffers($conn, $admin_id, 'balance') : total_amount_today($admin_id)); ?>';
 			var push_note = $("#push_note").val();
+			var g = $('#push_gram').val()
+			var v = $('push_volume').val()
+
+			<?php if (admin_has_permission('salesperson')): ?>
+				if (g == '' || g <= 0) {
+					alert("Invalid gram!");
+					$("#push_gram").focus()
+					return false;
+				}
+				if (v == '' || v <= 0) {
+					alert("Invalid volume!");
+					$("#push_volume").focus()
+					return false;
+				}
+			<?php endif; ?>
 
 			if (push_to == '') {
 				alert("You will have to select a <?= ((admin_has_permission('supervisor') ? 'sale person' : 'supervisor')) ;?> to proceed!");
@@ -928,7 +943,7 @@
 				return false;
 			}
 
-			if (amount_given == '' || amount_given == 0) {
+			if (amount_given == '' || amount_given <= 0) {
 				alert("Invalid push amount provided");
 				$("#today_given").focus()
 				return false;
