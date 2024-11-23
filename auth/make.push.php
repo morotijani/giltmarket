@@ -10,23 +10,24 @@
 				if (admin_has_permission('salesperson')) {
 					$push_gram = ((isset($_POST['push_gram'])) ? sanitize($_POST["push_gram"]) : null);
 					$push_volume = ((isset($_POST['push_volume'])) ? sanitize($_POST["push_volume"]) : null);
-					$current_price = (isset($_POST['push_price']) ? $_POST['push_price'] : null);
+					// $current_price = (isset($_POST['push_price']) ? $_POST['push_price'] : null);
 
 					if ($push_gram != null || !empty($push_gram)) {
 						if ($push_volume != null || !empty($push_volume)) {
-							if ($current_price != null || !empty($current_price)) {
+							// if ($current_price != null || !empty($current_price)) {
 
 								$push_density = calculateDensity($push_gram, $push_volume);
 								$push_pounds = calculatePounds($push_gram);
 								$push_carat = calculateCarat($push_gram, $push_volume);
-								$push_amount = calculateTotalAmount($push_gram, $push_volume, $current_price);
+								// $push_amount = calculateTotalAmount($push_gram, $push_volume, $current_price);
 
-								$pushData = array('price' => $current_price, 'gram' => $push_gram, 'volume' => $push_volume, 'density' => $push_density, 'pounds' => $push_pounds, 'carat' => $push_carat, 'push_amount' => $push_amount);
+								// $pushData = array('price' => $current_price, 'gram' => $push_gram, 'volume' => $push_volume, 'density' => $push_density, 'pounds' => $push_pounds, 'carat' => $push_carat, 'push_amount' => $push_amount);
+								$pushData = array('gram' => $push_gram, 'volume' => $push_volume, 'density' => $push_density, 'pounds' => $push_pounds, 'carat' => $push_carat);
 								$pushData = json_encode($pushData);
-							} else {
-								echo js_alert('Something went wrong, please refresh and try agin!');
-								redirect(goBack());
-							}
+							// } else {
+							// 	echo js_alert('Something went wrong, please refresh and try agin!');
+							// 	redirect(goBack());
+							// }
 						} else {
 							echo js_alert('Something went wrong, please refresh and try agin!');
 							redirect(goBack());
@@ -149,17 +150,17 @@
 
 							if (isset($push_result)) {
 								// update sales to pushed
-								$runningCapital = find_capital_given_to($admin_id);
-								if (is_array($runningCapital) && admin_has_permission('salesperson')) {
-									// $updateQ = "
-									// 	UPDATE jspence_sales 
-									// 	SET sale_pushed = ?
-									// 	WHERE sale_daily = ? 
-									// 	AND sale_pushed = ? 
-									// ";
-									// $statement = $conn->prepare($updateQ);
-									// $statement->execute([1, $runningCapital['daily_id'], 0]);
-								}
+								// $runningCapital = find_capital_given_to($admin_id);
+								// if (is_array($runningCapital) && admin_has_permission('salesperson')) {
+								// 	$updateQ = "
+								// 		UPDATE jspence_sales 
+								// 		SET sale_pushed = ?
+								// 		WHERE sale_daily = ? 
+								// 		AND sale_pushed = ? 
+								// 	";
+								// 	$statement = $conn->prepare($updateQ);
+								// 	$statement->execute([1, $runningCapital['daily_id'], 0]);
+								// }
 
 								$push_message = "push made on " . $today . ", of an amount of " . money($given) . ' to a ' . ((admin_has_permission()) ? ' supervisor' : 'saleperson') . ' id: ' . $push_to;
 								add_to_log($push_message, $admin_id);
