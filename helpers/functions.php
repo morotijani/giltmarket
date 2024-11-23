@@ -459,8 +459,8 @@ function truncate($val, $f = "0") {
 
 // Density calculation
 function calculateDensity($gram, $volume) {
-	if ($gram != NULL || $gram != '') {
-		if ($volume != NULL || $volume != '') {
+	if (($gram != NULL || $gram != '') && $gram > 0) {
+		if (($volume != NULL || $volume != '') && $volume > 0) {
 			$density = ($gram / $volume);
 
 			return truncate($density, 2);
@@ -1429,20 +1429,21 @@ function sum_up_grams($conn, $admin) {
 		$row = $statement->fetchAll();
 		$g = $row[0]['g'];
 
-		if (($row[0]['g'] != null || $row[0]['g'] != '') ? 0 : $row[0]['g']) {
+		if ($g != null || $g != '') {
 			$output = $g;
 			if (admin_has_permission('salesperson')) {
 				$arr = push_unit_calculations($admin);
 				$output = ((float)$g - $arr['p_gram']);
 			}
 		}
+	}
 
 	return $output;
 }
 
 // summ all volume per admin for today
 function sum_up_volume($conn, $admin) {
-	$output = '';
+	$output = 0;
 	$runningCapital = find_capital_given_to($admin);
 
 	if (is_array($runningCapital)) {
@@ -1462,16 +1463,23 @@ function sum_up_volume($conn, $admin) {
 		$statement = $conn->prepare($sql);
 		$statement->execute([0, $runningCapital["daily_id"]]);
 		$row = $statement->fetchAll();
+		$v = $row[0]['v'];
 
-		return (($row[0]['v'] == null) ? 0 : $row[0]['v']);
+		if ($v != null || $v != '') {
+			$output = $v;
+			if (admin_has_permission('salesperson')) {
+				$arr = push_unit_calculations($admin);
+				$output = ((float)$v - $arr['p_volume']);
+			}
+		}
+
 	}
-
-	return false;
+	return $output;
 }
 
 // summ all density per admin for today
 function sum_up_density($conn, $admin) {
-	$density = '';
+	$density = 0;
 	if (sum_up_grams($conn, $admin) > 0) {
 		if (sum_up_volume($conn, $admin) > 0) {
 			$density = calculateDensity(sum_up_grams($conn, $admin), sum_up_volume($conn, $admin));
@@ -1488,7 +1496,7 @@ function sum_up_pounds($conn, $admin) {
 
 // summ all carat per admin for today
 function sum_up_carat($conn, $admin) {
-	$carat = '';
+	$carat = 0;
 	if (sum_up_grams($conn, $admin) > 0) {
 		if (sum_up_volume($conn, $admin) > 0) {
 			$carat = calculateCarat(sum_up_grams($conn, $admin), sum_up_volume($conn, $admin));
