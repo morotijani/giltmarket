@@ -346,16 +346,16 @@
 										<span class="fw-semibold"><?= ((admin_has_permission('supervisor')) ? 'Money' : 'Gold'); ?></span>
 									</div>
 									<div class="d-flex justify-content-between gap-2 mt-4">
-										<input type="number" inputmode="numeric" class="form-control form-control-flush fw-bold text-xl flex-fill w-rem-50" placeholder="0.00" id="today_given" name="today_given" required autocomplete="off" min="0.00" step="0.01" <?= ((admin_has_permission('salesperson')) ? 'readonly' : ''); ?>> <button type="button" class="btn btn-outline-light shadow-none rounded-pill flex-none d-flex align-items-center gap-2 py-2 ps-2 pe-4"><img src="<?= PROOT; ?>assets/media/<?= ((admin_has_permission('supervisor')) ? 'money' : 'gold'); ?>.png" class="w-rem-6 h-rem-6" alt="..."> <span class="text-xs text-heading ms-1"><?= ((admin_has_permission('supervisor')) ? 'GHS' : 'GRM'); ?></span>&nbsp;</button>
+										<input type="number" inputmode="numeric" class="form-control form-control-flush fw-bold text-xl flex-fill w-rem-50" placeholder="0.00" id="today_given" name="today_given" required autocomplete="off" min="0.00" step="0.01"> <button type="button" class="btn btn-outline-light shadow-none rounded-pill flex-none d-flex align-items-center gap-2 py-2 ps-2 pe-4"><img src="<?= PROOT; ?>assets/media/<?= ((admin_has_permission('supervisor')) ? 'money' : 'gold'); ?>.png" class="w-rem-6 h-rem-6" alt="..."> <span class="text-xs text-heading ms-1"><?= ((admin_has_permission('supervisor')) ? 'GHS' : 'GRM'); ?></span>&nbsp;</button>
 									</div>
 								</div>
 								<div class="text-center text-sm text-muted text-underline"><?= ((admin_has_permission('supervisor')) ? 'Cash in coffers' : 'Gold at Hand'); ?> ≈ <?= ((admin_has_permission('supervisor')) ? money(get_admin_coffers($conn, $admin_id, 'balance')) : money(total_amount_today($admin_id))); ?> GHS</div>
 								<input type="hidden" id="in-hand" value="<?= ((admin_has_permission('supervisor')) ? get_admin_coffers($conn, $admin_id, 'balance') : total_amount_today($admin_id)); ?>">
 								<?php if (admin_has_permission('salesperson')) : ?>
-								<!-- <div class="row">
-									<div class="col">
+								<div class="row">
+								<!-- <div class="col">
 										<input type="number" inputmode="numeric" class="form-control" name="push_price" id="push_price" autocomplete="off" min="0.00" step="0.01" placeholder="Current price" required>
-									</div>
+									</div> -->
 									<div class="col">
 										<input type="number" inputmode="numeric" class="form-control" name="push_gram" id="push_gram" autocomplete="off" min="0.00" step="0.01" placeholder="Gram" required>
 									</div>
@@ -373,7 +373,7 @@
 									<div class="col">
 										<input type="text" class="form-control" readonly name="push_carat" id="push_carat" placeholder="Carat">
 									</div>
-								</div> -->
+								</div>
 								<?php endif; ?>
 								<div class="row">
 									<div class="col">
@@ -765,11 +765,11 @@
 		$('#push_price').on('keyup', delay(function(e) {
             e.preventDefault();
 
-			var current_price = $('#push_price').val();
+			// var current_price = $('#push_price').val();
 			var gram = $('#push_gram').val();
 			var volume = $('#push_volume').val();
 
-			if (current_price != '' && current_price > 0) {
+			// if (current_price != '' && current_price > 0) {
 				if (gram != '' && gram > 0) {
 					if (volume != '' && volume > 0) {
 						$('#push_msg').text('');
@@ -780,8 +780,8 @@
 							method : 'POST',
 							data : {
 								gram : gram,
-								volume : volume, 
-								current_price : current_price
+								volume : volume 
+								// current_price : current_price
 							},
 							beforeSend : function () {
 								// body...
@@ -811,18 +811,18 @@
 						$('#push_msg').text('');
 					}
 				}
-			}
+			// }
 		}, 500))
 		
 		// Calculation made with gram input
 		$('#push_gram').on('keyup', delay(function(e) {
             e.preventDefault();
 
-			var current_price = $('#push_price').val();
+			// var current_price = $('#push_price').val();
 			var gram = $('#push_gram').val();
 			var volume = $('#push_volume').val();
 
-			if (current_price != '' && current_price > 0) {
+			// if (current_price != '' && current_price > 0) {
 				if (gram != '' && gram > 0) {
 					if (volume != '' && volume > 0) {
 						$('#push_msg').text('');
@@ -833,8 +833,8 @@
 							method : 'POST',
 							data : {
 								gram : gram,
-								volume : volume, 
-								current_price : current_price
+								volume : volume 
+								// current_price : current_price
 							},
 							beforeSend : function () {
 								// body...
@@ -861,18 +861,18 @@
 						})
 					}
 				}
-			}
+			// }
 		}, 500))
 		
 		// Calculation made with volume input
 		$('#push_volume').on('keyup', delay(function(e) {
             e.preventDefault();
 
-			var current_price = $('#push_price').val();
+			// var current_price = $('#push_price').val();
 			var gram = $('#push_gram').val();
 			var volume = $('#push_volume').val();
 
-			if (current_price != '' && current_price > 0) {
+			// if (current_price != '' && current_price > 0) {
 				if (volume != '' && volume > 0) {
 					if (gram != '' && gram > 0) {
 						$('#push_msg').text('');
@@ -883,8 +883,8 @@
 							method : 'POST',
 							data : {
 								gram : gram,
-								volume : volume, 
-								current_price : current_price
+								volume : volume 
+								// current_price : current_price
 							},
 							beforeSend : function () {
 								// body...
@@ -911,7 +911,7 @@
 						})
 					}
 				}
-			}
+			// }
 		}, 500));
 
 		// make a push
