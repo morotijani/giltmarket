@@ -922,7 +922,7 @@
 			var balance = '<?= ((admin_has_permission('supervisor')) ? get_admin_coffers($conn, $admin_id, 'balance') : total_amount_today($admin_id)); ?>';
 			var push_note = $("#push_note").val();
 			var g = $('#push_gram').val()
-			var v = $('#push_volume').val()
+			var v = $('#	push_volume').val()
 
 			<?php if (admin_has_permission('salesperson')): ?>
 				if (g == '' || g <= 0) {
