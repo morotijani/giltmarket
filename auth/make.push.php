@@ -151,14 +151,14 @@
 								// update sales to pushed
 								$runningCapital = find_capital_given_to($admin_id);
 								if (is_array($runningCapital) && admin_has_permission('salesperson')) {
-									$updateQ = "
-										UPDATE jspence_sales 
-										SET sale_pushed = ?
-										WHERE sale_daily = ? 
-										AND sale_pushed = ? 
-									";
-									$statement = $conn->prepare($updateQ);
-									$statement->execute([1, $runningCapital['daily_id'], 0]);
+									// $updateQ = "
+									// 	UPDATE jspence_sales 
+									// 	SET sale_pushed = ?
+									// 	WHERE sale_daily = ? 
+									// 	AND sale_pushed = ? 
+									// ";
+									// $statement = $conn->prepare($updateQ);
+									// $statement->execute([1, $runningCapital['daily_id'], 0]);
 								}
 
 								$push_message = "push made on " . $today . ", of an amount of " . money($given) . ' to a ' . ((admin_has_permission()) ? ' supervisor' : 'saleperson') . ' id: ' . $push_to;

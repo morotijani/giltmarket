@@ -798,7 +798,7 @@
 								$('#push_density').val(response["density"] + ' Density');
 								$('#push_pounds').val(response["pounds"] + ' Pounds');
 								$('#push_carat').val(response["carat"] + ' Carat');
-								$('#today_given').val(response["total_amount"]);
+								// $('#today_given').val(response["total_amount"]);
 
 								$('#push_msg').text('');
 								$('#show-sendMGModal').attr('disabled', false);
@@ -850,7 +850,7 @@
 								$('#push_density').val(response["density"] + ' Density');
 								$('#push_pounds').val(response["pounds"] + ' Pounds');
 								$('#push_carat').val(response["carat"] + ' Carat');
-								$('#today_given').val(response["total_amount"]);
+								// $('#today_given').val(response["total_amount"]);
 
 								$('#push_msg').text('');
 								$('#show-sendMGModal').attr('disabled', false);
@@ -900,7 +900,7 @@
 								$('#push_density').val(response["density"] + ' Density');
 								$('#push_pounds').val(response["pounds"] + ' Pounds');
 								$('#push_carat').val(response["carat"] + ' Carat');
-								$('#today_given').val(response["total_amount"]);
+								// $('#today_given').val(response["total_amount"]);
 								
 								$('#push_msg').text('');
 								$('#show-sendMGModal').attr('disabled', false);
