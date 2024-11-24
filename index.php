@@ -744,9 +744,9 @@
 				var context = this, args = arguments;
 				clearTimeout(timer);
 				timer = setTimeout(function () {
-				callback.apply(context, args);
+					callback.apply(context, args);
 				}, ms || 0);
-			};
+			}
 		}
 
 		//
@@ -814,10 +814,10 @@
 					}
 				}
 			// }
-		}, 500))
+		}, 750))
 		
 		// Calculation made with gram input
-		$('#push_gram').on('keydown', delay(function(e) {
+		$('#push_gram').on('keyup', delay(function(e) {
             e.preventDefault();
 
 			// var current_price = $('#push_price').val();
@@ -864,10 +864,10 @@
 					}
 				}
 			// }
-		}, 500))
+		}, 750))
 		
 		// Calculation made with volume input
-		$('#push_volume').on('keydown', delay(function(e) {
+		$('#push_volume').on('keyup', delay(function(e) {
             e.preventDefault();
 
 			// var current_price = $('#push_price').val();
@@ -914,7 +914,7 @@
 					}
 				}
 			// }
-		}, 500));
+		}, 750));
 
 		// make a push
 		$('#push-next-1').on('click', function() {
