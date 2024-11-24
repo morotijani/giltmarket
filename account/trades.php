@@ -17,6 +17,21 @@
     include ("../includes/left.nav.inc.php");
     include ("../includes/top.nav.inc.php");
 
+    //
+    $pg = 0;
+    $pv = 0;
+    $pd = 0;
+    $pp = 0;
+    $pc = 0;
+    if (admin_has_permission('salesperson')) {
+        $pu = push_unit_calculations($admin_id);
+        $pg = $pu['p_gram'];
+        $pv = $pu['p_volume'];
+        $pd = $pu['p_density'];
+        $pp = $pu['p_pounds'];
+        $pc = $pu['p_carat'];
+    }
+
     $today = date("Y-m-d");
     $where = '';
     if (!admin_has_permission()) {
@@ -79,6 +94,7 @@
 
                                 <!-- Text -->
                                 <div class="fs-4 fw-semibold"><?= sum_up_grams($conn, $admin_id); ?></div>
+                                <?= ((admin_has_permission('salesperson')) ? '<small class="text-muted"> ' . $pg . ' ~ pushed</small>' : ''); ?>
                             </div>
                         </div>
                     </div>
@@ -94,6 +110,7 @@
 
                                 <!-- Text -->
                                 <div class="fs-4 fw-semibold"><?= sum_up_volume($conn, $admin_id); ?></div>
+                                <?= ((admin_has_permission('salesperson')) ? '<small class="text-muted"> ' . $pv . ' ~ pushed</small>' : ''); ?>
                             </div>
                         </div>
                     </div>
@@ -109,6 +126,7 @@
 
                                 <!-- Text -->
                                 <div class="fs-4 fw-semibold"><?= sum_up_density($conn, $admin_id); ?></div>
+                                <?= ((admin_has_permission('salesperson')) ? '<small class="text-muted"> ' . $pd . ' ~ pushed</small>' : ''); ?>
                             </div>
                         </div>
                     </div>
@@ -124,6 +142,7 @@
 
                                 <!-- Text -->
                                 <div class="fs-4 fw-semibold"><?= sum_up_pounds($conn, $admin_id); ?></div>
+                                <?= ((admin_has_permission('salesperson')) ? '<small class="text-muted"> ' . $pp . ' ~ pushed</small>' : ''); ?>
                             </div>
                         </div>
                     </div>
@@ -139,6 +158,7 @@
 
                                 <!-- Text -->
                                 <div class="fs-4 fw-semibold"><?= sum_up_carat($conn, $admin_id); ?></div>
+                                <?= ((admin_has_permission('salesperson')) ? '<small class="text-muted"> ' . $pc . ' ~ pushed</small>' : ''); ?>
                             </div>
                         </div>
                     </div>
