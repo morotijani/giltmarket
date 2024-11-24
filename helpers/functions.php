@@ -1349,12 +1349,17 @@ function sum_up_given_units($conn, $admin) {
 }
 
 // 
-function unit_calculation($unit) {
+function push_unit_calculations() {
 	global $conn;
-	$gram = 0;
-	$volume = 0;
-	$runningCapital = find_capital_given_to($admin);
+	$output = [
+		'p_gram' => 0,
+		'p_volume' => 0,
+		'p_density' => 0,
+		'p_carat' => 0,
+		'p_pounds' => 0
+	];
 
+	$runningCapital = find_capital_given_to($admin);
 	if (is_array($runningCapital)) {
 
 		$query = "
@@ -1374,16 +1379,20 @@ function unit_calculation($unit) {
 			if (json_last_error() === JSON_ERROR_NONE) {
 				$gram += $data['gram'];
 				$volume += $data['volume'];
+
+				$density = calculateDensity($gram, $volume);
+				$carat = calculateCarat($gram, $volume);
+				$pounds = calculatePounds($gram);
 			}
 		}
 
-		if ($unit == 'gram') {
-			$output = $gram;
-		} else {
-			if ($unit == 'volume') {
-				$output = $volume;
-			}
-		}
+		$output = [
+			'p_gram' => $gram,
+			'p_volume' => $volume,
+			'p_density' => $density,
+			'p_carat' => $carat,
+			'p_pounds' => $pounds
+		];
 	}
 
 	return false;
