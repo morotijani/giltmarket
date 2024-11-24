@@ -38,7 +38,7 @@
                 $result = $statement->execute([$coffers_id, $add_amount, 'receive', $coffers_receive_through, $createdAt]);
                 if ($result) {
                     
-                    $push_from_where = (($add_from == 'trades') ? 'dialy' : 'physical-cash');
+                    $push_from_where = (($add_from == 'trades') ? 'daily' : 'physical-cash');
 
                     $LID = $conn->lastInsertId();
                     $q = $conn->query("SELECT * FROM jspence_coffers WHERE id = '" . $LID . "' LIMIT 1")->fetchAll();

@@ -137,7 +137,7 @@
 								((admin_has_permission('supervisor')) ? 'money' : 'gold'), 
 								$push_from, 
 								$push_to, 
-								((admin_has_permission('supervisor')) ? 'coffers' : 'dialy'), 
+								((admin_has_permission('supervisor')) ? 'coffers' : 'daily'), 
 								$pushData, 
 								$push_note
 							];

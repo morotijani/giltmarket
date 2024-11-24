@@ -172,7 +172,7 @@ function remaining_gold_balance($admin) {
 		WHERE push_from = '" . $admin . "' 
 		AND push_to != 'coffers' 
 		AND push_status = 0 
-		AND push_from_where = 'dialy' 
+		AND push_from_where = 'daily' 
 		AND push_type = 'gold' 
 		AND push_date = '" . date("Y-m-d") . "'"
 	)->fetchAll();
@@ -831,14 +831,14 @@ function total_amount_today($admin) {
 		$total_amount_traded = $thisDayrow[0]['total'] ?? 0;
 
 		// get all pushed amout 
-		$get_pushed = $conn->query("SELECT SUM(push_amount) AS pamt FROM jspence_pushes WHERE push_from = '" . $admin . "' AND push_date = '" . $runningCapital['daily_date'] . "' AND jspence_pushes.push_from_where = 'dialy'")->fetchAll();
+		$get_pushed = $conn->query("SELECT SUM(push_amount) AS pamt FROM jspence_pushes WHERE push_from = '" . $admin . "' AND push_date = '" . $runningCapital['daily_date'] . "' AND jspence_pushes.push_from_where = 'daily'")->fetchAll();
 		$total_amount_pushed = $get_pushed[0]['pamt'] ?? 0;
 		// if (admin_has_permission('salesperson')) {
 		// 	$total_amount_pushed = 0;
 		// }
 
 		// fetch all revese pushes
-		$reverse_pushes = $conn->query("SELECT SUM(push_amount) AS pamt FROM jspence_pushes WHERE push_from = '" . $admin . "' AND push_date = '" . $runningCapital['daily_date'] . "' AND jspence_pushes.push_from_where = 'dialy' AND push_status = 1")->fetchAll();
+		$reverse_pushes = $conn->query("SELECT SUM(push_amount) AS pamt FROM jspence_pushes WHERE push_from = '" . $admin . "' AND push_date = '" . $runningCapital['daily_date'] . "' AND jspence_pushes.push_from_where = 'daily' AND push_status = 1")->fetchAll();
 		$r_total_amount_pushed = $reverse_pushes[0]['pamt'] ?? 0;
 
 		if (admin_has_permission('salesperson') && $total_amount_traded <= 0) {
@@ -1258,7 +1258,7 @@ function get_supervisors_for_push_capital($conn) {
 }
 
 // find daily to push
-function find_dialy_for_push($t, $id) {
+function find_daily_for_push($t, $id) {
 	global $conn;
 	//
 	$sql = "

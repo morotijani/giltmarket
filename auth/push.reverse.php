@@ -40,10 +40,10 @@
 						} else if ($find[0]['push_to'] == 'coffers' && admin_has_permission('supervisor') && $find[0]['push_from_where'] == 'physical-cash') {
 							$from_balance = get_admin_coffers($conn, $admin_id); // get coffers balance and reverse physical cash
 							$and = " back to physical cash";
-						} else if ($find[0]['push_to'] == 'coffers' && admin_has_permission('supervisor') && $find[0]['push_from_where'] == 'dialy') {
+						} else if ($find[0]['push_to'] == 'coffers' && admin_has_permission('supervisor') && $find[0]['push_from_where'] == 'daily') {
 							$from_balance = get_admin_coffers($conn, $admin_id); // get coffers balance and reverse to supervisor accumulated cash
 							$and = " to accumulated cash balance";
-						} else if ($find[0]['push_type'] == 'money' && admin_has_permission('supervisor') && $find[0]['push_from_where'] == 'dialy') {
+						} else if ($find[0]['push_type'] == 'money' && admin_has_permission('supervisor') && $find[0]['push_from_where'] == 'daily') {
 							$from_balance = _capital($find[0]['push_to'], NULL, 'reversal')['today_balance']; // get salespersonnel cash balance and reverse to coffers
 							$and = " to coffers";
 						} else if ($find[0]['push_type'] == 'money' && admin_has_permission('supervisor') && $find[0]['push_from_where'] == 'coffers') {
@@ -85,9 +85,9 @@
 									
 								} else if ($find[0]['push_to'] == 'coffers' && admin_has_permission('supervisor') && $find[0]['push_from_where'] == 'coffers') {
 									
-								} else if ($find[0]['push_to'] == 'coffers' && admin_has_permission('supervisor') && $find[0]['push_from_where'] == 'dialy') {
+								} else if ($find[0]['push_to'] == 'coffers' && admin_has_permission('supervisor') && $find[0]['push_from_where'] == 'daily') {
 									
-								} else if ($find[0]['push_type'] == 'money' && admin_has_permission('supervisor') && $find[0]['push_from_where'] == 'dialy') {
+								} else if ($find[0]['push_type'] == 'money' && admin_has_permission('supervisor') && $find[0]['push_from_where'] == 'daily') {
 									
 								} else if ($find[0]['push_type'] == 'money' && admin_has_permission('supervisor') && $find[0]['push_from_where'] == 'coffers') {
 									// reversing money send to supervisor back to coffers

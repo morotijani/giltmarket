@@ -429,7 +429,7 @@
 														<h6 class="fs-base fw-normal mb-1">Gram,</h6>
 													</div>
 													<div class="col-auto">
-														<time class="text-body-secondary"><?= sum_up_grams($conn, $admin_id); ?></time>
+														<time class="text-body-secondary" id="p-gram"></time>
 													</div>
 												</div>
 											</div>
@@ -439,7 +439,7 @@
 														<h6 class="fs-base fw-normal mb-1">Volume,</h6>
 													</div>
 													<div class="col-auto">
-														<time class="text-body-secondary"><?= sum_up_volume($conn, $admin_id); ?></time>
+														<time class="text-body-secondary" id='p-volume'></time>
 													</div>
 												</div>
 											</div>
@@ -449,7 +449,7 @@
 														<h6 class="fs-base fw-normal mb-1">Density,</h6>
 													</div>
 													<div class="col-auto">
-														<time class="text-body-secondary"><?= sum_up_density($conn, $admin_id); ?></time>
+														<time class="text-body-secondary" id='p-density'></time>
 													</div>
 												</div>
 											</div>
@@ -459,7 +459,7 @@
 														<h6 class="fs-base fw-normal mb-1">Pounds,</h6>
 													</div>
 													<div class="col-auto">
-														<time class="text-body-secondary"><?= sum_up_pounds($conn, $admin_id); ?></time>
+														<time class="text-body-secondary" id='p-pounds'></time>
 													</div>
 												</div>
 											</div>
@@ -469,7 +469,7 @@
 														<h6 class="fs-base fw-normal mb-1">Carat,</h6>
 													</div>
 													<div class="col-auto">
-														<time class="text-body-secondary"><?= sum_up_carat($conn, $admin_id); ?></time>
+														<time class="text-body-secondary" id='p-carat'></time>
 													</div>
 												</div>
 											</div>
@@ -954,6 +954,11 @@
 			if (amount_given <= +balance) {
 				var push_to_name = $("#push_to option:selected").text();
 				$('#push-amount').text(amount_given);
+				$('#p-gram').text($('#push_gram').val());
+				$('#p-volume').text($('#push_volume').val());
+				$('#p-density').text($('#push_density').val());
+				$('#p-pounds').text($('#push_pounds').val())
+				$('#p-carat').text($('#push_carat').val());
 				$('#push-to').text(push_to_name);
 				$('#push-note').text(push_note);
 				

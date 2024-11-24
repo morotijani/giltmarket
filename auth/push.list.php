@@ -86,7 +86,7 @@ if ($total_data > 0) {
 		}
         
         $option = '';
-    	if ($row["push_date"] == date("Y-m-d") && $row["push_from"] == $admin_id && ($row['push_from_where'] == 'dialy' || $row['push_from_where'] == 'coffers' || $row['push_from_where'] == 'physical-cash')) {
+    	if ($row["push_date"] == date("Y-m-d") && $row["push_from"] == $admin_id && ($row['push_from_where'] == 'daily' || $row['push_from_where'] == 'coffers' || $row['push_from_where'] == 'physical-cash')) {
            $option = '<a href="javascript:;" data-bs-target="#reverseModal_' . $row["pid"] . '" data-bs-toggle="modal" class="badge bg-dark"> Reverse push </a>'; 
         }
 		
