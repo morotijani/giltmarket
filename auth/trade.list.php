@@ -161,7 +161,7 @@ if ($total_data > 0) {
 	                <td>' . pretty_date($row["sca"]) . '</td>
 	                <td class="text-end">
 	                    <button type="button" class="btn btn-sm btn-dark" title="More" data-bs-target="#saleModal_' . $row["sid"] . '" data-bs-toggle="modal">
-	                       <span class="material-symbols-outlined"> table_eye </span> View
+	                       <span class="material-symbols-outlined"> visibility </span>
 	                    </button> ' . $option1 . '
 	                </td>
 	            </tr>
