@@ -860,15 +860,15 @@ function total_amount_today($admin) {
 function total_expenditure_today($admin, $option = null) {
 	global $conn;
 	$runningCapital = find_capital_given_to($admin);
-	$d = ((admin_has_permission())? null : $runningCapital['daily_id']); 
-	$date = ((admin_has_permission())? date("Y-m-d") : $runningCapital['daily_date']); 
-
 	$array = [
 		"sum" => 0,
 		"count" => 0
 	];
+
 	if (is_array($runningCapital) || admin_has_permission()) {
-	
+		$d = ((admin_has_permission())? null : $runningCapital['daily_id']); 
+		$date = ((admin_has_permission())? date("Y-m-d") : $runningCapital['daily_date']); 
+
 		$sql = "
 			SELECT 
 				SUM(sale_total_amount) AS total,
