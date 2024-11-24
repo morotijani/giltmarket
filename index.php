@@ -13,41 +13,6 @@
 		redirect(PROOT . 'auth/end-trade-checker');
 	}
 
-	$query = "
-		SELECT push_data FROM jspence_pushes WHERE push_daily = ? 
-		AND push_from_where = ?
-	";
-	$statement = $conn->prepare($query);
-	$statement->execute(['198e9b7f-c3b6-4e79-84cf-d76fcb7c7f5b', 'dialy']);
-	$sub_rows = $statement->fetchAll();
-	$gram = 0;
-	$volume = 0;
-	$a = '';
-	foreach	($sub_rows as $sub_row) {
-		$jsonObject = $sub_row['push_data'];
-
-		// Decode JSON data
-        $data = json_decode($jsonObject, true);
-
-		if (json_last_error() === JSON_ERROR_NONE) {
-			$gram += $data['gram'];
-			$volume += $data['volume'];
-
-
-			// foreach ($data as $key => $value) {
-            //     if (is_array($value)) {
-            //         // echo "$key: " . implode(", ", $value) . "<br>";
-            //     } else {
-            //         // echo "$key: $value<br>";
-            //     }
-            // }
-		}
-
-
-	}
-	$conn->close();
-
-	
     include ("includes/header.inc.php");
     include ("includes/aside.inc.php");
     include ("includes/left.nav.inc.php");
