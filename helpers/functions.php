@@ -1394,8 +1394,8 @@ function push_unit_calculations() {
 			'p_pounds' => $pounds
 		];
 	}
-
-	return false;
+	
+	return $output;
 }
 
 // summ all gram per admin for today
