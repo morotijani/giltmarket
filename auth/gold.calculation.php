@@ -41,8 +41,8 @@ if (isset($_POST['gram'])) {
 		'pounds' => $pounds, 
 		'carat' => $carat, 
 		'current_price' => $current_price, 
-		'total_amount' => $total_amount,
-		'continue' => $continue,
+		'total_amount' => money($total_amount),
+		'continue' => $continue, 
 		'today_balance' => $today_balance
 	);
 	$ouput = json_encode($arrayOutput);
