@@ -950,9 +950,9 @@
 			}
 
 			if (amount_given <= +balance) {
-
+				var push_to_name = $("#push_to option:selected").text();
 				$('#push-amount').text(amount_given);
-				$('#push-to').text(push_to);
+				$('#push-to').text(push_to_name);
 				$('#push-note').text(push_note);
 				
 				$('#pushSummaryModal').modal('show');
