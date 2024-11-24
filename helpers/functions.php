@@ -1407,7 +1407,7 @@ function push_unit_calculations($admin) {
 
 // summ all gram per admin for today
 function sum_up_grams($conn, $admin) {
-	$output = '';
+	$output = 0;
 	$runningCapital = find_capital_given_to($admin);
 
 	if (is_array($runningCapital)) {
@@ -1427,15 +1427,16 @@ function sum_up_grams($conn, $admin) {
 		$statement = $conn->prepare($sql);
 		$statement->execute([0, $runningCapital["daily_id"]]);
 		$row = $statement->fetchAll();
+		$g = $row[0]['g'];
 
-		if (admin_has_permission('salesperson')) {
-			
+		if (($row[0]['g'] != null || $row[0]['g'] != '') ? 0 : $row[0]['g']) {
+			if (admin_has_permission('salesperson')) {
+				$arr = push_unit_calculations($admin);
+				$g = ((float)$g - $arr['p_gram']);
+			}
 		}
 
-		return (($row[0]['g'] == null || $row[0]['g'] == '') ? 0 : $row[0]['g']);
-	}
-
-	return false;
+	return $output;
 }
 
 // summ all volume per admin for today
