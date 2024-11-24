@@ -73,7 +73,7 @@
                         </div>
                         <div id="step-2" class="d-none text-center">
                             <ul class="list-group" id="buysummary"></ul>
-                            <button type="button" class="btn btn-warning mt-4" id="next-2">Confirm Sale</button>
+                            <button type="button" class="btn btn-warning mt-4" id="next-2">Confirm <?= ((admin_has_permission('supervisor')) ? 'sale' : 'purchase'); ?></button>
                             <br><br>
                             <a href="javascript:;" class="text-danger" id="prev-1"><< Go Back</a>
                         </div>
@@ -632,7 +632,7 @@
                 `
                 );
                 
-                $('#buyModalLabel').html('Sale Summary');
+                $('#buyModalLabel').html('<?= ((admin_has_permission('supervisor')) ? 'Sale' : 'Purchase'); ?> Summary');
                 $('#step-1').addClass('d-none');
                 $('#step-2').removeClass('d-none');
                 $('#step-3').addClass('d-none');
@@ -642,7 +642,7 @@
             $('#next-2').click(function(e) {
                 e.preventDefault();
 
-                $('#buyModalLabel').html('Authentication for sale.');
+                $('#buyModalLabel').html('Authentication for <?= ((admin_has_permission('supervisor')) ? 'sale' : 'purchase'); ?>.');
                 $('#step-1').addClass('d-none');
                 $('#step-2').addClass('d-none');
                 $('#step-3').removeClass('d-none');
@@ -651,7 +651,7 @@
 
             // Back to 1
             $("#prev-1").click(function() {
-                $('#buyModalLabel').html('Make a sale');
+                $('#buyModalLabel').html('Make a <?= ((admin_has_permission('supervisor')) ? 'sale' : 'purchase'); ?>');
                 $('#step-1').removeClass('d-none')
                 $('#step-2').addClass('d-none')
                 $('#step-3').addClass('d-none')
@@ -659,7 +659,7 @@
 
             // Back to 2
             $("#prev-2").click(function() {
-                $('#buyModalLabel').html('Sale Summary');
+                $('#buyModalLabel').html('<?= ((admin_has_permission('supervisor')) ? 'Sale' : 'Purchase'); ?> Summary');
                 $('#step-2').removeClass('d-none')
                 $('#step-3').addClass('d-none')
                 $('#step-1').addClass('d-none')
