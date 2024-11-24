@@ -1,10 +1,16 @@
 <?php 
-
-    // view admin profile details
+    // deleted trades
     require_once ("../db_connection/conn.php");
+
     if (!admin_is_logged_in()) {
         admin_login_redirect();
     }
+
+    //
+	if (is_array(capital_mover($admin_id)) && capital_mover($admin_id)["msg"] == "touched") {
+		redirect(PROOT . 'auth/end-trade-checker');
+	}
+
     include ("../includes/header.inc.php");
     include ("../includes/aside.inc.php");
     include ("../includes/left.nav.inc.php");
