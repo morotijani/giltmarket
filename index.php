@@ -953,7 +953,10 @@
 			if (push_to == '') {
 				alert("You will have to select a <?= ((admin_has_permission('supervisor') ? 'sale person' : 'supervisor')) ;?> to proceed!");
 				$("#push_to").focus()
+				$("#push_to").addClass('error-field')
 				return false;
+			} else {
+				$("#push_to").removeClass('error-field')
 			}
 
 			if (amount_given == '' || amount_given <= 0) {
