@@ -595,7 +595,7 @@
                 `
                     <li class="list-group-item" style="padding: 0.1rem 1rem;">
                         <small class="text-muted">Total amount,</small>
-                        <p>₵` + $("#total-amount").val() + `</p>
+                        <p>` + $("#total-amount").val() + `</p>
                     </li>
                     <li class="list-group-item" style="padding: 0.1rem 1rem;">
                         <small class="text-muted">Curent price</small>
