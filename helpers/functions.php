@@ -1351,6 +1351,8 @@ function sum_up_given_units($conn, $admin) {
 // summ all gram per admin for today
 function sum_up_grams($conn, $admin) {
 	$output = '';
+	$gram = 0;
+	$volume = 0;
 	$runningCapital = find_capital_given_to($admin);
 
 	if (is_array($runningCapital)) {
@@ -1372,17 +1374,8 @@ function sum_up_grams($conn, $admin) {
 		$row = $statement->fetchAll();
 
 		if (admin_has_permission('salesperson')) {
-			$query = "
-				SELECT push_data FROM jspence_pushes WHERE push_daily = ? 
-				AND push_from_where = ?
-			";
-			$statement = $conn->prepare($query);
-			$statement->execute([$runningCapital['daily_id'], 'daily']);
-			$sub_rows = $statement->fetchAll();
-			foreach	($sub_rows as $sub_row) {
-				
-			}
-	}
+			
+		}
 
 		return (($row[0]['g'] == null || $row[0]['g'] == '') ? 0 : $row[0]['g']);
 	}
