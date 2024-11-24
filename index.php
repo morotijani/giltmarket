@@ -13,6 +13,8 @@
 		redirect(PROOT . 'auth/end-trade-checker');
 	}
 
+	dnd(push_unit_calculations($admin_id));
+
     include ("includes/header.inc.php");
     include ("includes/aside.inc.php");
     include ("includes/left.nav.inc.php");

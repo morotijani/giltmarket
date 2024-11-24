@@ -1349,14 +1349,19 @@ function sum_up_given_units($conn, $admin) {
 }
 
 // 
-function push_unit_calculations() {
+function push_unit_calculations($admin) {
 	global $conn;
+	$gram = 0;
+	$volume = 0;
+	$density = 0;
+	$carat = 0;
+	$pounds = 0;
 	$output = [
-		'p_gram' => 0,
-		'p_volume' => 0,
-		'p_density' => 0,
-		'p_carat' => 0,
-		'p_pounds' => 0
+		'p_gram' => $gram,
+		'p_volume' => $volume,
+		'p_density' => $density,
+		'p_carat' => $carat,
+		'p_pounds' => $pounds
 	];
 
 	$runningCapital = find_capital_given_to($admin);
@@ -1364,11 +1369,13 @@ function push_unit_calculations() {
 
 		$query = "
 			SELECT push_data FROM jspence_pushes 
-			WHERE push_daily = ? 
+			WHERE push_type = ? 
 			AND push_from_where = ? 
+			AND push_from = ? 
+			AND push_date = ?
 		";
 		$statement = $conn->prepare($query);
-		$statement->execute([$runningCapital["daily_id"], 'dialy']);
+		$statement->execute(['gold', 'daily', $admin, $runningCapital["daily_date"]]);
 		$sub_rows = $statement->fetchAll();
 		foreach	($sub_rows as $sub_row) {
 			$jsonObject = $sub_row['push_data'];
@@ -1394,7 +1401,7 @@ function push_unit_calculations() {
 			'p_pounds' => $pounds
 		];
 	}
-	
+
 	return $output;
 }
 
