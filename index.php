@@ -358,9 +358,11 @@
 									</div> -->
 									<div class="col">
 										<input type="number" inputmode="numeric" class="form-control" name="push_gram" id="push_gram" autocomplete="off" min="0.00" step="0.01" placeholder="Gram" required>
+										<div class="form-text">Available gram: <?= sum_up_grams($conn, $admin_id); ?></div>
 									</div>
 									<div class="col">
 										<input type="number" inputmode="numeric" class="form-control" name="push_volume" id="push_volume" autocomplete="off" min="0.00" step="0.01" placeholder="Volume" required>
+										<div class="form-text">Available volume: <?= sum_up_volume($conn, $admin_id); ?></div>
 									</div>
 								</div>
 								<div class="row d-none" id="push-result">
