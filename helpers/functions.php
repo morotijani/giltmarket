@@ -252,14 +252,26 @@ function sum_capital_given_for_day() {
 function update_today_capital_given_balance($type, $today_total_balance, $today, $log_admin) {
 	global $conn;
 
-	$updateQ = "
+	$sql = "
 		UPDATE jspence_daily 
 		SET daily_balance = ? 
 		WHERE daily_date = ? 
 		AND daily_to = ?
 	";
-	$statement = $conn->prepare($updateQ);
-	$statement->execute([$today_total_balance, $today, $log_admin]);
+	$data = [$today_total_balance, $today, $log_admin];
+	if (admin_has_permission('supervisor')) {
+		$a = _gained_calculation($today_total_balance, $capital, $log_admin);
+		$data = [$today_total_balance, $today, $log_admin];
+		
+		$sql = "
+			UPDATE jspence_daily 
+			SET daily_balance = ?, dialy_profit = ?  
+			WHERE daily_date = ? 
+			AND daily_to = ?
+		";
+	}
+	$statement = $conn->prepare($sql);
+	$statement->execute($data);
 	
 	$message = $type . " made, balance remaining is: " . money($today_total_balance) . " and " . $today . " capital was:  " . money(_capital($log_admin)['today_capital']);
 	add_to_log($message, $log_admin);
@@ -838,7 +850,7 @@ function total_amount_today($admin) {
 		// }
 
 		// fetch all revese pushes
-		$reverse_pushes = $conn->query("SELECT SUM(push_amount) AS pamt FROM jspence_pushes WHERE push_from = '" . $admin . "' AND push_date = '" . $runningCapital['daily_date'] . "' AND jspence_pushes.push_from_where = 'daily' AND push_status = 1")->fetchAll();
+		$reverse_pushes = $conn->query("SELECT SUM(push_amount) AS pamt FROM jspence_pushes WHERE push_from = '" . $admin . "' AND push_date = '" . $runningCapital['daily_date'] . "' AND jspence_pushes.push_from_where = 'dialy' AND push_status = 1")->fetchAll();
 		$r_total_amount_pushed = $reverse_pushes[0]['pamt'] ?? 0;
 
 		if (admin_has_permission('salesperson') && $total_amount_traded <= 0) {
@@ -1258,7 +1270,7 @@ function get_supervisors_for_push_capital($conn) {
 }
 
 // find daily to push
-function find_daily_for_push($t, $id) {
+function find_dialy_for_push($t, $id) {
 	global $conn;
 	//
 	$sql = "
