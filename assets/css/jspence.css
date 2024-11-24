@@ -152,7 +152,6 @@ input[type=number] {
     --x-btn-hover-border-color: var(--x-gray-700);
 }
 
-
 .hide {
     display: none;
 }
@@ -160,6 +159,11 @@ input[type=number] {
 .des:hover + .hide {
     display: block;
     color: red;
+}
+
+.error-field {
+    border-color: #d22d2d !important;
+    box-shadow: 0 0 transparent, 0 0 0 .25rem #d22d2d38 !important;
 }
 
 

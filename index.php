@@ -921,21 +921,32 @@
 		
 			var push_to = $("#push_to").val();
 			var amount_given = $("#today_given").val();
-			var balance = '<?= ((admin_has_permission('supervisor')) ? get_admin_coffers($conn, $admin_id, 'balance') : total_amount_today($admin_id)); ?>';
 			var push_note = $("#push_note").val();
 			var g = $('#push_gram').val()
 			var v = $('#push_volume').val()
+			var balance = '<?= ((admin_has_permission('supervisor')) ? get_admin_coffers($conn, $admin_id, 'balance') : total_amount_today($admin_id)); ?>';
 
 			<?php if (admin_has_permission('salesperson')): ?>
-				if (g == '' || g <= 0) {
+
+				var availableG = '<?= sum_up_grams($conn, $admin_id); ?>'
+				var availableV = '<?= sum_up_volume($conn, $admin_id); ?>'
+				
+				if (g == '' || g <= 0 || g > +availableG) {
 					alert("Invalid gram!");
 					$("#push_gram").focus()
+					$("#push_gram").addClass('error-field')
 					return false;
+				} else {
+					$("#push_gram").removeClass('error-field')
 				}
-				if (v == '' || v <= 0) {
+
+				if (v == '' || v <= 0 || v > +availableV) {
 					alert("Invalid volume!");
 					$("#push_volume").focus()
+					$("#push_volume").addClass('error-field')
 					return false;
+				} else {
+					$("#push_volume").removeClass('error-field')
 				}
 			<?php endif; ?>
 

@@ -402,7 +402,7 @@
                     }
                 }
 
-            }, 500));
+            }, 750));
 
 
             // Calculation made with gram input
@@ -472,7 +472,7 @@
                     }
                 }
 
-            }, 500))
+            }, 750))
 
             // Calculation made with volume input
             $('#volume-amount').on('keyup', delay(function(e) {
@@ -539,7 +539,7 @@
                         }
                     }
                 }
-            }, 500));
+            }, 750));
 
             // Next to 1
             $('#next-1').click(function(e) {
