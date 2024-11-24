@@ -1430,9 +1430,10 @@ function sum_up_grams($conn, $admin) {
 		$g = $row[0]['g'];
 
 		if (($row[0]['g'] != null || $row[0]['g'] != '') ? 0 : $row[0]['g']) {
+			$output = $g;
 			if (admin_has_permission('salesperson')) {
 				$arr = push_unit_calculations($admin);
-				$g = ((float)$g - $arr['p_gram']);
+				$output = ((float)$g - $arr['p_gram']);
 			}
 		}
 
