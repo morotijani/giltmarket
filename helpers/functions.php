@@ -1348,11 +1348,45 @@ function sum_up_given_units($conn, $admin) {
 	return $output;
 }
 
+// 
+function unit_calculation($unit) {
+	global $conn;
+	$gram = 0;
+	$volume = 0;
+
+	$query = "
+		SELECT push_data FROM jspence_pushes WHERE push_daily = ? 
+		AND push_from_where = ?
+	";
+	$statement = $conn->prepare($query);
+	$statement->execute(['198e9b7f-c3b6-4e79-84cf-d76fcb7c7f5b', 'dialy']);
+	$sub_rows = $statement->fetchAll();
+	foreach	($sub_rows as $sub_row) {
+		$jsonObject = $sub_row['push_data'];
+
+		// Decode JSON data
+		$data = json_decode($jsonObject, true);
+
+		if (json_last_error() === JSON_ERROR_NONE) {
+			$gram += $data['gram'];
+			$volume += $data['volume'];
+		}
+	}
+
+	if ($unit == 'gram') {
+		$output = $gram;
+	} else {
+		if ($unit == 'volume') {
+			$output = $volume;
+		}
+	}
+
+	return;
+}
+
 // summ all gram per admin for today
 function sum_up_grams($conn, $admin) {
 	$output = '';
-	$gram = 0;
-	$volume = 0;
 	$runningCapital = find_capital_given_to($admin);
 
 	if (is_array($runningCapital)) {
