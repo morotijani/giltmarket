@@ -1353,35 +1353,40 @@ function unit_calculation($unit) {
 	global $conn;
 	$gram = 0;
 	$volume = 0;
+	$runningCapital = find_capital_given_to($admin);
 
-	$query = "
-		SELECT push_data FROM jspence_pushes WHERE push_daily = ? 
-		AND push_from_where = ?
-	";
-	$statement = $conn->prepare($query);
-	$statement->execute(['198e9b7f-c3b6-4e79-84cf-d76fcb7c7f5b', 'dialy']);
-	$sub_rows = $statement->fetchAll();
-	foreach	($sub_rows as $sub_row) {
-		$jsonObject = $sub_row['push_data'];
+	if (is_array($runningCapital)) {
 
-		// Decode JSON data
-		$data = json_decode($jsonObject, true);
+		$query = "
+			SELECT push_data FROM jspence_pushes 
+			WHERE push_daily = ? 
+			AND push_from_where = ? 
+		";
+		$statement = $conn->prepare($query);
+		$statement->execute([$runningCapital["daily_id"], 'dialy']);
+		$sub_rows = $statement->fetchAll();
+		foreach	($sub_rows as $sub_row) {
+			$jsonObject = $sub_row['push_data'];
 
-		if (json_last_error() === JSON_ERROR_NONE) {
-			$gram += $data['gram'];
-			$volume += $data['volume'];
+			// Decode JSON data
+			$data = json_decode($jsonObject, true);
+
+			if (json_last_error() === JSON_ERROR_NONE) {
+				$gram += $data['gram'];
+				$volume += $data['volume'];
+			}
+		}
+
+		if ($unit == 'gram') {
+			$output = $gram;
+		} else {
+			if ($unit == 'volume') {
+				$output = $volume;
+			}
 		}
 	}
 
-	if ($unit == 'gram') {
-		$output = $gram;
-	} else {
-		if ($unit == 'volume') {
-			$output = $volume;
-		}
-	}
-
-	return;
+	return false;
 }
 
 // summ all gram per admin for today
@@ -1394,7 +1399,7 @@ function sum_up_grams($conn, $admin) {
 			SELECT SUM(sale_gram) AS g 
 			FROM jspence_sales 
 			WHERE sale_status = ? 
-			AND sale_pushed = ? 
+			-- AND sale_pushed = ? 
 			AND sale_daily = ?
 		";
 
@@ -1404,7 +1409,7 @@ function sum_up_grams($conn, $admin) {
 		}
 
 		$statement = $conn->prepare($sql);
-		$statement->execute([0, 0, $runningCapital["daily_id"]]);
+		$statement->execute([0, $runningCapital["daily_id"]]);
 		$row = $statement->fetchAll();
 
 		if (admin_has_permission('salesperson')) {
@@ -1427,7 +1432,7 @@ function sum_up_volume($conn, $admin) {
 			SELECT SUM(sale_volume) AS v 
 			FROM jspence_sales 
 			WHERE sale_status = ? 
-			AND sale_pushed = ? 
+			-- AND sale_pushed = ? 
 			AND sale_daily = ?
 		";
 
@@ -1437,7 +1442,7 @@ function sum_up_volume($conn, $admin) {
 		}
 
 		$statement = $conn->prepare($sql);
-		$statement->execute([0, 0, $runningCapital["daily_id"]]);
+		$statement->execute([0, $runningCapital["daily_id"]]);
 		$row = $statement->fetchAll();
 
 		return (($row[0]['v'] == null) ? 0 : $row[0]['v']);
