@@ -66,9 +66,13 @@ if (array_key_exists('postdata', $_SESSION)) {
 
     // include gain amount to supervor details
     $gained = '';
-    $g = '';
+    $g = 0;
     if (admin_has_permission('supervisor')) {
-        $g = _gained_calculation(_capital($admin_id)['today_balance'], _capital($admin_id)['today_capital'], $admin_id);
+        $runningCapital = find_capital_given_to($admin_id);
+        if (is_array($runningCapital)) {
+            $g = $runningCapital['daily_profit'];
+        }
+
         $gained = 'Earned: ' . money($g) . '<br />';
         $capital_bal = remaining_gold_balance($admin_id);
     }
