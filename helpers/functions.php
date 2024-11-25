@@ -169,6 +169,8 @@ function remaining_gold_balance($admin) {
 	$runningCapital = find_capital_given_to($admin);
 	if (is_array($runningCapital)) {
 		$d = $runningCapital['daily_date'];
+		$tst = total_sale_amount_today($admin);
+		$balance = $tst["sum"];
 
 		// get all sending money pushes made
 		$sending = $conn->query(
@@ -184,11 +186,13 @@ function remaining_gold_balance($admin) {
 		
 		$send = (($sending[0]['pamt'] != null || $sending[0]['pamt'] != 0 || $sending[0]['pamt'] != '0.00') ? $sending[0]['pamt'] : 0);
 
-		$a = ((float)(_capital($admin)['today_balance'] + $send));
+		$a = ((float)($balance + $send));
 
 		$b = ((float)(_capital($admin)['today_capital'] - $a));
 
-		$output = ((float)$b + $runningCapital['daily_profit']);
+		if ($runningCapital['daily_balance'] != '0.00') {
+			$output = ((float)$b + $runningCapital['daily_profit']);
+		}
 
 		// check if there is balance remain from the capital given
 		// return (($b >= 0) ? $b : 0);
