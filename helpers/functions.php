@@ -273,11 +273,10 @@ function update_today_capital_given_balance($type, $today_capital, $today_total_
 		AND daily_to = ?
 	";
 	$statement = $conn->prepare($sql);
-	//$statement->execute($data);
+	$statement->execute($data);
 
 	if (admin_has_permission('supervisor')) {
 		$a = _gained_calculation($today_total_balance, $today_capital, $admin);
-		dnd($a);
 		if ($a > 0) {
 			$sub_data = [$a, 0, $today, $admin];
 			$Query = "

@@ -57,9 +57,13 @@ if (isset($_POST['gram-amount'])) {
 				$statement = $conn->prepare($sql);
 				$result = $statement->execute([$sale_id, $gram, $volume, $density, $pounds, $carat, $current_price, $total_amount, $customer_name, $customer_contact, $note, $sale_type, $admin_id, $sale_daily]);
 				if (isset($result)) {
+					$last_id = $conn->lastInsertId();
+
 					$today = $runningCapital['daily_date'];
 					$t = (admin_has_permission('supervisor') ? 'in' : 'out');
 					$_t = (admin_has_permission('salesperson') ? 'exp' : '');
+
+					$execute_data = [$today, $t, $_t, $admin_id, 0];
 					$q = "
 						SELECT 
 							SUM(jspence_sales.sale_total_amount) AS ttsa, 
@@ -70,8 +74,16 @@ if (isset($_POST['gram-amount'])) {
 						AND jspence_sales.sale_by = ? 
 						AND jspence_sales.sale_status = ?
 					";
+					if (admin_has_permission('supervisor')) {
+						$execute_data = [$last_id];
+						$q = "
+							SELECT sale_total_amount 
+							FROM `jspence_sales` 
+							WHERE sale_id = ?
+						";
+					}
 					$statement = $conn->prepare($q);
-					$statement->execute([$today, $t, $_t, $admin_id, 0]);
+					$statement->execute($execute_data);
 					$r = $statement->fetchAll();
 					
 					$trade_status = 'bought'; // out-trade
@@ -82,9 +94,14 @@ if (isset($_POST['gram-amount'])) {
 					}
 
 					if (admin_has_permission('supervisor')) {
+
 						$trade_status = 'sold'; // in-trade
 						// $today_total_balance = $r[0]['ttsa'];
-						$today_total_balance = $runningCapital['daily_balance'];
+						// $today_total_balance = $runningCapital['daily_balance'];
+						$today_total_balance = (float)($today_balance - $r[0]['sale_total_amount']);
+						if ($today_total_balance > 0) {
+							$today_total_balance = $today_total_balance;
+						}
 					}
 
 					update_today_capital_given_balance($trade_status, $today_capital, $today_total_balance, $today, $admin_id);

@@ -72,11 +72,13 @@
 						if (is_array($findCapital)) {
 							$c = (float)($given + $c);
 
-							$bal = (float)(_capital($push_to, null, 'push')['today_balance'] + $given);
+							// $bal = (float)(_capital($push_to)['today_balance'] + $given);
 							// check if we are sending to salepersonnel from supervisor
-							if (admin_has_permission('supervisor')) {
-								$bal = ((_capital($push_to)['today_balance'] == null || _capital($push_to)['today_balance'] == 0 || _capital($push_to)['today_balance'] == '0.00') ? null : (float)($given + _capital($push_to)['today_balance']));
-							}
+							// if (admin_has_permission('supervisor')) {
+							// 	$bal = ((_capital($push_to)['today_balance'] == null || _capital($push_to)['today_balance'] == 0 || _capital($push_to)['today_balance'] == '0.00') ? null : (float)($given + _capital($push_to)['today_balance']));
+							// } else {
+								$bal = ((_capital($push_to)['today_balance'] == null || _capital($push_to)['today_balance'] == '0.00') ? null : (float)($given + _capital($push_to)['today_balance']));
+							// }
 
 							// update daily capital and balance
 							$dailyQ = "
