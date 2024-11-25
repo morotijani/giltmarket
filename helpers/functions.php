@@ -164,29 +164,38 @@ function _capital($admin, $d = null, $for = null) {
 // fetch supervisor remaining gold
 function remaining_gold_balance($admin) {
 	global $conn;
+	$output = 0;
 
-	// get all sending money pushes made
-	$sending = $conn->query(
-		"SELECT SUM(push_amount) 
-		AS pamt FROM jspence_pushes 
-		WHERE push_from = '" . $admin . "' 
-		AND push_to != 'coffers' 
-		AND push_status = 0 
-		AND push_from_where = 'daily' 
-		AND push_type = 'gold' 
-		AND push_date = '" . date("Y-m-d") . "'"
-	)->fetchAll();
-	
-	$send = (($sending[0]['pamt'] != null || $sending[0]['pamt'] != 0 || $sending[0]['pamt'] != '0.00') ? $sending[0]['pamt'] : 0);
+	$runningCapital = find_capital_given_to($admin);
+	if (is_array($runningCapital)) {
+		$d = $runningCapital['daily_date'];
 
-	$a = (float)(_capital($admin)['today_balance'] + $send);
+		// get all sending money pushes made
+		$sending = $conn->query(
+			"SELECT SUM(push_amount) 
+			AS pamt FROM jspence_pushes 
+			WHERE push_from = '" . $admin . "' 
+			AND push_to != 'coffers' 
+			AND push_status = 0 
+			AND push_from_where = 'daily' 
+			AND push_type = 'gold' 
+			AND push_date = '" . $d . "'"
+		)->fetchAll();
+		
+		$send = (($sending[0]['pamt'] != null || $sending[0]['pamt'] != 0 || $sending[0]['pamt'] != '0.00') ? $sending[0]['pamt'] : 0);
 
-	$b = (float)(_capital($admin)['today_capital'] - $a);
+		$a = ((float)(_capital($admin)['today_balance'] + $send));
 
-	// check if there is balance remain from the capital given
+		$b = ((float)(_capital($admin)['today_capital'] - $a));
+
+		$output = ((float)$b - $runningCapital['daily_profit']);
+
+		// check if there is balance remain from the capital given
 
 
-	return (($b >= 0) ? $b : 0);
+		// return (($b >= 0) ? $b : 0);
+	}
+	return $output;
 }
 
 // check if balance is exhausted or not

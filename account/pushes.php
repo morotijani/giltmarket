@@ -366,7 +366,7 @@
                 if (!admin_has_permission()) {
                     $q .= " AND push_to = '" . $admin_id . "' AND push_date = '" . date("Y-m-d") . "' ";
                 }
-                $q .= " ORDER BY push_date DESC";
+                $q .= " ORDER BY createdAt DESC";
                 
                 $statement = $conn->prepare($q);
                 $statement->execute([
