@@ -103,7 +103,7 @@
                             </div>
                             <?php if (is_capital_given()): ?>
                                 <?php if (is_capital_exhausted($conn, $admin_data['admin_id'])): ?>
-                                    <button type="submit" class="btn btn-warning mt-4" id="submitSend" name="submitSend">Complete Sale</button>
+                                    <button type="submit" class="btn btn-warning mt-4" id="submitSend" name="submitSend">Complete <?= ((admin_has_permission('supervisor')) ? 'Sale' : 'Purchase'); ?></button>
                                 <?php endif; ?>
                             <?php endif; ?>
                             <br><br><a href="javascript:;" class="text-danger" id="prev-2"><< Go Back</a>
@@ -758,10 +758,10 @@
 
                                     $state.removeClass('text-danger');
                                     $state.addClass('text-warning');
-                                    $state.html('Sale successfully made!');
-                                    $this.find('#submitSend').text("Complete Sale");
+                                    $state.html('<?= ((admin_has_permission('supervisor')) ? 'Sale' : 'Purchase'); ?> successfully made!');
+                                    $this.find('#submitSend').text("Complete <?= ((admin_has_permission('supervisor')) ? 'Sale' : 'Purchase'); ?>");
                                     $('.toast').toast('show');
-                                    $('#buyModalLabel').html('Make a sale');
+                                    $('#buyModalLabel').html('Make a <?= ((admin_has_permission('supervisor')) ? 'sale' : 'purchase'); ?>');
                                     $('.volumeMsg').text('')
                                     $('.gramMsg').text('');
                                     $('buy-msg').text('');
@@ -790,10 +790,10 @@
                             } catch (e) {
                                 var errors = data;
                                 $this.find('#submitSend').attr("disabled", false);
-                                $this.find('#submitSend').text("Complete sale");
+                                $this.find('#submitSend').text("Complete <?= ((admin_has_permission('supervisor')) ? 'sale' : 'purchase'); ?>");
                                 $state.html(errors);
                                 $('.toast').toast('show');
-                                $('#buyModalLabel').html('Make a sale');
+                                $('#buyModalLabel').html('Make a <?= ((admin_has_permission('supervisor')) ? 'sale' : 'purchase'); ?>');
                                 $('#step-1').removeClass('d-none');
                                 $('#step-2').addClass('d-none');
                                 $('#step-3').addClass('d-none');
