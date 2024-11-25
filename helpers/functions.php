@@ -264,10 +264,10 @@ function update_today_capital_given_balance($type, $today_capital, $today_total_
 
 	if (admin_has_permission('supervisor')) {
 		$a = _gained_calculation($today_total_balance, $today_capital, $admin);
-		$sub_data = [$a, $today, $admin];
+		$sub_data = [$today, $admin];
 		$Query = "
 			UPDATE jspence_daily 
-			SET daily_profit = + ?  
+			SET daily_profit = daily_profit + '" . $a . "'  
 			WHERE daily_date = ? 
 			AND daily_to = ?
 		";
