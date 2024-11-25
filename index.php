@@ -217,7 +217,16 @@
 										<h4 class="fs-base fw-normal text-body-secondary mb-1">Earned</h4>
 
 										<!-- Text -->
-										<div class="fs-5 fw-semibold"><?= money(_gained_calculation(_capital($admin_data["admin_id"])['today_balance'], _capital($admin_data["admin_id"])['today_capital'], $admin_id)); ?></div>
+										<div class="fs-5 fw-semibold">
+											<?php 
+												$runningCapital = find_capital_given_to($admin_id);
+												$e = 0;
+												if (is_array($runningCapital)) {
+													$e = $runningCapital['daily_profit'];
+												}
+ 												echo money($e); 
+											?>
+										</div>
 									</div>
 									<div class="col-auto">
 										<!-- Avatar -->

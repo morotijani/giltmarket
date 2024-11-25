@@ -267,7 +267,7 @@ function update_today_capital_given_balance($type, $today_capital, $today_total_
 		$sub_data = [$a, $today, $admin];
 		$Query = "
 			UPDATE jspence_daily 
-			SET dialy_profit = + ?  
+			SET daily_profit = + ?  
 			WHERE daily_date = ? 
 			AND daily_to = ?
 		";
