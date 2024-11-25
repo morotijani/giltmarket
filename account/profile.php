@@ -89,7 +89,7 @@
                                             <div class="col-auto">
                                                 <span class="material-symbols-outlined text-body-tertiary">bring_your_own_ip</span>
                                             </div>
-                                            <div class="col"><?= $admin_data['admin_ip']; ?> <small class="text-body-secondary ms-1">I.P</small></div>
+                                            <div class="col"><?= ((isset($admin_data['admin_ip'])) ? $admin_data['admin_ip'] : ''); ?> <small class="text-body-secondary ms-1">I.P</small></div>
                                         </div>
                                     </li>
                                     <li class="list-group-item px-0">
@@ -97,7 +97,7 @@
                                             <div class="col-auto">
                                                 <span class="material-symbols-outlined text-body-tertiary">important_devices</span>
                                             </div>
-                                            <div class="col"><?= $admin_data["admin_device"]; ?> <small class="text-body-secondary ms-1">Device</small></div>
+                                            <div class="col"><?= ((isset($admin_data['admin_device'])) ? $admin_data["admin_device"] : ''); ?> <small class="text-body-secondary ms-1">Device</small></div>
                                         </div>
                                     </li>
                                     <li class="list-group-item px-0">
@@ -105,7 +105,7 @@
                                             <div class="col-auto">
                                                 <span class="material-symbols-outlined text-body-tertiary">device_hub</span>
                                             </div>
-                                            <div class="col"><?= $admin_data["admin_os"]; ?> <small class="text-body-secondary ms-1">O.S</small></div>
+                                            <div class="col"><?= ((isset($admin_data['admin_os'])) ?  $admin_data["admin_os"] : ''); ?> <small class="text-body-secondary ms-1">O.S</small></div>
                                         </div>
                                     </li>
                                     <li class="list-group-item px-0">
@@ -113,7 +113,7 @@
                                             <div class="col-auto">
                                                 <span class="material-symbols-outlined text-body-tertiary">web</span>
                                             </div>
-                                            <div class="col"><?= $admin_data["admin_browser"]; ?> <small class="text-body-secondary ms-1">Browser</small></div>
+                                            <div class="col"><?= ((isset($admin_data['admin_browser'])) ? $admin_data["admin_browser"] : ''); ?> <small class="text-body-secondary ms-1">Browser</small></div>
                                         </div>
                                     </li>
                                     <!-- <li class="list-group-item px-0">
