@@ -249,32 +249,34 @@ function sum_capital_given_for_day() {
 }
  
 // get today capital given balance
-function update_today_capital_given_balance($type, $today_total_balance, $today, $log_admin) {
+function update_today_capital_given_balance($type, $today_capital, $today_total_balance, $today, $admin) {
 	global $conn;
 
+	$data = [$today_total_balance, $today, $admin];
 	$sql = "
 		UPDATE jspence_daily 
 		SET daily_balance = ? 
 		WHERE daily_date = ? 
 		AND daily_to = ?
 	";
-	$data = [$today_total_balance, $today, $log_admin];
-	if (admin_has_permission('supervisor')) {
-		$a = _gained_calculation($today_total_balance, $capital, $log_admin);
-		$data = [$today_total_balance, $a, $today, $log_admin];
+	$statement = $conn->prepare($sql);
+	$statement->execute($data);
 
-		$sql = "
+	if (admin_has_permission('supervisor')) {
+		$a = _gained_calculation($today_total_balance, $today_capital, $admin);
+		$sub_data = [$a, $today, $admin];
+		$Query = "
 			UPDATE jspence_daily 
-			SET daily_balance = ?, dialy_profit = dialy_profit + ?  
+			SET dialy_profit = + ?  
 			WHERE daily_date = ? 
 			AND daily_to = ?
 		";
+		$statement = $conn->prepare($Query);
+		$statement->execute($sub_data);
 	}
-	$statement = $conn->prepare($sql);
-	$statement->execute($data);
 	
-	$message = $type . " made, balance remaining is: " . money($today_total_balance) . " and " . $today . " capital was:  " . money(_capital($log_admin)['today_capital']);
-	add_to_log($message, $log_admin);
+	$message = $type . " made, balance remaining is: " . money($today_total_balance) . " and " . $today . " capital was:  " . money(_capital($admin)['today_capital']);
+	add_to_log($message, $admin);
 }
 
 function _gained_calculation($balance, $capital, $admin) {

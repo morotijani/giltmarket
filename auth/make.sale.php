@@ -28,6 +28,7 @@ if (isset($_POST['gram-amount'])) {
 			$today_balance = _capital($admin_id)['today_balance'];
 			$today_capital = _capital($admin_id)['today_capital'];
 			$sale_id = guidv4();
+			$createdAt = date("Y-m-d H:i:s");
 
 			if (admin_has_permission('salesperson')) {
 				if ($total_amount < 0) {
