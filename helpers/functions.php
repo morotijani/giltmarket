@@ -188,7 +188,7 @@ function remaining_gold_balance($admin) {
 
 		$b = ((float)(_capital($admin)['today_capital'] - $a));
 
-		$output = ((float)$b - $runningCapital['daily_profit']);
+		$output = ((float)$b + $runningCapital['daily_profit']);
 
 		// check if there is balance remain from the capital given
 
