@@ -18,6 +18,9 @@
     include ("includes/left.nav.inc.php");
     include ("includes/top.nav.inc.php");
 
+	// total trades amount today
+	$tst = total_sale_amount_today($admin_id);
+
 	// statistical calculations
 	$thisYr = date("Y");
 	$lastYr = $thisYr - 1;
@@ -174,7 +177,17 @@
 								</div>
 
 								<!-- Text -->
-								<div class="fs-5 fw-semibold"><?= ((admin_has_permission()) ? total_trades_amount_today() : money(_capital($admin_id)['today_balance'])); ?></div>
+								<div class="fs-5 fw-semibold">
+									<?php 
+										if (admin_has_permission()) {
+											echo total_trades_amount_today();
+										} else if (admin_has_permission('supervisor')) {
+											echo money($tst["sum"]);
+										} else if (admin_has_permission('salesperson')) {
+											echo money(_capital($admin_id)['today_balance']);
+										}
+									?>
+								</div>
 							</div>
 							<div class="col-auto">
 								<!-- Avatar -->
@@ -570,7 +583,7 @@
 				<div class="card-header">
 					<div class="row align-items-center">
 						<div class="col">
-							<h3 class="fs-6 mb-0">Trades (<?php $tst = total_sale_amount_today($admin_id); echo money($tst["sum"]); ?>)</h3>
+							<h3 class="fs-6 mb-0">Trades (<?= money($tst["sum"]); ?>)</h3>
 							<span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
 								<?= count_today_orders($admin_id); ?>
 								<span class="visually-hidden">unread messages</span>

@@ -191,8 +191,6 @@ function remaining_gold_balance($admin) {
 		$output = ((float)$b + $runningCapital['daily_profit']);
 
 		// check if there is balance remain from the capital given
-
-
 		// return (($b >= 0) ? $b : 0);
 	}
 	return $output;
@@ -273,15 +271,18 @@ function update_today_capital_given_balance($type, $today_capital, $today_total_
 
 	if (admin_has_permission('supervisor')) {
 		$a = _gained_calculation($today_total_balance, $today_capital, $admin);
-		$sub_data = [$today, $admin];
-		$Query = "
-			UPDATE jspence_daily 
-			SET daily_profit = daily_profit + '" . $a . "'  
-			WHERE daily_date = ? 
-			AND daily_to = ?
-		";
-		$statement = $conn->prepare($Query);
-		$statement->execute($sub_data);
+		if ($a > 0) {
+			$sub_data = [0, $today, $admin];
+			$Query = "
+				UPDATE jspence_daily 
+				SET daily_profit = daily_profit + '" . $a . "', 
+				daily_balance = ?  
+				WHERE daily_date = ? 
+				AND daily_to = ?
+			";
+			$statement = $conn->prepare($Query);
+			$statement->execute($sub_data);
+		}
 	}
 	
 	$message = $type . " made, balance remaining is: " . money($today_total_balance) . " and " . $today . " capital was:  " . money(_capital($admin)['today_capital']);
