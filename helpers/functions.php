@@ -261,11 +261,11 @@ function update_today_capital_given_balance($type, $today_total_balance, $today,
 	$data = [$today_total_balance, $today, $log_admin];
 	if (admin_has_permission('supervisor')) {
 		$a = _gained_calculation($today_total_balance, $capital, $log_admin);
-		$data = [$today_total_balance, $today, $log_admin];
-		
+		$data = [$today_total_balance, $a, $today, $log_admin];
+
 		$sql = "
 			UPDATE jspence_daily 
-			SET daily_balance = ?, dialy_profit = ?  
+			SET daily_balance = ?, dialy_profit = dialy_profit + ?  
 			WHERE daily_date = ? 
 			AND daily_to = ?
 		";
