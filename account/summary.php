@@ -342,44 +342,8 @@
                                     </div>
                                 </div>
                                 <?php endif; ?>
-                                <div class="col-12 col-md-6 col-xxl-4 mb-4 mb-xxl-0">
-                                    <div class="card bg-body-tertiary border-transparent">
-                                        <div class="card-body">
-                                            <div class="row align-items-center">
-                                                <div class="col">
-                                                    <!-- Heading -->
-                                                    <h4 class="fs-base fw-normal text-body-secondary mb-1">Total Pushes</h4>
 
-                                                    <!-- Text -->
-                                                    <div class="fs-5 fw-semibold" id="total-trades">
-                                                        <?php 
-                                                            $tp = get_total_pushes($conn, $admin_id, $admin_data["admin_permissions"]);
-                                                            $tp_count = 0;
-                                                            if (is_array($tp)) {
-                                                                $tp_count = $tp["count"];
-                                                                echo money($tp["sum"]);
-                                                            } else {
-                                                                echo money(0);
-                                                            }
-                                                        ?>
-                                                        </div>
-                                                    <p class="mt-1">
-                                                        <span class="text-success text-xs"><i class="fas fa-arrow-up me-1"></i>Count: </span>
-                                                        <span class="text-muted text-xs text-opacity-75" id=""><?= $tp_count; ?></span>
-                                                    </p>
-                                                </div>
-                                                <div class="col-auto">
-                                                    <!-- Avatar -->
-                                                    <div class="avatar avatar-lg bg-body text-warning">
-                                                        <i class="fs-4" data-duoicon="bell-badge"></i>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="col-12 col-md-6 col-xxl-4 mb-4 mb-xxl-0">
+                                <div class="col-12 col-md-6 mb-4 mb-xxl-0">
                                     <div class="card bg-body-tertiary border-transparent">
                                         <div class="card-body">
                                             <div class="row align-items-center">
@@ -392,7 +356,7 @@
                                                         <?php 
                                                             $ps = get_total_send_push($conn, $admin_id, $admin_data["admin_permissions"]);
                                                             $ps_count = 0;
-                                                            if (is_array($tp)) {
+                                                            if (is_array($ps)) {
                                                                 $ps_count = $ps["count"];
                                                                 echo money($ps["sum"]);
                                                             } else {
@@ -416,7 +380,7 @@
                                     </div>
                                 </div>
 
-                                <div class="col-12 col-md-6 col-xxl-4 mb-4 mb-xxl-0">
+                                <div class="col-12 col-md-6 mb-4 mb-xxl-0">
                                     <div class="card bg-body-tertiary border-transparent">
                                         <div class="card-body">
                                             <div class="row align-items-center">
@@ -429,7 +393,7 @@
                                                         <?php 
                                                             $pr = get_total_receive_push($conn, $admin_id, date("Y-m-d"));
                                                             $pr_count = 0;
-                                                            if (is_array($tp)) {
+                                                            if (is_array($pr)) {
                                                                 $pr_count = $pr["count"];
                                                                 echo money($pr["sum"]);
                                                             } else {

@@ -27,7 +27,8 @@ if (isset($_POST['dater'])) {
     $supervisorQuery = "
         SELECT 
             daily_capital AS capital, 
-            daily_balance AS balance 
+            daily_balance AS balance, 
+            SUM(daily_profit) AS profit 
         FROM jspence_daily 
         INNER JOIN jspence_admin 
         ON jspence_admin.admin_id = jspence_daily.daily_to
@@ -111,10 +112,11 @@ if (isset($_POST['dater'])) {
     ];
 
     if ($statement->rowCount() > 0) {
-        $gained_or_loss = (float)($sup_row['balance'] - $sup_row['capital']);
-        if ($sup_row['balance'] == null) {
-            $gained_or_loss = 0;
-        }
+        $gained_or_loss = $sup_row['profit'];
+        // $gained_or_loss = (float)($sup_row['balance'] - $sup_row['capital']);
+        // if ($sup_row['balance'] == null) {
+        //     $gained_or_loss = 0;
+        // }
     }
 
     $arrayOutput = [
