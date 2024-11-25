@@ -199,7 +199,7 @@ function remaining_gold_balance($admin) {
 		// check if there is balance remain from the capital given
 		// return (($b >= 0) ? $b : 0);
 	}
-	return $output;
+	return _capital($admin)['today_balance']; // $output;
 }
 
 // check if balance is exhausted or not
@@ -262,50 +262,62 @@ function sum_capital_given_for_day() {
 }
  
 // get today capital given balance
-function update_today_capital_given_balance($type, $today_capital, $today_total_balance, $today, $admin) {
+function update_today_capital_given_balance($type, $today_capital, $today_total_balance, $pf, $last_sale, $today, $admin) {
 	global $conn;
 
 	$data = [$today_total_balance, $today, $admin];
 	$sql = "
 		UPDATE jspence_daily 
-		SET daily_balance = ? 
+		SET daily_balance = ?, daily_profit = daily_profit + '".$pf."'  
 		WHERE daily_date = ? 
 		AND daily_to = ?
 	";
+	// if (admin_has_permission('supervisor')) {
+	// 	$sql = "
+	// 		UPDATE jspence_daily 
+	// 		SET daily_balance = ? 
+	// 		WHERE daily_date = ? 
+	// 		AND daily_to = ?
+	// 	";
+	// }
 	$statement = $conn->prepare($sql);
 	$statement->execute($data);
 
-	if (admin_has_permission('supervisor')) {
-		$a = _gained_calculation($today_total_balance, $today_capital, $admin);
-		if ($a > 0) {
-			$sub_data = [$a, 0, $today, $admin];
-			$Query = "
-				UPDATE jspence_daily 
-				SET daily_profit = ?, 
-				daily_balance = ? 
-				WHERE daily_date = ? 
-				AND daily_to = ?
-			";
-			$statement = $conn->prepare($Query);
-			$statement->execute($sub_data);
-		}
-	}
+	// if (admin_has_permission('supervisor')) {
+	// 	$a = _gained_calculation($today_total_balance, $today_capital, $last_sale, $admin);
+	// 	if ($a > 0) {
+	// 		$sub_data = [$a, 0, $today, $admin];
+	// 		$Query = "
+	// 			UPDATE jspence_daily 
+	// 			SET daily_profit = ?, 
+	// 			daily_balance = ? 
+	// 			WHERE daily_date = ? 
+	// 			AND daily_to = ?
+	// 		";
+	// 		$statement = $conn->prepare($Query);
+	// 		$statement->execute($sub_data);
+	// 	}
+	// }
 	
 	$message = $type . " made, balance remaining is: " . money($today_total_balance) . " and " . $today . " capital was:  " . money(_capital($admin)['today_capital']);
 	add_to_log($message, $admin);
 }
 
-function _gained_calculation($balance, $capital, $admin) {
+function _gained_calculation($balance, $capital, $last_sale, $admin) {
 	$output = 0;
 	$gb = remaining_gold_balance($admin); // gold balance
 
-	if ($balance == null || $balance == "0.00" || $balance == 0) {
-		$output = $balance;
-	}
+	// if ($balance == null || $balance == "0.00" || $balance == 0) {
+	// 	$output = 0; // $balance;
+	// }
 
 	// incase gold balance is 0 then calculate the actual earnings/gained amount
 	if ($gb <= 0) {
-		$output = (float)($balance - $capital);
+		// $output = (float)($balance - $capital);
+		$tst = total_sale_amount_today($admin);
+		$accumulated = $tst["sum"];
+
+		$output = (float)($last_sale - $balance);
 
 		$runningCapital = find_capital_given_to($admin);
 		if (is_array($runningCapital)) {

@@ -79,7 +79,9 @@ if (isset($_POST['gram-amount'])) {
 						$q = "
 							SELECT sale_total_amount 
 							FROM `jspence_sales` 
-							WHERE sale_id = ?
+							WHERE id = ? 
+							ORDER BY id DESC 
+							LIMIT 1
 						";
 					}
 					$statement = $conn->prepare($q);
@@ -93,18 +95,22 @@ if (isset($_POST['gram-amount'])) {
 						}
 					}
 
+					$last_sale = 0;
+					$pf = 0;
 					if (admin_has_permission('supervisor')) {
 
 						$trade_status = 'sold'; // in-trade
 						// $today_total_balance = $r[0]['ttsa'];
 						// $today_total_balance = $runningCapital['daily_balance'];
-						$today_total_balance = (float)($today_balance - $r[0]['sale_total_amount']);
-						if ($today_total_balance > 0) {
-							$today_total_balance = $today_total_balance;
-						}
+						$last_sale = $r[0]['sale_total_amount'];
+						$today_total_balance = (float)($today_balance - $last_sale);
+						$today_total_balance = (($today_total_balance > 0) ? $today_total_balance : 0);
+
+						$pf = (float)($last_sale - $today_balance);
+						$pf = (($pf > 0) ? $pf : 0);
 					}
 
-					update_today_capital_given_balance($trade_status, $today_capital, $today_total_balance, $today, $admin_id);
+					update_today_capital_given_balance($trade_status, $today_capital, $today_total_balance, $pf, $last_sale, $today, $admin_id);
 
 					$message = "added new sale with gram of " . $gram . " and volume of " . $volume . " and total amount of " . money($total_amount) ." and price of " . money($current_price) . " on id " . $sale_id . "";
 					add_to_log($message, $admin_id);

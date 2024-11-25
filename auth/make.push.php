@@ -72,10 +72,10 @@
 						if (is_array($findCapital)) {
 							$c = (float)($given + $c);
 
-							// $bal = (float)(_capital($push_to)['today_balance'] + $given);
+							$bal = (float)(_capital($push_to)['today_balance'] + $given);
 							// check if we are sending to salepersonnel from supervisor
 							// if (admin_has_permission('supervisor')) {
-							// 	$bal = ((_capital($push_to)['today_balance'] == null || _capital($push_to)['today_balance'] == 0 || _capital($push_to)['today_balance'] == '0.00') ? null : (float)($given + _capital($push_to)['today_balance']));
+								// $bal = ((_capital($push_to)['today_balance'] == null || _capital($push_to)['today_balance'] == 0 || _capital($push_to)['today_balance'] == '0.00') ? null : (float)($given + _capital($push_to)['today_balance']));
 							// } else {
 								$bal = ((_capital($push_to)['today_balance'] == null || _capital($push_to)['today_balance'] == '0.00') ? null : (float)($given + _capital($push_to)['today_balance']));
 							// }
@@ -83,18 +83,18 @@
 							// update daily capital and balance
 							$dailyQ = "
 								UPDATE `jspence_daily` 
-								SET `daily_capital` = ?, `daily_balance` = ? 
+								SET `daily_capital` = ?, `daily_balance` = daily_balance + '".$given."' 
 								WHERE `daily_id` = ? AND `daily_to` = ?
 							";
-							$daily_data = [$c, $bal, $findCapital['daily_id'], $push_to];
+							$daily_data = [$c, $findCapital['daily_id'], $push_to];
 							$message = "on this day " . $today . ", capital updated of an amount " . money($c) . ', added amount ' . money($given) .  'for a ' .((admin_has_permission()) ? ' supervisor' : 'saleperson') . ' id: ' . $push_to;
 						} else {
-							$daily_data = [$daily_id, $given, $push_to];
+							$daily_data = [$daily_id, $given, $given, $push_to];
 							
 							// insert into daily
 							$dailyQ = "
-								INSERT INTO jspence_daily (daily_id, daily_capital, daily_to) 
-								VALUES (?, ?, ?)
+								INSERT INTO jspence_daily (daily_id, daily_capital, daily_balance, daily_to) 
+								VALUES (?, ?, ?, ?)
 							";
 							$message = "on this day " . $today . ", capital entered of an amount of " . money($c) . ' to a ' . ((admin_has_permission()) ? ' supervisor' : 'saleperson') . ' id: ' . $push_to;
 						}

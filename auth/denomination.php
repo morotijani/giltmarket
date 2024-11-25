@@ -147,7 +147,7 @@ if (array_key_exists('postdata', $_SESSION)) {
             }
             
         } else {
-            $gold_balance = remaining_gold_balance($admin_id); // remaining supervisor gold balance
+            $gold_balance = $findActiveCapital["daily_balance"]; // remaining_gold_balance($admin_id); // remaining supervisor gold balance
         }
         $new_capital = $gold_balance;
 
