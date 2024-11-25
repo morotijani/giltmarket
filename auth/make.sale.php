@@ -25,9 +25,9 @@ if (isset($_POST['gram-amount'])) {
 			$carat = calculateCarat($gram, $volume);
 			$total_amount = calculateTotalAmount($gram, $volume, $current_price);
 
-			$today_balance = _capital($admin_data['admin_id'])['today_balance'];
+			$today_balance = _capital($admin_id)['today_balance'];
+			$today_capital = _capital($admin_id)['today_capital'];
 			$sale_id = guidv4();
-			$createdAt = date("Y-m-d H:i:s");
 
 			if (admin_has_permission('salesperson')) {
 				if ($total_amount < 0) {
@@ -45,11 +45,11 @@ if (isset($_POST['gram-amount'])) {
 
 			if (empty($output) || $output == '') {
 				$sql = "
-					INSERT INTO `jspence_sales`(`sale_id`, `sale_gram`, `sale_volume`, `sale_density`, `sale_pounds`, `sale_carat`, `sale_price`, `sale_total_amount`, `sale_customer_name`, `sale_customer_contact`, `sale_comment`, `sale_type`, `sale_by`, `sale_daily`, `createdAt`) 
-					VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+					INSERT INTO `jspence_sales`(`sale_id`, `sale_gram`, `sale_volume`, `sale_density`, `sale_pounds`, `sale_carat`, `sale_price`, `sale_total_amount`, `sale_customer_name`, `sale_customer_contact`, `sale_comment`, `sale_type`, `sale_by`, `sale_daily`) 
+					VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
 				";
 				$statement = $conn->prepare($sql);
-				$result = $statement->execute([$sale_id, $gram, $volume, $density, $pounds, $carat, $current_price, $total_amount, $customer_name, $customer_contact, $note, $sale_type, $admin_id, $sale_daily, $createdAt]);
+				$result = $statement->execute([$sale_id, $gram, $volume, $density, $pounds, $carat, $current_price, $total_amount, $customer_name, $customer_contact, $note, $sale_type, $admin_id, $sale_daily]);
 				if (isset($result)) {
 					$today = $runningCapital['daily_date'];
 					$t = (admin_has_permission('supervisor') ? 'in' : 'out');
@@ -71,7 +71,7 @@ if (isset($_POST['gram-amount'])) {
 					$trade_status = 'bought'; // out-trade
 					if (admin_has_permission('salesperson')) {
 						if ($r[0]['ttsa'] > 0) {
-							$today_total_balance = (float)(_capital($admin_id)['today_capital'] - $r[0]['ttsa']);
+							$today_total_balance = (float)($today_capital - $r[0]['ttsa']);
 						}
 					}
 
@@ -80,7 +80,7 @@ if (isset($_POST['gram-amount'])) {
 						$today_total_balance = $r[0]['ttsa'];
 					}
 
-					update_today_capital_given_balance($trade_status, $today_total_balance, $today, $admin_id);
+					update_today_capital_given_balance($trade_status, $today_capital, $today_total_balance, $today, $admin_id);
 
 					$message = "added new sale with gram of " . $gram . " and volume of " . $volume . " and total amount of " . money($total_amount) ." and price of " . money($current_price) . " on id " . $sale_id . "";
 					add_to_log($message, $admin_id);
