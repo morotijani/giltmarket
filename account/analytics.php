@@ -20,7 +20,7 @@
 
     //
     $thisYrQ = "
-        SELECT SUM(daily_capital) AS dc, SUM(daily_balance) AS db, jspence_daily.daily_date
+        SELECT SUM(daily_capital) AS dc, SUM(daily_balance) AS db, SUM(daily_profit) AS dp, jspence_daily.daily_date
         FROM `jspence_daily` 
         INNER JOIN jspence_admin
         ON admin_id = jspence_daily.daily_to
@@ -34,7 +34,7 @@
     
     //
     $lastYrQ = "
-        SELECT SUM(daily_capital) AS dc, SUM(daily_balance) AS db, jspence_daily.daily_date
+        SELECT SUM(daily_capital) AS dc, SUM(daily_balance) AS db, SUM(daily_profit) AS dp, jspence_daily.daily_date
         FROM `jspence_daily` 
         INNER JOIN jspence_admin
         ON admin_id = jspence_daily.daily_to
@@ -53,7 +53,8 @@
     $lastTotal = 0;
 
     foreach ($thisYr_result as $thisYr_row) {
-        $this_year_profit_amount = (float)($thisYr_row['db'] - $thisYr_row['dc']);
+        // $this_year_profit_amount = (float)($thisYr_row['db'] - $thisYr_row['dc']);
+        $this_year_profit_amount = $thisYr_row['dp'];
         if ($thisYr_row['db'] == null) {
             $this_year_profit_amount = 0;
         }
@@ -67,7 +68,8 @@
     }
 
     foreach ($lastYr_result as $lastYr_row) {
-        $last_year_profit_amount = (float)($lastYr_row['db'] - $lastYr_row['dc']);
+        // $last_year_profit_amount = (float)($lastYr_row['db'] - $lastYr_row['dc']);
+        $last_year_profit_amount = $lastYr_row['dp'];
         if ($lastYr_row['db'] == null) {
             $last_year_profit_amount = 0;
         }
