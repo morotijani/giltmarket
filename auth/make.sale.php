@@ -38,8 +38,13 @@ if (isset($_POST['gram-amount'])) {
 				if ($total_amount > $today_balance) {
 					$output = "Today's remaining cash balance cannot complete this trade!";
 				}
-			} else {
-				if (remaining_gold_balance($admin_id) < 0) {
+			}
+			
+			if (admin_has_permission('supervisor')) {
+				$gb = remaining_gold_balance($admin_id);
+				if ($gb > 0) {
+					
+				} else {
 					$output = "Today's remaining gold balance cannot complete this trade!";
 				}
 			}
@@ -61,12 +66,12 @@ if (isset($_POST['gram-amount'])) {
 							CAST(jspence_sales.createdAt AS date) AS sd 
 						FROM `jspence_sales` 
 						WHERE CAST(jspence_sales.createdAt AS date) = ? 
-						AND (jspence_sales.sale_type = ? || jspence_sales.sale_type = ?)
+						AND (jspence_sales.sale_type = ? OR jspence_sales.sale_type = ?)
 						AND jspence_sales.sale_by = ? 
 						AND jspence_sales.sale_status = ?
 					";
 					$statement = $conn->prepare($q);
-					$statement->execute([$today, $t, $_t, $admin_data['admin_id'], 0]);
+					$statement->execute([$today, $t, $_t, $admin_id, 0]);
 					$r = $statement->fetchAll();
 					
 					$trade_status = 'bought'; // out-trade
@@ -78,7 +83,8 @@ if (isset($_POST['gram-amount'])) {
 
 					if (admin_has_permission('supervisor')) {
 						$trade_status = 'sold'; // in-trade
-						$today_total_balance = $r[0]['ttsa'];
+						// $today_total_balance = $r[0]['ttsa'];
+						$today_total_balance = $runningCapital['daily_balance'];
 					}
 
 					update_today_capital_given_balance($trade_status, $today_capital, $today_total_balance, $today, $admin_id);
@@ -87,7 +93,7 @@ if (isset($_POST['gram-amount'])) {
 					add_to_log($message, $admin_id);
 
 					$createdAt = strtotime($createdAt);
-					$arrayOutput = array('reference' => $sale_id, 'customername' => $customer_name, 'date' => $createdAt, 'gram' => $gram, 'volume' => $volume, 'density' => $density, 'pounds' => $pounds, 'carat' => $carat, 'total_amount' => $total_amount, 'current_price' => $current_price, 'by' => $admin_id, 'message' => '',);
+					$arrayOutput = array('reference' => $sale_id, 'customername' => $customer_name, 'date' => $createdAt, 'gram' => $gram, 'volume' => $volume, 'density' => $density, 'pounds' => $pounds, 'carat' => $carat, 'total_amount' => $total_amount, 'current_price' => $current_price, 'by' => $admin_id, 'message' => '');
 					$ouput = json_encode($arrayOutput);
 						
 					echo $ouput;

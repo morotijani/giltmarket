@@ -13,6 +13,8 @@
 		redirect(PROOT . 'auth/end-trade-checker');
 	}
 
+	// dnd(remaining_gold_balance($admin_id));
+
     include ("includes/header.inc.php");
     include ("includes/aside.inc.php");
     include ("includes/left.nav.inc.php");

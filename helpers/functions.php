@@ -190,8 +190,10 @@ function remaining_gold_balance($admin) {
 
 		$b = ((float)(_capital($admin)['today_capital'] - $a));
 
-		if ($runningCapital['daily_balance'] != '0.00') {
-			$output = ((float)$b + $runningCapital['daily_profit']);
+		if ($b >= 0) {
+			if ($runningCapital['daily_balance'] != '0.00') {
+				$output = ((float)$b + $runningCapital['daily_profit']);
+			}
 		}
 
 		// check if there is balance remain from the capital given
@@ -271,10 +273,11 @@ function update_today_capital_given_balance($type, $today_capital, $today_total_
 		AND daily_to = ?
 	";
 	$statement = $conn->prepare($sql);
-	$statement->execute($data);
+	//$statement->execute($data);
 
 	if (admin_has_permission('supervisor')) {
 		$a = _gained_calculation($today_total_balance, $today_capital, $admin);
+		dnd($a);
 		if ($a > 0) {
 			$sub_data = [$a, 0, $today, $admin];
 			$Query = "
@@ -304,6 +307,11 @@ function _gained_calculation($balance, $capital, $admin) {
 	// incase gold balance is 0 then calculate the actual earnings/gained amount
 	if ($gb <= 0) {
 		$output = (float)($balance - $capital);
+
+		$runningCapital = find_capital_given_to($admin);
+		if (is_array($runningCapital)) {
+			$output = (float)($output + $runningCapital['daily_profit']);
+		}
 	}
 
 	return $output;

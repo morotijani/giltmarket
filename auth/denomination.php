@@ -137,8 +137,15 @@ if (array_key_exists('postdata', $_SESSION)) {
         $supervisor_tomorrow_capital = _capital($push_to, $tomorrow)['today_capital']; // get supervisors tomorrow capital
         
         $gold_balance = 0;
+        $Balance = 0;
         if (admin_has_permission('salesperson')) {
             $gold_balance = total_amount_today($admin_id); // salepersonnel accumulated gold
+            
+            $findActiveCapital = find_capital_given_to($push_to);
+            if (is_array($findActiveCapital)) {
+                $Balance = (float)($findActiveCapital["daily_balance"] + $gold_balance);
+            }
+            
         } else {
             $gold_balance = remaining_gold_balance($admin_id); // remaining supervisor gold balance
         }
@@ -153,7 +160,7 @@ if (array_key_exists('postdata', $_SESSION)) {
 
         // prevent adding negative balance
         if ($gold_balance > 0) {
-            $data = [$new_capital, $push_to, $daily_id];
+            $data = [$new_capital, $Balance, $push_to, $daily_id];
 
             // insert into supervosr's capital for tomorrow
             $sql = "
@@ -164,12 +171,15 @@ if (array_key_exists('postdata', $_SESSION)) {
                 // update supervosr's capital for tomorrow
                 $sql = "
                     UPDATE `jspence_daily` 
-                    SET `daily_capital` = ? 
+                    SET `daily_capital` = ?, 
+                    daily_balance = ? 
                     WHERE `daily_to` = ? AND `daily_id` = ?
                 ";
             }
             $statement = $conn->prepare($sql);
             $daily_result = $statement->execute($data);
+
+            
 
             if ($daily_result) {
 
