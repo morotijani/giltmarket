@@ -331,9 +331,6 @@ function _gained_calculation($balance, $capital, $last_sale, $admin) {
 // get pushes
 function get_pushes_made($admin, $today = null) {
 	global $conn;
-	global $admin_data;	
-
-	
 
 	$sql = "
 		SELECT * FROM jspence_pushes 
