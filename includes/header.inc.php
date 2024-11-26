@@ -6,7 +6,6 @@
   <meta name="description" content="A fully featured admin theme which can be used to build CRM, CMS, etc." />
   <script src="<?= PROOT; ?>assets/js/switcher.js"></script>
 
-  
   <!-- Favicon -->
   <link rel="shortcut icon" href="<?= PROOT; ?>assets/media/logo.jpeg" type="image/x-icon" />
   
