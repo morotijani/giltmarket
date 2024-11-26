@@ -74,7 +74,7 @@ if (array_key_exists('postdata', $_SESSION)) {
         }
 
         $gained = 'Earned: ' . money($g) . '<br />';
-        $capital_bal = remaining_gold_balance($admin_id);
+        // $capital_bal = remaining_gold_balance($admin_id);
     }
 
     // expenditure details
