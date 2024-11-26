@@ -100,8 +100,7 @@ if (isset($_POST['gram-amount'])) {
 					if (admin_has_permission('supervisor')) {
 
 						$trade_status = 'sold'; // in-trade
-						// $today_total_balance = $r[0]['ttsa'];
-						// $today_total_balance = $runningCapital['daily_balance'];
+						
 						$last_sale = $r[0]['sale_total_amount'];
 						$today_total_balance = (float)($today_balance - $last_sale);
 						$today_total_balance = (($today_total_balance > 0) ? $today_total_balance : 0);
