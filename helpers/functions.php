@@ -82,24 +82,6 @@ function _capital($admin, $d = null, $for = null) {
 	$today = date('Y-m-d');
 	$today = (($d != null) ? $d : $today);
 
-	// $sql = "
-	// 	SELECT daily_id, daily_capital, daily_balance, daily_capital_status, push_status, push_daily , daily_to 
-	// 	FROM jspence_daily 
-	// 	INNER JOIN jspence_pushes 
-	// 	-- ON jspence_pushes.push_daily = jspence_daily.daily_id 
-	// 	INNER JOIN jspence_coffers 
-	// 	ON (
-	// 		jspence_coffers.coffers_id = jspence_pushes.push_daily 
-	// 		OR jspence_pushes.push_daily = jspence_daily.daily_id
-	// 	) 
-	// 	WHERE jspence_daily.daily_date = ? 
-	// 	AND jspence_daily.daily_to = ? 
-	// 	AND jspence_daily.daily_capital_status = ? 
-	// 	AND jspence_pushes.push_status = ? 
-	// 	AND jspence_coffers.coffers_status = ? 
-	// 	ORDER BY jspence_daily.daily_date DESC
-	// 	LIMIT 1
-	// ";
 	$sql = "
 		SELECT daily_id, daily_capital, daily_balance, daily_capital_status, push_status, push_daily , daily_to 
 		FROM jspence_daily 
@@ -163,77 +145,45 @@ function _capital($admin, $d = null, $for = null) {
 
 // fetch supervisor remaining gold
 function remaining_gold_balance($admin) {
-	global $conn;
-	$output = 0;
-
-	$runningCapital = find_capital_given_to($admin);
-	if (is_array($runningCapital)) {
-		$d = $runningCapital['daily_date'];
-		$tst = total_sale_amount_today($admin);
-		$balance = $tst["sum"];
-
-		// get all sending money pushes made
-		$sending = $conn->query(
-			"SELECT SUM(push_amount) 
-			AS pamt FROM jspence_pushes 
-			WHERE push_from = '" . $admin . "' 
-			AND push_to != 'coffers' 
-			AND push_status = 0 
-			AND push_from_where = 'daily' 
-			AND push_type = 'gold' 
-			AND push_date = '" . $d . "'"
-		)->fetchAll();
-		
-		$send = (($sending[0]['pamt'] != null || $sending[0]['pamt'] != 0 || $sending[0]['pamt'] != '0.00') ? $sending[0]['pamt'] : 0);
-
-		$a = ((float)($balance + $send));
-
-		$b = ((float)(_capital($admin)['today_capital'] - $a));
-
-		if ($b >= 0) {
-			if ($runningCapital['daily_balance'] != '0.00') {
-				$output = ((float)$b + $runningCapital['daily_profit']);
-			}
-		}
-
-		// check if there is balance remain from the capital given
-		// return (($b >= 0) ? $b : 0);
-	}
 	return _capital($admin)['today_balance']; // $output;
 }
 
 // check if balance is exhausted or not
 function is_capital_exhausted($conn, $admin) {
-	$today = date("Y-m-d");
-	$t = (admin_has_permission('supervisor') ? 'in' : 'out');
-	$q = "
-		SELECT 
-			SUM(jspence_sales.sale_total_amount) AS ttsa, 
-			CAST(jspence_sales.createdAt AS date) AS sd 
-		FROM `jspence_sales` 
-		WHERE CAST(jspence_sales.createdAt AS date) = ? 
-		AND jspence_sales.sale_type = ? 
-		AND jspence_sales.sale_by = ? 
-		AND jspence_sales.sale_status = ?
-	";
-	$statement = $conn->prepare($q);
-	$statement->execute([$today, $t, $admin, 0]);
-	$r = $statement->fetchAll();
-	
-	$return = true;
-	if ($r[0]['ttsa'] > 0) {
-		$today_total_balance = (float)(_capital($admin)['today_capital'] - $r[0]['ttsa']);
-		if (admin_has_permission('supervisor')) {
-			$today_total_balance = $r[0]['ttsa'];
-			// return ($today_total_balance >= _capital()['today_capital']) ? true : false;
-			$return = true;
-		}
+	$runningCapital = find_capital_given_to($admin);
+
+	if (is_array($runningCapital)) {
+		$today = $runningCapital['sale_date'];
+		$t = (admin_has_permission('supervisor') ? 'in' : 'out');
+
+		$q = "
+			SELECT 
+				SUM(jspence_sales.sale_total_amount) AS ttsa, 
+				CAST(jspence_sales.createdAt AS date) AS sd 
+			FROM `jspence_sales` 
+			WHERE CAST(jspence_sales.createdAt AS date) = ? 
+			AND jspence_sales.sale_type = ? 
+			AND jspence_sales.sale_by = ? 
+			AND jspence_sales.sale_status = ?
+		";
+		$statement = $conn->prepare($q);
+		$statement->execute([$today, $t, $admin, 0]);
+		$r = $statement->fetchAll();
 		
-		if ($today_total_balance == 0) {
-			$return = false;
-		} else if (($today_total_balance > 0) && $today_total_balance < _capital($admin)['today_capital']) {
-			$return = true;
-		} 
+		$return = true;
+		if ($r[0]['ttsa'] > 0) {
+			$today_total_balance = (float)(_capital($admin)['today_capital'] - $r[0]['ttsa']);
+			if (admin_has_permission('supervisor')) {
+				$today_total_balance = $r[0]['ttsa'];
+				$return = true;
+			}
+			
+			if ($today_total_balance == 0) {
+				$return = false;
+			} else if (($today_total_balance > 0) && $today_total_balance < _capital($admin)['today_capital']) {
+				$return = true;
+			} 
+		}
 	}
 	
 	return $return;	
@@ -242,25 +192,28 @@ function is_capital_exhausted($conn, $admin) {
 // sum all capital of today for super admin
 function sum_capital_given_for_day() {
 	global $conn;
+	$runningCapital = find_capital_given_to($admin);
 
-	$sql = "
-		SELECT SUM(daily_capital) AS sum
-		FROM jspence_daily 
-		WHERE daily_capital_status = ? 
-		AND status = ? 
-		AND daily_date = ? 
-	";
-	$statement = $conn->prepare($sql);
-	$statement->execute([0, 0, date("Y-m-d")]);
-	$count_row = $statement->rowCount();
-	$row = $statement->fetchAll();
+	if (is_array($runningCapital)) {
+		$sql = "
+			SELECT SUM(daily_capital) AS sum
+			FROM jspence_daily 
+			WHERE daily_capital_status = ? 
+			AND status = ? 
+			AND daily_date = ? 
+		";
+		$statement = $conn->prepare($sql);
+		$statement->execute([0, 0, $runningCapital['sale_date']]);
+		$count_row = $statement->rowCount();
+		$row = $statement->fetchAll();
 
-	if ($count_row > 0) {
-		return $row[0]['sum'];
+		if ($count_row > 0) {
+			return $row[0]['sum'];
+		}
 	}
 	return false;
 }
- 
+
 // get today capital given balance
 function update_today_capital_given_balance($type, $today_capital, $today_total_balance, $pf, $last_sale, $today, $admin) {
 	global $conn;
@@ -272,32 +225,8 @@ function update_today_capital_given_balance($type, $today_capital, $today_total_
 		WHERE daily_date = ? 
 		AND daily_to = ?
 	";
-	// if (admin_has_permission('supervisor')) {
-	// 	$sql = "
-	// 		UPDATE jspence_daily 
-	// 		SET daily_balance = ? 
-	// 		WHERE daily_date = ? 
-	// 		AND daily_to = ?
-	// 	";
-	// }
 	$statement = $conn->prepare($sql);
 	$statement->execute($data);
-
-	// if (admin_has_permission('supervisor')) {
-	// 	$a = _gained_calculation($today_total_balance, $today_capital, $last_sale, $admin);
-	// 	if ($a > 0) {
-	// 		$sub_data = [$a, 0, $today, $admin];
-	// 		$Query = "
-	// 			UPDATE jspence_daily 
-	// 			SET daily_profit = ?, 
-	// 			daily_balance = ? 
-	// 			WHERE daily_date = ? 
-	// 			AND daily_to = ?
-	// 		";
-	// 		$statement = $conn->prepare($Query);
-	// 		$statement->execute($sub_data);
-	// 	}
-	// }
 	
 	$message = $type . " made, balance remaining is: " . money($today_total_balance) . " and " . $today . " capital was:  " . money(_capital($admin)['today_capital']);
 	add_to_log($message, $admin);
@@ -307,9 +236,6 @@ function _gained_calculation($balance, $capital, $last_sale, $admin) {
 	$output = 0;
 	$gb = remaining_gold_balance($admin); // gold balance
 
-	// if ($balance == null || $balance == "0.00" || $balance == 0) {
-	// 	$output = 0; // $balance;
-	// }
 
 	// incase gold balance is 0 then calculate the actual earnings/gained amount
 	if ($gb <= 0) {
@@ -1676,4 +1602,3 @@ function capital_mover($admin) {
 	}
 	return false;	
 }
-
