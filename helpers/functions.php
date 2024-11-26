@@ -1618,11 +1618,12 @@ function capital_mover($admin) {
 		WHERE jspence_daily.daily_to = ? 
 		AND jspence_daily.daily_capital_status = ? 
 		AND jspence_daily.status = ? 
+		AND jspence_daily.daily_date = ?
 		ORDER BY daily_date DESC 
 		LIMIT 1
 	";
 	$statement = $conn->prepare($a);
-	$statement->execute([$admin, 0, 0]);
+	$statement->execute([$admin, 0, 0, $today]);
 	$row = $statement->fetchAll();
 
 	if ($statement->rowCount() > 0) {

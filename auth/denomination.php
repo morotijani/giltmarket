@@ -164,14 +164,14 @@ if (array_key_exists('postdata', $_SESSION)) {
         if ($gold_balance > 0) {
             $data = [$new_capital, $push_to, $daily_id];
             
-            if (admin_permission('supervisor')) {
+            if (admin_has_permission('supervisor')) {
                 // insert into supervosr's capital for tomorrow
                 $QUERY = "
                     INSERT INTO jspence_daily (daily_capital, daily_balance, daily_to, daily_id, daily_date) 
                     VALUES (?, ?, ?, ?, ?)
                 ";
                 $statement = $conn->prepare($QUERY);
-                $daily_result = $statement->execute([$new_capital, $new_capital, $push_to, $daily_id, $tomorrow]);
+                $daily_result = $statement->execute([$gold_balance, $gold_balance, $push_to, guidv4(), $tomorrow]);
             } else {
 
                 // insert into supervosr's capital for tomorrow

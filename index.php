@@ -7,13 +7,13 @@
 	if (!admin_is_logged_in()) {
 		admin_login_redirect();
 	}
-		
+
 	//
 	if (is_array(capital_mover($admin_id)) && capital_mover($admin_id)["msg"] == "touched") {
 		redirect(PROOT . 'auth/end-trade-checker');
+	} else if (!capital_mover($admin_id)) {
+		die('Please check your device date!');
 	}
-
-	// dnd(remaining_gold_balance($admin_id));
 
     include ("includes/header.inc.php");
     include ("includes/aside.inc.php");
