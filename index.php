@@ -135,7 +135,7 @@
 								<div class="fs-5 fw-semibold">
 									<?php 
 										if (admin_has_permission()) {
-											echo money(sum_capital_given_for_day());
+											echo money(sum_capital_given_for_day($admin_id));
 										} else if (admin_has_permission('supervisor')) {
 											echo money(remaining_gold_balance($admin_id));
 										} else {

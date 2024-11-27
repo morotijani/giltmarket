@@ -153,7 +153,7 @@ function is_capital_exhausted($conn, $admin) {
 	$runningCapital = find_capital_given_to($admin);
 
 	if (is_array($runningCapital)) {
-		$today = $runningCapital['sale_date'];
+		$today = $runningCapital['daily_date'];
 		$t = (admin_has_permission('supervisor') ? 'in' : 'out');
 
 		$q = "
