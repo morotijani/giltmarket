@@ -42,9 +42,7 @@ if (isset($_POST['gram-amount'])) {
 			
 			if (admin_has_permission('supervisor')) {
 				$gb = remaining_gold_balance($admin_id);
-				if ($gb > 0) {
-					
-				} else {
+				if ($gb <= 0) {
 					$output = "Today's remaining gold balance cannot complete this trade!";
 				}
 			}

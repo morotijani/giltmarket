@@ -29,7 +29,7 @@ if (isset($_POST['gram'])) {
 		else: 
 			$message = "There was a problem with the calculations";
 		endif;
-	} else if (admin_has_permission('supervisor') && remaining_gold_balance($admin_id) < 0) {
+	} else if (admin_has_permission('supervisor') && remaining_gold_balance($admin_id) <= 0) {
 		$message = "Today's remaining gold balance cannot complete this trade!";
 	} else {
 		$continue = 'yes';
