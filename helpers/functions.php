@@ -331,25 +331,30 @@ function _gained_calculation($balance, $capital, $last_sale, $admin) {
 // get pushes
 function get_pushes_made($admin, $today = null) {
 	global $conn;
-	global $admin_data;
+	global $admin_data;	
 
-	$where = '';
-	if (!admin_has_permission()) {
-        $where = ' AND (push_to = "' . $admin . '" OR push_from IN (SELECT push_from FROM jspence_pushes WHERE push_from = "' . $admin . '")) AND push_date = "' . $today . '" ';
-    }
-
-	if ($today != null) {
-		$where .= 'AND jspence_pushes.push_date = "' . $today . '"';
-	}
+	
 
 	$sql = "
 		SELECT * FROM jspence_pushes 
 		INNER JOIN jspence_admin 
 		ON jspence_admin.admin_id = jspence_pushes.push_to
 		WHERE jspence_pushes.push_status = ? 
-		$where 
-		ORDER BY jspence_pushes.id DESC
 	";
+
+	if (!admin_has_permission()) {
+        $sql .= ' AND (push_to = "' . $admin . '" OR push_from IN (SELECT push_from FROM jspence_pushes WHERE push_from = "' . $admin . '")) AND push_date = "' . $today . '" ';
+    }
+	if (admin_has_permission('salesperson')) {
+		$sql .= " AND jspence_pushes.push_from_where != 'end-trade'";
+	}
+
+	if ($today != null) {
+		$sql .= 'AND jspence_pushes.push_date = "' . $today . '"';
+	}
+
+	$sql .= ' ORDER BY jspence_pushes.id DESC';
+
 	$statement = $conn->prepare($sql);
 	$result = $statement->execute([0]);
 	$output = '';

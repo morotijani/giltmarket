@@ -364,15 +364,13 @@
                     WHERE push_type = ? 
                 ";
                 if (!admin_has_permission()) {
-                    $q .= " AND push_to = '" . $admin_id . "' AND push_date = '" . date("Y-m-d") . "' ";
+                    // $q .= " AND push_to = '" . $admin_id . "' AND push_date = '" . date("Y-m-d") . "' ";
+                    $q .= " AND push_to = '" . $admin_id . "'";
                 }
                 $q .= " ORDER BY createdAt DESC";
                 
                 $statement = $conn->prepare($q);
-                $statement->execute([
-                    'gold', 
-                    
-                ]);
+                $statement->execute(['gold']);
                 $rows = $statement->fetchAll();
                 $rows_count = $statement->rowCount();
                 
