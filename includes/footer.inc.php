@@ -387,7 +387,7 @@
                                     }
 
                                     $('#calculation-result').html('')
-                                    $('#calculation-result').addClass('d-none');
+                                    // $('#calculation-result').addClass('d-none');
                                     $('#result-view').removeClass('d-none');
 
                                     $('.buy-msg').text('');
@@ -455,7 +455,7 @@
                                     }
 
                                     $('#calculation-result').html('')
-                                    $('#calculation-result').addClass('d-none');
+                                    // $('#calculation-result').addClass('d-none');
                                     $('#result-view').removeClass('d-none');
 
                                     $('.gramMsg').text('...');
@@ -522,7 +522,7 @@
                                     }
 
                                     $('#calculation-result').html('')
-                                    $('#calculation-result').addClass('d-none');
+                                    // $('#calculation-result').addClass('d-none');
                                     $('#result-view').removeClass('d-none');
 
 
