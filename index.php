@@ -12,7 +12,7 @@
 	if (is_array(capital_mover($admin_id)) && capital_mover($admin_id)["msg"] == "touched") {
 		redirect(PROOT . 'auth/end-trade-checker');
 	} else if (!capital_mover($admin_id)) {
-		die('Please check your device date!');
+		// die('Please check your device date!');
 	}
 
     include ("includes/header.inc.php");

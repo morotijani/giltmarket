@@ -1618,12 +1618,12 @@ function capital_mover($admin) {
 		WHERE jspence_daily.daily_to = ? 
 		AND jspence_daily.daily_capital_status = ? 
 		AND jspence_daily.status = ? 
-		AND jspence_daily.daily_date = ?
+		-- AND jspence_daily.daily_date = ?
 		ORDER BY daily_date DESC 
 		LIMIT 1
 	";
 	$statement = $conn->prepare($a);
-	$statement->execute([$admin, 0, 0, $today]);
+	$statement->execute([$admin, 0, 0]);
 	$row = $statement->fetchAll();
 
 	if ($statement->rowCount() > 0) {
@@ -1631,6 +1631,7 @@ function capital_mover($admin) {
 		if ($today != $row[0]["daily_date"]) { // check to see if that day is equal to our current date
 
 			$b = $row[0]["daily_balance"];
+			$capital = $row[0]["daily_capital"];
 
 			// check if admin entered denomination
 			$c = $conn->query("SELECT * FROM jspence_denomination WHERE denomination_capital = '" . $row[0]['daily_id'] . "' AND denomination_by = '" . $admin . "' AND status = 0 ORDER BY id DESC LIMIT 1")->rowCount();
@@ -1638,7 +1639,8 @@ function capital_mover($admin) {
 			$result = [
 				"msg" => ""
 			];
-			if ($b == NULL && $c == 0) { // capital not touch, denomination not entered
+			// if ($b == NULL && $c == 0) { // capital not touch, denomination not entered
+			if ($b == $capital && $c == 0) { // capital not touch, denomination not entered
 
 				// update capital date to the following day 
 				$sql = "
@@ -1670,6 +1672,6 @@ function capital_mover($admin) {
 		}
 		return "same-date";
 	}
-	return false;
+	return false;	
 }
 
