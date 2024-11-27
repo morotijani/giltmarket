@@ -175,8 +175,8 @@ if (array_key_exists('postdata', $_SESSION)) {
 
                 // insert into supervosr's capital for tomorrow
                 $sql = "
-                    INSERT INTO jspence_daily (daily_capital, daily_balance, daily_to, daily_id) 
-                    VALUES (?, '" . $new_capital . "', ?, ?)
+                    INSERT INTO jspence_daily (daily_capital, daily_balance, daily_to, daily_id, daily_date) 
+                    VALUES (?, '" . $new_capital . "', ?, ?, '" . $tomorrow . "')
                 ";
                 if (is_array($findActiveCapital)) {
                     // update supervosr's capital for tomorrow
