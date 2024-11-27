@@ -21,12 +21,13 @@
 
 	$d = date('Y-m-d h:i:s', $obj['date']);
 ?>
-<style>
-	*, body {
-		
-    	font-family: monospace !important;
-	}
-</style>
+	<style>
+		*, body {
+			
+			font-family: monospace !important;
+		}
+	</style>
+	
 	<div class="row justify-content-center">
 		<div class="col-md-3">
 			<div class="card">
@@ -158,32 +159,33 @@
 						<em>Thank you for your purchase.<a href="#" class="fw-bold"> J-Spence LTD.</a></em>
 					</div>
 				</div>
-					<div class="card-footer">
+				<div class="card-footer">
 						<!-- bar code; -->
-					</div>
 				</div>
 			</div>
-
 		</div>
-</div>
-</div>
+	</div>
+
+	
+	</div>
+	</div>
 
 	<script>
 		// first print
-		// window.print();
+		window.print();
 
-		// setTimeout(function() {
-		// 	// second print
-		// 	window.print();
-		// }, 1000);
+		setTimeout(function() {
+			// second print
+			window.print();
+		}, 1000);
 
-		// window.onafterprint = function() {
-		// 	setTimeout(function() {
-		// 		window.close();
-		// 	}, 500);
+		window.onafterprint = function() {
+			setTimeout(function() {
+				window.close();
+			}, 500);
 
-		// 	return false;
-		// }
+			return false;
+		}
 
 		var ajax = new XMLHttpRequest();
 
