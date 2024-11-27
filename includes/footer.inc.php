@@ -823,8 +823,9 @@
                 RECEIPT_WINDOW = window.open('<?= PROOT; ?>auth/print?data='+vars,'1429893142534','width=' + (parseInt(window.innerWidth) * 0.4) + ',height=' + (parseInt(window.innerHeight) * .6) + ',toolbar=0,menubar=0,location=0,status=0,scrollbars=1,resizable=0,left=0,top=0');
 
                 setTimeout(function() {
+                    
                     RECEIPT_WINDOW.close();
-                    location.reload();
+                    // location.reload();
                 }, 3000);
 
                 return false;

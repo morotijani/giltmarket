@@ -21,127 +21,169 @@
 
 	$d = date('Y-m-d h:i:s', $obj['date']);
 ?>
-
-		<div class="card">
-			<div class="card-header pb-0 border-0">
-				<h1 class="modal-title h4 text-center" id="connectWalletModalLabel">
-					<?= ucwords($crow['company_name']); ?>
-					<br>
-					<?= $crow['company_address']; ?>
-					<br>
-					<?= $crow['company_phone1'] . (($crow['company_phone2'] == '') ? '' : ' / ' . $crow['company_phone2']); ?>
-					<br>
-					PURCHASE INVOICE
-				</h1>
-			</div>
-			<div class="card-body undefined">
-				<table class="table table-sm table-striped table-bordered">
-					<tbody>
-						<tr>
-							<td>
-								REFERENCE/ID
-								<br>
-								<?= $obj['reference']; ?>
-							</td>
-							<td>
-								NAME OF CUSTOMER
-								<br>
-								<?= ucwords($obj['customername']); ?>
-							</td>
-						</tr>
-						<tr>
-							<td>
-								GRAM
-								<br>
-								<?= $obj['gram']; ?>
-							</td>
-							<td>
-								POUNDS
-								<br>
-								<?= $obj['pounds']; ?>
-							</td>
-						</tr>
-						<tr>
-							<td>
-								VOLUME
-								<br>
-								<?= $obj['volume']; ?>
-							</td>
-							<td>
-								DENSITY
-								<br>
-								<?= $obj['density']; ?>
-							</td>
-						</tr>
-						<tr>
-							<td>
-								
-							</td>
-							<td>
-								CARAT
-								<br>
-								<?= $obj['carat']; ?>
-							</td>
-						</tr>
-						<tr>
-							<td>
-								PRICE
-							</td>
-							<td>
-								<?= money($obj['current_price']); ?>
-							</td>
-						</tr>
-						<tr>
-							<td>
-								AMOUNT
-							</td>
-							<td>
-								<?= money($obj['total_amount']); ?>
-							</td>
-						</tr>
-						<tr>
-							<td>
-								PREPARED BY
-								<br>
-								DATE
-							</td>
-							<td>
-								<?= ucwords($obj['by']); ?>
-								<br>
-								<?= pretty_date($d); ?>
-							</td>
-						</tr>
-					</tbody>
-				</table>
-
-				<div class="text-xs text-muted mt-6">
-					<em>Thank you for your purchase.<a href="#" class="fw-bold"> J-Spence LTD.</a></em>
+<style>
+	*, body {
+		
+    	font-family: monospace !important;
+	}
+</style>
+	<div class="row justify-content-center">
+		<div class="col-md-3">
+			<div class="card">
+				<div class="card-header pb-0 border-0">
+					<h6 class="modal-title h6 text-center">
+						<?= ucwords($crow['company_name']); ?>
+						<br>
+						<?= $crow['company_address']; ?>
+						<br>
+						<?= $crow['company_phone1'] . (($crow['company_phone2'] == '') ? '' : ' / ' . $crow['company_phone2']); ?>
+						<br>
+						PURCHASE INVOICE
+					</h6>
+				</div>
+				<div class="card-body">
+					<ul class="list-group list-group-flush">
+						<div class="list-group-item px-0">
+							<div class="row align-items-center">
+								<div class="col ms-n2">
+									<h6 class="fs-base fw-normal mb-1">Reference/ID,</h6>
+								</div>
+								<div class="col-auto">
+									<time class="text-body-secondary" datetime="01/01/2025"><?= ucwords($obj['reference']); ?></time>
+								</div>
+							</div>
+						</div>
+						<div class="list-group-item px-0">
+							<div class="row align-items-center">
+								<div class="col ms-n2">
+									<h6 class="fs-base fw-normal mb-1">Name of Customer,</h6>
+								</div>
+								<div class="col-auto">
+									<time class="text-body-secondary" datetime="01/01/2025"><?= ucwords($obj['customername']); ?></time>
+								</div>
+							</div>
+						</div>
+						<div class="list-group-item px-0">
+							<div class="row align-items-center">
+								<div class="col ms-n2">
+									<h6 class="fs-base fw-normal mb-1">Gram,</h6>
+								</div>
+								<div class="col-auto">
+									<time class="text-body-secondary" datetime="01/01/2025"><?= $obj['gram']; ?></time>
+								</div>
+							</div>
+						</div>
+						<div class="list-group-item px-0">
+							<div class="row align-items-center">
+								<div class="col ms-n2">
+									<h6 class="fs-base fw-normal mb-1">Pounds,</h6>
+								</div>
+								<div class="col-auto">
+									<time class="text-body-secondary" datetime="01/01/2025"><?= $obj['pounds']; ?></time>
+								</div>
+							</div>
+						</div>
+						<div class="list-group-item px-0">
+							<div class="row align-items-center">
+								<div class="col ms-n2">
+									<h6 class="fs-base fw-normal mb-1">Volume,</h6>
+								</div>
+								<div class="col-auto">
+									<time class="text-body-secondary" datetime="01/01/2025"><?= $obj['volume']; ?></time>
+								</div>
+							</div>
+						</div>
+						<div class="list-group-item px-0">
+							<div class="row align-items-center">
+								<div class="col ms-n2">
+									<h6 class="fs-base fw-normal mb-1">Density,</h6>
+								</div>
+								<div class="col-auto">
+									<time class="text-body-secondary" datetime="01/01/2025"><?= $obj['density']; ?></time>
+								</div>
+							</div>
+						</div>
+						<div class="list-group-item px-0">
+							<div class="row align-items-center">
+								<div class="col ms-n2">
+									<h6 class="fs-base fw-normal mb-1">Carat,</h6>
+								</div>
+								<div class="col-auto">
+									<time class="text-body-secondary" datetime="01/01/2025"><?= $obj['carat']; ?></time>
+								</div>
+							</div>
+						</div>
+						<div class="list-group-item px-0">
+							<div class="row align-items-center">
+								<div class="col ms-n2">
+									<h6 class="fs-base fw-normal mb-1">Price,</h6>
+								</div>
+								<div class="col-auto">
+									<time class="text-body-secondary" datetime="01/01/2025"><?= $obj['current_price']; ?></time>
+								</div>
+							</div>
+						</div>
+						<div class="list-group-item px-0">
+							<div class="row align-items-center">
+								<div class="col ms-n2">
+									<h6 class="fs-base fw-normal mb-1">Amount,</h6>
+								</div>
+								<div class="col-auto">
+									<time class="text-body-secondary" datetime="01/01/2025"><?= $obj['total_amount']; ?></time>
+								</div>
+							</div>
+						</div>
+						<div class="list-group-item px-0">
+							<div class="row align-items-center">
+								<div class="col ms-n2">
+									<h6 class="fs-base fw-normal mb-1">By,</h6>
+								</div>
+								<div class="col-auto">
+									<time class="text-body-secondary" datetime="01/01/2025"><?= $obj['by']; ?></time>
+								</div>
+							</div>
+						</div>
+						<div class="list-group-item px-0">
+							<div class="row align-items-center">
+								<div class="col ms-n2">
+									<h6 class="fs-base fw-normal mb-1">Date,</h6>
+								</div>
+								<div class="col-auto">
+									<time class="text-body-secondary" datetime="01/01/2025"><?= pretty_date($d); ?></time>
+								</div>
+							</div>
+						</div>
+					</ul>
+					<div class="text-xs text-muted mt-6">
+						<em>Thank you for your purchase.<a href="#" class="fw-bold"> J-Spence LTD.</a></em>
+					</div>
+				</div>
+					<div class="card-footer">
+						<!-- bar code; -->
+					</div>
 				</div>
 			</div>
-				<div class="card-footer">
-					<!-- bar code; -->
-				</div>
-			</div>
+
 		</div>
-
-	</div>
+</div>
+</div>
 
 	<script>
 		// first print
-		window.print();
+		// window.print();
 
-		setTimeout(function() {
-			// second print
-			window.print();
-		}, 1000);
+		// setTimeout(function() {
+		// 	// second print
+		// 	window.print();
+		// }, 1000);
 
-		window.onafterprint = function() {
-			setTimeout(function() {
-				window.close();
-			}, 500);
+		// window.onafterprint = function() {
+		// 	setTimeout(function() {
+		// 		window.close();
+		// 	}, 500);
 
-			return false;
-		}
+		// 	return false;
+		// }
 
 		var ajax = new XMLHttpRequest();
 

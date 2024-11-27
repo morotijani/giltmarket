@@ -20,7 +20,13 @@ if (!admin_has_permission()) {
 	$where = ' AND sale_by = "'.$admin_data["admin_id"].'" AND CAST(jspence_sales.createdAt AS date) = "' . $today . '" ';
 }
 $query = "
-	SELECT *, jspence_sales.id AS sid, jspence_sales.createdAt AS sca, jspence_sales.updatedAt AS sua, jspence_admin.id AS aid, CAST(jspence_sales.createdAt AS date) AS sdate  FROM jspence_sales 
+	SELECT *, 
+		jspence_sales.id AS sid, 
+		jspence_sales.createdAt AS sca, 
+		jspence_sales.updatedAt AS sua, 
+		jspence_admin.id AS aid, 
+		CAST(jspence_sales.createdAt AS date) AS sdate  
+	FROM jspence_sales 
 	INNER JOIN jspence_admin 
 	ON jspence_admin.admin_id = jspence_sales.sale_by 
 	WHERE sale_status = 0 
@@ -93,7 +99,7 @@ if ($total_data > 0) {
 		$d = strtotime($row['sca']);
 		$arrayOutput = array(
 			'reference' => $row['sale_id'], 
-			'customername' => $row['sale_customer_name'], 
+			'customername' => urlencode($row['sale_customer_name']), 
 			'gram' => $row['sale_gram'], 
 			'volume' => $row['sale_volume'], 
 			'density' => $row['sale_density'], 
