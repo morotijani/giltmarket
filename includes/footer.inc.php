@@ -340,7 +340,8 @@
             })
 
             // Calculation made with current price input
-            $('#current_price').on('keyup', delay(function(e) {
+            // $('#current_price').on('keyup', delay(function(e) {
+            $('#current_price').on('change', function(e) {
                 e.preventDefault();
                 
                 var current_price = $('#current_price').val();
@@ -402,11 +403,13 @@
                     }
                 }
 
-            }, 750));
+            //}, 750));
+            });
 
 
             // Calculation made with gram input
-            $('#gram-amount').on('keyup', delay(function(e) {
+            // $('#gram-amount').on('keyup', delay(function(e) {
+            $('#gram-amount').on('change', function(e) {
                 e.preventDefault();
 
                 // var step = this.getAttribute('data-step');
@@ -472,10 +475,12 @@
                     }
                 }
 
-            }, 750))
+            })
+            // }, 750))
 
             // Calculation made with volume input
-            $('#volume-amount').on('keyup', delay(function(e) {
+            // $('#volume-amount').on('keyup', delay(function(e) {
+            $('#volume-amount').on('change', function(e) {
                 e.preventDefault();
 
                 var current_price = $('#current_price').val();
@@ -525,7 +530,6 @@
                                     // $('#calculation-result').addClass('d-none');
                                     $('#result-view').removeClass('d-none');
 
-
                                     $('.gramMsg').text('...');
                                     $('.volumeMsg').text('...');
                                 },
@@ -539,7 +543,8 @@
                         }
                     }
                 }
-            }, 750));
+            //}, 750));
+            });
 
             // Next to 1
             $('#next-1').click(function(e) {
