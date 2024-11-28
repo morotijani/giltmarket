@@ -959,6 +959,7 @@
 					alert("Invalid gram!");
 					$("#push_gram").focus()
 					$("#push_gram").addClass('error-field')
+					$("#push_volume").removeClass('error-field')
 					return false;
 				} else {
 					$("#push_gram").removeClass('error-field')
@@ -968,6 +969,7 @@
 					alert("Invalid volume!");
 					$("#push_volume").focus()
 					$("#push_volume").addClass('error-field')
+					$("#push_gram").removeClass('error-field')
 					return false;
 				} else {
 					$("#push_volume").removeClass('error-field')

@@ -52,7 +52,7 @@
                 <a class="btn btn-light d-block" href="<?= PROOT; ?>"> <span class="material-symbols-outlined me-1">dashboard</span> Go to dashboard </a>
             </div>
             <div class="col-6 col-sm-auto">
-                <a class="btn btn-light d-block" href="javascript:;" onclick="printPageArea('printableArea')"> <span class="material-symbols-outlined me-1">money_off</span> Print page </a>
+                <a class="btn btn-light d-block" href="javascript:;" onclick="printPageArea('printableArea')"> <span class="material-symbols-outlined me-1">print</span> Print page </a>
             </div>
         </div>
 
