@@ -33,7 +33,7 @@
 			<div class="card">
 				<div class="card-header pb-0 border-0">
 					<h6 class="modal-title h6 text-center">
-						<span class="h5 fw-bold"><?= ucwords($crow['company_name']); ?></span>
+						<?= ucwords($crow['company_name']); ?>
 						<br>
 						<?= $crow['company_address']; ?>
 						<br>
@@ -43,44 +43,8 @@
 					</h6>
 				</div>
 				<div class="card-body">
-
-                <div class="row align-items-center gx-3">
-                    <div class="col-auto fs-1"><?= $obj['gram']; ?></div>
-                    <div class="col"><hr style="border-style: dashed"></div>
-                    <div class="col-auto fs-1"><?= $obj['pounds']; ?></div>
-                </div>
-
-                <div class="row align-items-center gx-3">
-                    <div class="col-auto fs-1"><?= $obj['volume']; ?></div>
-                    <div class="col"><hr style="border-style: dashed"></div>
-                    <div class="col-auto fs-1"><?= $obj['density']; ?></div>
-                </div>
-
-                <div class="text-center">
-                    <span class="fs-1 fw-bold"><?= $obj['carat']; ?></span>
-                </div>
-
-                <!-- <div class="row align-items-center gx-3">
-                    <div class="col-auto fs-4"><?= money($obj['current_price']); ?></div>
-                    <div class="col"><hr style="border-style: dashed"></div>
-                    <div class="col-auto fs-4"><?= money($obj['total_amount']); ?></div>
-                </div> -->
-
-                <div class="">
-                    <span class="fs-3 fw-bold text-body-secondary"><?= money($obj['current_price']); ?></span>
-                    <br>
-                    <span class="fs-1 fw-bold"><?= money($obj['total_amount']); ?></span>
-                </div>
-
-                <!-- <div class="d-flex align-items-center mb-5">
-                  <span class="fs-3"></span>
-                  <span class="fs-1 fw-semibold"><?= money($obj['total_amount']); ?></span>
-                  <span class="fs-6 ms-1">/ <?= money($obj['current_price']); ?></span>
-                </div> -->
-
-                <hr>
 					<ul class="list-group list-group-flush">
-						<!-- <div class="list-group-item px-0">
+						<div class="list-group-item px-0">
 							<div class="row align-items-center">
 								<div class="col ms-n2">
 									<h6 class="fs-base fw-normal mb-1">Reference/ID,</h6>
@@ -89,7 +53,7 @@
 									<time class="text-body-secondary" datetime="01/01/2025"><?= ucwords($obj['reference']); ?></time>
 								</div>
 							</div>
-						</div> -->
+						</div>
 						<div class="list-group-item px-0">
 							<div class="row align-items-center">
 								<div class="col ms-n2">
@@ -100,16 +64,86 @@
 								</div>
 							</div>
 						</div>
-						<!-- <div class="list-group-item px-0">
+						<div class="list-group-item px-0">
 							<div class="row align-items-center">
 								<div class="col ms-n2">
-									<h6 class="fs-base fw-normal mb-1">Handler,</h6>
+									<h6 class="fs-base fw-normal mb-1">Gram,</h6>
+								</div>
+								<div class="col-auto">
+									<time class="text-body-secondary" datetime="01/01/2025"><?= $obj['gram']; ?></time>
+								</div>
+							</div>
+						</div>
+						<div class="list-group-item px-0">
+							<div class="row align-items-center">
+								<div class="col ms-n2">
+									<h6 class="fs-base fw-normal mb-1">Pounds,</h6>
+								</div>
+								<div class="col-auto">
+									<time class="text-body-secondary" datetime="01/01/2025"><?= $obj['pounds']; ?></time>
+								</div>
+							</div>
+						</div>
+						<div class="list-group-item px-0">
+							<div class="row align-items-center">
+								<div class="col ms-n2">
+									<h6 class="fs-base fw-normal mb-1">Volume,</h6>
+								</div>
+								<div class="col-auto">
+									<time class="text-body-secondary" datetime="01/01/2025"><?= $obj['volume']; ?></time>
+								</div>
+							</div>
+						</div>
+						<div class="list-group-item px-0">
+							<div class="row align-items-center">
+								<div class="col ms-n2">
+									<h6 class="fs-base fw-normal mb-1">Density,</h6>
+								</div>
+								<div class="col-auto">
+									<time class="text-body-secondary" datetime="01/01/2025"><?= $obj['density']; ?></time>
+								</div>
+							</div>
+						</div>
+						<div class="list-group-item px-0">
+							<div class="row align-items-center">
+								<div class="col ms-n2">
+									<h6 class="fs-base fw-normal mb-1">Carat,</h6>
+								</div>
+								<div class="col-auto">
+									<time class="text-body-secondary" datetime="01/01/2025"><?= $obj['carat']; ?></time>
+								</div>
+							</div>
+						</div>
+						<div class="list-group-item px-0">
+							<div class="row align-items-center">
+								<div class="col ms-n2">
+									<h6 class="fs-base fw-normal mb-1">Price,</h6>
+								</div>
+								<div class="col-auto">
+									<time class="text-body-secondary" datetime="01/01/2025"><?= $obj['current_price']; ?></time>
+								</div>
+							</div>
+						</div>
+						<div class="list-group-item px-0">
+							<div class="row align-items-center">
+								<div class="col ms-n2">
+									<h6 class="fs-base fw-normal mb-1">Amount,</h6>
+								</div>
+								<div class="col-auto">
+									<time class="text-body-secondary" datetime="01/01/2025"><?= $obj['total_amount']; ?></time>
+								</div>
+							</div>
+						</div>
+						<div class="list-group-item px-0">
+							<div class="row align-items-center">
+								<div class="col ms-n2">
+									<h6 class="fs-base fw-normal mb-1">By,</h6>
 								</div>
 								<div class="col-auto">
 									<time class="text-body-secondary" datetime="01/01/2025"><?= $obj['by']; ?></time>
 								</div>
 							</div>
-						</div> -->
+						</div>
 						<div class="list-group-item px-0">
 							<div class="row align-items-center">
 								<div class="col ms-n2">
@@ -125,6 +159,9 @@
 						<em>Thank you for your purchase.<a href="#" class="fw-bold"> J-Spence LTD.</a></em>
 					</div>
 				</div>
+				<div class="card-footer">
+						<!-- bar code; -->
+				</div>
 			</div>
 		</div>
 	</div>
@@ -135,20 +172,20 @@
 
 	<script>
 		// first print
-		// window.print();
+		window.print();
 
-		// setTimeout(function() {
-		// 	// second print
-		// 	window.print();
-		// }, 1000);
+		setTimeout(function() {
+			// second print
+			window.print();
+		}, 1000);
 
-		// window.onafterprint = function() {
-		// 	setTimeout(function() {
-		// 		window.close();
-		// 	}, 500);
+		window.onafterprint = function() {
+			setTimeout(function() {
+				window.close();
+			}, 500);
 
-		// 	return false;
-		// }
+			return false;
+		}
 
 		var ajax = new XMLHttpRequest();
 

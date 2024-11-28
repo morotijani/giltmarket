@@ -824,7 +824,7 @@
 
                 setTimeout(function() {
                     RECEIPT_WINDOW.close();
-                    // location.reload();
+                    location.reload();
                 }, 3000);
 
                 return false;
