@@ -123,7 +123,7 @@
 										if (admin_has_permission()) {
 											echo 'Sum of all capital given to admins to trade (both gold and cash).';
 										} else if (admin_has_permission('supervisor')) {
-											echo 'The remaining amount of gold you\'ve sold so far.';
+											echo 'The remaining amount of gold to be sold.';
 										} else {
 											echo 'The total amount of cash given to make trades for today.';
 										}
