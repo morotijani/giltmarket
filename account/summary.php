@@ -16,6 +16,9 @@
 	if (is_array(capital_mover($admin_id)) && capital_mover($admin_id)["msg"] == "touched") {
 		redirect(PROOT . 'auth/end-trade-checker');
 	}
+
+    //
+	$runningCapital = find_capital_given_to($admin_id);
     
     include ("../includes/header.inc.php");
     include ("../includes/aside.inc.php");
@@ -172,7 +175,7 @@
                         <div class="vstack gap-3 gap-xl-6">
                             <div class="row g-3">
 
-                                <div class="col-12 col-md-4 mb-4 mb-xxl-0">
+                                <div class="col-12 col-md-<?= ((admin_has_permission('supervisor')) ? '3' : '4'); ?> mb-4 mb-xxl-0">
                                     <div class="card bg-body-tertiary border-transparent">
                                         <div class="card-body">
                                             <div class="row align-items-center">
@@ -194,7 +197,7 @@
                                     </div>
                                 </div>
                                 
-                                <div class="col-12 col-md-4 mb-4 mb-xxl-0">
+                                <div class="col-12 col-md-<?= ((admin_has_permission('supervisor')) ? '3' : '4'); ?> mb-4 mb-xxl-0">
                                     <div class="card bg-body-tertiary border-transparent">
                                         <div class="card-body">
                                             <div class="row align-items-center">
@@ -216,7 +219,7 @@
                                     </div>
                                 </div>
 
-                                <div class="col-12 col-md-4 mb-4 mb-xxl-0">
+                                <div class="col-12 col-md-<?= ((admin_has_permission('supervisor')) ? '3' : '4'); ?> mb-4 mb-xxl-0">
                                     <div class="card bg-body-tertiary border-transparent">
                                         <div class="card-body">
                                             <div class="row align-items-center">
@@ -237,6 +240,38 @@
                                         </div>
                                     </div>
                                 </div>
+
+                                <?php if (admin_has_permission('supervisor')): ?>
+                                <div class="col-12 col-md-<?= ((admin_has_permission('supervisor')) ? '3' : '4'); ?> mb-4 mb-xxl-0">
+                                    <div class="card bg-body-tertiary border-transparent">
+                                        <div class="card-body">
+                                            <div class="row align-items-center">
+                                                <div class="col">
+                                                    <!-- Heading -->
+                                                    <h4 class="fs-base fw-normal text-body-secondary mb-1">Earned</h4>
+
+                                                    <!-- Text -->
+                                                    <div class="fs-5 fw-semibold" id="sup-capital">
+                                                        <?php
+                                                            $e = 0;
+                                                            if (is_array($runningCapital)) {
+                                                                $e = $runningCapital['daily_profit'];
+                                                            }
+                                                            echo money($e);
+                                                        ?>
+                                                    </div>
+                                                </div>
+                                                <div class="col-auto">
+                                                    <!-- Avatar -->
+                                                    <div class="avatar avatar-lg bg-body text-warning">
+                                                        <i class="fs-4" data-duoicon="briefcase"></i>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <?php endif; ?>
 
                                 <div class="col-12 col-md-6 mb-4 mb-xxl-0">
                                     <div class="card bg-body-tertiary border-transparent">

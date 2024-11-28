@@ -23,6 +23,9 @@
 	// total trades amount today
 	$tst = total_sale_amount_today($admin_id);
 
+	//
+	$runningCapital = find_capital_given_to($admin_id);
+
 	// statistical calculations
 	$thisYr = date("Y");
 	$lastYr = $thisYr - 1;
@@ -234,12 +237,11 @@
 										<!-- Text -->
 										<div class="fs-5 fw-semibold">
 											<?php 
-												$runningCapital = find_capital_given_to($admin_id);
 												$e = 0;
 												if (is_array($runningCapital)) {
 													$e = $runningCapital['daily_profit'];
 												}
- 												echo money($e); 
+ 												echo money($e);
 											?>
 										</div>
 									</div>
