@@ -376,7 +376,7 @@ if ($total_data > 0) {
 				                    </li>
 								</ul>
 								<div class="px-6 py-5 d-flex justify-content-center">
-									<a class="btn btn-light" href="' . PROOT . 'acc/admins"><i class="bi bi-people me-2"></i>All admins</a>
+									<a class="btn btn-light" href="' . PROOT . 'account/admins"><i class="bi bi-people me-2"></i>All admins</a>
 								</div>
 							</div>
 						</div>
