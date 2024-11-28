@@ -525,7 +525,7 @@
                                                     </div>
                                                 </ul>
                                                 <div class="px-6 py-5 d-flex justify-content-center">
-                                                    <a href="javascript:;" class="btn btn-sm btn-dark" onclick="printPageArea('printableArea_<?= $i; ?>')"><i class="bi bi-trash me-2"></i>Print</a>&nbsp;&nbsp;
+                                                    <a href="javascript:;" class="btn btn-sm btn-dark" onclick="printPageArea('printableArea_<?= $i; ?>')">Print</a>&nbsp;&nbsp;
                                                     <!-- <a href="javascript:;" class="btn btn-sm btn-danger"><i class="bi bi-trash me-2"></i>Reverse</a>&nbsp;&nbsp; -->
                                                     <button type="button" class="btn btn-sm btn-light" data-bs-dismiss="modal">Close</button>
                                                 </div>
