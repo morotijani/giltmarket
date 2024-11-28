@@ -228,7 +228,7 @@
                             <div class="nav-item">
                                 <a class="nav-link nav-child" href="javascript:;">
                                     <span class="material-symbols-outlined me-3">sticky_note_2</span> Getting started
-                                    <span class="badge text-bg-primary ms-auto">v0.0.6</span>
+                                    <span class="badge text-bg-primary ms-auto">v0.0.8</span>
                                 </a>
                             </div>
                             <div class="nav-item">
