@@ -19,7 +19,7 @@
 	$data = $_GET['data'] ?? "";
 	$obj = json_decode($data, true);
 
-	$d = date('Y-m-d h:i:s', $obj['date']);
+	$d = date('Y-m-d h:i:s A', $obj['date']);
 ?>
 	<style>
 		*, body {
