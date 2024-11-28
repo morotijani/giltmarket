@@ -33,7 +33,7 @@
 			<div class="card">
 				<div class="card-header pb-0 border-0">
 					<h6 class="modal-title h6 text-center">
-						<?= ucwords($crow['company_name']); ?>
+						<span class="h5 fw-bold"><?= ucwords($crow['company_name']); ?></span>
 						<br>
 						<?= $crow['company_address']; ?>
 						<br>
@@ -124,9 +124,6 @@
 					<div class="text-xs text-muted mt-6">
 						<em>Thank you for your purchase.<a href="#" class="fw-bold"> J-Spence LTD.</a></em>
 					</div>
-				</div>
-				<div class="card-footer">
-						<!-- bar code; -->
 				</div>
 			</div>
 		</div>
