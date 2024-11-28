@@ -44,27 +44,43 @@
 				</div>
 				<div class="card-body">
 
-                <div class="row align-items-center gx-3">
-                    <div class="col-auto fs-1"><?= $obj['gram']; ?></div>
-                    <div class="col"><hr style="border-style: dashed"></div>
-                    <div class="col-auto fs-1"><?= $obj['pounds']; ?></div>
+                <div class="row gx-3">
+                    <div class="col fs-1"><?= $obj['gram']; ?></div>
+                    <div class="col text-center"><hr style="width: 50px; border-style: dashed; border: 2px double #000; margin-top: 1.5rem;"></div>
+                    <div class="col fs-1"><?= $obj['pounds']; ?></div>
                 </div>
 
-                <div class="row align-items-center gx-3">
-                    <div class="col-auto fs-1"><?= $obj['volume']; ?></div>
-                    <div class="col"><hr style="border-style: dashed"></div>
-                    <div class="col-auto fs-1"><?= $obj['density']; ?></div>
+                <div class="row gx-3">
+                    <div class="col fs-1"><?= $obj['volume']; ?></div>
+                    <div class="col text-center"><hr style="width: 50px; border-style: dashed; border: 2px double #000; margin-top: 1.5rem;"></div>
+                    <div class="col fs-1"><?= $obj['density']; ?></div>
                 </div>
 
-                <div class="text-center">
+				<div class="row gx-3">
+                    <div class="col fs-5 fw-normal" style="line-height: 3;">Carat</div>
+                    <div class="col text-center"><hr style="width: 50px; border-style: dashed; border: 2px double #000; margin-top: 1.5rem;"></div>
+                    <div class="col fs-1 fw-bold"><?= $obj['carat']; ?></div>
+                </div>
+                <!-- <div class="text-center">
                     <span class="fs-1 fw-bold"><?= $obj['carat']; ?></span>
-                </div>
+                </div> -->
 
-                <div class="">
+				<div class="row gx-3">
+                    <div class="col fs-5 fw-normal" style="line-height: 2.5;">Price:</div>
+                    <div class="col text-center"></div>
+                    <div class="col fs-3 fw-normal"><?= money($obj['current_price']); ?></div>
+                </div>
+				
+				<div class="row gx-3">
+                    <div class="col fs-5 fw-normal" style="line-height: 3;">Amount:</div>
+                    <div class="col text-center"></div>
+                    <div class="col fs-1 fw-bold"><?= money($obj['total_amount']); ?></div>
+                </div>
+                <!-- <div class="">
                     <span class="fs-3 fw-bold text-body-secondary"><?= money($obj['current_price']); ?></span>
                     <br>
                     <span class="fs-1 fw-bold"><?= money($obj['total_amount']); ?></span>
-                </div>
+                </div> -->
 
                 <hr>
 					<ul class="list-group list-group-flush">
@@ -123,20 +139,20 @@
 
 	<script>
 		// first print
-		window.print();
+		// window.print();
 
-		setTimeout(function() {
-			// second print
-			window.print();
-		}, 1000);
+		// setTimeout(function() {
+		// 	// second print
+		// 	window.print();
+		// }, 1000);
 
-		window.onafterprint = function() {
-			setTimeout(function() {
-				window.close();
-			}, 500);
+		// window.onafterprint = function() {
+		// 	setTimeout(function() {
+		// 		window.close();
+		// 	}, 500);
 
-			return false;
-		}
+		// 	return false;
+		// }
 
 		var ajax = new XMLHttpRequest();
 
