@@ -14,10 +14,8 @@
 
     $today = date("Y-m-d");
     $where = '';
-    if ($admin_data['admin_permissions'] == 'supervisor') {
+    if (!admin_has_permission()) {
         $where = ' AND (push_to = "' . $admin_id . '" OR push_from IN (SELECT push_from FROM jspence_pushes WHERE push_from = "' . $admin_id . '")) AND push_date = "' . $today . '" ';
-    } else if ($admin_data['admin_permissions'] == 'salesperson') {
-        $where = ' AND push_to = "' . $admin_id . '" AND push_date = "' . $today . '" ';
     }
     $total_push = $conn->query("SELECT * FROM jspence_pushes INNER JOIN jspence_admin ON (jspence_admin.admin_id = jspence_pushes.push_from OR jspence_admin.admin_id = jspence_pushes.push_to) WHERE jspence_pushes.push_status = 0 $where GROUP BY push_id")->rowCount();
     $count_push = '';
@@ -46,12 +44,12 @@
                 <nav aria-label="breadcrumb">
                     <ol class="breadcrumb mb-2">
                         <li class="breadcrumb-item"><a class="text-body-secondary" href="javascript:;">Market</a></li>
-                        <li class="breadcrumb-item active" aria-current="page">Pushes</li>
+                        <li class="breadcrumb-item active" aria-current="page">Transactions</li>
                     </ol>
                 </nav>
 
                 <!-- Heading -->
-                <h1 class="fs-4 mb-0">Pushes</h1>
+                <h1 class="fs-4 mb-0">Transaction</h1>
             </div>
             <?php if ($admin_permission == 'supervisor'): ?>
             <div class="col-12 col-sm-auto mt-4 mt-sm-0">

@@ -29,8 +29,6 @@ $query = "
 	$where 
 ";
 
-$total_push = $conn->query("SELECT * FROM jspence_pushes INNER JOIN jspence_admin ON (jspence_admin.admin_id = jspence_pushes.push_from OR jspence_admin.admin_id = jspence_pushes.push_to) WHERE jspence_pushes.push_status = 0 $where")->rowCount();
-
 $search_query = ((isset($_POST['query'])) ? sanitize($_POST['query']) : '');
 $find_query = str_replace(' ', '%', $search_query);
 if ($search_query != '') {
@@ -86,7 +84,7 @@ if ($total_data > 0) {
 		}
         
         $option = '';
-    	if ($row["push_date"] == date("Y-m-d") && $row["push_from"] == $admin_id && ($row['push_from_where'] == 'daily' || $row['push_from_where'] == 'coffers' || $row['push_from_where'] == 'physical-cash')) {
+    	if ($row["push_date"] == date("Y-m-d") && $row["push_from"] == $admin_id && ($row['push_from_where'] == 'dialy' || $row['push_from_where'] == 'coffers' || $row['push_from_where'] == 'physical-cash')) {
            $option = '<a href="javascript:;" data-bs-target="#reverseModal_' . $row["pid"] . '" data-bs-toggle="modal" class="badge bg-dark"> Reverse push </a>'; 
         }
 		
