@@ -66,7 +66,7 @@
                             <div class="col-12 col-lg-auto mb-3 mb-lg-0">
                                 <ul class="nav nav-pills">
                                     <li class="nav-item">
-                                        <a class="nav-link bg-dark active" aria-current="page" href="<?= PROOT; ?>account/analytics">Data</a>
+                                        <a class="nav-link bg-dark active" aria-current="page" href="<?= PROOT; ?>account/summary">Data</a>
                                     </li>
                                 </ul>
                             </div>
@@ -79,7 +79,7 @@
                                         <button class="btn">Ghana, GH –&nbsp;<time datetime="20:00" id="time_span"></time></button>
                                     </div>
                                     <div class="col-auto ms-n2">
-                                        <a href="<?= PROOT . 'account/analytics' ?>" class="btn btn-dark px-3">
+                                        <a href="<?= PROOT . 'account/summary' ?>" class="btn btn-dark px-3">
                                             <span class="material-symbols-outlined">reset_wrench</span>
                                         </a>
                                     </div>
