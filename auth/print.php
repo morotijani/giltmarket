@@ -57,7 +57,7 @@
                 </div>
 
 				<div class="row gx-3">
-                    <div class="col fs-5 fw-normal" style="line-height: 3;">Carat</div>
+                    <div class="col fs-5 fw-normal" style="line-height: 3;">Karat</div>
                     <div class="col text-center"><hr style="width: 50px; border-style: dashed; border: 2px double #000; margin-top: 1.5rem;"></div>
                     <div class="col fs-1 fw-bold"><?= $obj['carat']; ?></div>
                 </div>
@@ -97,10 +97,10 @@
 						<div class="list-group-item px-0">
 							<div class="row align-items-center">
 								<div class="col ms-n2">
-									<h6 class="fs-base fw-normal mb-1">Name of Customer,</h6>
+									<h6 class="fs-base fw-bold mb-1">Name of Customer,</h6>
 								</div>
 								<div class="col-auto">
-									<time class="text-body-secondary" datetime="01/01/2025"><?= ucwords($obj['customername']); ?></time>
+									<time class="text-body-secondary fw-bold" datetime="01/01/2025"><?= ucwords($obj['customername']); ?></time>
 								</div>
 							</div>
 						</div>
@@ -117,16 +117,16 @@
 						<div class="list-group-item px-0">
 							<div class="row align-items-center">
 								<div class="col ms-n2">
-									<h6 class="fs-base fw-normal mb-1">Date,</h6>
+									<h6 class="fs-base fw-bold mb-1">Date,</h6>
 								</div>
 								<div class="col-auto">
-									<time class="text-body-secondary" datetime="01/01/2025"><?= pretty_date($d); ?></time>
+									<time class="text-body-secondary fw-bold" datetime="01/01/2025"><?= pretty_date($d); ?></time>
 								</div>
 							</div>
 						</div>
 					</ul>
-					<div class="text-xs text-muted mt-6">
-						<em>Thank you for your purchase.<a href="javascript:;" class="fw-bold"> J-Spence LTD.</a></em>
+					<div class="text-sm mt-6">
+						<em class="fw-bold">Thank you for doing business with us.<a href="javascript:;" class="fw-bold"> J-Spence LTD.</a></em>
 					</div>
 				</div>
 			</div>
