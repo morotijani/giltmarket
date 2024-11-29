@@ -399,7 +399,7 @@
 										<input type="text" class="form-control" readonly name="push_pounds" id="push_pounds" placeholder="Pounds">
 									</div>
 									<div class="col">
-										<input type="text" class="form-control" readonly name="push_carat" id="push_carat" placeholder="Carat">
+										<input type="text" class="form-control" readonly name="push_carat" id="push_carat" placeholder="Karat">
 									</div>
 								</div>
 								<?php endif; ?>
@@ -492,7 +492,7 @@
 											<div class="list-group-item px-0">
 												<div class="row align-items-center">
 													<div class="col ms-n2">
-														<h6 class="fs-base fw-normal mb-1">Carat,</h6>
+														<h6 class="fs-base fw-normal mb-1">Karat,</h6>
 													</div>
 													<div class="col-auto">
 														<time class="text-body-secondary" id='p-carat'></time>
@@ -653,7 +653,7 @@
 		</div>
 	</div>
 </div>
-		
+
 <?php include ("includes/footer.inc.php"); ?>
 
 <script type="text/javascript" src="<?= PROOT; ?>assets/js/Chart.min.js"></script>
@@ -825,7 +825,7 @@
 								
 								$('#push_density').val(response["density"] + ' Density');
 								$('#push_pounds').val(response["pounds"] + ' Pounds');
-								$('#push_carat').val(response["carat"] + ' Carat');
+								$('#push_carat').val(response["carat"] + ' Karat');
 								// $('#today_given').val(response["total_amount"]);
 
 								$('#push_msg').text('');
@@ -877,7 +877,7 @@
 								
 								$('#push_density').val(response["density"] + ' Density');
 								$('#push_pounds').val(response["pounds"] + ' Pounds');
-								$('#push_carat').val(response["carat"] + ' Carat');
+								$('#push_carat').val(response["carat"] + ' Karat');
 								// $('#today_given').val(response["total_amount"]);
 
 								$('#push_msg').text('');
@@ -927,7 +927,7 @@
 
 								$('#push_density').val(response["density"] + ' Density');
 								$('#push_pounds').val(response["pounds"] + ' Pounds');
-								$('#push_carat').val(response["carat"] + ' Carat');
+								$('#push_carat').val(response["carat"] + ' Karat');
 								// $('#today_given').val(response["total_amount"]);
 								
 								$('#push_msg').text('');

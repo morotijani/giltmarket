@@ -55,7 +55,7 @@
                                         <input type="radio" class="btn-check" title="Pounds"> <label class="btn btn-sm w-100" id="pounds" for="option2">0.00 Pounds</label>
                                     </div>
                                     <div class="flex-fill">
-                                        <input type="radio" class="btn-check" title="Carat"> <label class="btn btn-sm w-100" id="carat" for="option3">0.00 Carat</label>
+                                        <input type="radio" class="btn-check" title="Carat"> <label class="btn btn-sm w-100" id="carat" for="option3">0.00 Karat</label>
                                     </div>
                                 </div>
                             </div>
@@ -378,7 +378,7 @@
                                     //}
                                     $('#density').text(response["density"] + ' Density');
                                     $('#pounds').text(response["pounds"] + ' Pounds');
-                                    $('#carat').text(response["carat"] + ' Carat');
+                                    $('#carat').text(response["carat"] + ' Karat');
                                     $('#total-amount').val(response["total_amount"]);
 
                                     if (response['continue'] == 'no') {
@@ -448,7 +448,7 @@
                                     //}
                                     $('#density').text(response["density"] + ' Density');
                                     $('#pounds').text(response["pounds"] + ' Pounds');
-                                    $('#carat').text(response["carat"] + ' Carat');
+                                    $('#carat').text(response["carat"] + ' Karat');
                                     $('#total-amount').val(response["total_amount"]);
 
                                     if (response['continue'] == 'no') {
@@ -517,7 +517,7 @@
                                     //}
                                     $('#density').text(response["density"] + ' Density');
                                     $('#pounds').text(response["pounds"] + ' Pounds');
-                                    $('#carat').text(response["carat"] + ' Carat');
+                                    $('#carat').text(response["carat"] + ' Karat');
                                     $('#total-amount').val(response["total_amount"]);
 
                                     if (response['continue'] == 'no') {
@@ -623,7 +623,7 @@
                         <p>` + $("#pounds").text() + `</p>
                     </li>
                     <li class="list-group-item" style="padding: 0.1rem 1rem;">
-                        <small class="text-muted">Carat</small>
+                        <small class="text-muted">Karat</small>
                         <p id="send-amount">` + $("#carat").text() + `</p>
                     </li>
                     <li class="list-group-item" style="padding: 0.1rem 1rem;">
@@ -676,7 +676,7 @@
 
                 $('#density').text('0.00 Density');
                 $('#pounds').text('0.00 Pounds');
-                $('#carat').text('0.00 Carat');
+                $('#carat').text('0.00 Karat');
                 $('#total-amount').val('');
 
                 $('#buyForm')[0].reset();
