@@ -28,6 +28,9 @@ $query = "
 	WHERE jspence_pushes.push_status = 0 
 	$where 
 ";
+if ($admin_permission == 'salesperson') {
+	$query .= " AND jspence_pushes.push_from_where != 'end-trade'";
+}
 
 $search_query = ((isset($_POST['query'])) ? sanitize($_POST['query']) : '');
 $find_query = str_replace(' ', '%', $search_query);
@@ -89,10 +92,18 @@ if ($total_data > 0) {
         }
 		
 		$s = '';
-		if ($row["push_to"] == $admin_id) {
-			$s = '<span class="badge bg-success-subtle text-success">received</span>';
+		if (admin_has_permission()) {
+			if ($row["push_type"] == 'gold') {
+				$s = '<span class="badge bg-success-subtle text-warning">gold</span>';
+			} else {
+				$s = '<span class="badge bg-warning-subtle text-success">money</span>';
+			}
 		} else {
-			$s = '<span class="badge bg-warning-subtle text-warning">sent</span>';
+			if ($row["push_to"] == $admin_id) {
+				$s = '<span class="badge bg-success-subtle text-success">received</span>';
+			} else {
+				$s = '<span class="badge bg-warning-subtle text-warning">sent</span>';
+			}
 		}
 
 		$output .= '

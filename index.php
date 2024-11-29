@@ -138,7 +138,7 @@
 								<div class="fs-5 fw-semibold">
 									<?php 
 										if (admin_has_permission()) {
-											echo money(sum_capital_given_for_day($admin_id));
+											echo money(sum_capital_given_for_day());
 										} else if (admin_has_permission('supervisor')) {
 											echo money(remaining_gold_balance($admin_id));
 										} else {
@@ -633,7 +633,7 @@
               	</div>
               	<div class="card-body py-3">
                 	<div class="list-group list-group-flush">
-						<?= get_pushes_made($admin_id, date("Y-m-d")); ?>
+						<?= get_pushes_made($admin_id, $admin_permission, date("Y-m-d")); ?>
                 	</div>
               	</div>
             </div>

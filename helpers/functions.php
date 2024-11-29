@@ -192,25 +192,23 @@ function is_capital_exhausted($conn, $admin) {
 // sum all capital of today for super admin
 function sum_capital_given_for_day() {
 	global $conn;
-	$runningCapital = find_capital_given_to($admin);
 
-	if (is_array($runningCapital)) {
-		$sql = "
-			SELECT SUM(daily_capital) AS sum
-			FROM jspence_daily 
-			WHERE daily_capital_status = ? 
-			AND status = ? 
-			AND daily_date = ? 
-		";
-		$statement = $conn->prepare($sql);
-		$statement->execute([0, 0, $runningCapital['sale_date']]);
-		$count_row = $statement->rowCount();
-		$row = $statement->fetchAll();
+	$sql = "
+		SELECT SUM(daily_capital) AS sum
+		FROM jspence_daily 
+		WHERE daily_capital_status = ? 
+		AND status = ? 
+		AND daily_date = ? 
+	";
+	$statement = $conn->prepare($sql);
+	$statement->execute([0, 0, date('Y-m-d')]);
+	$count_row = $statement->rowCount();
+	$row = $statement->fetchAll();
 
-		if ($count_row > 0) {
-			return $row[0]['sum'];
-		}
+	if ($count_row > 0) {
+		return $row[0]['sum'];
 	}
+
 	return false;
 }
 
@@ -255,7 +253,7 @@ function _gained_calculation($balance, $capital, $last_sale, $admin) {
 }
 
 // get pushes
-function get_pushes_made($admin, $today = null) {
+function get_pushes_made($admin, $permission, $today = null) {
 	global $conn;
 
 	$sql = "
@@ -268,7 +266,7 @@ function get_pushes_made($admin, $today = null) {
 	if (!admin_has_permission()) {
         $sql .= ' AND (push_to = "' . $admin . '" OR push_from IN (SELECT push_from FROM jspence_pushes WHERE push_from = "' . $admin . '")) AND push_date = "' . $today . '" ';
     }
-	if (admin_has_permission('salesperson')) {
+	if ($permission == 'salesperson') {
 		$sql .= " AND jspence_pushes.push_from_where != 'end-trade'";
 	}
 
@@ -284,6 +282,16 @@ function get_pushes_made($admin, $today = null) {
 	
 	if ($statement->rowCount() > 0): 
 		foreach ($statement->fetchAll() as $row) {
+			$message = '';
+			if (admin_has_permission()) {
+				$message = 'ed to ' . ucwords($row["admin_fullname"]);
+			} else {
+				if ($row["push_from"] == $admin) {
+					$message = 'ed to ' . ucwords($row["admin_fullname"]);
+				} else {
+					$message = ' received';
+				}
+			}
 			$output .= '
 				<div class="list-group-item px-0">
 					<div class="row align-items-center">
@@ -303,7 +311,7 @@ function get_pushes_made($admin, $today = null) {
 							</div>
 						</div>
 						<div class="col ms-n2">
-							<h6 class="fs-base fw-normal mb-1">' . money($row["push_amount"]) . ' push' . (($row["push_from"] == $admin) ? 'ed to ' . ucwords($row["admin_fullname"]) : ' received') . '</h6>
+							<h6 class="fs-base fw-normal mb-1">' . money($row["push_amount"]) . ' push' . $message . '</h6>
 							<span class="fs-sm text-body-secondary">' . time_from_date($row["createdAt"]) . '</span>
 						</div>
 						<div class="col-auto">
