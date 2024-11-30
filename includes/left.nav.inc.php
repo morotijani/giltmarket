@@ -141,11 +141,11 @@
                             aria-expanded="false"
                             aria-controls="pushes"
                             >
-                                <span class="material-symbols-outlined me-3">compare_arrows</span> Transaction
+                                <span class="material-symbols-outlined me-3">compare_arrows</span> Transactions
                             </a>
                             <div class="collapse" id="pushes">
                                 <nav class="nav nav-pills">
-                                    <a class="nav-link nav-child" href="<?= PROOT; ?>account/pushes">Transactions</a>
+                                    <a class="nav-link nav-child" href="<?= PROOT; ?>account/pushes">All</a>
                                     <?php if (admin_has_permission('supervisor')): ?>
                                     <a class="nav-link nav-child" href="<?= PROOT; ?>account/pushes/salesperson">Salepersonnels</a>
                                     <a class="nav-link nav-child" href="<?= PROOT; ?>account/pushes/gold-receive"><?= ((admin_has_permission()) ? 'Supervisors' : 'Gold received'); ?></a>
