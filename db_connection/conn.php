@@ -43,9 +43,14 @@
 
 			$fn = explode(' ', $admin_data['admin_fullname']);
 			$admin_data['first'] = ucwords($fn[0]);
+			$admin_data['middle'] = '';
+			if (count($fn) > 2) {
+				$admin_data['middle'] = ucwords($fn[1]);
+				$admin_data['first'] = $admin_data['first'] . ' ' . $admin_data['middle'];
+			}
 			$admin_data['last'] = '';
 			if (count($fn) > 1) {
-				$admin_data['last'] = ucwords($fn[1]);
+				$admin_data['last'] = ucwords($fn[2]);
 			}
 			$admin_permission = $admin_data['admin_permissions']; // get admin's permission
 		} else {
