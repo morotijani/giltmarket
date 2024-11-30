@@ -385,10 +385,12 @@
 									<div class="col">
 										<input type="number" inputmode="numeric" class="form-control" name="push_gram" id="push_gram" autocomplete="off" min="0.00" step="0.01" placeholder="Gram" required>
 										<div class="form-text">Available gram: <?= sum_up_grams($conn, $admin_id); ?></div>
+										<input type="hidden" id="in-hand-gram" value="<?= sum_up_grams($conn, $admin_id); ?>">
 									</div>
 									<div class="col">
 										<input type="number" inputmode="numeric" class="form-control" name="push_volume" id="push_volume" autocomplete="off" min="0.00" step="0.01" placeholder="Volume" required>
 										<div class="form-text">Available volume: <?= sum_up_volume($conn, $admin_id); ?></div>
+										<input type="hidden" id="in-hand-volume" value="<?= sum_up_volume($conn, $admin_id); ?>">
 									</div>
 								</div>
 								<div class="row d-none" id="push-result">
@@ -782,10 +784,23 @@
 				var inHand = $('#in-hand').val()
 				$('#today_given').val(inHand);
 
+				<?php if (admin_has_permission('salesperson')) : ?>
+					var inHandGram = $('#in-hand-gram').val()
+					$('#push_gram').val(inHandGram);
+					
+					var inHandVolume = $('#in-hand-volume').val()
+					$('#push_volume').val(inHandVolume);
+				<?php endif; ?>
+
 				// re-check checkbox
 				$( this ).prop( "checked", true );
 			} else {
 				$('#today_given').val('');
+
+				<?php if (admin_has_permission('salesperson')) : ?>
+					$('#push_gram').val('');
+					$('#push_volume').val('');
+				<?php endif; ?>
 			}
 		});
 
