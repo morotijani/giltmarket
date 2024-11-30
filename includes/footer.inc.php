@@ -61,10 +61,10 @@
                             </div>
                             <br>
                             <div class="mb-3">
-                                <input type="text" name="customer_name" id="customer_name" class="form-control" placeholder="Customer name" style="border: none;" required autocomplete="off">
+                                <input type="text" name="customer_name" id="customer_name" class="form-control" placeholder="Customer name" style="border: none;" required>
                             </div>
                             <div class="mb-3">
-                                <input type="text" name="customer_contact" id="customer_contact" class="form-control" placeholder="Customer contact" style="border: none;" required autocomplete="off">
+                                <input type="text" name="customer_contact" id="customer_contact" class="form-control" placeholder="Customer contact" style="border: none;">
                             </div>
                             <div class="mb-3">
                                 <textarea class="form-control form-control-flush flex-fill" style="overflow: hidden; resize: none;" placeholder="Leave a comment here" id="note" name="note"></textarea>
@@ -590,11 +590,11 @@
                     return false;
                 }
 
-                if ($("#customer_contact").val() == '') {
-                    $('.buy-msg').html('* Invalid cutomer contact!');
-                    $("#customer_contact").focus()
-                    return false;
-                }
+                // if ($("#customer_contact").val() == '') {
+                //     $('.buy-msg').html('* Invalid cutomer contact!');
+                //     $("#customer_contact").focus()
+                //     return false;
+                // }
 
                 $('#buysummary').html(
                 `
@@ -739,12 +739,12 @@
                     return false;
                 }
 
-                if ($("#customer_contact").val() == '') {
-                    $('#submitSend').attr('disabled', false);
-                    $state.html('* Invalid cutomer contact!');
-                    $('.toast').toast('show');
-                    return false;
-                }
+                // if ($("#customer_contact").val() == '') {
+                //     $('#submitSend').attr('disabled', false);
+                //     $state.html('* Invalid cutomer contact!');
+                //     $('.toast').toast('show');
+                //     return false;
+                // }
 
                 if (pin != '') {
                     $.ajax({
