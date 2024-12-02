@@ -8,7 +8,7 @@
 
     //
     $capital_mover = capital_mover($admin_id);
-	if ((is_array($capital_mover) && $capital_mover["msg"] != "touched") || $capital_mover == 'same-date' || $capital_mover == 'same-date') {
+	if ((is_array($capital_mover) && $capital_mover["msg"] != "touched") || $capital_mover == 'same-date') {
 		redirect(PROOT);
 	}
 
@@ -86,7 +86,7 @@
                                     <div class="row align-items-center">
                                     <div class="col">
                                         <!-- Heading -->
-                                        <h4 class="fs-sm fw-normal text-body-secondary mb-1">Money given</h4>
+                                        <h4 class="fs-sm fw-normal text-body-secondary mb-1"><?= ((admin_has_permission('supervisor')) ? 'Gold' : 'Money'); ?> given</h4>
 
                                         <!-- Text -->
                                         <div class="fs-4 fw-semibold"><?= money($capital_mover["capital"]); ?></div>
