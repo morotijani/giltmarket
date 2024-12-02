@@ -43,13 +43,13 @@
                 <!-- Breadcrumb -->
                 <nav aria-label="breadcrumb">
                     <ol class="breadcrumb mb-2">
-                        <li class="breadcrumb-item"><a class="text-body-secondary" href="javascript:;">Market</a></li>
-                        <li class="breadcrumb-item active" aria-current="page">Transactions</li>
+                        <li class="breadcrumb-item"><a class="text-body-secondary" href="javascript:;">Transactions</a></li>
+                        <li class="breadcrumb-item active" aria-current="page">All</li>
                     </ol>
                 </nav>
 
                 <!-- Heading -->
-                <h1 class="fs-4 mb-0">Transaction</h1>
+                <h1 class="fs-4 mb-0">Transactions</h1>
             </div>
             <?php if ($admin_permission == 'supervisor'): ?>
             <div class="col-12 col-sm-auto mt-4 mt-sm-0">
