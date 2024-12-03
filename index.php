@@ -330,6 +330,13 @@
 					<div class="card-body py-3">
 						<div class="table-responsive">
 							<table class="table table-flush table-hover align-middle mb-0">
+								<thead>
+									<tr>
+										<th scope="col"></th>
+										<th scope="col" style="font-family: Roboto Mono, monospace;"><?= $lastYr; ?></th>
+										<th scope="col" style="font-family: Roboto Mono, monospace;"><?= $thisYr; ?></th>
+									</tr>
+								</thead>
 								<tbody>
 									<?php for ($i = 1; $i <= 12; $i++):
 										$dt = dateTime::createFromFormat('!m',$i);

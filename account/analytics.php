@@ -454,7 +454,7 @@
                                         <h5>Earnings chart</h5>
                                     </div>
                                     <div class="hstack align-items-center">
-                                        <a href="<?= PROOT; ?>acc/analytics" class="text-muted"><i class="bi bi-arrow-repeat"></i></a>
+                                        <a href="<?= PROOT; ?>account/analytics" class="text-muted"><i class="bi bi-arrow-repeat"></i></a>
                                     </div>
                                 </div>
                                 <div class="mx-n4">
@@ -470,7 +470,7 @@
                                         <h5>Accumulated earnings by months and years</h5>
                                     </div>
                                     <div class="hstack align-items-center">
-                                        <a href="<?= PROOT; ?>acc/trades" class="text-muted">
+                                        <a href="<?= PROOT; ?>account/trades" class="text-muted">
                                             <i class="bi bi-arrow-repeat"></i>
                                         </a>
                                     </div>

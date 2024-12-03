@@ -124,45 +124,50 @@ if (array_key_exists('postdata', $_SESSION)) {
     
         $push_to = '986785d8-7b98-4747-a0b2-8b4f4b239e06'; // get supervisors id
         $push_id = guidv4();
+        $daily_id = guidv4(); // generate new daily id
         $today = date('Y-m-d');
+        $gold_balance = 0;
+        $new_capital = 0;
         
         // send balance back to the supervisor for his next day trade
         $tomorrow = new DateTime('tomorrow');
         $tomorrow = $tomorrow->format('Y-m-d');
 
         // get remaining gold balance //
-        
-        $daily_id = guidv4(); // generate new daily id
-        $supervisor_tomorrow_capital = _capital($push_to, $tomorrow)['today_capital']; // get supervisors tomorrow capital
-        
-        $gold_balance = 0;
-        $findActiveCapital = find_capital_given_to($push_to);
 
+       // $supervisor_tomorrow_capital = _capital($push_to, $tomorrow)['today_capital']; // get supervisors tomorrow capital
+
+        $findActiveCapital = find_capital_given_to($push_to); // supervisor today or active capital
         if (admin_has_permission('salesperson')) {
             $gold_balance = total_amount_today($admin_id); // salepersonnel accumulated gold
+            $new_capital = $gold_balance;
             
             if (is_array($findActiveCapital)) {
+                // if there was an active capital found, add the salesperson accumulated gold balance to the supervisor gold balance
                 $gold_balance = (float)($findActiveCapital["daily_balance"] + $gold_balance);
+                $new_capital = (float)($findActiveCapital["daily_capital"] + total_amount_today($admin_id));
+                $daily_id = $findActiveCapital["daily_id"];
             }
             
         } else {
             if (is_array($findActiveCapital)) {
                 $gold_balance = $findActiveCapital["daily_balance"]; // remaining_gold_balance($admin_id); // remaining supervisor gold balance
+                $new_capital = $gold_balance;
+                $daily_id = $findActiveCapital["daily_id"];
             }
         }
-        $new_capital = $gold_balance;
 
         // check if supervisor has already recieved tomorrow capital from other salepersonels
-        $findActiveCapital = find_capital_given_to($push_to);
-        if (is_array($findActiveCapital)) {
-            $new_capital = (float)($supervisor_tomorrow_capital + $gold_balance);
-            $daily_id = $findActiveCapital["daily_id"];
-        }
+        // $findTomorrowCapital = find_capital_given_to($push_to, $tomorrow);
+        // if (is_array($findTomorrowCapital)) {
+        //     $new_capital = (float)($supervisor_tomorrow_capital + $gold_balance);
+        //     $gold_balance = (float)($findActiveCapital["daily_balance"] + $gold_balance);
+            
+        //     $daily_id = $findTomorrowCapital["daily_id"];
+        // }
 
         // prevent adding negative balance
-        if ($gold_balance > 0) {
-            $data = [$new_capital, $push_to, $daily_id];
-            
+        if ($gold_balance > 0) {            
             if (admin_has_permission('supervisor')) {
                 // insert into supervosr's capital for tomorrow
                 $QUERY = "
@@ -170,20 +175,20 @@ if (array_key_exists('postdata', $_SESSION)) {
                     VALUES (?, ?, ?, ?, ?)
                 ";
                 $statement = $conn->prepare($QUERY);
-                $daily_result = $statement->execute([$gold_balance, $gold_balance, $push_to, guidv4(), $tomorrow]);
+                $daily_result = $statement->execute([$new_capital, $gold_balance, $push_to, guidv4(), $tomorrow]);
             } else {
+                $data = [$new_capital, $gold_balance, $push_to, $daily_id];
 
                 // insert into supervosr's capital for tomorrow
                 $sql = "
                     INSERT INTO jspence_daily (daily_capital, daily_balance, daily_to, daily_id, daily_date) 
-                    VALUES (?, '" . $new_capital . "', ?, ?, '" . $tomorrow . "')
+                    VALUES (?, ?, ?, ?, '" . $tomorrow . "')
                 ";
                 if (is_array($findActiveCapital)) {
                     // update supervosr's capital for tomorrow
                     $sql = "
                         UPDATE `jspence_daily` 
-                        SET `daily_capital` = ?,  
-                        daily_balance = '" . $gold_balance . "' 
+                        SET `daily_capital` = ?, daily_balance = ? 
                         WHERE `daily_to` = ? AND `daily_id` = ?
                     ";
                 }
