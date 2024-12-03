@@ -785,7 +785,9 @@
 		}
 
 		//
-		$("#push-all").change(function() {
+		$("#push-all").change(function(e) {
+			e.preventDefault();
+
 			if (this.checked) {
 				// Do stuff
 				var inHand = $('#in-hand').val()
@@ -797,6 +799,45 @@
 					
 					var inHandVolume = $('#in-hand-volume').val()
 					$('#push_volume').val(inHandVolume);
+
+					var gram = $('#push_gram').val();
+					var volume = $('#push_volume').val();
+
+					if (gram != '' && gram > 0) {
+						if (volume != '' && volume > 0) {
+							$('#push_msg').text('');
+							$('#show-sendMGModal').attr('disabled', false);
+
+							$.ajax({
+								url : '<?= PROOT; ?>auth/gold.calculation.php',
+								method : 'POST',
+								data : {
+									gram : gram,
+									volume : volume 
+								},
+								beforeSend : function () {
+									$('#push_msg').text('typing ...');
+									$('#show-sendMGModal').attr('disabled', true);
+								},
+								success: function(data) {
+									console.log(data)
+									const response = JSON.parse(data);
+
+									$("#push-result").removeClass('d-none');
+									
+									$('#push_density').val(response["density"] + ' Density');
+									$('#push_pounds').val(response["pounds"] + ' Pounds');
+									$('#push_carat').val(response["carat"] + ' Karat');
+
+									$('#push_msg').text('');
+									$('#show-sendMGModal').attr('disabled', false);
+								},
+								error: function() {
+									return false;
+								}
+							})
+						}
+					}
 				<?php endif; ?>
 
 				// re-check checkbox
@@ -807,6 +848,12 @@
 				<?php if (admin_has_permission('salesperson')) : ?>
 					$('#push_gram').val('');
 					$('#push_volume').val('');
+
+					$('#push_density').val('');
+					$('#push_pounds').val('');
+					$('#push_carat').val('');
+
+					$("#push-result").addClass('d-none');
 				<?php endif; ?>
 			}
 		});
