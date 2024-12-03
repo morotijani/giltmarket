@@ -56,6 +56,9 @@
                 <!-- Action -->
                 <a class="btn btn-warning d-block" href="javascript:;" data-bs-target="#modalCapital" data-bs-toggle="modal"> Fund coffers</a>
             </div>
+            <div class="col-6 col-sm-auto">
+                <a class="btn btn-light d-block" href="#clearCoffersModal" data-bs-toggle="modal" > <span class="material-symbols-outlined me-1">clear_all</span> Clear coffers </a>
+            </div>
             <?php endif; ?>
         </div>
 
@@ -546,6 +549,29 @@
             <?php else: ?>
             <div id="load-content"></div>
             <?php endif; ?>
+        </div>
+    </div>
+
+    <!-- CLEAR COFFERS -->
+    <div class="modal fade" id="clearCoffersModal" tabindex="-1" aria-labelledby="clearCoffersModalLabel" data-bs-backdrop="static" data-bs-keyboard="false" aria-hidden="true" style="backdrop-filter: blur(5px);">
+        <div class="modal-dialog modal-sm modal-dialog-centered">
+            <div class="modal-content overflow-hidden">
+                <div class="modal-header pb-0 border-0">
+                    <h1 class="modal-title h4" id="clearCoffersModalLabel">Clear coffers!</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body p-0">
+                    <div class="px-6 py-5 border-bottom">                       
+                        <p>
+                            Are you sure you want to proceed by clearing the COFFERS?
+                        </p>
+                    </div>
+                    <div class="px-6 py-5 d-flex justify-content-center">
+                        <a href="<?= PROOT; ?>auth/clear.coffers?clear=1" class="btn btn-sm btn-danger"><i class="bi bi-trash me-2"></i>Yes, Proceed</a>&nbsp;&nbsp;
+                        <button type="button" class="btn btn-sm btn-dark" data-bs-dismiss="modal">No, cancel</button>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 
