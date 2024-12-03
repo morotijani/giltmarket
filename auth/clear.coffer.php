@@ -14,6 +14,10 @@ if (isset($_GET['clear']) && !empty($_GET['clear'])) {
         $result = $statement->execute([1]);
 
         if (isset($result)) {
+            $_SESSION['flash_success'] = "Coffers successfully cleard!";
+            redirect(PROOT . 'account/pushes');
+        } else {
+            $_SESSION['flash_error'] = "Something went wrong, please try again!";
             redirect(PROOT . 'account/pushes');
         }
     }
