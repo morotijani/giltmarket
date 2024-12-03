@@ -56,6 +56,8 @@
                 <!-- Action -->
                 <a class="btn btn-warning d-block" href="javascript:;" data-bs-target="#modalCapital" data-bs-toggle="modal"> Fund coffers</a>
             </div>
+            <?php endif; ?>
+            <?php if (admin_has_permission()) : ?>
             <div class="col-6 col-sm-auto">
                 <a class="btn btn-light d-block" href="#clearCoffersModal" data-bs-toggle="modal" > <span class="material-symbols-outlined me-1">clear_all</span> Clear coffers </a>
             </div>

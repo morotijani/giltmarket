@@ -231,55 +231,55 @@ if (array_key_exists('postdata', $_SESSION)) {
         }
 
         // send cash balance or cash accumulated to the coffers
-        // $coffers_id = guidv4();
-        // $pushData = array();
-        // $cash = 0;
-        // if (admin_has_permission('salesperson')) {
-        //     $cash = _capital($admin_id)['today_balance']; // cash remaining from saleperson
+        $coffers_id = guidv4();
+        $pushData = array();
+        $cash = 0;
+        if (admin_has_permission('salesperson')) {
+            $cash = _capital($admin_id)['today_balance']; // cash remaining from saleperson
 
-        //     $pushData = array(
-        //         'expenditure' => $exp_amt["sum"], 
-        //         'send_pushes' => $p["sum"], 
-        //         'accumulated_gold' => total_amount_today($admin_id), 
-        //         'total_sales' => $tst["sum"]
-        //     );
-        // } else {
-        //     $cash = total_amount_today($admin_id); // cash gained from supervisor
+            $pushData = array(
+                'expenditure' => $exp_amt["sum"], 
+                'send_pushes' => $p["sum"], 
+                'accumulated_gold' => total_amount_today($admin_id), 
+                'total_sales' => $tst["sum"]
+            );
+        } else {
+            $cash = total_amount_today($admin_id); // cash gained from supervisor
 
-        //     $pushData = array(
-        //         'balance' => $capital_bal,
-        //         'send_pushes' => $p["sum"], 
-        //         'accumulated_money' => total_amount_today($admin_id), 
-        //         'total_sales' => $tst["sum"], 
-        //         'earned' => $g,
-        //         'sold' => _capital($admin_id)['today_balance']
-        //     );
-        // }
-        // $pushData = json_encode($pushData);
+            $pushData = array(
+                'balance' => $capital_bal,
+                'send_pushes' => $p["sum"], 
+                'accumulated_money' => total_amount_today($admin_id), 
+                'total_sales' => $tst["sum"], 
+                'earned' => $g,
+                'sold' => _capital($admin_id)['today_balance']
+            );
+        }
+        $pushData = json_encode($pushData);
 
-        // if ($cash > 0) {
-        //     $insertSql = "
-        //         INSERT INTO jspence_coffers (coffers_amount, coffers_status, coffers_receive_through, coffers_id) 
-        //         VALUES (?, ?, ?, ?)
-        //     ";
-        //     $statement = $conn->prepare($insertSql);
-        //     $coffers_result = $statement->execute([$cash, 'receive', 'end_trade_balance', $coffers_id]);
+        if ($cash > 0) {
+            $insertSql = "
+                INSERT INTO jspence_coffers (coffers_amount, coffers_status, coffers_receive_through, status, coffers_id) 
+                VALUES (?, ?, ?, ?, ?)
+            ";
+            $statement = $conn->prepare($insertSql);
+            $coffers_result = $statement->execute([$cash, 'receive', 'end_trade_balance', '1', $coffers_id]);
 
-        //     // insert all money into pushes and link with coffers id
-        //     if ($coffers_result) {
-        //         $LID = $conn->lastInsertId();
-        //         $q = $conn->query("SELECT * FROM jspence_coffers WHERE id = '" . $LID . "' LIMIT 1")->fetchAll();
-        //         $coffers_id = $q[0]['coffers_id'];
+            // insert all money into pushes and link with coffers id
+            if ($coffers_result) {
+                $LID = $conn->lastInsertId();
+                $q = $conn->query("SELECT * FROM jspence_coffers WHERE id = '" . $LID . "' LIMIT 1")->fetchAll();
+                $coffers_id = $q[0]['coffers_id'];
 
-        //         $push_data = [$push_id, $coffers_id, $cash, 'money', $admin_id, 'coffers', 'end-trade', $pushData];
-        //         $sql = "
-        //             INSERT INTO jspence_pushes (push_id, push_daily, push_amount, push_type, push_from, push_to, push_from_where, push_data) 
-        //             VALUES (?, ?, ?, ?, ?, ?, ?, ?)
-        //         ";
-        //         $statement = $conn->prepare($sql);
-        //         $statement->execute($push_data);
-        //     }
-        // }
+                $push_data = [$push_id, $coffers_id, $cash, 'money', $admin_id, 'coffers', 'end-trade', $pushData];
+                $sql = "
+                    INSERT INTO jspence_pushes (push_id, push_daily, push_amount, push_type, push_from, push_to, push_from_where, push_data) 
+                    VALUES (?, ?, ?, ?, ?, ?, ?, ?)
+                ";
+                $statement = $conn->prepare($sql);
+                $statement->execute($push_data);
+            }
+        }
 
         // update today trade table so it does not accepts any trades anymore
         $query = "
@@ -291,6 +291,13 @@ if (array_key_exists('postdata', $_SESSION)) {
         if ($r) {
             $message = "market capital ended, capital id: " . $capital_id;
             add_to_log($message, $admin_id);
+        }
+
+        // set coffers status to 1 to prevent the usage of the amount available (only admin will have access)
+        if (admin_has_permission('supervisor')) {
+            $Sql = "UPDATE jspence_coffers SET status = ?";
+            $statement = $conn->prepare($Sql);
+            $statement->execute([1]);
         }
 
 ?>

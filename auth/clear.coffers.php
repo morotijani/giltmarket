@@ -11,7 +11,7 @@ if (isset($_GET['clear']) && !empty($_GET['clear'])) {
             SET jspence_coffers.status = ?
         ";
         $statement = $conn->prepare($sql);
-        $result = $statement->execute([1]);
+        $result = $statement->execute([2]);
 
         if (isset($result)) {
 
