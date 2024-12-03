@@ -1510,10 +1510,11 @@ function get_admin_coffers_received($conn, $admin) {
 		INNER JOIN jspence_pushes 
 		ON jspence_pushes.push_daily = jspence_coffers.coffers_id 
 		WHERE (coffers_status = ? OR coffers_status = ?) 
-		-- AND jspence_pushes.push_status = ?
+		-- AND jspence_pushes.push_status = ? 
+		AND jspence_coffers.status = ?
 	";
 	$statement = $conn->prepare($query);
-	$statement->execute(['receive', 'reverse']);
+	$statement->execute(['receive', 'reverse', 0]);
 	$rows = $statement->fetchAll();
 	$row = $rows[0];
 
@@ -1531,10 +1532,11 @@ function get_admin_coffers_send($conn, $admin) {
 		INNER JOIN jspence_pushes 
 		ON jspence_pushes.push_daily = jspence_coffers.coffers_id 
 		WHERE coffers_status = ? 
-		AND jspence_pushes.push_status = ?
+		AND jspence_pushes.push_status = ? 
+		AND jspence_coffers.status = ?
 	";
 	$statement = $conn->prepare($query);
-	$statement->execute(['send', 0]);
+	$statement->execute(['send', 0, 0]);
 	$rows = $statement->fetchAll();
 	$row = $rows[0];
 
