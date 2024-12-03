@@ -14,6 +14,11 @@ if (isset($_GET['clear']) && !empty($_GET['clear'])) {
         $result = $statement->execute([1]);
 
         if (isset($result)) {
+
+            // add to log message
+            $message = "coffers cleared.";
+            add_to_log($message, $admin_id);
+
             $_SESSION['flash_success'] = "Coffers successfully cleard!";
             redirect(PROOT . 'account/pushes');
         } else {
