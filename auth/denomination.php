@@ -324,7 +324,7 @@ if (array_key_exists('postdata', $_SESSION)) {
                             <a class="btn btn-secondary d-block" href="javascript:;" onclick="printPageArea('printableArea')"> <span class="material-symbols-outlined me-1">download</span> Download </a>
                         </div>
                         <div class="col-6 col-sm-auto">
-                            <a class="btn btn-light d-block" href="<?= PROOT; ?>"> Go home </a>
+                            <a class="btn btn-light d-block" href="<?= PROOT; ?>auth/logout"> Logout </a>
                         </div>
                     </div>
 

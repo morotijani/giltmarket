@@ -392,29 +392,24 @@
     });
 
     $('#submitDenomination').on('click', function() {
-        $('#submitDenomination').attr('disabled', true);
-        $('#submitDenomination').html('<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span><span> Processing ...</span>');
-        if (confirm("By clicking on ok, trade capital will be ended!")) {
+        if ($('#pin').val() == '' || $('#pin').val() != <?= $admin_data['admin_pin']; ?>) {
+            alert("Invalid PIN provided!");
+            $('#pin').val('');
+            $('#pin').focus()
+            return false;
+        } else {
+            if (confirm("By clicking on 'OK' button, today's trade will be ended!")) {
+                $('#submitDenomination').attr('disabled', true);
+                $('#submitDenomination').html('<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span><span> Processing ...</span>');
 
-            if ($('#pin').val() == <?= $admin_data['admin_pin']; ?>) {
                 setTimeout(function () {
-                    $('#submitDenomination').text('Submit');
-                    $('#submitDenomination').attr('disabled', false);
-
-                    $('#denominationForm').submit();
-                }, 1000)
+                    $('#denominationForm').submit()
+                }, 2000)
             } else {
-                alert("Invalid PIN provided");
-                $('#pin').val('');
-
-                $('#submitDenomination').text('Submit');
-                $('#submitDenomination').attr('disabled', false);
+                $('#denominationForm')[0].reset()
+                $('#endModal').modal('hide');
                 return false
             }
-        }
-        $('#submitDenomination').text('Submit');
-        $('#submitDenomination').attr('disabled', false);
-        return false
-        
+        } 
     });
 </script>
