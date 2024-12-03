@@ -859,7 +859,8 @@
 		});
 
 		// Calculation made with current price input
-		$('#push_price').on('keyup', delay(function(e) {
+		// $('#push_price').on('keyup', delay(function(e) {
+		$('#push_price').on('change', function(e) {
             e.preventDefault();
 
 			// var current_price = $('#push_price').val();
@@ -909,10 +910,12 @@
 					}
 				}
 			// }
-		}, 750))
+		})
+		// }, 750))
 		
 		// Calculation made with gram input
-		$('#push_gram').on('keyup', delay(function(e) {
+		// $('#push_gram').on('keyup', delay(function(e) {
+		$('#push_gram').on('change', function(e) {
             e.preventDefault();
 
 			// var current_price = $('#push_price').val();
@@ -959,10 +962,12 @@
 					}
 				}
 			// }
-		}, 750))
+		})
+		// }, 750))
 		
 		// Calculation made with volume input
-		$('#push_volume').on('keyup', delay(function(e) {
+		// $('#push_volume').on('keyup', delay(function(e) {
+		$('#push_volume').on('change', function(e) {
             e.preventDefault();
 
 			// var current_price = $('#push_price').val();
@@ -1009,7 +1014,8 @@
 					}
 				}
 			// }
-		}, 750));
+		});
+		// }, 750));
 
 		// make a push
 		$('#push-next-1').on('click', function() {
