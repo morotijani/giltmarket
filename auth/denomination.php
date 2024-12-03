@@ -129,7 +129,7 @@ if (array_key_exists('postdata', $_SESSION)) {
         $gold_balance = 0;
         $new_capital = 0;
         
-        // send balance back to the supervisor for his next day trade
+        // grab tomorrows date
         $tomorrow = new DateTime('tomorrow');
         $tomorrow = $tomorrow->format('Y-m-d');
 
