@@ -6,6 +6,10 @@
     if (isset($_POST['type'])) 
         if ($_POST['type'] == 'idle') {
             if (!idle_user()) {
+
+                // add to log message
+                $message = "automatically logged out becuase of idleness.";
+                add_to_log($message, $admin_id);
                 
                 session_unset();
                 session_destroy();

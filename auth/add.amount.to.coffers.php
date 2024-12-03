@@ -52,7 +52,6 @@
                     $statement = $conn->prepare($sql);
                     $statement->execute($push_data);
                     
-
                     // add to log message
                     $message = money($add_amount) . " from " . strtoupper($add_from) . " has been add to coffers";
                     add_to_log($message, $admin_id);
