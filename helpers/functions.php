@@ -1511,10 +1511,15 @@ function get_admin_coffers_received($conn, $admin) {
 		ON jspence_pushes.push_daily = jspence_coffers.coffers_id 
 		WHERE (coffers_status = ? OR coffers_status = ?) 
 		-- AND jspence_pushes.push_status = ? 
-		AND jspence_coffers.status = ?
+		-- AND jspence_coffers.status = ?
 	";
+	if (admin_has_permission()) {
+		$query .= " AND (jspence_coffers.status = 0 OR jspence_coffers.status = 1) ";
+	} else {
+		$query .= " AND jspence_coffers.status = 0 ";
+	}
 	$statement = $conn->prepare($query);
-	$statement->execute(['receive', 'reverse', 0]);
+	$statement->execute(['receive', 'reverse']);
 	$rows = $statement->fetchAll();
 	$row = $rows[0];
 
@@ -1533,10 +1538,15 @@ function get_admin_coffers_send($conn, $admin) {
 		ON jspence_pushes.push_daily = jspence_coffers.coffers_id 
 		WHERE coffers_status = ? 
 		AND jspence_pushes.push_status = ? 
-		AND jspence_coffers.status = ?
+		-- AND jspence_coffers.status = ?
 	";
+	if (admin_has_permission()) {
+		$query .= " AND (jspence_coffers.status = 0 OR jspence_coffers.status = 1) ";
+	} else {
+		$query .= " AND jspence_coffers.status = 0 ";
+	}
 	$statement = $conn->prepare($query);
-	$statement->execute(['send', 0, 0]);
+	$statement->execute(['send', 0]);
 	$rows = $statement->fetchAll();
 	$row = $rows[0];
 
