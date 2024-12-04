@@ -1587,7 +1587,6 @@ function capital_mover($admin) {
 			$result = [
 				"msg" => ""
 			];
-			// if ($b == NULL && $c == 0) { // capital not touch, denomination not entered
 			if ($b == $capital && $c == 0) { // capital not touch, denomination not entered
 
 				// update capital date to the following day 
@@ -1604,7 +1603,7 @@ function capital_mover($admin) {
 					]
 				);
 				$result = "not-touched-updated";
-			} else if ($b != NULL && $c == 0) { // capital touched, denomination not entered
+			} else if (($b != NULL || $b == '0.00')&& $c == 0) { // capital touched, denomination not entered
 				// auto enter denomination
 
 				$tst = total_sale_amount_today($admin, null, null, $row[0]["daily_date"]); 
