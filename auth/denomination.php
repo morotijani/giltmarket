@@ -128,19 +128,18 @@ if (array_key_exists('postdata', $_SESSION)) {
         $today = date('Y-m-d');
         $gold_balance = 0;
         $new_capital = 0;
+        $gold_to_push = 0;
         
         // grab tomorrows date
         $tomorrow = new DateTime('tomorrow');
         $tomorrow = $tomorrow->format('Y-m-d');
 
         // get remaining gold balance //
-
-       // $supervisor_tomorrow_capital = _capital($push_to, $tomorrow)['today_capital']; // get supervisors tomorrow capital
-
         $findActiveCapital = find_capital_given_to($push_to); // supervisor today or active capital
         if (admin_has_permission('salesperson')) {
             $gold_balance = total_amount_today($admin_id); // salepersonnel accumulated gold
             $new_capital = $gold_balance;
+            $gold_to_push = $gold_balance;
             
             if (is_array($findActiveCapital)) {
                 // if there was an active capital found, add the salesperson accumulated gold balance to the supervisor gold balance
@@ -208,7 +207,7 @@ if (array_key_exists('postdata', $_SESSION)) {
                     $pushGoldData = json_encode($pushGoldData);
 
                     // insert gold to pushes
-                    $push_Data = [$push_id, $daily_id, $gold_balance, 'gold', $admin_id, $push_to, 'end-trade', $pushGoldData];
+                    $push_Data = [$push_id, $daily_id, $gold_to_push, 'gold', $admin_id, $push_to, 'end-trade', $pushGoldData];
                     $SQL = "
                         INSERT INTO jspence_pushes (push_id, push_daily, push_amount, push_type, push_from, push_to, push_from_where, push_data) 
                         VALUES (?, ?, ?, ?, ?, ?, ?, ?)
