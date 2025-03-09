@@ -41,7 +41,7 @@
     <link rel="stylesheet" href="<?= PROOT; ?>assets/css/theme.bundle.css" />
     
     <!-- Title -->
-    <title>JSPENCE</title>
+    <title>Giltmarket</title>
 
 </head>
 

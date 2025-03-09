@@ -26,4 +26,4 @@ RewriteCond $1 !^(media|acc|auth|helpers|fonts|dist|includes|connection|robots\.
 
 RewriteRule ^([^\.]+)$ $1.php [NC,L]
 
-ErrorDocument 404 https://sites.local/jspence/404.php
+ErrorDocument 404 https://sites.local/giltmarket/404.php

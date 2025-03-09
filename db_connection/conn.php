@@ -1,6 +1,6 @@
 <?php
 
-	require ($_SERVER['DOCUMENT_ROOT'] . '/jspence/bootstrap.php');
+	require ($_SERVER['DOCUMENT_ROOT'] . '/giltmarket/bootstrap.php');
 
 	// Connection To Database
 	$driver = $_ENV['DB_DRIVER'];
@@ -15,7 +15,7 @@
 	session_start();
 	date_default_timezone_set("Africa/Accra");
 
-	require_once ($_SERVER['DOCUMENT_ROOT'] . '/jspence/config.php');
+	require_once ($_SERVER['DOCUMENT_ROOT'] . '/giltmarket/config.php');
     require_once (BASEURL . 'helpers/helpers.php');
     require_once (BASEURL . 'helpers/functions.php');
 

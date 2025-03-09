@@ -1,8 +1,8 @@
 <?php
 
-	define('BASEURL', $_SERVER['DOCUMENT_ROOT'].'/jspence/');
+	define('BASEURL', $_SERVER['DOCUMENT_ROOT'].'/giltmarket/');
 	
-	define('PROOT', '/jspence/');
+	define('PROOT', '/giltmarket/');
 
 	define('FIXED_POUNDS_FIGURE', '7.75');
 	define('FIXED_CARAT_FIGURE_1', '10.51');

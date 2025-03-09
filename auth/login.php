@@ -66,7 +66,7 @@
     <link rel="stylesheet" href="<?= PROOT; ?>assets/css/theme.bundle.css" />
     
     <!-- Title -->
-    <title>Dashbrd . JSPENCE</title>
+    <title>Dashbrd . Giltmarket</title>
 
     <style>
     </style>
@@ -81,7 +81,7 @@
                 <h1 class="fs-1 text-center">Sign in</h1>
 
                 <!-- Subheading -->
-                <p class="lead text-center text-body-secondary">Access J.Spence dashboard and start tracking your tasks.</p>
+                <p class="lead text-center text-body-secondary">Access Giltmarket dashboard and start tracking your tasks.</p>
 
                 <!-- Form -->
                 <form class="mb-5" method="POST">

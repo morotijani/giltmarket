@@ -24,5 +24,5 @@
   <link rel="stylesheet" href="<?= PROOT; ?>assets/css/theme.bundle.css" />
   
   <!-- Title -->
-  <title>JSPENCE – Gold and Finance Dashboard</title>
+  <title>Giltmarket – Gold and Finance Dashboard</title>
 </head>

@@ -23,7 +23,7 @@
     <link rel="stylesheet" href="<?= PROOT; ?>assets/css/theme.bundle.css" />
     
     <!-- Title -->
-    <title>You lost in J.Spence Dashboard</title>
+    <title>You lost in Giltmarket Dashboard</title>
 
     <style>
     </style>
