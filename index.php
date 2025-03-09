@@ -761,7 +761,7 @@
 	            },
 	            title: {
 	                display: false,
-	                text: 'Sales By Month - J-Spence LTD.'
+	                text: 'Sales By Month - Giltmarket.'
 	            }
 	        }
 	    })

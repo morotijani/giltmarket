@@ -86,7 +86,7 @@
             }
 
             $FileExtType = $exp_type;
-            $fileName = "J-Spence-Trades-" . $exp_status . "-sheet";
+            $fileName = "Giltmarket-Trades-" . $exp_status . "-sheet";
 
             if ($FileExtType == 'xlsx') {
                 $writer = new Xlsx($spreadsheet);

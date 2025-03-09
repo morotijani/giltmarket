@@ -7,7 +7,7 @@
     <meta name="description" content="A fully featured admin theme which can be used to build CRM, CMS, etc." />
     
     <!-- Favicon -->
-    <link rel="shortcut icon" href="<?= PROOT; ?>assets/media/logo.jpeg" type="image/x-icon" />
+    <link rel="shortcut icon" href="<?= PROOT; ?>assets/media/giltmarket-logo.png" type="image/x-icon" />
     
     <!-- Fonts and icons -->
     <link rel="preconnect" href="https://fonts.googleapis.com">

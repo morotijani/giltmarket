@@ -50,7 +50,7 @@
     <meta name="description" content="A fully featured admin theme which can be used to build CRM, CMS, etc." />
     
     <!-- Favicon -->
-    <link rel="shortcut icon" href="<?= PROOT; ?>assets/media/logo.jpeg" type="image/x-icon" />
+    <link rel="shortcut icon" href="<?= PROOT; ?>assets/media/giltmarket-logo.png" type="image/x-icon" />
     
     <!-- Fonts and icons -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -98,7 +98,7 @@
 
                 <!-- Text -->
                 <p class="text-center text-body-secondary mb-0">Missing password? <a href="javascript:;">Recover here</a>.</p>
-				<p class="text-center text-body-secondary">By connecting, know that we save all actions into logs for future references. You agree to J-Spence <a href="#">Terms of Service</a></p>
+				<p class="text-center text-body-secondary">By connecting, know that we save all actions into logs for future references. You agree to Giltmarket <a href="#">Terms of Service</a></p>
 				
             </div>
         </div>

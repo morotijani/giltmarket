@@ -667,7 +667,7 @@
 	            },
 	            title: {
 	                display: true,
-	                text: 'Earnings By Month - J-Spence LTD.'
+	                text: 'Earnings By Month - Giltmarket LTD.'
 	            }
 	        }
 	    })

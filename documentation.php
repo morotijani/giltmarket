@@ -20,7 +20,7 @@
                         <div class="row align-items-center">
                             <div class="col-md-8 col-xl-7">
                                 <h1 class="display-4 font-display fw-bolder mb-5">Documentation</h1>
-                                <p class="lead pe-lg-24">This is where you find everything you need to know about J-Spence company Limited and how the system work and how to use the system itself.</p>
+                                <p class="lead pe-lg-24">This is where you find everything you need to know about Giltmarket company Limited and how the system work and how to use the system itself.</p>
                             </div>
                         </div>
                     </div>
@@ -66,7 +66,7 @@
                 <div class="col-lg">
                     <article class="article">
                         <h2 id="item-1">Introduction</h2>
-                        <p>J-Spence Company LTD is a trading system where customers come to make a trade by purchasing gold</p>
+                        <p>Giltmarket Company LTD is a trading system where customers come to make a trade by purchasing gold</p>
                         <p></p>
                         <p>Minors or people below 18 years old are not allowed to use this Website.</p>
                         <h2 id="item-2">Trades</h2>

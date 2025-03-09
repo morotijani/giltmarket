@@ -156,7 +156,7 @@
 						</div>
 					</ul>
 					<div class="text-xs text-muted mt-6">
-						<em>Thank you for your purchase.<a href="#" class="fw-bold"> J-Spence LTD.</a></em>
+						<em>Thank you for your purchase.<a href="#" class="fw-bold"> Giltmarket LTD.</a></em>
 					</div>
 				</div>
 				<div class="card-footer">

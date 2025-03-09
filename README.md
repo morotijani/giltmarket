@@ -1,2 +1,2 @@
-# jspence
-J-Spence Company Limited.
+# giltmarket
+Giltmarket gold exhcnage platform.

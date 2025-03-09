@@ -39,7 +39,7 @@ CREATE TABLE `jspence` (
 --
 
 INSERT INTO `jspence` (`company_name`, `company_address`, `company_phone1`, `company_phone2`) VALUES
-('J-Spence Company Limited', 'Box SN 17, SANTASI KUMASI', '+233 (0) 24 412 5900', '+233 (0) 50 414 6600');
+('Giltmarket', 'Box A 00, TOWN CITY', '+233 (0) 00 00 00', '+233 (0) 00 00 00');
 
 -- --------------------------------------------------------
 

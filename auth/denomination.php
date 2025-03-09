@@ -345,7 +345,7 @@ if (array_key_exists('postdata', $_SESSION)) {
                         <div class="col-auto">
                             <!-- Icon -->
                             <div class="avatar avatar-xl rounded text-primary">
-                                <img src="<?= PROOT; ?>assets/media/logo-no-bg.png" width="40" height="40" class="img-fluid" />
+                                <img src="<?= PROOT; ?>assets/media/giltmarket-logo.png" width="40" height="40" class="img-fluid" />
                             </div>
                         </div>
                         <div class="col-auto">
