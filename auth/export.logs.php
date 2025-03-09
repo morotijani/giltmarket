@@ -24,22 +24,22 @@
         $exp_type = (isset($_GET['export-type']) && !empty($_GET['export-type']) ? sanitize($_GET['export-type']) : '');
         $get_out_from_date = null;        
         
-        $query = "SELECT * FROM jspence_logs INNER JOIN jspence_admin ON jspence_admin.admin_id = jspence_logs.log_admin ";
+        $query = "SELECT * FROM giltmarket_logs INNER JOIN giltmarket_admin ON giltmarket_admin.admin_id = giltmarket_logs.log_admin ";
         if ($exp_with == 'month') {
             $get_out_from_date = (isset($_GET['export-month']) && !empty($_GET['export-month']) ? sanitize($_GET['export-month']) : '');
-            $query .= "WHERE MONTH(jspence_logs.createdAt) = '" . $get_out_from_date . "'";
+            $query .= "WHERE MONTH(giltmarket_logs.createdAt) = '" . $get_out_from_date . "'";
         } else if ($exp_with == 'year') {
             $get_out_from_date = (isset($_GET['export-year']) && !empty($_GET['export-year']) ? sanitize($_GET['export-year']) : '');
-            $query .= "WHERE YEAR(jspence_logs.createdAt) = '" . $get_out_from_date . "'";
+            $query .= "WHERE YEAR(giltmarket_logs.createdAt) = '" . $get_out_from_date . "'";
         } else if ($exp_with == 'date') {
             $get_out_from_date = (isset($_GET['export-date']) && !empty($_GET['export-date']) ? sanitize($_GET['export-date']) : '');
-            $query .= "WHERE CAST(jspence_logs.createdAt AS date) = '" . $get_out_from_date . "'";
+            $query .= "WHERE CAST(giltmarket_logs.createdAt AS date) = '" . $get_out_from_date . "'";
         }
 
         if (!admin_has_permission()) {
-            $query .= ' AND jspence_logs.log_admin = "' . $admin_data['admin_id'] . '" ';
+            $query .= ' AND giltmarket_logs.log_admin = "' . $admin_data['admin_id'] . '" ';
         }
-        $query .= " AND jspence_logs.log_status = 0";
+        $query .= " AND giltmarket_logs.log_status = 0";
         
 
         $statement = $conn->prepare($query);

@@ -31,7 +31,7 @@
                 }
 
                 $coffersSQL = "
-                    INSERT INTO jspence_coffers (coffers_id, coffers_amount, coffers_status, coffers_receive_through, createdAt) 
+                    INSERT INTO giltmarket_coffers (coffers_id, coffers_amount, coffers_status, coffers_receive_through, createdAt) 
                     VALUES (?, ?, ?, ?, ?)
                 ";
                 $statement = $conn->prepare($coffersSQL);
@@ -41,12 +41,12 @@
                     $push_from_where = (($add_from == 'trades') ? 'daily' : 'physical-cash');
 
                     $LID = $conn->lastInsertId();
-                    $q = $conn->query("SELECT * FROM jspence_coffers WHERE id = '" . $LID . "' LIMIT 1")->fetchAll();
+                    $q = $conn->query("SELECT * FROM giltmarket_coffers WHERE id = '" . $LID . "' LIMIT 1")->fetchAll();
                     $coffers_id = $q[0]['coffers_id'];
 
                     $push_data = [$push_id, $coffers_id, $add_amount, 'money', $admin_id, 'coffers', $today, $push_from_where];
                     $sql = "
-                        INSERT INTO jspence_pushes (push_id, push_daily, push_amount, push_type, push_from, push_to, push_date, push_from_where) 
+                        INSERT INTO giltmarket_pushes (push_id, push_daily, push_amount, push_type, push_from, push_to, push_date, push_from_where) 
                         VALUES (?, ?, ?, ?, ?, ?, ?, ?)
                     ";
                     $statement = $conn->prepare($sql);

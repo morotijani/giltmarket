@@ -13,7 +13,7 @@
             $error = 'You must provide email and password.';
         }
         $query = "
-            SELECT * FROM jspence_admin 
+            SELECT * FROM giltmarket_admin 
             WHERE admin_email = ? 
             AND admin_status = ?
             LIMIT 1 

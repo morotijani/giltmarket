@@ -24,22 +24,22 @@
         $exp_type = (isset($_GET['export-type']) && !empty($_GET['export-type']) ? sanitize($_GET['export-type']) : '');
         $get_out_from_date = null;
         
-        $query = "SELECT * FROM jspence_pushes INNER JOIN jspence_admin ON (jspence_admin.admin_id = jspence_pushes.push_to OR jspence_admin.admin_id = jspence_pushes.push_from) ";
+        $query = "SELECT * FROM giltmarket_pushes INNER JOIN giltmarket_admin ON (giltmarket_admin.admin_id = giltmarket_pushes.push_to OR giltmarket_admin.admin_id = giltmarket_pushes.push_from) ";
         if ($exp_with == 'month') {
             $get_out_from_date = (isset($_GET['export-month']) && !empty($_GET['export-month']) ? sanitize($_GET['export-month']) : '');
-            $query .= "WHERE MONTH(jspence_pushes.createdAt) = '" . $get_out_from_date . "'";
+            $query .= "WHERE MONTH(giltmarket_pushes.createdAt) = '" . $get_out_from_date . "'";
         } else if ($exp_with == 'year') {
             $get_out_from_date = (isset($_GET['export-year']) && !empty($_GET['export-year']) ? sanitize($_GET['export-year']) : '');
-            $query .= "WHERE YEAR(jspence_pushes.createdAt) = '" . $get_out_from_date . "'";
+            $query .= "WHERE YEAR(giltmarket_pushes.createdAt) = '" . $get_out_from_date . "'";
         } else if ($exp_with == 'date') {
             $get_out_from_date = (isset($_GET['export-date']) && !empty($_GET['export-date']) ? sanitize($_GET['export-date']) : '');
             $query .= "WHERE push_date = '" . $get_out_from_date . "'";
         }
 
         if (!admin_has_permission()) {
-            $query .= ' AND (push_to = "' . $admin_id . '" OR push_from IN (SELECT push_from FROM jspence_pushes WHERE push_from = "' . $admin_id . '")) ';
+            $query .= ' AND (push_to = "' . $admin_id . '" OR push_from IN (SELECT push_from FROM giltmarket_pushes WHERE push_from = "' . $admin_id . '")) ';
         }
-        $query .= " AND jspence_pushes.push_status = 0 GROUP BY push_id ORDER BY jspence_pushes.createdAt DESC";
+        $query .= " AND giltmarket_pushes.push_status = 0 GROUP BY push_id ORDER BY giltmarket_pushes.createdAt DESC";
 
         $statement = $conn->prepare($query);
         $statement->execute();

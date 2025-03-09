@@ -18,7 +18,7 @@ include ("../includes/aside.inc.php");
 include ("../includes/left.nav.inc.php");
 include ("../includes/top.nav.inc.php");
 
-$total_admins = $conn->query("SELECT * FROM jspence_admin WHERE admin_status = 0")->rowCount();
+$total_admins = $conn->query("SELECT * FROM giltmarket_admin WHERE admin_status = 0")->rowCount();
 $admin_count = '';
 if ($total_admins > 0) {
     $admin_count = '(' . $total_admins . ')';
@@ -30,7 +30,7 @@ if (isset($_GET['delete'])) {
     $admin_id = sanitize($_GET['delete']);
 
     $query = "
-        UPDATE jspence_admin 
+        UPDATE giltmarket_admin 
         SET admin_status = ? 
         WHERE admin_id = ?
     ";
@@ -82,7 +82,7 @@ if (isset($_GET['add'])) {
         } else {
             $data = array($admin_id, $admin_fullname, $admin_email, $admin_phone, password_hash($admin_password, PASSWORD_BCRYPT), $admin_permissions);
             $query = "
-                INSERT INTO `jspence_admin`(`admin_id`, `admin_fullname`, `admin_email`, `admin_phone`, `admin_password`, `admin_permissions`) 
+                INSERT INTO `giltmarket_admin`(`admin_id`, `admin_fullname`, `admin_email`, `admin_phone`, `admin_password`, `admin_permissions`) 
                 VALUES (?, ?, ?, ?, ?, ?)
             ";
             $statement = $conn->prepare($query);

@@ -11,7 +11,7 @@
 		$unlink = unlink($tempuploded_img_id_filePath);
 		if ($unlink) {
 			$sql = "
-				UPDATE jspence_admin 
+				UPDATE giltmarket_admin 
 				SET admin_profile = ? 
 				WHERE admin_id = ?
 			";

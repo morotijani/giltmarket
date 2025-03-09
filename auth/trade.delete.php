@@ -22,7 +22,7 @@
 		$id = sanitize($_GET['data']);
 
 		// find push id
-		$find = $conn->query("SELECT * FROM jspence_sales WHERE sale_id = '" . $id . "'")->fetchAll();
+		$find = $conn->query("SELECT * FROM giltmarket_sales WHERE sale_id = '" . $id . "'")->fetchAll();
 		if (count($find) > 0) {
 			if (isset($_POST['admin_pin'])) {
 				if (!empty($_POST['admin_pin']) || $_POST['admin_pin'] != '') {
@@ -33,7 +33,7 @@
                         if ($pin == $admin_data['admin_pin']) {
                             
                             $sql = "
-                                UPDATE jspence_sales 
+                                UPDATE giltmarket_sales 
                                 SET sale_status = ?, sale_delete_request_reason = ?
                                 WHERE sale_id = ?
                             ";
@@ -43,13 +43,13 @@
 
                                 // update sale capital balance
                                 $updateQuery = "
-                                    UPDATE jspence_daily 
+                                    UPDATE giltmarket_daily 
                                     SET daily_balance = daily_balance + ? 
                                     WHERE daily_id = ?
                                 ";
                                 if ($find[0]['sale_type'] == 'in') {
                                     $updateQuery = "
-                                        UPDATE jspence_daily 
+                                        UPDATE giltmarket_daily 
                                         SET daily_balance = daily_balance - ? 
                                         WHERE daily_id = ?
                                     ";

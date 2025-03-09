@@ -17,19 +17,19 @@ if ($_POST['page'] > 1) {
 
 $where = '';
 if (!admin_has_permission()) {
-	$where = ' AND (push_to = "' . $admin_id . '" OR push_from IN (SELECT push_from FROM jspence_pushes WHERE push_from = "' . $admin_id . '")) AND push_date = "' . $today . '" ';
+	$where = ' AND (push_to = "' . $admin_id . '" OR push_from IN (SELECT push_from FROM giltmarket_pushes WHERE push_from = "' . $admin_id . '")) AND push_date = "' . $today . '" ';
 }
 
 $query = "
-	SELECT *, jspence_pushes.id AS pid, jspence_pushes.createdAt AS pca, jspence_pushes.updatedAt AS sua, CAST(jspence_pushes.createdAt AS date) AS pdate 
-    FROM jspence_pushes 
-	INNER JOIN jspence_admin 
-	ON (jspence_admin.admin_id = jspence_pushes.push_to OR jspence_admin.admin_id = jspence_pushes.push_from) 
-	WHERE jspence_pushes.push_status = 0 
+	SELECT *, giltmarket_pushes.id AS pid, giltmarket_pushes.createdAt AS pca, giltmarket_pushes.updatedAt AS sua, CAST(giltmarket_pushes.createdAt AS date) AS pdate 
+    FROM giltmarket_pushes 
+	INNER JOIN giltmarket_admin 
+	ON (giltmarket_admin.admin_id = giltmarket_pushes.push_to OR giltmarket_admin.admin_id = giltmarket_pushes.push_from) 
+	WHERE giltmarket_pushes.push_status = 0 
 	$where 
 ";
 if ($admin_permission == 'salesperson') {
-	$query .= " AND jspence_pushes.push_from_where != 'end-trade'";
+	$query .= " AND giltmarket_pushes.push_from_where != 'end-trade'";
 }
 
 $search_query = ((isset($_POST['query'])) ? sanitize($_POST['query']) : '');
@@ -38,17 +38,17 @@ if ($search_query != '') {
 	$query .= '
 		AND (push_id LIKE "%'.$find_query.'%" 
 		OR push_amount LIKE "%'.$find_query.'%" 
-		OR jspence_pushes.createdAt = "%'.$find_query.'%" 
+		OR giltmarket_pushes.createdAt = "%'.$find_query.'%" 
 		OR admin_fullname LIKE "%'.$find_query.'%") 
 		GROUP BY push_id 
 	';
 } else {
-	$query .= 'GROUP BY push_id ORDER BY jspence_pushes.createdAt DESC ';
+	$query .= 'GROUP BY push_id ORDER BY giltmarket_pushes.createdAt DESC ';
 }
 
 $filter_query = $query . 'LIMIT ' . $start . ', ' . $limit . '';
 
-$total_data = $conn->query("SELECT * FROM jspence_pushes INNER JOIN jspence_admin ON (jspence_admin.admin_id = jspence_pushes.push_to OR jspence_admin.admin_id = jspence_pushes.push_from) WHERE jspence_pushes.push_status = 0 $where GROUP BY push_id")->rowCount();
+$total_data = $conn->query("SELECT * FROM giltmarket_pushes INNER JOIN giltmarket_admin ON (giltmarket_admin.admin_id = giltmarket_pushes.push_to OR giltmarket_admin.admin_id = giltmarket_pushes.push_from) WHERE giltmarket_pushes.push_status = 0 $where GROUP BY push_id")->rowCount();
 
 $statement = $conn->prepare($filter_query);
 $statement->execute();

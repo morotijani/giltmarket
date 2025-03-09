@@ -23,27 +23,27 @@
         $exp_type = (isset($_GET['export-type']) && !empty($_GET['export-type']) ? sanitize($_GET['export-type']) : '');
         $get_out_from_date = null;
         
-        $query = "SELECT * FROM jspence_sales INNER JOIN jspence_admin ON jspence_admin.admin_id = jspence_sales.sale_by WHERE ";
+        $query = "SELECT * FROM giltmarket_sales INNER JOIN giltmarket_admin ON giltmarket_admin.admin_id = giltmarket_sales.sale_by WHERE ";
         if ($exp_status == 'zero') {
-            $query .= "jspence_sales.sale_status =  0 ";
+            $query .= "giltmarket_sales.sale_status =  0 ";
         } else if ($exp_status == 'one') {
-            $query .= "jspence_sales.sale_status = 1 ";
+            $query .= "giltmarket_sales.sale_status = 1 ";
         }
         if ($exp_with == 'month') {
             $get_out_from_date = (isset($_GET['export-month']) && !empty($_GET['export-month']) ? sanitize($_GET['export-month']) : '');
-            $query .= "AND MONTH(jspence_sales.createdAt) = '" . $get_out_from_date . "'";
+            $query .= "AND MONTH(giltmarket_sales.createdAt) = '" . $get_out_from_date . "'";
         } else  if ($exp_with == 'year') {
             $get_out_from_date = (isset($_GET['export-year']) && !empty($_GET['export-year']) ? sanitize($_GET['export-year']) : '');
-            $query .= "AND YEAR(jspence_sales.createdAt) = '" . $get_out_from_date . "'";
+            $query .= "AND YEAR(giltmarket_sales.createdAt) = '" . $get_out_from_date . "'";
         } else  if ($exp_with == 'date') {
             $get_out_from_date = (isset($_GET['export-date']) && !empty($_GET['export-date']) ? sanitize($_GET['export-date']) : '');
-            $query .= "AND CAST(jspence_sales.createdAt AS date) = '" . $get_out_from_date . "'";
+            $query .= "AND CAST(giltmarket_sales.createdAt AS date) = '" . $get_out_from_date . "'";
         }
 
         if (!admin_has_permission()) {
-            $query .= ' AND jspence_sales.sale_by = "'.$admin_data['admin_id'].'" ';
+            $query .= ' AND giltmarket_sales.sale_by = "'.$admin_data['admin_id'].'" ';
         }
-        $query .= " AND jspence_sales.sale_type = 'exp'";
+        $query .= " AND giltmarket_sales.sale_type = 'exp'";
         
 
         $statement = $conn->prepare($query);

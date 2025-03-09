@@ -51,7 +51,7 @@
             $errors;
         } else {
             $query = '
-                UPDATE jspence_admin 
+                UPDATE giltmarket_admin 
                 SET admin_password = ? 
                 WHERE admin_id = ?
             ';
@@ -98,7 +98,7 @@
                     echo js_alert($msg);
                 } else {
                     $query = '
-                        UPDATE jspence_admin 
+                        UPDATE giltmarket_admin 
                         SET admin_pin = ? 
                         WHERE admin_id = ?
                     ';

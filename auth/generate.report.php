@@ -32,35 +32,35 @@
 
         $sql = "
             SELECT 
-                jspence_daily.daily_capital AS capital, 
-                jspence_daily.daily_balance AS balance_sold, 
-                jspence_daily.daily_date, 
-                jspence_daily.daily_id, 
-                jspence_admin.admin_permissions, 
-                jspence_daily.daily_date 
-            FROM jspence_daily 
-            INNER JOIN jspence_admin 
-            ON jspence_admin.admin_id = jspence_daily.daily_to
-            WHERE jspence_daily.status = ? 
+                giltmarket_daily.daily_capital AS capital, 
+                giltmarket_daily.daily_balance AS balance_sold, 
+                giltmarket_daily.daily_date, 
+                giltmarket_daily.daily_id, 
+                giltmarket_admin.admin_permissions, 
+                giltmarket_daily.daily_date 
+            FROM giltmarket_daily 
+            INNER JOIN giltmarket_admin 
+            ON giltmarket_admin.admin_id = giltmarket_daily.daily_to
+            WHERE giltmarket_daily.status = ? 
         ";
 
         // checking on admin selected
         if ($admin != '') {
-            $sql .= " AND jspence_daily.daily_to = '" . $admin . "' ";
+            $sql .= " AND giltmarket_daily.daily_to = '" . $admin . "' ";
         }
         
         // checking on dates from and to 
         if ((!empty($from) || $from != '') && (!empty($to) || $to != '')) {
-            $sql .= " AND CAST(jspence_daily.createdAt AS date) BETWEEN '" . $from . "' AND '" . $to . "' ";
+            $sql .= " AND CAST(giltmarket_daily.createdAt AS date) BETWEEN '" . $from . "' AND '" . $to . "' ";
         } else if ((!empty($from) || $from != '') && (empty($to) || $to == '')) {
-            $sql .= " AND CAST(jspence_daily.createdAt AS date) = '" . $from . "' ";
+            $sql .= " AND CAST(giltmarket_daily.createdAt AS date) = '" . $from . "' ";
         } else if ((!empty($to) || $to != '') && (empty($from) || $from == '')) {
-            $sql .= " AND CAST(jspence_daily.createdAt AS date) = '" . $to . "' ";
+            $sql .= " AND CAST(giltmarket_daily.createdAt AS date) = '" . $to . "' ";
         }
 
         // checking of role permission
         if ($permission != '') {
-            $sql .= " AND jspence_admin.admin_permissions = '" . $permission . "'";
+            $sql .= " AND giltmarket_admin.admin_permissions = '" . $permission . "'";
         }
 
         $statement = $conn->prepare($sql);
@@ -105,12 +105,12 @@
                 $total_capital += $row["capital"];
                 $sql2 = "
                     SELECT 
-                        SUM(jspence_sales.sale_total_amount) AS amount, 
-                        SUM(jspence_sales.sale_gram) AS gram, 
-                        SUM(jspence_sales.sale_volume) AS volume 
-                    FROM jspence_sales 
-                    WHERE jspence_sales.sale_daily = ? 
-                    AND jspence_sales.sale_status = ? 
+                        SUM(giltmarket_sales.sale_total_amount) AS amount, 
+                        SUM(giltmarket_sales.sale_gram) AS gram, 
+                        SUM(giltmarket_sales.sale_volume) AS volume 
+                    FROM giltmarket_sales 
+                    WHERE giltmarket_sales.sale_daily = ? 
+                    AND giltmarket_sales.sale_status = ? 
                 ";
                 $statement = $conn->prepare($sql2);
                 $statement->execute([$row["daily_id"], 0]);
@@ -147,7 +147,7 @@
                     // get expenditure
                     $expenditure = 0;
                     if ($row['admin_permissions'] == 'salesperson') {
-                        $exp = $conn->query("SELECT SUM(jspence_sales.sale_total_amount) AS exp_amount FROM jspence_sales WHERE jspence_sales.sale_type = 'exp' AND jspence_sales.sale_daily = '" .$row["daily_id"] . "' AND jspence_sales.sale_status = 0")->fetchAll();
+                        $exp = $conn->query("SELECT SUM(giltmarket_sales.sale_total_amount) AS exp_amount FROM giltmarket_sales WHERE giltmarket_sales.sale_type = 'exp' AND giltmarket_sales.sale_daily = '" .$row["daily_id"] . "' AND giltmarket_sales.sale_status = 0")->fetchAll();
                         if (is_array($exp)) {
                             $expenditure = $exp[0]['exp_amount'];
                             $total_expenditure += $expenditure;

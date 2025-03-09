@@ -112,7 +112,7 @@ if (array_key_exists('postdata', $_SESSION)) {
     $data = [$denomination_id, $capital_id, $admin_id, $denomination_200c, $denomination_200c_amt, $denomination_100c, $denomination_100c_amt, $denomination_50c, $denomination_50c_amt, $denomination_20c, $denomination_20c_amt, $denomination_10c, $denomination_10c_amt, $denomination_5c, $denomination_5c_amt, $denomination_2c, $denomination_2c_amt, $denomination_1c, $denomination_1c_amt, $denomination_50p, $denomination_50p_amt, $denomination_20p, $denomination_20p_amt, $denomination_10p, $denomination_10p_amt, $denomination_5p, $denomination_5p_amt, $denomination_1p, $denomination_1p_amt, $denomination_have_cash, $denomination_checker, $denomination_data];
     // save end trade records into denomination table
     $sql = "
-        INSERT INTO `jspence_denomination`(`denominations_id`, `denomination_capital`, `denomination_by`, `denomination_200c`, `denomination_200c_amt`, `denomination_100c`, `denomination_100c_amt`, `denomination_50c`, `denomination_50c_amt`, `denomination_20c`, `denomination_20c_amt`, `denomination_10c`, `denomination_10c_amt`, `denomination_5c`, `denomination_5c_amt`, `denomination_2c`, `denomination_2c_amt`, `denomination_1c`, `denomination_1c_amt`, `denomination_50p`, `denomination_50p_amt`, `denomination_20p`, `denomination_20p_amt`, `denomination_10p`, `denomination_10p_amt`, `denomination_5p`, `denomination_5p_amt`, `denomination_1p`, `denomination_1p_amt`, `denomination_have_cash`, `denomination_checker`, `denomination_data`) 
+        INSERT INTO `giltmarket_denomination`(`denominations_id`, `denomination_capital`, `denomination_by`, `denomination_200c`, `denomination_200c_amt`, `denomination_100c`, `denomination_100c_amt`, `denomination_50c`, `denomination_50c_amt`, `denomination_20c`, `denomination_20c_amt`, `denomination_10c`, `denomination_10c_amt`, `denomination_5c`, `denomination_5c_amt`, `denomination_2c`, `denomination_2c_amt`, `denomination_1c`, `denomination_1c_amt`, `denomination_50p`, `denomination_50p_amt`, `denomination_20p`, `denomination_20p_amt`, `denomination_10p`, `denomination_10p_amt`, `denomination_5p`, `denomination_5p_amt`, `denomination_1p`, `denomination_1p_amt`, `denomination_have_cash`, `denomination_checker`, `denomination_data`) 
         VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
     ";
     $statement = $conn->prepare($sql);
@@ -170,7 +170,7 @@ if (array_key_exists('postdata', $_SESSION)) {
             if (admin_has_permission('supervisor')) {
                 // insert into supervosr's capital for tomorrow
                 $QUERY = "
-                    INSERT INTO jspence_daily (daily_capital, daily_balance, daily_to, daily_id, daily_date) 
+                    INSERT INTO giltmarket_daily (daily_capital, daily_balance, daily_to, daily_id, daily_date) 
                     VALUES (?, ?, ?, ?, ?)
                 ";
                 $statement = $conn->prepare($QUERY);
@@ -180,13 +180,13 @@ if (array_key_exists('postdata', $_SESSION)) {
 
                 // insert into supervosr's capital for tomorrow
                 $sql = "
-                    INSERT INTO jspence_daily (daily_capital, daily_balance, daily_to, daily_id, daily_date) 
+                    INSERT INTO giltmarket_daily (daily_capital, daily_balance, daily_to, daily_id, daily_date) 
                     VALUES (?, ?, ?, ?, '" . $tomorrow . "')
                 ";
                 if (is_array($findActiveCapital)) {
                     // update supervosr's capital for tomorrow
                     $sql = "
-                        UPDATE `jspence_daily` 
+                        UPDATE `giltmarket_daily` 
                         SET `daily_capital` = ?, daily_balance = ? 
                         WHERE `daily_to` = ? AND `daily_id` = ?
                     ";
@@ -209,7 +209,7 @@ if (array_key_exists('postdata', $_SESSION)) {
                     // insert gold to pushes
                     $push_Data = [$push_id, $daily_id, $gold_to_push, 'gold', $admin_id, $push_to, 'end-trade', $pushGoldData];
                     $SQL = "
-                        INSERT INTO jspence_pushes (push_id, push_daily, push_amount, push_type, push_from, push_to, push_from_where, push_data) 
+                        INSERT INTO giltmarket_pushes (push_id, push_daily, push_amount, push_type, push_from, push_to, push_from_where, push_data) 
                         VALUES (?, ?, ?, ?, ?, ?, ?, ?)
                     ";
                     $statement = $conn->prepare($SQL);
@@ -217,7 +217,7 @@ if (array_key_exists('postdata', $_SESSION)) {
 
                     if ($SQLRESULT) {
                         $updateQ = "
-                            UPDATE jspence_sales 
+                            UPDATE giltmarket_sales 
                             SET sale_pushed = ?
                             WHERE sale_daily = ? 
                             AND sale_pushed = ? 
@@ -258,7 +258,7 @@ if (array_key_exists('postdata', $_SESSION)) {
 
         if ($cash > 0) {
             $insertSql = "
-                INSERT INTO jspence_coffers (coffers_amount, coffers_status, coffers_receive_through, status, coffers_id) 
+                INSERT INTO giltmarket_coffers (coffers_amount, coffers_status, coffers_receive_through, status, coffers_id) 
                 VALUES (?, ?, ?, ?, ?)
             ";
             $statement = $conn->prepare($insertSql);
@@ -267,12 +267,12 @@ if (array_key_exists('postdata', $_SESSION)) {
             // insert all money into pushes and link with coffers id
             if ($coffers_result) {
                 $LID = $conn->lastInsertId();
-                $q = $conn->query("SELECT * FROM jspence_coffers WHERE id = '" . $LID . "' LIMIT 1")->fetchAll();
+                $q = $conn->query("SELECT * FROM giltmarket_coffers WHERE id = '" . $LID . "' LIMIT 1")->fetchAll();
                 $coffers_id = $q[0]['coffers_id'];
 
                 $push_data = [$push_id, $coffers_id, $cash, 'money', $admin_id, 'coffers', 'end-trade', $pushData];
                 $sql = "
-                    INSERT INTO jspence_pushes (push_id, push_daily, push_amount, push_type, push_from, push_to, push_from_where, push_data) 
+                    INSERT INTO giltmarket_pushes (push_id, push_daily, push_amount, push_type, push_from, push_to, push_from_where, push_data) 
                     VALUES (?, ?, ?, ?, ?, ?, ?, ?)
                 ";
                 $statement = $conn->prepare($sql);
@@ -282,7 +282,7 @@ if (array_key_exists('postdata', $_SESSION)) {
 
         // update today trade table so it does not accepts any trades anymore
         $query = "
-            UPDATE jspence_daily SET daily_capital_status = ? 
+            UPDATE giltmarket_daily SET daily_capital_status = ? 
             WHERE daily_id = ?
         ";
         $statement = $conn->prepare($query);
@@ -294,7 +294,7 @@ if (array_key_exists('postdata', $_SESSION)) {
 
         // set coffers status to 1 to prevent the usage of the amount available (only admin will have access)
         if (admin_has_permission('supervisor')) {
-            $Sql = "UPDATE jspence_coffers SET status = ?";
+            $Sql = "UPDATE giltmarket_coffers SET status = ?";
             $statement = $conn->prepare($Sql);
             $statement->execute([1]);
         }

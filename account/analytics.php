@@ -20,13 +20,13 @@
 
     //
     $thisYrQ = "
-        SELECT SUM(daily_capital) AS dc, SUM(daily_balance) AS db, SUM(daily_profit) AS dp, jspence_daily.daily_date
-        FROM `jspence_daily` 
-        INNER JOIN jspence_admin
-        ON admin_id = jspence_daily.daily_to
-        WHERE jspence_admin.admin_permissions = ?
-        AND YEAR(jspence_daily.daily_date) = ? 
-        AND jspence_daily.status = ? 
+        SELECT SUM(daily_capital) AS dc, SUM(daily_balance) AS db, SUM(daily_profit) AS dp, giltmarket_daily.daily_date
+        FROM `giltmarket_daily` 
+        INNER JOIN giltmarket_admin
+        ON admin_id = giltmarket_daily.daily_to
+        WHERE giltmarket_admin.admin_permissions = ?
+        AND YEAR(giltmarket_daily.daily_date) = ? 
+        AND giltmarket_daily.status = ? 
     ";
     $statement = $conn->prepare($thisYrQ);
     $statement->execute(['supervisor', $thisYr, 0]);
@@ -34,13 +34,13 @@
     
     //
     $lastYrQ = "
-        SELECT SUM(daily_capital) AS dc, SUM(daily_balance) AS db, SUM(daily_profit) AS dp, jspence_daily.daily_date
-        FROM `jspence_daily` 
-        INNER JOIN jspence_admin
-        ON admin_id = jspence_daily.daily_to
-        WHERE jspence_admin.admin_permissions = ?
-        AND YEAR(jspence_daily.daily_date) = ? 
-        AND jspence_daily.status = ? 
+        SELECT SUM(daily_capital) AS dc, SUM(daily_balance) AS db, SUM(daily_profit) AS dp, giltmarket_daily.daily_date
+        FROM `giltmarket_daily` 
+        INNER JOIN giltmarket_admin
+        ON admin_id = giltmarket_daily.daily_to
+        WHERE giltmarket_admin.admin_permissions = ?
+        AND YEAR(giltmarket_daily.daily_date) = ? 
+        AND giltmarket_daily.status = ? 
     ";
     $statement = $conn->prepare($lastYrQ);
     $statement->execute(['supervisor', $lastYr, 0]);

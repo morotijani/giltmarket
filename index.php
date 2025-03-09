@@ -33,7 +33,7 @@
 	// 
 	$thisYrQ = "
 		SELECT sale_total_amount, createdAt 
-		FROM jspence_sales 
+		FROM giltmarket_sales 
 		WHERE YEAR(createdAt) = ? 
 		AND sale_status = 0 
 	";
@@ -44,7 +44,7 @@
 	//
 	$lastYrQ = "
 		SELECT sale_total_amount, createdAt 
-		FROM jspence_sales 
+		FROM giltmarket_sales 
 		WHERE YEAR(createdAt) = ? 
 		AND sale_status = 0 
 	";

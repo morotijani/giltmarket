@@ -293,7 +293,7 @@ function adminLogin($admin_id) {
 
 	$data = array(date("Y-m-d H:i:s"), $admin_id);
 	$query = "
-		UPDATE jspence_admin 
+		UPDATE giltmarket_admin 
 		SET admin_last_login = ? 
 		WHERE admin_id = ?
 	";
@@ -313,7 +313,7 @@ function adminLogin($admin_id) {
 
 		// insert into login details table
 		$SQL = "
-			INSERT INTO `jspence_admin_login_details`(`login_details_id`, `login_details_admin_id`, `admin_device`, `admin_os`, `admin_refferer`, `admin_browser`, `admin_ip`, `createdAt`) 
+			INSERT INTO `giltmarket_admin_login_details`(`login_details_id`, `login_details_admin_id`, `admin_device`, `admin_os`, `admin_refferer`, `admin_browser`, `admin_ip`, `createdAt`) 
 			VALUE (?, ?, ?, ?, ?, ?, ?, ?)
 		";
 		$statement = $conn->prepare($SQL);
@@ -375,7 +375,7 @@ function get_all_admins() {
 	$output = '';
 
 	$query = "
-		SELECT * FROM jspence_admin 
+		SELECT * FROM giltmarket_admin 
 		WHERE admin_status = ?
 	";
 	$statement = $conn->prepare($query);
@@ -430,7 +430,7 @@ function get_admin_profile($id) {
 	$output = '';
 
 	$query = "
-		SELECT * FROM jspence_admin 
+		SELECT * FROM giltmarket_admin 
 		WHERE admin_id = ? 
 		AND admin_status = ? 
 		LIMIT 1

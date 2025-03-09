@@ -21,15 +21,15 @@
     $today = date("Y-m-d");
     $where = '';
     if (!admin_has_permission()) {
-        $where = ' WHERE jspence_admin.admin_id = "' . $admin_id . '" AND CAST(jspence_logs.createdAt AS date) = "' . $today . '" ';
+        $where = ' WHERE giltmarket_admin.admin_id = "' . $admin_id . '" AND CAST(giltmarket_logs.createdAt AS date) = "' . $today . '" ';
     }
 
     $sql = "
-        SELECT * FROM jspence_logs 
-        INNER JOIN jspence_admin 
-        ON jspence_admin.admin_id = jspence_logs.log_admin
+        SELECT * FROM giltmarket_logs 
+        INNER JOIN giltmarket_admin 
+        ON giltmarket_admin.admin_id = giltmarket_logs.log_admin
         $where 
-        ORDER BY jspence_logs.createdAt DESC
+        ORDER BY giltmarket_logs.createdAt DESC
     ";
     $statement = $conn->prepare($sql);
     $statement->execute();

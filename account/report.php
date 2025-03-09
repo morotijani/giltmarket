@@ -13,7 +13,7 @@
     include ("../includes/top.nav.inc.php");
 
     // get all supervisors
-    $supQuery = "SELECT * FROM jspence_admin where admin_permissions = ? AND admin_id != ?";
+    $supQuery = "SELECT * FROM giltmarket_admin where admin_permissions = ? AND admin_id != ?";
     $satement = $conn->prepare($supQuery);
     $satement->execute(['supervisor', $admin_id]);
     $sup_count = $satement->rowCount();
@@ -28,7 +28,7 @@
     }
 
     // get all supervisors
-    $salQuery = "SELECT * FROM jspence_admin where admin_permissions = ? AND admin_id != ?";
+    $salQuery = "SELECT * FROM giltmarket_admin where admin_permissions = ? AND admin_id != ?";
     $satement = $conn->prepare($salQuery);
     $satement->execute(['salesperson', $admin_id]);
     $sal_count = $satement->rowCount();

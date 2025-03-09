@@ -3,7 +3,7 @@
     require_once ("../db_connection/conn.php");
 
     $query = "
-		UPDATE jspence_admin_login_details 
+		UPDATE giltmarket_admin_login_details 
 		SET updateAt = ? 
 		WHERE login_details_admin_id = ? 
         AND login_details_id = ?

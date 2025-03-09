@@ -13,15 +13,15 @@ if (isset($_POST['dater'])) {
     $andPush = '';
     $and = '';
     if ($action == 'with_date' && $dater != null) {
-        $and = ' AND CAST(jspence_sales.createdAt AS date) = "' . $dater . '"';
+        $and = ' AND CAST(giltmarket_sales.createdAt AS date) = "' . $dater . '"';
         $andDaily = ' AND daily_date = "'.$dater.'"';
-        $andExpenditure = ' AND CAST(jspence_sales.createdAt AS date) = "' . $dater . '"';
-        $andPush = ' AND CAST(jspence_pushes.createdAt AS date) = "' . $dater . '"';
+        $andExpenditure = ' AND CAST(giltmarket_sales.createdAt AS date) = "' . $dater . '"';
+        $andPush = ' AND CAST(giltmarket_pushes.createdAt AS date) = "' . $dater . '"';
     } else if ($action == 'with_month') {
-        $and = ' AND MONTH(jspence_sales.createdAt) = "' . $dater . '"';
+        $and = ' AND MONTH(giltmarket_sales.createdAt) = "' . $dater . '"';
         $andDaily = ' AND MONTH(daily_date) = "'.$dater.'"';
-        $andExpenditure = ' AND MONTH(jspence_sales.createdAt) = "' . $dater . '"';
-        $andPush = ' AND MONTH(jspence_pushes.createdAt) = "' . $dater . '"';
+        $andExpenditure = ' AND MONTH(giltmarket_sales.createdAt) = "' . $dater . '"';
+        $andPush = ' AND MONTH(giltmarket_pushes.createdAt) = "' . $dater . '"';
     }
 
     $supervisorQuery = "
@@ -29,11 +29,11 @@ if (isset($_POST['dater'])) {
             daily_capital AS capital, 
             daily_balance AS balance, 
             SUM(daily_profit) AS profit 
-        FROM jspence_daily 
-        INNER JOIN jspence_admin 
-        ON jspence_admin.admin_id = jspence_daily.daily_to
-        WHERE jspence_daily.status = ? 
-        AND jspence_admin.admin_permissions = ?
+        FROM giltmarket_daily 
+        INNER JOIN giltmarket_admin 
+        ON giltmarket_admin.admin_id = giltmarket_daily.daily_to
+        WHERE giltmarket_daily.status = ? 
+        AND giltmarket_admin.admin_permissions = ?
         $andDaily 
         ORDER BY daily_date DESC 
         LIMIT 1
@@ -45,29 +45,29 @@ if (isset($_POST['dater'])) {
 
     $sales = $conn->query(
         "SELECT SUM(daily_capital) AS capital, SUM(daily_balance) AS balance 
-        FROM jspence_daily 
-        INNER JOIN jspence_admin 
-        ON jspence_admin.admin_id = jspence_daily.daily_to
-        WHERE jspence_daily.status = 0 
-        AND jspence_admin.admin_permissions = 'salesperson'
+        FROM giltmarket_daily 
+        INNER JOIN giltmarket_admin 
+        ON giltmarket_admin.admin_id = giltmarket_daily.daily_to
+        WHERE giltmarket_daily.status = 0 
+        AND giltmarket_admin.admin_permissions = 'salesperson'
         $andDaily
         "
     )->fetchAll();
 
 
-    $ins = $conn->query("SELECT SUM(sale_total_amount) AS ins_amt FROM jspence_sales WHERE sale_type = 'in' AND sale_status = 0 $and")->fetchAll();
-    $outs = $conn->query("SELECT SUM(sale_total_amount) AS outs_amt FROM jspence_sales WHERE sale_type = 'out' AND sale_status = 0 $and")->fetchAll();
-    $expense = $conn->query("SELECT SUM(sale_total_amount) AS exp_amt FROM jspence_sales WHERE sale_type = 'exp' AND sale_status = 0 $andExpenditure")->fetchAll();
-    $push = $conn->query("SELECT SUM(push_amount) AS push_amt FROM jspence_pushes WHERE push_status = 0 $andPush")->fetchAll();
-    $push_moneys = $conn->query("SELECT SUM(push_amount) AS money_amt FROM jspence_pushes WHERE push_status = 0 AND push_type = 'money' $andPush")->fetchAll();
-    $push_golds = $conn->query("SELECT SUM(push_amount) AS gold_amt FROM jspence_pushes WHERE push_status = 0 AND push_type = 'gold' $andPush")->fetchAll();
-    $count_trades = $conn->query("SELECT * FROM jspence_sales WHERE sale_status = 0 $and")->rowCount();
+    $ins = $conn->query("SELECT SUM(sale_total_amount) AS ins_amt FROM giltmarket_sales WHERE sale_type = 'in' AND sale_status = 0 $and")->fetchAll();
+    $outs = $conn->query("SELECT SUM(sale_total_amount) AS outs_amt FROM giltmarket_sales WHERE sale_type = 'out' AND sale_status = 0 $and")->fetchAll();
+    $expense = $conn->query("SELECT SUM(sale_total_amount) AS exp_amt FROM giltmarket_sales WHERE sale_type = 'exp' AND sale_status = 0 $andExpenditure")->fetchAll();
+    $push = $conn->query("SELECT SUM(push_amount) AS push_amt FROM giltmarket_pushes WHERE push_status = 0 $andPush")->fetchAll();
+    $push_moneys = $conn->query("SELECT SUM(push_amount) AS money_amt FROM giltmarket_pushes WHERE push_status = 0 AND push_type = 'money' $andPush")->fetchAll();
+    $push_golds = $conn->query("SELECT SUM(push_amount) AS gold_amt FROM giltmarket_pushes WHERE push_status = 0 AND push_type = 'gold' $andPush")->fetchAll();
+    $count_trades = $conn->query("SELECT * FROM giltmarket_sales WHERE sale_status = 0 $and")->rowCount();
     
-    $grams = $conn->query("SELECT SUM(sale_gram) AS gram FROM jspence_sales WHERE sale_status = 0 $and")->fetchAll();
-    $volumes = $conn->query("SELECT SUM(sale_volume) AS volume FROM jspence_sales WHERE sale_status = 0 $and")->fetchAll();
-    $densitys = $conn->query("SELECT SUM(sale_density) AS density FROM jspence_sales WHERE sale_status = 0 $and")->fetchAll();
-    $pounds = $conn->query("SELECT SUM(sale_pounds) AS pds FROM jspence_sales WHERE sale_status = 0 $and")->fetchAll();
-    $carats = $conn->query("SELECT SUM(sale_carat) AS carat FROM jspence_sales WHERE sale_status = 0 $and")->fetchAll();
+    $grams = $conn->query("SELECT SUM(sale_gram) AS gram FROM giltmarket_sales WHERE sale_status = 0 $and")->fetchAll();
+    $volumes = $conn->query("SELECT SUM(sale_volume) AS volume FROM giltmarket_sales WHERE sale_status = 0 $and")->fetchAll();
+    $densitys = $conn->query("SELECT SUM(sale_density) AS density FROM giltmarket_sales WHERE sale_status = 0 $and")->fetchAll();
+    $pounds = $conn->query("SELECT SUM(sale_pounds) AS pds FROM giltmarket_sales WHERE sale_status = 0 $and")->fetchAll();
+    $carats = $conn->query("SELECT SUM(sale_carat) AS carat FROM giltmarket_sales WHERE sale_status = 0 $and")->fetchAll();
 
     $gained_or_loss = 0;
     $in = (($ins[0]['ins_amt']) ? $ins[0]['ins_amt'] : 0);

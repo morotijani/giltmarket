@@ -38,7 +38,7 @@ function is_capital_given() {
 	$today = date('Y-m-d');
 	$sql = "
 		SELECT *
-		FROM jspence_daily 
+		FROM giltmarket_daily 
 		WHERE daily_date = ? 
 		AND daily_to = ? 
 		AND daily_capital_status = ? 
@@ -59,7 +59,7 @@ function find_capital_given_to($to) {
 
 	$sql = "
 		SELECT *
-		FROM jspence_daily 
+		FROM giltmarket_daily 
 		WHERE daily_to = ? 
 		AND daily_capital_status = ? 
 		ORDER BY daily_date DESC 
@@ -84,19 +84,19 @@ function _capital($admin, $d = null, $for = null) {
 
 	$sql = "
 		SELECT daily_id, daily_capital, daily_balance, daily_capital_status, push_status, push_daily , daily_to 
-		FROM jspence_daily 
-		INNER JOIN jspence_pushes 
-		-- ON jspence_pushes.push_daily = jspence_daily.daily_id 
-		INNER JOIN jspence_coffers 
+		FROM giltmarket_daily 
+		INNER JOIN giltmarket_pushes 
+		-- ON giltmarket_pushes.push_daily = giltmarket_daily.daily_id 
+		INNER JOIN giltmarket_coffers 
 		ON (
-			jspence_coffers.coffers_id = jspence_pushes.push_daily 
-			OR jspence_pushes.push_daily = jspence_daily.daily_id
+			giltmarket_coffers.coffers_id = giltmarket_pushes.push_daily 
+			OR giltmarket_pushes.push_daily = giltmarket_daily.daily_id
 		) 
-		WHERE jspence_daily.daily_to = ? 
-		AND jspence_daily.daily_capital_status = ? 
-		AND jspence_pushes.push_status = ? 
-		AND jspence_coffers.coffers_status = ? 
-		ORDER BY jspence_daily.daily_date DESC
+		WHERE giltmarket_daily.daily_to = ? 
+		AND giltmarket_daily.daily_capital_status = ? 
+		AND giltmarket_pushes.push_status = ? 
+		AND giltmarket_coffers.coffers_status = ? 
+		ORDER BY giltmarket_daily.daily_date DESC
 		LIMIT 1
 	";
 	$statement = $conn->prepare($sql);
@@ -158,13 +158,13 @@ function is_capital_exhausted($conn, $admin) {
 
 		$q = "
 			SELECT 
-				SUM(jspence_sales.sale_total_amount) AS ttsa, 
-				CAST(jspence_sales.createdAt AS date) AS sd 
-			FROM `jspence_sales` 
-			WHERE CAST(jspence_sales.createdAt AS date) = ? 
-			AND jspence_sales.sale_type = ? 
-			AND jspence_sales.sale_by = ? 
-			AND jspence_sales.sale_status = ?
+				SUM(giltmarket_sales.sale_total_amount) AS ttsa, 
+				CAST(giltmarket_sales.createdAt AS date) AS sd 
+			FROM `giltmarket_sales` 
+			WHERE CAST(giltmarket_sales.createdAt AS date) = ? 
+			AND giltmarket_sales.sale_type = ? 
+			AND giltmarket_sales.sale_by = ? 
+			AND giltmarket_sales.sale_status = ?
 		";
 		$statement = $conn->prepare($q);
 		$statement->execute([$today, $t, $admin, 0]);
@@ -195,7 +195,7 @@ function sum_capital_given_for_day() {
 
 	$sql = "
 		SELECT SUM(daily_capital) AS sum
-		FROM jspence_daily 
+		FROM giltmarket_daily 
 		WHERE daily_capital_status = ? 
 		AND status = ? 
 		AND daily_date = ? 
@@ -218,7 +218,7 @@ function update_today_capital_given_balance($type, $today_capital, $today_total_
 
 	$data = [$today_total_balance, $today, $admin];
 	$sql = "
-		UPDATE jspence_daily 
+		UPDATE giltmarket_daily 
 		SET daily_balance = ?, daily_profit = daily_profit + '".$pf."'  
 		WHERE daily_date = ? 
 		AND daily_to = ?
@@ -257,24 +257,24 @@ function get_pushes_made($admin, $permission, $today = null) {
 	global $conn;
 
 	$sql = "
-		SELECT * FROM jspence_pushes 
-		INNER JOIN jspence_admin 
-		ON jspence_admin.admin_id = jspence_pushes.push_to
-		WHERE jspence_pushes.push_status = ? 
+		SELECT * FROM giltmarket_pushes 
+		INNER JOIN giltmarket_admin 
+		ON giltmarket_admin.admin_id = giltmarket_pushes.push_to
+		WHERE giltmarket_pushes.push_status = ? 
 	";
 
 	if (!admin_has_permission()) {
-        $sql .= ' AND (push_to = "' . $admin . '" OR push_from IN (SELECT push_from FROM jspence_pushes WHERE push_from = "' . $admin . '")) AND push_date = "' . $today . '" ';
+        $sql .= ' AND (push_to = "' . $admin . '" OR push_from IN (SELECT push_from FROM giltmarket_pushes WHERE push_from = "' . $admin . '")) AND push_date = "' . $today . '" ';
     }
 	if ($permission == 'salesperson') {
-		$sql .= " AND jspence_pushes.push_from_where != 'end-trade'";
+		$sql .= " AND giltmarket_pushes.push_from_where != 'end-trade'";
 	}
 
 	if ($today != null) {
-		$sql .= 'AND jspence_pushes.push_date = "' . $today . '"';
+		$sql .= 'AND giltmarket_pushes.push_date = "' . $today . '"';
 	}
 
-	$sql .= ' ORDER BY jspence_pushes.id DESC';
+	$sql .= ' ORDER BY giltmarket_pushes.id DESC';
 
 	$statement = $conn->prepare($sql);
 	$result = $statement->execute([0]);
@@ -345,16 +345,16 @@ function get_total_send_push($conn, $admin, $p = null) {
 
 		$query = "
 			SELECT 
-				SUM(jspence_pushes.push_amount) AS pamt, 
-				COUNT(jspence_pushes.id) AS c 
-			FROM jspence_pushes 
-			WHERE jspence_pushes.push_date = ?
+				SUM(giltmarket_pushes.push_amount) AS pamt, 
+				COUNT(giltmarket_pushes.id) AS c 
+			FROM giltmarket_pushes 
+			WHERE giltmarket_pushes.push_date = ?
 		";
 		if ($p == 'supervisor') {
 			$query .= " AND push_from_where != 'physical-cash'";
 		}
 		if  (!admin_has_permission()) {
-			$query .= " AND jspence_pushes.push_from = '" . $admin . "' AND push_type = '" . $type . "'";
+			$query .= " AND giltmarket_pushes.push_from = '" . $admin . "' AND push_type = '" . $type . "'";
 		}
 		$statement = $conn->prepare($query);
 		$result = $statement->execute([$date]);
@@ -385,13 +385,13 @@ function get_total_receive_push($conn, $admin) {
 
 		$query = "
 			SELECT 
-				SUM(jspence_pushes.push_amount) AS pamt, 
-				COUNT(jspence_pushes.id) AS c 
-			FROM jspence_pushes 
-			WHERE jspence_pushes.push_date = ?
+				SUM(giltmarket_pushes.push_amount) AS pamt, 
+				COUNT(giltmarket_pushes.id) AS c 
+			FROM giltmarket_pushes 
+			WHERE giltmarket_pushes.push_date = ?
 		";
 		if  (!admin_has_permission()) {
-			$query .= " AND jspence_pushes.push_to = '" . $admin . "' AND push_type = '" . $type . "'";
+			$query .= " AND giltmarket_pushes.push_to = '" . $admin . "' AND push_type = '" . $type . "'";
 		}
 
 		$statement = $conn->prepare($query);
@@ -496,7 +496,7 @@ function add_to_log($message, $log_admin) {
 	$log_id = guidv4();
 	$createdAt = date("Y-m-d H:i:s");
 	$sql = "
-		INSERT INTO `jspence_logs`(`log_id`, `log_message`, `log_admin`, `createdAt`) 
+		INSERT INTO `giltmarket_logs`(`log_id`, `log_message`, `log_admin`, `createdAt`) 
 		VALUES (?, ?, ?, ?)
 	";
 	$statement = $conn->prepare($sql);
@@ -513,10 +513,10 @@ function fetch_all_sales($status, $admin, $type = null) {
 	$output = '';
 
 	$sql = "
-		SELECT *, jspence_sales.id AS sid, jspence_sales.createdAt AS sca, jspence_sales.updatedAt AS sua, jspence_admin.id AS aid 
-		FROM jspence_sales 
-		INNER JOIN jspence_admin 
-		ON jspence_admin.admin_id = jspence_sales.sale_by 
+		SELECT *, giltmarket_sales.id AS sid, giltmarket_sales.createdAt AS sca, giltmarket_sales.updatedAt AS sua, giltmarket_admin.id AS aid 
+		FROM giltmarket_sales 
+		INNER JOIN giltmarket_admin 
+		ON giltmarket_admin.admin_id = giltmarket_sales.sale_by 
 		WHERE sale_status = ? 
 	";
 	if (!admin_has_permission()) {
@@ -795,10 +795,10 @@ function total_amount_today($admin) {
 	if (is_array($runningCapital)) {
 		$sql = "
 			SELECT SUM(sale_total_amount) AS total
-			FROM `jspence_sales` 
-			WHERE jspence_sales.sale_status = ? 
+			FROM `giltmarket_sales` 
+			WHERE giltmarket_sales.sale_status = ? 
 			AND sale_type != ? 
-			AND jspence_sales.sale_daily = ?
+			AND giltmarket_sales.sale_daily = ?
 		";
 		if (!admin_has_permission()) {
 			$sql .= ' AND sale_by = "' . $admin . '" ';
@@ -814,14 +814,14 @@ function total_amount_today($admin) {
 		$total_amount_traded = $thisDayrow[0]['total'] ?? 0;
 
 		// get all pushed amout 
-		$get_pushed = $conn->query("SELECT SUM(push_amount) AS pamt FROM jspence_pushes WHERE push_from = '" . $admin . "' AND push_date = '" . $runningCapital['daily_date'] . "' AND jspence_pushes.push_from_where = 'daily'")->fetchAll();
+		$get_pushed = $conn->query("SELECT SUM(push_amount) AS pamt FROM giltmarket_pushes WHERE push_from = '" . $admin . "' AND push_date = '" . $runningCapital['daily_date'] . "' AND giltmarket_pushes.push_from_where = 'daily'")->fetchAll();
 		$total_amount_pushed = $get_pushed[0]['pamt'] ?? 0;
 		// if (admin_has_permission('salesperson')) {
 		// 	$total_amount_pushed = 0;
 		// }
 
 		// fetch all revese pushes
-		$reverse_pushes = $conn->query("SELECT SUM(push_amount) AS pamt FROM jspence_pushes WHERE push_from = '" . $admin . "' AND push_date = '" . $runningCapital['daily_date'] . "' AND jspence_pushes.push_from_where = 'dialy' AND push_status = 1")->fetchAll();
+		$reverse_pushes = $conn->query("SELECT SUM(push_amount) AS pamt FROM giltmarket_pushes WHERE push_from = '" . $admin . "' AND push_date = '" . $runningCapital['daily_date'] . "' AND giltmarket_pushes.push_from_where = 'dialy' AND push_status = 1")->fetchAll();
 		$r_total_amount_pushed = $reverse_pushes[0]['pamt'] ?? 0;
 
 		if (admin_has_permission('salesperson') && $total_amount_traded <= 0) {
@@ -856,9 +856,9 @@ function total_expenditure_today($admin, $option = null) {
 			SELECT 
 				SUM(sale_total_amount) AS total,
 				COUNT(id) AS c
-			FROM `jspence_sales` 
-			WHERE jspence_sales.sale_type = ? 
-			AND jspence_sales.sale_status = ? 
+			FROM `giltmarket_sales` 
+			WHERE giltmarket_sales.sale_type = ? 
+			AND giltmarket_sales.sale_status = ? 
 			AND CAST(CreatedAt AS date) = ? 
 		";
 
@@ -890,22 +890,22 @@ function total_sale_amount_today($admin, $del = null, $option = null, $DT = null
 	$sql = "
 		SELECT 
 			SUM(sale_total_amount) AS total, 
-			COUNT(jspence_sales.id) AS c 
-		FROM `jspence_sales` 
-		INNER JOIN jspence_daily
-		ON jspence_daily.daily_id = jspence_sales.sale_daily
-		WHERE jspence_daily.daily_capital_status = ? 
-		AND CAST(jspence_sales.createdAt AS date) = jspence_daily.daily_date 
+			COUNT(giltmarket_sales.id) AS c 
+		FROM `giltmarket_sales` 
+		INNER JOIN giltmarket_daily
+		ON giltmarket_daily.daily_id = giltmarket_sales.sale_daily
+		WHERE giltmarket_daily.daily_capital_status = ? 
+		AND CAST(giltmarket_sales.createdAt AS date) = giltmarket_daily.daily_date 
 	";
 
 	if ($del == 'delete') {
-		$sql .= " AND jspence_sales.sale_status = 2 ";
+		$sql .= " AND giltmarket_sales.sale_status = 2 ";
 	} else {
-		$sql .= " AND (jspence_sales.sale_status = 0 OR  jspence_sales.sale_status = 1) ";
+		$sql .= " AND (giltmarket_sales.sale_status = 0 OR  giltmarket_sales.sale_status = 1) ";
 	}
 
 	if (!admin_has_permission()) {
-		// $sql .= " AND sale_by = '" . $admin . "' AND CAST(jspence_sales.createdAt AS date) = '" . $today . "' ";
+		// $sql .= " AND sale_by = '" . $admin . "' AND CAST(giltmarket_sales.createdAt AS date) = '" . $today . "' ";
 		$sql .= " AND sale_by = '" . $admin . "'";
 	}
 
@@ -931,7 +931,7 @@ function total_trades_amount_today() {
 
 	$thisSql = "
 		SELECT SUM(sale_total_amount) AS total 
-		FROM `jspence_sales` 
+		FROM `giltmarket_sales` 
 		WHERE CAST(createdAt as date) = ? 
 	    AND sale_status = ? 
 	";
@@ -953,7 +953,7 @@ function count_total_orders($admin) {
 
 	$sql = "
 		SELECT COUNT(sale_id) AS total_number 
-		FROM `jspence_sales` 
+		FROM `giltmarket_sales` 
 		WHERE sale_status = 0 
 		$where 
 	";
@@ -974,7 +974,7 @@ function count_today_orders($admin) {
 
 		$sql = "
 			SELECT COUNT(sale_id) AS total_number 
-			FROM `jspence_sales` 
+			FROM `giltmarket_sales` 
 			WHERE sale_status = ? 
 			AND sale_daily = ? 
 		";
@@ -1005,7 +1005,7 @@ function grand_total_amount($admin) {
 
 	$thisSql = "
 		SELECT SUM(sale_total_amount) AS total 
-		FROM `jspence_sales` 
+		FROM `giltmarket_sales` 
 		WHERE $where 
 		YEAR(createdAt) = '{$thisYear}' 
 	    AND sale_status = 0 
@@ -1018,7 +1018,7 @@ function grand_total_amount($admin) {
 
 	$lastSql = "
 		SELECT SUM(sale_total_amount) AS total 
-		FROM `jspence_sales` 
+		FROM `giltmarket_sales` 
 		WHERE $where 
 		YEAR(createdAt) = '{$lastYear}' 
 	    AND sale_status = 0 
@@ -1045,7 +1045,7 @@ function grand_total_amount($admin) {
 	}
 	$grandTotalSql = "
 		SELECT SUM(sale_total_amount) AS total 
-		FROM `jspence_sales` 
+		FROM `giltmarket_sales` 
 		WHERE sale_status = 0 
 		$where
 	";
@@ -1072,15 +1072,15 @@ function get_logs($admin) {
 
 	$where = '';
 	if (!admin_has_permission()) {
-		$where = ' WHERE jspence_logs.log_admin = "'.$admin.'" AND CAST(jspence_logs.createdAt AS date) = "' . $today . '"';
+		$where = ' WHERE giltmarket_logs.log_admin = "'.$admin.'" AND CAST(giltmarket_logs.createdAt AS date) = "' . $today . '"';
 	}
 
 	$sql = "
-		SELECT * FROM jspence_logs 
-		INNER JOIN jspence_admin 
-		ON jspence_admin.admin_id = jspence_logs.log_admin
+		SELECT * FROM giltmarket_logs 
+		INNER JOIN giltmarket_admin 
+		ON giltmarket_admin.admin_id = giltmarket_logs.log_admin
 		$where 
-		ORDER BY jspence_logs.createdAt DESC
+		ORDER BY giltmarket_logs.createdAt DESC
 		LIMIT 10
 	";
 	$statement = $conn->prepare($sql);
@@ -1119,15 +1119,15 @@ function count_logs($admin) {
 
     $where = '';
     if (!admin_has_permission()) {
-        $where = ' WHERE jspence_admin.admin_id = "' . $admin . '" AND CAST(jspence_logs.createdAt AS date) = "' . $today . '" ';
+        $where = ' WHERE giltmarket_admin.admin_id = "' . $admin . '" AND CAST(giltmarket_logs.createdAt AS date) = "' . $today . '" ';
     }
 
     $sql = "
-        SELECT * FROM jspence_logs 
-        INNER JOIN jspence_admin 
-        ON jspence_admin.admin_id = jspence_logs.log_admin
+        SELECT * FROM giltmarket_logs 
+        INNER JOIN giltmarket_admin 
+        ON giltmarket_admin.admin_id = giltmarket_logs.log_admin
         $where 
-        ORDER BY jspence_logs.createdAt DESC
+        ORDER BY giltmarket_logs.createdAt DESC
     ";
     $statement = $conn->prepare($sql);
     $statement->execute();
@@ -1143,7 +1143,7 @@ function get_recent_trades($admin) {
 
 	if (is_array($runningCapital)) { 
 		$sql = "
-			SELECT * FROM jspence_sales 
+			SELECT * FROM giltmarket_sales 
 			WHERE sale_daily = ? 
 			AND sale_status = ? 
 		";
@@ -1220,7 +1220,7 @@ function get_recent_trades($admin) {
 
 //
 function get_salepersons_for_push_capital($conn) {
-	$rows = $conn->query("SELECT * FROM jspence_admin WHERE admin_permissions = 'salesperson' AND admin_status = 0")->fetchAll();
+	$rows = $conn->query("SELECT * FROM giltmarket_admin WHERE admin_permissions = 'salesperson' AND admin_status = 0")->fetchAll();
 	$output = '';
 	foreach ($rows as $row) {
 		$output .= '<option value="' . $row['admin_id'] . '">' . ucwords($row["admin_fullname"]) . '</option>';
@@ -1231,7 +1231,7 @@ function get_salepersons_for_push_capital($conn) {
 
 //
 function get_supervisors_for_push_capital($conn) {
-	$rows = $conn->query("SELECT * FROM jspence_admin WHERE admin_permissions = 'supervisor' AND admin_status = 0")->fetchAll();
+	$rows = $conn->query("SELECT * FROM giltmarket_admin WHERE admin_permissions = 'supervisor' AND admin_status = 0")->fetchAll();
 	$output = '';
 	foreach ($rows as $row) {
 		$output .= '<option value="' . $row['admin_id'] . '">' . ucwords($row["admin_fullname"]) . '</option>';
@@ -1245,7 +1245,7 @@ function find_dialy_for_push($t, $id) {
 	global $conn;
 	//
 	$sql = "
-		SELECT * FROM jspence_daily 
+		SELECT * FROM giltmarket_daily 
 		WHERE daily_date = ? 
 		AND daily_id = ? 
 		LIMIT 1
@@ -1264,7 +1264,7 @@ function find_admin_with_id($id) {
 	global $conn;
 
 	$sql = "
-		SELECT * FROM jspence_admin 
+		SELECT * FROM giltmarket_admin 
 		WHERE admin_id = ? 
 		LIMIT 1
 	";
@@ -1287,17 +1287,17 @@ function sum_up_given_units($conn, $admin) {
 
 	$where = '';
 	if (!admin_has_permission()) {
-		$where = " AND jspence_sales.sale_by = '" . $admin . "' AND CAST(createdAt AS date) = '" . $today . "'";
+		$where = " AND giltmarket_sales.sale_by = '" . $admin . "' AND CAST(createdAt AS date) = '" . $today . "'";
 	}
 	
 	$sql = "
 		SELECT SUM(sale_gram) AS g, SUM(sale_volume) AS v, SUM(sale_density) AS d, SUM(sale_pounds) AS p, SUM(sale_carat) AS c 
-		FROM jspence_sales 
-		INNER JOIN jspence_admin 
-		ON jspence_admin.admin_id = jspence_sales.sale_by
+		FROM giltmarket_sales 
+		INNER JOIN giltmarket_admin 
+		ON giltmarket_admin.admin_id = giltmarket_sales.sale_by
 		WHERE sale_status = ? 
 		$where 
-		GROUP BY jspence_sales.sale_by
+		GROUP BY giltmarket_sales.sale_by
 	";
 	$statement = $conn->prepare($sql);
 	$statement->execute([0]);
@@ -1351,7 +1351,7 @@ function push_unit_calculations($admin) {
 	if (is_array($runningCapital)) {
 
 		$query = "
-			SELECT push_data FROM jspence_pushes 
+			SELECT push_data FROM giltmarket_pushes 
 			WHERE push_type = ? 
 			AND push_from_where = ? 
 			AND push_from = ? 
@@ -1396,15 +1396,15 @@ function sum_up_grams($conn, $admin) {
 	if (is_array($runningCapital)) {
 		$sql = "
 			SELECT SUM(sale_gram) AS g 
-			FROM jspence_sales 
+			FROM giltmarket_sales 
 			WHERE sale_status = ? 
 			-- AND sale_pushed = ? 
 			AND sale_daily = ?
 		";
 
 		if (!admin_has_permission()) {
-			// $sql .= " AND jspence_sales.sale_by = '" . $admin . "' AND CAST(createdAt AS date) = '" . $today . "'";
-			$sql .= " AND jspence_sales.sale_by = '" . $admin . "'";
+			// $sql .= " AND giltmarket_sales.sale_by = '" . $admin . "' AND CAST(createdAt AS date) = '" . $today . "'";
+			$sql .= " AND giltmarket_sales.sale_by = '" . $admin . "'";
 		}
 
 		$statement = $conn->prepare($sql);
@@ -1432,15 +1432,15 @@ function sum_up_volume($conn, $admin) {
 	if (is_array($runningCapital)) {
 		$sql = "
 			SELECT SUM(sale_volume) AS v 
-			FROM jspence_sales 
+			FROM giltmarket_sales 
 			WHERE sale_status = ? 
 			-- AND sale_pushed = ? 
 			AND sale_daily = ?
 		";
 
 		if (!admin_has_permission()) {
-			// $sql .= " AND jspence_sales.sale_by = '" . $admin . "' AND CAST(createdAt AS date) = '" . $today . "'";
-			$sql .= " AND jspence_sales.sale_by = '" . $admin . "'";
+			// $sql .= " AND giltmarket_sales.sale_by = '" . $admin . "' AND CAST(createdAt AS date) = '" . $today . "'";
+			$sql .= " AND giltmarket_sales.sale_by = '" . $admin . "'";
 		}
 
 		$statement = $conn->prepare($sql);
@@ -1506,17 +1506,17 @@ function get_admin_coffers($conn, $admin, $action = null) {
 function get_admin_coffers_received($conn, $admin) {	
 	$query = "
 		SELECT SUM(coffers_amount) AS sum_received 
-		FROM jspence_coffers 
-		INNER JOIN jspence_pushes 
-		ON jspence_pushes.push_daily = jspence_coffers.coffers_id 
+		FROM giltmarket_coffers 
+		INNER JOIN giltmarket_pushes 
+		ON giltmarket_pushes.push_daily = giltmarket_coffers.coffers_id 
 		WHERE (coffers_status = ? OR coffers_status = ?) 
-		-- AND jspence_pushes.push_status = ? 
-		-- AND jspence_coffers.status = ?
+		-- AND giltmarket_pushes.push_status = ? 
+		-- AND giltmarket_coffers.status = ?
 	";
 	if (admin_has_permission()) {
-		$query .= " AND (jspence_coffers.status = 0 OR jspence_coffers.status = 1) ";
+		$query .= " AND (giltmarket_coffers.status = 0 OR giltmarket_coffers.status = 1) ";
 	} else {
-		$query .= " AND jspence_coffers.status = 0 ";
+		$query .= " AND giltmarket_coffers.status = 0 ";
 	}
 	$statement = $conn->prepare($query);
 	$statement->execute(['receive', 'reverse']);
@@ -1533,17 +1533,17 @@ function get_admin_coffers_send($conn, $admin) {
 	$query = "
 		SELECT 
 			SUM(coffers_amount) AS sum_send 
-		FROM jspence_coffers 
-		INNER JOIN jspence_pushes 
-		ON jspence_pushes.push_daily = jspence_coffers.coffers_id 
+		FROM giltmarket_coffers 
+		INNER JOIN giltmarket_pushes 
+		ON giltmarket_pushes.push_daily = giltmarket_coffers.coffers_id 
 		WHERE coffers_status = ? 
-		AND jspence_pushes.push_status = ? 
-		-- AND jspence_coffers.status = ?
+		AND giltmarket_pushes.push_status = ? 
+		-- AND giltmarket_coffers.status = ?
 	";
 	if (admin_has_permission()) {
-		$query .= " AND (jspence_coffers.status = 0 OR jspence_coffers.status = 1) ";
+		$query .= " AND (giltmarket_coffers.status = 0 OR giltmarket_coffers.status = 1) ";
 	} else {
-		$query .= " AND jspence_coffers.status = 0 ";
+		$query .= " AND giltmarket_coffers.status = 0 ";
 	}
 	$statement = $conn->prepare($query);
 	$statement->execute(['send', 0]);
@@ -1562,11 +1562,11 @@ function capital_mover($admin) {
 	$today = date("Y-m-d");
 
 	$a = "
-		SELECT * FROM jspence_daily 
-		WHERE jspence_daily.daily_to = ? 
-		AND jspence_daily.daily_capital_status = ? 
-		AND jspence_daily.status = ? 
-		-- AND jspence_daily.daily_date = ?
+		SELECT * FROM giltmarket_daily 
+		WHERE giltmarket_daily.daily_to = ? 
+		AND giltmarket_daily.daily_capital_status = ? 
+		AND giltmarket_daily.status = ? 
+		-- AND giltmarket_daily.daily_date = ?
 		ORDER BY daily_date DESC 
 		LIMIT 1
 	";
@@ -1582,7 +1582,7 @@ function capital_mover($admin) {
 			$capital = $row[0]["daily_capital"];
 
 			// check if admin entered denomination
-			$c = $conn->query("SELECT * FROM jspence_denomination WHERE denomination_capital = '" . $row[0]['daily_id'] . "' AND denomination_by = '" . $admin . "' AND status = 0 ORDER BY id DESC LIMIT 1")->rowCount();
+			$c = $conn->query("SELECT * FROM giltmarket_denomination WHERE denomination_capital = '" . $row[0]['daily_id'] . "' AND denomination_by = '" . $admin . "' AND status = 0 ORDER BY id DESC LIMIT 1")->rowCount();
 
 			$result = [
 				"msg" => ""
@@ -1591,7 +1591,7 @@ function capital_mover($admin) {
 
 				// update capital date to the following day 
 				$sql = "
-					UPDATE jspence_daily 
+					UPDATE giltmarket_daily 
 					SET daily_date = ? 
 					WHERE daily_id = ?
 				";

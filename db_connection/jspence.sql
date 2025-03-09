@@ -18,16 +18,16 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `jspence`
+-- Database: `giltmarket`
 --
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `jspence`
+-- Table structure for table `giltmarket`
 --
 
-CREATE TABLE `jspence` (
+CREATE TABLE `giltmarket` (
   `company_name` varchar(300) DEFAULT NULL,
   `company_address` varchar(300) DEFAULT NULL,
   `company_phone1` varchar(20) DEFAULT NULL,
@@ -35,19 +35,19 @@ CREATE TABLE `jspence` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Dumping data for table `jspence`
+-- Dumping data for table `giltmarket`
 --
 
-INSERT INTO `jspence` (`company_name`, `company_address`, `company_phone1`, `company_phone2`) VALUES
+INSERT INTO `giltmarket` (`company_name`, `company_address`, `company_phone1`, `company_phone2`) VALUES
 ('Giltmarket', 'Box A 00, TOWN CITY', '+233 (0) 00 00 00', '+233 (0) 00 00 00');
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `jspence_admin`
+-- Table structure for table `giltmarket_admin`
 --
 
-CREATE TABLE `jspence_admin` (
+CREATE TABLE `giltmarket_admin` (
   `id` int(11) NOT NULL,
   `admin_id` varchar(100) NOT NULL,
   `admin_fullname` varchar(255) NOT NULL,
@@ -63,24 +63,24 @@ CREATE TABLE `jspence_admin` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Dumping data for table `jspence_admin`
+-- Dumping data for table `giltmarket_admin`
 --
 
-INSERT INTO `jspence_admin` (`id`, `admin_id`, `admin_fullname`, `admin_email`, `admin_phone`, `admin_password`, `admin_pin`, `admin_profile`, `admin_joined_date`, `admin_last_login`, `admin_permissions`, `admin_status`) VALUES
-(1, 'c454b2bf-9b1e-409a-8b0d-d84ab82cf22d', 'alhaji priest babson', 'admin@jspence.com', NULL, '$2y$10$dHoeddyBK4Z23jqePowDO.JPAeXDugtyZN6.Zwc8hy.033Z1/5vbq', 1234, 'assets/media/admin-profiles/971aaa4a3274e711f35f7201d56d19c9.png', '2020-02-21 21:01:31', '2024-11-28 00:31:36', 'admin,salesperson,supervisor', 0),
-(11, '16acd24f-0ad7-42d9-a565-a8863f4a8fa2', 'tijani moro', 'tijani@jspence.com', NULL, '$2y$10$6VM4wWjd3Ts2snR4KDRS9On2bRxzXJ0V/TXplZHs0ZL93y.G/RqWu', 1234, NULL, '2024-06-28 05:48:12', '2024-09-15 22:49:51', 'salesperson', 1),
-(12, 'e01de4bc-10e7-47cc-b2df-c2e1bdd8997f', 'inuwa mohammed umar', 'inuwa@jspence.com', NULL, '$2y$10$7mg6BRD9UXqQL8wxUiCkQe5IqceroHPGvq8wMgiiTCpFEOYsUdcNq', 2222, NULL, '2024-06-28 05:49:20', '2024-12-03 10:36:41', 'salesperson', 0),
+INSERT INTO `giltmarket_admin` (`id`, `admin_id`, `admin_fullname`, `admin_email`, `admin_phone`, `admin_password`, `admin_pin`, `admin_profile`, `admin_joined_date`, `admin_last_login`, `admin_permissions`, `admin_status`) VALUES
+(1, 'c454b2bf-9b1e-409a-8b0d-d84ab82cf22d', 'alhaji priest babson', 'admin@giltmarket.com', NULL, '$2y$10$dHoeddyBK4Z23jqePowDO.JPAeXDugtyZN6.Zwc8hy.033Z1/5vbq', 1234, 'assets/media/admin-profiles/971aaa4a3274e711f35f7201d56d19c9.png', '2020-02-21 21:01:31', '2024-11-28 00:31:36', 'admin,salesperson,supervisor', 0),
+(11, '16acd24f-0ad7-42d9-a565-a8863f4a8fa2', 'tijani moro', 'tijani@giltmarket.com', NULL, '$2y$10$6VM4wWjd3Ts2snR4KDRS9On2bRxzXJ0V/TXplZHs0ZL93y.G/RqWu', 1234, NULL, '2024-06-28 05:48:12', '2024-09-15 22:49:51', 'salesperson', 1),
+(12, 'e01de4bc-10e7-47cc-b2df-c2e1bdd8997f', 'inuwa mohammed umar', 'inuwa@giltmarket.com', NULL, '$2y$10$7mg6BRD9UXqQL8wxUiCkQe5IqceroHPGvq8wMgiiTCpFEOYsUdcNq', 2222, NULL, '2024-06-28 05:49:20', '2024-12-03 10:36:41', 'salesperson', 0),
 (13, '404d51db-6533-4586-b8d5-17c27c2f0607', 'henry asamoah', 'henry@email.com', NULL, '$2y$10$.pYicI6NOTj8Rd8S878EB.Hn6uoxCQXkix7uJgXlvxx1eR8iV1dLq', 1234, NULL, '2024-07-01 14:21:26', '2024-12-03 11:07:28', 'salesperson', 0),
 (14, '59e29767-cc32-4b2b-9abf-8422e2e45dcd', 'Adiza husein', 'adiza@email.com', NULL, '$2y$10$cC84GJNvi4Tq/6gm.r.ft.G9YEZ267sz3JQ/B/b.Nl5Cz6Fa64z9S', 1234, NULL, '2024-07-01 22:33:16', NULL, 'admin,salesperson,supervisor', 0),
-(15, '986785d8-7b98-4747-a0b2-8b4f4b239e06', 'emmanuel atim frompong', 'emma@jspence.com', NULL, '$2y$10$lwzmqYK9BHTWrHL0FNxoju1FCQQfOY78T8nb9kEeH0dTzvRCannvW', 1234, NULL, '2024-09-09 17:19:05', '2024-12-03 11:31:19', 'supervisor', 0);
+(15, '986785d8-7b98-4747-a0b2-8b4f4b239e06', 'emmanuel atim frompong', 'emma@giltmarket.com', NULL, '$2y$10$lwzmqYK9BHTWrHL0FNxoju1FCQQfOY78T8nb9kEeH0dTzvRCannvW', 1234, NULL, '2024-09-09 17:19:05', '2024-12-03 11:31:19', 'supervisor', 0);
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `jspence_admin_login_details`
+-- Table structure for table `giltmarket_admin_login_details`
 --
 
-CREATE TABLE `jspence_admin_login_details` (
+CREATE TABLE `giltmarket_admin_login_details` (
   `id` int(11) NOT NULL,
   `login_details_id` varchar(100) DEFAULT NULL,
   `login_details_admin_id` varchar(100) DEFAULT NULL,
@@ -97,10 +97,10 @@ CREATE TABLE `jspence_admin_login_details` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `jspence_coffers`
+-- Table structure for table `giltmarket_coffers`
 --
 
-CREATE TABLE `jspence_coffers` (
+CREATE TABLE `giltmarket_coffers` (
   `id` bigint(20) NOT NULL,
   `coffers_id` varchar(100) DEFAULT NULL,
   `coffers_amount` double(10,2) DEFAULT NULL,
@@ -114,10 +114,10 @@ CREATE TABLE `jspence_coffers` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `jspence_customers`
+-- Table structure for table `giltmarket_customers`
 --
 
-CREATE TABLE `jspence_customers` (
+CREATE TABLE `giltmarket_customers` (
   `id` bigint(20) NOT NULL,
   `customer_id` varchar(150) DEFAULT NULL,
   `customer_name` varchar(300) DEFAULT NULL,
@@ -134,10 +134,10 @@ CREATE TABLE `jspence_customers` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `jspence_daily`
+-- Table structure for table `giltmarket_daily`
 --
 
-CREATE TABLE `jspence_daily` (
+CREATE TABLE `giltmarket_daily` (
   `id` bigint(20) NOT NULL,
   `daily_id` varchar(300) DEFAULT NULL,
   `daily_capital` double(10,2) DEFAULT 0.00,
@@ -154,10 +154,10 @@ CREATE TABLE `jspence_daily` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `jspence_denomination`
+-- Table structure for table `giltmarket_denomination`
 --
 
-CREATE TABLE `jspence_denomination` (
+CREATE TABLE `giltmarket_denomination` (
   `id` bigint(20) NOT NULL,
   `denominations_id` varchar(300) DEFAULT NULL,
   `denomination_capital` varchar(300) DEFAULT NULL,
@@ -199,10 +199,10 @@ CREATE TABLE `jspence_denomination` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `jspence_logs`
+-- Table structure for table `giltmarket_logs`
 --
 
-CREATE TABLE `jspence_logs` (
+CREATE TABLE `giltmarket_logs` (
   `id` bigint(20) NOT NULL,
   `log_id` varchar(300) DEFAULT NULL,
   `log_message` text DEFAULT NULL,
@@ -215,10 +215,10 @@ CREATE TABLE `jspence_logs` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `jspence_pushes`
+-- Table structure for table `giltmarket_pushes`
 --
 
-CREATE TABLE `jspence_pushes` (
+CREATE TABLE `giltmarket_pushes` (
   `id` bigint(20) NOT NULL,
   `push_id` varchar(300) DEFAULT NULL,
   `push_daily` varchar(300) DEFAULT NULL,
@@ -239,10 +239,10 @@ CREATE TABLE `jspence_pushes` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `jspence_sales`
+-- Table structure for table `giltmarket_sales`
 --
 
-CREATE TABLE `jspence_sales` (
+CREATE TABLE `giltmarket_sales` (
   `id` bigint(20) NOT NULL,
   `sale_id` varchar(300) NOT NULL,
   `sale_gram` double(10,2) DEFAULT NULL,
@@ -271,9 +271,9 @@ CREATE TABLE `jspence_sales` (
 --
 
 --
--- Indexes for table `jspence_admin`
+-- Indexes for table `giltmarket_admin`
 --
-ALTER TABLE `jspence_admin`
+ALTER TABLE `giltmarket_admin`
   ADD PRIMARY KEY (`id`),
   ADD UNIQUE KEY `admin_email_2` (`admin_email`),
   ADD KEY `admin_status` (`admin_status`),
@@ -283,15 +283,15 @@ ALTER TABLE `jspence_admin`
   ADD KEY `admin_id` (`admin_id`);
 
 --
--- Indexes for table `jspence_admin_login_details`
+-- Indexes for table `giltmarket_admin_login_details`
 --
-ALTER TABLE `jspence_admin_login_details`
+ALTER TABLE `giltmarket_admin_login_details`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `jspence_coffers`
+-- Indexes for table `giltmarket_coffers`
 --
-ALTER TABLE `jspence_coffers`
+ALTER TABLE `giltmarket_coffers`
   ADD PRIMARY KEY (`id`),
   ADD KEY `coffer_id` (`coffers_id`),
   ADD KEY `createdAt` (`createdAt`),
@@ -299,9 +299,9 @@ ALTER TABLE `jspence_coffers`
   ADD KEY `coffers_receive_through` (`coffers_receive_through`);
 
 --
--- Indexes for table `jspence_customers`
+-- Indexes for table `giltmarket_customers`
 --
-ALTER TABLE `jspence_customers`
+ALTER TABLE `giltmarket_customers`
   ADD PRIMARY KEY (`id`),
   ADD KEY `customer_id` (`customer_id`),
   ADD KEY `customer_name` (`customer_name`),
@@ -309,9 +309,9 @@ ALTER TABLE `jspence_customers`
   ADD KEY `customer_unique_info` (`customer_unique_info`);
 
 --
--- Indexes for table `jspence_daily`
+-- Indexes for table `giltmarket_daily`
 --
-ALTER TABLE `jspence_daily`
+ALTER TABLE `giltmarket_daily`
   ADD PRIMARY KEY (`id`),
   ADD KEY `daily_id` (`daily_id`),
   ADD KEY `daily_capital` (`daily_capital`),
@@ -320,15 +320,15 @@ ALTER TABLE `jspence_daily`
   ADD KEY `status` (`status`);
 
 --
--- Indexes for table `jspence_denomination`
+-- Indexes for table `giltmarket_denomination`
 --
-ALTER TABLE `jspence_denomination`
+ALTER TABLE `giltmarket_denomination`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `jspence_logs`
+-- Indexes for table `giltmarket_logs`
 --
-ALTER TABLE `jspence_logs`
+ALTER TABLE `giltmarket_logs`
   ADD PRIMARY KEY (`id`),
   ADD KEY `createdAt` (`createdAt`),
   ADD KEY `log_status` (`log_status`),
@@ -336,9 +336,9 @@ ALTER TABLE `jspence_logs`
   ADD KEY `log_id` (`log_id`);
 
 --
--- Indexes for table `jspence_pushes`
+-- Indexes for table `giltmarket_pushes`
 --
-ALTER TABLE `jspence_pushes`
+ALTER TABLE `giltmarket_pushes`
   ADD PRIMARY KEY (`id`),
   ADD KEY `capital_id` (`push_id`),
   ADD KEY `capital_daily` (`push_daily`),
@@ -349,9 +349,9 @@ ALTER TABLE `jspence_pushes`
   ADD KEY `push_type` (`push_type`);
 
 --
--- Indexes for table `jspence_sales`
+-- Indexes for table `giltmarket_sales`
 --
-ALTER TABLE `jspence_sales`
+ALTER TABLE `giltmarket_sales`
   ADD PRIMARY KEY (`id`),
   ADD KEY `sale_id` (`sale_id`),
   ADD KEY `sale_total_amount` (`sale_total_amount`),
@@ -364,57 +364,57 @@ ALTER TABLE `jspence_sales`
 --
 
 --
--- AUTO_INCREMENT for table `jspence_admin`
+-- AUTO_INCREMENT for table `giltmarket_admin`
 --
-ALTER TABLE `jspence_admin`
+ALTER TABLE `giltmarket_admin`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 
 --
--- AUTO_INCREMENT for table `jspence_admin_login_details`
+-- AUTO_INCREMENT for table `giltmarket_admin_login_details`
 --
-ALTER TABLE `jspence_admin_login_details`
+ALTER TABLE `giltmarket_admin_login_details`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT for table `jspence_coffers`
+-- AUTO_INCREMENT for table `giltmarket_coffers`
 --
-ALTER TABLE `jspence_coffers`
+ALTER TABLE `giltmarket_coffers`
   MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT for table `jspence_customers`
+-- AUTO_INCREMENT for table `giltmarket_customers`
 --
-ALTER TABLE `jspence_customers`
+ALTER TABLE `giltmarket_customers`
   MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT for table `jspence_daily`
+-- AUTO_INCREMENT for table `giltmarket_daily`
 --
-ALTER TABLE `jspence_daily`
+ALTER TABLE `giltmarket_daily`
   MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT for table `jspence_denomination`
+-- AUTO_INCREMENT for table `giltmarket_denomination`
 --
-ALTER TABLE `jspence_denomination`
+ALTER TABLE `giltmarket_denomination`
   MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT for table `jspence_logs`
+-- AUTO_INCREMENT for table `giltmarket_logs`
 --
-ALTER TABLE `jspence_logs`
+ALTER TABLE `giltmarket_logs`
   MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT for table `jspence_pushes`
+-- AUTO_INCREMENT for table `giltmarket_pushes`
 --
-ALTER TABLE `jspence_pushes`
+ALTER TABLE `giltmarket_pushes`
   MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT for table `jspence_sales`
+-- AUTO_INCREMENT for table `giltmarket_sales`
 --
-ALTER TABLE `jspence_sales`
+ALTER TABLE `giltmarket_sales`
   MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT;
 COMMIT;
 

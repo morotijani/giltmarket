@@ -37,7 +37,7 @@
         } else {
             $data = [$admin_fullname, $admin_email, $admin_phone, $admin_data['admin_id']];
             $query = "
-                UPDATE jspence_admin 
+                UPDATE giltmarket_admin 
                 SET admin_fullname = ?, admin_email = ?, admin_phone = ?  
                 WHERE admin_id = ?
             ";

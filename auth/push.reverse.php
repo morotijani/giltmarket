@@ -22,7 +22,7 @@
 		$id = sanitize($_GET['data']);
 
 		// find push id
-		$find = $conn->query("SELECT * FROM jspence_pushes WHERE push_id = '" . $id . "' LIMIT 1")->fetchAll();
+		$find = $conn->query("SELECT * FROM giltmarket_pushes WHERE push_id = '" . $id . "' LIMIT 1")->fetchAll();
 		if (count($find) > 0) {
 			if (isset($_POST['admin_pin'])) {
 				if (!empty($_POST['admin_pin']) || $_POST['admin_pin'] != '') {
@@ -56,7 +56,7 @@
 						// incase the revesal amount is greater or equal to the remaining balance of the person we are reversing from, then we prevent reversal
 						if ($find[0]['push_amount'] <= $from_balance) {
 							$query = "
-								UPDATE jspence_pushes 
+								UPDATE giltmarket_pushes 
 								SET push_status = ?, push_reverse_reason = ? 
 								WHERE push_id = ?
 							";
@@ -66,13 +66,13 @@
 							if ($result) {
 								if (admin_has_permission('salesperson')) {
 									$sql = "
-										UPDATE jspence_daily 
+										UPDATE giltmarket_daily 
 										SET daily_balance = daily_balance + '" . $find[0]['push_amount'] . "' 
 										WHERE daily_id = ? 
 									";
 								} else {
 									$sql = "
-										UPDATE jspence_daily 
+										UPDATE giltmarket_daily 
 										SET daily_capital = daily_capital - '" . $find[0]['push_amount'] . "' 
 										WHERE daily_id = ? 
 									";
@@ -91,7 +91,7 @@
 									
 								} else if ($find[0]['push_type'] == 'money' && admin_has_permission('supervisor') && $find[0]['push_from_where'] == 'coffers') {
 									// reversing money send to supervisor back to coffers
-									$q = $conn->query("UPDATE jspence_coffers SET coffers_status = 'reverse' WHERE coffers_id = '" . $find[0]['push_daily'] . "'")->execute();
+									$q = $conn->query("UPDATE giltmarket_coffers SET coffers_status = 'reverse' WHERE coffers_id = '" . $find[0]['push_daily'] . "'")->execute();
 								}
 
 								$log_message = "reversed " . money($find[0]['push_amount']) . $and . " !";

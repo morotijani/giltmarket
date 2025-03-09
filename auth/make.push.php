@@ -55,7 +55,7 @@
 
 							// update daily capital and balance
 							$dailyQ = "
-								UPDATE `jspence_daily` 
+								UPDATE `giltmarket_daily` 
 								SET `daily_capital` = ?, `daily_balance` = daily_balance + '" . $given . "' 
 								WHERE `daily_id` = ? AND `daily_to` = ?
 							";
@@ -66,7 +66,7 @@
 							
 							// insert into daily
 							$dailyQ = "
-								INSERT INTO jspence_daily (daily_id, daily_capital, daily_balance, daily_to) 
+								INSERT INTO giltmarket_daily (daily_id, daily_capital, daily_balance, daily_to) 
 								VALUES (?, ?, ?, ?)
 							";
 							$message = "on this day " . $today . ", capital entered of an amount of " . money($c) . ' to a ' . ((admin_has_permission()) ? ' supervisor' : 'saleperson') . ' id: ' . $push_to;
@@ -80,7 +80,7 @@
 							// find the just enetered capital id
 							if (!is_array($findCapital)) {
 								$LID = $conn->lastInsertId();
-								$q = $conn->query("SELECT * FROM jspence_daily WHERE id = '" . $LID . "' LIMIT 1")->fetchAll();
+								$q = $conn->query("SELECT * FROM giltmarket_daily WHERE id = '" . $LID . "' LIMIT 1")->fetchAll();
 								$findCapital = $q[0]['daily_id'];
 							} else {
 								$findCapital = $findCapital['daily_id'];
@@ -91,14 +91,14 @@
 								$coffers_id = guidv4();
 							
 								$coffersSQL = "
-									INSERT INTO jspence_coffers (coffers_id, coffers_amount, coffers_status) 
+									INSERT INTO giltmarket_coffers (coffers_id, coffers_amount, coffers_status) 
 									VALUES (?, ?, ?)
 								";
 								$statement = $conn->prepare($coffersSQL);
 								$statement->execute([$coffers_id, $given, 'send']);
 
 								$LID = $conn->lastInsertId();
-								$q = $conn->query("SELECT * FROM jspence_coffers WHERE id = '" . $LID . "' LIMIT 1")->fetchAll();
+								$q = $conn->query("SELECT * FROM giltmarket_coffers WHERE id = '" . $LID . "' LIMIT 1")->fetchAll();
 								$findCapital = $q[0]['coffers_id'];
 
 								$pushData = null;
@@ -117,7 +117,7 @@
 								$push_note
 							];
 							$sql = "
-								INSERT INTO jspence_pushes (push_id, push_daily, push_amount, push_type, push_from, push_to, push_from_where, push_data, push_note) 
+								INSERT INTO giltmarket_pushes (push_id, push_daily, push_amount, push_type, push_from, push_to, push_from_where, push_data, push_note) 
 								VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
 							";
 							$statement = $conn->prepare($sql);

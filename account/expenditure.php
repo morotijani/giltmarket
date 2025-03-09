@@ -19,9 +19,9 @@
     $today = date("Y-m-d");
     $where = '';
     if (!admin_has_permission()) {
-        $where = ' AND sale_by = "' . $admin_id . '" AND CAST(jspence_sales.createdAt AS date) = "' . $today . '" ';
+        $where = ' AND sale_by = "' . $admin_id . '" AND CAST(giltmarket_sales.createdAt AS date) = "' . $today . '" ';
     }
-    $total_exp = $conn->query("SELECT * FROM jspence_sales INNER JOIN jspence_admin ON jspence_admin.admin_id = jspence_sales.sale_by WHERE jspence_sales.sale_status = 0 AND jspence_sales.sale_type = 'exp' $where")->rowCount();
+    $total_exp = $conn->query("SELECT * FROM giltmarket_sales INNER JOIN giltmarket_admin ON giltmarket_admin.admin_id = giltmarket_sales.sale_by WHERE giltmarket_sales.sale_status = 0 AND giltmarket_sales.sale_type = 'exp' $where")->rowCount();
     $count_exp = '';
     if ($total_exp > 0) {
         $count_exp = ' (' . $total_exp . ')';
@@ -40,7 +40,7 @@
         $id = sanitize($_GET['edit']);
 
         $sql = "
-            SELECT * FROM jspence_sales 
+            SELECT * FROM giltmarket_sales 
             WHERE sale_id = ? 
             AND sale_by = ?
             LIMIT 1 
@@ -73,14 +73,14 @@
                             $data = [$e_id, $for_amount, $what_for, 'exp', $by, _capital($by)['today_capital_id'], $createdAt];
 
                             $sql = "
-                                INSERT INTO jspence_sales (sale_id, sale_total_amount, sale_comment, sale_type, sale_by, sale_daily, createdAt) 
+                                INSERT INTO giltmarket_sales (sale_id, sale_total_amount, sale_comment, sale_type, sale_by, sale_daily, createdAt) 
                                 VALUES (?, ?, ?, ?, ?, ?, ?)
                             ";
                             
                             if (isset($_GET['edit']) && !empty($_GET['edit'])) {
                                 $data = [$what_for, $for_amount, $id];
                                 $sql = "
-                                    UPDATE jspence_sales 
+                                    UPDATE giltmarket_sales 
                                     SET sale_comment = ?, sale_total_amount = ?
                                     WHERE sale_id = ?
                                 ";
@@ -110,7 +110,7 @@
                                 }
 
                                 $query = "
-                                    UPDATE jspence_daily 
+                                    UPDATE giltmarket_daily 
                                     SET daily_balance = ? $update_comma
                                     WHERE daily_date = ? 
                                     AND daily_to = ?
@@ -145,7 +145,7 @@
         $id = sanitize($_GET['delete']);
 
         $sql = "
-            SELECT * FROM jspence_sales 
+            SELECT * FROM giltmarket_sales 
             WHERE sale_id = ? 
             AND sale_by = ?
             LIMIT 1 
@@ -156,7 +156,7 @@
 
         if ($statement->rowCount()) {
             $updateQuery = "
-                UPDATE jspence_sales 
+                UPDATE giltmarket_sales 
                 SET sale_status = ? 
                 WHERE sale_id = ?
             ";
@@ -169,7 +169,7 @@
                 $balance = (float)(_capital($by)['today_balance'] + $for_amount);
 
                 $query = "
-                    UPDATE jspence_daily 
+                    UPDATE giltmarket_daily 
                     SET daily_balance = ?
                     WHERE daily_date = ? 
                     AND daily_to = ?

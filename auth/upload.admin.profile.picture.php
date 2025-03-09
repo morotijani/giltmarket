@@ -20,7 +20,7 @@
 		$move = move_uploaded_file($_FILES["file_upload"]["tmp_name"], $location);
 		if ($move) {
 			$sql = "
-				UPDATE jspence_admin 
+				UPDATE giltmarket_admin 
 				SET admin_profile = ?
 				WHERE admin_id  = ? 
 			";

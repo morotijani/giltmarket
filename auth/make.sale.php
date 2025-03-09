@@ -49,7 +49,7 @@ if (isset($_POST['gram-amount'])) {
 
 			if (empty($output) || $output == '') {
 				$sql = "
-					INSERT INTO `jspence_sales`(`sale_id`, `sale_gram`, `sale_volume`, `sale_density`, `sale_pounds`, `sale_carat`, `sale_price`, `sale_total_amount`, `sale_customer_name`, `sale_customer_contact`, `sale_comment`, `sale_type`, `sale_by`, `sale_daily`) 
+					INSERT INTO `giltmarket_sales`(`sale_id`, `sale_gram`, `sale_volume`, `sale_density`, `sale_pounds`, `sale_carat`, `sale_price`, `sale_total_amount`, `sale_customer_name`, `sale_customer_contact`, `sale_comment`, `sale_type`, `sale_by`, `sale_daily`) 
 					VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
 				";
 				$statement = $conn->prepare($sql);
@@ -64,19 +64,19 @@ if (isset($_POST['gram-amount'])) {
 					$execute_data = [$today, $t, $_t, $admin_id, 0];
 					$q = "
 						SELECT 
-							SUM(jspence_sales.sale_total_amount) AS ttsa, 
-							CAST(jspence_sales.createdAt AS date) AS sd 
-						FROM `jspence_sales` 
-						WHERE CAST(jspence_sales.createdAt AS date) = ? 
-						AND (jspence_sales.sale_type = ? OR jspence_sales.sale_type = ?)
-						AND jspence_sales.sale_by = ? 
-						AND jspence_sales.sale_status = ?
+							SUM(giltmarket_sales.sale_total_amount) AS ttsa, 
+							CAST(giltmarket_sales.createdAt AS date) AS sd 
+						FROM `giltmarket_sales` 
+						WHERE CAST(giltmarket_sales.createdAt AS date) = ? 
+						AND (giltmarket_sales.sale_type = ? OR giltmarket_sales.sale_type = ?)
+						AND giltmarket_sales.sale_by = ? 
+						AND giltmarket_sales.sale_status = ?
 					";
 					if (admin_has_permission('supervisor')) {
 						$execute_data = [$last_id];
 						$q = "
 							SELECT sale_total_amount 
-							FROM `jspence_sales` 
+							FROM `giltmarket_sales` 
 							WHERE id = ? 
 							ORDER BY id DESC 
 							LIMIT 1

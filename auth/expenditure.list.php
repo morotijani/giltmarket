@@ -17,15 +17,15 @@ if ($_POST['page'] > 1) {
 
 $where = '';
 if (!admin_has_permission()) {
-	$where = ' AND sale_by = "'.$admin_data["admin_id"].'" AND CAST(jspence_sales.createdAt AS date) = "' . $today . '" ';
+	$where = ' AND sale_by = "'.$admin_data["admin_id"].'" AND CAST(giltmarket_sales.createdAt AS date) = "' . $today . '" ';
 }
 $query = "
-	SELECT *, jspence_sales.id AS eid, jspence_sales.createdAt AS eca, jspence_sales.updatedAt AS sua, jspence_admin.id AS aid, CAST(jspence_sales.createdAt AS date) AS edate 
-    FROM jspence_sales 
-	INNER JOIN jspence_admin 
-	ON jspence_admin.admin_id = jspence_sales.sale_by 
-	WHERE jspence_sales.sale_status = 0 
-    AND jspence_sales.sale_type = 'exp'
+	SELECT *, giltmarket_sales.id AS eid, giltmarket_sales.createdAt AS eca, giltmarket_sales.updatedAt AS sua, giltmarket_admin.id AS aid, CAST(giltmarket_sales.createdAt AS date) AS edate 
+    FROM giltmarket_sales 
+	INNER JOIN giltmarket_admin 
+	ON giltmarket_admin.admin_id = giltmarket_sales.sale_by 
+	WHERE giltmarket_sales.sale_status = 0 
+    AND giltmarket_sales.sale_type = 'exp'
 	$where 
 ";
 $search_query = ((isset($_POST['query'])) ? sanitize($_POST['query']) : '');
@@ -35,16 +35,16 @@ if ($search_query != '') {
 		AND (sale_id LIKE "%'.$find_query.'%" 
 		OR sale_total_amount LIKE "%'.$find_query.'%" 
 		OR sale_comment LIKE "%'.$find_query.'%" 
-		OR jspence_sales.createdAt = "%'.$find_query.'%" 
+		OR giltmarket_sales.createdAt = "%'.$find_query.'%" 
 		OR admin_fullname LIKE "%'.$find_query.'%") 
 	';
 } else {
-	$query .= 'ORDER BY jspence_sales.createdAt DESC ';
+	$query .= 'ORDER BY giltmarket_sales.createdAt DESC ';
 }
 
 $filter_query = $query . 'LIMIT ' . $start . ', ' . $limit . '';
 
-$total_data = $conn->query("SELECT * FROM jspence_sales INNER JOIN jspence_admin ON jspence_admin.admin_id = jspence_sales.sale_by WHERE jspence_sales.sale_status = 0 AND jspence_sales.sale_type = 'exp' $where")->rowCount();
+$total_data = $conn->query("SELECT * FROM giltmarket_sales INNER JOIN giltmarket_admin ON giltmarket_admin.admin_id = giltmarket_sales.sale_by WHERE giltmarket_sales.sale_status = 0 AND giltmarket_sales.sale_type = 'exp' $where")->rowCount();
 
 $statement = $conn->prepare($filter_query);
 $statement->execute();

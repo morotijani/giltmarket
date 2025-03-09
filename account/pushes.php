@@ -15,9 +15,9 @@
     $today = date("Y-m-d");
     $where = '';
     if (!admin_has_permission()) {
-        $where = ' AND (push_to = "' . $admin_id . '" OR push_from IN (SELECT push_from FROM jspence_pushes WHERE push_from = "' . $admin_id . '")) AND push_date = "' . $today . '" ';
+        $where = ' AND (push_to = "' . $admin_id . '" OR push_from IN (SELECT push_from FROM giltmarket_pushes WHERE push_from = "' . $admin_id . '")) AND push_date = "' . $today . '" ';
     }
-    $total_push = $conn->query("SELECT * FROM jspence_pushes INNER JOIN jspence_admin ON (jspence_admin.admin_id = jspence_pushes.push_from OR jspence_admin.admin_id = jspence_pushes.push_to) WHERE jspence_pushes.push_status = 0 $where GROUP BY push_id")->rowCount();
+    $total_push = $conn->query("SELECT * FROM giltmarket_pushes INNER JOIN giltmarket_admin ON (giltmarket_admin.admin_id = giltmarket_pushes.push_from OR giltmarket_admin.admin_id = giltmarket_pushes.push_to) WHERE giltmarket_pushes.push_status = 0 $where GROUP BY push_id")->rowCount();
     $count_push = '';
     if ($total_push > 0) {
         $count_push = ' (' . $total_push . ')';
@@ -230,17 +230,17 @@
                 if ((isset($_GET['data']) && $_GET['data'] == 'salesperson') && admin_has_permission('supervisor')): 
                     // all salepersonnles that received a push from supervisor
                     $sp_query = "
-                        SELECT * FROM jspence_daily 
-                        INNER JOIN jspence_admin 
-                        ON jspence_admin.admin_id = jspence_daily.daily_to 
-                        INNER JOIN jspence_pushes 
-                        ON jspence_pushes.push_to = jspence_daily.daily_to
-                        WHERE jspence_admin.admin_permissions = 'salesperson' 
+                        SELECT * FROM giltmarket_daily 
+                        INNER JOIN giltmarket_admin 
+                        ON giltmarket_admin.admin_id = giltmarket_daily.daily_to 
+                        INNER JOIN giltmarket_pushes 
+                        ON giltmarket_pushes.push_to = giltmarket_daily.daily_to
+                        WHERE giltmarket_admin.admin_permissions = 'salesperson' 
                     ";
                     if (!admin_has_permission()) {
-                        $sp_query .= " AND jspence_pushes.push_from = '" . $admin_id . "' AND jspence_daily.daily_date = '" . date("Y-m-d") . "' ";
+                        $sp_query .= " AND giltmarket_pushes.push_from = '" . $admin_id . "' AND giltmarket_daily.daily_date = '" . date("Y-m-d") . "' ";
                     }
-                    $sp_query .= " GROUP BY jspence_pushes.push_to";
+                    $sp_query .= " GROUP BY giltmarket_pushes.push_to";
                     $statement = $conn->prepare($sp_query);
                     $statement->execute();
                     $sp_count = $statement->rowCount();
@@ -254,7 +254,7 @@
                         
                             foreach ($sps as $sp): 
                                 $QUERY = "
-                                    SELECT * FROM jspence_pushes 
+                                    SELECT * FROM giltmarket_pushes 
                                     WHERE push_to = ? 
                                 ";
                                 if (!admin_has_permission()) {
@@ -363,7 +363,7 @@
 
             <?php elseif ((isset($_GET['data']) && $_GET['data'] == 'gold-receive') && admin_has_permission('supervisor')): 
                 $q = "
-                    SELECT * FROM jspence_pushes 
+                    SELECT * FROM giltmarket_pushes 
                     WHERE push_type = ? 
                 ";
                 if (!admin_has_permission()) {
