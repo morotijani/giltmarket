@@ -15,10 +15,11 @@
         $query = "
             SELECT * FROM jspence_admin 
             WHERE admin_email = ? 
+            AND admin_status = ?
             LIMIT 1 
         ";
         $statement = $conn->prepare($query);
-        $statement->execute([sanitize($_POST['admin_email'])]);
+        $statement->execute([sanitize($_POST['admin_email']), 0]);
         $count_row = $statement->rowCount();
         $row = $statement->fetchAll();
 
@@ -44,7 +45,7 @@
 
 <!DOCTYPE html>
 <html lang="en" data-bs-theme="">
-  <head>
+<head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="description" content="A fully featured admin theme which can be used to build CRM, CMS, etc." />
