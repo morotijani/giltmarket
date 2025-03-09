@@ -5,7 +5,7 @@ function company_data() {
 	global $conn;
 
 	$sql = "
-		SELECT * FROM jspence
+		SELECT * FROM giltmarket
 	";
 	$statement = $conn->prepare($sql);
 	$statement->execute();

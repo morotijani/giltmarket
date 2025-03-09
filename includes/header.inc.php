@@ -20,7 +20,7 @@
   
   <!-- Theme CSS -->
   <!-- <link rel="stylesheet" type="text/css" href="<?= PROOT; ?>assets/css/main.css"> -->
-  <link rel="stylesheet" href="<?= PROOT; ?>assets/css/jspence.css" />
+  <link rel="stylesheet" href="<?= PROOT; ?>assets/css/giltmarket.css" />
   <link rel="stylesheet" href="<?= PROOT; ?>assets/css/theme.bundle.css" />
   
   <!-- Title -->

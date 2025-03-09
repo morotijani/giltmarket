@@ -23,7 +23,6 @@
 ?>
 	<style>
 		*, body {
-			
 			font-family: monospace !important;
 		}
 	</style>

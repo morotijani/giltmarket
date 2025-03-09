@@ -167,8 +167,8 @@
     <div aria-live="polite" aria-atomic="true" class="d-flex justify-content-center align-items-center w-100">
         <div id="live-toast" class="toast fade hide position-fixed rounded" role="alert" aria-live="assertive" aria-atomic="true" style="background-color: #6e46cc; right: 6px; bottom: 0; z-index: 99999;">
             <div class="toast-header small p-1 border-bottom">
-                <img src="<?= PROOT; ?>assets/media/giltmarket-logo.png" style="width: 25px; height: 25px;" class="img-fluid rounded me-2" alt="Giltmarket Logo">
-                <strong class="me-auto small">Giltmarket</strong>
+                <img src="<?= PROOT; ?>assets/media/logo.jpeg" style="width: 35px; height: 35px;" class="rounded me-2" alt="J-Spence Logo">
+                <strong class="me-auto small">J-Spence</strong>
                 <small>notification . just now</small>
                 <button type="button" class="btn-close small" data-bs-dismiss="toast" aria-label="Close"></button>
             </div>

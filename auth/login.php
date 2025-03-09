@@ -63,7 +63,7 @@
     <link rel="stylesheet" href="<?= PROOT; ?>assets/css/libs.bundle.css" />
     
     <!-- Theme CSS -->
-    <link rel="stylesheet" href="<?= PROOT; ?>assets/css/jspence.css" />
+    <link rel="stylesheet" href="<?= PROOT; ?>assets/css/giltmarket.css" />
     <link rel="stylesheet" href="<?= PROOT; ?>assets/css/theme.bundle.css" />
     
     <!-- Title -->
